@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Mybatis 语法 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="使用 MySQL 自动生成的主键123&amp;lt;insert id=&quot;insert&quot; parameterType=&quot;Person&quot; useGeneratedKeys=&quot;true&quot; keyProperty=&quot;id&quot;&amp;gt;    INSERT INTO person(name, password) VALUES(#&amp;#123;name&amp;#125;, #&amp;#123;password&amp;#125;)&amp;lt;">
+<meta name="keywords" content="SpringWeb">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mybatis 语法">
+<meta property="og:url" content="http://xtuer.github.io/spring-web-mybatis-syntax/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="使用 MySQL 自动生成的主键123&amp;lt;insert id=&quot;insert&quot; parameterType=&quot;Person&quot; useGeneratedKeys=&quot;true&quot; keyProperty=&quot;id&quot;&amp;gt;    INSERT INTO person(name, password) VALUES(#&amp;#123;name&amp;#125;, #&amp;#123;password&amp;#125;)&amp;lt;">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-07-07T14:16:50.533Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mybatis 语法">
+<meta name="twitter:description" content="使用 MySQL 自动生成的主键123&amp;lt;insert id=&quot;insert&quot; parameterType=&quot;Person&quot; useGeneratedKeys=&quot;true&quot; keyProperty=&quot;id&quot;&amp;gt;    INSERT INTO person(name, password) VALUES(#&amp;#123;name&amp;#125;, #&amp;#123;password&amp;#125;)&amp;lt;">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+</head>
+</html>
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/">公孙二狗</a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		<p class="header-subtitle">大圣，此去欲何？踏南天，碎凌霄。若一去不回……？便一去不回！</p>
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 11.67px;">Cas</a> <a href="/tags/DB/" style="font-size: 13.89px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Gradle/" style="font-size: 13.33px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 11.67px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.22px;">Mac</a> <a href="/tags/Misc/" style="font-size: 16.67px;">Misc</a> <a href="/tags/PHP/" style="font-size: 10.56px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 10.56px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.33px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.11px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 12.22px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.11px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/Notevue">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">公孙二狗</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">公孙二狗</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">大圣，此去欲何？踏南天，碎凌霄。若一去不回……？便一去不回！</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用-MySQL-自动生成的主键"><span class="toc-text">使用 MySQL 自动生成的主键</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用-Oracle-序列生成的主键"><span class="toc-text">使用 Oracle 序列生成的主键</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用-MySQL-自动生成-UUID"><span class="toc-text">使用 MySQL 自动生成 UUID</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用-LIKE-语句"><span class="toc-text">使用 LIKE 语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用-Param-传递多个参数"><span class="toc-text">使用 @Param 传递多个参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#name-与-name-的区别"><span class="toc-text">#{name} 与 ${name} 的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#返回-Boolean"><span class="toc-text">返回 Boolean</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#if"><span class="toc-text">if</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#where"><span class="toc-text">where</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#set"><span class="toc-text">set</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#choose-when-otherwise"><span class="toc-text">choose-when-otherwise</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#foreach"><span class="toc-text">foreach</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#批量删除"><span class="toc-text">批量删除</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#批量插入"><span class="toc-text">批量插入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#批量更新"><span class="toc-text">批量更新</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#更新单条记录"><span class="toc-text">更新单条记录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#更新多条记录的同一个字段为同一个值"><span class="toc-text">更新多条记录的同一个字段为同一个值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#更新多条记录为多个字段为不同的值"><span class="toc-text">更新多条记录为多个字段为不同的值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#特殊字符和-CDATA"><span class="toc-text">特殊字符和 CDATA</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一对一-association"><span class="toc-text">一对一 association</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一对多-collection"><span class="toc-text">一对多 collection</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#resultType-和-resultMap"><span class="toc-text">resultType 和 resultMap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#执行多条语句"><span class="toc-text">执行多条语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#处理-Enum"><span class="toc-text">处理 Enum</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-text">参考资料</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-spring-web-mybatis-syntax" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/spring-web-mybatis-syntax/" class="article-date">
+  	<!-- <time datetime="2016-10-15T14:32:37.000Z" itemprop="datePublished">2016-10-15</time> -->
+    2016-10-15
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Mybatis 语法
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringWeb/">SpringWeb</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <h2 id="使用-MySQL-自动生成的主键"><a href="#使用-MySQL-自动生成的主键" class="headerlink" title="使用 MySQL 自动生成的主键"></a>使用 MySQL 自动生成的主键</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"insert"</span> <span class="attr">parameterType</span>=<span class="string">"Person"</span> <span class="attr">useGeneratedKeys</span>=<span class="string">"true"</span> <span class="attr">keyProperty</span>=<span class="string">"id"</span>&gt;</span></span><br><span class="line">    INSERT INTO person(name, password) VALUES(#&#123;name&#125;, #&#123;password&#125;)</span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>插入成功后，自动设置传入的参数的 id 属性。</p>
+<h2 id="使用-Oracle-序列生成的主键"><a href="#使用-Oracle-序列生成的主键" class="headerlink" title="使用 Oracle 序列生成的主键"></a>使用 Oracle 序列生成的主键</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"insertEnrollment"</span> <span class="attr">parameterType</span>=<span class="string">"EnrollmentForm"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">selectKey</span> <span class="attr">keyProperty</span>=<span class="string">"enrollId"</span> <span class="attr">resultType</span>=<span class="string">"long"</span> <span class="attr">order</span>=<span class="string">"BEFORE"</span>&gt;</span></span><br><span class="line">        SELECT S_ENR_ID.Nextval FROM DUAL</span><br><span class="line">    <span class="tag">&lt;/<span class="name">selectKey</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    INSERT INTO enrollment (id, address) VALUES (#&#123;enrollId&#125;, #&#123;address&#125;)</span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="使用-MySQL-自动生成-UUID"><a href="#使用-MySQL-自动生成-UUID" class="headerlink" title="使用 MySQL 自动生成 UUID"></a>使用 MySQL 自动生成 UUID</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"createKnowledgePoint"</span> <span class="attr">parameterType</span>=<span class="string">"KnowledgePoint"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">selectKey</span> <span class="attr">keyProperty</span>=<span class="string">"knowledgePointId"</span> <span class="attr">resultType</span>=<span class="string">"string"</span> <span class="attr">order</span>=<span class="string">"BEFORE"</span>&gt;</span></span><br><span class="line">        SELECT uuid() FROM dual</span><br><span class="line">    <span class="tag">&lt;/<span class="name">selectKey</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    INSERT INTO knowledge_point(knowledge_point_id, name, knowledge_point_group_id, is_deleted)</span><br><span class="line">    VALUES(#&#123;knowledgePointId&#125;, #&#123;name&#125;, #&#123;knowledgePointGroupId&#125;, 0)</span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="使用-LIKE-语句"><a href="#使用-LIKE-语句" class="headerlink" title="使用 LIKE 语句"></a>使用 LIKE 语句</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">MySql:</span><br><span class="line">SELECT * FROM user WHERE name like CONCAT(&apos;%&apos;,#&#123;name&#125;,&apos;%&apos;)</span><br><span class="line"></span><br><span class="line">Oracle:</span><br><span class="line">SELECT * FROM user WHERE name like CONCAT(&apos;%&apos;,#&#123;name&#125;,&apos;%&apos;) 或 </span><br><span class="line">SELECT * FROM user WHERE name like &apos;%&apos;||#&#123;name&#125;||&apos;%&apos;</span><br><span class="line"></span><br><span class="line">SQLServer:  </span><br><span class="line">SELECT * FROM user WHERE name like &apos;%&apos;+#&#123;name&#125;+&apos;%&apos;</span><br><span class="line"></span><br><span class="line">DB2:</span><br><span class="line">SELECT * FROM user WHERE name like CONCAT(&apos;%&apos;,#&#123;name&#125;,&apos;%&apos;) 或  </span><br><span class="line">SELECT * FROM user WHERE name like &apos;%&apos;||#&#123;name&#125;||&apos;%&apos;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="使用-Param-传递多个参数"><a href="#使用-Param-传递多个参数" class="headerlink" title="使用 @Param 传递多个参数"></a>使用 @Param 传递多个参数</h2><p>传递多个参数可以使用</p>
+<ul>
+<li><code>Map</code></li>
+<li><code>JavaBean</code> 中存放多个属性</li>
+<li>Java 8 编译时使用参数 -parameters</li>
+<li><code>@Param</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;User&gt; <span class="title">findUsers</span><span class="params">(@Param(<span class="string">"offset"</span>)</span> <span class="keyword">int</span> offset, @<span class="title">Param</span><span class="params">(<span class="string">"count"</span>)</span> <span class="keyword">int</span> count)</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="name-与-name-的区别"><a href="#name-与-name-的区别" class="headerlink" title="#{name} 与 ${name} 的区别"></a>#{name} 与 ${name} 的区别</h2><p><code>#{name}</code> 会根据传进来的参数的类型自动加上相应的信息，例如字符串两边会加上 <code>&#39;&#39;</code>，日期对象会自动的转化成 SQL 识别的内容，可以<code>防止 SQL 注入攻击</code>。</p>
+<p><code>${name}</code> 直接替换，例如传进来的是字符串，不会在字符串两边加上 <code>&#39;&#39;</code>，使用的场景有如 <code>ORDER BY</code>，<code>表名</code> 等</p>
+<h2 id="返回-Boolean"><a href="#返回-Boolean" class="headerlink" title="返回 Boolean"></a>返回 Boolean</h2><p>JDBC 规范中，1 代表 true，0 代表 false，其他值是未定义的，如果用 count 的话，大于 1 是返回 true 还是 false 和 JDBC 的驱动有关(MyBatis + MySQL: <code>&gt;=1</code> 为 true，<code>&lt;=0</code> 为 false)，所以返回 boolean 时最保险的是使用 <code>EXISTS</code>:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--检查目录是否存在--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"isDirectoryExisting"</span> <span class="attr">parameterType</span>=<span class="string">"string"</span> <span class="attr">resultType</span>=<span class="string">"boolean"</span>&gt;</span></span><br><span class="line">    SELECT EXISTS(SELECT 1 FROM directory WHERE directory_id=#&#123;directoryId&#125;)</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>MyBatis 的 BooleanTypeHandler 中返回 boolean 的代码为 <code>return rs.getBoolean(columnName)</code>，JDK 的说明:</p>
+<p>If the designated column has a datatype of CHAR or VARCHAR and contains a “0” or has a datatype of BIT, TINYINT, SMALLINT, INTEGER or BIGINT and contains a 0, a value of <code>false</code> is returned. If the designated column has a datatype of CHAR or VARCHAR and contains a “1” or has a datatype of BIT, TINYINT, SMALLINT, INTEGER or BIGINT and contains a 1, a value of <code>true</code> is returned.</p>
+</blockquote>
+<h2 id="if"><a href="#if" class="headerlink" title="if"></a>if</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 查询学生 list，like 姓名 --&gt;</span>   </span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getStudentListLikeName"</span> <span class="attr">parameterType</span>=<span class="string">"StudentEntity"</span> <span class="attr">resultMap</span>=<span class="string">"studentResultMap"</span>&gt;</span>   </span><br><span class="line">    SELECT * from STUDENT_TBL ST     </span><br><span class="line">    WHERE ST.STUDENT_NAME LIKE CONCAT('%', #&#123;studentName&#125;, '%')</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>但是此时如果 studentName 是 null 或空字符串，此语句很可能报错或查询结果为空。此时我们使用 <code>if 动态 sql 语句</code>先进行判断，如果值为 null 或等于空字符串，就不进行此条件的判断。<br>修改为：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 查询学生list，like姓名 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">" getStudentListLikeName "</span> <span class="attr">parameterType</span>=<span class="string">"StudentEntity"</span> <span class="attr">resultMap</span>=<span class="string">"studentResultMap"</span>&gt;</span></span><br><span class="line">    SELECT * FROM STUDENT_TBL ST</span><br><span class="line">    <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"studentName!=null and studentName!='' "</span>&gt;</span></span><br><span class="line">        WHERE ST.STUDENT_NAME LIKE CONCAT('%', #&#123;studentName&#125;, '%')</span><br><span class="line">    <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>此时，当 studentName 的值为 null 或 ‘’ 的时候，我们并不进行 where 条件的判断，所以查询结果是全部。</p>
+<h2 id="where"><a href="#where" class="headerlink" title="where"></a>where</h2><p>由于参数是 Java 的实体类，所以我们可以把所有条件都附加上，使用时比较灵活， new 一个这样的实体类，我们需要限制哪个条件，只需要附上相应的值就会 WHERE 中使用这个条件，相反不去赋值就可以不在 WHERE 中判断。</p>
+<p><code>&lt;where&gt;</code> 标签会知道如果它包含的标签中有返回值的话，它就插入一个 <code>WHERE</code>。此外，如果标签返回的内容是以 <code>AND</code> 或 <code>OR</code> 开头的，则它会剔除掉。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 查询学生list，like姓名，=性别、=生日、=班级，使用where,参数entity类型 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getStudentListWhereEntity"</span> <span class="attr">parameterType</span>=<span class="string">"StudentEntity"</span> <span class="attr">resultMap</span>=<span class="string">"studentResultMap"</span>&gt;</span></span><br><span class="line">    SELECT * FROM student</span><br><span class="line">    <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"studentName!=null and studentName!='' "</span>&gt;</span></span><br><span class="line">            name LIKE CONCAT('%', #&#123;studentName&#125;,'%')</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"studentSex!= null and studentSex!= '' "</span>&gt;</span></span><br><span class="line">            AND gender = #&#123;gender&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"studentBirthday!=null"</span>&gt;</span></span><br><span class="line">            AND birthday = #&#123;birthday&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"classEntity!=null and classEntity.classID !=null and classEntity.classID!='' "</span>&gt;</span></span><br><span class="line">            AND class_id = #&#123;classEntity.classID&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="set"><a href="#set" class="headerlink" title="set"></a>set</h2><p>当在 update 语句中使用 <code>&lt;if&gt;</code> 标签时，如果前面的 <code>&lt;if&gt;</code> 没有执行，则或导致逗号多余错误。使用 <code>&lt;set&gt;</code> 标签可以将动态的配置 SET 关键字，和剔除追加到条件末尾的任何不相关的逗号。<br>没有使用 <code>&lt;if&gt;</code> 标签时，如果有一个参数为 null，都会导致错误，如下示例：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 更新学生信息 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span>=<span class="string">"updateStudent"</span> <span class="attr">parameterType</span>=<span class="string">"StudentEntity"</span>&gt;</span></span><br><span class="line">    UPDATE STUDENT_TBL</span><br><span class="line">       SET STUDENT_TBL.STUDENT_NAME = #&#123;studentName&#125;,</span><br><span class="line">           STUDENT_TBL.STUDENT_SEX = #&#123;studentSex&#125;,</span><br><span class="line">           STUDENT_TBL.STUDENT_BIRTHDAY = #&#123;studentBirthday&#125;,</span><br><span class="line">           STUDENT_TBL.CLASS_ID = #&#123;classEntity.classID&#125;</span><br><span class="line">     WHERE STUDENT_TBL.STUDENT_ID = #&#123;studentID&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">update</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>使用 <code>&lt;set&gt;</code> + <code>&lt;if&gt;</code> 标签修改后，如果某项为 null 则不进行更新，而是保持数据库原值。如下示例：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 更新学生信息 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span>=<span class="string">"updateStudent"</span> <span class="attr">parameterType</span>=<span class="string">"StudentEntity"</span>&gt;</span></span><br><span class="line">    UPDATE STUDENT_TBL</span><br><span class="line">    <span class="tag">&lt;<span class="name">set</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"studentName!=null and studentName!='' "</span>&gt;</span></span><br><span class="line">            STUDENT_TBL.STUDENT_NAME = #&#123;studentName&#125;,</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"studentSex!=null and studentSex!='' "</span>&gt;</span></span><br><span class="line">            STUDENT_TBL.STUDENT_SEX = #&#123;studentSex&#125;,</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"studentBirthday!=null "</span>&gt;</span></span><br><span class="line">            STUDENT_TBL.STUDENT_BIRTHDAY = #&#123;studentBirthday&#125;,</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"classEntity!=null and classEntity.classID!=null and classEntity.classID!='' "</span>&gt;</span></span><br><span class="line">            STUDENT_TBL.CLASS_ID = #&#123;classEntity.classID&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">set</span>&gt;</span></span><br><span class="line">    WHERE STUDENT_TBL.STUDENT_ID = #&#123;studentID&#125;;</span><br><span class="line"><span class="tag">&lt;/<span class="name">update</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="choose-when-otherwise"><a href="#choose-when-otherwise" class="headerlink" title="choose-when-otherwise"></a>choose-when-otherwise</h2><p>有时候我们并不想应用所有的条件，而只是想从多个选项中选择一个。MyBatis 提供了 <code>&lt;choose&gt;</code> 元素，按顺序判断 <code>&lt;when&gt;</code> 中的条件出否成立，如果有一个成立，则 <code>&lt;choose&gt;</code> 结束。当 <code>&lt;choose&gt;</code> 中所有<code>&lt;when&gt;</code> 的条件都不满则时，则执行 <code>&lt;otherwise&gt;</code> 中的 SQL。类似于 Java 的 switch 语句，choose 为 switch，when 为 case，otherwise 则为 default。</p>
+<table>
+<thead>
+<tr>
+<th>MyBatis</th>
+<th>Java</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>choose</td>
+<td>switch</td>
+</tr>
+<tr>
+<td>when</td>
+<td>case</td>
+</tr>
+<tr>
+<td>otherwise</td>
+<td>default</td>
+</tr>
+</tbody>
+</table>
+<p>例如下面例子，同样把所有可以限制的条件都写上，方面使用。选择条件顺序，when标签的从上到下的书写顺序：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 查询学生list，like姓名、或=性别、或=生日、或=班级，使用choose --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getStudentListChooseEntity"</span> <span class="attr">parameterType</span>=<span class="string">"StudentEntity"</span> <span class="attr">resultMap</span>=<span class="string">"studentResultMap"</span>&gt;</span></span><br><span class="line">    SELECT * from STUDENT_TBL ST</span><br><span class="line">    <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">choose</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">when</span> <span class="attr">test</span>=<span class="string">"studentName!=null and studentName!='' "</span>&gt;</span></span><br><span class="line">                    ST.STUDENT_NAME LIKE CONCAT(CONCAT('%', #&#123;studentName&#125;),'%')</span><br><span class="line">            <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">when</span> <span class="attr">test</span>=<span class="string">"studentSex!= null and studentSex!= '' "</span>&gt;</span></span><br><span class="line">                    AND ST.STUDENT_SEX = #&#123;studentSex&#125;</span><br><span class="line">            <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">when</span> <span class="attr">test</span>=<span class="string">"studentBirthday!=null"</span>&gt;</span></span><br><span class="line">                AND ST.STUDENT_BIRTHDAY = #&#123;studentBirthday&#125;</span><br><span class="line">            <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">when</span> <span class="attr">test</span>=<span class="string">"classEntity!=null and classEntity.classID !=null and classEntity.classID!='' "</span>&gt;</span></span><br><span class="line">                AND ST.CLASS_ID = #&#123;classEntity.classID&#125;</span><br><span class="line">            <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">otherwise</span>&gt;</span></span><br><span class="line"></span><br><span class="line">            <span class="tag">&lt;/<span class="name">otherwise</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">choose</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="foreach"><a href="#foreach" class="headerlink" title="foreach"></a>foreach</h2><p>注意，<code>&lt;foreach&gt;</code> 是循环，用来读取传入的 list 参数。批量处理时 parameterType 的类型必须要注意。<code>&lt;foreach&gt;</code> 标签中的 <code>collection</code> 属性表示传入的是什么集合类型，<code>item</code> 表示的是集合中的一个项，类似于</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list;</span><br><span class="line"><span class="keyword">for</span> (String str : list) &#123;</span><br><span class="line">    …… </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>item</code> 就相当于 str 的作用，用来遍历 collection</li>
+<li><code>index</code> 就是集合的索引</li>
+<li><code>open</code> 表示标签以什么开始</li>
+<li><code>close</code> 表示标签以什么结束</li>
+<li><code>seprator</code> 表示元素之间的间隔</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getStudentListByClassIDs"</span> <span class="attr">resultMap</span>=<span class="string">"studentResultMap"</span>&gt;</span></span><br><span class="line">    SELECT * FROM STUDENT_TBL ST</span><br><span class="line">    WHERE ST.CLASS_ID IN</span><br><span class="line">    <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">"list"</span> <span class="attr">item</span>=<span class="string">"classId"</span> <span class="attr">open</span>=<span class="string">"("</span> <span class="attr">close</span>=<span class="string">")"</span> <span class="attr">separator</span>=<span class="string">","</span>&gt;</span></span><br><span class="line">        #&#123;classId&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="批量删除"><a href="#批量删除" class="headerlink" title="批量删除"></a>批量删除</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">delete</span> <span class="attr">id</span>=<span class="string">"deleteBatchByXXX"</span> <span class="attr">parameterType</span>=<span class="string">"list"</span>&gt;</span></span><br><span class="line">    DELETE FROM 表名 WHERE groupon_id IN</span><br><span class="line">    <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">"list"</span> <span class="attr">item</span>=<span class="string">"item"</span> <span class="attr">open</span>=<span class="string">"("</span> <span class="attr">close</span> =<span class="string">")"</span> <span class="attr">separator</span>=<span class="string">","</span>&gt;</span></span><br><span class="line">        #&#123;item&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">foreach</span> &gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">delete</span> &gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="批量插入"><a href="#批量插入" class="headerlink" title="批量插入"></a>批量插入</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"insertBatch"</span> &gt;</span></span><br><span class="line">    INSERT INTO 表名 (uid, groupon_id, create_time, receive_time) VALUES</span><br><span class="line">    <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">"list"</span> <span class="attr">item</span>=<span class="string">"item"</span> <span class="attr">index</span> =<span class="string">"index"</span> <span class="attr">separator</span>=<span class="string">","</span>&gt;</span></span><br><span class="line">        (#&#123;item.uid&#125;, #&#123;item.grouponId&#125;, #&#123;item.createTime&#125;, #&#123;item.receiveTime&#125;)</span><br><span class="line">    <span class="tag">&lt;/<span class="name">foreach</span> &gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="批量更新"><a href="#批量更新" class="headerlink" title="批量更新"></a>批量更新</h2><p>用法和之前的基本相同，但是需要注意传入的参数是 <code>map</code> 类型。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">batchUpdateStudentWithMap</span><span class="params">()</span></span>&#123;  </span><br><span class="line">    List&lt;Integer&gt; ls = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();  </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>;i &lt; <span class="number">8</span>;i++)&#123;  </span><br><span class="line">        ls.add(i);  </span><br><span class="line">    &#125;  </span><br><span class="line">    Map&lt;String,Object&gt; map = <span class="keyword">new</span> HashMap&lt;String,Object&gt;();  </span><br><span class="line">    map.put(<span class="string">"idList"</span>, ls);  </span><br><span class="line">    map.put(<span class="string">"name"</span>, <span class="string">"mmao789"</span>);  </span><br><span class="line">    SqlSession session = SessionFactoryUtil.getSqlSessionFactory().openSession();  </span><br><span class="line">    session.insert(<span class="string">"mybatisdemo.domain.Student.batchUpdateStudentWithMap"</span>,map);  </span><br><span class="line">    session.commit();  </span><br><span class="line">    session.close();  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span>=<span class="string">"batchUpdateStudentWithMap"</span> <span class="attr">parameterType</span>=<span class="string">"java.util.Map"</span> &gt;</span>  </span><br><span class="line">    UPDATE STUDENT SET name = #&#123;name&#125; WHERE id IN   </span><br><span class="line">    <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">"idList"</span> <span class="attr">index</span>=<span class="string">"index"</span> <span class="attr">item</span>=<span class="string">"item"</span> <span class="attr">open</span>=<span class="string">"("</span> <span class="attr">separator</span>=<span class="string">","</span> <span class="attr">close</span>=<span class="string">")"</span>&gt;</span>   </span><br><span class="line">        #&#123;item&#125;   </span><br><span class="line">    <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">update</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="更新单条记录"><a href="#更新单条记录" class="headerlink" title="更新单条记录"></a>更新单条记录</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> course <span class="keyword">SET</span> <span class="keyword">name</span> = <span class="string">'course1'</span> <span class="keyword">WHERE</span> <span class="keyword">id</span> = <span class="string">'id1'</span></span><br></pre></td></tr></table></figure>
+<h2 id="更新多条记录的同一个字段为同一个值"><a href="#更新多条记录的同一个字段为同一个值" class="headerlink" title="更新多条记录的同一个字段为同一个值"></a>更新多条记录的同一个字段为同一个值</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> course <span class="keyword">SET</span> <span class="keyword">name</span> = <span class="string">'course1'</span> <span class="keyword">WHERE</span> <span class="keyword">id</span> <span class="keyword">in</span> (<span class="string">'id1'</span>, <span class="string">'id2'</span>, <span class="string">'id3)</span></span><br></pre></td></tr></table></figure>
+<h2 id="更新多条记录为多个字段为不同的值"><a href="#更新多条记录为多个字段为不同的值" class="headerlink" title="更新多条记录为多个字段为不同的值"></a>更新多条记录为多个字段为不同的值</h2><p>比较普通的写法，是通过循环，依次执行update语句</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span>=<span class="string">"updateBatch"</span> <span class="attr">parameterType</span>=<span class="string">"java.util.List"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">"list"</span> <span class="attr">item</span>=<span class="string">"item"</span> <span class="attr">index</span>=<span class="string">"index"</span> <span class="attr">open</span>=<span class="string">""</span> <span class="attr">close</span>=<span class="string">""</span> <span class="attr">separator</span>=<span class="string">";"</span>&gt;</span></span><br><span class="line">        UPDATE course</span><br><span class="line">        <span class="tag">&lt;<span class="name">set</span>&gt;</span></span><br><span class="line">            name=$&#123;item.name&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">set</span>&gt;</span></span><br><span class="line">        WHERE id=$&#123;item.id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">update</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>一条记录 update 一次，性能比较差，容易造成阻塞。<br>MySQL没有提供直接的方法来实现批量更新，但可以使用case when语法来实现这个功能。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> course</span><br><span class="line">    <span class="keyword">SET</span> <span class="keyword">name</span> = <span class="keyword">CASE</span> <span class="keyword">id</span> </span><br><span class="line">        <span class="keyword">WHEN</span> <span class="number">1</span> <span class="keyword">THEN</span> <span class="string">'name1'</span></span><br><span class="line">        <span class="keyword">WHEN</span> <span class="number">2</span> <span class="keyword">THEN</span> <span class="string">'name2'</span></span><br><span class="line">        <span class="keyword">WHEN</span> <span class="number">3</span> <span class="keyword">THEN</span> <span class="string">'name3'</span></span><br><span class="line">    <span class="keyword">END</span>, </span><br><span class="line">    title = <span class="keyword">CASE</span> <span class="keyword">id</span> </span><br><span class="line">        <span class="keyword">WHEN</span> <span class="number">1</span> <span class="keyword">THEN</span> <span class="string">'New Title 1'</span></span><br><span class="line">        <span class="keyword">WHEN</span> <span class="number">2</span> <span class="keyword">THEN</span> <span class="string">'New Title 2'</span></span><br><span class="line">        <span class="keyword">WHEN</span> <span class="number">3</span> <span class="keyword">THEN</span> <span class="string">'New Title 3'</span></span><br><span class="line">    <span class="keyword">END</span></span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">id</span> <span class="keyword">IN</span> (<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<p>这条 SQL 的意思是，如果 id 为 1，则 name 的值为 name1，title 的值为 New Title1；依此类推。<br>在Mybatis中的写法则如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span>=<span class="string">"updateBatch"</span> <span class="attr">parameterType</span>=<span class="string">"list"</span>&gt;</span></span><br><span class="line">    UPDATE course</span><br><span class="line">    <span class="tag">&lt;<span class="name">trim</span> <span class="attr">prefix</span>=<span class="string">"SET"</span> <span class="attr">suffixOverrides</span>=<span class="string">","</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">trim</span> <span class="attr">prefix</span>=<span class="string">"peopleId=CASE"</span> <span class="attr">suffix</span>=<span class="string">"END,"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">"list"</span> <span class="attr">item</span>=<span class="string">"i"</span> <span class="attr">index</span>=<span class="string">"index"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"i.peopleId!=null"</span>&gt;</span>WHEN id=#&#123;i.id&#125; THEN #&#123;i.peopleId&#125;<span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">trim</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">trim</span> <span class="attr">prefix</span>=<span class="string">"roadgridid=CASE"</span> <span class="attr">suffix</span>=<span class="string">"END,"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">"list"</span> <span class="attr">item</span>=<span class="string">"i"</span> <span class="attr">index</span>=<span class="string">"index"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"i.roadgridid!=null"</span>&gt;</span>WHEN id=#&#123;i.id&#125; THEN #&#123;i.roadgridid&#125;<span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">trim</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">trim</span> <span class="attr">prefix</span>=<span class="string">"type=CASE"</span> <span class="attr">suffix</span>=<span class="string">"END,"</span> &gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">"list"</span> <span class="attr">item</span>=<span class="string">"i"</span> <span class="attr">index</span>=<span class="string">"index"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"i.type!=null"</span>&gt;</span>WHEN id=#&#123;i.id&#125; THEN #&#123;i.type&#125;<span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">trim</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">trim</span> <span class="attr">prefix</span>=<span class="string">"unitsid=CASE"</span> <span class="attr">suffix</span>=<span class="string">"END,"</span> &gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">"list"</span> <span class="attr">item</span>=<span class="string">"i"</span> <span class="attr">index</span>=<span class="string">"index"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"i.unitsid!=null"</span>&gt;</span>WHEN id=#&#123;i.id&#125; THEN #&#123;i.unitsid&#125;<span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">trim</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">trim</span>&gt;</span></span><br><span class="line">    WHERE</span><br><span class="line">    <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">"list"</span> <span class="attr">separator</span>=<span class="string">"or"</span> <span class="attr">item</span>=<span class="string">"i"</span> <span class="attr">index</span>=<span class="string">"index"</span>&gt;</span>id=#&#123;i.id&#125;<span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">update</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="特殊字符和-CDATA"><a href="#特殊字符和-CDATA" class="headerlink" title="特殊字符和 CDATA"></a>特殊字符和 CDATA</h2><p>SQL 使用时特殊字符有 <code>&lt;</code> 和 <code>&gt;</code>，可以使用 <code>&lt;![CDATA[ ]]&gt;</code> 把 SQL 语句括起来:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findAreas"</span> <span class="attr">parameterType</span>=<span class="string">"int"</span> <span class="attr">resultType</span>=<span class="string">"Area"</span>&gt;</span>&lt;![CDATA[</span><br><span class="line">    SELECT id, name, level FROM area</span><br><span class="line">    WHERE id&gt;#&#123;id&#125;</span><br><span class="line">]]&gt;<span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>转义也可以，但是不够漂亮。</p>
+</blockquote>
+<h2 id="一对一-association"><a href="#一对一-association" class="headerlink" title="一对一 association"></a>一对一 association</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- [[3]] 使用 resultMap 映射，属性是另一个类的对象: association --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectFullUserById"</span> <span class="attr">parameterType</span>=<span class="string">"int"</span> <span class="attr">resultMap</span>=<span class="string">"userResultMap"</span> &gt;</span></span><br><span class="line">    SELECT</span><br><span class="line">        user.id      as id,</span><br><span class="line">        user.age     as age,</span><br><span class="line">        user.name    as name,</span><br><span class="line">        ui.id        as user_info_id,</span><br><span class="line">        ui.user_id   as user_info_user_id,</span><br><span class="line">        ui.telephone as user_info_telephone,</span><br><span class="line">        ui.address   as user_info_address</span><br><span class="line">    FROM user</span><br><span class="line">    ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"userResultMap"</span> <span class="attr">type</span>=<span class="string">"com.xtur.bean.User"</span> &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span> <span class="attr">property</span>=<span class="string">"id"</span> <span class="attr">column</span>=<span class="string">"id"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"age"</span> <span class="attr">column</span>=<span class="string">"age"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"name"</span> <span class="attr">column</span>=<span class="string">"name"</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--嵌套映射中还可以使用 resultMap: association, collection</span></span><br><span class="line"><span class="comment">    还可以使用嵌套查询，但是会产生 N＋1 问题，在大数量的数据库里会有很大的性能问题--&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--&lt;association property="userInfo" javaType="domain.UserInfo"&gt;</span></span><br><span class="line"><span class="comment">        &lt;id     property="id"        column="user_info_id"/&gt;</span></span><br><span class="line"><span class="comment">        &lt;result property="userId"    column="user_info_user_id"/&gt;</span></span><br><span class="line"><span class="comment">        &lt;result property="telephone" column="user_info_telephone"/&gt;</span></span><br><span class="line"><span class="comment">        &lt;result property="address"   column="user_info_address"/&gt;</span></span><br><span class="line"><span class="comment">    &lt;/association&gt;--&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--使用 columnPrefix 可以使 result map 重用--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"userInfo"</span> <span class="attr">columnPrefix</span>=<span class="string">"user_info_"</span> <span class="attr">resultMap</span>=<span class="string">"userInfoResultMap"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"userInfoResultMap"</span> <span class="attr">type</span>=<span class="string">"com.xtur.bean.UserInfo"</span> &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>     <span class="attr">property</span>=<span class="string">"id"</span>        <span class="attr">column</span>=<span class="string">"id"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"userId"</span>    <span class="attr">column</span>=<span class="string">"user_id"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"telephone"</span> <span class="attr">column</span>=<span class="string">"telephone"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"address"</span>   <span class="attr">column</span>=<span class="string">"address"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="一对多-collection"><a href="#一对多-collection" class="headerlink" title="一对多 collection"></a>一对多 collection</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findPapersBySubjectAndNameFilter"</span> <span class="attr">resultMap</span>=<span class="string">"paperResultMap"</span>&gt;</span></span><br><span class="line">    SELECT </span><br><span class="line">        p.paper_id            as paper_id,</span><br><span class="line">        p.name                as name,</span><br><span class="line">        p.uuid_name           as uuid_ame,</span><br><span class="line">        p.original_name       as original_name,</span><br><span class="line">        kp.name               as kp_name,</span><br><span class="line">        kp.knowledge_point_id as kp_knowledge_point_id</span><br><span class="line">    FROM paper AS p</span><br><span class="line">    ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"paperResultMap"</span> <span class="attr">type</span>=<span class="string">"Paper"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span> <span class="attr">property</span>=<span class="string">"paperId"</span>          <span class="attr">column</span>=<span class="string">"paper_id"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"name"</span>         <span class="attr">column</span>=<span class="string">"name"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"uuidName"</span>     <span class="attr">column</span>=<span class="string">"uuid_name"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"originalName"</span> <span class="attr">column</span>=<span class="string">"original_name"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">collection</span> <span class="attr">property</span>=<span class="string">"knowledgePoints"</span> <span class="attr">columnPrefix</span>=<span class="string">"kp_"</span> <span class="attr">resultMap</span>=<span class="string">"knowledgePointResultMap"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--&lt;collection property="knowledgePoints" ofType="KnowledgePoint" columnPrefix="kp_"&gt;</span></span><br><span class="line"><span class="comment">        &lt;id property="knowledgePointId" column="knowledge_point_id"/&gt;</span></span><br><span class="line"><span class="comment">        &lt;result property="name"         column="name"/&gt;</span></span><br><span class="line"><span class="comment">    &lt;/collection&gt;--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"knowledgePointResultMap"</span> <span class="attr">type</span>=<span class="string">"KnowledgePoint"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span> <span class="attr">property</span>=<span class="string">"knowledgePointId"</span> <span class="attr">column</span>=<span class="string">"knowledge_point_id"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"name"</span>         <span class="attr">column</span>=<span class="string">"name"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>javaType: Bean 的属性类型<br>ofType  : Bean 的集合属性存储的类型<br>所以: 内联的 association 类型用 javaType，collection 还要用 ofType，但是 javaType 可以省略</p>
+</blockquote>
+<p>如果一对多的是基本类型如 <code>List&lt;String&gt;</code>，则如下</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 没有指定 javaType 则会自动选择一个匹配的类型 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">collection</span> <span class="attr">property</span>=<span class="string">"roles"</span> <span class="attr">ofType</span>=<span class="string">"string"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"user_role"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">collection</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 映射到 Set&lt;String&gt; --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">collection</span> <span class="attr">property</span>=<span class="string">"roles"</span> <span class="attr">ofType</span>=<span class="string">"string"</span> <span class="attr">javaType</span>=<span class="string">"java.util.HashSet"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"role"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">collection</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="resultType-和-resultMap"><a href="#resultType-和-resultMap" class="headerlink" title="resultType 和 resultMap"></a>resultType 和 resultMap</h2><p>resultType 是指已有类型，例如 int, string, class User 等，SQL 查询得到的列会自动的映射到对应的类型或者其属性上。</p>
+<p>resultMap 是指我们自己用 XML element <code>&lt;resultMap&gt;...&lt;/resultMap&gt;</code> 定义的映射。</p>
+<h2 id="执行多条语句"><a href="#执行多条语句" class="headerlink" title="执行多条语句"></a>执行多条语句</h2><ol>
+<li><p>数据库连接字符串加上 allowMultiQueries=true</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jdbc:mysql://office.edu-edu.com:3306/ebag?useUnicode=true&amp;characterEncoding=UTF-8&amp;allowMultiQueries=true</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>直接写多条语句，用 <code>;</code> 隔开</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 启用或禁用学生 --&gt;</span><br><span class="line">&lt;update id="enableStudent"&gt;</span><br><span class="line">    <span class="keyword">UPDATE</span> clazz_student <span class="keyword">SET</span> is_enabled=<span class="comment">#&#123;enabled&#125; WHERE student_id=#&#123;studentId&#125;;</span></span><br><span class="line">    <span class="keyword">UPDATE</span> <span class="keyword">user</span> <span class="keyword">SET</span> is_enabled=<span class="comment">#&#123;enabled&#125; WHERE id=#&#123;studentId&#125;;</span></span><br><span class="line">&lt;/<span class="keyword">update</span>&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="处理-Enum"><a href="#处理-Enum" class="headerlink" title="处理 Enum"></a>处理 Enum</h2><p>MyBatis 中使用枚举类型有 3 种方式:</p>
+<ul>
+<li>name: 默认使用 <a href="https://github.com/tuguangquan/mybatis/blob/master/src/main/java/org/apache/ibatis/type/EnumTypeHandler.java" target="_blank" rel="noopener">EnumTypeHandler</a> 来处理 enum 类型的 Java 属性 (变量)，并且将其存储为 enum 值的名称 (name)，我们不需要为此做任何额外的配置，可以像使用基本数据类型属性一样使用 enum 类型属性:<ul>
+<li>保存时调用 enum.name() 获取枚举名字保存到数据库</li>
+<li>查询时调用 Enum.valueOf(type, name) 把字符串转为枚举变量</li>
+<li>没有特殊要求时，推荐使用这种方式，缺点是可能占用多一些空间，优点也很明显，简便，存储的值直观</li>
+</ul>
+</li>
+<li>ordinal: 如果想存储的是枚举的序号 ordinal，则需要在 mybatis-config.xml 中指定枚举的 TypeHandler，如 <code>&lt;typeHandler javaType=&quot;bean.Gender&quot; handler=&quot;org.apache.ibatis.type.EnumOrdinalTypeHandler&quot;/&gt;</code>，缺点是当增加或删除枚举中定义的属性后，ordinal 可能会发生变化，导致已存储的 ordinal 值对应的枚举值不同，可能导致业务逻辑错误</li>
+<li>custom: 自定义枚举的 TypeHandler，这样想存储什么值都可以，参考 EnumTypeHandler 即可</li>
+</ul>
+<blockquote>
+<p>也可以不在 mybatis-config.xml 中进行注册，而是在 Mapper 中指定 TypeHandler: <code>#{gender, typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler}</code></p>
+</blockquote>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="http://my.oschina.net/ckanner/blog/338515" target="_blank" rel="noopener">Mybatis之批量更新操作</a></li>
+<li><a href="http://jingyan.baidu.com/article/11c17a2c7f376af446e39d21.html" target="_blank" rel="noopener">Mybatis 使用经验分享之批量操作</a></li>
+<li><a href="http://blog.csdn.net/zenson_g/article/details/10137665" target="_blank" rel="noopener">Mybatis 的 where foreach set 等标签详解</a></li>
+</ul>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/spring-web-messy-code/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          乱码处理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/spring-web-mybatis/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MyBatis 集成</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- <script src="/js/main.js"></script> -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

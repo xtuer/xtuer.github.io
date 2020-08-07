@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>时序图</title>
+
+    <link rel="stylesheet" href="../lib/codemirror/codemirror.css">
+    <link rel="stylesheet" href="../lib/js-sequence-diagrams/sequence-diagram-min.css">
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #main {
+            padding: 20px;
+            height: 100%;
+            box-sizing: border-box;
+
+            display: grid;
+            grid-template-columns: 450px 1fr min-content;
+            grid-template-rows: 1fr;
+            grid-gap: 20px;
+        }
+
+        .CodeMirror {
+            height: 100%;
+            border: 1px solid #EEE;
+            border-radius: 4px;
+        }
+
+        .CodeMirror-line-error {
+            /* background: rgb(255, 200, 125); */
+            border-left: 3px solid orangered;
+        }
+
+        .btn {
+            text-shadow: 0 1px 0 rgba(255,255,255,.7);
+            box-shadow: 2px 2px 7px rgba(0,0,0,.2);
+            border-radius: 300px;
+            border-width: 4px;
+            border-style: solid;
+            width:  20px;
+            height: 20px;
+            line-height: 20px;
+            display: inline-block;
+            cursor: pointer;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .btn.red {
+            background-color: rgba(239,57,50,1);
+            color: rgba(133,32,28,1);
+            border-color: rgba(133,32,28,.2);
+        }
+
+        .btn.yellow {
+            background-color: rgba(252,227,1,1);
+            color: rgba(153,38,0,1);
+            border-color: rgba(153,38,0,.2);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main">
+        <div id="editor-wrapper">
+            <textarea id="editor">A->B: Message</textarea>
+        </div>
+
+        <div id="diagram-wrapper">
+            <div id="diagram">初始化...</div>
+        </div>
+
+        <div id="buttons">
+            <a class="btn red" onclick="switchSequenceDiagramTheme('simple')">S</a>
+            <a class="btn yellow" onclick="switchSequenceDiagramTheme('hand')">H</a>
+        </div>
+    </div>
+
+    <script src="../lib/underscore.js"></script>
+    <script src="../lib/js-sequence-diagrams/webfont.js"></script>
+    <script src="../lib/js-sequence-diagrams/snap.svg.js"></script>
+    <script src="../lib/js-sequence-diagrams/sequence-diagram.js"></script>
+    <script src="../lib/codemirror/codemirror.js"></script>
+    <script src="../lib/codemirror/active-line.js"></script>
+    <script>
+        window.sequenceDiagramTheme = localStorage.getItem('theme') || 'simple';
+
+        function switchSequenceDiagramTheme(theme) {
+            window.sequenceDiagramTheme = theme;
+            renderSequenceDiagram(editor, 'default');
+
+            localStorage.setItem('theme', theme);
+        }
+
+        // 渲染时序图
+        function renderSequenceDiagram(editor, snippetName) {
+            try {
+                // 清空错误样式
+                var len = editor.lineCount();
+                for (var i = 0; i < len; ++i) {
+                    editor.removeLineClass(i, 'background', 'CodeMirror-line-error');
+                }
+
+                var code = editor.getValue();
+                var diagram = Diagram.parse(code);
+                document.getElementById('diagram').innerHTML = '';
+                diagram.drawSVG('diagram', { theme: window.sequenceDiagramTheme });
+                localStorage.setItem(snippetName, code);
+            } catch(error) {
+                if (error.loc) {
+                    // 高亮错误的行
+                    editor.addLineClass(error.loc.first_line - 1, 'background', 'CodeMirror-line-error');
+                }
+            }
+        }
+
+        // 自定义关键字
+        const keywords = [
+            'participant', 'Participant', 'as', 'AS', '->', '->>', '-->>', ':',
+        ];
+
+        CodeMirror.defineMode('myMode', (config) => {
+            return {
+                /**
+                 * 这个 token 方法就是用来标亮关键字的，
+                 * CodeMirror 会自上而下，从左往右得遍历每一个字符，依次调用 token 方法。
+                 * stream 参数可以用来控制遍历的粒度，比如我调用方法 stream.eatWhile(/\s/),
+                 * 那么当前 cursor 后面所有的空格会被匹配到 stream 中，stream.current() 的值就是所有匹配到的空格。
+                **/
+                token: (stream) => {
+                    if (stream.eatSpace()) { return null; }
+
+                    stream.eatWhile(/[\w\u4e00-\u9fa5>\-:]/);
+
+                    const exist = keywords.some((item) => {
+                        return item === stream.current();
+                    });
+
+                    /**
+                     * def 表示蓝色，CodeMirror 为我们定义了许多颜色，其他还有：
+                     * keyword {color: #708;}
+                     * atom {color: #219;}
+                     * number {color: #164;}
+                     * 等等，具体可以看 codemirror.css 文件中的定义
+                    **/
+                    if (exist) {
+                        return 'keyword';
+                    }
+
+                    stream.next();
+                }
+            }
+        });
+
+        // 创建 editor
+        var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
+            lineNumbers: true,
+            lineWrapping: true,
+            styleActiveLine: true,
+            mode: 'myMode',
+        });
+
+        // 输入结束 400 毫秒后渲染时序图
+        editor.on('change', _.debounce(() => {
+            renderSequenceDiagram(editor, 'default-code');
+        }, 300));
+
+        // 初始化的序列图
+        var initCode = 'Andrew -> China: Says Hello\n' +
+            'Note right of China: China thinks \\nabout it\n' +
+            'China --> Andrew: How are you?\n' +
+            'Andrew ->> China: I am good thanks!\n';
+
+        // 页面加载时恢复保存的代码
+        editor.setValue(localStorage.getItem('default-code') || initCode);
+    </script>
+</body>
+
+</html>

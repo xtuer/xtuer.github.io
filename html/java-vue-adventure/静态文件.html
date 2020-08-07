@@ -1,0 +1,846 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>静态文件 · Vue 实践</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-expandable-chapters-interactive/expandable-chapters.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-prism/prism-tomorrow.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="styles/website.css">
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="打包配置.html" />
+    
+    
+    <link rel="prev" href="多页项目.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    简要介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <span>
+            
+                    
+                    项目创建
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="单页项目.html">
+            
+                <a href="单页项目.html">
+            
+                    
+                    单页项目
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="多页项目.html">
+            
+                <a href="多页项目.html">
+            
+                    
+                    多页项目
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.3" data-path="静态文件.html">
+            
+                <a href="静态文件.html">
+            
+                    
+                    静态文件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="打包配置.html">
+            
+                <a href="打包配置.html">
+            
+                    
+                    打包配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="其他配置.html">
+            
+                <a href="其他配置.html">
+            
+                    
+                    其他配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="完整配置.html">
+            
+                <a href="完整配置.html">
+            
+                    
+                    完整配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="Vue 规范.html">
+            
+                <a href="Vue 规范.html">
+            
+                    
+                    Vue 规范
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="组件模板.html">
+            
+                <a href="组件模板.html">
+            
+                    
+                    组件模板
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="注释规范.html">
+            
+                <a href="注释规范.html">
+            
+                    
+                    注释规范
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="文件规范.html">
+            
+                <a href="文件规范.html">
+            
+                    
+                    文件规范
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="原型函数.html">
+            
+                <a href="原型函数.html">
+            
+                    
+                    原型函数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="全局过滤器.html">
+            
+                <a href="全局过滤器.html">
+            
+                    
+                    全局过滤器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="接口规范.html">
+            
+                <a href="接口规范.html">
+            
+                    
+                    接口规范
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="数据访问.html">
+            
+                <a href="数据访问.html">
+            
+                    
+                    数据访问
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="登录信息.html">
+            
+                <a href="登录信息.html">
+            
+                    
+                    登录信息
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="菜单权限.html">
+            
+                <a href="菜单权限.html">
+            
+                    
+                    菜单权限
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="路由权限.html">
+            
+                <a href="路由权限.html">
+            
+                    
+                    路由权限
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="分页查询.html">
+            
+                <a href="分页查询.html">
+            
+                    
+                    分页查询
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="弹窗编辑.html">
+            
+                <a href="弹窗编辑.html">
+            
+                    
+                    弹窗编辑
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="弹窗组件.html">
+            
+                <a href="弹窗组件.html">
+            
+                    
+                    弹窗组件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="表单验证.html">
+            
+                <a href="表单验证.html">
+            
+                    
+                    表单验证
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" data-path="逐步编辑.html">
+            
+                <a href="逐步编辑.html">
+            
+                    
+                    逐步编辑
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19" data-path="表格组件.html">
+            
+                <a href="表格组件.html">
+            
+                    
+                    表格组件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20" data-path="树形组件.html">
+            
+                <a href="树形组件.html">
+            
+                    
+                    树形组件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.21" data-path="图片预览.html">
+            
+                <a href="图片预览.html">
+            
+                    
+                    图片预览
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.22" data-path="上传组件.html">
+            
+                <a href="上传组件.html">
+            
+                    
+                    上传组件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.23" data-path="单位输入.html">
+            
+                <a href="单位输入.html">
+            
+                    
+                    单位输入
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.24" data-path="富文本编辑器.html">
+            
+                <a href="富文本编辑器.html">
+            
+                    
+                    富文本编辑器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.25" data-path="动态加载 JS | CSS.md">
+            
+                <span>
+            
+                    
+                    动态加载 JS | CSS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.26" data-path="二维码.html">
+            
+                <a href="二维码.html">
+            
+                    
+                    二维码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.27" data-path="缩略图.html">
+            
+                <a href="缩略图.html">
+            
+                    
+                    缩略图
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.28" data-path="拖拽移动.html">
+            
+                <a href="拖拽移动.html">
+            
+                    
+                    拖拽移动
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.29" data-path="预览 PDF.html">
+            
+                <a href="预览 PDF.html">
+            
+                    
+                    预览 PDF
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.30" data-path="递归组件.html">
+            
+                <a href="递归组件.html">
+            
+                    
+                    递归组件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.31" data-path="条件过滤.html">
+            
+                <a href="条件过滤.html">
+            
+                    
+                    条件过滤
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.32" data-path="过渡动画.html">
+            
+                <a href="过渡动画.html">
+            
+                    
+                    过渡动画
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.33" data-path="Echarts 图表.html">
+            
+                <a href="Echarts 图表.html">
+            
+                    
+                    Echarts 图表
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.34" data-path="Web Socket.html">
+            
+                <a href="Web Socket.html">
+            
+                    
+                    Web Socket
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.35" data-path="图片裁剪.html">
+            
+                <a href="图片裁剪.html">
+            
+                    
+                    图片裁剪
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.36" data-path="图片压缩.html">
+            
+                <a href="图片压缩.html">
+            
+                    
+                    图片压缩
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.37" data-path="上传 Blob.html">
+            
+                <a href="上传 Blob.html">
+            
+                    
+                    上传 Blob
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >静态文件</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <p>&#x5BF9;&#x4E8E;&#x8981;&#x4F7F;&#x7528;&#x7684;&#x9759;&#x6001;&#x6587;&#x4EF6;&#xFF0C;&#x4F8B;&#x5982;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x5199;&#x7684; CSS&#xFF0C;JS&#xFF0C;&#x7B2C;&#x4E09;&#x65B9;&#x5E93;&#x7B49;&#xFF0C;&#x53EF;&#x4EE5;&#x653E;&#x5230; <code>public/static</code> &#x6587;&#x4EF6;&#x5939;&#x4E0B;&#xFF0C;&#x53C2;&#x8003;&#x4E0B;&#x9762;&#x7684;&#x76EE;&#x5F55;&#x7ED3;&#x6784;:</p>
+<p><img src="img/static-1.png" width="268"></p>
+<ul>
+<li>css: &#x5B58;&#x653E;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x5199;&#x7684;&#x6837;&#x5F0F;&#x6587;&#x4EF6;</li>
+<li>img: &#x5B58;&#x653E;&#x56FE;&#x7247;&#x6587;&#x4EF6;</li>
+<li>js: &#x5B58;&#x653E;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x5199;&#x7684; js &#x6587;&#x4EF6;</li>
+<li>lib: &#x5B58;&#x653E;&#x7B2C;&#x4E09;&#x65B9;&#x5E93;&#xFF0C;&#x4F8B;&#x5982; axios, echarts &#x7B49;</li>
+</ul>
+<p>&#x5728; <code>${subpage}.html</code> &#x4E2D;&#x5F15;&#x7528;&#x5B83;&#x4EEC; (&#x4F7F;&#x7528;&#x7EDD;&#x5BF9;&#x5730;&#x5740; <code>/static/xxx</code> &#x8BBF;&#x95EE;):</p>
+<pre class="language-"><code class="lang-html"><span class="token doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>en<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>utf-8<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">http-equiv</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>X-UA-Compatible<span class="token punctuation">&quot;</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>IE=edge<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>viewport<span class="token punctuation">&quot;</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>width=device-width,initial-scale=1.0<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>icon<span class="token punctuation">&quot;</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>/static/img/favicon.ico<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>stylesheet<span class="token punctuation">&quot;</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>/static/css/global.css<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>&#x6D4B;&#x8BD5;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>app<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>/static/lib/dayjs.min.js<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>/static/lib/tinymce/tinymce.min.js<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+
+    <span class="token comment">&lt;!-- built files will be auto injected --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<p>&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x5199; CSS&#xFF0C;JS &#x4F1A;&#x7ECF;&#x5E38;&#x4FEE;&#x6539;&#xFF0C;&#x90E8;&#x7F72;&#x540E;&#x4E3A;&#x4E86;&#x8BA9;&#x6D4F;&#x89C8;&#x5668;&#x80FD;&#x591F;&#x52A0;&#x8F7D;&#x6700;&#x65B0;&#x7684;&#x6587;&#x4EF6;&#xFF0C;&#x7ED9;&#x5B83;&#x4EEC;&#x7684; URL &#x540E;&#x9762;&#x52A0;&#x4E0A;&#x6784;&#x5EFA;&#x65F6;&#x7684;&#x65F6;&#x95F4;&#x6233;&#xFF0C;&#x6D4F;&#x89C8;&#x5668;&#x52A0;&#x8F7D;&#x7684;&#x65F6;&#x5019;&#x53D1;&#x73B0;&#x65F6;&#x95F4;&#x6233;&#x4E0D;&#x4E00;&#x6837;&#xFF0C;&#x5C31;&#x4F1A;&#x91CD;&#x65B0;&#x52A0;&#x8F7D;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x4F7F;&#x7528;&#x672C;&#x5730;&#x7F13;&#x5B58;&#x7684;&#x6587;&#x4EF6;:</p>
+<ol>
+<li><p>vue.config.js &#x4E2D;&#x5B9A;&#x4E49;&#x53D8;&#x91CF; <code>VUE_APP_VERSION</code>:</p>
+<pre class="language-"><code class="lang-js">process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">VUE_APP_VERSION</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+</li>
+<li><p>&#x5728; <code>${subpage}.html</code> &#x4E2D;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x5199;&#x7684; CSS&#xFF0C;JS &#x7684; URL &#x4E0A;&#x4F7F;&#x7528;&#x6B64;&#x53D8;&#x91CF; (&#x5E93;&#x6587;&#x4EF6;&#x7684; URL &#x4E2D;&#x4E0D;&#x9700;&#x8981;&#x52A0;&#x6B64;&#x53D8;&#x91CF;&#xFF0C;&#x56E0;&#x4E3A;&#x5E93;&#x6587;&#x4EF6;&#x5F88;&#x5C11;&#x9700;&#x8981;&#x5347;&#x7EA7;):</p>
+<pre class="language-"><code class="lang-html"><span class="token doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>en<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+    ...
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>stylesheet<span class="token punctuation">&quot;</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>/static/css/global.css?&lt;%= VUE_APP_VERSION %&gt;<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>app<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>/static/lib/dayjs.min.js<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>/static/lib/tinymce/tinymce.min.js<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+    ...
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+</li>
+</ol>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="多页项目.html" class="navigation navigation-prev " aria-label="Previous page: 多页项目">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="打包配置.html" class="navigation navigation-next " aria-label="Next page: 打包配置">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"静态文件","level":"1.2.3","depth":2,"next":{"title":"打包配置","level":"1.2.4","depth":2,"path":"打包配置.md","ref":"打包配置.md","articles":[]},"previous":{"title":"多页项目","level":"1.2.2","depth":2,"path":"多页项目.md","ref":"多页项目.md","articles":[]},"dir":"ltr"},"config":{"plugins":["expandable-chapters-interactive","prism","-highlight","-sharing"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"expandable-chapters-interactive":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Vue 实践","gitbook":"*"},"file":{"path":"静态文件.md","mtime":"2020-07-06T09:22:48.946Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-07-07T14:44:06.815Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-expandable-chapters-interactive/expandable-chapters.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

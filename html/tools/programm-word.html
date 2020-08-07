@@ -1,0 +1,498 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+<title>程序员英语</title><link href='https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color: #ffffff; --text-color: #333333; --select-text-bg-color: #B5D6FC; --select-text-font-color: auto; --monospace: "Lucida Console",Consolas,"Courier",monospace; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857143; overflow-x: hidden; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; word-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 40px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+@media screen and (max-width: 500px) { 
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write li > figure:first-child { margin-top: -20px; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; }
+button, input, select, textarea { color: inherit; font-family: inherit; font-size: inherit; font-style: inherit; font-variant-caps: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 2; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.701961); color: rgb(85, 85, 85); border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px !important; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right-width: 0px; background-color: inherit; }
+.CodeMirror-linenumber { }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; position: relative !important; background-position: inherit inherit; background-repeat: inherit inherit; }
+.md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; background-position: 0px 0px; background-repeat: initial initial; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print { 
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid-page; break-before: avoid-page; }
+  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  html.blink-to-pdf { font-size: 13px; }
+  .typora-export #write { padding-left: 32px; padding-right: 32px; padding-bottom: 0px; break-after: avoid-page; }
+  .typora-export #write::after { height: 0px; }
+  @page { margin: 20mm 0px; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background-color: rgb(204, 204, 204); display: block; overflow-x: hidden; background-position: initial initial; background-repeat: initial initial; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) { 
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background-color: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; background-position: initial initial; background-repeat: initial initial; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
+code { text-align: left; }
+a.md-print-anchor { white-space: pre !important; border: none !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; text-shadow: initial !important; background-position: 0px 0px !important; background-repeat: initial initial !important; }
+.md-inline-math .MathJax_SVG .noError { display: none !important; }
+.html-for-mac .inline-math-svg .MathJax_SVG { vertical-align: 0.2px; }
+.md-math-block .MathJax_SVG_Display { text-align: center; margin: 0px; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; overflow-y: hidden; display: block !important; }
+.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
+.MathJax_SVG .MJX-monospace { font-family: var(--monospace); }
+.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG * { transition: none; }
+.MathJax_SVG_Display svg { vertical-align: middle !important; margin-bottom: 0px !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="mermaid"] svg, [lang="flow"] svg { max-width: 100%; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom-width: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+
+
+:root {
+    --side-bar-bg-color: #fafafa;
+    --control-text-color: #777;
+}
+
+@include-when-export url(https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: "Open Sans","Clear Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: rgb(51, 51, 51);
+    line-height: 1.6;
+}
+
+#write {
+    max-width: 860px;
+  	margin: 0 auto;
+  	padding: 30px;
+    padding-bottom: 100px;
+}
+#write > ul:first-child,
+#write > ol:first-child{
+    margin-top: 30px;
+}
+
+a {
+    color: #4183C4;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
+}
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    text-decoration: none;
+}
+h1 tt,
+h1 code {
+    font-size: inherit;
+}
+h2 tt,
+h2 code {
+    font-size: inherit;
+}
+h3 tt,
+h3 code {
+    font-size: inherit;
+}
+h4 tt,
+h4 code {
+    font-size: inherit;
+}
+h5 tt,
+h5 code {
+    font-size: inherit;
+}
+h6 tt,
+h6 code {
+    font-size: inherit;
+}
+h1 {
+    padding-bottom: .3em;
+    font-size: 2.25em;
+    line-height: 1.2;
+    border-bottom: 1px solid #eee;
+}
+h2 {
+   padding-bottom: .3em;
+    font-size: 1.75em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+}
+h3 {
+    font-size: 1.5em;
+    line-height: 1.43;
+}
+h4 {
+    font-size: 1.25em;
+}
+h5 {
+    font-size: 1em;
+}
+h6 {
+   font-size: 1em;
+    color: #777;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table{
+    margin: 0.8em 0;
+}
+li>ol,
+li>ul {
+    margin: 0 0;
+}
+hr {
+    height: 2px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
+}
+
+li p.first {
+    display: inline-block;
+}
+ul,
+ol {
+    padding-left: 30px;
+}
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+blockquote {
+    border-left: 4px solid #dfe2e5;
+    padding: 0 15px;
+    color: #777777;
+}
+blockquote blockquote {
+    padding-right: 0;
+}
+table {
+    padding: 0;
+    word-break: initial;
+}
+table tr {
+    border-top: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 0;
+}
+table tr:nth-child(2n),
+thead {
+    background-color: #f8f8f8;
+}
+table tr th {
+    font-weight: bold;
+    border: 1px solid #dfe2e5;
+    border-bottom: 0;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+}
+table tr td {
+    border: 1px solid #dfe2e5;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+}
+table tr th:first-child,
+table tr td:first-child {
+    margin-top: 0;
+}
+table tr th:last-child,
+table tr td:last-child {
+    margin-bottom: 0;
+}
+
+.CodeMirror-lines {
+    padding-left: 4px;
+}
+
+.code-tooltip {
+    box-shadow: 0 1px 1px 0 rgba(0,28,36,.3);
+    border-top: 1px solid #eef2f2;
+}
+
+.md-fences,
+code,
+tt {
+    border: 1px solid #e7eaed;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    padding: 0;
+    padding: 2px 4px 0px 4px;
+    font-size: 0.9em;
+}
+
+code {
+    background-color: #f3f4f4;
+    padding: 0 2px 0 2px;
+}
+
+.md-fences {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding-top: 8px;
+    padding-bottom: 6px;
+}
+
+
+.md-task-list-item > input {
+  margin-left: -1.3em;
+}
+
+@media print {
+    html {
+        font-size: 13px;
+    }
+    table,
+    pre {
+        page-break-inside: avoid;
+    }
+    pre {
+        word-wrap: break-word;
+    }
+}
+
+.md-fences {
+	background-color: #f8f8f8;
+}
+#write pre.md-meta-block {
+	padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border: 0;
+    border-radius: 3px;
+    color: #777777;
+    margin-top: 0 !important;
+}
+
+.mathjax-block>.code-tooltip {
+	bottom: .375rem;
+}
+
+.md-mathjax-midline {
+    background: #fafafa;
+}
+
+#write>h3.md-focus:before{
+	left: -1.5625rem;
+	top: .375rem;
+}
+#write>h4.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h5.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h6.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+.md-image>.md-meta {
+    /*border: 1px solid #ddd;*/
+    border-radius: 3px;
+    padding: 2px 0px 0px 4px;
+    font-size: 0.9em;
+    color: inherit;
+}
+
+.md-tag {
+    color: #a7a7a7;
+    opacity: 1;
+}
+
+.md-toc { 
+    margin-top:20px;
+    padding-bottom:20px;
+}
+
+.sidebar-tabs {
+    border-bottom: none;
+}
+
+#typora-quick-open {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+#typora-quick-open-item {
+    background-color: #FAFAFA;
+    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
+    border-style: solid;
+    border-width: 1px;
+}
+
+/** focus mode */
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, 0.12);
+}
+
+header, .context-menu, .megamenu-content, footer{
+    font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.file-node-content:hover .file-node-icon,
+.file-node-content:hover .file-node-open-state{
+    visibility: visible;
+}
+
+.mac-seamless-mode #typora-sidebar {
+    background-color: #fafafa;
+    background-color: var(--side-bar-bg-color);
+}
+
+.md-lang {
+    color: #b4654d;
+}
+
+.html-for-mac .context-menu {
+    --item-hover-bg-color: #E6F0FE;
+}
+
+#md-notification .btn {
+    border: 0;
+}
+
+.dropdown-menu .divider {
+    border-color: #e5e5e5;
+}
+
+ .typora-export li, .typora-export p, .typora-export,  .footnote-line {white-space: normal;} 
+</style>
+</head>
+<body class='typora-export' >
+<div  id='write'  class = 'is-mac'><figure><table><thead><tr><th>单词</th><th>解释</th></tr></thead><tbody><tr><td>application</td><td>应用程序</td></tr><tr><td>application framework</td><td>应用程序框架</td></tr><tr><td>architecture</td><td>架构、系统架构、体系结构</td></tr><tr><td>argument</td><td>引数 (传给函式的值)。叁见 parameter 叁数、实质叁数、实叁、自变量</td></tr><tr><td>array</td><td>数组</td></tr><tr><td>arrow operator</td><td>箭头操作符</td></tr><tr><td>assembly</td><td>装配</td></tr><tr><td>assembly language</td><td>汇编语言</td></tr><tr><td>assert</td><td>断言</td></tr><tr><td>assign</td><td>赋值、指派</td></tr><tr><td>assignment</td><td>赋值、分配</td></tr><tr><td>assignment operator</td><td>= 赋值操作符</td></tr><tr><td>associated</td><td>相关的、关联、相应的</td></tr><tr><td>associative container</td><td>关联式容器 (对应 sequential container</td></tr><tr><td>atomic</td><td>不可分割的、原子的</td></tr><tr><td>attribute</td><td>属性、特性</td></tr><tr><td>audio</td><td>音频</td></tr><tr><td>A.I.</td><td>人工智能</td></tr><tr><td>background</td><td>背景 (用於图形着色)、后台 (用於行程)</td></tr><tr><td>backward compatible</td><td>向下兼容</td></tr><tr><td>bandwidth</td><td>带宽</td></tr><tr><td>base class</td><td>基类</td></tr><tr><td>base type</td><td>基础类型 (等同於 base class)</td></tr><tr><td>batch</td><td>批次(意思是整批作业)、批处理</td></tr><tr><td>benefit</td><td>利益、收益</td></tr><tr><td>best viable function</td><td>最佳可行函式 (从 viable functions 中挑出的最佳吻合者)</td></tr><tr><td>binary search</td><td>二分查找</td></tr><tr><td>binary tree</td><td>二叉树</td></tr><tr><td>binary function</td><td>双叁函数</td></tr><tr><td>binary operator</td><td>二元操作符</td></tr><tr><td>binding</td><td>绑定</td></tr><tr><td>bit</td><td>位</td></tr><tr><td>bit field</td><td>位域</td></tr><tr><td>bitmap</td><td>位图</td></tr><tr><td>bitwise</td><td>以 bit 为单元逐一┅</td></tr><tr><td>bitwise copy</td><td>以 bit 为单元进行复制</td></tr><tr><td>block</td><td>块、区块、语句块</td></tr><tr><td>boolean</td><td>布尔值</td></tr><tr><td>border</td><td>边框</td></tr><tr><td>brace</td><td>(curly brace) 大括号、花括号</td></tr><tr><td>bracket</td><td>(square brakcet) 中括弧、中括号 方括弧、方括号 (parenthesis)</td></tr><tr><td>breakpoint</td><td>断点</td></tr><tr><td>build</td><td>构建</td></tr><tr><td>buildin</td><td>内置、内建</td></tr><tr><td>bus</td><td>总线</td></tr><tr><td>business</td><td>商务、业务</td></tr><tr><td>buttons</td><td>按钮</td></tr><tr><td>byte</td><td>字节 (由 8 bits 组成)</td></tr><tr><td>cache</td><td>缓存</td></tr><tr><td>call</td><td>调用</td></tr><tr><td>callback</td><td>回调</td></tr><tr><td>chain</td><td>链 (例 chain of function calls)</td></tr><tr><td>check box</td><td>复选框 (i.e. check button)</td></tr><tr><td>checked exception</td><td>需要检查的异常 (Java, runtime exception)</td></tr><tr><td>check button</td><td>复选按钮 (i.e. check box)</td></tr><tr><td>child class</td><td>子类 (或称为 derived class, subtype)</td></tr><tr><td>class</td><td>类</td></tr><tr><td>class body</td><td>类体</td></tr><tr><td>class declaration</td><td>类声明</td></tr><tr><td>class definition</td><td>类定义</td></tr><tr><td>class derivation list</td><td>类继承列表</td></tr><tr><td>class head</td><td>类头</td></tr><tr><td>class hierarchy</td><td>类继承体系、类层次体系</td></tr><tr><td>class library</td><td>类库</td></tr><tr><td>class template</td><td>类模板</td></tr><tr><td>class template partial specializations</td><td>类别模板偏特化、类模板部分特化</td></tr><tr><td>class template specializations</td><td>类模板特化</td></tr><tr><td>cleanup</td><td>善后、清理、清除 (setup)</td></tr><tr><td>client</td><td>客端、客户端、客户</td></tr><tr><td>client</td><td>-server 主从架构 客户/服务器</td></tr><tr><td>clipboard</td><td>剪贴板</td></tr><tr><td>clone</td><td>克隆</td></tr><tr><td>collection</td><td>集合</td></tr><tr><td>combo box</td><td>复合框、组合框</td></tr><tr><td>command line</td><td>命令行</td></tr><tr><td>communication</td><td>通讯</td></tr><tr><td>compatible</td><td>相容、兼容</td></tr><tr><td>compile time</td><td>编译期、编译时</td></tr><tr><td>compiler</td><td>编译器</td></tr><tr><td>component</td><td>组件</td></tr><tr><td>composition</td><td>复合、合成、组合</td></tr><tr><td>computer</td><td>电脑、计算机</td></tr><tr><td>concept</td><td>概念</td></tr><tr><td>concrete</td><td>具体的</td></tr><tr><td>concurrent</td><td>并行、并发</td></tr><tr><td>configuration</td><td>配置 (config, cfg)</td></tr><tr><td>connection</td><td>连接</td></tr><tr><td>constraint</td><td>约束 (条件)</td></tr><tr><td>construct</td><td>构件</td></tr><tr><td>container</td><td>容器 (存放资料的某种结构如 list, vector...)</td></tr><tr><td>containment</td><td>内含、包容</td></tr><tr><td>context</td><td>背景关系、周遭环境、环境、上下文</td></tr><tr><td>control</td><td>控制元件、控件</td></tr><tr><td>console</td><td>控制台</td></tr><tr><td>const</td><td>常量 (constant 的缩写，C++ 关键字)</td></tr><tr><td>constant</td><td>常量 (相对於 variable)</td></tr><tr><td>constructor</td><td>构造函数 (与class 同名的一种 member functions)</td></tr><tr><td>copy</td><td>(v) 复制、拷贝</td></tr><tr><td>copy</td><td>(n) 复件, 副本</td></tr><tr><td>cover</td><td>覆盖</td></tr><tr><td>create</td><td>创建、产生</td></tr><tr><td>creation</td><td>创建、产生</td></tr><tr><td>cursor</td><td>游标、光标</td></tr><tr><td>custom</td><td>定制、自定义</td></tr><tr><td>data</td><td>数据</td></tr><tr><td>database</td><td>数据库</td></tr><tr><td>database schema</td><td>数据库结构纲目</td></tr><tr><td>data member</td><td>成员变量</td></tr><tr><td>data structure</td><td>数据结构</td></tr><tr><td>datagram</td><td>数据报文</td></tr><tr><td>dead lock</td><td>死锁</td></tr><tr><td>debug</td><td>调试</td></tr><tr><td>debugger</td><td>调试器</td></tr><tr><td>declaration</td><td>声明</td></tr><tr><td>deduction</td><td>推导 (例：template argument deduction)、推断、扣除 (by deduction, after deduction)</td></tr><tr><td>default</td><td>默认、缺省、预设</td></tr><tr><td>defer</td><td>推迟</td></tr><tr><td>define</td><td>定义</td></tr><tr><td>definition</td><td>定义</td></tr><tr><td>delegate</td><td>委派、委托、委任</td></tr><tr><td>delegation</td><td>(同上)</td></tr><tr><td>demarshal</td><td>反编列、散集</td></tr><tr><td>dereference</td><td>解叁考 (取出指标所指物体的内容)</td></tr><tr><td>dereference operator dereference</td><td>* 解叁考操作符</td></tr><tr><td>derived class</td><td>派生类</td></tr><tr><td>design by contract</td><td>契约式设计</td></tr><tr><td>design pattern</td><td>设计模式</td></tr><tr><td>destroy</td><td>摧毁、销毁</td></tr><tr><td>destructor</td><td>析构函数</td></tr><tr><td>device</td><td>装置、设备</td></tr><tr><td>dialog</td><td>对话框</td></tr><tr><td>directive</td><td>指令 (例：using directive)</td></tr><tr><td>directory</td><td>目录</td></tr><tr><td>disk</td><td>硬盘</td></tr><tr><td>dispatch</td><td>分派</td></tr><tr><td>distributed computing</td><td>分布式计算</td></tr><tr><td>document</td><td>文件、文档</td></tr><tr><td>dot operator dot</td><td>. (圆)点操作符</td></tr><tr><td>driver</td><td>驱动 (程序)</td></tr><tr><td>dynamic binding</td><td>动态绑定</td></tr><tr><td>efficiency</td><td>效率</td></tr><tr><td>efficient</td><td>高效</td></tr><tr><td>end user</td><td>终端用户</td></tr><tr><td>entity</td><td>实体、物体</td></tr><tr><td>encapsulation</td><td>封装</td></tr><tr><td>enclosing class</td><td>外围类 (与巢状类别 nested class 有关)</td></tr><tr><td>enum</td><td>枚举</td></tr><tr><td>enumerators</td><td>枚举器</td></tr><tr><td>equal</td><td>相等</td></tr><tr><td>equality</td><td>相等性</td></tr><tr><td>equality operator equality</td><td>== 等号操作符</td></tr><tr><td>equivalence</td><td>等价性、等同性、对等性</td></tr><tr><td>equivalent</td><td>等价、等同、对等</td></tr><tr><td>escape code</td><td>转义码</td></tr><tr><td>evaluate</td><td>评估、求值</td></tr><tr><td>event</td><td>事件</td></tr><tr><td>event driven</td><td>事件驱动的</td></tr><tr><td>exception</td><td>异常</td></tr><tr><td>exception declaration</td><td>异常声明 (ref. C++ Primer 3/e, 11.3)</td></tr><tr><td>exception handling</td><td>异常处理、异常处理机制</td></tr><tr><td>exception specification</td><td>异常规范 (ref. C++ Primer 3/e, 11.4)</td></tr><tr><td>exit</td><td>退出</td></tr><tr><td>explicit</td><td>明白的、明显的、显式</td></tr><tr><td>export</td><td>导出</td></tr><tr><td>expression</td><td>运算式、表达式</td></tr><tr><td>facility</td><td>设施、设备</td></tr><tr><td>feature</td><td>特性</td></tr><tr><td>field</td><td>栏位,资料栏(Java) 字段, 值域(Java)</td></tr><tr><td>file</td><td>档案 文件</td></tr><tr><td>firmware</td><td>固件</td></tr><tr><td>flag</td><td>标记</td></tr><tr><td>flash memory</td><td>闪存</td></tr><tr><td>flexibility</td><td>灵活性</td></tr><tr><td>flush</td><td>刷新</td></tr><tr><td>font</td><td>字体</td></tr><tr><td>form</td><td>表单 (programming 用语)</td></tr><tr><td>formal parameter</td><td>形式叁数</td></tr><tr><td>forward declaration</td><td>前置声明</td></tr><tr><td>forwarding</td><td>转发</td></tr><tr><td>forwarding function</td><td>转发函数</td></tr><tr><td>fractal</td><td>分形</td></tr><tr><td>framework</td><td>框架</td></tr><tr><td>full specialization</td><td>全特化 (ref. partial specialization)</td></tr><tr><td>function</td><td>函数</td></tr><tr><td>function call operator</td><td>同 call operator</td></tr><tr><td>function object</td><td>函数对象 (ref. C++ Primer 3/e, 12.3)</td></tr><tr><td>function overloaded resolution</td><td>函数重载解决 (方案)</td></tr><tr><td>functionality</td><td>功能</td></tr><tr><td>function template</td><td>函数模板</td></tr><tr><td>factor</td><td>函子</td></tr><tr><td>game</td><td>游戏</td></tr><tr><td>generate</td><td>生成</td></tr><tr><td>generic</td><td>泛型、一般化的、通用的、泛化</td></tr><tr><td>generic algorithm</td><td>泛型算法</td></tr><tr><td>getter</td><td>取值函式 (相对於 setter)</td></tr><tr><td>global</td><td>全局的 (对应於 local)</td></tr><tr><td>global object</td><td>全局对象</td></tr><tr><td>global scope resolution operator</td><td>:: 全局范围解析操作符</td></tr><tr><td>group</td><td>群组</td></tr><tr><td>group box</td><td>分组框</td></tr><tr><td>guard clause</td><td>卫述句 (Refactoring, p250) 卫语句</td></tr><tr><td>GUI</td><td>图形界面</td></tr><tr><td>hand shaking</td><td>握手</td></tr><tr><td>handle</td><td>句柄</td></tr><tr><td>handler</td><td>处理函数</td></tr><tr><td>hard</td><td>-coded 编死的 硬编码的</td></tr><tr><td>hard</td><td>-copy 硬拷图 屏幕截图</td></tr><tr><td>hard disk</td><td>硬盘</td></tr><tr><td>hardware</td><td>硬件</td></tr><tr><td>hash table</td><td>哈希表、散列表</td></tr><tr><td>header file</td><td>头文件</td></tr><tr><td>heap</td><td>堆</td></tr><tr><td>hierarchy</td><td>层次结构 (体系)</td></tr><tr><td>hook</td><td>钩子</td></tr><tr><td>hyperlink</td><td>超链接</td></tr><tr><td>icon</td><td>图标</td></tr><tr><td>IDE</td><td>集成开发环境</td></tr><tr><td>identifier</td><td> 标识符</td></tr><tr><td>if and only if</td><td>当且仅当</td></tr><tr><td>Illinois</td><td>伊利诺斯</td></tr><tr><td>image</td><td>图象</td></tr><tr><td>immediate base</td><td>直接的 (紧临的) 上层 base class，直接上层基类</td></tr><tr><td>immediate derived</td><td>直接的 (紧临的) 下层 derived class， 直接下层派生类</td></tr><tr><td>immutability</td><td>不变性</td></tr><tr><td>immutable</td><td>不可变的</td></tr><tr><td>implement</td><td>实现</td></tr><tr><td>implementation</td><td>实现</td></tr><tr><td>implicit</td><td>隐喻的、暗自的、隐式</td></tr><tr><td>import</td><td>导入</td></tr><tr><td>increment operator</td><td>累加运算符 ++</td></tr><tr><td>infinite loop</td><td>无限循环</td></tr><tr><td>infinite recursive</td><td>无限递归</td></tr><tr><td>information</td><td>信息</td></tr><tr><td>infrastructure</td><td>公共基础建设</td></tr><tr><td>inheritance</td><td>继承</td></tr><tr><td>inline</td><td>内联</td></tr><tr><td>inline expansion</td><td>内联展开</td></tr><tr><td>initialization</td><td>初始化</td></tr><tr><td>initialization list</td><td>初始值列表</td></tr><tr><td>initialize</td><td>初始化</td></tr><tr><td>inner class</td><td>内嵌类</td></tr><tr><td>instance</td><td>实例 (根据某种表述而实际产生的「东西」)</td></tr><tr><td>instantiated</td><td>实例化、具现化、实体化 (常应用於 template)</td></tr><tr><td>instantiation</td><td>实例、具现体、具现化实体 (常应用於 template)</td></tr><tr><td>integer</td><td>整数 (integral 整型的)</td></tr><tr><td>integrate</td><td>整合、集成</td></tr><tr><td>interacts</td><td>互动、交互</td></tr><tr><td>interface</td><td>接口</td></tr><tr><td>for GUI</td><td>界面</td></tr><tr><td>interpreter</td><td>解释器</td></tr><tr><td>invoke</td><td>调用</td></tr><tr><td>iterate</td><td>迭代</td></tr><tr><td>iterative</td><td>迭代的</td></tr><tr><td>iterator</td><td>迭代器</td></tr><tr><td>iteration</td><td>迭代</td></tr><tr><td>item</td><td>项、条款、项目</td></tr><tr><td>laser</td><td>激光</td></tr><tr><td>level</td><td>阶、层 (级) 例 high level 高阶 高层</td></tr><tr><td>library</td><td>库、函数库</td></tr><tr><td>lifetime</td><td>生命周期</td></tr><tr><td>link</td><td>链接</td></tr><tr><td>linker</td><td>链接器</td></tr><tr><td>literal constant</td><td>字面常量 (例 3.14 或 &quot;hi&quot; 这等常数值)</td></tr><tr><td>list</td><td>列表、表、链表 (linked-list)</td></tr><tr><td>list box</td><td>列表方块、列表框</td></tr><tr><td>load</td><td>载入、装载</td></tr><tr><td>loader</td><td>装载器、载入器</td></tr><tr><td>local</td><td>局部的 (对应於 global)</td></tr><tr><td>local object</td><td>局部对象</td></tr><tr><td>lock</td><td>锁</td></tr><tr><td>loop</td><td>循环</td></tr><tr><td>lvalue</td><td>左值</td></tr><tr><td>macro</td><td>巨集、宏</td></tr><tr><td>magic number</td><td>魔法数</td></tr><tr><td>maintain</td><td>维护</td></tr><tr><td>manipulator</td><td>操纵器 (iostream 预先定义的一种东西)</td></tr><tr><td>marshal</td><td>编列、列集 (叁考 demarshal)</td></tr><tr><td>mechanism</td><td>机制</td></tr><tr><td>member</td><td>成员</td></tr><tr><td>member access operator</td><td>成员存取操作符 (有 dot 和 arrow 两种)</td></tr><tr><td>member function</td><td>成员函数</td></tr><tr><td>member initialization list</td><td>成员初始值列表</td></tr><tr><td>memberwise</td><td>以 member 为单元┅、members 逐一┅ 以成员为单位</td></tr><tr><td>memberwise copy</td><td>以 members 为单元逐一复制</td></tr><tr><td>memory</td><td>内存</td></tr><tr><td>menu</td><td>菜单</td></tr><tr><td>message</td><td>消息</td></tr><tr><td>message based</td><td>基於消息的</td></tr><tr><td>message loop</td><td>消息循环</td></tr><tr><td>method</td><td>(Java) 方法</td></tr><tr><td>meta</td><td>- 超- 元- 例 meta-programming 超编程 元编程</td></tr><tr><td>micro</td><td>微</td></tr><tr><td>middleware</td><td>中间件</td></tr><tr><td>modeling</td><td>建模</td></tr><tr><td>modeling language</td><td>建模语言</td></tr><tr><td>modem</td><td>数据机 调制解调器</td></tr><tr><td>module</td><td>模组、模块</td></tr><tr><td>modifier</td><td>修饰符</td></tr><tr><td>most derived class</td><td>最末层衍生类别、最底层的派生类</td></tr><tr><td>mouse</td><td>鼠标</td></tr><tr><td>mutable</td><td>可变的</td></tr><tr><td>multitasking</td><td>多任务</td></tr><tr><td>namespace</td><td>命名空间</td></tr><tr><td>native</td><td>原生的、本地的</td></tr><tr><td>nested class</td><td>嵌套类 (相对于 closing class)</td></tr><tr><td>network</td><td>网络</td></tr><tr><td>network card</td><td>网卡</td></tr><tr><td>object</td><td>对象</td></tr><tr><td>object based</td><td>基於对象的</td></tr><tr><td>object file</td><td>目标文件</td></tr><tr><td>object model</td><td>对象模型</td></tr><tr><td>object oriented</td><td>面向对象的</td></tr><tr><td>online</td><td>在线</td></tr><tr><td>opaque</td><td>不透明的</td></tr><tr><td>operand</td><td>操作数</td></tr><tr><td>operating system</td><td>操作系统 (OS)</td></tr><tr><td>operation</td><td>操作、操作行为</td></tr><tr><td>operator</td><td>操作符、运算符</td></tr><tr><td>option</td><td>选项、可选方案</td></tr><tr><td>ordinary</td><td>常规的</td></tr><tr><td>overflow</td><td>溢出、上限溢位 (相对於 underflow 下溢)</td></tr><tr><td>overhead</td><td>额外负担、额外开销</td></tr><tr><td>overload</td><td>重载</td></tr><tr><td>overloaded function</td><td>重载的函数</td></tr><tr><td>overloaded operator</td><td>被重载的操作符</td></tr><tr><td>overloaded set</td><td>重载集合</td></tr><tr><td>override</td><td>改写、覆写 (在 derived class 中重新定义虚函数)</td></tr><tr><td>package</td><td>包</td></tr><tr><td>pair</td><td>对</td></tr><tr><td>palette</td><td>调色盘</td></tr><tr><td>pane</td><td>窗格 (有时为嵌板之意，例 Java Content Pane)</td></tr><tr><td>parallel</td><td>平行、并行</td></tr><tr><td>parameter</td><td>叁数、形式叁数、形叁</td></tr><tr><td>parameter list</td><td>叁数列表</td></tr><tr><td>parent class</td><td>父类 (或称 base class)</td></tr><tr><td>parentheses</td><td>小括弧、圆括号 (brace, bracket)</td></tr><tr><td>parse</td><td>解析</td></tr><tr><td>part</td><td>零件、部件</td></tr><tr><td>partial specialization</td><td>偏特化 (ref. C++ Primer 3/e, 16.10)局部特化(ref. full specialization)</td></tr><tr><td>pass by address</td><td>传址 (函式引数的传递方式)(非正式用语)传地址</td></tr><tr><td>pass by reference</td><td>传址 (函式引数的一种传递方式) 传地址, 按引用传递</td></tr><tr><td>pass by value</td><td>传值 (函式引数的一种传递方式) 按值传递</td></tr><tr><td>pattern</td><td>范式、模式</td></tr><tr><td>performance</td><td>效率、性能</td></tr><tr><td>persistence</td><td>持久性</td></tr><tr><td>pixel</td><td>像素</td></tr><tr><td>placement delete ref. C</td><td>++ Primer 3/e, 15.8.2</td></tr><tr><td>placement new ref. C</td><td>++ Primer 3/e, 15.8.2platform 平台 平台 pointer 指标 指针 址位器(和址叁器 reference 形成对映，满好)</td></tr><tr><td>poll</td><td>轮询</td></tr><tr><td>polymorphism</td><td>多态</td></tr><tr><td>pop up</td><td>冒起式、弹出</td></tr><tr><td>port</td><td>端口</td></tr><tr><td>postfix</td><td>后缀</td></tr><tr><td>precedence</td><td>优先序 (通常用於运算子的优先执行次序)</td></tr><tr><td>prefix</td><td>前缀</td></tr><tr><td>preprocessor</td><td>预处理器</td></tr><tr><td>prime</td><td>质数、素数</td></tr><tr><td>primitive type</td><td>基本类型 (不同於 base class, 基础类别)</td></tr><tr><td>print</td><td>打印</td></tr><tr><td>printer</td><td>打印机</td></tr><tr><td>priority</td><td>优先权 (通常用於执行绪获得 CPU 时间的优先次序)</td></tr><tr><td>procedure</td><td>程序、过程</td></tr><tr><td>procedural</td><td>过程式的、过程化的</td></tr><tr><td>process</td><td>进程</td></tr><tr><td>profile</td><td>侧面、形象、概述</td></tr><tr><td>profiler</td><td>效能 (效率)、评测器</td></tr><tr><td>programmer</td><td>程序员</td></tr><tr><td>programming</td><td>编程、程式设计</td></tr><tr><td>progress bar</td><td>进度条</td></tr><tr><td>project</td><td>项目、工程</td></tr><tr><td>property</td><td>属性</td></tr><tr><td>protocol</td><td>协定、协议</td></tr><tr><td>pseudo code</td><td>伪代码</td></tr><tr><td>qualified</td><td>限定的</td></tr><tr><td>qualifier</td><td>限定修饰词: public, protected, private</td></tr><tr><td>quality</td><td>品质、质量</td></tr><tr><td>queue</td><td>队列</td></tr><tr><td>radian</td><td>弧度</td></tr><tr><td>radio button</td><td>单选按钮</td></tr><tr><td>raise</td><td>引发 (常用来表示发出一个 exception)、引起</td></tr><tr><td>random number</td><td>随机数</td></tr><tr><td>range</td><td>范围、区间</td></tr><tr><td>rank</td><td>等级、分等 (ref. C++Primer 3/e 9,15章) 等级</td></tr><tr><td>raw</td><td>未经处理的</td></tr><tr><td>record</td><td>记录</td></tr><tr><td>recordset</td><td>记录集</td></tr><tr><td>recursive</td><td>递归</td></tr><tr><td>re-direction</td><td>重导向 重定向</td></tr><tr><td>refactoring</td><td>重构</td></tr><tr><td>refer</td><td>取用、叁考</td></tr><tr><td>refer to</td><td>指向、指涉、指代reference (C++ 中类似指标的东西，相当於 &quot;化身&quot;) 引用、叁考 址叁器, see pointer</td></tr><tr><td>register</td><td>寄存器</td></tr><tr><td>reflection</td><td>反射、映像</td></tr><tr><td>relational database</td><td>关系数据库</td></tr><tr><td>represent</td><td>表述，表现</td></tr><tr><td>resolve</td><td>决议 (为算式中的符号名称寻找 解析对应之宣告式的过程)</td></tr><tr><td>resolution</td><td>决议程序、决议过程 解析过程</td></tr><tr><td>resolution</td><td>分辨率</td></tr><tr><td>restriction</td><td>局限、限制</td></tr><tr><td>return</td><td>传回</td></tr><tr><td>return type</td><td>返回类型</td></tr><tr><td>return value</td><td>返回值</td></tr><tr><td>robust</td><td>强固、稳健、健壮</td></tr><tr><td>robustness</td><td>强固性、稳健性、健壮性</td></tr><tr><td>routine</td><td>例程</td></tr><tr><td>runtime</td><td>执行期、运行时</td></tr><tr><td>common language runtime</td><td>(CLR) 译为「通用语言执行层」</td></tr><tr><td>rvalue</td><td>右值</td></tr><tr><td>save</td><td>保存</td></tr><tr><td>schedule</td><td>计划、调度</td></tr><tr><td>scheduler</td><td>调度程序</td></tr><tr><td>scheme</td><td>结构纲目、组织纲目</td></tr><tr><td>scroll bar</td><td>滚动条</td></tr><tr><td>scope</td><td>作用域</td></tr><tr><td>scope operator</td><td>作用域操作符 ::</td></tr><tr><td>screen</td><td>屏幕</td></tr><tr><td>search</td><td>查找</td></tr><tr><td>semantics</td><td>语义</td></tr><tr><td>sequential container</td><td>顺序式容器 (对应於 associative container)</td></tr><tr><td>server</td><td>服务器、服务端</td></tr><tr><td>serial</td><td>串行 serialization 次第读写、序列化 (serialize)</td></tr><tr><td>setter</td><td>(相对於 getter) 设值函数</td></tr><tr><td>signal</td><td>信号</td></tr><tr><td>signature</td><td>签名</td></tr><tr><td>slider</td><td>滑块、滚轴</td></tr><tr><td>slot</td><td>条孔、槽</td></tr><tr><td>smart pointer</td><td>智能指针</td></tr><tr><td>snapshot</td><td>萤幕快照(图)、屏幕截图</td></tr><tr><td>specialization</td><td>特殊化、特殊化定义、特殊化宣告 特化</td></tr><tr><td>specification</td><td>规格、规范</td></tr><tr><td>splitter</td><td>切分窗口</td></tr><tr><td>software</td><td>软件</td></tr><tr><td>solution</td><td>解法、解决方案</td></tr><tr><td>source</td><td>源码、源代码</td></tr><tr><td>stack</td><td>堆叠、栈</td></tr><tr><td>stack unwinding</td><td>堆叠辗转开解(此词用於 exception 主题) 栈辗转开解 *</td></tr><tr><td>standard library</td><td>标准程式库</td></tr><tr><td>standard template library</td><td>标准模板程序库</td></tr><tr><td>statement</td><td>语句</td></tr><tr><td>status bar</td><td>状态栏</td></tr><tr><td>STL</td><td>见 standard template library</td></tr><tr><td>stream</td><td>资料流、流</td></tr><tr><td>string</td><td>字符串</td></tr><tr><td>subroutine</td><td>子程序</td></tr><tr><td>subscript operator</td><td>[ ] 下标操作符</td></tr><tr><td>subtype</td><td>子类型</td></tr><tr><td>support</td><td>支持</td></tr><tr><td>suspend</td><td>挂起</td></tr><tr><td>symbol</td><td>符号</td></tr><tr><td>syntax</td><td>语法</td></tr><tr><td>tag</td><td>标签</td></tr><tr><td>target</td><td>目标</td></tr><tr><td>task switch</td><td>任务切换</td></tr><tr><td>template</td><td>模板、范本</td></tr><tr><td>template argument deduction</td><td>模板叁数推导</td></tr><tr><td>template explicit specialization</td><td>模板显式特化</td></tr><tr><td>template parameter</td><td>模板叁数</td></tr><tr><td>temporary object</td><td>临时对象</td></tr><tr><td>text</td><td>文字、文本</td></tr><tr><td>radian</td><td>弧度</td></tr><tr><td>radius</td><td>半径</td></tr><tr><td>diameter</td><td>直径</td></tr><tr><td>oooooooooooooooooooooo</td><td>&nbsp;</td></tr></tbody></table></figure></div>
+</body>
+</html>

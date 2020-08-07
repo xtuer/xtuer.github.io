@@ -1,0 +1,42 @@
+body {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, "Microsoft YaHei", Arial, sans-serif;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+    width:  2px;
+    height: 2px;
+}
+
+::-webkit-scrollbar-track {
+    background: #aaa;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* 隐藏滚动条，还能滚动: http://caibaojian.com/hide-scrollbar.html */
+.element::-webkit-scrollbar { width: 0 !important }
+::-webkit-scrollbar { width: 0 !important; height: 0 !important }
+.element { -ms-overflow-style: none; }
+.element { overflow: -moz-scrollbars-none; }
+
+main > .content {
+    padding-top: 0;
+}
+
+main > .sidebar {
+    padding-top: 10px;
+}
+
+.markdown-section {
+    max-width: 100%;
+    padding-top: 10px;
+}
+
+p.active > a {
+    color: #42b983 !important;
+    font-weight: 600 !important;
+    border-right: 2px solid;
+}
