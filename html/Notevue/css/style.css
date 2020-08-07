@@ -1,5 +1,5 @@
 body {
-    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, "Microsoft YaHei", Arial, sans-serif;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, "Microsoft YaHei", Arial, sans-serif !important;
 }
 
 /* 滚动条样式 */
@@ -23,7 +23,7 @@ body {
 .element { overflow: -moz-scrollbars-none; }
 
 main > .content {
-    padding-top: 0;
+    padding-top: 0px;
 }
 
 main > .sidebar {
@@ -39,4 +39,23 @@ p.active > a {
     color: #42b983 !important;
     font-weight: 600 !important;
     border-right: 2px solid;
+}
+
+li > ul {
+    padding-left: 20px !important;
+}
+
+li > p {
+    margin: 0 !important;
+}
+
+.sidebar-nav>ul>li>ul>li>a:before, .sidebar-nav>ul>li>ul>li.active>a:before {
+    /* content: var(--sidebar-nav-link-before-content-l3, var(--sidebar-nav-link-before-content)); */
+    margin: var(--sidebar-nav-link-before-margin-l3, var(--sidebar-nav-link-before-margin));
+    color: var(--sidebar-nav-link-before-color-l3, var(--sidebar-nav-link-before-color));
+    content: '·';
+}
+
+.sidebar-nav>ul>li>ul>li>a {
+    padding-left: 4px !important;
 }
