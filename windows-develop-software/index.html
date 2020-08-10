@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="公孙二狗">
 <meta property="og:description" content="包管理器 ChocolateyChocolatey 是一款专为 Windows 系统开发的、基于 NuGet 的包管理器工具，类似于   Node 的 npm MacOS 的 brew Ubuntu 的 apt-get CentOS 的 yml  Chocolatey 的设计目标是成为一个去中心化的框架，便于开发者按需快速安装应用程序和工具，官网为 https://chocolatey.org，安">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-08-08T09:25:38.274Z">
+<meta property="og:updated_time" content="2020-08-10T04:52:52.835Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Windows 开发者软件推荐">
 <meta name="twitter:description" content="包管理器 ChocolateyChocolatey 是一款专为 Windows 系统开发的、基于 NuGet 的包管理器工具，类似于   Node 的 npm MacOS 的 brew Ubuntu 的 apt-get CentOS 的 yml  Chocolatey 的设计目标是成为一个去中心化的框架，便于开发者按需快速安装应用程序和工具，官网为 https://chocolatey.org，安">
@@ -247,7 +247,7 @@
     <div id="toc-mask" style="display: none;">
         <div class="toc-container">
             <div class="article-toc">
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#包管理器-Chocolatey"><span class="toc-text">包管理器 Chocolatey</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常用命令"><span class="toc-text">常用命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#微软官方神器第三方库管理工具-Vcpkg"><span class="toc-text">微软官方神器第三方库管理工具 Vcpkg</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常用命令-1"><span class="toc-text">常用命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#补充说明"><span class="toc-text">补充说明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#命令行工具-ConEmu"><span class="toc-text">命令行工具 ConEmu</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSH-工具-FinalShell"><span class="toc-text">SSH 工具 FinalShell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SwitchHosts"><span class="toc-text">SwitchHosts</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AutoHotkey"><span class="toc-text">AutoHotkey</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#包管理器-Chocolatey"><span class="toc-text">包管理器 Chocolatey</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常用命令"><span class="toc-text">常用命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#微软官方神器第三方库管理工具-Vcpkg"><span class="toc-text">微软官方神器第三方库管理工具 Vcpkg</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常用命令-1"><span class="toc-text">常用命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#补充说明"><span class="toc-text">补充说明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#命令行工具-ConEmu"><span class="toc-text">命令行工具 ConEmu</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSH-工具-FinalShell"><span class="toc-text">SSH 工具 FinalShell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SwitchHosts"><span class="toc-text">SwitchHosts</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AutoHotkey"><span class="toc-text">AutoHotkey</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设置-Powershell-的默认编码为-UTF-8"><span class="toc-text">设置 Powershell 的默认编码为 UTF-8</span></a></li></ol>
             </div>
         </div>
     </div>
@@ -397,6 +397,19 @@
 </blockquote>
 <p><strong>Page Down | Page Up</strong>: 有些笔记本没有翻页按键，可以设置 <mark>Ctrl + ↑</mark> 和 <mark>Ctrl + ↓</mark> 进行翻页:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">^Up::Send &#123;PgUp&#125;</span><br><span class="line">^Down::Send &#123;PgDn&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="设置-Powershell-的默认编码为-UTF-8"><a href="#设置-Powershell-的默认编码为-UTF-8" class="headerlink" title="设置 Powershell 的默认编码为 UTF-8"></a>设置 Powershell 的默认编码为 UTF-8</h2><p>Powershell (PS) 的默认编码为 GBK，输入 <code>chcp 65001</code>  修改当前 Tab 页的编码为 UTF-8，但是其他 Tab 页和新创建的 Tab 的编码不受影响，每次都手动输入比较麻烦，可以在 PS 的配置文件中设置其默认编码为 UTF-8:</p>
+<ol>
+<li><p>打开配置文件，在 PS 中输入 $profile，然后回车，输出的值即为 PS 配置文件的位置，如果这个文件不存在，手动创建即可</p>
+</li>
+<li><p>在配置文件中增加:</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Object System.Text.UTF8Encoding</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重启 PS</p>
+</li>
+<li><p>查看命令 <code>chcp</code> 的输出，如果为 <strong>Active code page: 65001</strong> 说明 PS 的默认编码为 <strong>UTF-8</strong></p>
+</li>
+</ol>
+<p>至于 CMD 则不能用上面修改配置文件的方式修改默认编码，不过可以手动输出 <code>chcp 65001</code>  修改当前窗口的编码，新打开的 CMD 窗口编码仍然为 GBK。</p>
 
         
     </div>
