@@ -113,7 +113,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 11.76px;">Cas</a> <a href="/tags/DB/" style="font-size: 14.12px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Gradle/" style="font-size: 13.53px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 11.76px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.94px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.06px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.06px;">Misc</a> <a href="/tags/PHP/" style="font-size: 10.59px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 10.59px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.53px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.18px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 12.35px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.88px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.71px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.29px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.65px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.65px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.47px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.18px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 11.88px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Gradle/" style="font-size: 13.75px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 11.88px;">Hexo</a> <a href="/tags/Index/" style="font-size: 13.13px;">Index</a> <a href="/tags/Java/" style="font-size: 19.38px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.88px;">Mac</a> <a href="/tags/Misc/" style="font-size: 16.88px;">Misc</a> <a href="/tags/PHP/" style="font-size: 10.63px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.13px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.75px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 10.63px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.75px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.25px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 12.5px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.63px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.38px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.5px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.5px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.25px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.25px;">zTree</a>
                     </div>
                     <script>
 
@@ -241,6 +241,161 @@
 </nav>
 
             <div class="body-wrap">
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-qtbook-custom-widget-top-window" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-custom-widget-top-window/" class="article-date">
+  	<!-- <time datetime="2018-02-17T12:31:20.000Z" itemprop="datePublished">2018-02-17</time> -->
+    2018-02-17
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qtbook-custom-widget-top-window/">自定义标题栏无边框阴影窗口</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Qt 的默认窗口使用系统风格，不能修改标题栏和边框，满足不了高度自定义的窗口设计，这时只能把窗口的默认标题栏和边框隐藏起来，替换上我们自定义的标题栏和边框，下面就以实现<code>自定义标题栏无边框阴影窗口</code>为例进行介绍。</p>
+<p>技术要点:</p>
+<ul>
+<li>隐藏系统标题栏和边框: <code>QWidget::setWindowFlags(Qt::FramelessWindowHint)</code></li>
+<li>窗口透明隐藏默认背景: <code>QWidget::setAttribute(Qt::WA_TranslucentBackground)</code></li>
+<li><code>QWidget::paintEvent(QPaintEvent *event)</code> 里绘制任意形状的自定义背景</li>
+<li>拖拽移动窗口</li>
+<li>缩放窗口
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/">QtBook</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/qtbook-custom-widget-top-window/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-qtbook-custom-widget-shadow-round-label" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-custom-widget-shadow-round-label/" class="article-date">
+  	<!-- <time datetime="2018-02-16T07:33:15.000Z" itemprop="datePublished">2018-02-16</time> -->
+    2018-02-16
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qtbook-custom-widget-shadow-round-label/">带阴影的圆形 Label</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>圆形头像大家应该都见过不少软件里用过吧，例如 QQ 的好友列表，网页里的人物头像，有没有想过在 Qt 里怎么做到呢？</p>
+<p>这一节中就来介绍怎么实现下图中的圆形 QLabel，然后扩展到给 QLabel 添加阴影效果、模糊效果以及加上边框:</p>
+<p><img src="../img/qtbook/custom-widget/shadow-round-label.png" alt></p>
+<h2 id="圆形-Label"><a href="#圆形-Label" class="headerlink" title="圆形 Label"></a>圆形 Label</h2><p>最核心的就是圆形 QLabel 的实现，有很多种方法能够做到，这里使用 QSS 来实现: <code>Border Image + Border Radius</code>，也就是几行代码的事:</p>
+<ul>
+<li>圆形: 先设置 QLabel 的大小为固定大小，这样当窗口大小变化时不会影响 QLabel 的大小，并且设置 border-radius 为 QLabel 高度的一半<ul>
+<li>必须正好是一半出来的效果才能是正圆</li>
+<li>大于一半 border-radius 就失去了效果，出来的是矩形，这应该是 QSS 的 Bug，CSS 里就不这样</li>
+<li>小于一半的效果是圆角矩形</li>
+</ul>
+</li>
+<li>背景: 为了让背景图缩放填满 QLabel，需要使用 border-image 并且设置 QLabel 边框的宽度为 0</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">QQLabel</span> &#123;</span><br><span class="line">    <span class="attribute">min-width</span>:  <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">max-width</span>:  <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">min-height</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">max-height</span>: <span class="number">100px</span>;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">50px</span>;</span><br><span class="line">    <span class="attribute">border-width</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">border-image</span>: <span class="built_in">url</span>(/Users/Biao/Desktop/estas.jpg) <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> stretch strectch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的 QSS 就能得到左边第一个圆形 QLabel 的效果。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/">QtBook</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/qtbook-custom-widget-shadow-round-label/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
   
     <!-- 生成目录 -->
 
@@ -903,174 +1058,6 @@
 
       
 
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-db-sqlserver-export" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/db-sqlserver-export/" class="article-date">
-  	<!-- <time datetime="2017-12-20T12:47:35.000Z" itemprop="datePublished">2017-12-20</time> -->
-    2017-12-20
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/db-sqlserver-export/">SQL Server 导出 CSV 和 XML</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <h2 id="导出-XML"><a href="#导出-XML" class="headerlink" title="导出 XML"></a>导出 XML</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bcp &quot;select * from tableName FOR XML AUTO, ROOT(&apos;Root&apos;)&quot; queryout C:/x.xml -S(local) -T -r -c</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>-w</code>: 使用 UTF-16 编码，小端</li>
-<li><code>-c</code>: 使用 GBK 编码</li>
-<li><code>-c -C6501</code>: 使用 UTF-8 编码，但是有的计算机上不支持</li>
-<li><code>-T</code>: 本机使用 <code>-T</code> 表示可信连接，如果是访问其他机器使用 <code>-U user -P pwd</code> 输入用户名和密码</li>
-</ul>
-<blockquote>
-<p>注意：</p>
-<ul>
-<li>如果不使用 <code>-r</code>，则导出的 XML 每行最多有 2033 个字符，会破坏 XML，用了 <code>-r</code> 后就没有换行符了，整个 XML 的内容在同一行。</li>
-<li>内容中的 &amp; 等特殊字符不会被转义就直接放到属性值里了，此时用 XML 库解析会出错。</li>
-</ul>
-</blockquote>
-<h2 id="导出-CSV"><a href="#导出-CSV" class="headerlink" title="导出 CSV"></a>导出 CSV</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlcmd -S localhost -d dbName -E -o &quot;csvFile.csv&quot; -Q &quot;set nocount on; select * from tableName&quot; -W -w 999 -s &quot;,&quot;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>-W</code>: remove trailing spaces from each individual field</li>
-<li><code>-s&quot;,&quot;</code>: sets the column seperator to the comma (,) </li>
-<li><code>-w 999</code>: sets the row width to 999 chars(this will need to be as wide as the longest row or it will wrap to the next line)</li>
-<li><code>-U</code>: username</li>
-<li><code>-P</code>: password</li>
-<li><code>-h-1</code>: removes column name headers from the result</li>
-<li>set nocount on: 输出时不显示 XXX 行受到影响的统计信息</li>
-</ul>
-<blockquote>
-<p>注意：sqlcmd 导出为 CSV 文件时，如果列中有逗号，那么导出的 CSV 文件会被破坏，还没找到好办法。</p>
-</blockquote>
-<p>参考 <a href="https://stackoverflow.com/questions/425379/how-to-export-data-as-csv-format-from-sql-server-using-sqlcmd" target="_blank" rel="noopener">How to export data as CSV format from SQL Server using sqlcmd?</a></p>
-
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DB/">DB</a></li></ul>
-	</div>
-
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-mac-iterm-ssh" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/mac-iterm-ssh/" class="article-date">
-  	<!-- <time datetime="2017-12-13T14:07:40.000Z" itemprop="datePublished">2017-12-13</time> -->
-    2017-12-13
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/mac-iterm-ssh/">iTerm ssh 自动登录</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>使用 ssh 远程登录时:</p>
-<ol>
-<li>输入 <code>ssh root@host-ip</code></li>
-<li>输入密码</li>
-</ol>
-<p>每次都重复这样的操作，不仅麻烦，还要记忆好多东西，为了解决这个问题，借助 iTerm2 Profile 可以实现 ssh 自动登录:</p>
-<ol>
-<li>编写 expect 脚本</li>
-<li>使用此脚本创建 Profile</li>
-<li>使用此 Profile 打开新标签页</li>
-</ol>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/">Mac</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/mac-iterm-ssh/#more">阅读全文</a>
-        </p>
       
       <div class="clearfix"></div>
     </div>

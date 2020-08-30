@@ -113,7 +113,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 11.76px;">Cas</a> <a href="/tags/DB/" style="font-size: 14.12px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Gradle/" style="font-size: 13.53px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 11.76px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.94px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.06px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.06px;">Misc</a> <a href="/tags/PHP/" style="font-size: 10.59px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 10.59px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.53px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.18px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 12.35px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.88px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.71px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.29px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.65px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.65px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.47px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.18px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 11.88px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Gradle/" style="font-size: 13.75px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 11.88px;">Hexo</a> <a href="/tags/Index/" style="font-size: 13.13px;">Index</a> <a href="/tags/Java/" style="font-size: 19.38px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.88px;">Mac</a> <a href="/tags/Misc/" style="font-size: 16.88px;">Misc</a> <a href="/tags/PHP/" style="font-size: 10.63px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.13px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.75px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 10.63px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.75px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.25px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 12.5px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.63px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.38px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.5px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.5px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.25px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.25px;">zTree</a>
                     </div>
                     <script>
 
@@ -241,6 +241,158 @@
 </nav>
 
             <div class="body-wrap">
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-qt-graphics-view-performance" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qt-graphics-view-performance/" class="article-date">
+  	<!-- <time datetime="2017-11-04T04:00:14.000Z" itemprop="datePublished">2017-11-04</time> -->
+    2017-11-04
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qt-graphics-view-performance/">测试 Graphics View 的效率</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Qt 说 Graphics View Framework 效率很高，到底有多高呢？来进行一个简单的测试，向  scene 中添加 10万，50万，100万个 items(修改程序中的 rowCount 和 colCount 即可)，进行缩放、旋转看看效率怎么样。</p>
+<blockquote>
+<p>在可视区域内的 items 少的话，不管 scene 里有多少个 items，10万个和 100万个的区别不大，效率都是非常高的，但可视区内 items 越多的话，越多效率越低。Qt 使用 <a href="https://en.wikipedia.org/wiki/Binary_space_partitioning" target="_blank" rel="noopener">Binary-Space-Partitioning</a> 算法管理 items，能够快速的找出可视区内的 items 进行绘制(100万个 items 中可能只需要绘制 100 个 items)，不会绘制所有的 items，绘制操作是非常耗时的，这也就是为什么影响效率最大的因素是可视区内的 items。</p>
+<p>实际项目中添加 10万个 items 的效率和此处测试的 10万个 items 的效率是有些微区别的，绘制的消耗由其 <code>paint()</code> 函数决定。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/">Qt</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/qt-graphics-view-performance/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-qt-global-hotkey" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qt-global-hotkey/" class="article-date">
+  	<!-- <time datetime="2017-11-03T01:23:15.000Z" itemprop="datePublished">2017-11-03</time> -->
+    2017-11-03
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qt-global-hotkey/">Qt 全局快捷键</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <blockquote>
+<p>全局快捷键: 按下快捷键后，不管程序是否当前正在使用的程序，它都能得到此快捷键的事件通知，例如 Windows 里按下 <code>Ctrl + Shift + A</code> 就可以使用 QQ 截图一样。</p>
+</blockquote>
+<p>Qt SDK 没有自带设置全局快捷键的功能，需要自己实现，在 Github 上也有人开源了全局快捷键的库，例如 <a href="https://github.com/xtuer/QHotkey" target="_blank" rel="noopener">QHotKey</a>，可以直接在项目中使用。</p>
+<p>QHotkey 有很多特点，能够满足绝大多数的需求:</p>
+<ul>
+<li>Works on Windows, Mac and X11</li>
+<li>Easy to use, can use <code>QKeySequence</code> for easy shortcut input</li>
+<li>Supports almost all common keys (Depends on OS &amp; Keyboard-Layout)</li>
+<li>Allows direct input of Key/Modifier-Combinations</li>
+<li>Supports multiple QHotkey-instances for the same shortcut (with optimisations)</li>
+<li>Thread-Safe - Can be used on all threads (See section Thread safety)</li>
+<li>Allows usage of native keycodes and modifiers, if needed</li>
+</ul>
+<p>下面就写个 HelloWorld 级别的程序，定义全局快捷键 <code>Alt+P</code> 唤出程序:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QHotkey&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QApplication&gt;</span></span></span><br><span class="line"></span><br><span class="line">Widget::Widget(QWidget *parent) : QWidget(parent), ui(<span class="keyword">new</span> Ui::Widget) &#123;</span><br><span class="line">    ui-&gt;setupUi(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">    QHotkey *hotkey = <span class="keyword">new</span> QHotkey(QKeySequence(<span class="string">"Alt+P"</span>), <span class="literal">true</span>); <span class="comment">// Alt 和 P 之间不能有空格</span></span><br><span class="line">    qDebug() &lt;&lt; <span class="string">"Is Registered: "</span> &lt;&lt; hotkey-&gt;isRegistered();</span><br><span class="line"></span><br><span class="line">    connect(hotkey, &amp;QHotkey::activated, [<span class="keyword">this</span>]()&#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;show();</span><br><span class="line">        <span class="keyword">this</span>-&gt;raise();</span><br><span class="line">        <span class="keyword">this</span>-&gt;activateWindow();</span><br><span class="line">        <span class="keyword">this</span>-&gt;raise();</span><br><span class="line">        QApplication::setActiveWindow(<span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">this</span>-&gt;raise();</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/">Qt</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/qt-global-hotkey/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
   
     <!-- 生成目录 -->
 
@@ -805,159 +957,6 @@
       
 	<div class="article-tag tagcloud">
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/">Mac</a></li></ul>
-	</div>
-
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-mac-nginx-lua" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/mac-nginx-lua/" class="article-date">
-  	<!-- <time datetime="2017-10-14T12:21:30.000Z" itemprop="datePublished">2017-10-14</time> -->
-    2017-10-14
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/mac-nginx-lua/">Nginx 安装 Lua 支持</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>Nginx 支持 Lua 需要安装 lua-nginx-module 模块，一般常用有 2 种方法: </p>
-<ul>
-<li><p>编译 Nginx 的时候带上 lua-nginx-module 模块一起编译</p>
-</li>
-<li><p>使用 OpenResty: Nginx + 一些模块，默认启用了 Lua 支持(推荐使用此方式)</p>
-<blockquote>
-<p><a href="https://openresty.org/cn/openresty.html" target="_blank" rel="noopener">OpenResty</a> is just an enhanced version of <a href="https://openresty.org/cn/nginx.html" target="_blank" rel="noopener">Nginx</a> by means of addon modules anyway. You can take advantage of all the exisitng goodies in the <a href="https://openresty.org/cn/nginx.html" target="_blank" rel="noopener">Nginx</a> world.</p>
-<p>​</p>
-<p>OpenResty® 是一个基于 <a href="https://openresty.org/cn/nginx.html" target="_blank" rel="noopener">Nginx</a> 与 Lua 的高性能 Web 平台，其内部集成了大量精良的 Lua 库、第三方模块以及大多数的依赖项。用于方便地搭建能够处理超高并发、扩展性极高的动态 Web 应用、Web 服务和动态网关。</p>
-<p>OpenResty® 通过汇聚各种设计精良的 <a href="https://openresty.org/cn/nginx.html" target="_blank" rel="noopener">Nginx</a> 模块（主要由 OpenResty 团队自主开发），从而将 <a href="https://openresty.org/cn/nginx.html" target="_blank" rel="noopener">Nginx</a> 有效地变成一个强大的通用 Web 应用平台。这样，Web 开发人员和系统工程师可以使用 Lua 脚本语言调动 <a href="https://openresty.org/cn/nginx.html" target="_blank" rel="noopener">Nginx</a> 支持的各种 C 以及 Lua 模块，快速构造出足以胜任 10K 乃至 1000K 以上单机并发连接的高性能 Web 应用系统。</p>
-<p>OpenResty® 的目标是让你的Web服务直接跑在 <a href="https://openresty.org/cn/nginx.html" target="_blank" rel="noopener">Nginx</a> 服务内部，充分利用 <a href="https://openresty.org/cn/nginx.html" target="_blank" rel="noopener">Nginx</a> 的非阻塞 I/O 模型，不仅仅对 HTTP 客户端请求,甚至于对远程后端诸如 MySQL、PostgreSQL、Memcached 以及 Redis 等都进行一致的高性能响应。
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/">Mac</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/mac-nginx-lua/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-fe-mqtt" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/fe-mqtt/" class="article-date">
-  	<!-- <time datetime="2017-09-27T08:54:14.000Z" itemprop="datePublished">2017-09-27</time> -->
-    2017-09-27
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/fe-mqtt/">HTML5 使用 MQTT</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>HTML5 中也能使用 MQTT：</p>
-<ol>
-<li><p>ActiveMQ 启用 MQTT，可参考 <a href="http://qtdebug.com/misc-activemq/" target="_blank" rel="noopener">http://qtdebug.com/misc-activemq/</a></p>
-</li>
-<li><p>启动 ActiveMQ: <code>activemq start</code></p>
-</li>
-<li><p>使用 MQTT 的 HTML 如下:</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Test Ws mqtt.js<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./browserMqtt.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">        <span class="comment">// 虽然使用的是 MQTT，但底层还是使用 WebSocket 实现的，所以这里的端口需要使用 ActiveMQ 里 WS 的端口 61614，而不是 MQTT 的端口 1883</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> client = mqtt.connect(<span class="string">'ws://127.0.0.1:61614'</span>); <span class="comment">// you add a ws:// url here</span></span></span><br><span class="line"><span class="javascript">        client.subscribe(<span class="string">'foo'</span>); <span class="comment">// 订阅 Topic</span></span></span><br><span class="line"></span><br><span class="line"><span class="javascript">        client.on(<span class="string">'message'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">topic, payload</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log([payload].join(<span class="string">''</span>)); <span class="comment">// 提取消息需要使用 [].join()</span></span></span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line"><span class="javascript">        client.publish(<span class="string">'foo'</span>, <span class="string">'Hello World!'</span>); <span class="comment">// 发送消息</span></span></span><br><span class="line"></span><br><span class="line"><span class="javascript">        <span class="comment">// 不停的发送消息进行测试</span></span></span><br><span class="line"><span class="javascript">        setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            client.publish(<span class="string">'foo'</span>,  <span class="string">'Time: '</span> + <span class="keyword">new</span> <span class="built_in">Date</span>().getTime());</span></span><br><span class="line">        &#125;, 1000);</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>写一个 Java 的 MQTT 发布和订阅的程序一起测试，可参考 <a href="http://qtdebug.com/misc-mqtt/" target="_blank" rel="noopener">http://qtdebug.com/misc-mqtt/</a></p>
-</li>
-</ol>
-<p>下载 <a href="/download/browserMqtt.js.zip">browserMqtt.js</a>，也可以<a href="https://github.com/mqttjs/MQTT.js" target="_blank" rel="noopener">自己编译</a>(新版本好像有问题，只能发消息，不能订阅消息)，详细文档请参考 <a href="https://github.com/mqttjs/MQTT.js" target="_blank" rel="noopener">https://github.com/mqttjs/MQTT.js</a></p>
-
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/">FE</a></li></ul>
 	</div>
 
 

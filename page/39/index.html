@@ -113,7 +113,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 11.76px;">Cas</a> <a href="/tags/DB/" style="font-size: 14.12px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Gradle/" style="font-size: 13.53px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 11.76px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.94px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.06px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.06px;">Misc</a> <a href="/tags/PHP/" style="font-size: 10.59px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 10.59px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.53px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.18px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 12.35px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.88px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.71px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.29px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.65px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.65px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.47px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.18px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 11.88px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Gradle/" style="font-size: 13.75px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 11.88px;">Hexo</a> <a href="/tags/Index/" style="font-size: 13.13px;">Index</a> <a href="/tags/Java/" style="font-size: 19.38px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.88px;">Mac</a> <a href="/tags/Misc/" style="font-size: 16.88px;">Misc</a> <a href="/tags/PHP/" style="font-size: 10.63px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.13px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.75px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 10.63px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.75px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.25px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 12.5px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.63px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.38px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.5px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.5px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.25px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.25px;">zTree</a>
                     </div>
                     <script>
 
@@ -241,6 +241,149 @@
 </nav>
 
             <div class="body-wrap">
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-redis-tips" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/redis-tips/" class="article-date">
+  	<!-- <time datetime="2016-07-05T13:35:23.000Z" itemprop="datePublished">2016-07-05</time> -->
+    2016-07-05
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/redis-tips/">Redis Tips</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <h2 id="启动-Redis-默认配置"><a href="#启动-Redis-默认配置" class="headerlink" title="启动 Redis (默认配置)"></a>启动 Redis (默认配置)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server</span><br></pre></td></tr></table></figure>
+<h2 id="启动-Redis-指定配置"><a href="#启动-Redis-指定配置" class="headerlink" title="启动 Redis (指定配置)"></a>启动 Redis (指定配置)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server redis.conf</span><br></pre></td></tr></table></figure>
+<h2 id="启动-Redis-非保护模式"><a href="#启动-Redis-非保护模式" class="headerlink" title="启动 Redis (非保护模式)"></a>启动 Redis (非保护模式)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server --protected-mode no</span><br></pre></td></tr></table></figure>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis/">Redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Util/">Util</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/redis-tips/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-java-yaml-properties" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/java-yaml-properties/" class="article-date">
+  	<!-- <time datetime="2016-07-03T12:04:12.000Z" itemprop="datePublished">2016-07-03</time> -->
+    2016-07-03
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java-yaml-properties/">Java 读取 Properties 和 Yaml Properties</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Java 可以使用 <code>PropertiesConfiguration</code> 来读取 properties 属性文件，Spring 4.3 后还支持了 <code>Yaml 格式的属性文件</code></p>
+<ul>
+<li><p>PropertiesConfiguration: 读取时可以自动进行类型转换，可以给定默认值</p>
+</li>
+<li><p>Yaml 格式的属性文件: 可以使用树形结构，方便分组，支持中文，比 <code>.properties</code> 属性文件更灵活，但是以普通的 <code>java.util.Properties</code> 来读取:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 1. 配置分组</span><br><span class="line">jdbc:</span><br><span class="line">    driverClassName:        com.mysql.jdbc.Driver    a     # 2. 前后空格会被自动去掉，注释不会被读取</span><br><span class="line">    url: jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=UTF-8</span><br><span class="line">    username: root</span><br><span class="line">    password: 密码 # 3. 支持中文</span><br><span class="line">urls:</span><br><span class="line">    - http://127.0.0.1 # 4. 定义数组</span><br><span class="line">    - http://localhost</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Util/">Util</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/java-yaml-properties/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
   
     <!-- 生成目录 -->
 
@@ -776,150 +919,6 @@
       
         <p class="article-more-link">
           <a  href="/misc-gradle-build/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-misc-gradle-idea" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/misc-gradle-idea/" class="article-date">
-  	<!-- <time datetime="2016-06-29T02:09:48.000Z" itemprop="datePublished">2016-06-29</time> -->
-    2016-06-29
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/misc-gradle-idea/">IDEA 创建 Gradle Module</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>以创建名为 SpringIntegration 的 Gradle Module 为例介绍在 IDEA 创建 Gradle Module 的步骤。</p>
-<blockquote>
-<p>IDEA 的 Maven Module 里修改 pom.xml 中的依赖后会自动下载相关的 Jar 包和源码，并添加到 classpath 里。</p>
-<p>但是 IDEA 的 Gradle Module 里修改 build.gradle 中的依赖后却不会自动下载相关的 Jar 包和源码，并添加到 classpath 里，需要我们手动的在 Gradle 的工具窗口里点击刷新 Gradle Module 才会执行这些操作。</p>
-</blockquote>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/">Misc</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/misc-gradle-idea/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-misc-index" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/misc-index/" class="article-date">
-  	<!-- <time datetime="2016-06-29T02:06:53.000Z" itemprop="datePublished">2016-06-29</time> -->
-    2016-06-29
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/misc-index/">Miscellaneous</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><ul>
-<li><a href="/misc-gradle-idea">IDEA 中创建 Gradle Module</a></li>
-<li><a href="/misc-gradle-build">Gradle build 脚本</a></li>
-<li><a href="/misc-gradle-web">Gradle 创建 Web Module</a></li>
-<li><a href="/misc-gradle-app">Gradle 创建 App Module</a></li>
-<li><a href="/misc-gradle-resource">Gradle 文件动态内容替换</a></li>
-</ul>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Index/">Index</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/">Misc</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/misc-index/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>
