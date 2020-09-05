@@ -245,6 +245,70 @@
     <!-- 生成目录 -->
 
 
+<article id="post-qt-item-hover-tooltip" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qt-item-hover-tooltip/" class="article-date">
+  	<!-- <time datetime="2016-11-08T01:53:35.000Z" itemprop="datePublished">2016-11-08</time> -->
+    2016-11-08
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qt-item-hover-tooltip/">鼠标放到 View 的 item 上时显示 tool tip</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// [1] View 需要启用 mouse tracking</span></span><br><span class="line">ui-&gt;listView-&gt;setMouseTracking(<span class="literal">true</span>); </span><br><span class="line"></span><br><span class="line"><span class="comment">// [2] 处理 mouse enter 事件</span></span><br><span class="line">connect(ui-&gt;listView, &amp;QListView::entered, [] (<span class="keyword">const</span> QModelIndex &amp;index) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!index.isValid()) &#123;</span><br><span class="line">        qDebug() &lt;&lt; <span class="string">"Invalid index"</span>;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    QToolTip::showText(QCursor::pos(), index.data(Qt::UserRole + <span class="number">1</span>).toString());</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/">Qt</a></li></ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-fe-vue-arttemplate" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -863,83 +927,6 @@
 
       
 
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-spring-web-xss" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/spring-web-xss/" class="article-date">
-  	<!-- <time datetime="2016-10-18T03:31:23.000Z" itemprop="datePublished">2016-10-18</time> -->
-    2016-10-18
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/spring-web-xss/">防止 XSS 攻击</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>可以使用 <code>XSS Filter</code> 防止 XSS 攻击，具体细节请访问 <a href="http://www.servletsuite.com/servlets/xssflt.htm" target="_blank" rel="noopener">http://www.servletsuite.com/servlets/xssflt.htm</a></p>
-<p>使用步骤:</p>
-<ol>
-<li>把 <code>xssflt.jar</code> 放到 <code>WEB-INF/lib</code></li>
-<li><p>把 <code>xssflt.jar</code> 添加到 Gradle 依赖</p>
- <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile fileTree(<span class="string">dir:</span> <span class="string">'src/main/webapp/WEB-INF/lib'</span>, <span class="string">include:</span> [<span class="string">'*.jar'</span>])</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>修改 web.xml</p>
- <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 防止 XSS 攻击 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">filter</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>XSSFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-class</span>&gt;</span>com.cj.xss.XSSFilter<span class="tag">&lt;/<span class="name">filter-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">filter-mapping</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>XSSFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">filter-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringWeb/">SpringWeb</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/spring-web-xss/#more">阅读全文</a>
-        </p>
       
       <div class="clearfix"></div>
     </div>

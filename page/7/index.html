@@ -245,6 +245,100 @@
     <!-- 生成目录 -->
 
 
+<article id="post-fe-vue-cli-3-multi" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/fe-vue-cli-3-multi/" class="article-date">
+  	<!-- <time datetime="2018-10-29T03:13:59.000Z" itemprop="datePublished">2018-10-29</time> -->
+    2018-10-29
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/fe-vue-cli-3-multi/">Vue-Cli 3 创建多页项目</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>在 <a href="/fe-vue-cli-3-single/">Vue-Cli 3 创建单页项目</a> 一文中介绍了创建单页项目, 现实中复杂一点的项目使用多页项目更合适一些, Vue-Cli 3 创建多页项目很容易, 创建的项目结构如下:</p>
+<p><img src="../img/fe/vue-cli-3-multi.png" alt></p>
+<p>下面就简要的介绍下使用 Vue-Cli 3 创建多页项目的步骤:</p>
+<ol>
+<li><p><a href="/fe-vue-cli-3-single/">Vue-Cli 3 创建单页项目</a></p>
+</li>
+<li><p>在 src 目录下创建目录 <code>pages/page1</code>, <code>pages/page2</code> (每个目录表示一个单页)</p>
+</li>
+<li><p>把 views 目录, App.vue, main.js, router.js, store.js 等都分别复制一份到 page1 和 page2 目录 (参考上面的项目结构图)</p>
+</li>
+<li><p>修改 vue.config.js 中的 <code>pages</code>, 配置每个单页的入口 (page1, page2 就是单页访问地址):</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    devServer: &#123;</span><br><span class="line">        port: <span class="number">8888</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    pages: &#123;</span><br><span class="line">        page1: <span class="string">'src/pages/page1/main.js'</span>,</span><br><span class="line">        page2: <span class="string">'src/pages/page2/main.js'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动项目: <code>yarn serve</code></p>
+</li>
+<li><p>访问页面:</p>
+<ul>
+<li><a href="http://localhost:8888/page1.html" target="_blank" rel="noopener">http://localhost:8888/page1.html</a></li>
+<li><a href="http://localhost:8888/page2.html" target="_blank" rel="noopener">http://localhost:8888/page2.html</a></li>
+</ul>
+</li>
+<li><p>打包项目: <code>yarn build</code></p>
+</li>
+<li><p>自定义单页的入口模板</p>
+<p>有眼神好的同学可能看到了 <code>public/index.html</code> 和 <code>public/page2.html</code>, 但是发现没有 <code>public/page1.html</code>, 这是因为 Vue-Cli 在 public 目录下发现页面对应的 <code>${subpage}.html</code> 文件 (pages 下配置的 page1, page2), 就使用它生成这个页面的入口 html 文件, 如果没有则会使用 <code>public/index.html</code> 作为模板生成这个页面的入口 html 文件.</p>
+<p>由于不同页面引入的 js, css 或者第三方库等都可能不一样, 所以为页面定制自己的入口模板文件也是有必要的.</p>
+</li>
+</ol>
+<h2 id="vue-config-js-参考"><a href="#vue-config-js-参考" class="headerlink" title="vue.config.js 参考"></a>vue.config.js 参考</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">process.env.VUE_APP_VERSION = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime();</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    devServer: &#123;</span><br><span class="line">        port: <span class="number">8888</span>,</span><br><span class="line">        proxy: <span class="string">'http://localhost:8080'</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 多页的页面</span></span><br><span class="line">    pages: &#123;</span><br><span class="line">        sample: <span class="string">'src/pages/sample/main.js'</span>,</span><br><span class="line">        teacher: <span class="string">'src/pages/teacher/main.js'</span>,</span><br><span class="line">        <span class="string">'admin-school'</span>: <span class="string">'src/pages/admin-school/main.js'</span>,</span><br><span class="line">        <span class="string">'admin-system'</span>: <span class="string">'src/pages/admin-system/main.js'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// yarn build 的输出目录</span></span><br><span class="line">    outputDir: <span class="string">'../ebag-web-app/src/main/webapp/WEB-INF/page-vue'</span>,</span><br><span class="line">    assetsDir: <span class="string">'static'</span>,</span><br><span class="line"></span><br><span class="line">    css: &#123;</span><br><span class="line">        loaderOptions: &#123;</span><br><span class="line">            sass: &#123;</span><br><span class="line">                <span class="comment">// SCSS 全局变量</span></span><br><span class="line">                data: <span class="string">`</span></span><br><span class="line"><span class="string">                    @import "@/../public/static/css/variables.scss";</span></span><br><span class="line"><span class="string">                `</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>页面的 HTML 中引入自定义 JS 和 CSS 文件时最好也加上打包时的时间戳 <code>process.env.VUE_APP_VERSION</code>, 避免缓存引起的问题:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">%</span> <span class="attr">hash</span> = <span class="string">VUE_APP_VERSION</span> %&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>老师<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"/static/css/global.css?hash=&lt;%= hash %&gt;"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 库文件 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/static/lib/jquery.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/static/lib/jquery.rest.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 项目的 JS: 增加了 hash 使得更新后不用刷新缓存就能使用最新的 JS --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/static/lib/tio/Message.js?hash=&lt;%= hash %&gt;"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/static/js/urls.js?hash=&lt;%= hash %&gt;"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- built files will be auto injected --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/">FE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-fe-vue-cli-3-single" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -956,96 +1050,6 @@
       
         <p class="article-more-link">
           <a  href="/qtbook-custom-widget-group-buttons/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-spring-mvc-path-with-dot" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/spring-mvc-path-with-dot/" class="article-date">
-  	<!-- <time datetime="2018-05-04T02:07:12.000Z" itemprop="datePublished">2018-05-04</time> -->
-    2018-05-04
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/spring-mvc-path-with-dot/">SpringMVC 使用 @PathVariable 获取有 . 的 URL 中的变量</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/api/file/&#123;filename&#125;"</span>)</span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">foo</span><span class="params">(@PathVariable String filename)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> filename;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>默认配置时，不同的 URL ，获取到的 filename 为:</p>
-<ul>
-<li><code>/api/file/foo</code>，filename 为 foo</li>
-<li><code>/api/file/foo.pdf</code>，filename 为 foo</li>
-<li><code>/api/file/foo.pdf.png</code>，filename 为 foo.pdf</li>
-<li><code>/api/file/foo.pdf.png.doc</code>，filename 为 foo.pdf.png</li>
-</ul>
-<p>最后一个 <code>.</code> 被截断了，解决这个问题有 2 中方法:</p>
-<ul>
-<li><p>使用正则表达式进行路径匹配，映射为：<code>@GetMapping(&quot;/api/file/{filename:.+}&quot;)</code></p>
-<ul>
-<li>缺点：每个路径的映射都要写一遍，不方便</li>
-<li>优点：缺点也是优点，只影响需要的路径</li>
-</ul>
-</li>
-<li><p>配置 <code>annotation-driven</code>，映射为：<code>@GetMapping(&quot;/api/file/{filename}&quot;)</code></p>
-<ul>
-<li>优点：只需要配置一次，整个应用都生效，方便</li>
-<li>缺点：优点也是缺点，影响了整个系统，不过还没有发现对整个系统有什么副作用</li>
-</ul>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mvc:annotation-driven</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mvc:path-matching</span> <span class="attr">registered-suffixes-only</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">    ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">mvc:annotation-driven</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringMVC/">SpringMVC</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/spring-mvc-path-with-dot/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

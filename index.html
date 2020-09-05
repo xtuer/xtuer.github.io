@@ -245,6 +245,79 @@
     <!-- 生成目录 -->
 
 
+<article id="post-js-expreg" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/js-expreg/" class="article-date">
+  	<!-- <time datetime="2020-09-05T13:43:39.000Z" itemprop="datePublished">2020-09-05</time> -->
+    2020-09-05
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/js-expreg/">JS 的正则表达式</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>JS 中可以用下面 3 种方式使用正则表达式获取数据:</p>
+<ul>
+<li><code>RegExp.exec()</code></li>
+<li><code>String.match()</code></li>
+<li><code>String.replace()</code>: 这个用法比较奇葩，但是我喜欢</li>
+</ul>
+<p>下面就简单介绍下每一个的用法。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/">FE</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/js-expreg/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-sql-common" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -889,88 +962,6 @@
       
         <p class="article-more-link">
           <a  href="/html2pdf/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-graph-floyd" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/graph-floyd/" class="article-date">
-  	<!-- <time datetime="2020-02-25T00:32:03.000Z" itemprop="datePublished">2020-02-25</time> -->
-    2020-02-25
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/graph-floyd/">图-最短路径-Floyd</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>使用 <a href="https://www.bilibili.com/video/av54029771?p=186" target="_blank" rel="noopener">Floyd 算法</a>求任一点到其他所有点 (任意两点) 之间的最短距离: <strong>对于每个顶点 v，和任一顶点对 (i, j), i!=j, v!=i, v!=j，如果 A[i][j] &gt; A[i][v]+A[v][j]，则将 A[i][j] 更新为 A[i][v]+A[v][j] 的值，并且将 Prev[i][j] 改为 Prev[v][j]</strong>:</p>
-<ul>
-<li>距离表 (初始化为图的邻接矩阵)</li>
-<li>前驱表 (初始化为每点到其他任一点的前驱为自己)</li>
-<li>三层循环: <ul>
-<li>第一层: 中间点 [A, B, C, D, E, F, G]</li>
-<li>第二层: 出发点 [A, B, C, D, E, F, G]</li>
-<li>第三层: 终结点 [A, B, C, D, E, F, G]</li>
-<li>出发点通过中间点到终结点的距离、出发点直连终结点的距离选最小值更新距离表: <code>min(Lik+Lkj, Lij)</code>，同时更新前驱表</li>
-</ul>
-</li>
-</ul>
-<p>第一轮: 以 A 为中间节点，点 X 通过 A 到点 Y 的距离为 min(XA+AY, XY): BAA, BAB, BAC, BAD, BAE, BAF, BAG, CAA, CAB, …<br>第二轮: 以 B 为中间节点，…</p>
-<p>…</p>
-<p>第七轮: 以 G 为中间节点，…</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 核心: Floyd 算法计算任意 2 点之间的最短距离</span></span><br><span class="line"><span class="keyword">final</span> <span class="keyword">int</span> len = distance.length;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; len; v++) &#123;         <span class="comment">// 第一层: 中间点</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;     <span class="comment">// 第二层: 出发点</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; len; j++) &#123; <span class="comment">// 第三层: 终结点</span></span><br><span class="line">            <span class="keyword">if</span> (distance[i][v] + distance[v][j] &lt; distance[i][j]) &#123;</span><br><span class="line">                distance[i][j] = distance[i][v] + distance[v][j];</span><br><span class="line">                path[i][j] = path[v][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/graph-floyd/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>
