@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="公孙二狗">
 <meta property="og:description" content="创建数据库1CREATE DATABASE ebag DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci 增加新列1ALTER TABLE table_name ADD COLUMN column_name varchar(64) 分页查询MySQL 中使用 LIMIT 进行分页，第一个参数是起始位置 offset，从 0 开始，第二个">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-08-30T12:19:51.066Z">
+<meta property="og:updated_time" content="2020-09-06T02:19:56.014Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常用 SQL">
 <meta name="twitter:description" content="创建数据库1CREATE DATABASE ebag DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci 增加新列1ALTER TABLE table_name ADD COLUMN column_name varchar(64) 分页查询MySQL 中使用 LIMIT 进行分页，第一个参数是起始位置 offset，从 0 开始，第二个">
@@ -342,6 +342,7 @@
 <blockquote>
 <p>复合主键: <code>PRIMARY KEY (code, type)</code>，因为用 id 作为主键，所以不推荐使用复合主键，可以使用多列建立唯一约束。</p>
 </blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id int(11) PRIMARY KEY AUTO_INCREMENT <span class="keyword">COMMENT</span> <span class="string">'自增 ID'</span></span><br></pre></td></tr></table></figure>
 <h2 id="唯一约束"><a href="#唯一约束" class="headerlink" title="唯一约束"></a>唯一约束</h2><p>UNIQUE 约束唯一标识数据库表中的每条记录。</p>
 <p>UNIQUE 和 PRIMARY KEY 约束均为列或列集合提供了唯一性的保证。</p>
 <p>PRIMARY KEY 拥有自动定义的 UNIQUE 约束。</p>
