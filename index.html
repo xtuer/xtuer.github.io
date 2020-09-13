@@ -245,6 +245,84 @@
     <!-- 生成目录 -->
 
 
+<article id="post-vue-key" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/vue-key/" class="article-date">
+  	<!-- <time datetime="2020-09-13T00:07:38.000Z" itemprop="datePublished">2020-09-13</time> -->
+    2020-09-13
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/vue-key/">Vue :key</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>我们都知道使用 v-for 渲染数组时都要给每个元素绑定一个 key，<a href="https://cn.vuejs.org/v2/guide/list.html#维护状态" target="_blank" rel="noopener">官方文档</a>也说的很清 (挠) 楚 (头):</p>
+<blockquote>
+<p>当 Vue 正在更新使用 <code>v-for</code> 渲染的元素列表时，它默认使用“就地更新”的策略。如果数据项的顺序被改变，Vue 将不会移动 DOM 元素来匹配数据项的顺序，而是就地更新每个元素，并且确保它们在每个索引位置正确渲染。</p>
+<p><code>key</code> 的特殊 attribute 主要用在 Vue 的虚拟 DOM 算法，在新旧 nodes 对比时辨识 VNodes。如果不使用 key，Vue 会使用一种最大限度减少动态元素并且尽可能的尝试就地修改/复用相同类型元素的算法。而使用 key 时，它会基于 key 的变化重新排列元素顺序，并且会移除 key 不存在的元素。</p>
+<p>有<strong>相同父元素的子元素</strong>必须有<strong>独特的 key</strong>，重复的 key 会造成渲染错误。</p>
+</blockquote>
+<p>需要记住一点: 当用来创建 DOM 元素的数据变化后，就会更新 DOM (更新了才能在界面上看到)，为了提高效率，vue 使用了 key 来判断是复用已有的 DOM 还是创建新的 DOM (在同一个 parent DOM element 下进行比较):</p>
+<ul>
+<li>如果能找到相同 key 的 DOM 元素，则更新它的内容</li>
+<li>如果找不到相同 key 的 DOM 元素，则删除旧的 DOM 元素，新创建一个</li>
+</ul>
+<p>上面的内容，懂的人一看就懂，不懂的人仍然是一头雾水。下面我们以一个很简单的修改用户名的例子演示一下应该就能明白什么时候复用，什么时候创建了。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/">FE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/vue-key/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-js-expreg" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -890,78 +968,6 @@
       
         <p class="article-more-link">
           <a  href="/promise-tips/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-html2pdf" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/html2pdf/" class="article-date">
-  	<!-- <time datetime="2020-03-03T03:32:53.000Z" itemprop="datePublished">2020-03-03</time> -->
-    2020-03-03
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/html2pdf/">Html 转为 Pdf</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>使用 html2pdf 把 Html 转为 Pdf，实际项目中可以先借助 Freemarker 模板生成 Html，然后再转换为 Pdf。</p>
-<blockquote>
-<p>缺点: html2pdf 不支持 CSS 的 flex 和 grid 布局。</p>
-</blockquote>
-<h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">implementation &quot;com.itextpdf:html2pdf:2.1.7&quot;</span><br></pre></td></tr></table></figure>
-<h2 id="转换"><a href="#转换" class="headerlink" title="转换"></a>转换</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.itextpdf.html2pdf.ConverterProperties;</span><br><span class="line"><span class="keyword">import</span> com.itextpdf.html2pdf.HtmlConverter;</span><br><span class="line"><span class="keyword">import</span> com.itextpdf.layout.font.FontProvider;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.FileOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Html2Pdf</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        File htmlSrc = <span class="keyword">new</span> File(<span class="string">"/Users/Biao/Desktop/x.html"</span>);</span><br><span class="line">        File pdfDest = <span class="keyword">new</span> File(<span class="string">"/Users/Biao/Desktop/x.pdf"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 使用中文字体解决不显示中文问题: 字体文件可以从系统中找，也可以从网上下载</span></span><br><span class="line">        FontProvider fontProvider = <span class="keyword">new</span> FontProvider();</span><br><span class="line">        fontProvider.addStandardPdfFonts();</span><br><span class="line">        fontProvider.addFont(<span class="string">"/Users/Biao/Desktop/Yahei.ttf"</span>);</span><br><span class="line">        <span class="comment">// fontProvider.addDirectory("..."); // 添加文件夹下的所有字体</span></span><br><span class="line"></span><br><span class="line">        ConverterProperties converterProperties = <span class="keyword">new</span> ConverterProperties();</span><br><span class="line">        converterProperties.setCharset(<span class="string">"UTF-8"</span>);</span><br><span class="line">        converterProperties.setFontProvider(fontProvider);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// HTML 中本地图片要使用 file:// 的格式，如 file:///Users/Biao/Desktop/shot.png</span></span><br><span class="line">        HtmlConverter.convertToPdf(htmlSrc, pdfDest, converterProperties);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/html2pdf/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>
