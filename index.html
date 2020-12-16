@@ -245,6 +245,81 @@
     <!-- 生成目录 -->
 
 
+<article id="post-com-copy-paste" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/com-copy-paste/" class="article-date">
+  	<!-- <time datetime="2020-12-16T09:37:53.000Z" itemprop="datePublished">2020-12-16</time> -->
+    2020-12-16
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/com-copy-paste/">快捷键复制粘贴组件</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <h2 id="访问剪贴板"><a href="#访问剪贴板" class="headerlink" title="访问剪贴板"></a>访问剪贴板</h2><p>使用 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Clipboard" target="_blank" rel="noopener">navigator.clipboard</a> 对象访问系统的剪贴板:</p>
+<ul>
+<li>readText: 读取剪贴板的内容</li>
+<li>writeText: 设置剪贴板的内容</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>System Clipboard<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"button-copy"</span>&gt;</span>Copy<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"button-paste"</span>&gt;</span>Paste<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">        <span class="comment">// 设置系统剪贴板的内容</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.querySelector(<span class="string">'#button-copy'</span>).addEventListener(<span class="string">'click'</span>, () =&gt; &#123;</span></span><br><span class="line"><span class="javascript">            navigator.clipboard.writeText(<span class="string">'Hello'</span>);</span></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line"><span class="javascript">        <span class="comment">// 读取系统剪贴板的内容</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.querySelector(<span class="string">'#button-paste'</span>).addEventListener(<span class="string">'click'</span>, () =&gt; &#123;</span></span><br><span class="line"><span class="javascript">            navigator.clipboard.readText().then(<span class="function"><span class="params">text</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(text);</span></span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>提示: IE 不支持 Navigator.clipboard，但 Edge 支持。</p>
+</blockquote>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/">FE</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/com-copy-paste/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-vue-key" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -899,75 +974,6 @@
       
         <p class="article-more-link">
           <a  href="/java-dynamic-datasource/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-promise-tips" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/promise-tips/" class="article-date">
-  	<!-- <time datetime="2020-05-02T01:16:24.000Z" itemprop="datePublished">2020-05-02</time> -->
-    2020-05-02
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/promise-tips/">Promise 知识点</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>可以访问 <a href="https://www.jianshu.com/p/82237a7ca6e5" target="_blank" rel="noopener">Promise 对象基础</a> 对 Promise 进行了解，这里就不再赘述了。</p>
-<p><strong>Promises</strong> 承诺，你将会得到延期或长期运行任务的未来结果。承诺有两个渠道：第一个为结果，第二个为潜在的错误。要获取结果，您将回调函数作为 then 函数参数，要处理错误，您将回调函数提供为 catch 函数参数。Promise 的状态的改变是单向的，一次性的，一旦改变，状态就会凝固了。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=<span class="string">"utf-8"</span>&gt;</span><br><span class="line">&lt;<span class="regexp">/head&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;body&gt;</span></span><br><span class="line"><span class="regexp">    &lt;script type="text/</span>javascript<span class="string">"&gt;</span></span><br><span class="line"><span class="string">        let p = new Promise((resolve, reject) =&gt; &#123;</span></span><br><span class="line"><span class="string">            setTimeout(function() &#123;</span></span><br><span class="line"><span class="string">                const result = Math.random();</span></span><br><span class="line"><span class="string">                result &gt; 0.5 ? resolve(result) : reject('Lower than 0.5');</span></span><br><span class="line"><span class="string">            &#125;, 2000);</span></span><br><span class="line"><span class="string">        &#125;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        p.then(result =&gt; &#123;</span></span><br><span class="line"><span class="string">            console.log('success', result);</span></span><br><span class="line"><span class="string">        &#125;).catch(result =&gt; &#123;</span></span><br><span class="line"><span class="string">            console.log('fail', result);</span></span><br><span class="line"><span class="string">        &#125;);</span></span><br><span class="line"><span class="string">    &lt;/script&gt;</span></span><br><span class="line"><span class="string">&lt;/body&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;/html&gt;</span></span><br></pre></td></tr></table></figure>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/">FE</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/promise-tips/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>
