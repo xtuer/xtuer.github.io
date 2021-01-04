@@ -113,7 +113,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 11.88px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Gradle/" style="font-size: 13.75px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 11.88px;">Hexo</a> <a href="/tags/Index/" style="font-size: 13.13px;">Index</a> <a href="/tags/Java/" style="font-size: 19.38px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.88px;">Mac</a> <a href="/tags/Misc/" style="font-size: 16.88px;">Misc</a> <a href="/tags/PHP/" style="font-size: 10.63px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.13px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.75px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 10.63px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.75px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.25px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 12.5px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.63px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.38px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.5px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.5px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.25px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.25px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 11.76px;">Cas</a> <a href="/tags/DB/" style="font-size: 14.71px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Gradle/" style="font-size: 13.53px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 11.76px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.94px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.47px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.06px;">Misc</a> <a href="/tags/PHP/" style="font-size: 10.59px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 10.59px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.53px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.18px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 12.35px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.29px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.12px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 14.71px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.65px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.65px;">Util</a> <a href="/tags/Vue/" style="font-size: 15.88px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.18px;">zTree</a>
                     </div>
                     <script>
 
@@ -241,6 +241,215 @@
 </nav>
 
             <div class="body-wrap">
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-fe-random" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/fe-random/" class="article-date">
+  	<!-- <time datetime="2017-07-05T08:35:45.000Z" itemprop="datePublished">2017-07-05</time> -->
+    2017-07-05
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/fe-random/">自定义随机函数</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>JavaScript 已经自带了随机数生成函数，为什么我们还需要弄一个随机数的生成工具呢？</p>
+<p>例如 Web 的考试系统里，加载试卷后，需要把试卷的题目顺序打乱，如果用 JS 的随机数函数的话，每次打乱的顺序都是不一样的，因为每次生成的随机数序列都不一样。问题出现了，同一个学员刷新试卷后，题目的顺序和上一次的竟然不一样，这不符合实际要求，应该是不同学员的题目顺序不一样，但是同一个学员的题目顺序永远是一样的。这样就不能使用直接使用原生的随机函数了，下面定义一个随机数生成函数，随机数种子是一个字符串，这样就可以用学员的编码来作为随机数种子生成随机数打乱题目的顺序了，因为每次刷新时同一个学员的编码都是一样的，所以生成的随机数序列都相同，就保证了同一个学员的试卷题目顺序一直都是一样的。</p>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/">FE</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/fe-random/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-spring-web-velocity-syntax" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/spring-web-velocity-syntax/" class="article-date">
+  	<!-- <time datetime="2017-07-01T02:47:01.000Z" itemprop="datePublished">2017-07-01</time> -->
+    2017-07-01
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/spring-web-velocity-syntax/">Velocity 语法</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Velocity 比较接近脚本语言，例如 JS</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#if ($foo &lt; 10)</span><br><span class="line">    ...</span><br><span class="line">#elseif ($foo == 10)</span><br><span class="line">    ...</span><br><span class="line">#elseif ($foo == 12)</span><br><span class="line">    ...</span><br><span class="line">#else</span><br><span class="line">    ...</span><br><span class="line">#end</span><br></pre></td></tr></table></figure>
+<p>比较一下 Freemarker</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;#if foo &lt; 10&gt; </span><br><span class="line">    ... </span><br><span class="line">&lt;#elseif foo == 10&gt; </span><br><span class="line">    ... </span><br><span class="line">&lt;#elseif foo == 12&gt; </span><br><span class="line">    ... </span><br><span class="line">&lt;#else&gt;</span><br><span class="line">    ...</span><br><span class="line">&lt;/#if&gt;</span><br></pre></td></tr></table></figure>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringWeb/">SpringWeb</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/spring-web-velocity-syntax/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-java-velocity" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/java-velocity/" class="article-date">
+  	<!-- <time datetime="2017-06-30T07:47:31.000Z" itemprop="datePublished">2017-06-30</time> -->
+    2017-06-30
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java-velocity/">使用 Velocity 生成静态页面</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Velocity 可以作为 SpringMVC 的 View 使用，也可以用来生成邮件，静态页面等。</p>
+<blockquote>
+<p>Velocity 模版中可以直接调用对象的方法，这点比 Freemarker 好用，if else foreach 等语句也更舒服。</p>
+</blockquote>
+<h2 id="Gradle-依赖"><a href="#Gradle-依赖" class="headerlink" title="Gradle 依赖"></a>Gradle 依赖</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">'org.apache.velocity:velocity:1.7'</span></span><br><span class="line">compile <span class="string">'org.apache.velocity:velocity-tools:2.0'</span></span><br></pre></td></tr></table></figure>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Util/">Util</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/java-velocity/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
   
     <!-- 生成目录 -->
 
@@ -749,231 +958,9 @@
 
 
   
-    <!-- 生成目录 -->
-
-
-<article id="post-java-jdbc-mybatis-performance" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/java-jdbc-mybatis-performance/" class="article-date">
-  	<!-- <time datetime="2017-06-12T05:54:12.000Z" itemprop="datePublished">2017-06-12</time> -->
-    2017-06-12
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/java-jdbc-mybatis-performance/">JDBC 和 MyBatis 性能比较</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>以下为 JDBC 和 MyBatis 的性能比较参考，MyBatis 的性能比 JDBC 大概慢三分之一，看上去相差挺大的，不过网络才是对效率影响最大的因素，局域网中有 200 多倍的影响，这么比较起来，MyBatis 和 JDBC 本身的效率差距可以忽略不计了。</p>
-<p>测试 2 种情况 (每条记录有 7 个字段)</p>
-<ul>
-<li>向本机的数据库插入 66720 条记录</li>
-<li>向局域网中其他机器上的数据库插入 20000 条记录</li>
-</ul>
-<p><img src="../img/java/jdbc-mytabis-performance.png" alt></p>
-<blockquote>
-<p>在向局域网中其他机器上不停的插入数据时，2 台机器的 CPU 占用都很小，也就百分之几，因为大多数时候都在等待 IO。
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/java-jdbc-mybatis-performance/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-fe-vue-admin-3" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/fe-vue-admin-3/" class="article-date">
-  	<!-- <time datetime="2017-06-01T11:38:50.000Z" itemprop="datePublished">2017-06-01</time> -->
-    2017-06-01
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/fe-vue-admin-3/">Vue 后台管理简单框架（三）</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p><a href="/fe-vue-admin-1">Vue 后台管理简单框架（一）</a> 中搭建出了后台管理的页面框架，但是还没有添加其他的功能，例如使用 Vuex 实现模块间数据共享、与服务器通讯、功能独立为模块、修改打包选项等，这一章主要的内容就是介绍这些功能的实现。
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/">FE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/fe-vue-admin-3/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-fe-vue-admin-2" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/fe-vue-admin-2/" class="article-date">
-  	<!-- <time datetime="2017-06-01T10:38:44.000Z" itemprop="datePublished">2017-06-01</time> -->
-    2017-06-01
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/fe-vue-admin-2/">Vue 后台管理简单框架（二）- 多页</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p><a href="/fe-vue-admin-1">Vue 后台管理简单框架（一）</a>中介绍了单页 SPA 的实现，但是实际系统中后台管理的功能很可能是需要多页的，例如要开发一个学习系统，学生和老师的管理功能完全不一样，如果非要把它们放在一起使用 SPA 的方式也可以，左边菜单栏根据角色是老师或则学生来动态显示也是可以的，但是这样会导致管理页的代码很多，功能都放在一起，开发的时候可能不够清晰，增加开发难度，如果把它们分开，使用多页的方式来实现，功能模块就很清晰了，不失为一个好办法。还有例如 PC 的网页和移动设备的网页实现不同，如果放在同一个页面就需要做各种判断来确定对应设备显示的内容也会把很简单的逻辑搞的很复杂，使用不同的页面的话就会很清晰了。</p>
-<p>下面就来介绍把 vue-cli 创建的工程改造为支持多页：</p>
-<ul>
-<li><p>不同页面的文件放在不同的文件夹下</p>
-<blockquote>
-<p>每个页面都有自己的 router.js, index.js, index.vue, index.html</p>
-</blockquote>
-</li>
-<li><p>修改 4 个配置文件：</p>
-<ul>
-<li>webpack.base.conf.js: 修改入口文件 entry</li>
-<li>webpack.dev.conf.js: 修改 HtmlWebpackPlugin</li>
-<li>webpack.prod.conf.js: 修改 HtmlWebpackPlugin，删除 CommonsChunkPlugin</li>
-<li>.eslintrc.js
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/">FE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/fe-vue-admin-2/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/15/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/46/">46</a><a class="extend next" rel="next" href="/page/17/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/15/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/47/">47</a><a class="extend next" rel="next" href="/page/17/">Next &raquo;</a>
     </nav>
   
 </div>

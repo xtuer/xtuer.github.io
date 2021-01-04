@@ -113,7 +113,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 11.88px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Gradle/" style="font-size: 13.75px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 11.88px;">Hexo</a> <a href="/tags/Index/" style="font-size: 13.13px;">Index</a> <a href="/tags/Java/" style="font-size: 19.38px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.88px;">Mac</a> <a href="/tags/Misc/" style="font-size: 16.88px;">Misc</a> <a href="/tags/PHP/" style="font-size: 10.63px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.13px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.75px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 10.63px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.75px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.25px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 12.5px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.63px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.38px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.5px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.5px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.25px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.25px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 11.76px;">Cas</a> <a href="/tags/DB/" style="font-size: 14.71px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Gradle/" style="font-size: 13.53px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 11.76px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.94px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.47px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.06px;">Misc</a> <a href="/tags/PHP/" style="font-size: 10.59px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 10.59px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.53px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.18px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 12.35px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.29px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.12px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 14.71px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.65px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.65px;">Util</a> <a href="/tags/Vue/" style="font-size: 15.88px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.18px;">zTree</a>
                     </div>
                     <script>
 
@@ -241,6 +241,225 @@
 </nav>
 
             <div class="body-wrap">
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-spring-web-mybatis-syntax" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/spring-web-mybatis-syntax/" class="article-date">
+  	<!-- <time datetime="2016-10-15T14:32:37.000Z" itemprop="datePublished">2016-10-15</time> -->
+    2016-10-15
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/spring-web-mybatis-syntax/">Mybatis 语法</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <h2 id="使用-MySQL-自动生成的主键"><a href="#使用-MySQL-自动生成的主键" class="headerlink" title="使用 MySQL 自动生成的主键"></a>使用 MySQL 自动生成的主键</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"insert"</span> <span class="attr">parameterType</span>=<span class="string">"Person"</span> <span class="attr">useGeneratedKeys</span>=<span class="string">"true"</span> <span class="attr">keyProperty</span>=<span class="string">"id"</span>&gt;</span></span><br><span class="line">    INSERT INTO person(name, password) VALUES(#&#123;name&#125;, #&#123;password&#125;)</span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>插入成功后，自动设置传入的参数的 id 属性。</p>
+<h2 id="使用-Oracle-序列生成的主键"><a href="#使用-Oracle-序列生成的主键" class="headerlink" title="使用 Oracle 序列生成的主键"></a>使用 Oracle 序列生成的主键</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"insertEnrollment"</span> <span class="attr">parameterType</span>=<span class="string">"EnrollmentForm"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">selectKey</span> <span class="attr">keyProperty</span>=<span class="string">"enrollId"</span> <span class="attr">resultType</span>=<span class="string">"long"</span> <span class="attr">order</span>=<span class="string">"BEFORE"</span>&gt;</span></span><br><span class="line">        SELECT S_ENR_ID.Nextval FROM DUAL</span><br><span class="line">    <span class="tag">&lt;/<span class="name">selectKey</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    INSERT INTO enrollment (id, address) VALUES (#&#123;enrollId&#125;, #&#123;address&#125;)</span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="使用-MySQL-自动生成-UUID"><a href="#使用-MySQL-自动生成-UUID" class="headerlink" title="使用 MySQL 自动生成 UUID"></a>使用 MySQL 自动生成 UUID</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"createKnowledgePoint"</span> <span class="attr">parameterType</span>=<span class="string">"KnowledgePoint"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">selectKey</span> <span class="attr">keyProperty</span>=<span class="string">"knowledgePointId"</span> <span class="attr">resultType</span>=<span class="string">"string"</span> <span class="attr">order</span>=<span class="string">"BEFORE"</span>&gt;</span></span><br><span class="line">        SELECT uuid() FROM dual</span><br><span class="line">    <span class="tag">&lt;/<span class="name">selectKey</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    INSERT INTO knowledge_point(knowledge_point_id, name, knowledge_point_group_id, is_deleted)</span><br><span class="line">    VALUES(#&#123;knowledgePointId&#125;, #&#123;name&#125;, #&#123;knowledgePointGroupId&#125;, 0)</span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="使用-LIKE-语句"><a href="#使用-LIKE-语句" class="headerlink" title="使用 LIKE 语句"></a>使用 LIKE 语句</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">MySql:</span><br><span class="line">SELECT * FROM user WHERE name like CONCAT(&apos;%&apos;,#&#123;name&#125;,&apos;%&apos;)</span><br><span class="line"></span><br><span class="line">Oracle:</span><br><span class="line">SELECT * FROM user WHERE name like CONCAT(&apos;%&apos;,#&#123;name&#125;,&apos;%&apos;) 或 </span><br><span class="line">SELECT * FROM user WHERE name like &apos;%&apos;||#&#123;name&#125;||&apos;%&apos;</span><br><span class="line"></span><br><span class="line">SQLServer:  </span><br><span class="line">SELECT * FROM user WHERE name like &apos;%&apos;+#&#123;name&#125;+&apos;%&apos;</span><br><span class="line"></span><br><span class="line">DB2:</span><br><span class="line">SELECT * FROM user WHERE name like CONCAT(&apos;%&apos;,#&#123;name&#125;,&apos;%&apos;) 或  </span><br><span class="line">SELECT * FROM user WHERE name like &apos;%&apos;||#&#123;name&#125;||&apos;%&apos;</span><br></pre></td></tr></table></figure>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringWeb/">SpringWeb</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/spring-web-mybatis-syntax/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-spring-web-mybatis" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/spring-web-mybatis/" class="article-date">
+  	<!-- <time datetime="2016-10-15T13:35:46.000Z" itemprop="datePublished">2016-10-15</time> -->
+    2016-10-15
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/spring-web-mybatis/">MyBatis 集成</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>SpringMVC 集成 MyBatis 需要以下几个文件</p>
+<ul>
+<li>配置文件<ul>
+<li>datasource.xml</li>
+<li>mybatis.xml</li>
+<li>web.xml</li>
+</ul>
+</li>
+<li>查询需要的文件<ul>
+<li>可选：bean（也可以不要，直接用 Map）</li>
+<li>必要：mapper xml</li>
+<li>必要：mapper interface</li>
+</ul>
+</li>
+</ul>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringWeb/">SpringWeb</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/spring-web-mybatis/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-spring-web-logback" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/spring-web-logback/" class="article-date">
+  	<!-- <time datetime="2016-10-15T07:48:45.000Z" itemprop="datePublished">2016-10-15</time> -->
+    2016-10-15
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/spring-web-logback/">使用 Logback 记录日志</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Logback 和 Log4j 是同一个人开发的，Logback 比 Log4j 的功能更强大，效率更高，但配置几乎一样。</p>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringWeb/">SpringWeb</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/spring-web-logback/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
   
     <!-- 生成目录 -->
 
@@ -747,251 +966,9 @@
 
 
   
-    <!-- 生成目录 -->
-
-
-<article id="post-spring-web-introduction" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/spring-web-introduction/" class="article-date">
-  	<!-- <time datetime="2016-10-15T01:25:55.000Z" itemprop="datePublished">2016-10-15</time> -->
-    2016-10-15
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/spring-web-introduction/">开发简介</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>本系列文章的目的是使用当前比较流行的技术，由浅入深、从入门开始进行介绍，最终开发一个具有完整功能的网站。</p>
-<h2 id="相关技术"><a href="#相关技术" class="headerlink" title="相关技术"></a>相关技术</h2><ul>
-<li>后端框架: Spring MVC</li>
-<li>页面模版: Thymeleaf</li>
-<li>数据库: MySQL</li>
-<li>持久层: MyBatis</li>
-<li>日志框架: Logback</li>
-<li>架构风格: RESTful</li>
-<li>访问安全: Spring-Security(登录管理，权限管理)</li>
-<li>项目管理: Gradle(自带热更新功能)</li>
-<li>前端框架: Vue、iView</li>
-</ul>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringWeb/">SpringWeb</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/spring-web-introduction/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-tomcat-deploy" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/tomcat-deploy/" class="article-date">
-  	<!-- <time datetime="2016-10-14T09:24:29.000Z" itemprop="datePublished">2016-10-14</time> -->
-    2016-10-14
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/tomcat-deploy/">Tomcat 部署</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>部署工程为 Tomcat 的默认工程，工程的 war 包为 <strong>web-mix.jar</strong></p>
-<ol>
-<li>创建目录 <strong>/Users/Biao/Desktop/data</strong></li>
-<li>复制 <strong>web-mix.jar</strong> 到目录 <strong>/Users/Biao/Desktop/data</strong></li>
-<li><p>解压 <strong>web-mix.jar</strong> 得到目录结构 (Tomcat 启动后不会自动解压)  </p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">data</span><br><span class="line">├── web-mix</span><br><span class="line">│   ├── META-INF</span><br><span class="line">│   │   └── MANIFEST.MF</span><br><span class="line">│   └── WEB-INF</span><br><span class="line">│       ├── asset</span><br><span class="line">│       ├── ......</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>解压命令: <code>rm -rf web-mix; unzip web-mix.war -d web-mix</code></p>
-</blockquote>
-</li>
-<li><p>在 <code>&lt;tomcat&gt;/conf/Catalina/localhost</code> 下创建文件 <strong>ROOT.xml</strong>:</p>
- <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Context</span> <span class="attr">path</span>=<span class="string">"/"</span> <span class="attr">docBase</span>=<span class="string">"/Users/Biao/Desktop/data/web-mix"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">debug</span>=<span class="string">"0"</span> <span class="attr">privileged</span>=<span class="string">"true"</span> <span class="attr">reloadable</span>=<span class="string">"false"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Context</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><strong>docBase</strong>: 工程所在路径<br><strong>path</strong>: 工程的 context path</p>
-</blockquote>
-</li>
-<li>启动 Tomcat</li>
-<li><p>访问 <a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a> 显示的是上面工程的页面，而不是 Tomcat 默认的主页</p>
-<blockquote>
-<p>不用删除 <code>&lt;tomcat&gt;/webapps/ROOT</code>，继续放在那里就可以了</p>
-</blockquote>
-</li>
-</ol>
-
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
-	</div>
-
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-java-lombok" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/java-lombok/" class="article-date">
-  	<!-- <time datetime="2016-10-13T05:25:52.000Z" itemprop="datePublished">2016-10-13</time> -->
-    2016-10-13
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/java-lombok/">使用 Lombok 自动生成 Getter and Setter</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>根据 <code>Java Bean</code> 的规范，Bean 就是一个简单的类，主要是属性和访问函数 Getter and Setter 等，都是模版性的代码，虽然有 IDE 帮助我们自动生成，但是代码打开后全是一大堆的访问函数，看上去也不舒服，更郁闷的是，有时候 Bean 有几十个属性，添加一个新的属性后也很容易忘了添加相应的访问函数，而 Java 的很多框架对属性的访问都是使用反射和访问函数来查找的，由于缺少访问函数导致有时候后端得到了数据，但是前端始终缺几个数据，逻辑看上去又没问题，很难得一下发现问题在哪里 (已经发生过好几次)。现在好了，我们可以使用 <code>Lombok</code> 来自动的为 Bean 生成访问函数。</p>
-<p>一般使用下面 3 个注解就足够了，没必要搞得更麻烦:</p>
-<ul>
-<li>@Getter</li>
-<li>@Setter</li>
-<li>@Accessors(chain=true)</li>
-</ul>
-<blockquote>
-<p>虽然 @Data 的功能很强大，但是阅读上不够直观，所以不推荐使用。</p>
-<p>@Data is equivalent to @Getter, @Setter, @RequiredArgsConstructor, @ToString and  @EqualsAndHashCode.</p>
-<p>Lombok 不会影响程序的运行性能，它使用 javac 的插件机制在编译阶段生成访问函数到 class 的字节码里，和我们直接写没有什么区别，反编译一下生成的 class 文件就一目了然了。</p>
-</blockquote>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/java-lombok/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/35/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/34/">34</a><a class="page-number" href="/page/35/">35</a><span class="page-number current">36</span><a class="page-number" href="/page/37/">37</a><a class="page-number" href="/page/38/">38</a><span class="space">&hellip;</span><a class="page-number" href="/page/46/">46</a><a class="extend next" rel="next" href="/page/37/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/35/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/34/">34</a><a class="page-number" href="/page/35/">35</a><span class="page-number current">36</span><a class="page-number" href="/page/37/">37</a><a class="page-number" href="/page/38/">38</a><span class="space">&hellip;</span><a class="page-number" href="/page/47/">47</a><a class="extend next" rel="next" href="/page/37/">Next &raquo;</a>
     </nav>
   
 </div>

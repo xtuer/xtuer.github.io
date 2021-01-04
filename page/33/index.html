@@ -113,7 +113,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 11.88px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Gradle/" style="font-size: 13.75px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 11.88px;">Hexo</a> <a href="/tags/Index/" style="font-size: 13.13px;">Index</a> <a href="/tags/Java/" style="font-size: 19.38px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.88px;">Mac</a> <a href="/tags/Misc/" style="font-size: 16.88px;">Misc</a> <a href="/tags/PHP/" style="font-size: 10.63px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.13px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.75px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 10.63px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.75px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.25px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 12.5px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.63px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.38px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.5px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.5px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.25px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.25px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 11.76px;">Cas</a> <a href="/tags/DB/" style="font-size: 14.71px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Gradle/" style="font-size: 13.53px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 11.76px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.94px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.47px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.06px;">Misc</a> <a href="/tags/PHP/" style="font-size: 10.59px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 10.59px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.53px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.18px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 12.35px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.29px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.12px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 14.71px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.65px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.65px;">Util</a> <a href="/tags/Vue/" style="font-size: 15.88px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.18px;">zTree</a>
                     </div>
                     <script>
 
@@ -241,6 +241,232 @@
 </nav>
 
             <div class="body-wrap">
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-misc-jndi-datasource" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/misc-jndi-datasource/" class="article-date">
+  	<!-- <time datetime="2016-11-17T11:37:01.000Z" itemprop="datePublished">2016-11-17</time> -->
+    2016-11-17
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/misc-jndi-datasource/">JNDI 数据源</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>本文基于 Spring 的 <code>JdbcTemplate</code> 来介绍使用 JNDI 数据源。</p>
+<p><strong>JNDI 有两种配置方式:</strong></p>
+<ul>
+<li>全局 JNDI 配置 - 在 <code>&lt;tomcat&gt;/conf/server.xml</code> 里配置，所有项目都能使用</li>
+<li>局部 JNDI 配置 - 有两种方式，只有配置此 JNDI 的项目自己能使用<ul>
+<li>在 <code>META-INF/context.xml</code> 里配置</li>
+<li>在 <code>&lt;tomcat&gt;/conf/Catalina/localhost/&lt;projectRelated&gt;.xml</code> 里配置</li>
+</ul>
+</li>
+</ul>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/">Misc</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/misc-jndi-datasource/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-misc-annotation" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/misc-annotation/" class="article-date">
+  	<!-- <time datetime="2016-11-17T08:41:51.000Z" itemprop="datePublished">2016-11-17</time> -->
+    2016-11-17
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/misc-annotation/">Annotation - 注解</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>注解的目的是给类，属性，参数等提供一些元数据信息，例如标记类的用途（都是静态的数据，写程序的时候写死在代码里）。</p>
+<p>注解有 4 个类型，最常用的是 <code>@Target</code> 和 <code>@Retention</code>:</p>
+<ul>
+<li><strong>@Target</strong> - Annotation 修饰的对象范围，即被修饰的对象可以用在什么地方，常用的有类、接口、属性和参数<ul>
+<li>ElementType.TYPE - 类、接口</li>
+<li>ElementType.FIELD - 属性</li>
+<li>ElementType.PARAMETER - 参数</li>
+</ul>
+</li>
+<li><strong>@Retention</strong> - 比较常用的是 RetentionPolicy.RUNTIME，运行时通过反射取得注解的元数据</li>
+<li><strong>@Documented</strong></li>
+<li><strong>@Inherited</strong></li>
+</ul>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/">Misc</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/misc-annotation/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-qt-app-icon" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qt-app-icon/" class="article-date">
+  	<!-- <time datetime="2016-11-16T06:22:39.000Z" itemprop="datePublished">2016-11-16</time> -->
+    2016-11-16
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qt-app-icon/">Qt 应用程序的图标</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>设置应用程序的图标，只需要修改 <code>.pro</code> 文件:</p>
+<ul>
+<li>Mac 使用 icns 图标: <code>ICON     = AppIcon.icns</code></li>
+<li>Windows 使用 ico 图标: <code>RC_ICONS = AppIcon.ico</code></li>
+</ul>
+<blockquote>
+<p>图标和 .pro 文件在同一个目录即可</p>
+</blockquote>
+
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/">Qt</a></li></ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
   
     <!-- 生成目录 -->
 
@@ -759,223 +985,9 @@
 
 
   
-    <!-- 生成目录 -->
-
-
-<article id="post-fe-layer" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/fe-layer/" class="article-date">
-  	<!-- <time datetime="2016-11-09T02:07:41.000Z" itemprop="datePublished">2016-11-09</time> -->
-    2016-11-09
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/fe-layer/">弹出层 Layer</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>Layer 是一款近年来备受青睐的 web 弹层组件，她具备全方位的解决方案，致力于服务各水平段的开发人员，您的页面会轻松地拥有丰富友好的操作体验，只依赖于 jQuery，提供了多种的弹出层选择，对 iframe 支持友好，可去其官网体验一下具体的例子 <a href="http://layer.layui.com" target="_blank" rel="noopener">http://layer.layui.com</a></p>
-<blockquote>
-<ul>
-<li>LeanModal 是一个很简单的弹出层，虽然小，但是太过简陋</li>
-<li>使用 Bootstrap 的时候，BootstrapDialog 是不错的选择，但是 Layer 还提供了 tips，msg 等特有的弹出层方式，更简单的自定义等。</li>
-</ul>
-</blockquote>
-<p><img src="../img/fe/layer.png" alt></p>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/">FE</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/fe-layer/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-qtbook" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/qtbook/" class="article-date">
-  	<!-- <time datetime="2016-11-08T10:51:58.000Z" itemprop="datePublished">2016-11-08</time> -->
-    2016-11-08
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/qtbook/">Qt 杂谈</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>我们所做的事，所写的代码，都已经被其他人 * 过无数次了，在这里只不过是用我们自己的方式再演绎一次，人生如戏，全靠演技。</p>
-<p>我不擅长于写系统的资料，所以这里很多内容看上去都比较散，更像是技术点的集合、提示、思考与总结，目标人群是有一定 Qt 基础的 Qt 爱好者。</p>
-<p>文笔也是我的一大缺点，很是粗糙，想到哪写到哪，不成体系，甚至不同章节风格迥异，一会来个漫画，一会来个网络段子，一会神棍杂谈，宇宙洪荒大道理瞎扯蛋，目的只是用散射的思维方式从侧面启发提示相似的道理，主要是我经常天马行空的乱想如斯，实是不知如何才能表达的更贴切，希望大家多多包涵，透过现象看本质。</p>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Index/">Index</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/">QtBook</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/qtbook/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-qtbook-thread-update-ui-in-nonui-thread" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/qtbook-thread-update-ui-in-nonui-thread/" class="article-date">
-  	<!-- <time datetime="2016-11-08T08:50:49.000Z" itemprop="datePublished">2016-11-08</time> -->
-    2016-11-08
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/qtbook-thread-update-ui-in-nonui-thread/">非 UI 线程中更新 UI</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>在非 UI 线程中更新 UI (例如改变 QLabel 的文本) 应该使用 <code>信号槽</code> 或者 <code>QMetaObject::invokeMethod()</code>，不要直接调用 widget 的函数，例如在非 UI 线程中直接调用 <code>QLabel::setText(text)</code> 就有可能让程序崩溃。有意思的是 Qt 4 时程序会直接奔溃退出，很容易发现问题，但在 Qt 5 里有时候没问题，有时候会在控制台有警告，有时候程序会退出，导致问题隐藏的比较深，所以最好的办法就是遵守规则不要直接调用，下面的程序展示了相关测试代码。</p>
-<blockquote>
-<p>Because of limitations inherited from the low-level libraries on which Qt’s GUI support is built, QWidget and its subclasses are not reentrant. One consequence of this is that we cannot directly call functions on a widget from a secondary thread. If we want to, say, change the text of a QLabel from a secondary thread, we can emit a signal connected to QLabel::setText() or call QMetaObject::invokeMethod() from that thread. For example:</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">void MyThread::run() &#123;</span><br><span class="line">    ...</span><br><span class="line">    QMetaObject::invokeMethod(label, SLOT(setText(const QString &amp;)), Q_ARG(QString, &quot;Hello&quot;));</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/">Qt</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/qtbook-thread-update-ui-in-nonui-thread/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/32/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="page-number" href="/page/32/">32</a><span class="page-number current">33</span><a class="page-number" href="/page/34/">34</a><a class="page-number" href="/page/35/">35</a><span class="space">&hellip;</span><a class="page-number" href="/page/46/">46</a><a class="extend next" rel="next" href="/page/34/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/32/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="page-number" href="/page/32/">32</a><span class="page-number current">33</span><a class="page-number" href="/page/34/">34</a><a class="page-number" href="/page/35/">35</a><span class="space">&hellip;</span><a class="page-number" href="/page/47/">47</a><a class="extend next" rel="next" href="/page/34/">Next &raquo;</a>
     </nav>
   
 </div>

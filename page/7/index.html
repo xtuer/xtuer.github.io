@@ -113,7 +113,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 11.88px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Gradle/" style="font-size: 13.75px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 11.88px;">Hexo</a> <a href="/tags/Index/" style="font-size: 13.13px;">Index</a> <a href="/tags/Java/" style="font-size: 19.38px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.88px;">Mac</a> <a href="/tags/Misc/" style="font-size: 16.88px;">Misc</a> <a href="/tags/PHP/" style="font-size: 10.63px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.13px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.75px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 10.63px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.75px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.25px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 12.5px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.63px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.38px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.5px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.5px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.25px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.25px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 11.76px;">Cas</a> <a href="/tags/DB/" style="font-size: 14.71px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Gradle/" style="font-size: 13.53px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 11.76px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.94px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.47px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.06px;">Misc</a> <a href="/tags/PHP/" style="font-size: 10.59px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 10.59px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.53px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.18px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 12.35px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.29px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.12px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 14.71px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.65px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.65px;">Util</a> <a href="/tags/Vue/" style="font-size: 15.88px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.18px;">zTree</a>
                     </div>
                     <script>
 
@@ -241,6 +241,235 @@
 </nav>
 
             <div class="body-wrap">
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-fe-ckeditor-5" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/fe-ckeditor-5/" class="article-date">
+  	<!-- <time datetime="2018-12-26T07:18:39.000Z" itemprop="datePublished">2018-12-26</time> -->
+    2018-12-26
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/fe-ckeditor-5/">Ckeditor 5 简介</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>新版富文本编辑器 <a href="https://ckeditor.com" target="_blank" rel="noopener">Ckeditor 5</a> 比 Ckeditor 4 使用更简单, <a href="https://ckeditor.com/ckeditor-5/download/" target="_blank" rel="noopener">下载</a> zip 包后只需要里面的 <code>ckeditor.js</code> (连样式文件都不需要), 像下面这样 3 步就可以了:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span> <span class="attr">dir</span>=<span class="string">"ltr"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Ckeditor Demo<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"editor"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span> <span class="comment">&lt;!-- [1] --&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"ckeditor.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span> <span class="comment">&lt;!-- [2] --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">        ClassicEditor.create(<span class="built_in">document</span>.querySelector(<span class="string">'#editor'</span>)); <span class="comment">// [3]</span></span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="../img/fe/ckeditor-5.png" alt></p>
+<p>只是简单的使用, 默认的功能就可以了. 如果还需要更多的功能, 例如集成多种编辑模式, 使用非默认自带插件, 自定义插件等就不能使用直接下载的代码 (You can’t add a plugin to an existing build), 需要我们自己编译源码才行, 下面就一一进行介绍.
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/">FE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/fe-ckeditor-5/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-qtbook-custom-widget-round-button-and-widget" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-custom-widget-round-button-and-widget/" class="article-date">
+  	<!-- <time datetime="2018-12-25T08:32:57.000Z" itemprop="datePublished">2018-12-25</time> -->
+    2018-12-25
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qtbook-custom-widget-round-button-and-widget/">圆角 button and widget 组合</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>下图的控件估计很多数人会使用绘图的方式实现, 代码实现起来虽然不会很复杂, 但是要控制得到满意的效果就不太容易, 对于我来说, 能不使用继承就不使用继承 (例如给某些控件处理事件时, 能用 eventFilter 实现就尽量避免使用继承, 因为继承又要多出几个源码文件 =_=!!!). 巧妙的利用 QSS, 一个 QPushButton 和 QWidget 也能实现.</p>
+<center><img src="../img/qtbook/custom-widget/round-button-and-widget-1.png" width="291"></center>
+
+<p>下面就来看实现的方法吧:</p>
+<ol>
+<li><p>在 QtCreator 中如下图在一个 QWidget 中放一个 QPushButton, 右边放一个 Horizontal Spacer, 然后水平布局<br><img src="../img/qtbook/custom-widget/round-button-and-widget-2.png" width="291"></p>
+</li>
+<li><p>使用下面的 QSS 就可以得到我们想要的效果了:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#widget</span> &#123;</span><br><span class="line">    <span class="attribute">min-height</span>: <span class="number">40px</span>;</span><br><span class="line">    <span class="attribute">max-height</span>: <span class="number">40px</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">4px</span> solid white;</span><br><span class="line">    <span class="attribute">border-top-left-radius</span>: <span class="number">24px</span>;</span><br><span class="line">    <span class="attribute">border-bottom-left-radius</span>: <span class="number">24px</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#AAA</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">QPushButton</span> &#123;</span><br><span class="line">    <span class="attribute">min-height</span>: <span class="number">40px</span>;</span><br><span class="line">    <span class="attribute">max-height</span>: <span class="number">40px</span>;</span><br><span class="line">    <span class="attribute">min-width</span>:  <span class="number">40px</span>;</span><br><span class="line">    <span class="attribute">max-width</span>:  <span class="number">40px</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">4px</span> solid white;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">24px</span>;</span><br><span class="line">    <span class="attribute">background</span>: lightblue;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">QPushButton</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: orange;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>补充说明:</p>
+<ul>
+<li>高: widget 和 button 的最大最小高都设置为 40px, 这样就不会随布局的变化改变了, 圆角就不会受影响</li>
+<li>宽: button 的最大最小宽都设置为 40px, 这样就可以把按钮设置为圆形, 而不会变成圆角矩形</li>
+<li>圆角半径: 为 24px 而不是 20px, 因为圆角的计算需要把边框的宽度也计算在内, 边框的宽度是 4px, 所以圆角半径设置为 24px</li>
+<li>Padding: 为了 widget 和 button 之间不留空隙, 设置 widget 的 padding 为 0</li>
+<li>边框和背景色就无需多说了, 根据自己的爱好设置即可</li>
+</ul>
+
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/">QtBook</a></li></ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-java-scala-app" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/java-scala-app/" class="article-date">
+  	<!-- <time datetime="2018-12-06T03:34:44.000Z" itemprop="datePublished">2018-12-06</time> -->
+    2018-12-06
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java-scala-app/">Gradle 管理 Scala 项目</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>可以使用 Gradle 来管理 Scala 项目, 和管理 Java 的项目是一样的.</p>
+<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">scala</span><br><span class="line">├── build.gradle</span><br><span class="line">└── src</span><br><span class="line">    ├── main</span><br><span class="line">    │   ├── java</span><br><span class="line">    │   ├── resources</span><br><span class="line">    │   └── scala</span><br><span class="line">    │       └── AppDemo.scala</span><br><span class="line">    └── test</span><br><span class="line">        ├── java</span><br><span class="line">        ├── resources</span><br><span class="line">        └── scala</span><br></pre></td></tr></table></figure>
+<h2 id="初始文件"><a href="#初始文件" class="headerlink" title="初始文件"></a>初始文件</h2><p>build.gradle 的内容为:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">plugins &#123;</span><br><span class="line">    id <span class="string">'java'</span></span><br><span class="line">    id <span class="string">'scala'</span></span><br><span class="line">    id <span class="string">'application'</span></span><br><span class="line">    id <span class="string">'com.github.johnrengelman.shadow'</span> version <span class="string">'4.0.3'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// [1] Scala 需要的依赖</span></span><br><span class="line">dependencies &#123;</span><br><span class="line">    compile <span class="string">"org.scala-lang:scala-library:2.12.7"</span></span><br><span class="line">    compile <span class="string">"org.scala-lang:scala-compiler:2.12.7"</span></span><br><span class="line">    compile <span class="string">"org.scala-lang:scala-reflect:2.12.7"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// [2.1] 从命令行运行默认类: gradle run</span></span><br><span class="line"><span class="comment">// [2.2] 从命令行运行某个类: gradle run -DmainClass=Foo</span></span><br><span class="line">ext &#123;</span><br><span class="line">    project.mainClassName = System.getProperty(<span class="string">"mainClass"</span>, <span class="string">"AppDemo"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// [3] 打包: gradle clean shadowJar [-DmainClass=Foo]</span></span><br><span class="line">shadowJar &#123;</span><br><span class="line">    mergeServiceFiles(<span class="string">'META-INF/spring.*'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>插件 shadowJar 用于项目打包, 更多信息请参考 <a href="https://qtdebug.com/misc-gradle-app/" target="_blank" rel="noopener">https://qtdebug.com/misc-gradle-app/</a></p>
+<p>AppDemo.scala 的内容为:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">object AppDemo &#123;</span><br><span class="line">    <span class="function">def <span class="title">main</span><span class="params">(args: Array[String])</span>: Unit </span>= &#123;</span><br><span class="line">        println(<span class="string">"Hello World"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="运行打包"><a href="#运行打包" class="headerlink" title="运行打包"></a>运行打包</h2><ul>
+<li><p>运行: <code>gradle run</code></p>
+<p>运行对象 AppDemo 的 main 函数, 因为 <code>project.mainClassName</code> 中定义了默认运行的类名为 AppDemo</p>
+</li>
+<li><p>打包: <code>gradle clean shadowJar</code></p>
+</li>
+</ul>
+
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
   
     <!-- 生成目录 -->
 
@@ -885,263 +1114,9 @@
 
 
   
-    <!-- 生成目录 -->
-
-
-<article id="post-qtbook-custom-widget-model-view-programming" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/qtbook-custom-widget-model-view-programming/" class="article-date">
-  	<!-- <time datetime="2018-07-09T12:06:48.000Z" itemprop="datePublished">2018-07-09</time> -->
-    2018-07-09
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/qtbook-custom-widget-model-view-programming/">模型视图编程</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>模型视图控制器 (MVC) 编程哪家讲的好，莫非是 Qt 帮助文档里的 Model/View Programming 了，可惜没有中文的，看过不少书里这方面的内容都是从这篇文档里抄的，我们就不要再花心思去创新了，直接翻译吧。</p>
-<h2 id="模型视图编程简介"><a href="#模型视图编程简介" class="headerlink" title="模型视图编程简介"></a>模型视图编程简介</h2><p>Qt contains a set of item view classes that use a model/view architecture to manage the relationship between data and the way it is presented to the user. The separation of functionality introduced by this architecture gives developers greater flexibility to customize the presentation of items, and provides a standard model interface to allow a wide range of data sources to be used with existing item views. In this document, we give a brief introduction to the model/view paradigm, outline the concepts involved, and describe the architecture of the item view system. Each of the components in the architecture is explained, and examples are given that show how to use the classes provided.</p>
-<p>Qt 中有几个 item view 的类 (视图)，使用<code>模型/视图</code>架构来管理和显示数据。这种分离的设计给开发者很高的灵活性，可以自定义数据的显示方式，视图通过模型提供的<code>标准接口</code>可以支持各种各样的数据源。本文涉及到模型/视图编程范例、简要的概念介绍以及描述视图系统的架构。每一个部分都会进行解释以及给出相关代码展示怎么使用。</p>
-<h3 id="模型视图架构"><a href="#模型视图架构" class="headerlink" title="模型视图架构"></a>模型视图架构</h3><p>Model-View-Controller (MVC) is a design pattern originating from Smalltalk that is often used when building user interfaces. In Design Patterns, Gamma et al. write:</p>
-<blockquote>
-<p>MVC consists of three kinds of objects. The Model is the application object, the View is its screen presentation, and the Controller defines the way the user interface reacts to user input. Before MVC, user interface designs tended to lump these objects together. MVC decouples them to increase flexibility and reuse.</p>
-</blockquote>
-<p>Smalltalk 经常用来构建用户界面，模型-视图-控制器 (MVC) 这种设计模式就是从 Smalltalk 借鉴而来的。Gamma et al. 在设计模式中写到:</p>
-<blockquote>
-<p>MVC 由 3 种对象组成：Model 是应用的数据，View 显示数据，Controller 定义了用户界面对用户输入的响应。在使用 MVC 之前，用户界面的设计常常把这些对象耦合在一起。MVC 能够解耦它们从而提供更高的灵活性和重用性。</p>
-</blockquote>
-<p><div style="float: left"><img src="../img/qtbook/custom-widget/mvc/modelview-overview.png"></div>The model/view architecture<br>The model communicates with a source of data, providing an interface for the other components in the architecture. The nature of the communication depends on the type of data source, and the way the model is implemented.</p>
-<p>The view obtains model indexes from the model; these are references to items of data. By supplying model indexes to the model, the view can retrieve items of data from the data source.<br>In standard views, a delegate renders the items of data. When an item is edited, the delegate communicates with the model directly using model indexes.</p>
-<p><div style="clear: both;">在模型/视图架构中，模型访问数据源中的数据，视图等控件通过模型提供的接口访问数据。通信的方式取决于数据源的类型和模型实现的方式。<br>数据由<code>数据项</code>组成，index 是数据项的引用，视图从模型中获得 index。视图通过访问模型中的 index 就能够访问数据源中的数据了。<br>在标准的视图中，<code>代理</code>用来渲染数据项。当数据项被编辑时，代理使用模型的 index 和模型交互。</div></p>
-<p>Generally, the model/view classes can be separated into the three groups described above: models, views, and delegates. Each of these components is defined by abstract classes that provide common interfaces and, in some cases, default implementations of features. Abstract classes are meant to be subclassed in order to provide the full set of functionality expected by other components; this also allows specialized components to be written.</p>
-<p>Models, views, and delegates communicate with each other using signals and slots:</p>
-<ul>
-<li>Signals from the model inform the view about changes to the data held by the data source.</li>
-<li>Signals from the view provide information about the user’s interaction with the items being displayed.</li>
-<li>Signals from the delegate are used during editing to tell the model and view about the state of the editor.</li>
-</ul>
-<p>根据上面的介绍，模型/视图的类可以分为三类：模型、视图和代理，它们都有相应的抽象类提供通用的接口和某些功能的默认实现。抽象类就意味着要被其他类继承，根据需求提供对应的实现。</p>
-<p>模型、视图和代理之间使用信号槽进行通信:</p>
-<ul>
-<li>数据源中的数据发生变化时，模型发射信号通知视图</li>
-<li>用户和视图交互时视图会发射信号，例如点击 view item，信号的参数包含了被交互的 view item 的信息</li>
-<li>编辑数据项的时候代理会把编辑器的状态通过信号通知模型和视图</li>
-</ul>
-<h3 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h3><p>All item models are based on the QAbstractItemModel class. This class defines an interface that is used by views and delegates to access data. The data itself does not have to be stored in the model; it can be held in a data structure or repository provided by a separate class, a file, a database, or some other application component.</p>
-<p>The basic concepts surrounding models are presented in the section on Model Classes.</p>
-<p>QAbstractItemModel provides an interface to data that is flexible enough to handle views that represent data in the form of tables, lists, and trees. However, when implementing new models for list and table-like data structures, the QAbstractListModel and QAbstractTableModel classes are better starting points because they provide appropriate default implementations of common functions. Each of these classes can be subclassed to provide models that support specialized kinds of lists and tables.</p>
-<p>The process of subclassing models is discussed in the section on Creating New Models.</p>
-<p>所有的 item 模型都是基于类 QAbstractItemModel 实现的。视图和代理使用 QAbstractItemModel 定义的接口访问数据。数据不一定是保存在模型中，也可以保存在其他类、文件、数据库或者其他应用中。</p>
-<p>模型相关的概念在模型的类一节中进行介绍。</p>
-<p>模型类 QAbstractItemModel 定义的访问数据接口 (函数) 是很灵活的，能够满足表格、列表和树用来显示模型的数据。然而，当给列表和表格自定义新的模型时，继承 QAbstractListModel 或者 QAbstractTableModel 是个很好的选择，因为他们提供了很多通用操作的默认实现，就不需要我们再重复实现。</p>
-<p>实现自定义模型在创建新的模型类一节中进行介绍。</p>
-<p>Qt provides some ready-made models that can be used to handle items of data:</p>
-<ul>
-<li>QStringListModel is used to store a simple list of QString items.</li>
-<li>QStandardItemModel manages more complex tree structures of items, each of which can contain arbitrary data.</li>
-<li>QFileSystemModel provides information about files and directories in the local filing system.</li>
-<li>QSqlQueryModel, QSqlTableModel, and QSqlRelationalTableModel are used to access databases using model/view conventions.</li>
-</ul>
-<p>If these standard models do not meet your requirements, you can subclass QAbstractItemModel, QAbstractListModel, or QAbstractTableModel to create your own custom models.</p>
-<p>Qt 已经提供了一些可用于处理数据项的模型:</p>
-<ul>
-<li>QStringListModel 用于存储简单的列表数据，数据项为 QString</li>
-<li>QStandardItemModel 用于管理有树结构关系的数据项，每个数据项可以包含任意的数据</li>
-<li>QFileSystemModel 访问本地文件系统的文件和文件夹</li>
-<li>QSqlQueryModel, QSqlTableModel 和 QSqlRelationalTableModel 使用模型视图的方式访问数据库</li>
-</ul>
-<p>如果这些标准的模型还不能满足我们的需求，可以继承 QAbstractItemModel, QAbstractListModel, or QAbstractTableModel 实现自定义的模型类。</p>
-
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/">Qt</a></li></ul>
-	</div>
-
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-qtbook-custom-widget-group" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/qtbook-custom-widget-group/" class="article-date">
-  	<!-- <time datetime="2018-07-08T09:21:24.000Z" itemprop="datePublished">2018-07-08</time> -->
-    2018-07-08
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/qtbook-custom-widget-group/">分组布局</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>在进行界面布局的时候，常把控件根据功能分组放在一起，最常用的就是使用 QGroupBox 来放置一组控件。QGroupBox 虽然使用起来很方便，但就是有点丑，在要求较高的设计中，还得使用控件组合加自定义绘图或者 QSS 等才能实现，例如下面这个软件界面，直接使用 Qt 提供的控件是满足不了的:</p>
-<p><img src="../img/qtbook/custom-widget/group-effect.png" alt></p>
-<p>上图中分组的布局没有使用 QGroupBox，而是用几个控件组合起来实现的，设计如下:</p>
-<p><img src="../img/qtbook/custom-widget/group-design.png" alt></p>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/">QtBook</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/qtbook-custom-widget-group/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-qtbook-custom-widget-abnormity-buttons" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/qtbook-custom-widget-abnormity-buttons/" class="article-date">
-  	<!-- <time datetime="2018-06-21T03:45:06.000Z" itemprop="datePublished">2018-06-21</time> -->
-    2018-06-21
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/qtbook-custom-widget-abnormity-buttons/">异形按钮组</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>不少软件里看到过如下的按钮组，有 5 个按钮，中间 1 个，上下左右各一个：</p>
-<p><img src="../img/qtbook/custom-widget/abnormity-button.png" alt></p>
-<p>可以通过绘图的方式实现：计算每一个按钮的位置、大小、图片、点击的时候判断点击到了哪个按钮然后刷新绘制它的样式，并调用相应的函数执行点击操作，难度还是相当大的。
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/">QtBook</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/qtbook-custom-widget-abnormity-buttons/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/6/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/46/">46</a><a class="extend next" rel="next" href="/page/8/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/6/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/47/">47</a><a class="extend next" rel="next" href="/page/8/">Next &raquo;</a>
     </nav>
   
 </div>

@@ -113,7 +113,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 11.88px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Gradle/" style="font-size: 13.75px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 11.88px;">Hexo</a> <a href="/tags/Index/" style="font-size: 13.13px;">Index</a> <a href="/tags/Java/" style="font-size: 19.38px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.88px;">Mac</a> <a href="/tags/Misc/" style="font-size: 16.88px;">Misc</a> <a href="/tags/PHP/" style="font-size: 10.63px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.13px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.75px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 10.63px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.75px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.25px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 12.5px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.63px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.38px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.5px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.5px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.25px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.25px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 11.76px;">Cas</a> <a href="/tags/DB/" style="font-size: 14.71px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Gradle/" style="font-size: 13.53px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 11.76px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.94px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.47px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.06px;">Misc</a> <a href="/tags/PHP/" style="font-size: 10.59px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 10.59px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.53px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.18px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 12.35px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.29px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.12px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 14.71px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.65px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.65px;">Util</a> <a href="/tags/Vue/" style="font-size: 15.88px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.18px;">zTree</a>
                     </div>
                     <script>
 
@@ -241,6 +241,286 @@
 </nav>
 
             <div class="body-wrap">
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-qt-opencv-install" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qt-opencv-install/" class="article-date">
+  	<!-- <time datetime="2018-02-05T07:57:24.000Z" itemprop="datePublished">2018-02-05</time> -->
+    2018-02-05
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qt-opencv-install/">Qt 项目中使用 OpenCV</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>相信很多人在 Qt 项目中使用 OpenCV 都遇到过麻烦，<a href="http://qtdebug.com/windows-develop-software/" target="_blank" rel="noopener">Windows 开发者软件推荐</a> 一文中介绍过使用 Vcpkg 来管理第三方库，这里就使用 Vcpkg 安装 OpenCV 然后在 <code>MSVC 的 Qt</code> 项目中使用(因为 Vcpkg 使用的是 MSVC 编译器，OpenCV 是 C++ 库，不能够跨编译器，所以 MinGW 的项目不能使用):</p>
+<ol>
+<li><p>安装 Vcpkg 就不用多说了，安装到 C 盘根目录下吧</p>
+</li>
+<li><p>安装 OpenCV: <code>vcpkg install opencv</code></p>
+</li>
+<li><p>Qt Creator 中 创建 Qt 项目</p>
+</li>
+<li><p>修改项目的 .pro 文件，主要是下面 2 句引入 OpenCV</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INCLUDEPATH += C:/vcpkg/installed/x86-windows/include</span><br><span class="line">LIBS        += C:/vcpkg/installed/x86-windows/lib/opencv_*.lib</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>使用 <code>opencv_*.lib</code> 引入所有 <code>opencv_</code> 开头的 lib 文件，这样就不需要一个一个的引入 lib 了。</p>
+<p>引入 dll 的时候也可以使用 <code>*</code> 来匹配一次引入多个，例如 <code>tiff*.dll</code>。</p>
+</blockquote>
+</li>
+<li><p>main.cpp</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>  </span>&#123;</span><br><span class="line">    Mat img = imread(<span class="string">"D:/Wallpaper/desktop.jpg"</span>);</span><br><span class="line">    imshow(<span class="string">"TEST"</span>, img);</span><br><span class="line">    waitKey(<span class="number">6000</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>把 OpenCV 相关的 DLL 从 <code>C:/vcpkg/installed/x86-windows/bin</code> 目录复制到编译出的 exe 所在目录</p>
+</li>
+<li><p>运行程序，然后就看到打开一个窗口，图片显示在窗口中</p>
+</li>
+</ol>
+
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/">Qt</a></li></ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-windows-develop-software" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/windows-develop-software/" class="article-date">
+  	<!-- <time datetime="2018-02-04T01:00:06.000Z" itemprop="datePublished">2018-02-04</time> -->
+    2018-02-04
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/windows-develop-software/">Windows 开发者软件推荐</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <h2 id="包管理器-Chocolatey"><a href="#包管理器-Chocolatey" class="headerlink" title="包管理器 Chocolatey"></a>包管理器 Chocolatey</h2><p>Chocolatey 是一款专为 Windows 系统开发的、基于 NuGet 的包管理器工具，类似于 </p>
+<ul>
+<li>Node 的 npm</li>
+<li>MacOS 的 brew</li>
+<li>Ubuntu 的 apt-get</li>
+<li>CentOS 的 yml</li>
+</ul>
+<p>Chocolatey 的设计目标是成为一个去中心化的框架，便于开发者按需快速安装应用程序和工具，官网为 <a href="https://chocolatey.org" target="_blank" rel="noopener">https://chocolatey.org</a>，安装很简单，根据说明安装即可。</p>
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><ul>
+<li><p>搜索: <code>choco search something</code></p>
+</li>
+<li><p>列出: <code>choco list -lo</code></p>
+</li>
+<li><p>安装: <code>choco install cmake</code></p>
+<blockquote>
+<p>可访问 <a href="https://chocolatey.org/packages" target="_blank" rel="noopener">https://chocolatey.org/packages</a> 查看已有的包和说明</p>
+</blockquote>
+</li>
+<li><p>卸载: <code>choco uninstall cmake</code></p>
+</li>
+<li><p>升级: <code>choco upgrade cmake</code></p>
+</li>
+<li><p>固定包的版本，防止包被升级: <code>choco pin windirstat</code>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/">Mac</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/windows-develop-software/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-java-mybatis-collection" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/java-mybatis-collection/" class="article-date">
+  	<!-- <time datetime="2018-01-25T06:13:16.000Z" itemprop="datePublished">2018-01-25</time> -->
+    2018-01-25
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java-mybatis-collection/">MyBatis Collecton</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>MyBatis 中一对多的关系使用 <code>collection</code> 进行映射，但是怎么确定哪些行是同一个对象的数据呢？关键是使用 <code>&lt;id&gt;</code> 来归类数据(MyBatis 的文档只提到是为了提高效率)，下面介绍使用 <code>&lt;id&gt;</code> 和 <code>&lt;result&gt;</code> 的区别。</p>
+<h2 id="数据表"><a href="#数据表" class="headerlink" title="数据表"></a>数据表</h2><table>
+<thead>
+<tr>
+<th>name</th>
+<th>email</th>
+<th>country</th>
+<th>province</th>
+<th>street</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Biao</td>
+<td><a href="mailto:biao@gmail.com" target="_blank" rel="noopener">biao@gmail.com</a></td>
+<td>china</td>
+<td>北京</td>
+<td>天河街</td>
+</tr>
+<tr>
+<td>Biao</td>
+<td><a href="mailto:biao@icloud.com" target="_blank" rel="noopener">biao@icloud.com</a></td>
+<td>Deutschland</td>
+<td>Braunschweig</td>
+<td>Wiesenstrasse</td>
+</tr>
+<tr>
+<td>Alice</td>
+<td><a href="mailto:alice@gmail.com" target="_blank" rel="noopener">alice@gmail.com</a></td>
+<td>china</td>
+<td>河北</td>
+<td>鼓楼大街</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Xml-Mapper"><a href="#Xml-Mapper" class="headerlink" title="Xml Mapper"></a>Xml Mapper</h2><p>查找所有用户</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">name</span>, email, country, province, street <span class="keyword">FROM</span> <span class="keyword">user</span></span><br></pre></td></tr></table></figure>
+<p>映射文件如下</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.xtuer.mapper.UserMapper"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"users"</span> <span class="attr">resultMap</span>=<span class="string">"userResultMap"</span>&gt;</span></span><br><span class="line">        SELECT name, email, country, province, street FROM user</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"userResultMap"</span> <span class="attr">type</span>=<span class="string">"User"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">property</span>=<span class="string">"name"</span> <span class="attr">column</span>=<span class="string">"name"</span>/&gt;</span> <span class="comment">&lt;!-- 关注这里 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"email"</span> <span class="attr">column</span>=<span class="string">"email"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">collection</span> <span class="attr">property</span>=<span class="string">"addresses"</span> <span class="attr">resultMap</span>=<span class="string">"addressResultMap"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"addressResultMap"</span> <span class="attr">type</span>=<span class="string">"Address"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"country"</span> <span class="attr">column</span>=<span class="string">"country"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"province"</span> <span class="attr">column</span>=<span class="string">"province"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"street"</span> <span class="attr">column</span>=<span class="string">"street"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/java-mybatis-collection/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
   
     <!-- 生成目录 -->
 
@@ -770,227 +1050,9 @@
 
 
   
-    <!-- 生成目录 -->
-
-
-<article id="post-qtbook-custom-widget-drag-to-move-window" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/qtbook-custom-widget-drag-to-move-window/" class="article-date">
-  	<!-- <time datetime="2017-11-24T02:14:58.000Z" itemprop="datePublished">2017-11-24</time> -->
-    2017-11-24
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/qtbook-custom-widget-drag-to-move-window/">按下鼠标拖动窗口</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>QWidget 已经实现了在标题栏按下鼠标移动窗口的功能，但是当实现无边框窗口时，因为没有了标题栏，移动窗口的功能就需要我们自己实现了，不过也不复杂，主要是处理鼠标的按下、移动、松开三个事件:</p>
-<ul>
-<li>按下鼠标：记录此时鼠标的全局坐标和窗口左上角的坐标，并且设置鼠标为按下状态</li>
-<li>移动鼠标：鼠标按下时移动鼠标，计算此时鼠标和鼠标按下时的位移差，加上按下鼠标时窗口左上角的坐标得到窗口新的坐标，移动窗口到此坐标</li>
-<li>松开鼠标：设置鼠标为未按下状态
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/">QtBook</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/qtbook-custom-widget-drag-to-move-window/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-qtbook-paint-mouse-selection" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/qtbook-paint-mouse-selection/" class="article-date">
-  	<!-- <time datetime="2017-11-19T09:14:51.000Z" itemprop="datePublished">2017-11-19</time> -->
-    2017-11-19
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/qtbook-paint-mouse-selection/">拖拽鼠标画矩形</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>经常看到有同学问：如何实现用鼠标拖拽出一个矩形区域的效果，类似 QQ 截图的那个矩形区域？</p>
-<p>很简单的一个问题，主要是处理鼠标的按下、移动、松开三个事件:</p>
-<ul>
-<li>按下鼠标：用一个变量标记要开始拖拽出矩形了，并记录按下的位置作为矩形的左上角顶点</li>
-<li>移动鼠标：按下时移动鼠标，鼠标的当前位置作为矩形新的右下角的顶点，每次移动事件发生时都要重新画一次矩形，因为矩形变了</li>
-<li>松开鼠标：清除拖拽矩形的标志，松开鼠标后，移动鼠标时就不要再改变矩形了
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/">QtBook</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/qtbook-paint-mouse-selection/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-qtbook-qtcreator" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/qtbook-qtcreator/" class="article-date">
-  	<!-- <time datetime="2017-11-13T13:01:42.000Z" itemprop="datePublished">2017-11-13</time> -->
-    2017-11-13
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/qtbook-qtcreator/">Qt Creator 简介</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>工欲善其事，必先利其器，顺手的开发工具，能够让我们事半功倍，Qt 开发，推荐使用 Qt Creator，因为在 Qt Creator 中集成了很多实用的功能，不需要切换到其他软件就能使用</p>
-<ul>
-<li>编写代码(废话)</li>
-<li>使用 UI Designer 进行可视化的布局界面</li>
-<li>搜索帮助文档</li>
-<li>学习自带的例子</li>
-<li>Ctrl + K 快速搜索、定位</li>
-</ul>
-<p>接下来就简单的介绍下我个人觉得 Qt Creator 使用中比较重要的地方。
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/">QtBook</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/qtbook-qtcreator/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/9/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/46/">46</a><a class="extend next" rel="next" href="/page/11/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/9/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/47/">47</a><a class="extend next" rel="next" href="/page/11/">Next &raquo;</a>
     </nav>
   
 </div>
