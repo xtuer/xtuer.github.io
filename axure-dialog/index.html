@@ -14,16 +14,16 @@
 <meta property="og:site_name" content="公孙二狗">
 <meta property="og:description" content="Axure  创建弹窗，主要涉及以下几个方面:  弹窗内容的元素放到动态面板里，这样所有元素都是动态面板的子元素，通过隐藏和显示动态面板来控制弹窗及其内容的可见性 弹窗在页面中是可见的，页面加载的时候隐藏弹窗，需要的时候才显示弹窗。这样编辑的时候可以看到弹窗的内容，否则就是一个黄色块，不方便编辑与查看 弹窗在所属页面的放置位置，不要挡住其他内容，放到页面的旁边即可 弹窗的动态面板居中显示 (Pin">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://xtuer.github.io/img/axure/login-dialog-5.png">
 <meta property="og:image" content="http://xtuer.github.io/img/axure/login-dialog-1.png">
 <meta property="og:image" content="http://xtuer.github.io/img/axure/login-dialog-2.png">
 <meta property="og:image" content="http://xtuer.github.io/img/axure/login-dialog-3.png">
 <meta property="og:image" content="http://xtuer.github.io/img/axure/login-dialog-4.png">
-<meta property="og:image" content="http://xtuer.github.io/img/axure/login-dialog-5.png">
-<meta property="og:updated_time" content="2021-01-06T06:11:08.581Z">
+<meta property="og:updated_time" content="2021-01-06T06:24:06.942Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Axure 创建弹窗">
 <meta name="twitter:description" content="Axure  创建弹窗，主要涉及以下几个方面:  弹窗内容的元素放到动态面板里，这样所有元素都是动态面板的子元素，通过隐藏和显示动态面板来控制弹窗及其内容的可见性 弹窗在页面中是可见的，页面加载的时候隐藏弹窗，需要的时候才显示弹窗。这样编辑的时候可以看到弹窗的内容，否则就是一个黄色块，不方便编辑与查看 弹窗在所属页面的放置位置，不要挡住其他内容，放到页面的旁边即可 弹窗的动态面板居中显示 (Pin">
-<meta name="twitter:image" content="http://xtuer.github.io/img/axure/login-dialog-1.png">
+<meta name="twitter:image" content="http://xtuer.github.io/img/axure/login-dialog-5.png">
   
     <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
   
@@ -310,8 +310,11 @@
 <li>弹窗在页面中是可见的，页面加载的时候隐藏弹窗，需要的时候才显示弹窗。这样编辑的时候可以看到弹窗的内容，否则就是一个黄色块，不方便编辑与查看</li>
 <li>弹窗在所属页面的放置位置，不要挡住其他内容，放到页面的旁边即可</li>
 <li>弹窗的动态面板居中显示 (Pin to Browser)</li>
-<li>如果是需要重复使用的弹窗，可以创建为模板 (Master)，或者根据分模块的思想，也可以把弹窗直接作为 Master，然后在页面中引用<a id="more"></a></li>
+<li>如果是需要重复使用的弹窗，可以创建为模板 (Master)，或者根据分模块的思想，也可以把弹窗直接作为 Master，然后在页面中引用</li>
 </ul>
+<p>下面我们实现一个如图的弹窗功能:</p>
+<p><img src="../img/axure/login-dialog-5.png" style="max-width: 700px"></p>
+<a id="more"></a>
 <h2 id="创建弹窗"><a href="#创建弹窗" class="headerlink" title="创建弹窗"></a>创建弹窗</h2><p>创建弹窗:</p>
 <ol>
 <li>首先创建一个动态面板的模板，命名为 loginDialog</li>
@@ -329,8 +332,13 @@
 </ol>
 <p><img src="../img/axure/login-dialog-3.png"></p>
 <p><img src="../img/axure/login-dialog-4.png" style="max-width: 700px"></p>
-<p>弹窗显示的效果如下:</p>
-<p><img src="../img/axure/login-dialog-5.png" style="max-width: 700px"></p>
+<blockquote>
+<p>页面的上部是一个 Header 的模板，大家可以尝试下自己实现，其中:</p>
+<ul>
+<li>模板中点击按钮<kbd>登陆</kbd>发出事件 onLogin (raiseEvent)</li>
+<li>页面中对 onLogin 添加弹窗的显示动作</li>
+</ul>
+</blockquote>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://www.bilibili.com/video/BV18t411p7ex?p=1" target="_blank" rel="noopener">Axure 9 全面教程：所有功能讲解+高级效果实现</a>，这个视频非常不错，快速的介绍了 Axure 的核心功能。</p>
 
         
