@@ -245,6 +245,83 @@
     <!-- 生成目录 -->
 
 
+<article id="post-java-future" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/java-future/" class="article-date">
+  	<!-- <time datetime="2016-05-02T14:27:55.000Z" itemprop="datePublished">2016-05-02</time> -->
+    2016-05-02
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java-future/">Future</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Future 的作用</p>
+<ul>
+<li>作为 <code>ExecutorService.submit(Callable|Runnable)</code> 的返回结果</li>
+<li>得到了 Future，说明其相关的任务已经提交给线程池去执行了</li>
+<li>获取任务的结果(阻塞): <code>Future.get()</code></li>
+<li>取消任务: <code>Future.cancel()</code></li>
+<li>查看任务是否完成: <code>Future.isDone()</code></li>
+</ul>
+<blockquote>
+<p>如果线程池执行的任务没有返回结果，直接用 Runnable 就好了，不需要用 Callable (代码里加上无意义的返回语句有点奇怪)，Callable 更多是任务执行后有结果返回。</p>
+</blockquote>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/java-future/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-fe-jquery-ui-drag-and-drop" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -839,73 +916,6 @@
       
         <p class="article-more-link">
           <a  href="/solr-chinese-analyzer/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-solr-java-access" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/solr-java-access/" class="article-date">
-  	<!-- <time datetime="2016-04-21T06:13:07.000Z" itemprop="datePublished">2016-04-21</time> -->
-    2016-04-21
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/solr-java-access/">Java 访问 Solr</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>可以使用 SolrJ 来访问 Solr，其提供的 SolrClient 能够在连接断开后自动重连。</p>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/solr-java-access/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

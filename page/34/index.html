@@ -245,6 +245,74 @@
     <!-- 生成目录 -->
 
 
+<article id="post-absolute-layout" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/absolute-layout/" class="article-date">
+  	<!-- <time datetime="2016-11-10T05:16:21.000Z" itemprop="datePublished">2016-11-10</time> -->
+    2016-11-10
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/absolute-layout/">绝对坐标布局</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>如图所使用的布局在管理系统、监控、统计平台以及对话框中经常使用<br><img src="../img/fe/absolute-layout.png" alt></p>
+<p>主要是使用绝对坐标设置 top, left, right, bottom 和高宽来布局。</p>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/">FE</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/absolute-layout/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-fe-layer" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -879,70 +947,6 @@
         <p class="article-more-link">
           <a  href="/qt-flat-scrollbar/#more">阅读全文</a>
         </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-java-response-image" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/java-response-image/" class="article-date">
-  	<!-- <time datetime="2016-11-02T13:31:37.000Z" itemprop="datePublished">2016-11-02</time> -->
-    2016-11-02
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/java-response-image/">HttpServletResponse 返回图片</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/image/foo.jpg"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">enrollRegPhoto</span><span class="params">(HttpServletResponse response)</span> </span>&#123;</span><br><span class="line">    InputStream in = <span class="keyword">null</span>;</span><br><span class="line">    OutputStream out = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        response.setContentType(<span class="string">"image/png"</span>); <span class="comment">// 如果是 jpg 则为 image/jpeg，svg 为 image/svg+xml 等</span></span><br><span class="line">        in = <span class="keyword">new</span> FileInputStream(<span class="string">"/imageDir/foo.jpg"</span>);</span><br><span class="line">        out = response.getOutputStream();</span><br><span class="line">        IOUtils.copy(in, out);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">        logger.warn(ex.getMessage());</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        IOUtils.closeQuietly(in);</span><br><span class="line">        IOUtils.closeQuietly(out);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Util/">Util</a></li></ul>
-	</div>
-
-
-      
-
       
       <div class="clearfix"></div>
     </div>

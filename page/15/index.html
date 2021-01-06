@@ -245,6 +245,84 @@
     <!-- 生成目录 -->
 
 
+<article id="post-mysql-mycli" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/mysql-mycli/" class="article-date">
+  	<!-- <time datetime="2017-08-12T00:43:49.000Z" itemprop="datePublished">2017-08-12</time> -->
+    2017-08-12
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/mysql-mycli/">MySQL 命令行客户端 MyCLI</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>MyCLI 是一个 MySQL 的命令行客户端，可以实现自动补全（auto-completion）和语法高亮，具体特性如下:</p>
+<ul>
+<li>智能补全</li>
+<li>SQL 语法高亮显示</li>
+<li>自动完成输入 SQL关键字以及数据库列表</li>
+<li><code>SELECT * FROM &lt;tab&gt;</code> 只显示表名</li>
+<li><code>SELECT * FROM users WHERE &lt;tab&gt;</code> 只显示列名</li>
+<li>支持 tab 自动补全</li>
+<li>MySQL 的输出会通过 less 命令进行格式化输出</li>
+<li>支持 ssl 连接</li>
+</ul>
+<p><img src="../img/db/mycli.gif" alt></p>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DB/">DB</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/mysql-mycli/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-qt-camera" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -982,84 +1060,6 @@
       
         <p class="article-more-link">
           <a  href="/qt-refactor/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-java-sign" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/java-sign/" class="article-date">
-  	<!-- <time datetime="2017-07-13T03:22:33.000Z" itemprop="datePublished">2017-07-13</time> -->
-    2017-07-13
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/java-sign/">签名验证</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <h2 id="签名验证"><a href="#签名验证" class="headerlink" title="签名验证"></a>签名验证</h2><p>签名验证涉及到客户端（比如一个 Web 应用）和服务器端，每个客户端在服务器上有一个对应的 <strong>app_id</strong> 和 <strong>app_key</strong>，大致步骤如下：</p>
-<ol>
-<li><p>客户端使用 app_id + app_key + <code>其他参数</code> 生成签名字符串 <code>sign1</code></p>
-</li>
-<li><p>把 app_id、<code>其他参数</code> 和 <code>sign1</code> 一起发送给服务器 (app_key 不发送)</p>
-</li>
-<li><p>服务器接收到请求后，根据参数中的 app_id 查找到对应的 app_key，然后根据签名算法生成签名字符串 sign2</p>
-<blockquote>
-<p>客户端和服务器端使用同样的签名算法生成签名字符串: <code>app_id + app_key + 其他参数</code></p>
-</blockquote>
-</li>
-<li><p>服务器端比较参数中的 sign1 和服务器生成的 sign2，如果相等则签名没问题，放行访问，否则签名无效，拒绝访问
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Util/">Util</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/java-sign/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

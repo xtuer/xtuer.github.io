@@ -245,6 +245,78 @@
     <!-- 生成目录 -->
 
 
+<article id="post-qtbook-thread" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-thread/" class="article-date">
+  	<!-- <time datetime="2017-10-29T02:57:10.000Z" itemprop="datePublished">2017-10-29</time> -->
+    2017-10-29
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qtbook-thread/">多线程编程</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>读取文件显示到 text edit 中，一个非常简单的需求，啥也不说了，撸起袖子，打开 Qt Creator 开干。</p>
+<p>先设计 UI 如下，中间是 QTextEdit，底部是按钮 QPushButton:</p>
+<p><img src="../img/qtbook/thread/thread-1.png" alt></p>
+<p>点击按钮，按行读取文件，然后添加到 QTextEdit，对我们来说也是分分钟的事(Lambda Lambda Lambda):</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">ReadingWidget::ReadingWidget(QWidget *parent) : QWidget(parent), ui(<span class="keyword">new</span> Ui::ReadingWidget) &#123;</span><br><span class="line">    ui-&gt;setupUi(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 点击按钮，按行读取文件，添加到 text edit 中显示出来</span></span><br><span class="line">    connect(ui-&gt;pushButton, &amp;QPushButton::clicked, [<span class="keyword">this</span>] &#123;</span><br><span class="line">        QFile file(<span class="string">"/Users/Biao/Desktop/data.txt"</span>); <span class="comment">// 文件路径自己修改一下啊</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!file.open(QIODevice::Text | QIODevice::ReadOnly)) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        QTextStream in(&amp;file);</span><br><span class="line">        <span class="keyword">while</span> (!in.atEnd()) &#123;</span><br><span class="line">            QString line = in.readLine(); <span class="comment">// 读取一行</span></span><br><span class="line">            ui-&gt;textEdit-&gt;append(line); <span class="comment">// 添加到 text edit</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/">QtBook</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/qtbook-thread/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-java-snowflake" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -891,75 +963,6 @@
       
         <p class="article-more-link">
           <a  href="/fe-mock/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-spring-core-injection-enum" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/spring-core-injection-enum/" class="article-date">
-  	<!-- <time datetime="2017-09-22T03:49:31.000Z" itemprop="datePublished">2017-09-22</time> -->
-    2017-09-22
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/spring-core-injection-enum/">Enum 注入</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>注入 Enum 可以使用字符串直接注入，或者借助 org.springframework.beans.factory.config.FieldRetrievingFactoryBean，下面以注入 FastJson 的 SerializerFeature 和自定义 enum 为例. </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.alibaba.fastjson.serializer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> SerializerFeature &#123;</span><br><span class="line">    QuoteFieldNames,</span><br><span class="line">    UseSingleQuotes,</span><br><span class="line">    WriteMapNullValue,</span><br><span class="line">    WriteEnumUsingToString,</span><br><span class="line">    WriteEnumUsingName,</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Color &#123;</span><br><span class="line">    RED, GREEN, BLUE</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringCore/">SpringCore</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/spring-core-injection-enum/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

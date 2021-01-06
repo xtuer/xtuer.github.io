@@ -245,6 +245,73 @@
     <!-- 生成目录 -->
 
 
+<article id="post-spring-core-quartz" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/spring-core-quartz/" class="article-date">
+  	<!-- <time datetime="2017-04-02T04:37:32.000Z" itemprop="datePublished">2017-04-02</time> -->
+    2017-04-02
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/spring-core-quartz/">Quartz 实现定时任务</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>定义一个定时任务，需要 <code>Task</code>, <code>Job</code>, <code>Trigger</code>, <code>Scheduler</code> 4 个类，其中 <code>Task</code> 是我们自定义的类，是任务的实现逻辑，另外 3 个类则是由 Spring 和 Quartz 提供的，在 Bean 的配置文件里配置即可。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringCore/">SpringCore</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/spring-core-quartz/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-spring-core-aspectj-annotation" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -875,74 +942,6 @@
       
         <p class="article-more-link">
           <a  href="/spring-core-factorybean/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-spring-core-injection-mapfactorybean" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/spring-core-injection-mapfactorybean/" class="article-date">
-  	<!-- <time datetime="2017-04-01T07:44:15.000Z" itemprop="datePublished">2017-04-01</time> -->
-    2017-04-01
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/spring-core-injection-mapfactorybean/">MapFactoryBean 注入 Map</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"mapExample"</span> <span class="attr">class</span>=<span class="string">"com.xtuer.beans.CollectionHolder"</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"map"</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">map</span>&gt;</span> <span class="comment">&lt;!--表示是 map--&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"German"</span> <span class="attr">value</span>=<span class="string">"Gut"</span>/&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"English"</span> <span class="attr">value</span>=<span class="string">"Good"</span>/&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"Chinese"</span> <span class="attr">value</span>=<span class="string">"没问题"</span>/&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">map</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>上面的方式注入 Map，Map 的类型不受我们控制，默认是 java.util.LinkedHashMap。MapFactoryBean 可以创建一个特定类型的 Map。由于 MapFactoryBean 的配置太过麻烦，这里我们只结束和其等效的 <code>&lt;util:map&gt;</code>。
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringCore/">SpringCore</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/spring-core-injection-mapfactorybean/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

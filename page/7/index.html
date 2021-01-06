@@ -245,6 +245,75 @@
     <!-- 生成目录 -->
 
 
+<article id="post-fe-simple-mindmap" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/fe-simple-mindmap/" class="article-date">
+  	<!-- <time datetime="2019-01-03T07:09:15.000Z" itemprop="datePublished">2019-01-03</time> -->
+    2019-01-03
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/fe-simple-mindmap/">简单的 Mindmap</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>树形结构如果作为侧边栏, 使用 <a href="http://www.treejs.cn" target="_blank" rel="noopener">zTree</a> 比较合适, 下图所示的平铺展开整棵树, 使用 zTree 估计就不适合了, 在此我们使用 jQuery 的另一个插件 <a href="https://www.jqueryscript.net/chart-graph/Simple-jQuery-Mind-Map-Diagram-Plugin-mindmap.html" target="_blank" rel="noopener">Simple jQuery Mind Map Diagram Plugin - mindmap</a> 来实现.</p>
+<p><img src="../img/fe/simple-mindmap.png" alt></p>
+<p>文档的例子使用静态的 HTML 标签准备 mindmap 需要的树形结构的数据, 实际中大多情况下树形结构的数据是存储在文件或者通过接口返回, 我们这里展示递归的方式遍历树形结构的数据创建 mindmap 需要的 HTML 标签. 因为每个节点都是 HTML 的标签, 能很方便的使用 CSS 定制样式.
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/">FE</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/fe-simple-mindmap/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-fe-ckeditor-5" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -1025,80 +1094,6 @@
 
       
 
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-qtbook-custom-widget-lineedit-with-button" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/qtbook-custom-widget-lineedit-with-button/" class="article-date">
-  	<!-- <time datetime="2018-07-15T06:16:02.000Z" itemprop="datePublished">2018-07-15</time> -->
-    2018-07-15
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/qtbook-custom-widget-lineedit-with-button/">QLineEdit 中增加按钮</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>下图为 Safari 的地址栏，在输入框右边有一个刷新按钮:</p>
-<p><img src="../img/qtbook/custom-widget/lineedit-with-button-1.png" alt></p>
-<p>在输入框中增加按钮的设计是比较常见的，例如 Chrome 的地址栏、Firefox 的搜索框、Tim 的搜索框等，这种控件 Qt 没有提供，那应该怎么实现呢？下面提供 2 种思路:</p>
-<ul>
-<li>QLineEdit + QPushButton 使用 QHBoxLayout 布局到一个 QWidget 中，去掉 QLineEdit 得到焦点时的高亮效果，此时应该高亮它的父控件，失去焦点时取消它的父控件的高亮效果</li>
-<li>QLineEdit 作为一个普通的 QWidget，也就是它能够使用 QLayout 把 QPushButton 作为子控件布局到它里面</li>
-</ul>
-<p>思路有了，第一种方式需要写很多代码进行控制，实现比较麻烦，下面只介绍第二种思路的实现。
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/">QtBook</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/qtbook-custom-widget-lineedit-with-button/#more">阅读全文</a>
-        </p>
       
       <div class="clearfix"></div>
     </div>

@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://xtuer.github.io/img/java/stream-flatmap.jpg">
 <meta property="og:image" content="http://xtuer.github.io/img/java/stream-skip.jpg">
 <meta property="og:image" content="http://xtuer.github.io/img/java/stream-limit.jpg">
-<meta property="og:updated_time" content="2021-01-01T03:26:17.709Z">
+<meta property="og:updated_time" content="2021-01-06T00:12:15.793Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Stream 笔记">
 <meta name="twitter:description" content="Stream 是 Java8 中处理集合的关键抽象概念，它可以指定你希望对集合进行的操作，可以执行非常复杂的查找、过滤和映射数据等操作。  Stream 中的方法单独拿出来使用的话体现不出其优点，在复杂的操作情况下，Stream 的优势才明显，例如下面这样生成不重复有序随机数的例子，如果用传统的写法代码会很长，还需要 if else 判断，使用临时集合等截断，去重等复杂操作，使用 Stream 的">
@@ -373,6 +373,9 @@
 </tr>
 </tbody>
 </table>
+<p>此外，<code>Function.identity()</code> 比常用，其返回一个函数式接口，这个接口的返回值和输入参数一样，在使用 <code>t -&gt; t</code> 的地方就可以使用它:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Returns a function that always returns its input argument.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &lt;T&gt; the type of the input and output objects to the function</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> a function that always returns its input argument</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> &lt;T&gt; <span class="function">Function&lt;T, T&gt; <span class="title">identity</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> t -&gt; t;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>例如 <code>ns.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))</code>。</p>
 <h2 id="创建-Stream"><a href="#创建-Stream" class="headerlink" title="创建 Stream"></a>创建 Stream</h2><p>常用创建 Stream 的方法有:</p>
 <ul>
 <li>Collection.stream() </li>

@@ -245,6 +245,78 @@
     <!-- 生成目录 -->
 
 
+<article id="post-spring-web-messy-code" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/spring-web-messy-code/" class="article-date">
+  	<!-- <time datetime="2016-10-15T14:48:18.000Z" itemprop="datePublished">2016-10-15</time> -->
+    2016-10-15
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/spring-web-messy-code/">乱码处理</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>字符集主要涉及 2 个方面</p>
+<ul>
+<li>文件本身的字符集（文件，数据库存储使用，返回给浏览器端的 html 内容）</li>
+<li>程序中编码解码时候使用的字符集（如解析 http 请求的数据）</li>
+</ul>
+<p>为了防止乱码，我们规定：<code>所有的字符集都用 UTF-8</code>。</p>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringWeb/">SpringWeb</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/spring-web-messy-code/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-spring-web-mybatis-syntax" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -883,73 +955,6 @@
       
         <p class="article-more-link">
           <a  href="/spring-web-freemarker/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-spring-web-skelton" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/spring-web-skelton/" class="article-date">
-  	<!-- <time datetime="2016-10-15T03:10:37.000Z" itemprop="datePublished">2016-10-15</time> -->
-    2016-10-15
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/spring-web-skelton/">项目框架</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <h2 id="工程结构"><a href="#工程结构" class="headerlink" title="工程结构"></a>工程结构</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">├── build.gradle</span><br><span class="line">└── src</span><br><span class="line">    ├── main</span><br><span class="line">    │   ├── java</span><br><span class="line">    │   │   └── com</span><br><span class="line">    │   │       └── xtuer</span><br><span class="line">    │   │           ├── bean</span><br><span class="line">    │   │           ├── controller</span><br><span class="line">    │   │           │   └── HelloController.java</span><br><span class="line">    │   │           └── service</span><br><span class="line">    │   ├── resources</span><br><span class="line">    │   │   └── config</span><br><span class="line">    │   │       ├── application.properties</span><br><span class="line">    │   │       └── springmvc-servlet.xml</span><br><span class="line">    │   └── webapp</span><br><span class="line">    │       └── WEB-INF</span><br><span class="line">    │           ├── page</span><br><span class="line">    │           │   └── hello.html</span><br><span class="line">    │           ├── static</span><br><span class="line">    │           │   ├── css</span><br><span class="line">    │           │   ├── img</span><br><span class="line">    │           │   ├── js</span><br><span class="line">    │           │   └── lib</span><br><span class="line">    │           └── web.xml</span><br><span class="line">    └── test</span><br><span class="line">        ├── java</span><br><span class="line">        └── resources</span><br></pre></td></tr></table></figure>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringWeb/">SpringWeb</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/spring-web-skelton/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

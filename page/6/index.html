@@ -245,6 +245,78 @@
     <!-- 生成目录 -->
 
 
+<article id="post-misc-fib" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/misc-fib/" class="article-date">
+  	<!-- <time datetime="2019-01-28T13:06:17.000Z" itemprop="datePublished">2019-01-28</time> -->
+    2019-01-28
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/misc-fib/">斐波那契数列</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>斐波那契数列 (意大利语： Successione di Fibonacci)，又称黄金分割数列、费波那西数列、费波拿契数、费氏数列，指的是这样一个数列：1、1、2、3、5、8、13、21、……在数学上，斐波那契数列以如下被以递归的方法定义：F1=1，F2=1，Fn=F(n-1) + F(n-2) (n&gt;2，n∈N*)，使用递归实现如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">fib</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">1</span> || n == <span class="number">2</span>) &#123; <span class="keyword">return</span> <span class="number">1</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> fib(n-<span class="number">1</span>) + fib(n-<span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>求 fib(6) 斐波那契数列的递归过程如图:</p>
+<p><center><img src="../img/misc/fib.png" width="543"></center></p>
+<blockquote>
+<p>重叠子问题 (Overlap subproblem): 把大问题被分解为多个小问题进行求解，小问题重复的出现多次。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/">Misc</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/misc-fib/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-misc-qa" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -1002,75 +1074,6 @@
       
         <p class="article-more-link">
           <a  href="/misc-tio-websocket/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-fe-simple-mindmap" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/fe-simple-mindmap/" class="article-date">
-  	<!-- <time datetime="2019-01-03T07:09:15.000Z" itemprop="datePublished">2019-01-03</time> -->
-    2019-01-03
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/fe-simple-mindmap/">简单的 Mindmap</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>树形结构如果作为侧边栏, 使用 <a href="http://www.treejs.cn" target="_blank" rel="noopener">zTree</a> 比较合适, 下图所示的平铺展开整棵树, 使用 zTree 估计就不适合了, 在此我们使用 jQuery 的另一个插件 <a href="https://www.jqueryscript.net/chart-graph/Simple-jQuery-Mind-Map-Diagram-Plugin-mindmap.html" target="_blank" rel="noopener">Simple jQuery Mind Map Diagram Plugin - mindmap</a> 来实现.</p>
-<p><img src="../img/fe/simple-mindmap.png" alt></p>
-<p>文档的例子使用静态的 HTML 标签准备 mindmap 需要的树形结构的数据, 实际中大多情况下树形结构的数据是存储在文件或者通过接口返回, 我们这里展示递归的方式遍历树形结构的数据创建 mindmap 需要的 HTML 标签. 因为每个节点都是 HTML 的标签, 能很方便的使用 CSS 定制样式.
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/">FE</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/fe-simple-mindmap/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

@@ -245,6 +245,74 @@
     <!-- 生成目录 -->
 
 
+<article id="post-qtbook-custom-widget-enable-stylesheet" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-custom-widget-enable-stylesheet/" class="article-date">
+  	<!-- <time datetime="2017-11-27T14:02:02.000Z" itemprop="datePublished">2017-11-27</time> -->
+    2017-11-27
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qtbook-custom-widget-enable-stylesheet/">自定义 Widget 使用 QSS</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>相信很多同学继承如 QWidget，QPushButton 等实现自定义的控件后，发现在此控件上 QSS 不生效了，这不行啊，设置背景、边框、字体等如果没有 QSS 那就太麻烦了。其实在自定义控件上启用 QSS 非常简单，只要调用一下 <code>setAttribute(Qt::WA_StyledBackground)</code> 即可，就像下面这样</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Widget::Widget(QWidget *parent) : QWidget(parent) &#123;</span><br><span class="line">    <span class="keyword">this</span>-&gt;setAttribute(Qt::WA_StyledBackground); <span class="comment">// 启用 QSS</span></span><br><span class="line">    <span class="keyword">this</span>-&gt;setStyleSheet(<span class="string">"border: 2px solid red; background: pink; border-radius: 10px;"</span>); <span class="comment">// 设置 QSS</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QApplication&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"Widget.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="function">QApplication <span class="title">app</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line"></span><br><span class="line">    QWidget window;</span><br><span class="line"></span><br><span class="line">    <span class="function">Widget <span class="title">customWidget</span><span class="params">(&amp;window)</span></span>;</span><br><span class="line">    customWidget.setGeometry(<span class="number">20</span>, <span class="number">20</span>, <span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line"></span><br><span class="line">    window.resize(<span class="number">300</span>, <span class="number">300</span>);</span><br><span class="line">    window.show();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> app.exec();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如上在 main() 函数中使用自定义控件 Widget，QSS 生效了，去掉 <code>this-&gt;setAttribute(Qt::WA_StyledBackground)</code> 后 QSS 就没效果了:</p>
+<p><img src="../img/qtbook/custom-widget/enable-stylesheet.png" alt></p>
+
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/">QtBook</a></li></ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-qtbook-custom-widget-drag-to-move-window" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -896,78 +964,6 @@
       
         <p class="article-more-link">
           <a  href="/qtbook-thread-inheritance/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-qtbook-thread" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/qtbook-thread/" class="article-date">
-  	<!-- <time datetime="2017-10-29T02:57:10.000Z" itemprop="datePublished">2017-10-29</time> -->
-    2017-10-29
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/qtbook-thread/">多线程编程</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>读取文件显示到 text edit 中，一个非常简单的需求，啥也不说了，撸起袖子，打开 Qt Creator 开干。</p>
-<p>先设计 UI 如下，中间是 QTextEdit，底部是按钮 QPushButton:</p>
-<p><img src="../img/qtbook/thread/thread-1.png" alt></p>
-<p>点击按钮，按行读取文件，然后添加到 QTextEdit，对我们来说也是分分钟的事(Lambda Lambda Lambda):</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">ReadingWidget::ReadingWidget(QWidget *parent) : QWidget(parent), ui(<span class="keyword">new</span> Ui::ReadingWidget) &#123;</span><br><span class="line">    ui-&gt;setupUi(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 点击按钮，按行读取文件，添加到 text edit 中显示出来</span></span><br><span class="line">    connect(ui-&gt;pushButton, &amp;QPushButton::clicked, [<span class="keyword">this</span>] &#123;</span><br><span class="line">        QFile file(<span class="string">"/Users/Biao/Desktop/data.txt"</span>); <span class="comment">// 文件路径自己修改一下啊</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!file.open(QIODevice::Text | QIODevice::ReadOnly)) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        QTextStream in(&amp;file);</span><br><span class="line">        <span class="keyword">while</span> (!in.atEnd()) &#123;</span><br><span class="line">            QString line = in.readLine(); <span class="comment">// 读取一行</span></span><br><span class="line">            ui-&gt;textEdit-&gt;append(line); <span class="comment">// 添加到 text edit</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/">QtBook</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/qtbook-thread/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

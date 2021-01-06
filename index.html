@@ -245,6 +245,79 @@
     <!-- 生成目录 -->
 
 
+<article id="post-axure-dialog" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/axure-dialog/" class="article-date">
+  	<!-- <time datetime="2021-01-06T03:02:22.000Z" itemprop="datePublished">2021-01-06</time> -->
+    2021-01-06
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/axure-dialog/">Axure 创建弹窗</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Axure  创建弹窗，主要涉及以下几个方面:</p>
+<ul>
+<li>弹窗内容的元素放到动态面板里，这样所有元素都是动态面板的子元素，通过隐藏和显示动态面板来控制弹窗及其内容的可见性</li>
+<li>弹窗在页面中是可见的，页面加载的时候隐藏弹窗，需要的时候才显示弹窗。这样编辑的时候可以看到弹窗的内容，否则就是一个黄色块，不方便编辑与查看</li>
+<li>弹窗在所属页面的放置位置，不要挡住其他内容，放到页面的旁边即可</li>
+<li>弹窗的动态面板居中显示 (Pin to Browser)</li>
+<li>如果是需要重复使用的弹窗，可以创建为模板 (Master)，或者根据分模块的思想，也可以把弹窗直接作为 Master，然后在页面中引用
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/">Misc</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/axure-dialog/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-distribute-banana" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -432,7 +505,7 @@
 <li>readText: 读取剪贴板的内容</li>
 <li>writeText: 设置剪贴板的内容</li>
 </ul>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>System Clipboard<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"button-copy"</span>&gt;</span>Copy<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"button-paste"</span>&gt;</span>Paste<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line">        // 设置系统剪贴板的内容</span><br><span class="line">        document.querySelector('#button-copy').addEventListener('click', () =&gt; &#123;</span><br><span class="line">            navigator.clipboard.writeText('Hello');</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        // 读取系统剪贴板的内容</span><br><span class="line">        document.querySelector('#button-paste').addEventListener('click', () =&gt; &#123;</span><br><span class="line">            navigator.clipboard.readText().then(text =&gt; &#123;</span><br><span class="line">                console.log(text);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>System Clipboard<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"button-copy"</span>&gt;</span>Copy<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"button-paste"</span>&gt;</span>Paste<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">        <span class="comment">// 设置系统剪贴板的内容</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.querySelector(<span class="string">'#button-copy'</span>).addEventListener(<span class="string">'click'</span>, () =&gt; &#123;</span></span><br><span class="line"><span class="javascript">            navigator.clipboard.writeText(<span class="string">'Hello'</span>);</span></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line"><span class="javascript">        <span class="comment">// 读取系统剪贴板的内容</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.querySelector(<span class="string">'#button-paste'</span>).addEventListener(<span class="string">'click'</span>, () =&gt; &#123;</span></span><br><span class="line"><span class="javascript">            navigator.clipboard.readText().then(<span class="function"><span class="params">text</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(text);</span></span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>提示: IE 不支持 Navigator.clipboard，但 Edge 支持。</p>
 </blockquote>
@@ -943,6 +1016,9 @@
 </tr>
 </tbody>
 </table>
+<p>此外，<code>Function.identity()</code> 比常用，其返回一个函数式接口，这个接口的返回值和输入参数一样，在使用 <code>t -&gt; t</code> 的地方就可以使用它:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Returns a function that always returns its input argument.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &lt;T&gt; the type of the input and output objects to the function</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> a function that always returns its input argument</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> &lt;T&gt; <span class="function">Function&lt;T, T&gt; <span class="title">identity</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> t -&gt; t;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>例如 <code>ns.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))</code>。</p>
 <h2 id="创建-Stream"><a href="#创建-Stream" class="headerlink" title="创建 Stream"></a>创建 Stream</h2><p>常用创建 Stream 的方法有:</p>
 <ul>
 <li>Collection.stream() </li>
@@ -1064,107 +1140,6 @@
 <blockquote>
 <p>提示: 语句中还会有标点符号，多余的空格等，大家根据上面的知识试试怎么处理。</p>
 </blockquote>
-
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
-	</div>
-
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-lambda" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/lambda/" class="article-date">
-  	<!-- <time datetime="2020-05-24T01:08:07.000Z" itemprop="datePublished">2020-05-24</time> -->
-    2020-05-24
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/lambda/">Lambda 笔记</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <h2 id="Lambda-是什么"><a href="#Lambda-是什么" class="headerlink" title="Lambda 是什么 ?"></a>Lambda 是什么 ?</h2><p>简单的说，<a href="https://stackoverflow.com/questions/16501/what-is-a-lambda-function" target="_blank" rel="noopener">Lambda 就是<strong>匿名函数</strong></a>。由于 Java 是完全面向对象的，不能像 C 语言那样独立的定义函数以及函数变量，Java 中的方法 (函数) 只能定义在类或者接口中，所以 Java 采取了一种折衷的方案实现 Lambda: 通过有且只有一个未实现的方法的接口来实现 Lambda，所以这样的接口又叫做 <strong>Functional Interface</strong>。</p>
-<p>在 Java 中，Lambda 的本质是匿名内部类的语法糖，用于简化匿名内部类的编码。也许您要问，匿名内部类在编译的时候都会成功 class 文件，但 Lambda 却没有看到对应的 class 文件啊。其实这也好理解，class 文件最后会被 JVM 加载到 byte[] 中，用于生成 Class 对象，Lambda 实现的匿名内部类在运行时生成对应的 bytes[] 来生成 Class 对象就可以了，class 文件只是一个载体，其内容也可以通过 URL 远程加载呢，这样本地是不是也一样看不到 class 文件了呢？</p>
-<blockquote>
-<p>Lambda comes from the <a href="http://en.wikipedia.org/wiki/Lambda_calculus" target="_blank" rel="noopener">Lambda Calculus</a> and refers to <strong>anonymous functions</strong> in programming. </p>
-</blockquote>
-<h2 id="Lambda-有什么优点"><a href="#Lambda-有什么优点" class="headerlink" title="Lambda 有什么优点 ?"></a>Lambda 有什么优点 ?</h2><p>使用 Lambda 表达式可以使代码变的更加简洁紧凑，具体就是简化接口的<strong>匿名类的创建</strong>，例如下面以创建线程为例演示 Lambda 对代码的简化:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LambdaTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 未使用 Lambda 创建线程</span></span><br><span class="line">        Thread t1 = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(Thread.currentThread().getName());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 使用 Lambda 创建线程</span></span><br><span class="line">        Thread t2 = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName());</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        t1.start();</span><br><span class="line">        t2.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>从上面的例子中可以看到，使用 Lambda 简化了代码，但是业务逻辑的部分改怎么写还继续怎么写。</p>
-<h2 id="Lambda-怎么使用"><a href="#Lambda-怎么使用" class="headerlink" title="Lambda 怎么使用?"></a>Lambda 怎么使用?</h2><p>Lambda 使用的接口，首先是一个普通的 Java 接口，使用关键字  <code>interface</code> 定义，但有一个限制条件: 有且仅有一个未实现的方法。</p>
-<p>Lambda 表达式的语法格式如下:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">() -&gt; expression</span><br><span class="line">() -&gt;&#123; statements; &#125;</span><br><span class="line">(parameters) -&gt; expression</span><br><span class="line">(parameters) -&gt;&#123; statements; &#125;</span><br></pre></td></tr></table></figure>
-<p>Lambda 的用例:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">greeting</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Bar</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">fahren</span><span class="params">(<span class="keyword">int</span> value)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">gehen</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"gehen()"</span>);</span><br><span class="line">        fahren(<span class="number">33</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">fliegen</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"fliegen()"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>测试用例:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LambdaTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Foo foo = () -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"foo()"</span>);</span><br><span class="line">        &#125;;</span><br><span class="line">        foo.greeting();</span><br><span class="line"></span><br><span class="line">        Bar bar = (value) -&gt; &#123;</span><br><span class="line">            System.out.printf(<span class="string">"bar(%d)\n"</span>, value);</span><br><span class="line">        &#125;;</span><br><span class="line">        bar.fahren(<span class="number">66</span>);</span><br><span class="line">        bar.gehen();</span><br><span class="line"></span><br><span class="line">        arbeiten(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"Lambda Foo as arg"</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">arbeiten</span><span class="params">(Foo foo)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"arbeiten()"</span>);</span><br><span class="line">        foo.greeting();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Lambda-需要注意什么"><a href="#Lambda-需要注意什么" class="headerlink" title="Lambda 需要注意什么?"></a>Lambda 需要注意什么?</h2><p>使用 Lambda 的时候，有以下几点需要注意 :</p>
-<ul>
-<li>和普通的接口一样，Lambda 使用的接口可以有 0 个或者多个 default 方法</li>
-<li>Lambda 的接口中未实现的那个方法中不能调用此接口的 default 的方法，但是 default 的方法中可以调用未实现的那个方法</li>
-<li>Lambda 的接口除了未实现的方法的个数限制，其他方面和普通的接口一样，例如方法可以无参数、有参数、泛型以及Lambda 接口作为方法的参数等</li>
-<li>Lambda 的接口实现中，不能直接给外部的变量赋值，但可以修改外部变量的属性值</li>
-</ul>
-<p>有时候直接修改外部变量是必不可少的，下面以求和为例通过中间层进行解决:</p>
-<blockquote>
-<p>计算机科学领域的任何问题都可以通过增加一个间接的中间层来解决，这句话几乎概括了计算机软件体系结构的设计要点。</p>
-</blockquote>
-<p><del>错误的代码</del>:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    Stream.of(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>).forEach(n -&gt; &#123;</span><br><span class="line">        sum += n; <span class="comment">// // Error: Variable used in lambda expression should be final or effectively final</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>正确的代码:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span>[] result = &#123; <span class="number">0</span> &#125;; <span class="comment">// 中间层: 缓存结果</span></span><br><span class="line"></span><br><span class="line">    Stream.of(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>).forEach(n -&gt; &#123;</span><br><span class="line">        result[<span class="number">0</span>] += n;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    sum = result[<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Java-中典型的-Lambda-接口"><a href="#Java-中典型的-Lambda-接口" class="headerlink" title="Java 中典型的 Lambda 接口"></a>Java 中典型的 Lambda 接口</h2><p>下图为 Java 中比较典型的 Lambda 的接口，在 Stream 中大量使用，其中:</p>
-<ul>
-<li>R (return) 表示返回类型</li>
-<li>T 和 U 表示参数类型</li>
-<li>Function 的参数类型和返回类型有可能不一样</li>
-<li>Operator 的参数类型和返回类型是一样的</li>
-</ul>
-<p><img src="../img/java/functional-interface.png" width="550"></p>
 
         
     </div>

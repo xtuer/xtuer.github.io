@@ -245,6 +245,74 @@
     <!-- 生成目录 -->
 
 
+<article id="post-spring-core-injection-mapfactorybean" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/spring-core-injection-mapfactorybean/" class="article-date">
+  	<!-- <time datetime="2017-04-01T07:44:15.000Z" itemprop="datePublished">2017-04-01</time> -->
+    2017-04-01
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/spring-core-injection-mapfactorybean/">MapFactoryBean 注入 Map</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"mapExample"</span> <span class="attr">class</span>=<span class="string">"com.xtuer.beans.CollectionHolder"</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"map"</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">map</span>&gt;</span> <span class="comment">&lt;!--表示是 map--&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"German"</span> <span class="attr">value</span>=<span class="string">"Gut"</span>/&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"English"</span> <span class="attr">value</span>=<span class="string">"Good"</span>/&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"Chinese"</span> <span class="attr">value</span>=<span class="string">"没问题"</span>/&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">map</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>上面的方式注入 Map，Map 的类型不受我们控制，默认是 java.util.LinkedHashMap。MapFactoryBean 可以创建一个特定类型的 Map。由于 MapFactoryBean 的配置太过麻烦，这里我们只结束和其等效的 <code>&lt;util:map&gt;</code>。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringCore/">SpringCore</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/spring-core-injection-mapfactorybean/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-spring-core-injection-setfactorybean" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -859,73 +927,6 @@
       
         <p class="article-more-link">
           <a  href="/spring-web-benchmark/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-spring-web-cors" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/spring-web-cors/" class="article-date">
-  	<!-- <time datetime="2017-03-31T11:29:42.000Z" itemprop="datePublished">2017-03-31</time> -->
-    2017-03-31
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/spring-web-cors/">Ajax 跨域访问</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <h2 id="什么情况下是跨域访问？"><a href="#什么情况下是跨域访问？" class="headerlink" title="什么情况下是跨域访问？"></a>什么情况下是跨域访问？</h2><p>URL: <code>prototype</code>://<code>hostname</code>:<code>port</code>/path，当 prototype，hostname(包括子域名)，port 中有任意一个和发起 request 的 URL 中对应部分不同时，就是跨域访问。例如从 <a href="http://localhost/foo.html" target="_blank" rel="noopener">http://localhost/foo.html</a> 中发起到 <a href="http://127.0.0.1/bar.php" target="_blank" rel="noopener">http://127.0.0.1/bar.php</a> 的 AJAX 请求就是跨域请求，这也是本地测试跨域请求的好办法。
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringWeb/">SpringWeb</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/spring-web-cors/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

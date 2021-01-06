@@ -245,6 +245,84 @@
     <!-- 生成目录 -->
 
 
+<article id="post-java-sign" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/java-sign/" class="article-date">
+  	<!-- <time datetime="2017-07-13T03:22:33.000Z" itemprop="datePublished">2017-07-13</time> -->
+    2017-07-13
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java-sign/">签名验证</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <h2 id="签名验证"><a href="#签名验证" class="headerlink" title="签名验证"></a>签名验证</h2><p>签名验证涉及到客户端（比如一个 Web 应用）和服务器端，每个客户端在服务器上有一个对应的 <strong>app_id</strong> 和 <strong>app_key</strong>，大致步骤如下：</p>
+<ol>
+<li><p>客户端使用 app_id + app_key + <code>其他参数</code> 生成签名字符串 <code>sign1</code></p>
+</li>
+<li><p>把 app_id、<code>其他参数</code> 和 <code>sign1</code> 一起发送给服务器 (app_key 不发送)</p>
+</li>
+<li><p>服务器接收到请求后，根据参数中的 app_id 查找到对应的 app_key，然后根据签名算法生成签名字符串 sign2</p>
+<blockquote>
+<p>客户端和服务器端使用同样的签名算法生成签名字符串: <code>app_id + app_key + 其他参数</code></p>
+</blockquote>
+</li>
+<li><p>服务器端比较参数中的 sign1 和服务器生成的 sign2，如果相等则签名没问题，放行访问，否则签名无效，拒绝访问
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Util/">Util</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/java-sign/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-fe-random" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -873,75 +951,6 @@
       
         <p class="article-more-link">
           <a  href="/java-duplicate-uuid/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-db-insert-conditional" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/db-insert-conditional/" class="article-date">
-  	<!-- <time datetime="2017-06-15T08:35:40.000Z" itemprop="datePublished">2017-06-15</time> -->
-    2017-06-15
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/db-insert-conditional/">MySQL 基于条件判断的数据插入</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>在编写程序时，我们经常会遇到一些基于条件判断的逻辑，比如：判断该条数据是否已经在数据库中存在，如果不存在，则插入。</p>
-<h2 id="技巧一：使用-ignore-关键字"><a href="#技巧一：使用-ignore-关键字" class="headerlink" title="技巧一：使用 ignore 关键字"></a>技巧一：使用 ignore 关键字</h2><p>如果是用主键 primary 或者唯一索引 unique 区分了记录的唯一性，避免重复插入记录可以使用 <strong>insert ignore into</strong>。</p>
-<p>当插入数据时，如出现错误时，如重复数据，将不返回错误，只以警告形式返回。所以使用 ignore 请确保语句本身没有问题，否则也会被忽略掉。
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DB/">DB</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/db-insert-conditional/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

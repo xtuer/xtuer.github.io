@@ -245,6 +245,80 @@
     <!-- 生成目录 -->
 
 
+<article id="post-qtbook-paint-path" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-paint-path/" class="article-date">
+  	<!-- <time datetime="2016-12-08T14:23:42.000Z" itemprop="datePublished">2016-12-08</time> -->
+    2016-12-08
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qtbook-paint-path/">绘制路径</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>路径 QPainterPath，先引用一段 Qt 帮助文档里对路径的描述吧：</p>
+<blockquote>
+<p>A painter path is an object composed of a number of graphical building blocks, such as rectangles, ellipses, lines, and curves. Building blocks can be joined in closed subpaths, for example as a rectangle or an ellipse. A closed path has coinciding start and end points. Or they can exist independently as unclosed subpaths, such as lines and curves.</p>
+</blockquote>
+<blockquote>
+<p>A QPainterPath object can be used for filling, outlining, and clipping.</p>
+</blockquote>
+<p>也就是说，路径可以由多个图形组成，例如矩形、椭圆、线、曲线、贝塞尔曲线等，一个路径可以和另一个路径合并，也可以从一个路径里扣掉另一个路径，路径可以用来创建复杂的图形，也可以用来限制绘图的区域实现特殊的效果等。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/">QtBook</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/qtbook-paint-path/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-qtbook-paint-text" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -845,81 +919,6 @@
       
         <p class="article-more-link">
           <a  href="/qt-custom-type-metatype/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-misc-mqtt" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/misc-mqtt/" class="article-date">
-  	<!-- <time datetime="2016-11-28T05:58:53.000Z" itemprop="datePublished">2016-11-28</time> -->
-    2016-11-28
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/misc-mqtt/">ActiveMQ 的 MQTT</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>MQTT 有很多开源的实现，<code>org.fusesource.mqtt-client</code> 是其中之一，使用起来也比较简单，Github 地址为 <a href="https://github.com/fusesource/mqtt-client" target="_blank" rel="noopener">https://github.com/fusesource/mqtt-client</a>，而且其实现了连接断开后自动重连的机制</p>
-<p>下面的程序使用 MQTT-Client 实现:</p>
-<ul>
-<li>Publisher</li>
-<li>Subscriber</li>
-<li>PublisherAndSubscriber</li>
-<li>FutureMqttPublisher</li>
-</ul>
-<p>实际使用中，即要向 ActiveMQ 发送消息，同时也要从 ActiveMQ 订阅消息，所以参考下面的 Demo PublisherAndSubscriber 更为实用.</p>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/">Misc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Util/">Util</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/misc-mqtt/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>
