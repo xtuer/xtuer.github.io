@@ -15,7 +15,7 @@
 <meta property="og:description" content="在虚拟机中安装 CentOS，主要有以下步骤:  安装 VirtualBox (简称 VB) 安装 CentOS 配置 CentOS 固定 IP  安装 VirtualBox访问 https://www.virtualbox.org/ 下载安装即可。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://xtuer.github.io/img/misc/vb-shutdown.png">
-<meta property="og:updated_time" content="2021-01-26T03:11:57.203Z">
+<meta property="og:updated_time" content="2021-01-26T06:26:50.772Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VirtualBox 中安装 Centos">
 <meta name="twitter:description" content="在虚拟机中安装 CentOS，主要有以下步骤:  安装 VirtualBox (简称 VB) 安装 CentOS 配置 CentOS 固定 IP  安装 VirtualBox访问 https://www.virtualbox.org/ 下载安装即可。">
@@ -249,7 +249,7 @@
     <div id="toc-mask" style="display: none;">
         <div class="toc-container">
             <div class="article-toc">
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-VirtualBox"><span class="toc-text">安装 VirtualBox</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-CentOS"><span class="toc-text">安装 CentOS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置-CentOS"><span class="toc-text">配置 CentOS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#固定-IP"><span class="toc-text">固定 IP</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-VirtualBox"><span class="toc-text">安装 VirtualBox</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-CentOS"><span class="toc-text">安装 CentOS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置-CentOS"><span class="toc-text">配置 CentOS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#固定-IP"><span class="toc-text">固定 IP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#重启网络服务-systemctl-restart-network"><span class="toc-text">重启网络服务: systemctl restart network</span></a></li></ol></li></ol></li></ol>
             </div>
         </div>
     </div>
@@ -347,8 +347,7 @@
 <li><p>修改 BOOTPROTO 和 ONBOOT，并且加上后面 4 行  IP 相关的信息:</p>
  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">BOOTPROTO=static</span><br><span class="line">ONBOOT=yes</span><br><span class="line"></span><br><span class="line">IPADDR=192.168.2.242</span><br><span class="line">GATEWAY=192.168.2.1</span><br><span class="line">NETMASK=255.255.255.0</span><br><span class="line">DNS1=192.168.2.1</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>重启网络服务: <code>systemctl restart network</code></p>
-</li>
+<li><h4 id="重启网络服务-systemctl-restart-network"><a href="#重启网络服务-systemctl-restart-network" class="headerlink" title="重启网络服务: systemctl restart network"></a>重启网络服务: <code>systemctl restart network</code></h4></li>
 </ol>
 
         
