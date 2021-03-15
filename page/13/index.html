@@ -113,7 +113,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 11.76px;">Cas</a> <a href="/tags/DB/" style="font-size: 14.71px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Gradle/" style="font-size: 13.53px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 11.76px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.94px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.47px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.06px;">Misc</a> <a href="/tags/PHP/" style="font-size: 10.59px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 10.59px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.53px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.18px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 12.35px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.29px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.12px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 14.71px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.65px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.65px;">Util</a> <a href="/tags/Vue/" style="font-size: 15.88px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.18px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 13.33px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 12.78px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
                     </div>
                     <script>
 
@@ -241,6 +241,82 @@
 </nav>
 
             <div class="body-wrap">
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-fe-mqtt" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/fe-mqtt/" class="article-date">
+  	<!-- <time datetime="2017-09-27T08:54:14.000Z" itemprop="datePublished">2017-09-27</time> -->
+    2017-09-27
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/fe-mqtt/">HTML5 使用 MQTT</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>HTML5 中也能使用 MQTT：</p>
+<ol>
+<li><p>ActiveMQ 启用 MQTT，可参考 <a href="http://qtdebug.com/misc-activemq/" target="_blank" rel="noopener">http://qtdebug.com/misc-activemq/</a></p>
+</li>
+<li><p>启动 ActiveMQ: <code>activemq start</code></p>
+</li>
+<li><p>使用 MQTT 的 HTML 如下:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Test Ws mqtt.js<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./browserMqtt.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">        <span class="comment">// 虽然使用的是 MQTT，但底层还是使用 WebSocket 实现的，所以这里的端口需要使用 ActiveMQ 里 WS 的端口 61614，而不是 MQTT 的端口 1883</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> client = mqtt.connect(<span class="string">'ws://127.0.0.1:61614'</span>); <span class="comment">// you add a ws:// url here</span></span></span><br><span class="line"><span class="javascript">        client.subscribe(<span class="string">'foo'</span>); <span class="comment">// 订阅 Topic</span></span></span><br><span class="line"></span><br><span class="line"><span class="javascript">        client.on(<span class="string">'message'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">topic, payload</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log([payload].join(<span class="string">''</span>)); <span class="comment">// 提取消息需要使用 [].join()</span></span></span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line"><span class="javascript">        client.publish(<span class="string">'foo'</span>, <span class="string">'Hello World!'</span>); <span class="comment">// 发送消息</span></span></span><br><span class="line"></span><br><span class="line"><span class="javascript">        <span class="comment">// 不停的发送消息进行测试</span></span></span><br><span class="line"><span class="javascript">        setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            client.publish(<span class="string">'foo'</span>,  <span class="string">'Time: '</span> + <span class="keyword">new</span> <span class="built_in">Date</span>().getTime());</span></span><br><span class="line">        &#125;, 1000);</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>写一个 Java 的 MQTT 发布和订阅的程序一起测试，可参考 <a href="http://qtdebug.com/misc-mqtt/" target="_blank" rel="noopener">http://qtdebug.com/misc-mqtt/</a></p>
+</li>
+</ol>
+<p>下载 <a href="/download/browserMqtt.js.zip">browserMqtt.js</a>，也可以<a href="https://github.com/mqttjs/MQTT.js" target="_blank" rel="noopener">自己编译</a>(新版本好像有问题，只能发消息，不能订阅消息)，详细文档请参考 <a href="https://github.com/mqttjs/MQTT.js" target="_blank" rel="noopener">https://github.com/mqttjs/MQTT.js</a></p>
+
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/">FE</a></li></ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
   
     <!-- 生成目录 -->
 
@@ -928,86 +1004,6 @@
       
         <p class="article-more-link">
           <a  href="/spring-security-11-qq-login/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-spring-boot-start" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/spring-boot-start/" class="article-date">
-  	<!-- <time datetime="2017-09-05T05:51:36.000Z" itemprop="datePublished">2017-09-05</time> -->
-    2017-09-05
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/spring-boot-start/">Spring Boot Start</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>Spring Boot 创建入门级 RESTful Web 项目简单到令人发指，下面就来看看怎么用吧(如果想知道 Spring Boot 是啥，搜索即可):</p>
-<ol>
-<li>创建项目的骨架</li>
-<li>添加 RestController</li>
-<li>启动项目: gradle bootRun </li>
-<li>打包项目: gradle build </li>
-</ol>
-<h2 id="创建项目的骨架"><a href="#创建项目的骨架" class="headerlink" title="创建项目的骨架"></a>创建项目的骨架</h2><ol>
-<li>访问 <a href="http://start.spring.io" target="_blank" rel="noopener">http://start.spring.io</a></li>
-<li>选择 Gradle 项目，Spring Boot 2.x</li>
-<li>填写 Group (项目的包名，例如 com.xtuer) 和 Artifact (可不填)</li>
-<li>Search for dependencies 输入 <strong>web</strong></li>
-<li>点击 Generate Project，会自动下载项目骨架 demo.zip</li>
-<li>解压，如果不需要里面的 gradlew，删除即可
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringBoot/">SpringBoot</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/spring-boot-start/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>
