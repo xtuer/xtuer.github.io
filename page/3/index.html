@@ -621,6 +621,9 @@
 <blockquote>
 <p>注意: Windows 下必须配置 <code>[WinMySQLAdmin]</code>。</p>
 </blockquote>
+<h2 id="开启-Binlog"><a href="#开启-Binlog" class="headerlink" title="开启 Binlog"></a>开启 Binlog</h2><p>在 <code>[mysqld]</code> 部分加入下面的配置开启 binlog:</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[mysqld]</span></span><br><span class="line"><span class="attr">server_id</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">log_bin</span> = mysql-bin</span><br><span class="line"><span class="attr">binlog_format</span> = ROW</span><br></pre></td></tr></table></figure>
+<p>更多信息请参考 <a href="https://blog.csdn.net/qq_27631797/article/details/85119261" target="_blank" rel="noopener">Windows 环境 MySQL 开启 binlog 日志方法</a>。</p>
 
         
     </div>
