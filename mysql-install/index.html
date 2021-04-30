@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="公孙二狗">
 <meta property="og:description" content="Mac使用 Brew 安装、使用 Docker 安装:  创建 mysql 的配置文件 /Users/Biao/Documents/workspace/Docker/mysql/config-file.cnf (参考下面的配置，去掉 [WinMySQLAdmin] 部分、basedir 和 datadir) docker pull mysql:5.7.29 docker run --name my">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2021-04-28T06:11:40.752Z">
+<meta property="og:updated_time" content="2021-04-30T12:59:40.305Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="安装 MySQL">
 <meta name="twitter:description" content="Mac使用 Brew 安装、使用 Docker 安装:  创建 mysql 的配置文件 /Users/Biao/Documents/workspace/Docker/mysql/config-file.cnf (参考下面的配置，去掉 [WinMySQLAdmin] 部分、basedir 和 datadir) docker pull mysql:5.7.29 docker run --name my">
@@ -316,9 +316,9 @@
 </li>
 <li><p>输入 <code>mysqld --initialize-insecure --user=mysql</code> 回车</p>
 </li>
-<li><p>输入 <code>mysqld install</code> 回车</p>
+<li><p>输入 <code>mysqld --install</code> 回车，把 MySQL 安装为系统服务</p>
 </li>
-<li><p>启动 MySQL: 输入 <code>net start mysql</code> 回车，启动 mysql 服务，start 启动，stop 停止。启动出错时可参考  <a href="https://bbs.csdn.net/topics/391812886" target="_blank" rel="noopener">net start mysql发生系统错误 2，找不到指定文件</a></p>
+<li><p>启动 MySQL: 输入 <code>net start mysql</code> 回车，启动 MySQL 服务，start 启动，stop 停止。启动出错时可参考  <a href="https://bbs.csdn.net/topics/391812886" target="_blank" rel="noopener">net start mysql发生系统错误 2，找不到指定文件</a></p>
 </li>
 <li><p>输入 <code>mysql -u root -p</code> ，回车，出现 Enter passwore: ，输入密码，由于刚安装，没有设置密码，直接回车 Enter 进入</p>
 </li>
