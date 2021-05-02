@@ -603,9 +603,12 @@
 </li>
 <li><p><a href="https://www.cnblogs.com/alan-lin/p/9966917.html" target="_blank" rel="noopener">参考安装 MySQL</a>: 以管理员身份运行 cmd（一定要用管理员身份运行，不然权限不够），通过命令，进入 mysql bin 目录</p>
 </li>
-<li><p>输入 <code>mysqld --initialize-insecure --user=mysql</code> 回车</p>
+<li><p>输入 <code>mysqld --initialize-insecure --user=mysql</code> 回车，初始化 MySQL</p>
 </li>
 <li><p>输入 <code>mysqld --install</code> 回车，把 MySQL 安装为系统服务</p>
+<blockquote>
+<p>如果系统重装后，不需要再次初始化 MySQL，只需要再次安装为系统服务即可。</p>
+</blockquote>
 </li>
 <li><p>启动 MySQL: 输入 <code>net start mysql</code> 回车，启动 MySQL 服务，start 启动，stop 停止。启动出错时可参考  <a href="https://bbs.csdn.net/topics/391812886" target="_blank" rel="noopener">net start mysql发生系统错误 2，找不到指定文件</a></p>
 </li>
