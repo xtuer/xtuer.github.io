@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://xtuer.github.io/img/java/stream-flatmap.jpg">
 <meta property="og:image" content="http://xtuer.github.io/img/java/stream-skip.jpg">
 <meta property="og:image" content="http://xtuer.github.io/img/java/stream-limit.jpg">
-<meta property="og:updated_time" content="2021-01-06T00:12:15.793Z">
+<meta property="og:updated_time" content="2021-05-30T01:50:41.773Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Stream 笔记">
 <meta name="twitter:description" content="Stream 是 Java8 中处理集合的关键抽象概念，它可以指定你希望对集合进行的操作，可以执行非常复杂的查找、过滤和映射数据等操作。  Stream 中的方法单独拿出来使用的话体现不出其优点，在复杂的操作情况下，Stream 的优势才明显，例如下面这样生成不重复有序随机数的例子，如果用传统的写法代码会很长，还需要 if else 判断，使用临时集合等截断，去重等复杂操作，使用 Stream 的">
@@ -309,6 +309,7 @@
 <p><img src="../img/java/stream.jpg"></p>
 <p>Stream 中的方法单独拿出来使用的话体现不出其优点，在复杂的操作情况下，Stream 的优势才明显，例如下面这样生成不重复有序随机数的例子，如果用传统的写法代码会很长，还需要 if else 判断，使用临时集合等截断，去重等复杂操作，使用 Stream 的方式的话，逻辑看上去就清晰很多:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;Double&gt; stream = Stream.generate(Math::random) <span class="comment">// double 无限流</span></span><br><span class="line">    .limit(<span class="number">20</span>)                                        <span class="comment">// 截断，取前 20 个</span></span><br><span class="line">    .filter(x -&gt; x &gt; <span class="number">0.3</span>)                             <span class="comment">// 过滤，取大于 0.3 的元素</span></span><br><span class="line">    .skip(<span class="number">1</span>)                                          <span class="comment">// 忽略，丢弃第一个元素</span></span><br><span class="line">    .distinct()                                       <span class="comment">// 去重</span></span><br><span class="line">    .map(x -&gt; x * <span class="number">10</span>)                                 <span class="comment">// 映射，将每个元素扩大 10 倍</span></span><br><span class="line">    .sorted();                                        <span class="comment">// 对 double 流进行排序</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <p>Stream 的常用方法有:</p>
 <table>
 <thead>
