@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大圆满前行</title>
+    <style>
+        #app {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <!-- 加载 cplayer 脚本 -->
+    <script src="../lib/cplayer.min.js"></script>
+    <script>
+        let player = new cplayer({
+            element: document.getElementById('app'),
+            showPlaylist: true,
+            autoplay: true,
+            big: true,
+            dark: true,
+            playlist: [
+                { src: 'mp3/前行---001.mp3', poster: 'poster.jpg', name: '前行---001' },
+                { src: 'mp3/前行---001.mp3', poster: 'poster.jpg', name: '前行---001' },
+                { src: 'mp3/前行---001.mp3', poster: 'poster.jpg', name: '前行---001' },
+                { src: 'mp3/前行---001.mp3', poster: 'poster.jpg', name: '前行---001' },
+                { src: 'mp3/前行---001.mp3', poster: 'poster.jpg', name: '前行---001' },
+            ]
+        });
+    </script>
+</body>
+
+</html>
