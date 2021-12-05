@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>zTree | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="zTree is an advanced jQuery ‘tree plug-in’. The performance is excellent, it is easy to configurw (with a full set of options), and has many advanced features (that usually only come with paid softwa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="zTree">
+<meta property="og:url" content="http://xtuer.github.io/fe-ztree/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="zTree is an advanced jQuery ‘tree plug-in’. The performance is excellent, it is easy to configurw (with a full set of options), and has many advanced features (that usually only come with paid softwa">
+<meta property="og:locale">
+<meta property="article:published_time" content="2017-04-14T05:51:34.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.153Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="FE">
+<meta property="article:tag" content="zTree">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84%E6%95%B0%E6%8D%AE%E5%88%9B%E5%BB%BA-zTree"><span class="toc-text">树形结构数据创建 zTree</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E7%BB%93%E6%9E%84%E6%95%B0%E6%8D%AE%E5%88%9B%E5%BB%BA-zTree"><span class="toc-text">数组结构数据创建 zTree</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A2%9E%E5%88%A0%E6%8B%96%E6%8B%BD%E9%87%8D%E5%91%BD%E5%90%8D"><span class="toc-text">增删拖拽重命名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%93%8D%E4%BD%9C"><span class="toc-text">数据操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ajax-%E5%8A%A0%E8%BD%BD%E8%8A%82%E7%82%B9%E6%95%B0%E6%8D%AE"><span class="toc-text">Ajax 加载节点数据</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-fe-ztree" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/fe-ztree/" class="article-date">
+  	<!-- <time datetime="2017-04-14T05:51:34.000Z" itemprop="datePublished">2017-04-14</time> -->
+    2017-04-14
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      zTree
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/zTree/" rel="tag">zTree</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <blockquote>
+<p>zTree is an advanced jQuery ‘tree plug-in’. The performance is excellent, it is easy to configurw (with a full set of options), and has many advanced features (that usually only come with paid software).</p>
+<p>zTree is open source and uses the MIT license.</p>
+</blockquote>
+<p>主页是 <a target="_blank" rel="noopener" href="http://www.treejs.cn/">http://www.treejs.cn</a></p>
+<span id="more"></span>
+
+<h2 id="树形结构数据创建-zTree"><a href="#树形结构数据创建-zTree" class="headerlink" title="树形结构数据创建 zTree"></a>树形结构数据创建 zTree</h2><p>树的父子关系使用节点的 children 数组来建立。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>zTree<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;http://cdn.staticfile.org/zTree.v3/3.5.28/css/zTreeStyle/zTreeStyle.min.css&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">&quot;treeDemo&quot;</span> <span class="attr">class</span>=<span class="string">&quot;ztree&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://cdn.bootcss.com/jquery/3.2.1/jquery.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://cdn.staticfile.org/zTree.v3/3.5.28/js/jquery.ztree.all.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> setting = &#123;&#125;;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> nodes = [&#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">name</span>: <span class="string">&#x27;数学&#x27;</span>,</span></span><br><span class="line"><span class="javascript">                <span class="attr">open</span>: <span class="literal">false</span>,</span></span><br><span class="line"><span class="javascript">                <span class="attr">children</span>: [&#123;</span></span><br><span class="line"><span class="javascript">                    <span class="attr">name</span>: <span class="string">&#x27;参数方程&#x27;</span></span></span><br><span class="line"><span class="javascript">                &#125;, &#123;</span></span><br><span class="line"><span class="javascript">                    <span class="attr">name</span>: <span class="string">&#x27;贝塞尔曲线&#x27;</span></span></span><br><span class="line"><span class="javascript">                &#125;]</span></span><br><span class="line"><span class="javascript">            &#125;,</span></span><br><span class="line"><span class="javascript">            &#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">name</span>: <span class="string">&#x27;历史&#x27;</span>,</span></span><br><span class="line"><span class="javascript">                <span class="attr">open</span>: <span class="literal">true</span>,</span></span><br><span class="line"><span class="javascript">                <span class="attr">children</span>: [&#123;</span></span><br><span class="line"><span class="javascript">                    <span class="attr">name</span>: <span class="string">&#x27;玄武门事变&#x27;</span></span></span><br><span class="line"><span class="javascript">                &#125;, &#123;</span></span><br><span class="line"><span class="javascript">                    <span class="attr">name</span>: <span class="string">&#x27;桃园三结义&#x27;</span></span></span><br><span class="line"><span class="javascript">                &#125;]</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript">        ];</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> tree = $.fn.zTree.init($(<span class="string">&#x27;#treeDemo&#x27;</span>), setting, nodes);</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="数组结构数据创建-zTree"><a href="#数组结构数据创建-zTree" class="headerlink" title="数组结构数据创建 zTree"></a>数组结构数据创建 zTree</h2><p>数据库表中树形结构的存储一般都是通过 parentId 来建立数据之间的父子关系，zTree 也可以使用数组结构的数据，通过 parentId 来建立树节点之间的父子关系，需要设置 <strong>setting.data.simpleData</strong> 的属性来启用这种创建方式。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>zTree<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;http://cdn.staticfile.org/zTree.v3/3.5.28/css/zTreeStyle/zTreeStyle.min.css&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">&quot;treeDemo&quot;</span> <span class="attr">class</span>=<span class="string">&quot;ztree&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://cdn.bootcss.com/jquery/3.2.1/jquery.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://cdn.staticfile.org/zTree.v3/3.5.28/js/jquery.ztree.all.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> setting = &#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">data</span>: &#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">simpleData</span>: &#123;</span></span><br><span class="line"><span class="javascript">                    <span class="attr">enable</span> : <span class="literal">true</span>,       <span class="comment">// 启用数组结构的数据创建 zTree</span></span></span><br><span class="line"><span class="javascript">                    <span class="attr">idKey</span>  : <span class="string">&#x27;id&#x27;</span>,       <span class="comment">// 定义 node id 的 key，可自定义</span></span></span><br><span class="line"><span class="javascript">                    <span class="attr">pIdKey</span> : <span class="string">&#x27;parentId&#x27;</span>, <span class="comment">// 定义 parent id 的 key，可自定义</span></span></span><br><span class="line"><span class="javascript">                    <span class="attr">rootPId</span>: <span class="number">0</span>           <span class="comment">// 根节点的 parentId，这个节点是看不到的，因为不存在</span></span></span><br><span class="line"><span class="javascript">                &#125;</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript">        &#125;;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// 节点的关系通过 parentId 来建立，顺序不重要</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> nodes = [</span></span><br><span class="line"><span class="javascript">            &#123; <span class="string">&#x27;id&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;parentId&#x27;</span>: <span class="number">0</span>, <span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;试卷&#x27;</span>, <span class="attr">open</span>: <span class="literal">true</span> &#125;, </span></span><br><span class="line"><span class="javascript">            &#123; <span class="string">&#x27;id&#x27;</span>: <span class="number">2</span>, <span class="string">&#x27;parentId&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;数学&#x27;</span> &#125;,</span></span><br><span class="line"><span class="javascript">            &#123; <span class="string">&#x27;id&#x27;</span>: <span class="number">3</span>, <span class="string">&#x27;parentId&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;历史&#x27;</span> &#125;,</span></span><br><span class="line"><span class="javascript">            &#123; <span class="string">&#x27;id&#x27;</span>: <span class="number">4</span>, <span class="string">&#x27;parentId&#x27;</span>: <span class="number">2</span>, <span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;参数方程&#x27;</span> &#125;,</span></span><br><span class="line"><span class="javascript">            &#123; <span class="string">&#x27;id&#x27;</span>: <span class="number">5</span>, <span class="string">&#x27;parentId&#x27;</span>: <span class="number">2</span>, <span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;贝塞尔曲线&#x27;</span> &#125;,</span></span><br><span class="line"><span class="javascript">            &#123; <span class="string">&#x27;id&#x27;</span>: <span class="number">6</span>, <span class="string">&#x27;parentId&#x27;</span>: <span class="number">3</span>, <span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;玄武门事变&#x27;</span> &#125;,</span></span><br><span class="line"><span class="javascript">            &#123; <span class="string">&#x27;id&#x27;</span>: <span class="number">7</span>, <span class="string">&#x27;parentId&#x27;</span>: <span class="number">3</span>, <span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;桃园三结义&#x27;</span> &#125;</span></span><br><span class="line"><span class="javascript">        ];</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> tree = $.fn.zTree.init($(<span class="string">&#x27;#treeDemo&#x27;</span>), setting, nodes);</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>顶级节点（根节点）的 parentId 不一定要是 0，只要不是它的任意后代节点的 id 就可以，但是为了规范，最好还是定义一个根节点的 id。一般数据库的 id 都是从 1 开始，所以顶级节点的 parentId 都会设置为 0。</p>
+<p>zTree 允许存在多个根节点。</p>
+</blockquote>
+<h2 id="增删拖拽重命名"><a href="#增删拖拽重命名" class="headerlink" title="增删拖拽重命名"></a>增删拖拽重命名</h2><p>为了能够对 zTree 进行编辑，需要设置 <strong>setting.edit.enable</strong> 为 true，下面演示的功能有:</p>
+<ul>
+<li>增加新的节点: <code>tree.addNodes(parentNode, index, newNodes, false)</code>，最后参数 false 表示展开</li>
+<li>删除选中的节点: 删除前在回调函数 <strong>beforeRemove()</strong> 中先询问是否删除</li>
+<li>重命名选中的节点: 重命名前在回调函数 <strong>beforeRename()</strong> 中先确定是否真的能够重命名</li>
+<li>拖拽移动节点: 在 <strong>beforeDrop()</strong> 得不到新 parentId，所以需要去 <strong>onDrop()</strong> 中处理</li>
+<li>取得选中的节点: <strong>tree.getSelectedNodes()</strong></li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>zTree<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;http://cdn.staticfile.org/zTree.v3/3.5.28/css/zTreeStyle/zTreeStyle.min.css&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">&quot;add-node-button&quot;</span>&gt;</span>添加节点<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">&quot;treeDemo&quot;</span> <span class="attr">class</span>=<span class="string">&quot;ztree&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://cdn.bootcss.com/jquery/3.2.1/jquery.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://cdn.staticfile.org/zTree.v3/3.5.28/js/jquery.ztree.all.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> setting = &#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">data</span>: &#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">simpleData</span>: &#123;</span></span><br><span class="line"><span class="javascript">                    <span class="attr">enable</span> : <span class="literal">true</span>,       <span class="comment">// 启用数组结构的数据创建 zTree</span></span></span><br><span class="line"><span class="javascript">                    <span class="attr">idKey</span>  : <span class="string">&#x27;id&#x27;</span>,       <span class="comment">// 定义 node id 的 key，可自定义</span></span></span><br><span class="line"><span class="javascript">                    <span class="attr">pIdKey</span> : <span class="string">&#x27;parentId&#x27;</span>, <span class="comment">// 定义 parent id 的 key，可自定义</span></span></span><br><span class="line"><span class="javascript">                    <span class="attr">rootPId</span>: <span class="number">0</span>           <span class="comment">// 根节点的 parentId，这个节点是看不到的，因为不存在</span></span></span><br><span class="line"><span class="javascript">                &#125;</span></span><br><span class="line"><span class="javascript">            &#125;,</span></span><br><span class="line"><span class="javascript">            <span class="attr">edit</span>: &#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">enable</span>: <span class="literal">true</span> <span class="comment">// [*] 启用拖拽，重命名和删除等编辑操作</span></span></span><br><span class="line"><span class="javascript">            &#125;,</span></span><br><span class="line"><span class="javascript">            <span class="attr">view</span>: &#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">selectedMulti</span>: <span class="literal">false</span>, <span class="comment">// [*] 为 true 时可选择多个节点，为 false 只能选择一个，默认为 true</span></span></span><br><span class="line"><span class="javascript">            &#125;,</span></span><br><span class="line"><span class="javascript">            <span class="attr">callback</span>: &#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">onClick</span>: <span class="function"><span class="keyword">function</span>(<span class="params">event, treeId, treeNode</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                    <span class="comment">// [*] 点击节点的回调函数</span></span></span><br><span class="line"><span class="javascript">                    <span class="comment">// console.log(treeNode);</span></span></span><br><span class="line"><span class="javascript">                &#125;,</span></span><br><span class="line"><span class="javascript">                <span class="attr">onDrop</span>: <span class="function"><span class="keyword">function</span>(<span class="params">event, treeId, treeNodes, targetNode, moveType, isCopy</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                    <span class="comment">// [*] 拖拽完成时的回调函数，此时 treeNodes 里的 parentId 已经是新 parent 的 id，</span></span></span><br><span class="line"><span class="javascript">                    <span class="comment">//     targetNode 有可能是 treeNodes 的新 parent，也有可能是 sibling</span></span></span><br><span class="line"><span class="javascript">                    <span class="comment">//     beforeDrop 中得不到新的 parentId，如果需要修改服务器上的 parentId 只好在 onDrop 里获取了</span></span></span><br><span class="line"><span class="javascript">                    <span class="comment">//     Ajax 同步请求服务器更新数据库中节点的 parentId，更像失败则弹出错误信息，提示用户刷新界面保证数据的正确显示</span></span></span><br><span class="line"><span class="javascript">                    <span class="built_in">console</span>.log(treeNodes[<span class="number">0</span>]);</span></span><br><span class="line"><span class="javascript">                &#125;,</span></span><br><span class="line"><span class="javascript">                <span class="attr">beforeRename</span>: <span class="function"><span class="keyword">function</span>(<span class="params">treeId, treeNode, newName, isCancel</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                    <span class="comment">// [*] 重命名前的回调函数，按下 ESC 取消重命名也会调用此函数</span></span></span><br><span class="line"><span class="javascript">                    <span class="keyword">if</span> (!isCancel) &#123;</span></span><br><span class="line"><span class="javascript">                        <span class="built_in">console</span>.log(treeNode.id + <span class="string">&#x27; : &#x27;</span> + newName);</span></span><br><span class="line"><span class="javascript">                        <span class="comment">// Ajax 同步请求服务器更新数据库中节点的名字，更新成功后返回 true，更新失败提示错误信息并返回 false</span></span></span><br><span class="line"><span class="javascript">                        <span class="keyword">return</span> <span class="literal">true</span>;</span></span><br><span class="line"><span class="javascript">                    &#125;</span></span><br><span class="line"><span class="javascript">                &#125;,</span></span><br><span class="line"><span class="javascript">                <span class="attr">beforeRemove</span>: <span class="function"><span class="keyword">function</span>(<span class="params">treeId, treeNode</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                    <span class="comment">// [*] 删除节点前的回调函数</span></span></span><br><span class="line"><span class="javascript">                    <span class="keyword">var</span> ok = confirm(<span class="string">&#x27;确定删除 &#x27;</span> +  treeNode.name + <span class="string">&#x27; 吗？&#x27;</span>); <span class="comment">// 删除前最好是询问一下是否确定删除，防止误操作</span></span></span><br><span class="line"><span class="javascript">                    <span class="keyword">if</span> (!ok) &#123; <span class="keyword">return</span> <span class="literal">false</span>; &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">                    <span class="comment">// Ajax 同步请求服务器删除数据库中的节点，删除成功返回 true，删除失败提示错误信息并返回 false</span></span></span><br><span class="line"><span class="javascript">                    <span class="keyword">return</span> <span class="literal">true</span>;</span></span><br><span class="line"><span class="javascript">                &#125;</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript">        &#125;;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> nodes = [</span></span><br><span class="line"><span class="javascript">            &#123; <span class="string">&#x27;id&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;parentId&#x27;</span>: <span class="number">0</span>, <span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;试卷&#x27;</span>, <span class="attr">open</span>: <span class="literal">true</span> &#125;,</span></span><br><span class="line"><span class="javascript">            &#123; <span class="string">&#x27;id&#x27;</span>: <span class="number">2</span>, <span class="string">&#x27;parentId&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;数学&#x27;</span> &#125;,</span></span><br><span class="line"><span class="javascript">            &#123; <span class="string">&#x27;id&#x27;</span>: <span class="number">3</span>, <span class="string">&#x27;parentId&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;历史&#x27;</span> &#125;,</span></span><br><span class="line"><span class="javascript">            &#123; <span class="string">&#x27;id&#x27;</span>: <span class="number">4</span>, <span class="string">&#x27;parentId&#x27;</span>: <span class="number">2</span>, <span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;参数方程&#x27;</span> &#125;,</span></span><br><span class="line"><span class="javascript">            &#123; <span class="string">&#x27;id&#x27;</span>: <span class="number">5</span>, <span class="string">&#x27;parentId&#x27;</span>: <span class="number">2</span>, <span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;贝塞尔曲线&#x27;</span> &#125;,</span></span><br><span class="line"><span class="javascript">            &#123; <span class="string">&#x27;id&#x27;</span>: <span class="number">6</span>, <span class="string">&#x27;parentId&#x27;</span>: <span class="number">3</span>, <span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;玄武门事变&#x27;</span> &#125;,</span></span><br><span class="line"><span class="javascript">            &#123; <span class="string">&#x27;id&#x27;</span>: <span class="number">7</span>, <span class="string">&#x27;parentId&#x27;</span>: <span class="number">3</span>, <span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;桃园三结义&#x27;</span> &#125;</span></span><br><span class="line"><span class="javascript">        ];</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> tree = $.fn.zTree.init($(<span class="string">&#x27;#treeDemo&#x27;</span>), setting, nodes);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> newNodeId = <span class="number">1000</span>; <span class="comment">// 新创建节点的 id</span></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// [*] 创建新节点</span></span></span><br><span class="line"><span class="javascript">        $(<span class="string">&#x27;#add-node-button&#x27;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> parentNode = getFirstSelectedNode(tree);</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> parentId   = (parentNode == <span class="literal">null</span>) ? <span class="number">0</span> : parentNode.id;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> node       = &#123; <span class="string">&#x27;id&#x27;</span>: newNodeId, <span class="string">&#x27;parentId&#x27;</span>: parentId, <span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;Node-&#x27;</span> + newNodeId&#125;;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">            <span class="comment">// Ajax 同步请求服务器在数据库中的创建新节点，创建成功则添加到 tree 里，创建失败则提示错误信息</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">// [*] 创建新节点</span></span></span><br><span class="line"><span class="javascript">            tree.addNodes(parentNode, -<span class="number">1</span>, [node], <span class="literal">false</span>);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">            newNodeId += <span class="number">1</span>;</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">/**</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         * 取得树 zTree 选中的节点中的第一个 node，如果没有选中任何 node，则返回 null</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         *</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         * <span class="doctag">@param </span>tree &#123;zTreeObj&#125; zTree 对象</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         * <span class="doctag">@return </span>返回选中的 node，没有选中时返回 null</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         */</span></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">getFirstSelectedNode</span>(<span class="params">tree</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> selectedNodes = tree.getSelectedNodes();</span></span><br><span class="line"><span class="javascript">            <span class="keyword">return</span> selectedNodes.length == <span class="number">0</span> ? <span class="literal">null</span> : selectedNodes[<span class="number">0</span>];</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="数据操作"><a href="#数据操作" class="headerlink" title="数据操作"></a>数据操作</h2><ul>
+<li>自定义的属性都会保存到 zTree 节点的数据中，也可以使用节点对象获取自定义属性</li>
+<li><strong>isParent</strong> 决定一个节点是否以非叶子节点显示和操作，和节点下是否有子节点数据无关</li>
+<li>修改节点 DOM 相关的数据后需要调用 <strong>zTree.updateNode()</strong> 更新节点</li>
+<li>可以对节点的点击事件绑定回调函数</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>zTree<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;http://cdn.staticfile.org/zTree.v3/3.5.28/css/zTreeStyle/zTreeStyle.min.css&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">&quot;treeDemo&quot;</span> <span class="attr">class</span>=<span class="string">&quot;ztree&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://cdn.bootcss.com/jquery/3.2.1/jquery.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://cdn.staticfile.org/zTree.v3/3.5.28/js/jquery.ztree.all.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> setting = &#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">data</span>: &#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">simpleData</span>: &#123;</span></span><br><span class="line"><span class="javascript">                    <span class="attr">enable</span>:  <span class="literal">true</span>,       <span class="comment">// 启用数组结构的数据创建 zTree</span></span></span><br><span class="line"><span class="javascript">                    <span class="attr">idKey</span>:   <span class="string">&#x27;id&#x27;</span>,       <span class="comment">// 定义 node id 的 key，可自定义</span></span></span><br><span class="line"><span class="javascript">                    <span class="attr">pIdKey</span>:  <span class="string">&#x27;parentId&#x27;</span>, <span class="comment">// 定义 parent id 的 key，可自定义</span></span></span><br><span class="line"><span class="javascript">                    <span class="attr">rootPId</span>: <span class="number">0</span></span></span><br><span class="line"><span class="javascript">                &#125;</span></span><br><span class="line"><span class="javascript">            &#125;,</span></span><br><span class="line"><span class="javascript">            <span class="attr">callback</span>: &#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">// 节点点击时的事件处理</span></span></span><br><span class="line"><span class="javascript">                <span class="attr">onClick</span>: <span class="function"><span class="keyword">function</span>(<span class="params">event, treeId, treeNode</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                    <span class="comment">// [*] 获取节点的属性，treeNode 是一个 JSON 对象</span></span></span><br><span class="line"><span class="javascript">                    <span class="built_in">console</span>.log(treeNode.name);</span></span><br><span class="line"><span class="javascript">                    <span class="built_in">console</span>.log(treeNode.customField);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">                    <span class="comment">// [*] 修改节点数据后需要更新节点，例如叶子节点和非叶子节点互换</span></span></span><br><span class="line"><span class="javascript">                    treeNode.isParent = !treeNode.isParent;</span></span><br><span class="line"><span class="javascript">                    <span class="built_in">window</span>.tree.updateNode(treeNode);</span></span><br><span class="line"><span class="javascript">                &#125;</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript">        &#125;;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> nodes = [</span></span><br><span class="line"><span class="javascript">            &#123; <span class="string">&#x27;id&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;parentId&#x27;</span>: <span class="number">0</span>, <span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;试卷&#x27;</span>, <span class="attr">open</span>: <span class="literal">true</span> &#125;,</span></span><br><span class="line"><span class="javascript">            &#123; <span class="string">&#x27;id&#x27;</span>: <span class="number">2</span>, <span class="string">&#x27;parentId&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;数学&#x27;</span>, <span class="attr">customField</span>: <span class="string">&#x27;数学-自定义属性&#x27;</span> &#125;, <span class="comment">// [*] 自定义属性</span></span></span><br><span class="line"><span class="javascript">            &#123; <span class="string">&#x27;id&#x27;</span>: <span class="number">3</span>, <span class="string">&#x27;parentId&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;历史&#x27;</span> &#125;,</span></span><br><span class="line"><span class="javascript">            &#123; <span class="string">&#x27;id&#x27;</span>: <span class="number">4</span>, <span class="string">&#x27;parentId&#x27;</span>: <span class="number">2</span>, <span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;参数方程&#x27;</span> &#125;,</span></span><br><span class="line"><span class="javascript">            &#123; <span class="string">&#x27;id&#x27;</span>: <span class="number">5</span>, <span class="string">&#x27;parentId&#x27;</span>: <span class="number">2</span>, <span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;贝塞尔曲线&#x27;</span> &#125;,</span></span><br><span class="line"><span class="javascript">            &#123; <span class="string">&#x27;id&#x27;</span>: <span class="number">6</span>, <span class="string">&#x27;parentId&#x27;</span>: <span class="number">3</span>, <span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;玄武门事变&#x27;</span> &#125;,</span></span><br><span class="line"><span class="javascript">            &#123; <span class="string">&#x27;id&#x27;</span>: <span class="number">7</span>, <span class="string">&#x27;parentId&#x27;</span>: <span class="number">3</span>, <span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;桃园三结义&#x27;</span>, <span class="attr">customField</span>: <span class="string">&#x27;桃园三结义-自定义属性&#x27;</span> &#125;</span></span><br><span class="line"><span class="javascript">        ];</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> tree = $.fn.zTree.init($(<span class="string">&quot;#treeDemo&quot;</span>), setting, nodes);</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Ajax-加载节点数据"><a href="#Ajax-加载节点数据" class="headerlink" title="Ajax 加载节点数据"></a>Ajax 加载节点数据</h2><p>很多时候节点的数据并不是一次就全部准备好的，而是在展开非叶节点时使用 Ajax 去服务器端请求它的子节点，此时需要配置 <strong>setting.async</strong>:</p>
+<ul>
+<li><strong>url</strong>: 请求的 URL</li>
+<li><strong>dataFilter</strong>: 得到服务器响应时的回调函数，可以在此函数中对响应的数据进行处理。例如 Java Bean 中 boolean 属性名不要以 is 作为前缀，但是 zTree 使用属性 isParent 表示非叶子结点，所以在回调函数对服务器响应的数据进行处理是有必要的。</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>zTree<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;http://cdn.staticfile.org/zTree.v3/3.5.28/css/zTreeStyle/zTreeStyle.min.css&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">&quot;treeDemo&quot;</span> <span class="attr">class</span>=<span class="string">&quot;ztree&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://cdn.bootcss.com/jquery/3.2.1/jquery.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://cdn.staticfile.org/zTree.v3/3.5.28/js/jquery.ztree.all.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> setting = &#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">data</span>: &#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">simpleData</span>: &#123;</span></span><br><span class="line"><span class="javascript">                    <span class="attr">enable</span>: <span class="literal">true</span>,</span></span><br><span class="line"><span class="javascript">                    <span class="attr">idKey</span>:  <span class="string">&#x27;id&#x27;</span>,</span></span><br><span class="line"><span class="javascript">                    <span class="attr">pIdKey</span>: <span class="string">&#x27;parentId&#x27;</span></span></span><br><span class="line"><span class="javascript">                &#125;</span></span><br><span class="line"><span class="javascript">            &#125;,</span></span><br><span class="line"><span class="javascript">            <span class="attr">async</span>: &#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">enable</span>: <span class="literal">true</span>,</span></span><br><span class="line"><span class="javascript">                <span class="attr">type</span>: <span class="string">&#x27;get&#x27;</span>,</span></span><br><span class="line"><span class="javascript">                <span class="attr">url</span>: <span class="function"><span class="keyword">function</span>(<span class="params">treeId, treeNode</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                    <span class="comment">// treeNode 不存在时表示需要加载根节点下的数据</span></span></span><br><span class="line"><span class="javascript">                    <span class="keyword">return</span> <span class="string">&#x27;/ztree/children?parentId=&#x27;</span> + (treeNode ? treeNode.id : <span class="number">0</span>);</span></span><br><span class="line"><span class="javascript">                &#125;,</span></span><br><span class="line"><span class="javascript">                <span class="attr">dataFilter</span>: <span class="function"><span class="keyword">function</span>(<span class="params">treeId, parentNode, children</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                    <span class="keyword">if</span> (children) &#123;</span></span><br><span class="line"><span class="javascript">                        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; children.length; i++) &#123;</span></span><br><span class="line"><span class="javascript">                            children[i].isParent = children[i].hasChildren;</span></span><br><span class="line"><span class="javascript">                        &#125;</span></span><br><span class="line"><span class="javascript">                    &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">                    <span class="keyword">return</span> children;</span></span><br><span class="line"><span class="javascript">                &#125;</span></span><br><span class="line"><span class="javascript">            &#125;,</span></span><br><span class="line"><span class="javascript">            <span class="attr">callback</span>: &#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">onClick</span>: <span class="function"><span class="keyword">function</span>(<span class="params">event, treeId, treeNode</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                    <span class="built_in">console</span>.log(treeNode.name);</span></span><br><span class="line"><span class="javascript">                &#125;</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript">        &#125;;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> tree = $.fn.zTree.init($(<span class="string">&quot;#treeDemo&quot;</span>), setting);</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>服务器端 TreeNode:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.bean;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.Getter;</span><br><span class="line"><span class="keyword">import</span> lombok.Setter;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="meta">@Setter</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TreeNode</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> parentId;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> hasChildren;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TreeNode</span><span class="params">(<span class="keyword">int</span> id, String name, <span class="keyword">boolean</span> hasChildren, <span class="keyword">int</span> parentId)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.hasChildren = hasChildren;</span><br><span class="line">        <span class="keyword">this</span>.parentId = parentId;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>服务器端 Controller:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/ztree/children&quot;)</span></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;TreeNode&gt; <span class="title">ztreeChildren</span><span class="params">(<span class="meta">@RequestParam</span> <span class="keyword">int</span> parentId)</span> </span>&#123;</span><br><span class="line">    List&lt;TreeNode&gt; children = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (parentId == <span class="number">0</span>) &#123;</span><br><span class="line">        children.add(<span class="keyword">new</span> TreeNode(<span class="number">1</span>, <span class="string">&quot;数学&quot;</span>, <span class="keyword">true</span>, parentId));</span><br><span class="line">        children.add(<span class="keyword">new</span> TreeNode(<span class="number">2</span>, <span class="string">&quot;历史&quot;</span>, <span class="keyword">true</span>, parentId));</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (parentId == <span class="number">1</span>) &#123;</span><br><span class="line">        children.add(<span class="keyword">new</span> TreeNode(<span class="number">11</span>, <span class="string">&quot;参数方程&quot;</span>, <span class="keyword">false</span>, parentId));</span><br><span class="line">        children.add(<span class="keyword">new</span> TreeNode(<span class="number">12</span>, <span class="string">&quot;贝塞尔曲线&quot;</span>, <span class="keyword">false</span>, parentId));</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (parentId == <span class="number">2</span>) &#123;</span><br><span class="line">        children.add(<span class="keyword">new</span> TreeNode(<span class="number">21</span>, <span class="string">&quot;玄武门事变&quot;</span>, <span class="keyword">false</span>, parentId));</span><br><span class="line">        children.add(<span class="keyword">new</span> TreeNode(<span class="number">22</span>, <span class="string">&quot;桃园三结义&quot;</span>, <span class="keyword">false</span>, parentId));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> children;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>响应数据 JSON 格式:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[&#123;</span><br><span class="line">    <span class="attr">&quot;id&quot;</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="attr">&quot;parentId&quot;</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;数学&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;hasChildren&quot;</span>: <span class="literal">true</span></span><br><span class="line">&#125;, &#123;</span><br><span class="line">    <span class="attr">&quot;id&quot;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="attr">&quot;parentId&quot;</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;历史&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;hasChildren&quot;</span>: <span class="literal">true</span></span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure>
+
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/fe-ztree-style/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          zTree 修改 Awesome Style
+        
+      </div>
+    </a>
+  
+  
+    <a href="/java-route/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">你刚才在淘宝上买了一件东西</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

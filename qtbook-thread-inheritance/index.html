@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>继承 QThread 实现多线程 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Qt 中使用多线程，最简单直观的方法就是继承 QThread，重写 run() 方法，需要使用多线程执行的代码放在 run() 函数中，调用 start() 函数启动线程，线程正在运行时 isRunning() 返回 true，结束运行后发出信号 finished()。 实现线程仍以读取文本显示到 QTextEdit 为例，类 ReadingThread 继承 QThread，在 run() 方法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="继承 QThread 实现多线程">
+<meta property="og:url" content="http://xtuer.github.io/qtbook-thread-inheritance/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="Qt 中使用多线程，最简单直观的方法就是继承 QThread，重写 run() 方法，需要使用多线程执行的代码放在 run() 函数中，调用 start() 函数启动线程，线程正在运行时 isRunning() 返回 true，结束运行后发出信号 finished()。 实现线程仍以读取文本显示到 QTextEdit 为例，类 ReadingThread 继承 QThread，在 run() 方法">
+<meta property="og:locale">
+<meta property="article:published_time" content="2017-10-29T04:09:15.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.178Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="QtBook">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E7%BA%BF%E7%A8%8B"><span class="toc-text">实现线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9D%9F%E7%BA%BF%E7%A8%8B"><span class="toc-text">结束线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E7%94%A8%E7%BA%BF%E7%A8%8B"><span class="toc-text">重用线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-qtbook-thread-inheritance" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-thread-inheritance/" class="article-date">
+  	<!-- <time datetime="2017-10-29T04:09:15.000Z" itemprop="datePublished">2017-10-29</time> -->
+    2017-10-29
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      继承 QThread 实现多线程
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Qt 中使用多线程，最简单直观的方法就是继承 <code>QThread</code>，重写 <code>run()</code> 方法，需要使用多线程执行的代码放在 <code>run()</code> 函数中，调用 <code>start()</code> 函数启动线程，线程正在运行时 <code>isRunning()</code> 返回 true，结束运行后发出信号 <code>finished()</code>。</p>
+<h2 id="实现线程"><a href="#实现线程" class="headerlink" title="实现线程"></a>实现线程</h2><p>仍以读取文本显示到 QTextEdit 为例，类 ReadingThread 继承 QThread，在 <code>run()</code> 方法中读取文件并添加到 QTextEdit。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名: ReadingThread.h</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> READINGTHREAD_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> READINGTHREAD_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QThread&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">QTextEdit</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ReadingThread</span> :</span> <span class="keyword">public</span> QThread &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">ReadingThread</span>(QTextEdit *textEdit, QObject *parent = <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> Q_DECL_OVERRIDE</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    QTextEdit *textEdit;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// READINGTHREAD_H</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名: ReadingThread.cpp</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;ReadingThread.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QFile&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QTextStream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QTextEdit&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QMetaObject&gt;</span></span></span><br><span class="line"></span><br><span class="line">ReadingThread::<span class="built_in">ReadingThread</span>(QTextEdit *textEdit, QObject *parent) : <span class="built_in">QThread</span>(parent), <span class="built_in">textEdit</span>(textEdit) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ReadingThread::run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="function">QFile <span class="title">file</span><span class="params">(<span class="string">&quot;/Users/Biao/Desktop/data.txt&quot;</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!file.<span class="built_in">open</span>(QIODevice::Text | QIODevice::ReadOnly)) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">QTextStream <span class="title">in</span><span class="params">(&amp;file)</span></span>;</span><br><span class="line">    <span class="keyword">while</span> (!in.<span class="built_in">atEnd</span>()) &#123;</span><br><span class="line">        QString line = in.<span class="built_in">readLine</span>();</span><br><span class="line">        textEdit-&gt;<span class="built_in">append</span>(line);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>在点击开始读取按钮的槽函数中启动线程:
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">ReadingWidget::<span class="built_in">ReadingWidget</span>(QWidget *parent) : <span class="built_in">QWidget</span>(parent), <span class="built_in">ui</span>(<span class="keyword">new</span> Ui::ReadingWidget) &#123;</span><br><span class="line">    ui-&gt;<span class="built_in">setupUi</span>(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建线程对象</span></span><br><span class="line">    readingThread = <span class="keyword">new</span> <span class="built_in">ReadingThread</span>(ui-&gt;textEdit, <span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 点击 &quot;开始读取&quot; 按钮启动线程</span></span><br><span class="line">    <span class="built_in">connect</span>(ui-&gt;startButton, &amp;QPushButton::clicked, [<span class="keyword">this</span>] &#123;</span><br><span class="line">        <span class="keyword">if</span> (!readingThread-&gt;<span class="built_in">isRunning</span>()) &#123;</span><br><span class="line">            <span class="comment">// 线程没有运行时才启动，调用 start() 启动线程</span></span><br><span class="line">            readingThread-&gt;<span class="built_in">start</span>();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;线程正在运行&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 线程结束时的信号槽</span></span><br><span class="line">    <span class="built_in">connect</span>(readingThread, &amp;QThread::finished, [] &#123;</span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;线程结束运行&quot;</span>;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行程序，点击 <code>开始读取</code> 按钮，文本显示到了 text edit 中，但是控制台很可能输出一句提示</p>
+<blockquote>
+<p>QObject::connect: Cannot queue arguments of type ‘QTextCursor’<br>(Make sure ‘QTextCursor’ is registered using qRegisterMetaType().)</p>
+</blockquote>
+<p>也许你觉得这没什么，但是当读取大文件时，如 <strong>qtgui.index</strong>，程序就直接崩溃了，到底发生了什么，相信到这里，90% 的人都不知道为啥，这是一个非常隐蔽的问题：Qt 中一个线程里不能直接调用另一个线程的对象的函数，解决这个问题很简单，把 <code>textEdit-&gt;append(line)</code> 替换为 <code>QMetaObject::invokeMethod(textEdit, &quot;append&quot;, Q_ARG(QString, line))</code> 即可，想要知道为什么，请参考 <a href="/qtbook-thread-call-in-different-thread">线程一调用线程二中函数的正确姿势</a>。</p>
+<p>程序不会崩溃了，此外又发现了一个问题，界面上有时候只显示了文件的部分内容，然后就冻住了，过了几分钟才全部显示，不是说好的耗时任务在线程中执行就是为了不阻塞 UI 线程么，怎么还是阻塞了？</p>
+<p>如果观察控制台，可以看到 1s 左右就输出了 <strong>线程结束运行</strong>，说明在新线程中读取文件是正确的，但是每读取一行就会让 UI 线程执行一个更新界面的操作，qtgui.index 有 18.5 万行，导致 UI 线程瞬间累积了 18.5 万个更新界面的操作，要知道更新界面是非常消耗资源的，所以才导致 UI 忙不过来被冻住。为了减少 UI 线程更新界面的频率，读取一行后暂停 1ms，就能看到内容不停的被添加到 text edit 中，证明了读取文件的线程没有阻塞 UI 线程，代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ReadingThread::run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="function">QFile <span class="title">file</span><span class="params">(<span class="string">&quot;/Users/Biao/Qt5.9.2/Docs/Qt-5.9.2/qtgui/qtgui.index&quot;</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!file.<span class="built_in">open</span>(QIODevice::Text | QIODevice::ReadOnly)) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">QTextStream <span class="title">in</span><span class="params">(&amp;file)</span></span>;</span><br><span class="line">    <span class="keyword">while</span> (!in.<span class="built_in">atEnd</span>()) &#123;</span><br><span class="line">        QString line = in.<span class="built_in">readLine</span>();</span><br><span class="line">        QMetaObject::<span class="built_in">invokeMethod</span>(textEdit, <span class="string">&quot;append&quot;</span>, <span class="built_in">Q_ARG</span>(QString, line));</span><br><span class="line">        QThread::<span class="built_in">msleep</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="结束线程"><a href="#结束线程" class="headerlink" title="结束线程"></a>结束线程</h2><p>上面读取文件的过程太过漫长，想随时结束读取线程，相信大多数人会调用 <code>terminate()</code> 函数来结束线程：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 点击 &quot;结束读取&quot; 按钮结束线程</span></span><br><span class="line"><span class="built_in">connect</span>(ui-&gt;stopButton, &amp;QPushButton::clicked, [<span class="keyword">this</span>] &#123;</span><br><span class="line">    readingThread-&gt;<span class="built_in">terminate</span>();</span><br><span class="line">    readingThread-&gt;<span class="built_in">wait</span>();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>void QThread::terminate()</code></p>
+<p>Terminates the execution of the thread. The thread may or may not be terminated immediately, depending on the operating system’s scheduling policies. Use QThread::wait() after terminate(), to be sure.</p>
+<p><strong>Warning</strong>: This function is dangerous and its use is discouraged. The thread can be terminated at any point in its code path. Threads can be terminated while modifying data. There is no chance for the thread to clean up after itself, unlock any held mutexes, etc. In short, use this function only if absolutely necessary.</p>
+</blockquote>
+<p>需要特别注意，使用 <code>terminate()</code> 结束线程是非常危险的，它可能在 <code>run()</code> 中的任意地方结束，可能导致死锁、资源没有释放等，虽然在我们这个例子中使用 <code>terminate()</code> 结束线程没问题，为了养成好的习惯，还是不要随意使用的好。</p>
+<p>结束线程其实非常简单，只要 <code>run()</code> 函数执行结束即可。<strong>推荐结束线程的方法是：定义一个变量，用它来控制 <code>run()</code> 中循环的结束。</strong>下面定义了 bool 变量 stopped，在线程执行的时候，当其为 true 时循环就会结束，然后 run() 函数结束返回，线程就结束运行了。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名: ReadingThread.h</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> READINGTHREAD_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> READINGTHREAD_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QThread&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">QTextEdit</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ReadingThread</span> :</span> <span class="keyword">public</span> QThread &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">ReadingThread</span>(QTextEdit *textEdit, QObject *parent = <span class="literal">NULL</span>);</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">stop</span><span class="params">()</span></span>; <span class="comment">// 结束线程</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> Q_DECL_OVERRIDE</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">bool</span> stopped; <span class="comment">// 线程结束的标志</span></span><br><span class="line">    QTextEdit *textEdit;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// READINGTHREAD_H</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名: ReadingThread.cpp</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;ReadingThread.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QFile&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QTextStream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QTextEdit&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QMetaObject&gt;</span></span></span><br><span class="line"></span><br><span class="line">ReadingThread::<span class="built_in">ReadingThread</span>(QTextEdit *textEdit, QObject *parent) : <span class="built_in">QThread</span>(parent), <span class="built_in">textEdit</span>(textEdit) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ReadingThread::stop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    stopped = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ReadingThread::run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    stopped = <span class="literal">false</span>; <span class="comment">// 线程开始执行时设置 stopped 为 false</span></span><br><span class="line">    <span class="function">QFile <span class="title">file</span><span class="params">(<span class="string">&quot;/Users/Biao/Qt5.9.2/Docs/Qt-5.9.2/qtgui/qtgui.index&quot;</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!file.<span class="built_in">open</span>(QIODevice::Text | QIODevice::ReadOnly)) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">QTextStream <span class="title">in</span><span class="params">(&amp;file)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 当 stopped 为 true，或者 atEnd() 为 true 时结束 while 循环</span></span><br><span class="line">    <span class="keyword">while</span> (!stopped &amp;&amp; !in.<span class="built_in">atEnd</span>()) &#123;</span><br><span class="line">        QString line = in.<span class="built_in">readLine</span>();</span><br><span class="line">        QMetaObject::<span class="built_in">invokeMethod</span>(textEdit, <span class="string">&quot;append&quot;</span>, <span class="built_in">Q_ARG</span>(QString, line));</span><br><span class="line">        QThread::<span class="built_in">msleep</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>调用 <code>stop()</code> 函数结束线程时，最好再调用一下 <code>wait()</code> 等待线程真的结束，因为调用 <code>stop()</code> 后需要等一下 ReadingThread 才能得到执行权限，然后循环结束，等到 <code>run()</code> 结束返回时需要一点时间，虽然非常非常短暂，但对于计算机来说足够发生很多事了，尤其是高并发的情况下更是不可预料，一定要重视小概率事件，否则很多时候死得莫名其妙的，为了等待线程彻底结束，调用 <code>wait()</code> 还是很有必要的：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 点击 &quot;结束读取&quot; 按钮结束线程</span></span><br><span class="line"><span class="built_in">connect</span>(ui-&gt;stopButton, &amp;QPushButton::clicked, [<span class="keyword">this</span>] &#123;</span><br><span class="line">    readingThread-&gt;<span class="built_in">stop</span>(); <span class="comment">// 提示结束线程执行</span></span><br><span class="line">    readingThread-&gt;<span class="built_in">wait</span>(); <span class="comment">// 等待线程真正的结束执行</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="重用线程"><a href="#重用线程" class="headerlink" title="重用线程"></a>重用线程</h2><p>线程结束运行后仍然可以再次调用 <code>start()</code> 重新启动。使用这个特性，可以重复利用线程执行任务，而不是每次都创建一个新的线程，创建线程需要和操作系统打交道，是很消耗资源的操作，所以能够重用就尽量重用，Qt 提供了线程池 QThreadPool 就是为了重复利用线程，避免大量的创建线程，提高程序的效率。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本节使用简单的例子介绍了继承 QThread 实现多线程，在新线程中执行耗时任务，强调不要随意使用 <code>terminate()</code> 结束线程并给出了结束线程的简单方法，最后提示为了提高程序效率，应尽量的重复利用线程，避免大量创建新线程浪费资源。</p>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/qt-global-hotkey/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Qt 全局快捷键
+        
+      </div>
+    </a>
+  
+  
+    <a href="/qtbook-thread/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">多线程编程</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

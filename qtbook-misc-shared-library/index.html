@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>创建使用动态链接库 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="想一想大多数时候我们的项目是不是所有代码都会放在同一个工程中？人少的时候问题不大，但当项目越来越大，开发人员越来越多，会发觉开发、管理能让人窒息，大家都绞在一起，出问题时互相推诿责任，各自有理，这时如果按照功能模块进行分组各自开发，以库的形式提供给其他人使用，就能够最大限度的并行开发，提高工作效率，而且项目的模块也很清晰，责任一目了然，此外使用动态链接库后还能够按模块升级，编译的速度也更快。下面就">
+<meta property="og:type" content="article">
+<meta property="og:title" content="创建使用动态链接库">
+<meta property="og:url" content="http://xtuer.github.io/qtbook-misc-shared-library/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="想一想大多数时候我们的项目是不是所有代码都会放在同一个工程中？人少的时候问题不大，但当项目越来越大，开发人员越来越多，会发觉开发、管理能让人窒息，大家都绞在一起，出问题时互相推诿责任，各自有理，这时如果按照功能模块进行分组各自开发，以库的形式提供给其他人使用，就能够最大限度的并行开发，提高工作效率，而且项目的模块也很清晰，责任一目了然，此外使用动态链接库后还能够按模块升级，编译的速度也更快。下面就">
+<meta property="og:locale">
+<meta property="article:published_time" content="2017-11-05T00:48:41.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.174Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="QtBook">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E7%A8%8B"><span class="toc-text">创建工程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-MyLibrary"><span class="toc-text">修改 MyLibrary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-MyProject"><span class="toc-text">修改 MyProject</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F"><span class="toc-text">运行程序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-qtbook-misc-shared-library" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-misc-shared-library/" class="article-date">
+  	<!-- <time datetime="2017-11-05T00:48:41.000Z" itemprop="datePublished">2017-11-05</time> -->
+    2017-11-05
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      创建使用动态链接库
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>想一想大多数时候我们的项目是不是所有代码都会放在同一个工程中？人少的时候问题不大，但当项目越来越大，开发人员越来越多，会发觉开发、管理能让人窒息，大家都绞在一起，出问题时互相推诿责任，各自有理，这时如果按照功能模块进行分组各自开发，以库的形式提供给其他人使用，就能够最大限度的并行开发，提高工作效率，而且项目的模块也很清晰，责任一目了然，此外使用动态链接库后还能够按模块升级，编译的速度也更快。下面就介绍怎么在工程中创建和使用动态链接库。</p>
+<blockquote>
+<p>Windows 中叫动态链接库 (Dynamic Link Library: .dll)，Linux 中叫共享库 (Shared Library: .so)，Mac 下后缀为 .dylib，这几种叫法实际指的是一种类型的库，这里都统称为动态链接库吧。</p>
+</blockquote>
+<p>理解动态链接库需要理解符号的概念，符号包含函数、变量或者类，分为公有符号和私有符号:</p>
+<ul>
+<li><p>公有符号: 在其他程序或者库使用的符号，需要根据用途使用宏进行标记:</p>
+<ul>
+<li><code>Q_DECL_EXPORT</code>: 编译为动态链接库时符号要标记为 <code>Q_DECL_EXPORT</code>，表明是导出的符号</li>
+<li><code>Q_DECL_IMPORT</code>: 在调用动态链接库时符号要标记为 <code>Q_DECL_IMPORT</code>，表明是导入的符号</li>
+</ul>
+</li>
+<li><p>私有符号: 除了公有符号外的其他符号，在此库之外不应该被访问，不需要进行标记</p>
+<blockquote>
+<p>建议: 不要在头文件中声明私有符号。</p>
+</blockquote>
+</li>
+</ul>
+<p>符号上的标记 <code>Q_DECL_EXPORT</code> 和 <code>Q_DECL_IMPORT</code> 不能同时存在，为了在导出和导入时使用同一个头文件， 头文件中包含下面的宏，编译时根据条件使用不同的宏就可以了:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QtCore/qglobal.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 根据条件定义 LIB 为不同的宏</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> defined(BUILD_LIB)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LIB Q_DECL_EXPORT</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LIB Q_DECL_IMPORT</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 LIB 修饰符号，编译时会根据编译条件替换为 Q_DECL_EXPORT 或者 Q_DECL_IMPORT</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LIB</span> <span class="title">Calculator</span> &#123;</span></span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>为了达到了在导出和导入时使用同一个头文件的目的:</p>
+<ul>
+<li>生成动态链接库工程的 pro 文件中添加 <code>DEFINES += BUILD_LIB</code>，在编译的时候 <code>LIB</code> 就会被替换为 <code>Q_DECL_EXPORT</code></li>
+<li>使用动态链接库工程的 pro 文件中千万不要加 <code>DEFINES += BUILD_LIB</code>，编译的时候发现没有定义 <code>BUILD_LIB</code>，则 <code>LIB</code> 就会被替换为 <code>Q_DECL_IMPORT</code><span id="more"></span></li>
+</ul>
+</blockquote>
+<p>说了这么多，还是不知道 Qt 中怎么创建和使用动态链接库，下面就以使用子工程的方式介绍创建和使用动态链接库，工程结构如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">SharedLibraryTest</span><br><span class="line">   ├── MyLibrary</span><br><span class="line">   │   ├── Calculator.cpp</span><br><span class="line">   │   ├── Calculator.h</span><br><span class="line">   │   └── MyLibrary.pro</span><br><span class="line">   ├── MyProject</span><br><span class="line">   │   ├── MyProject.pro</span><br><span class="line">   │   └── main.cpp</span><br><span class="line">   └── SharedLibrary.pro</span><br></pre></td></tr></table></figure>
+
+<p>SharedLibraryTest 是 Subdirs Project，包含动态链接库的工程 (MyLibrary) 和使用动态链接库的工程 (MyProject)。</p>
+<h2 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h2><p>Qt Creator 中创建工程的步骤如下:</p>
+<ol>
+<li>创建工程 SharedLibraryTest:<ol>
+<li><code>File &gt; New File or Project... &gt; Other Project &gt; Subdirs Project</code></li>
+<li>点击 <code>Choose...</code></li>
+<li>输入工程名 <code>SharedLibraryTest</code> 然后创建</li>
+</ol>
+</li>
+<li>创建工程 MyLibrary:<ol>
+<li><code>工程 SharedLibraryTest 上右键 &gt; New Subproject... &gt; Library &gt; C++ Library</code></li>
+<li>点击 <code>Choose...</code></li>
+<li>选择 Type 为 <code>Shared Library</code></li>
+<li>输入工程名 <code>MyLibrary</code> 然后创建</li>
+</ol>
+</li>
+<li>创建工程 MyProject:<ol>
+<li><code>工程 SharedLibraryTest 上右键 &gt; New Subproject... &gt; Application &gt; Qt Console Application</code></li>
+<li>点击 <code>Choose...</code></li>
+<li>输入工程名 <code>MyProject</code> 然后创建</li>
+</ol>
+</li>
+</ol>
+<h2 id="修改-MyLibrary"><a href="#修改-MyLibrary" class="headerlink" title="修改 MyLibrary"></a>修改 MyLibrary</h2><p>为了清晰起见，我们先把 MyLibrary 下的 .h 和 .cpp 文件都删除掉，创建 C++ Class Calculator 得到 Calculator.h 和 Calculator.cpp，然后编辑它们:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名: Calculator.h</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> CALCULATOR_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CALCULATOR_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QtCore/qglobal.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> defined(BUILD_LIB)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LIB Q_DECL_EXPORT</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LIB Q_DECL_IMPORT</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LIB</span> <span class="title">Calculator</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Calculator</span>();</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> <span class="keyword">const</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">LIB <span class="keyword">void</span> <span class="title">work</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// CALCULATOR_H</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名: Calculator.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;Calculator.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QDebug&gt;</span></span></span><br><span class="line"></span><br><span class="line">Calculator::<span class="built_in">Calculator</span>() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Calculator::add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> <span class="keyword">const</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">doWork</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;work() -&gt; doWork()&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">work</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ::<span class="built_in">doWork</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为这个工程是生成动态链接库的，所以需要在工程的 pro 文件中增加 <code>DEFINES += BUILD_LIB</code> 这一句，这样编译时 <code>LIB</code> 为 <code>Q_DECL_EXPORT</code>，工程的 pro 文件如下:</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#-------------------------------------------------</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Project created by QtCreator 2017-11-05T08:33:53</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#-------------------------------------------------</span></span><br><span class="line"></span><br><span class="line">QT      <span class="attr">-</span>= gui</span><br><span class="line"></span><br><span class="line"><span class="attr">TARGET</span>   = MyLibrary</span><br><span class="line"><span class="attr">TEMPLATE</span> = lib</span><br><span class="line"></span><br><span class="line">DEFINES += BUILD_LIB</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output directory</span></span><br><span class="line">CONFIG(debug, debug|release) &#123;</span><br><span class="line">    <span class="attr">output</span> = debug</span><br><span class="line">&#125;</span><br><span class="line">CONFIG(release, debug|release) &#123;</span><br><span class="line">    <span class="attr">output</span> = release</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="attr">DESTDIR</span>     = ../bin</span><br><span class="line"><span class="attr">OBJECTS_DIR</span> = $<span class="variable">$output</span></span><br><span class="line"><span class="attr">MOC_DIR</span>     = $<span class="variable">$output</span></span><br><span class="line"><span class="attr">RCC_DIR</span>     = $<span class="variable">$output</span></span><br><span class="line"><span class="attr">UI_DIR</span>      = $<span class="variable">$output</span></span><br><span class="line"></span><br><span class="line">SOURCES += \</span><br><span class="line">    Calculator.cpp</span><br><span class="line"></span><br><span class="line">HEADERS += \</span><br><span class="line">    Calculator.h</span><br><span class="line"></span><br><span class="line">unix &#123;</span><br><span class="line">    <span class="attr">target.path</span> = /usr/lib</span><br><span class="line">    INSTALLS += target</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>下面的部分不是必须的，只是我常用来组织编译输出的目录:</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">CONFIG(debug, debug|release) &#123;</span><br><span class="line">    <span class="attr">output</span> = debug</span><br><span class="line">&#125;</span><br><span class="line">CONFIG(release, debug|release) &#123;</span><br><span class="line">    <span class="attr">output</span> = release</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="attr">DESTDIR</span>     = ../bin</span><br><span class="line"><span class="attr">OBJECTS_DIR</span> = $<span class="variable">$output</span></span><br><span class="line"><span class="attr">MOC_DIR</span>     = $<span class="variable">$output</span></span><br><span class="line"><span class="attr">RCC_DIR</span>     = $<span class="variable">$output</span></span><br><span class="line"><span class="attr">UI_DIR</span>      = $<span class="variable">$output</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>提示: </p>
+<ul>
+<li><p>使用宏 <code>LIB</code> 在头文件里声明修饰公有符号 <code>class LIB Calculator</code> 和 <code>LIB void work()</code>，可以在其他模块中使用，而 <code>doWork()</code> 是私有符号，不应在头文件里声明，对于其他模块是不可访问的</p>
+</li>
+<li><p>不用宏 <code>LIB</code> 修饰公有符号</p>
+<ul>
+<li>使用 MinGW，Clang 编译器时，Qt 能正常的编译出动态链接库，头文件中的类、函数等都能被其他工程使用，但是 VS 的编译器不能省</li>
+<li>其他模块中的对象使用传统的 SIGNAL SLOT 方式能正常的和动态链接库中的对象建立信号槽链接，如 <code>QObject::connect(scrollBar, SIGNAL(valueChanged(int)), label, SLOT(setNum(int)))</code>，但是使用 Qt 5 新的信号槽语法 <code>QObject::connect(scrollBar, &amp;QScrollBar::valueChanged, [] &#123;&#125;)</code> 时提示错误 signal not found in class XXX，也就是说想要使用新的语法建立信号槽链接就不能省去宏 <code>LIB</code>。原因是信号是内联函数，不使用宏的时候没有正确的导出。</li>
+</ul>
+</li>
+<li><p>为什么要提省掉宏 BUILD_LIB 和 LIB 呢？<br>以前我们有一个项目开发了一年多，运营得不错，有了第二个客户，这个客户的需求和第一个客户的需求有 80% 相同，然后我们就把第一个项目复制了一份，在此基础上进行修改，过段时间又有了第三个客户，还是同样的情况，绝大部分需求都是相同的，如果再继续复制一份进行修改，当相同的功能更新时，需要同时更新 3 个项目，容易出错，需要大量的测试，更幸福的是，很快我们就有了第四个客户，于是我们决定把项目中的公共部分根据功能模块提取出来作为动态链接库，以库的方式提供给其他模块调用。此时面临一个问题，如果动态链接库中的公有符号都使用宏来修饰，工作量也不小，后来发现不用宏也可以，高兴坏了，这样只需要按模块移动文件了，花了 2 天的时间就完成了任务。继续开发了一段时间后需要和库中的对象建立信号槽链接，已经习惯了新的链接语法，这时就发现了上面提到的 signal not found in class XXX 的错误，后来采用了性价比最高的办法，就是使用传统的信号槽链接语法来解决这个问题的</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="修改-MyProject"><a href="#修改-MyProject" class="headerlink" title="修改 MyProject"></a>修改 MyProject</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名: main.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;Calculator.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QDebug&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="built_in">Q_UNUSED</span>(argc)</span><br><span class="line">    <span class="built_in">Q_UNUSED</span>(argv)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 调用库中的函数</span></span><br><span class="line">    <span class="built_in">work</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 生成库中的类对象</span></span><br><span class="line">    Calculator calculator;</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; calculator.<span class="built_in">add</span>(<span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>工程的 pro 文件如下，没有 <code>DEFINES += BUILD_LIB</code> 这一句哦，因为这个工程是使用动态链接库的，<code>LIB</code> 应该为  <code>Q_DECL_IMPORT</code>:</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">QT <span class="attr">-</span>= gui</span><br><span class="line"></span><br><span class="line">CONFIG += c++11 console</span><br><span class="line">CONFIG <span class="attr">-</span>= app_bundle</span><br><span class="line"></span><br><span class="line">INCLUDEPATH += $$PWD/../MyLibrary</span><br><span class="line">LIBS += -L$$OUT_PWD/../bin -lMyLibrary</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output directory</span></span><br><span class="line">CONFIG(debug, debug|release) &#123;</span><br><span class="line">    <span class="attr">output</span> = debug</span><br><span class="line">&#125;</span><br><span class="line">CONFIG(release, debug|release) &#123;</span><br><span class="line">    <span class="attr">output</span> = release</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="attr">DESTDIR</span>     = ../bin</span><br><span class="line"><span class="attr">OBJECTS_DIR</span> = $<span class="variable">$output</span></span><br><span class="line"><span class="attr">MOC_DIR</span>     = $<span class="variable">$output</span></span><br><span class="line"><span class="attr">RCC_DIR</span>     = $<span class="variable">$output</span></span><br><span class="line"><span class="attr">UI_DIR</span>      = $<span class="variable">$output</span></span><br><span class="line"></span><br><span class="line">SOURCES += main.cpp</span><br></pre></td></tr></table></figure>
+
+<p><code>INCLUDEPATH += $$PWD/../MyLibrary</code> 添加 <code>MyLibrary</code> 的路径到包含目录中，使用的时候就可以  <code>include &lt;Calculator.h&gt;</code> 这样包含头文件了， <code>LIBS += -L$$OUT_PWD/../bin - lMyLibrary</code> 则是引入工程 MyLibrary 生成的动态链接库。</p>
+<p><strong>很多人奇怪，-L 和 -l 到底是啥？</strong></p>
+<ul>
+<li><code>-L</code> 指定动态链接库所在文件夹</li>
+<li><code>-l</code> 指定动态链接库的名字，不需要指定库的前缀和后缀，Qt 会为自动识别，因为不同的系统中动态链接库的前缀和后缀都不同<ul>
+<li>Windows 中前缀为空，后缀为 .dll</li>
+<li>Linux 中前缀为空，后缀为 .so</li>
+<li>Mac 中前缀为 lib，后缀为 .dylib</li>
+</ul>
+</li>
+<li>如果不使用 -L 和 -l，直接使用 <code>LIBS += 动态链接库的绝对路径或相对路径</code> 也是可以的，例如 <code>LIBS += C:/curl/bin/curl.dll</code></li>
+<li>还能使用通配符一次导入多个库，如 <code>LIBS += C:/curl/bin/*.dll</code>，当有 20 个 dll 要导入时，通配符的方式就很省事了</li>
+</ul>
+<h2 id="运行程序"><a href="#运行程序" class="headerlink" title="运行程序"></a>运行程序</h2><p>编译、运行工程，控制台输出:</p>
+<blockquote>
+<p>work() -&gt; doWork()<br>5</p>
+</blockquote>
+<p>可以看到编译输出目录生成了动态链接库，并且在工程中也成功使用了，以后复杂的项目就可以按模块进行开发了。当然也可以不必使用 Subdirs Project 的方式，而是每个模块一个工程，pro 文件进行简单的修改即可。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li>Qt 的帮助文件中搜索: <a target="_blank" rel="noopener" href="https://doc.qt.io/qt-5/sharedlibrary.html"><code>Creating Shared Libraries</code></a> ，查看怎么创建动态链接库</li>
+<li>Qt 的帮助文件中搜索: <code>Third Party Libraries</code>，查看怎么使用第三方的动态链接库</li>
+</ul>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/qtbook-thread-pool/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          线程池 QThreadPool
+        
+      </div>
+    </a>
+  
+  
+    <a href="/qt-widget-performance/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">测试 Widget 的效率</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

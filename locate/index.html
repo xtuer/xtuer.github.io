@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>微信网页中精确定位 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="支持 H5 的浏览器提供了获取 GPS 的接口 navigator.geolocation.getCurrentPosition(success, error)，由于各种原因，国内得到的定位都是不准确的，百度地图 API 也提供了定位接口 new BMap.Geolocation().getCurrentPosition(callback)，不过也不准确，有时候会偏离几十公里，为了能够在浏览器里精">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信网页中精确定位">
+<meta property="og:url" content="http://xtuer.github.io/locate/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="支持 H5 的浏览器提供了获取 GPS 的接口 navigator.geolocation.getCurrentPosition(success, error)，由于各种原因，国内得到的定位都是不准确的，百度地图 API 也提供了定位接口 new BMap.Geolocation().getCurrentPosition(callback)，不过也不准确，有时候会偏离几十公里，为了能够在浏览器里精">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-05-13T05:51:12.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.161Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="FE">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%BE%AE%E4%BF%A1-JS-SDK"><span class="toc-text">使用微信 JS SDK</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%85%AC%E4%BC%97%E5%B9%B3%E5%8F%B0%E6%B5%8B%E8%AF%95%E8%B4%A6%E5%8F%B7%E8%BF%9B%E8%A1%8C%E5%BC%80%E5%8F%91"><span class="toc-text">使用公众平台测试账号进行开发</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E7%99%BE%E5%BA%A6%E5%9C%B0%E5%9B%BE-SDK"><span class="toc-text">使用百度地图 SDK</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E9%A1%B5%E4%B8%AD%E5%AE%9A%E4%BD%8D"><span class="toc-text">网页中定位</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E4%BB%A3%E7%A0%81"><span class="toc-text">服务器端代码</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-locate" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/locate/" class="article-date">
+  	<!-- <time datetime="2020-05-13T05:51:12.000Z" itemprop="datePublished">2020-05-13</time> -->
+    2020-05-13
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      微信网页中精确定位
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>支持 H5 的浏览器提供了获取 GPS 的接口 <code>navigator.geolocation.getCurrentPosition(success, error)</code>，由于各种原因，国内得到的定位都是不准确的，百度地图 API 也提供了定位接口 <code>new BMap.Geolocation().getCurrentPosition(callback)</code>，不过也不准确，有时候会偏离几十公里，为了能够在浏览器里精确的定位，可以在微信浏览器中打开网页，使用微信的 JS SDK 中的 <code>wx.getLocation()</code> 进行定位得到<strong>大地坐标系 WGS84</strong> 的坐标，然后转换为<strong>百度 BD09 坐标</strong>，使用百度 API 获取此坐标对应的中文地址。<span id="more"></span></p>
+<h2 id="使用微信-JS-SDK"><a href="#使用微信-JS-SDK" class="headerlink" title="使用微信 JS SDK"></a>使用微信 JS SDK</h2><p>微信 <a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html">JS-SDK</a> 是微信公众平台面向网页开发者提供的基于微信内的网页开发工具包。参考 <a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html">JS-SDK 说明文档</a>，调用 JS API 主要步骤如下:</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/">注册微信公众号</a> (几分钟就可完成)</li>
+<li>开启公众号的开发者模式: <code>开发 &gt; 基本配置 &gt; 启用</code></li>
+<li>得到 AppID 和 开发者密码 AppSecret: <code>开发 &gt; 基本配置 &gt; 公众号开发信息</code> (关闭弹窗前要保存好 AppSecret，如果忘了就需要重新生成)</li>
+<li>添加服务器的 IP 到公众号的白名单中: <code>开发 &gt; 基本配置 &gt; 公众号开发信息 &gt; IP 白名单</code>，因为需要从服务器端向微信服务器发起 HTTP 请求获取 Access Token 和 Api Ticket</li>
+<li>绑定使用此公众号开发的域名: <code>设置 &gt; 公众号设置 &gt; 功能设置 &gt; JS 接口安全域名</code> (每个月只能修改 3 次)</li>
+<li>生成网页中调用微信 JS API 需要的签名:<ol>
+<li><a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Get_access_token.html">获取 <strong>Access Token</strong></a> (GET 请求): <a target="_blank" rel="noopener" href="https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&amp;appid=APP_ID&amp;secret=APP_SECRET">https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&amp;appid=APP_ID&amp;secret=APP_SECRET</a></li>
+<li>使用上面得到的 Access Token 获取 <strong>JS API Ticket</strong> (GET 请求): <a target="_blank" rel="noopener" href="https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&amp;access_token=ACCESS_TOKEN">https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&amp;access_token=ACCESS_TOKEN</a></li>
+<li>使用上面得到的 JS API Ticket 计算生成<strong>签名 signature</strong> (给 <code>wx.config</code> 使用)，可以使用 <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=jsapisign">微信 JS 接口签名校验工具</a> 进行测试 (就是把参数拼成一个字符串使用 SHA1 进行编码得到签名)</li>
+</ol>
+</li>
+<li>网页中引入 JS 文件: <a target="_blank" rel="noopener" href="https://res.wx.qq.com/open/js/jweixin-1.6.0.js">https://res.wx.qq.com/open/js/jweixin-1.6.0.js</a></li>
+<li>网页中调用 wx.config<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 下面参数中的 nonceStr, timestamp, signature 由服务器端生成</span></span><br><span class="line">wx.config(&#123;</span><br><span class="line">    <span class="attr">debug</span>    : <span class="literal">false</span>, <span class="comment">// 开启调试模式，调用的所有 api 的返回值会在客户端 alert 出来</span></span><br><span class="line">    <span class="attr">appId</span>    : <span class="string">&#x27;wxd499c94dd151d520&#x27;</span>, <span class="comment">// 必填，公众号的唯一标识</span></span><br><span class="line">    <span class="attr">nonceStr</span> : <span class="string">&#x27;echo&#x27;</span>, <span class="comment">// 必填，生成签名的随机串</span></span><br><span class="line">    <span class="attr">timestamp</span>: <span class="string">&#x27;1587879955&#x27;</span>, <span class="comment">// 必填，生成签名的时间戳</span></span><br><span class="line">    <span class="attr">signature</span>: <span class="string">&#x27;023b9930e2c1a7a8d6b15319b6a19efb1fde8364&#x27;</span>,<span class="comment">// 必填，签名</span></span><br><span class="line">    <span class="attr">jsApiList</span>: [<span class="string">&#x27;getLocation&#x27;</span>] <span class="comment">// 必填，需要使用的JS接口列表</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
+<li>在 wx.ready 中调用微信的 JS API<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">wx.ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 微信默认为 wgs84 的 gps 坐标，如果要返回直接给 openLocation 用的火星坐标，可传入 &#x27;gcj02&#x27;</span></span><br><span class="line">    wx.getLocation(&#123; <span class="attr">type</span>: <span class="string">&#x27;wgs84&#x27;</span>, <span class="attr">success</span>: <span class="function"><span class="keyword">function</span> (<span class="params">res</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> longitude = res.longitude; <span class="comment">// 经度，浮点数，范围为 180 ~ -180</span></span><br><span class="line">        <span class="keyword">var</span> latitude  = res.latitude;  <span class="comment">// 纬度，浮点数，范围为 90 ~ -90</span></span><br><span class="line"></span><br><span class="line">        <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#info&#x27;</span>).innerHTML = longitude + <span class="string">&#x27;, &#x27;</span> + latitude;</span><br><span class="line">    &#125; &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>到这里就可以在微信的浏览器中使用微信提供的 JS API 了，具体都提供了哪些可用的 API，请参考 <a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html">JS SDK 说明文档</a> 中的<strong>附录 2 - 所有 JS 接口列表</strong>。此外，在开发中注意一下以下几点:</p>
+<ul>
+<li>Access Token 和 Api Ticket 的有效时间都是 2 小时，获取后可以先缓存起来，不要每次都请求新的</li>
+<li>signature 需要使用 Api Ticket 和访问微信 Api 的页面的 url 一起生成 (当前网页的 URL，不包含 # 及其后面部分) </li>
+<li>签名用的 noncestr 和 timestamp 必须与 wx.config 中的 nonceStr 和 timestamp 相同</li>
+</ul>
+<h3 id="使用公众平台测试账号进行开发"><a href="#使用公众平台测试账号进行开发" class="headerlink" title="使用公众平台测试账号进行开发"></a>使用公众平台测试账号进行开发</h3><p>微信需要通过域名访问我们的服务器，大多数情况下在开发的时候我们的电脑一般都没有独立 IP 和域名，为了让微信能够访问我们的开发电脑，可以借助内网映射工具如 ngrok, <a target="_blank" rel="noopener" href="https://natapp.cn/">natapp</a> 等映射一个域名到我们的电脑，把这个域名配置到上面第 5 步处要求的 <strong>JS 接口安全域名</strong>。由于每个月只能修改这个域名 3 次，为了安全起见，还可以使用微信提供的公众平台测试账号进行开发，在它里面设置开发时的临时域名，不用配置 IP 白名单，此外测试账号还开放了所有权限:</p>
+<ol>
+<li><p><code>开发 &gt; 开发者工具 &gt; 公众平台测试账号</code>，可以获得 App ID 和 App Secret</p>
+</li>
+<li><p><code>接口配置信息</code>中填写 URL 和 Token，验证通过即可:</p>
+<ol>
+<li><p>URL: 微信会访问这个 URL 验证我们的服务可不可用，只要在这个 URL 的响应中原样返回微信传来的参数 echostr 即可，例如我们的 URL 为 <a target="_blank" rel="noopener" href="http://d2hp9x.natappfree.cc/api/demo/wechat/checkSignature">http://d2hp9x.natappfree.cc/api/demo/wechat/checkSignature</a>，响应代码为</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/api/demo/wechat/checkSignature&quot;)</span></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">checkSignature</span><span class="params">(<span class="meta">@RequestParam</span> String echostr)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> echostr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>Token: 随便填就行 (与上面提到的 Access Token 没有任何关系)</p>
+</li>
+</ol>
+</li>
+<li><p>微信关注下面的 <code>测试号二维码</code> 的公众号</p>
+</li>
+<li><p>在微信中访问我们使用了微信 JS API 的网页，不出意外，微信的 JS API 能够调用了</p>
+</li>
+</ol>
+<h2 id="使用百度地图-SDK"><a href="#使用百度地图-SDK" class="headerlink" title="使用百度地图 SDK"></a>使用百度地图 SDK</h2><p>请参考百度地图说明文档<a target="_blank" rel="noopener" href="http://lbsyun.baidu.com/index.php?title=jspopular/guide/getkey">账号和获取秘钥</a>，然后在网页中引入百度地图的 JS 就可以使用了。也可以直接使用下面的 <code>&lt;script src=&quot;https://api.map.baidu.com/api?v=2.0&amp;ak=By5uc80cGiGYzgc0XUHGyDCoAGsiIi0x&quot;&gt;&lt;/script&gt;</code>，因为是免费无限制调用次数的。</p>
+<p>下面附上相关代码作为参考。</p>
+<h2 id="网页中定位"><a href="#网页中定位" class="headerlink" title="网页中定位"></a>网页中定位</h2><p>下面的代码为使用微信定位得到 WGS84 的大地坐标系坐标，然后把其转换为百度的 BD09 坐标，然后获取位置的地址。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>定位<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 定位不精确: 微信得到的 wgs84 位置 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;wgs84-1&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;wgs84-2&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 定位精确: 百度的 bd09 位置 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;bd09-1&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;bd09-2&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://res.wx.qq.com/open/js/jweixin-1.6.0.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://api.map.baidu.com/api?v=2.0&amp;ak=By5uc80cGiGYzgc0XUHGyDCoAGsiIi0x&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;/static-x/lib/axios.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// 当前页面的 url (不包含参数部分)</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> url = <span class="built_in">window</span>.location.origin + <span class="built_in">window</span>.location.pathname;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// [1] 获取微信 JS Api 的签名</span></span></span><br><span class="line"><span class="javascript">        axios.get(<span class="string">&#x27;/api/demo/wechat&#x27;</span>, &#123; <span class="attr">params</span>: &#123; url &#125; &#125;).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">const</span> config = result.data;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">            wx.config(&#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">debug</span>    : <span class="literal">false</span>,            <span class="comment">// 开启调试模式，调用的所有 api 的返回值会在客户端 alert 出来</span></span></span><br><span class="line"><span class="javascript">                <span class="attr">appId</span>    : config.appId,     <span class="comment">// 必填，公众号的唯一标识</span></span></span><br><span class="line"><span class="javascript">                <span class="attr">nonceStr</span> : config.nonceStr,  <span class="comment">// 必填，生成签名的随机串</span></span></span><br><span class="line"><span class="javascript">                <span class="attr">timestamp</span>: config.timestamp, <span class="comment">// 必填，生成签名的时间戳</span></span></span><br><span class="line"><span class="javascript">                <span class="attr">signature</span>: config.signature, <span class="comment">// 必填，签名</span></span></span><br><span class="line"><span class="javascript">                <span class="attr">jsApiList</span>: [<span class="string">&#x27;getLocation&#x27;</span>],  <span class="comment">// 必填，需要使用的JS接口列表</span></span></span><br><span class="line"><span class="javascript">            &#125;);</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// [2] 使用微信 API 获取经纬度</span></span></span><br><span class="line"><span class="javascript">        wx.ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="comment">// 微信默认为 wgs84 的 gps 坐标，如果要返回直接给 openLocation 用的火星坐标，可传入 &#x27;gcj02&#x27;</span></span></span><br><span class="line"><span class="javascript">            wx.getLocation(&#123; <span class="attr">type</span>: <span class="string">&#x27;wgs84&#x27;</span>, <span class="attr">success</span>: <span class="function"><span class="keyword">function</span> (<span class="params">res</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">var</span> longitude = res.longitude; <span class="comment">// 经度，浮点数，范围为 180 ~ -180</span></span></span><br><span class="line"><span class="javascript">                <span class="keyword">var</span> latitude  = res.latitude;  <span class="comment">// 纬度，浮点数，范围为 90 ~ -90</span></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">                <span class="comment">// 不进过转换，直接显示微信得到的地址，用于比较 (不准确)</span></span></span><br><span class="line"><span class="javascript">                gpsToAddress(longitude, latitude).then(<span class="function"><span class="params">address</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">                    <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#wgs84-1&#x27;</span>).innerHTML = longitude + <span class="string">&#x27;, &#x27;</span> + latitude;</span></span><br><span class="line"><span class="javascript">                    <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#wgs84-2&#x27;</span>).innerHTML = address;</span></span><br><span class="line"><span class="javascript">                &#125;);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">                <span class="comment">// [3] 把微信定位得到的 WGS84 经纬度转换为百度 BD09 的经纬度，然后使用百度地图获取对应的中文地址</span></span></span><br><span class="line"><span class="javascript">                wgs84ToBD09(longitude, latitude).then(<span class="function"><span class="params">point</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">                    <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#bd09-1&#x27;</span>).innerHTML = point.longitude + <span class="string">&#x27;, &#x27;</span> + point.latitude;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">                    <span class="keyword">return</span> gpsToAddress(point.longitude, point.latitude);</span></span><br><span class="line"><span class="javascript">                &#125;).then(<span class="function"><span class="params">address</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">                    <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#bd09-2&#x27;</span>).innerHTML = address;</span></span><br><span class="line"><span class="javascript">                &#125;);</span></span><br><span class="line"><span class="javascript">            &#125; &#125;);</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">/**</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         * 把大地坐标系 WGS84 的经纬度转为百度地图使用的 BD09 经纬度 (微信默认使用 WGS84)。</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         * 参考: http://lbsyun.baidu.com/index.php?title=jspopular/guide/coorinfo</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         *</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         * <span class="doctag">@param <span class="type">&#123;Double&#125;</span> </span>WGS84 坐标系的 longitude 经度</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         * <span class="doctag">@param <span class="type">&#123;Double&#125;</span> </span>WGS84 坐标系的 latitude  纬度</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         * <span class="doctag">@return </span>返回 Promise 对象，resolve 的参数为百度的 BD09 坐标系的经纬度</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         */</span></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">wgs84ToBD09</span>(<span class="params">longitude, latitude</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">const</span> points = [<span class="keyword">new</span> BMap.Point(longitude, latitude)];</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">                <span class="comment">// 提示:</span></span></span><br><span class="line"><span class="javascript">                <span class="comment">//     参数 1, 5 把原始坐标转为百度坐标</span></span></span><br><span class="line"><span class="javascript">                <span class="comment">//     参数 3, 5 把 Google 坐标转为百度坐标</span></span></span><br><span class="line"><span class="javascript">                <span class="keyword">new</span> BMap.Convertor().translate(points, <span class="number">1</span>, <span class="number">5</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                    <span class="keyword">const</span> point = data.points[<span class="number">0</span>];</span></span><br><span class="line"><span class="javascript">                    resolve(&#123; <span class="attr">longitude</span>: point.lng, <span class="attr">latitude</span>: point.lat &#125;);</span></span><br><span class="line"><span class="javascript">                &#125;);</span></span><br><span class="line"><span class="javascript">            &#125;)</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">/**</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         * 使用百度地图 Api 获取经纬度坐标对应的中文地址</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         *</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         * <span class="doctag">@param <span class="type">&#123;Double&#125;</span> </span>longitude 经度</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         * <span class="doctag">@param <span class="type">&#123;Double&#125;</span> </span>latitude  纬度</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         * <span class="doctag">@return </span>返回 Promise 对象，resolve 的参数为中文地址</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         */</span></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">gpsToAddress</span>(<span class="params">longitude, latitude</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">const</span> point = <span class="keyword">new</span> BMap.Point(longitude, latitude);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">                <span class="keyword">new</span> BMap.Geocoder().getLocation(point, <span class="function"><span class="keyword">function</span> (<span class="params">res</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                    <span class="comment">// 详细地址为省，市，行政区，街道，街道地址</span></span></span><br><span class="line"><span class="javascript">                    <span class="keyword">const</span> addComp = res.addressComponents;</span></span><br><span class="line"><span class="javascript">                    <span class="keyword">const</span> address = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;</span></span><br><span class="line"><span class="javascript">                    resolve(address);</span></span><br><span class="line"><span class="javascript">                &#125;)</span></span><br><span class="line"><span class="javascript">            &#125;)</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="服务器端代码"><a href="#服务器端代码" class="headerlink" title="服务器端代码"></a>服务器端代码</h2><p>Controller:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> WeChatService weChatService;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 测试获取微信 JS API 的配置</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * 网址: http://localhost:8080/api/demo/wechat</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/api/demo/wechat&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="keyword">public</span> Result&lt;Map&lt;String, String&gt;&gt; wechatConfig(<span class="meta">@RequestParam</span> String url) &#123;</span><br><span class="line">        <span class="keyword">return</span> Result.single(weChatService.getJsApiConfig(<span class="string">&quot;your app id&quot;</span>, <span class="string">&quot;your app secret&quot;</span>, url));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在 Service 中请求 Access Token, API Ticket 和计算 Signature，其中</p>
+<ul>
+<li>缓存使用了 JetCache</li>
+<li>Easy-OkHttp 发送 HTTP 请求</li>
+<li>FastJSON 解析 JSON</li>
+<li>Apache Commons Codec 计算 SHA1</li>
+</ul>
+<p>以上几点都不难，大家可以根据项目中使用的库酌情进行替换</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.alibaba.fastjson.JSON;</span><br><span class="line"><span class="keyword">import</span> com.alibaba.fastjson.JSONObject;</span><br><span class="line"><span class="keyword">import</span> com.alicp.jetcache.anno.CacheInvalidate;</span><br><span class="line"><span class="keyword">import</span> com.alicp.jetcache.anno.Cached;</span><br><span class="line"><span class="keyword">import</span> com.edu.training.bean.CacheConst;</span><br><span class="line"><span class="keyword">import</span> com.edu.training.util.Utils;</span><br><span class="line"><span class="keyword">import</span> com.mzlion.easyokhttp.HttpClient;</span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.lang3.StringUtils;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Service;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 微信服务，可获取 Access token, JS Api Ticket 和获取 JS Api 需要的配置</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WeChatService</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> WeChatService self;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取 Access Token 的 URL</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String URL_ACCESS_TOKEN = <span class="string">&quot;https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&amp;appid=APP_ID&amp;secret=APP_SECRET&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取 JS Api Ticket 的 URL</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String URL_JS_API_TICKET = <span class="string">&quot;https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&amp;access_token=ACCESS_TOKEN&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取微信的 Access Token</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> appId     微信公众平台的 App ID</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> appSecret 微信公众平台的 App Secret</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 返回 Access Token，请求无效时返回 null</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Cached(name = CacheConst.CACHE, key = CacheConst.KEY_WECHAT_ACCESS_TOKEN)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getAccessToken</span><span class="params">(String appId, String appSecret)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 1. 请求 Access Token</span></span><br><span class="line">        <span class="comment">// 2. 解析得到 Access Token</span></span><br><span class="line">        <span class="comment">// 3. 删除此 appId 对应的 JS Api Ticket 缓存</span></span><br><span class="line"></span><br><span class="line">        log.info(<span class="string">&quot;[开始] 获取微信 Access Token: App ID &#123;&#125;&quot;</span>, appId);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// [1] 请求 Access Token</span></span><br><span class="line">        <span class="comment">// [2] 解析得到 Access Token</span></span><br><span class="line">        String     url    = URL_ACCESS_TOKEN.replace(<span class="string">&quot;APP_ID&quot;</span>, appId).replace(<span class="string">&quot;APP_SECRET&quot;</span>, appSecret);</span><br><span class="line">        JSONObject result = JSON.parseObject(HttpClient.get(url).execute().asString());</span><br><span class="line">        String     token  = result.getString(<span class="string">&quot;access_token&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果 token 不存在，则输出错误信息</span></span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isBlank(token)) &#123;</span><br><span class="line">            String errorMessage = result.getString(<span class="string">&quot;errmsg&quot;</span>);</span><br><span class="line">            log.warn(<span class="string">&quot;[错误] 获取微信 Access Token 失败: &#123;&#125;&quot;</span>, errorMessage);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// [3] 删除此 appId 对应的 JS Api Ticket 缓存</span></span><br><span class="line">        self.invalidateJsApiTicket(appId);</span><br><span class="line"></span><br><span class="line">        log.info(<span class="string">&quot;[结束] 获取微信 Access Token: App ID &#123;&#125;&quot;</span>, appId);</span><br><span class="line">        <span class="keyword">return</span> token;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 使用 Access Token 获取 JS Api Ticket</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> appId       微信公众平台的 App ID (用于缓存)</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> accessToken 微信的 Access Token</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 返回 JS Api Ticket，请求无效时返回 null</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Cached(name = CacheConst.CACHE, key = CacheConst.KEY_WECHAT_JS_API_TICKET)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getJsApiTicket</span><span class="params">(String appId, String accessToken)</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">&quot;[开始] 获取微信 JS Api Ticket: App ID &#123;&#125;&quot;</span>, appId);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (accessToken == <span class="keyword">null</span>) &#123;</span><br><span class="line">            log.warn(<span class="string">&quot;[错误] 获取微信 JS Api Ticket: Access Token 为 null&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        String     url    = URL_JS_API_TICKET.replace(<span class="string">&quot;ACCESS_TOKEN&quot;</span>, accessToken);</span><br><span class="line">        JSONObject result = JSON.parseObject(HttpClient.get(url).execute().asString());</span><br><span class="line">        String     ticket = result.getString(<span class="string">&quot;ticket&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果 ticket 不存在，则输出错误信息</span></span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isBlank(ticket)) &#123;</span><br><span class="line">            String errorMessage = result.getString(<span class="string">&quot;errmsg&quot;</span>);</span><br><span class="line">            log.warn(<span class="string">&quot;[错误] 获取微信 JS Api Ticket 失败: &#123;&#125;&quot;</span>, errorMessage);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        log.info(<span class="string">&quot;[结束] 获取微信 JS Api Ticket: App ID &#123;&#125;&quot;</span>, appId);</span><br><span class="line">        <span class="keyword">return</span> ticket;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 删除 JS Api Ticket</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> appId 微信公众平台的 App ID</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@CacheInvalidate(name = CacheConst.CACHE, key = CacheConst.KEY_WECHAT_JS_API_TICKET)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">invalidateJsApiTicket</span><span class="params">(String appId)</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">&quot;[成功] 删除微信 JS Api Ticket: App ID &#123;&#125;&quot;</span>, appId);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取要访问的 URL 的 JS Api 的配置，使得在微信中能够访问微信提供的 JS API。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> appId     微信公众平台的 App ID</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> appSecret 微信公众平台的 App Secret</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> url       要访问的 URL</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 返回配置的 Map，其中包括 &#123; appId, nonceStr, timestamp, signature &#125;，出错时返回 null</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map&lt;String, String&gt; <span class="title">getJsApiConfig</span><span class="params">(String appId, String appSecret, String url)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 1. 获取 AppId 的 Access Token 和 JS Api Ticket</span></span><br><span class="line">        <span class="comment">// 2. 生成签名 (参考 https://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=jsapisign)</span></span><br><span class="line">        <span class="comment">// 3. 创建配置</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// [1] 获取机构的微信 AppId, AppSecret</span></span><br><span class="line">        String accessToken = self.getAccessToken(appId, appSecret);</span><br><span class="line">        String apiTicket   = self.getJsApiTicket(appId, accessToken);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 有一个为 null 则返回</span></span><br><span class="line">        <span class="keyword">if</span> (accessToken == <span class="keyword">null</span> || apiTicket == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isBlank(url)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// [2] 生成签名</span></span><br><span class="line">        String nonceStr  = Utils.uuid().substring(<span class="number">0</span>, <span class="number">8</span>); <span class="comment">// 取 UUID 的前 8 个字符</span></span><br><span class="line">        String timestamp = System.currentTimeMillis() + <span class="string">&quot;&quot;</span>;</span><br><span class="line">        String text      = <span class="string">&quot;jsapi_ticket=&quot;</span> + apiTicket + <span class="string">&quot;&amp;noncestr=&quot;</span> + nonceStr + <span class="string">&quot;&amp;timestamp=&quot;</span> + timestamp + <span class="string">&quot;&amp;url=&quot;</span> + url;<span class="comment">// 将参数排序并拼接字符串</span></span><br><span class="line">        String signature = Utils.sha1(text);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// [3] 创建配置</span></span><br><span class="line">        Map&lt;String, String&gt; config = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        config.put(<span class="string">&quot;appId&quot;</span>, appId);</span><br><span class="line">        config.put(<span class="string">&quot;nonceStr&quot;</span>, nonceStr);</span><br><span class="line">        config.put(<span class="string">&quot;signature&quot;</span>, signature);</span><br><span class="line">        config.put(<span class="string">&quot;timestamp&quot;</span>, timestamp);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> config;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/fabric/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Fabric 笔记
+        
+      </div>
+    </a>
+  
+  
+    <a href="/java-dynamic-datasource/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">动态切换数据源</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

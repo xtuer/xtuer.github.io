@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>访问 SQLite | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="SQLite 是一个开源的嵌入式关系数据库，实现自包容、零配置、支持事务的SQL数据库引擎。 其特点是高度便携、使用方便、结构紧凑、高效、可靠。整个数据库(定义、表、索引和数据本身)都在宿主主机上存储在一个单一的文件中。SQLite 支持跨平台，同一个 SQLite 的数据库文件，可以在 Windows，Linux，Mac OS 中使用。SQLite 的使用非常广泛，例如 Firefox，Chro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="访问 SQLite">
+<meta property="og:url" content="http://xtuer.github.io/qtbook-db-sqlite/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="SQLite 是一个开源的嵌入式关系数据库，实现自包容、零配置、支持事务的SQL数据库引擎。 其特点是高度便携、使用方便、结构紧凑、高效、可靠。整个数据库(定义、表、索引和数据本身)都在宿主主机上存储在一个单一的文件中。SQLite 支持跨平台，同一个 SQLite 的数据库文件，可以在 Windows，Linux，Mac OS 中使用。SQLite 的使用非常广泛，例如 Firefox，Chro">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/db/DB-Sqlite.png">
+<meta property="article:published_time" content="2016-12-20T11:16:42.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.173Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="QtBook">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/qtbook/db/DB-Sqlite.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%80%83"><span class="toc-text">思考</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-qtbook-db-sqlite" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-db-sqlite/" class="article-date">
+  	<!-- <time datetime="2016-12-20T11:16:42.000Z" itemprop="datePublished">2016-12-20</time> -->
+    2016-12-20
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      访问 SQLite
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>SQLite 是一个开源的<code>嵌入式关系数据库</code>，实现自包容、零配置、支持事务的SQL数据库引擎。 其特点是高度便携、使用方便、结构紧凑、高效、可靠。整个数据库(定义、表、索引和数据本身)都在宿主主机上存储在一个单一的文件中。SQLite 支持跨平台，同一个 SQLite 的数据库文件，可以在 Windows，Linux，Mac OS 中使用。SQLite 的使用非常广泛，例如 Firefox，Chrome，Android，iOS 等都使用了 SQLite 来存储数据。SQLite 默认不支持使用用户名密码来连接，如果我们的数据安全性要求不高，那么就可以使用 SQLite 来存储，这样做的好处是数据文件是一个单一的文件，可以和项目一起发布而不需要安装数据库软件就能拥有数据库的功能，这是多么美好的事（想像一下，如果需要模拟数据库的操作，手动用程序通过读写文件的方式向一个文件中插入，更新，删除一条记录需要付出多少的代价，而用 SQLite 的话，就是一条 SQL 语句的事情，用上 SQLite，这简直是鸟枪换炮了啊）。</p>
+<p>Qt 默认已经提供了 SQLite 的驱动，直接在代码里就可以访问 SQLite。在 <code>plugins/sqldrivers</code> 目录下可以找到 SQLite 的数据库驱动插件。<span id="more"></span></p>
+<p><strong>Qt 访问 SQLite 的步骤:</strong></p>
+<ol>
+<li>加载 <code>SQLite 驱动</code></li>
+<li>设置 <code>数据库文件名</code></li>
+<li>打开数据库，也就是创建数据库连接</li>
+<li>创建 query 对象，执行 SQL 语句</li>
+<li>处理 query 执行得到的结果</li>
+</ol>
+<p><strong>下面演示 Qt 访问 SQLite，将</strong></p>
+<ul>
+<li>创建一个名为 sqlitedata.db 的数据库文件</li>
+<li>在数据库里创建一个表 user</li>
+<li>插入一条数据</li>
+<li>查询刚才插入的数据</li>
+</ul>
+<p>在 <code>QtCreator</code> 里创建控制台工程，然后在工程的 <code>.pro</code> 文件里加入 <code>QT += sql</code> 引入数据库模块，修改 main.cpp 为下面的内容：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QDebug&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QSqlDatabase&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QSqlQuery&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QSqlError&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">accessSqlite</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="built_in">Q_UNUSED</span>(argc)</span><br><span class="line">    <span class="built_in">Q_UNUSED</span>(argv)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">accessSqlite</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">accessSqlite</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// [1] 加载 SQLite 数据库驱动</span></span><br><span class="line">    QSqlDatabase db = QSqlDatabase::<span class="built_in">addDatabase</span>(<span class="string">&quot;QSQLITE&quot;</span>, <span class="string">&quot;Connection_Name&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [2] sqlitedata.db 是 SQLite 的数据库文件路径，</span></span><br><span class="line">    <span class="comment">//     可以是绝对路径，也可以是相对于可执行文件的相对路径</span></span><br><span class="line">    <span class="comment">//     如果此文件不存在则自动创建，如果已经存在则使用已经存在的文件</span></span><br><span class="line">    db.<span class="built_in">setDatabaseName</span>(<span class="string">&quot;sqlitedata.db&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [3] 打开数据库连接，成功返回 true，不成功则程序退出</span></span><br><span class="line">    <span class="keyword">if</span> (!db.<span class="built_in">open</span>()) &#123;</span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;Connect to Sqlite error: &quot;</span> &lt;&lt; db.<span class="built_in">lastError</span>().<span class="built_in">text</span>();</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">128</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [4] 在数据库中创建表</span></span><br><span class="line">    <span class="function">QSqlQuery <span class="title">createTableQuery</span><span class="params">(db)</span></span>;</span><br><span class="line">    <span class="function">QString <span class="title">sql</span><span class="params">(<span class="string">&quot;CREATE TABLE user(&quot;</span></span></span></span><br><span class="line"><span class="params"><span class="function">                <span class="string">&quot;id integer primary key autoincrement, &quot;</span></span></span></span><br><span class="line"><span class="params"><span class="function">                <span class="string">&quot;username text not null, &quot;</span></span></span></span><br><span class="line"><span class="params"><span class="function">                <span class="string">&quot;password text not null, &quot;</span></span></span></span><br><span class="line"><span class="params"><span class="function">                <span class="string">&quot;email text, &quot;</span></span></span></span><br><span class="line"><span class="params"><span class="function">                <span class="string">&quot;mobile text)&quot;</span>)</span></span>;</span><br><span class="line">    createTableQuery.<span class="built_in">exec</span>(sql); <span class="comment">// 如果表存在，则会创建表失败，但不会影响程序继续运行</span></span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;Create table error: &quot;</span> &lt;&lt; createTableQuery.<span class="built_in">lastError</span>().<span class="built_in">text</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 向表中插入一条数据</span></span><br><span class="line">    <span class="function">QSqlQuery <span class="title">insertQuery</span><span class="params">(db)</span></span>;</span><br><span class="line">    insertQuery.<span class="built_in">exec</span>(<span class="string">&quot;INSERT INTO user (username, password) VALUES (&#x27;Alice&#x27;, &#x27;passw0rd&#x27;)&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 查询刚才插入的数据</span></span><br><span class="line">    <span class="function">QSqlQuery <span class="title">selectQuery</span><span class="params">(db)</span></span>;</span><br><span class="line">    selectQuery.<span class="built_in">exec</span>(<span class="string">&quot;SELECT id, username, password FROM user&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (selectQuery.<span class="built_in">next</span>()) &#123;</span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; <span class="built_in">QString</span>(<span class="string">&quot;Id: %1, Username: %2, Password: %3&quot;</span>)</span><br><span class="line">                    .<span class="built_in">arg</span>(selectQuery.<span class="built_in">value</span>(<span class="string">&quot;id&quot;</span>).<span class="built_in">toInt</span>())</span><br><span class="line">                    .<span class="built_in">arg</span>(selectQuery.<span class="built_in">value</span>(<span class="string">&quot;username&quot;</span>).<span class="built_in">toString</span>())</span><br><span class="line">                    .<span class="built_in">arg</span>(selectQuery.<span class="built_in">value</span>(<span class="string">&quot;password&quot;</span>).<span class="built_in">toString</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编译、运行、程序输出：</p>
+<blockquote>
+<p>“Id: 1, Username: Alice, Password: passw0rd”</p>
+</blockquote>
+<p>输出了我们刚刚插入的数据，和我们预料的一样。</p>
+<p>在程序的工作目录里（编译出来的可执行文件所在目录）有一个名为 sqlitedata.db 的文件。这是因为 db.setDatabaseName(“sqlitedata.db”) 设置了要访问的 SQLite 的数据库文件名，访问时如果发现没有这个文件，Qt 会为我们创建，如果这个文件已经存在，就继续使用它。使用 SQLite 的工具，查看一下  sqlitedata.db 的结构与数据：<br><img src="../img/qtbook/db/DB-Sqlite.png"></p>
+<p>可以看到有一个 user 表，其创建语句正是我们的程序里的建表语句</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">user</span>(</span><br><span class="line">    id <span class="type">integer</span> <span class="keyword">primary</span> key autoincrement,</span><br><span class="line">    username text <span class="keyword">not</span> <span class="keyword">null</span>,</span><br><span class="line">    password text <span class="keyword">not</span> <span class="keyword">null</span>,</span><br><span class="line">    email text,</span><br><span class="line">    mobile text</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>再次运行上面的程序，这次输出：</p>
+<blockquote>
+<p>Create table error:  “table user already exists Unable to execute statement”<br>“Id: 1, Username: Alice, Password: passw0rd”<br>“Id: 2, Username: Alice, Password: passw0rd”</p>
+</blockquote>
+<p>这次访问 sqlitedata.db 时，发现它已经存在，所以就直接使用它了，而不是重新创建，创建表虽然失败了，但是不影响程序往下执行，由于再次插入了 1 条记录，所以访问时输出 2 条记录。</p>
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>Qt 访问不同的数据库，只是在创建数据库连接时有细微的区别，其他部分的代码都是一样的。这里我们只是展示了怎么去访问 SQLite，但存在很多问题，一点都不实用，更谈不上结构优良，可复用等，如果在工作中把这样的代码写到工程里，离被老板请去喝茶的时间也不远了。但不幸的是，这样的代码大量存在于初学者，甚至有一定工作经验的开发者之中。</p>
+<p>后面的章节我们会逐步分析，优化，让其可用于实际项目，最后我们访问数据库的代码可以像下面这样优雅（SqlUtil, DaoTemplate 中的代码都不需要修改）：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">UserDao::selectUserById</span><span class="params">(<span class="keyword">int</span> id, User *user)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 取得 SQL 语句，存储在文件里，修改 SQL 语句不需要修改程序代码</span></span><br><span class="line">    QString sql = SqlUtil::<span class="built_in">getInstance</span>().<span class="built_in">getSql</span>(SQL_NAMESPACE_USER, <span class="string">&quot;selectUserById&quot;</span>).<span class="built_in">arg</span>(id);</span><br><span class="line">    <span class="keyword">return</span> DaoTemplate::<span class="built_in">selectBean</span>(user, sql, mapRow); <span class="comment">// mapRow 是一个函数指针</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">UserDao::selectAllUsers</span><span class="params">(QList&lt;User*&gt; *users)</span> </span>&#123;</span><br><span class="line">    QString sql = SqlUtil::<span class="built_in">getInstance</span>().<span class="built_in">getSql</span>(SQL_NAMESPACE_USER, <span class="string">&quot;selectAllUsers&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> DaoTemplate::<span class="built_in">selectBeans</span>(users, sql, mapRow);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">UserDao::insert</span><span class="params">(<span class="keyword">const</span> User &amp;user, <span class="keyword">int</span> *primaryKey)</span> </span>&#123;</span><br><span class="line">    QString sql = SqlUtil::<span class="built_in">getInstance</span>().<span class="built_in">getSql</span>(SQL_NAMESPACE_USER, <span class="string">&quot;insert&quot;</span>);</span><br><span class="line"></span><br><span class="line">    QMap&lt;QString, QVariant&gt; params;</span><br><span class="line">    params[<span class="string">&quot;username&quot;</span>] = user.username;</span><br><span class="line">    params[<span class="string">&quot;password&quot;</span>] = user.password;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> DaoTemplate::<span class="built_in">insert</span>(sql, params, primaryKey);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">UserDao::update</span><span class="params">(<span class="keyword">const</span> User &amp;user)</span> </span>&#123;</span><br><span class="line">    QString sql = SqlUtil::<span class="built_in">getInstance</span>().<span class="built_in">getSql</span>(SQL_NAMESPACE_USER, <span class="string">&quot;update&quot;</span>);</span><br><span class="line"></span><br><span class="line">    QMap&lt;QString, QVariant&gt; params;</span><br><span class="line">    params[<span class="string">&quot;id&quot;</span>]       = user.id;</span><br><span class="line">    params[<span class="string">&quot;username&quot;</span>] = user.username;</span><br><span class="line">    params[<span class="string">&quot;password&quot;</span>] = user.password;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> DaoTemplate::<span class="built_in">update</span>(sql, params);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以自己先思考一下，怎么才能实现像上面这样访问数据库？</p>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/qtbook-db-mysql/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          访问 MySql
+        
+      </div>
+    </a>
+  
+  
+    <a href="/qtbook-db-driver/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">数据库驱动</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

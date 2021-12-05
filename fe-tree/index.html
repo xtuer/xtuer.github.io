@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>HTML 树的实现 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="树形结构的使用很广泛，例如用来显示文件夹和文件，组织机构的表示等，可以使用 zTree 来实现，这里我们将自己实现树，了解其原理。 实现下图中表示文件的树，主要是使用 &lt;ul&gt; 和 &lt;li&gt; 组织结构、CSS 调整显示效果、jQuery 实现点击的动态效果和 jQuery UI 实现拖拽操作 (主要的代码都在 HTML 和 CSS 上，JS 的代码只有 20 行)。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML 树的实现">
+<meta property="og:url" content="http://xtuer.github.io/fe-tree/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="树形结构的使用很广泛，例如用来显示文件夹和文件，组织机构的表示等，可以使用 zTree 来实现，这里我们将自己实现树，了解其原理。 实现下图中表示文件的树，主要是使用 &lt;ul&gt; 和 &lt;li&gt; 组织结构、CSS 调整显示效果、jQuery 实现点击的动态效果和 jQuery UI 实现拖拽操作 (主要的代码都在 HTML 和 CSS 上，JS 的代码只有 20 行)。">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/fe/tree/result.png">
+<meta property="og:image" content="http://xtuer.github.io/img/fe/tree/arrow.png">
+<meta property="og:image" content="http://xtuer.github.io/img/fe/tree/file.png">
+<meta property="og:image" content="http://xtuer.github.io/img/fe/tree/folder.png">
+<meta property="article:published_time" content="2016-05-29T02:18:16.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.150Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="FE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/fe/tree/result.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E6%8A%80%E6%9C%AF%E7%82%B9"><span class="toc-text">关键技术点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81"><span class="toc-text">实现代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6"><span class="toc-text">资源文件</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-fe-tree" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/fe-tree/" class="article-date">
+  	<!-- <time datetime="2016-05-29T02:18:16.000Z" itemprop="datePublished">2016-05-29</time> -->
+    2016-05-29
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      HTML 树的实现
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>树形结构的使用很广泛，例如用来显示文件夹和文件，组织机构的表示等，可以使用 <code>zTree</code> 来实现，这里我们将自己实现树，了解其原理。</p>
+<p>实现下图中表示文件的树，主要是使用 <code>&lt;ul&gt;</code> 和 <code>&lt;li&gt;</code> 组织结构、<code>CSS</code> 调整显示效果、<code>jQuery</code> 实现点击的动态效果和 <code>jQuery UI</code> 实现拖拽操作 (主要的代码都在 HTML 和 CSS 上，JS 的代码只有 20 行)。</p>
+<p><img src="../img/fe/tree/result.png"></p>
+<span id="more"></span>
+
+<h2 id="关键技术点"><a href="#关键技术点" class="headerlink" title="关键技术点"></a>关键技术点</h2><ul>
+<li><p>目录就是文件夹，文件夹是特殊的文件</p>
+</li>
+<li><p>文件夹的内容放在 <code>&lt;ul&gt;</code> 中</p>
+</li>
+<li><p>文件夹和文件使用 <code>&lt;li&gt;</code> 表示</p>
+</li>
+<li><p>文件夹和文件的名字使用 <code>&lt;li&gt;</code> 中的 <code>&lt;div class=&quot;file&quot;&gt;</code> 显示，文件夹有类 <code>is-directory</code>，文件的话使用类 <code>is-file</code></p>
+  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span> <span class="comment">&lt;!-- 目录 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;file is-directory&quot;</span>&gt;</span> <span class="comment">&lt;!-- 目录的名字, 图标 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;branch&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span> <span class="comment">&lt;!-- 目录的箭头 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;icon&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span> <span class="comment">&lt;!-- 目录或文件的图标 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;name&quot;</span>&gt;</span>学科<span class="tag">&lt;/<span class="name">span</span>&gt;</span> <span class="comment">&lt;!-- 目录或文件的名字 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span> <span class="comment">&lt;!-- 目录下的文件或子目录 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span> <span class="comment">&lt;!-- 文件 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;file is-file&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;branch&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;icon&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;name&quot;</span>&gt;</span>百科目录<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>文件夹展开时对应的 <code>&lt;div&gt;</code> 加上 CSS 类 <code>expand</code> 同时移除类 <code>collapse</code>，收缩时则相反</p>
+</li>
+<li><p>文件被点击时对应的 <code>&lt;div&gt;</code> 加上 CSS 类 <code>active</code> 同时移除其他 <code>&lt;div&gt;</code> 上的类 <code>active</code></p>
+</li>
+</ul>
+<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Directory Tree<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css">    <span class="selector-tag">body</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="attribute">font-family</span>: <span class="string">&quot;微软雅黑&quot;</span>, <span class="string">&quot;HelveticaNeue-Light&quot;</span>, <span class="string">&quot;Helvetica Neue Light&quot;</span>, <span class="string">&quot;Helvetica Neue&quot;</span>, Helvetica, Arial, sans-serif;</span></span><br><span class="line"><span class="css">    &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">    <span class="selector-id">#file-tree</span> <span class="selector-tag">ul</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="attribute">list-style</span>: none;</span></span><br><span class="line"><span class="css">        <span class="attribute">padding-left</span>: <span class="number">20px</span>;</span></span><br><span class="line"><span class="css">    &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">    <span class="selector-id">#file-tree</span> <span class="selector-class">.file</span>,</span></span><br><span class="line"><span class="css">    <span class="selector-id">#file-tree</span> <span class="selector-class">.branch</span>,</span></span><br><span class="line"><span class="css">    <span class="selector-id">#file-tree</span> <span class="selector-class">.icon</span>,</span></span><br><span class="line"><span class="css">    <span class="selector-id">#file-tree</span> <span class="selector-class">.name</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="attribute">height</span>: <span class="number">20px</span>;</span></span><br><span class="line"><span class="css">        <span class="attribute">line-height</span>: <span class="number">20px</span>;</span></span><br><span class="line"><span class="css">        <span class="attribute">display</span>: inline-block;</span></span><br><span class="line"><span class="css">        <span class="attribute">vertical-align</span>: middle;</span></span><br><span class="line"><span class="css">    &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">    <span class="selector-id">#file-tree</span> <span class="selector-class">.file</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="attribute">display</span>: inline-block;</span></span><br><span class="line"><span class="css">        <span class="attribute">font-size</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="css">        <span class="attribute">border</span>: <span class="number">1px</span> solid transparent;</span></span><br><span class="line"><span class="css">    &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">    <span class="selector-id">#file-tree</span> <span class="selector-class">.file</span><span class="selector-class">.active</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="attribute">border-radius</span>: <span class="number">2px</span>;</span></span><br><span class="line"><span class="css">        <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="built_in">rgb</span>(<span class="number">68</span>, <span class="number">211</span>, <span class="number">255</span>);</span></span><br><span class="line"><span class="css">    &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">    <span class="selector-id">#file-tree</span> <span class="selector-class">.is-directory</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="attribute">margin-left</span>: -<span class="number">15px</span>;</span></span><br><span class="line"><span class="css">    &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">    <span class="comment">/* Bruanch */</span></span></span><br><span class="line"><span class="css">    <span class="selector-id">#file-tree</span> <span class="selector-class">.is-directory</span> <span class="selector-class">.branch</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="attribute">width</span>: <span class="number">15px</span>;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">    &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">    <span class="selector-id">#file-tree</span> <span class="selector-class">.is-file</span> <span class="selector-class">.branch</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="attribute">width</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">    &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">    <span class="selector-id">#file-tree</span> <span class="selector-class">.is-directory</span> <span class="selector-class">.branch</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="attribute">cursor</span>: pointer;</span></span><br><span class="line"><span class="css">    &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">    <span class="selector-id">#file-tree</span> <span class="selector-class">.is-directory</span><span class="selector-class">.expand</span> <span class="selector-class">.branch</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">arrow.png</span>) no-repeat -<span class="number">65px</span> <span class="number">3px</span>;</span></span><br><span class="line"><span class="css">    &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">    <span class="selector-id">#file-tree</span> <span class="selector-class">.is-directory</span><span class="selector-class">.collapse</span> <span class="selector-class">.branch</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">arrow.png</span>) no-repeat -<span class="number">32px</span> <span class="number">3px</span>;</span></span><br><span class="line"><span class="css">    &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">    <span class="comment">/* icon */</span></span></span><br><span class="line"><span class="css">    <span class="selector-id">#file-tree</span> <span class="selector-class">.icon</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="attribute">width</span>: <span class="number">20px</span>;</span></span><br><span class="line"><span class="css">    &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">    <span class="selector-id">#file-tree</span> <span class="selector-class">.is-directory</span> <span class="selector-class">.icon</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">folder.png</span>) no-repeat;</span></span><br><span class="line"><span class="css">    &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">    <span class="selector-id">#file-tree</span> <span class="selector-class">.is-file</span> <span class="selector-class">.icon</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">file.png</span>) no-repeat;</span></span><br><span class="line"><span class="css">    &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">    <span class="comment">/* name */</span></span></span><br><span class="line"><span class="css">    <span class="selector-id">#file-tree</span> <span class="selector-class">.name</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="attribute">cursor</span>: default;</span></span><br><span class="line"><span class="css">        <span class="attribute">font-size</span>: <span class="number">14px</span>;</span></span><br><span class="line"><span class="css">        <span class="attribute">padding</span>: <span class="number">0</span> <span class="number">3px</span>;</span></span><br><span class="line"><span class="css">    &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">    <span class="selector-id">#file-tree</span> <span class="selector-class">.file</span><span class="selector-class">.active</span> <span class="selector-class">.name</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="attribute">background</span>: <span class="built_in">rgb</span>(<span class="number">68</span>, <span class="number">211</span>, <span class="number">255</span>);</span></span><br><span class="line"><span class="css">    &#125;</span></span><br><span class="line"><span class="css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 目录中的文件或者子目录放在 &lt;ul&gt; 里, 文件或目录是一个 &lt;li&gt;，文件或目录的名字是 &lt;li&gt; 中的 &lt;div&gt; --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;file-tree&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ul</span>&gt;</span> <span class="comment">&lt;!-- 根目录所在目录 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span> <span class="comment">&lt;!-- 根目录 --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;file is-directory&quot;</span>&gt;</span> <span class="comment">&lt;!-- 根目录的名字, 图标 --&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;branch&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;icon&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;name&quot;</span>&gt;</span>根目录<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">                <span class="tag">&lt;<span class="name">ul</span>&gt;</span> <span class="comment">&lt;!-- 根目录下的文件或子目录 --&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span> <span class="comment">&lt;!-- 目录 --&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;file is-directory&quot;</span>&gt;</span> <span class="comment">&lt;!-- 目录的名字, 图标 --&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;branch&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;icon&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;name&quot;</span>&gt;</span>学科<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">                        <span class="tag">&lt;<span class="name">ul</span>&gt;</span> <span class="comment">&lt;!-- 目录下的文件或子目录 --&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">li</span>&gt;</span> <span class="comment">&lt;!-- 文件 --&gt;</span></span><br><span class="line">                                <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;file is-file&quot;</span>&gt;</span></span><br><span class="line">                                    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;branch&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                                    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;icon&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                                    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;name&quot;</span>&gt;</span>百科目录<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">li</span>&gt;</span> <span class="comment">&lt;!-- 文件 --&gt;</span></span><br><span class="line">                                <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;file is-file&quot;</span>&gt;</span></span><br><span class="line">                                    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;branch&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                                    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;icon&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                                    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;name&quot;</span>&gt;</span>操作指南<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">li</span>&gt;</span> <span class="comment">&lt;!-- 文件 --&gt;</span></span><br><span class="line">                                <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;file is-file&quot;</span>&gt;</span></span><br><span class="line">                                    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;branch&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                                    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;icon&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                                    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;name&quot;</span>&gt;</span>README.md<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span> <span class="comment">&lt;!-- 文件 --&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;file is-file&quot;</span>&gt;</span> <span class="comment">&lt;!-- 文件的名字, 图标 --&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;branch&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;icon&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;name&quot;</span>&gt;</span>README.md<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span> <span class="comment">&lt;!-- 文件 --&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;file is-file&quot;</span>&gt;</span> <span class="comment">&lt;!-- 文件的名字, 图标 --&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;branch&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;icon&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;name&quot;</span>&gt;</span>操作指南<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;../jquery.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;../jquery-ui.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    $(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        $(<span class="string">&#x27;.is-directory&#x27;</span>).addClass(<span class="string">&#x27;expand&#x27;</span>); <span class="comment">// 开始时都是展开的</span></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// 点击箭头展开或者收缩</span></span></span><br><span class="line"><span class="javascript">        $(<span class="string">&#x27;#file-tree&#x27;</span>).on(<span class="string">&#x27;click&#x27;</span>, <span class="string">&#x27;.is-directory .branch&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> $directory = $(<span class="built_in">this</span>).parent();</span></span><br><span class="line"><span class="javascript">            $directory.toggleClass(<span class="string">&#x27;expand&#x27;</span>).toggleClass(<span class="string">&#x27;collapse&#x27;</span>);</span></span><br><span class="line"><span class="javascript">            $directory.siblings(<span class="string">&#x27;ul&#x27;</span>).slideToggle(<span class="string">&#x27;fast&#x27;</span>);</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// 高亮点击的文件</span></span></span><br><span class="line"><span class="javascript">        $(<span class="string">&#x27;#file-tree&#x27;</span>).on(<span class="string">&#x27;mousedown&#x27;</span>, <span class="string">&#x27;.name&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            $(<span class="string">&#x27;.name&#x27;</span>).parent().removeClass(<span class="string">&#x27;active&#x27;</span>);</span></span><br><span class="line"><span class="javascript">            $(<span class="built_in">this</span>).parent().addClass(<span class="string">&#x27;active&#x27;</span>);</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// 文件可以拖动</span></span></span><br><span class="line"><span class="javascript">        $(<span class="string">&#x27;.is-file&#x27;</span>).draggable(&#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">helper</span> : <span class="string">&#x27;clone&#x27;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="attr">cursor</span>: <span class="string">&#x27;move&#x27;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="attr">revert</span>: <span class="string">&#x27;invalid&#x27;</span></span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript">    &#125;);</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="资源文件"><a href="#资源文件" class="headerlink" title="资源文件"></a>资源文件</h2><p><img src="../img/fe/tree/arrow.png"><br><img src="../img/fe/tree/file.png"><br><img src="../img/fe/tree/folder.png"></p>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/fe-sublimetext-jshint/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Sublimetext 安装 jshint
+        
+      </div>
+    </a>
+  
+  
+    <a href="/fe-jquery-validate/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">表单验证插件 jQuery Validation</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

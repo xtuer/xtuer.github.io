@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>操作图像像素，实现各种效果 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Qt 中图像相关的类主要是 QPixmap 和 QImage，QPixmap 没有提供访问图像像素数据的接口，访问图像的像素数据需要使用 QImage，主要的函数有 (相关重载函数没有列出来): 12345678&#x2F;&#x2F; 获取图像的像素数据QRgb   pixel(int x, int y) constQColor pixelColor(int x, int y) constuchar* scanLi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作图像像素，实现各种效果">
+<meta property="og:url" content="http://xtuer.github.io/qtbook-paint-image/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="Qt 中图像相关的类主要是 QPixmap 和 QImage，QPixmap 没有提供访问图像像素数据的接口，访问图像的像素数据需要使用 QImage，主要的函数有 (相关重载函数没有列出来): 12345678&#x2F;&#x2F; 获取图像的像素数据QRgb   pixel(int x, int y) constQColor pixelColor(int x, int y) constuchar* scanLi">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-06-03T14:03:39.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.176Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="QtBook">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-qtbook-paint-image" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-paint-image/" class="article-date">
+  	<!-- <time datetime="2018-06-03T14:03:39.000Z" itemprop="datePublished">2018-06-03</time> -->
+    2018-06-03
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      操作图像像素，实现各种效果
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Qt 中图像相关的类主要是 QPixmap 和 QImage，QPixmap 没有提供访问图像像素数据的接口，访问图像的像素数据需要使用 QImage，主要的函数有 (相关重载函数没有列出来):</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取图像的像素数据</span></span><br><span class="line"><span class="function">QRgb   <span class="title">pixel</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function">QColor <span class="title">pixelColor</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function">uchar* <span class="title">scanLine</span><span class="params">(<span class="keyword">int</span> i)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">// 设置图像的像素数据</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setPixel</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, uint index_or_rgb)</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setPixelColor</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">const</span> QColor &amp;color)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>下面把一个图像转为灰度图为例介绍怎么操作图像的像素:</p>
+<ol>
+<li>取得图像的宽、高</li>
+<li>根据宽、高遍历每一个像素</li>
+<li>得到每一个像素的 RGBA 颜色分量</li>
+<li>对得到的颜色分量 RGBA 进行灰度计算得到新的颜色</li>
+<li>使用计算得到的颜色设置对应像素<span id="more"></span></li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">QImage <span class="title">gray</span><span class="params">(QImage image)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// [1] 获取图像的宽和高</span></span><br><span class="line">    <span class="keyword">int</span> w = image.<span class="built_in">width</span>();</span><br><span class="line">    <span class="keyword">int</span> h = image.<span class="built_in">height</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [2] 遍历图像的每一个像素</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> y = <span class="number">0</span>; y &lt; h; ++y) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; w; ++x) &#123;</span><br><span class="line">            <span class="comment">// [3] 获取像素的 RGBA 颜色分量</span></span><br><span class="line">            QRgb color = image.<span class="built_in">pixel</span>(x, y);</span><br><span class="line">            <span class="keyword">int</span> r = <span class="built_in">qRed</span>(color);</span><br><span class="line">            <span class="keyword">int</span> g = <span class="built_in">qGreen</span>(color);</span><br><span class="line">            <span class="keyword">int</span> b = <span class="built_in">qBlue</span>(color);</span><br><span class="line">            <span class="keyword">int</span> a = <span class="built_in">qAlpha</span>(color);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// [4] 计算灰色的颜色: 3 个颜色分量的平均值</span></span><br><span class="line">            <span class="keyword">int</span> rr = (r + g + b) / <span class="number">3</span>;</span><br><span class="line">            <span class="keyword">int</span> rg = rr;</span><br><span class="line">            <span class="keyword">int</span> rb = rr;</span><br><span class="line">            color = <span class="built_in">qRgba</span>(rr, rg, rb, a);</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// [5] 设置图像的像素</span></span><br><span class="line">            image.<span class="built_in">setPixel</span>(x, y, color);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> image;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>参数为 QImage 而不是 const QImage &amp;，使用了 Qt 的隐式共享特性，当 QImage 的内容变化后会复制创建一个新的 QImage，不会影响原来的图像。</p>
+</blockquote>
+<p>操作图像的像素数据是不是一点也不难，接下来实现红色蒙版效果，让图像呈现一种偏红的效果，算法是将红色通道设为红、绿、蓝三个值的平均值，而将绿色通道和蓝色通道都设为 0，参考上面的代码，很快就完成了:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">QImage <span class="title">red</span><span class="params">(QImage image)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// [1] 获取图像的宽和高</span></span><br><span class="line">    <span class="keyword">int</span> w = image.<span class="built_in">width</span>();</span><br><span class="line">    <span class="keyword">int</span> h = image.<span class="built_in">height</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [2] 遍历图像的每一个像素</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> y = <span class="number">0</span>; y &lt; h; ++y) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; w; ++x) &#123;</span><br><span class="line">            <span class="comment">// [3] 获取像素的 RGBA 颜色分量</span></span><br><span class="line">            QRgb color = image.<span class="built_in">pixel</span>(x, y);</span><br><span class="line">            <span class="keyword">int</span> r = <span class="built_in">qRed</span>(color);</span><br><span class="line">            <span class="keyword">int</span> g = <span class="built_in">qGreen</span>(color);</span><br><span class="line">            <span class="keyword">int</span> b = <span class="built_in">qBlue</span>(color);</span><br><span class="line">            <span class="keyword">int</span> a = <span class="built_in">qAlpha</span>(color);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// [4] 计算红色蒙版效果</span></span><br><span class="line">            <span class="keyword">int</span> rr = (r + g + b) / <span class="number">3</span>;</span><br><span class="line">            <span class="keyword">int</span> rg = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">int</span> rb = <span class="number">0</span>;</span><br><span class="line">            color = <span class="built_in">qRgba</span>(rr, rg, rb, a);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// [5] 设置图像的像素</span></span><br><span class="line">            image.<span class="built_in">setPixel</span>(x, y, color);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> image;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来大家自己实现一下亮度效果，让图像变得更亮或更暗，算法是将红色通道、绿色通道、蓝色通道，同时加上一个正值或负值。有了上面的经验，相信我们很快就能写出来。</p>
+<p>到此我们虽然学会了操作图像的像素实现各种效果，但是仔细观察它们的代码，会发现 [1], [2], [3], [5] 部分的代码都是重复的，只有实现不同效果的部分 [4] 不同。</p>
+<p>代码重用一直是不变的主题，对于上面的实现，可以把不变的部分封装到一个函数中，变化的部分使用函数指针传进来，实现代码重用，其实这就是使用了设计模式中的策略模式，优化后的代码如下:</p>
+<ul>
+<li><p>函数 map 封装了不变的部分</p>
+<p>map 不是地图，而是映射的意思，把一个像素的颜色映射成另一个颜色</p>
+</li>
+<li><p>实现图像特效的部分使用 lambda 函数作为参数传给函数 map</p>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">map</span><span class="params">(QImage *image, std::function&lt;QRgb (<span class="keyword">int</span> r, <span class="keyword">int</span> g, <span class="keyword">int</span> b, <span class="keyword">int</span> a)&gt; process)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// [1] 获取图像的宽和高</span></span><br><span class="line">    <span class="keyword">int</span> w = image-&gt;<span class="built_in">width</span>();</span><br><span class="line">    <span class="keyword">int</span> h = image-&gt;<span class="built_in">height</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [2] 遍历图像的每一个像素</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> y = <span class="number">0</span>; y &lt; h; ++y) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; w; ++x) &#123;</span><br><span class="line">            <span class="comment">// [3] 获取像素的 RGBA 颜色分量</span></span><br><span class="line">            QRgb color = image-&gt;<span class="built_in">pixel</span>(x, y);</span><br><span class="line">            <span class="keyword">int</span> r = <span class="built_in">qRed</span>(color);</span><br><span class="line">            <span class="keyword">int</span> g = <span class="built_in">qGreen</span>(color);</span><br><span class="line">            <span class="keyword">int</span> b = <span class="built_in">qBlue</span>(color);</span><br><span class="line">            <span class="keyword">int</span> a = <span class="built_in">qAlpha</span>(color);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// [4] 计算效果的颜色，这里是变化的部分</span></span><br><span class="line">            color = <span class="built_in">process</span>(r, g, b, a);</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// [5] 设置图像的像素</span></span><br><span class="line">            image-&gt;<span class="built_in">setPixel</span>(x, y, color);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用函数 map，灰度效果和红色蒙版效果的代码精简如下:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">QImage <span class="title">gray</span><span class="params">(QImage image)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">map</span>(&amp;image, [](<span class="keyword">int</span> r, <span class="keyword">int</span> g, <span class="keyword">int</span> b, <span class="keyword">int</span> a) -&gt; QRgb &#123;</span><br><span class="line">        <span class="keyword">int</span> rr = (r + g + b) / <span class="number">3</span>;</span><br><span class="line">        <span class="keyword">int</span> rg = rr;</span><br><span class="line">        <span class="keyword">int</span> rb = rr;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">qRgba</span>(rr, rg, rb, a);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> image;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">QImage <span class="title">red</span><span class="params">(QImage image)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">map</span>(&amp;image, [](<span class="keyword">int</span> r, <span class="keyword">int</span> g, <span class="keyword">int</span> b, <span class="keyword">int</span> a) -&gt; QRgb &#123;</span><br><span class="line">        <span class="keyword">int</span> rr = (r + g + b) / <span class="number">3</span>;</span><br><span class="line">        <span class="keyword">int</span> rg = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> rb = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">qRgba</span>(rr, rg, rb, a);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> image;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实现高亮效果的代码则如下:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">QImage <span class="title">brightness</span><span class="params">(QImage image, <span class="keyword">int</span> delta)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">map</span>(&amp;image, [=](<span class="keyword">int</span> r, <span class="keyword">int</span> g, <span class="keyword">int</span> b, <span class="keyword">int</span> a) -&gt; QRgb &#123;</span><br><span class="line">        <span class="keyword">int</span> rr = <span class="built_in">qMax</span>(<span class="number">0</span>, <span class="built_in">qMin</span>(<span class="number">255</span>, r + delta));</span><br><span class="line">        <span class="keyword">int</span> rg = <span class="built_in">qMax</span>(<span class="number">0</span>, <span class="built_in">qMin</span>(<span class="number">255</span>, g + delta));</span><br><span class="line">        <span class="keyword">int</span> rb = <span class="built_in">qMax</span>(<span class="number">0</span>, <span class="built_in">qMin</span>(<span class="number">255</span>, b + delta));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">qRgba</span>(rr, rg, rb, a);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> image;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用策略模式后，实现各种效果的代码变的非常简短、漂亮了很多，也减少了出错的几率，非常有价值。</p>
+<p>最后附上图像效果的实现类 <code>ImageEffects</code>，希望大家可以把它完善的更好，增加更多的效果:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名: ImageEffects.h</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> IMAGEEFFECTS_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IMAGEEFFECTS_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QImage&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;functional&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ImageEffects</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 灰度效果</span></span><br><span class="line"><span class="comment">     * 灰度效果(grayscale)就是取红、绿、蓝三个像素值的算术平均值，这实际上将图像转成了黑白形式。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * @param image 原始图片</span></span><br><span class="line"><span class="comment">     * @return 返回新的效果图</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">static</span> QImage <span class="title">gray</span><span class="params">(QImage image)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 复古效果</span></span><br><span class="line"><span class="comment">     * 复古效果(sepia)则是将红、绿、蓝三个像素，分别取这三个值的某种加权平均值，使得图像有一种古旧的效果。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * @param image 原始图片</span></span><br><span class="line"><span class="comment">     * @return 返回新的效果图</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">static</span> QImage <span class="title">siepa</span><span class="params">(QImage image)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 红色蒙版</span></span><br><span class="line"><span class="comment">     * 红色蒙版指的是，让图像呈现一种偏红的效果。算法是将红色通道设为红、绿、蓝三个值的平均值，而将绿色通道和蓝色通道都设为 0。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * @param image 原始图片</span></span><br><span class="line"><span class="comment">     * @return 返回新的效果图</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">static</span> QImage <span class="title">red</span><span class="params">(QImage image)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 反转效果</span></span><br><span class="line"><span class="comment">     * 反转效果(invert)是指图片呈现一种色彩颠倒的效果。算法为红、绿、蓝通道都取各自的相反值(255-原值)。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * @param image 原始图片</span></span><br><span class="line"><span class="comment">     * @return 返回新的效果图</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">static</span> QImage <span class="title">invert</span><span class="params">(QImage image)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 亮度效果</span></span><br><span class="line"><span class="comment">     * 亮度效果(brightness)是指让图像变得更亮或更暗。算法将红色通道、绿色通道、蓝色通道，同时加上一个正值或负值。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * @param image 原始图片</span></span><br><span class="line"><span class="comment">     * @return 返回新的效果图</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">static</span> QImage <span class="title">brightness</span><span class="params">(QImage image, <span class="keyword">int</span> delta)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 把图片上每一个像素的颜色映射为函数 process() 的计算结果。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * @param image   要进行变换的图片指针</span></span><br><span class="line"><span class="comment">     * @param process 对每一个像素的颜色进行计算的函数</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(QImage *image, std::function&lt;QRgb (<span class="keyword">int</span> r, <span class="keyword">int</span> g, <span class="keyword">int</span> b, <span class="keyword">int</span> a)&gt; process)</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// IMAGEEFFECTS_H</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名: ImageEffects.cpp</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;ImageEffects.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 灰度效果(grayscale)就是取红、绿、蓝三个像素值的算术平均值，这实际上将图像转成了黑白形式。</span></span><br><span class="line"><span class="function">QImage <span class="title">ImageEffects::gray</span><span class="params">(QImage image)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">map</span>(&amp;image, [](<span class="keyword">int</span> r, <span class="keyword">int</span> g, <span class="keyword">int</span> b, <span class="keyword">int</span> a) -&gt; QRgb &#123;</span><br><span class="line">        <span class="keyword">int</span> rr = (r + g + b) / <span class="number">3</span>; <span class="comment">// qGray(r, g, b);</span></span><br><span class="line">        <span class="keyword">int</span> rg = rr;</span><br><span class="line">        <span class="keyword">int</span> rb = rr;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">qRgba</span>(rr, rg, rb, a);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> image;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 复古效果(sepia)则是将红、绿、蓝三个像素，分别取这三个值的某种加权平均值，使得图像有一种古旧的效果。</span></span><br><span class="line"><span class="function">QImage <span class="title">ImageEffects::siepa</span><span class="params">(QImage image)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">map</span>(&amp;image, [](<span class="keyword">int</span> r, <span class="keyword">int</span> g, <span class="keyword">int</span> b, <span class="keyword">int</span> a) -&gt; QRgb &#123;</span><br><span class="line">        <span class="keyword">int</span> rr = (r * <span class="number">0.393</span>) + (g * <span class="number">0.769</span>) + (b * <span class="number">0.189</span>); <span class="comment">// red</span></span><br><span class="line">        <span class="keyword">int</span> rg = (r * <span class="number">0.349</span>) + (g * <span class="number">0.686</span>) + (b * <span class="number">0.168</span>); <span class="comment">// green</span></span><br><span class="line">        <span class="keyword">int</span> rb = (r * <span class="number">0.272</span>) + (g * <span class="number">0.534</span>) + (b * <span class="number">0.131</span>); <span class="comment">// blue</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">qRgba</span>(rr, rg, rb, a);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> image;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 红色蒙版指的是，让图像呈现一种偏红的效果。算法是将红色通道设为红、绿、蓝三个值的平均值，而将绿色通道和蓝色通道都设为 0。</span></span><br><span class="line"><span class="function">QImage <span class="title">ImageEffects::red</span><span class="params">(QImage image)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">map</span>(&amp;image, [](<span class="keyword">int</span> r, <span class="keyword">int</span> g, <span class="keyword">int</span> b, <span class="keyword">int</span> a) -&gt; QRgb &#123;</span><br><span class="line">        <span class="keyword">int</span> rr = (r + g + b) / <span class="number">3</span>; <span class="comment">// red</span></span><br><span class="line">        <span class="keyword">int</span> rg = <span class="number">0</span>; <span class="comment">// green</span></span><br><span class="line">        <span class="keyword">int</span> rb = <span class="number">0</span>; <span class="comment">// blue</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">qRgba</span>(rr, rg, rb, a);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> image;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 反转效果(invert)是指图片呈现一种色彩颠倒的效果。算法为红、绿、蓝通道都取各自的相反值(255-原值)。</span></span><br><span class="line"><span class="function">QImage <span class="title">ImageEffects::invert</span><span class="params">(QImage image)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">map</span>(&amp;image, [](<span class="keyword">int</span> r, <span class="keyword">int</span> g, <span class="keyword">int</span> b, <span class="keyword">int</span> a) -&gt; QRgb &#123;</span><br><span class="line">        <span class="keyword">int</span> rr = <span class="number">255</span> - r;</span><br><span class="line">        <span class="keyword">int</span> rg = <span class="number">255</span> - g;</span><br><span class="line">        <span class="keyword">int</span> rb = <span class="number">255</span> - b;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">qRgba</span>(rr, rg, rb, a);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> image;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 亮度效果(brightness)是指让图像变得更亮或更暗。算法将红色通道、绿色通道、蓝色通道，同时加上一个正值或负值。</span></span><br><span class="line"><span class="function">QImage <span class="title">ImageEffects::brightness</span><span class="params">(QImage image, <span class="keyword">int</span> delta)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">map</span>(&amp;image, [=](<span class="keyword">int</span> r, <span class="keyword">int</span> g, <span class="keyword">int</span> b, <span class="keyword">int</span> a) -&gt; QRgb &#123;</span><br><span class="line">        <span class="keyword">int</span> rr = <span class="built_in">qMax</span>(<span class="number">0</span>, <span class="built_in">qMin</span>(<span class="number">255</span>, r + delta));</span><br><span class="line">        <span class="keyword">int</span> rg = <span class="built_in">qMax</span>(<span class="number">0</span>, <span class="built_in">qMin</span>(<span class="number">255</span>, g + delta));</span><br><span class="line">        <span class="keyword">int</span> rb = <span class="built_in">qMax</span>(<span class="number">0</span>, <span class="built_in">qMin</span>(<span class="number">255</span>, b + delta));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">qRgba</span>(rr, rg, rb, a);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> image;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 把图片上每一个像素的颜色映射为函数 process() 的计算结果</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ImageEffects::map</span><span class="params">(QImage *image, std::function&lt;QRgb (<span class="keyword">int</span> r, <span class="keyword">int</span> g, <span class="keyword">int</span> b, <span class="keyword">int</span> a)&gt; process)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> w = image-&gt;<span class="built_in">width</span>();</span><br><span class="line">    <span class="keyword">int</span> h = image-&gt;<span class="built_in">height</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> y = <span class="number">0</span>; y &lt; h; ++y) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; w; ++x) &#123;</span><br><span class="line">            QRgb color = image-&gt;<span class="built_in">pixel</span>(x, y); <span class="comment">// 获取每个像素都要调用一次函数 pixel()，可以使用函数 scanLine() 提高效率</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">int</span> r = <span class="built_in">qRed</span>(color);</span><br><span class="line">            <span class="keyword">int</span> g = <span class="built_in">qGreen</span>(color);</span><br><span class="line">            <span class="keyword">int</span> b = <span class="built_in">qBlue</span>(color);</span><br><span class="line">            <span class="keyword">int</span> a = <span class="built_in">qAlpha</span>(color);</span><br><span class="line"></span><br><span class="line">            color = <span class="built_in">process</span>(r, g, b, a);</span><br><span class="line">            image-&gt;<span class="built_in">setPixel</span>(x, y, color);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用就很直接了，例如使用 QComboBox 切换不同的效果:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">connect</span>(ui-&gt;comboBox, QOverload&lt;<span class="keyword">const</span> QString &amp;&gt;::<span class="built_in">of</span>(&amp;QComboBox::currentIndexChanged), [<span class="keyword">this</span>] (<span class="keyword">const</span> QString &amp;text) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="string">&quot;原始图片&quot;</span> == text) &#123;</span><br><span class="line">        pixmap = QPixmap::<span class="built_in">fromImage</span>(image);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">&quot;灰度效果&quot;</span> == text) &#123;</span><br><span class="line">        pixmap = QPixmap::<span class="built_in">fromImage</span>(ImageEffects::<span class="built_in">gray</span>(image));</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">&quot;复古效果&quot;</span> == text) &#123;</span><br><span class="line">        pixmap = QPixmap::<span class="built_in">fromImage</span>(ImageEffects::<span class="built_in">siepa</span>(image));</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">&quot;红色蒙版&quot;</span> == text) &#123;</span><br><span class="line">        pixmap = QPixmap::<span class="built_in">fromImage</span>(ImageEffects::<span class="built_in">red</span>(image));</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">&quot;反转效果&quot;</span> == text) &#123;</span><br><span class="line">        pixmap = QPixmap::<span class="built_in">fromImage</span>(ImageEffects::<span class="built_in">invert</span>(image));</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">&quot;变亮图片&quot;</span> == text) &#123;</span><br><span class="line">        pixmap = QPixmap::<span class="built_in">fromImage</span>(ImageEffects::<span class="built_in">brightness</span>(image, <span class="number">70</span>));</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">&quot;变暗图片&quot;</span> == text) &#123;</span><br><span class="line">        pixmap = QPixmap::<span class="built_in">fromImage</span>(ImageEffects::<span class="built_in">brightness</span>(image, <span class="number">-70</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ui-&gt;label-&gt;<span class="built_in">setPixmap</span>(pixmap);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/qtbook-custom-widget-abnormity-buttons/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          异形按钮组
+        
+      </div>
+    </a>
+  
+  
+    <a href="/qtbook-custom-widget-group-buttons/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">自定义按钮组</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

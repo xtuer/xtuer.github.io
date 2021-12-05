@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>QPainter 的状态保存与恢复 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="实现这样的一个程序，把 QPainter 的坐标原点从左上角移动到 (100, 100)，然后画出坐标轴，接下来顺时针旋转坐标轴 45 度，设置画笔，画刷，字体，画一个矩形和字符串，最后恢复 QPainter 到最开始的状态，即还原画笔，画刷，字体，逆时针旋转坐标轴 45 度，移动 QPainter 的坐标原点到左上角，再画一个矩形和字符串，就像下图这样：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="QPainter 的状态保存与恢复">
+<meta property="og:url" content="http://xtuer.github.io/qtbook-paint-status/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="实现这样的一个程序，把 QPainter 的坐标原点从左上角移动到 (100, 100)，然后画出坐标轴，接下来顺时针旋转坐标轴 45 度，设置画笔，画刷，字体，画一个矩形和字符串，最后恢复 QPainter 到最开始的状态，即还原画笔，画刷，字体，逆时针旋转坐标轴 45 度，移动 QPainter 的坐标原点到左上角，再画一个矩形和字符串，就像下图这样：">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Base-SaveRestore.png">
+<meta property="article:published_time" content="2016-12-08T15:21:50.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.176Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="QtBook">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Base-SaveRestore.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-qtbook-paint-status" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-paint-status/" class="article-date">
+  	<!-- <time datetime="2016-12-08T15:21:50.000Z" itemprop="datePublished">2016-12-08</time> -->
+    2016-12-08
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      QPainter 的状态保存与恢复
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>实现这样的一个程序，把 QPainter 的坐标原点从左上角移动到 (100, 100)，然后画出坐标轴，接下来顺时针旋转坐标轴 45 度，设置画笔，画刷，字体，画一个矩形和字符串，最后恢复 QPainter 到最开始的状态，即还原画笔，画刷，字体，逆时针旋转坐标轴 45 度，移动 QPainter 的坐标原点到左上角，再画一个矩形和字符串，就像下图这样：</p>
+<p><img src="../img/qtbook/paint/Paint-Base-SaveRestore.png"></p>
+<span id="more"></span>
+
+<p>再不了解 QPainter 的 save() 和 restore() 之前，我们可能会下面这样做：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CodeStatusWidget::paintEvent</span><span class="params">(QPaintEvent *)</span> </span>&#123;</span><br><span class="line">    <span class="function">QPainter <span class="title">painter</span><span class="params">(<span class="keyword">this</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [*] 保存 QPainter 的状态</span></span><br><span class="line">    QPen pen = painter.<span class="built_in">pen</span>();</span><br><span class="line">    QBrush brush = painter.<span class="built_in">brush</span>();</span><br><span class="line">    QFont font = painter.<span class="built_in">font</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 移动坐标轴</span></span><br><span class="line">    painter.<span class="built_in">translate</span>(<span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 绘制坐标轴所在的线</span></span><br><span class="line">    painter.<span class="built_in">drawLine</span>(<span class="number">-100</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">0</span>);</span><br><span class="line">    painter.<span class="built_in">drawLine</span>(<span class="number">0</span>, <span class="number">-100</span>, <span class="number">0</span>, <span class="number">100</span>);</span><br><span class="line"></span><br><span class="line">    painter.<span class="built_in">rotate</span>(<span class="number">45</span>);</span><br><span class="line">    painter.<span class="built_in">setPen</span>(Qt::red);</span><br><span class="line">    painter.<span class="built_in">setBrush</span>(Qt::blue);</span><br><span class="line">    painter.<span class="built_in">setFont</span>(<span class="built_in">QFont</span>(<span class="string">&quot;Monaco&quot;</span>, <span class="number">30</span>));</span><br><span class="line"></span><br><span class="line">    painter.<span class="built_in">drawRect</span>(<span class="number">-50</span>, <span class="number">-50</span>, <span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line">    painter.<span class="built_in">drawText</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="string">&quot;Hello&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [*] 恢复 QPainter 的状态</span></span><br><span class="line">    painter.<span class="built_in">rotate</span>(<span class="number">-45</span>);</span><br><span class="line">    painter.<span class="built_in">translate</span>(<span class="number">-100</span>, <span class="number">-100</span>);</span><br><span class="line">    painter.<span class="built_in">setFont</span>(font);</span><br><span class="line">    painter.<span class="built_in">setPen</span>(pen);</span><br><span class="line">    painter.<span class="built_in">setBrush</span>(brush);</span><br><span class="line"></span><br><span class="line">    painter.<span class="built_in">drawRect</span>(<span class="number">250</span>, <span class="number">50</span>, <span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line">    painter.<span class="built_in">drawText</span>(<span class="number">250</span>, <span class="number">50</span>, <span class="string">&quot;Hello&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>为了能够恢复 QPainter 的状态，首先要保存 QPainter 的状态</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">QPen pen = painter.<span class="built_in">pen</span>();</span><br><span class="line">QBrush brush = painter.<span class="built_in">brush</span>();</span><br><span class="line">QFont font = painter.<span class="built_in">font</span>();</span><br></pre></td></tr></table></figure>
+
+<p>最后使用下面的代码恢复 QPainter 的状态</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">painter.<span class="built_in">rotate</span>(<span class="number">-45</span>);</span><br><span class="line">painter.<span class="built_in">translate</span>(<span class="number">-100</span>, <span class="number">-100</span>);</span><br><span class="line">painter.<span class="built_in">setFont</span>(font);</span><br><span class="line">painter.<span class="built_in">setPen</span>(pen);</span><br><span class="line">painter.<span class="built_in">setBrush</span>(brush);</span><br></pre></td></tr></table></figure>
+
+<p>看上去不是很难，但是在绘制复杂图形的时候，恢复 QPainter 状态的操作就会很频繁，很有可能导致代码难以管理。如果仔细阅读 QPainter 的帮助文档，就会发现其实 QPainter 已经提供了接口用于保存和恢复它的状态，就是 save() 和 restore()。</p>
+<blockquote>
+<p><code>void QPainter::save()</code> - Saves the current painter state (pushes the state onto a stack). A save() must be followed by a corresponding restore().</p>
+<p><code>void QPainter::restore()</code> - Restores the current painter state (pops a saved state off the stack).</p>
+</blockquote>
+<p>save() 用于保存 QPainter 的状态，restore() 用于恢复 QPainter 的状态，save() 和 restore() 一般都是成对使用的，如果只调用了 save() 而不调用 restore()，那么保存就没有意义了，保存是为了能恢复被保存的状态而使用的。QPainter 的状态有画笔，画刷，字体，变换（旋转，移动，切变，缩放）等。</p>
+<p>下面就使用 QPainter 提供的功能保存和恢复它的状态，看看代码会是怎么样的</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ApiStatusWidget::paintEvent</span><span class="params">(QPaintEvent *)</span> </span>&#123;</span><br><span class="line">    <span class="function">QPainter <span class="title">painter</span><span class="params">(<span class="keyword">this</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [*] 保存 QPainter 的状态</span></span><br><span class="line">    painter.<span class="built_in">save</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 移动坐标轴</span></span><br><span class="line">    painter.<span class="built_in">translate</span>(<span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 绘制坐标轴所在的线</span></span><br><span class="line">    painter.<span class="built_in">drawLine</span>(<span class="number">-100</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">0</span>);</span><br><span class="line">    painter.<span class="built_in">drawLine</span>(<span class="number">0</span>, <span class="number">-100</span>, <span class="number">0</span>, <span class="number">100</span>);</span><br><span class="line"></span><br><span class="line">    painter.<span class="built_in">rotate</span>(<span class="number">45</span>);</span><br><span class="line">    painter.<span class="built_in">setPen</span>(Qt::red);</span><br><span class="line">    painter.<span class="built_in">setBrush</span>(Qt::blue);</span><br><span class="line">    painter.<span class="built_in">setFont</span>(<span class="built_in">QFont</span>(<span class="string">&quot;Monaco&quot;</span>, <span class="number">30</span>));</span><br><span class="line"></span><br><span class="line">    painter.<span class="built_in">drawRect</span>(<span class="number">-50</span>, <span class="number">-50</span>, <span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line">    painter.<span class="built_in">drawText</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="string">&quot;Hello&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [*] 恢复 QPainter 的状态</span></span><br><span class="line">    painter.<span class="built_in">restore</span>();</span><br><span class="line"></span><br><span class="line">    painter.<span class="built_in">drawRect</span>(<span class="number">250</span>, <span class="number">50</span>, <span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line">    painter.<span class="built_in">drawText</span>(<span class="number">250</span>, <span class="number">50</span>, <span class="string">&quot;Hello&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>利用 save() 和 restore() 后，就不需要开始的时候一个一个的保存和恢复 QPainter 的状态了，调用一下 save()，QPainter 的所有状态就保存好了，需要恢复的时候只要调用 restore() 所有保存好的状态就恢复回来了，代码简洁了很多，也不会不小心漏掉某些状态而出错。</p>
+<p>此外，save() 和 restore() 可以以堆栈的形式嵌套式地保存和恢复，最后保存的先恢复：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MainWidget::paintEvent</span><span class="params">(QPaintEvent *)</span> </span>&#123;</span><br><span class="line">    <span class="function">QPainter <span class="title">painter</span><span class="params">(<span class="keyword">this</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    painter.<span class="built_in">save</span>(); <span class="comment">// 保存状态 1</span></span><br><span class="line">    ...</span><br><span class="line">    painter.<span class="built_in">save</span>(); <span class="comment">// 保存状态 2</span></span><br><span class="line">    ...</span><br><span class="line">    painter.<span class="built_in">save</span>();    <span class="comment">// 保存状态 3</span></span><br><span class="line">    ...</span><br><span class="line">    painter.<span class="built_in">restore</span>(); <span class="comment">// 恢复状态 3</span></span><br><span class="line">    ...</span><br><span class="line">    painter.<span class="built_in">save</span>();    <span class="comment">// 保存状态 4</span></span><br><span class="line">    ...</span><br><span class="line">    painter.<span class="built_in">restore</span>(); <span class="comment">// 恢复状态 4</span></span><br><span class="line">    painter.<span class="built_in">restore</span>(); <span class="comment">// 恢复状态 2</span></span><br><span class="line">    ...</span><br><span class="line">    painter.<span class="built_in">restore</span>(); <span class="comment">// 恢复状态 1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>像上面这样复杂状态的恢复，如果像开始那样我们自己写代码实现，想想就很可怕。</p>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/qtbook-paint-pixmap/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Pixmap
+        
+      </div>
+    </a>
+  
+  
+    <a href="/qtbook-paint-gradient/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">渐变及原理</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

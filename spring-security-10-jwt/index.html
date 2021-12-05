@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Spring Security JWT + Token 认证 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在 Spring Security Session + Token 认证 中介绍了 Token 相关的身份验证，但是怎么验证 token 和使用 token 获取用户信息没有进行介绍，可以把 token 存储到 Redis、数据库等，下面介绍另一种 token 实现方法 JWT(Json Web Token)，这种 token 不需要存储到服务器，自身就能进行验证。 JWT 中存储了 token">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Security JWT + Token 认证">
+<meta property="og:url" content="http://xtuer.github.io/spring-security-10-jwt/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="在 Spring Security Session + Token 认证 中介绍了 Token 相关的身份验证，但是怎么验证 token 和使用 token 获取用户信息没有进行介绍，可以把 token 存储到 Redis、数据库等，下面介绍另一种 token 实现方法 JWT(Json Web Token)，这种 token 不需要存储到服务器，自身就能进行验证。 JWT 中存储了 token">
+<meta property="og:locale">
+<meta property="article:published_time" content="2017-09-03T00:08:21.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.182Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="SpringSecurity">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#TokenAuthenticationFilter"><span class="toc-text">TokenAuthenticationFilter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TokenService"><span class="toc-text">TokenService</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Jwt"><span class="toc-text">Jwt</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-spring-security-10-jwt" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/spring-security-10-jwt/" class="article-date">
+  	<!-- <time datetime="2017-09-03T00:08:21.000Z" itemprop="datePublished">2017-09-03</time> -->
+    2017-09-03
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Spring Security JWT + Token 认证
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringSecurity/" rel="tag">SpringSecurity</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>在 <a target="_blank" rel="noopener" href="http://qtdebug.com/spring-security-8-token/">Spring Security Session + Token 认证</a> 中介绍了 Token 相关的身份验证，但是怎么验证 token 和使用 token 获取用户信息没有进行介绍，可以把 token 存储到 Redis、数据库等，下面介绍另一种 token 实现方法 JWT(Json Web Token)，这种 token 不需要存储到服务器，自身就能进行验证。</p>
+<p>JWT 中存储了 token 的签名，用户信息，还可以存储 token 的签发时间用于服务器验证 token 的有效期，并且这些信息如果被篡改了的话就会导致 token 失效，JWT 的理论请参考 <a target="_blank" rel="noopener" href="http://www.jianshu.com/p/576dbf44b2ae">http://www.jianshu.com/p/576dbf44b2ae</a>。</p>
+<p>为了在 Spring Security 中使用 JWT，需要修改下面 3 个类:</p>
+<ul>
+<li>TokenAuthenticationFilter</li>
+<li>TokenService</li>
+<li>JwtUtils <span id="more"></span></li>
+</ul>
+<h2 id="TokenAuthenticationFilter"><a href="#TokenAuthenticationFilter" class="headerlink" title="TokenAuthenticationFilter"></a>TokenAuthenticationFilter</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.security;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.xtuer.bean.User;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.authentication.UsernamePasswordAuthenticationToken;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.core.Authentication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.core.AuthenticationException;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.core.context.SecurityContextHolder;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.web.util.matcher.AntPathRequestMatcher;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.FilterChain;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletResponse;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 使用 token 进行身份验证的过滤器。</span></span><br><span class="line"><span class="comment"> * 如果 request header 中有 auth-token，使用 auth-token 的值查询对应的登陆用户，如果用户有效则放行访问，否则返回 401 错误。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TokenAuthenticationFilter</span> <span class="keyword">extends</span> <span class="title">AbstractAuthenticationProcessingFilter</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> TokenService tokenService;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ThreadLocal&lt;Boolean&gt; allowSessionCreation = <span class="keyword">new</span> ThreadLocal&lt;&gt;(); <span class="comment">// 是否允许当前请求创建 session</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TokenAuthenticationFilter</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(<span class="keyword">new</span> AntPathRequestMatcher(<span class="string">&quot;/login&quot;</span>, <span class="string">&quot;POST&quot;</span>)); <span class="comment">// 参考 UsernamePasswordAuthenticationFilter</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Authentication <span class="title">attemptAuthentication</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span></span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> AuthenticationException, IOException, ServletException </span>&#123;</span><br><span class="line">        <span class="comment">// 从 token 中提取 user，如果 user 不为 null，则用其创建一个 Authentication 对象</span></span><br><span class="line">        String token = request.getHeader(<span class="string">&quot;auth-token&quot;</span>);</span><br><span class="line">        User user = tokenService.extractUser(token);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (user == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            user.setPassword(<span class="string">&quot;no usage&quot;</span>); <span class="comment">// 密码不能为 null，但是也没有用，所以随便设置一个吧</span></span><br><span class="line">            user = User.userWithAuthorities(user); <span class="comment">// 生成 authorities</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(ServletRequest req, ServletResponse res, FilterChain chain)</span> <span class="keyword">throws</span> IOException, ServletException </span>&#123;</span><br><span class="line">        HttpServletRequest request = (HttpServletRequest) req;</span><br><span class="line">        HttpServletResponse response = (HttpServletResponse) res;</span><br><span class="line"></span><br><span class="line">        allowSessionCreation.set(<span class="keyword">true</span>); <span class="comment">// 默认创建 session</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果 header 里有 auth-token 时，则使用 token 查询用户数据进行登陆验证</span></span><br><span class="line">        String token = request.getHeader(<span class="string">&quot;auth-token&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (token != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 1. 尝试进行身份认证</span></span><br><span class="line">            <span class="comment">// 2. 如果用户无效，则返回 401</span></span><br><span class="line">            <span class="comment">// 3. 如果用户有效，则保存到 SecurityContext 中，供本次方式后续使用</span></span><br><span class="line">            Authentication auth = attemptAuthentication(request, response);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// user 不为 null 者身份验证成功</span></span><br><span class="line">            <span class="keyword">if</span> (auth != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="comment">// 保存认证信息到 SecurityContext，禁止 HttpSessionSecurityContextRepository 创建 session</span></span><br><span class="line">                allowSessionCreation.set(<span class="keyword">false</span>);</span><br><span class="line">                SecurityContextHolder.getContext().setAuthentication(auth);</span><br><span class="line">            &#125; <span class="keyword">else</span>  &#123;</span><br><span class="line">                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, <span class="string">&quot;Token 无效，请重新申请 token&quot;</span>);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 继续调用下一个 filter: UsernamePasswordAuthenticationToken</span></span><br><span class="line">        chain.doFilter(request, response);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isAllowSessionCreation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Boolean allow = allowSessionCreation.get();</span><br><span class="line">        <span class="keyword">return</span> allow == <span class="keyword">null</span> ? <span class="keyword">true</span> : allow; <span class="comment">// 如果是 null，则说明没有设置过，使用默认的，也既是 true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="TokenService"><a href="#TokenService" class="headerlink" title="TokenService"></a>TokenService</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.security;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.alibaba.fastjson.JSON;</span><br><span class="line"><span class="keyword">import</span> com.alibaba.fastjson.TypeReference;</span><br><span class="line"><span class="keyword">import</span> com.xtuer.bean.User;</span><br><span class="line"><span class="keyword">import</span> com.xtuer.util.Jwt;</span><br><span class="line"><span class="keyword">import</span> lombok.Getter;</span><br><span class="line"><span class="keyword">import</span> lombok.Setter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 生成 token 的 service.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="meta">@Setter</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TokenService</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String appId  = <span class="string">&quot;School-1&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> String appKey = <span class="string">&quot;App secret&quot;</span>; <span class="comment">// 应用的秘钥，可以定期更换</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">long</span> tokenDuration = <span class="number">3600L</span> * <span class="number">24</span> * <span class="number">30</span> * <span class="number">1000</span>; <span class="comment">// token 有效期为 30 天，单位为毫秒</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 生成 token</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">generateToken</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Token 中保存 id, username, roles</span></span><br><span class="line">        <span class="keyword">long</span> expiredAt = System.currentTimeMillis() + tokenDuration;</span><br><span class="line">        <span class="keyword">return</span> Jwt.create(appId, appKey).expiredAt(expiredAt)</span><br><span class="line">                .param(<span class="string">&quot;id&quot;</span>, user.getId() + <span class="string">&quot;&quot;</span>)</span><br><span class="line">                .param(<span class="string">&quot;username&quot;</span>, user.getUsername())</span><br><span class="line">                .param(<span class="string">&quot;roles&quot;</span>, JSON.toJSONString(user.getRoles().toArray(<span class="keyword">new</span> String[<span class="number">0</span>])))</span><br><span class="line">                .token();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 检测 token 的有效性</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">checkToken</span><span class="params">(String token)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Jwt.checkToken(token, appKey);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从 token 中提取用户</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">extractUser</span><span class="params">(String token)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">this</span>.checkToken(token)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 获取 token 中保存的 id, username, roles</span></span><br><span class="line">            Map&lt;String, String&gt; params = Jwt.params(token);</span><br><span class="line">            Long         id = Long.parseLong(params.get(<span class="string">&quot;id&quot;</span>));</span><br><span class="line">            String username = params.get(<span class="string">&quot;username&quot;</span>);</span><br><span class="line">            String[]  roles = JSON.parseObject(params.get(<span class="string">&quot;roles&quot;</span>), <span class="keyword">new</span> TypeReference&lt;String[]&gt;() &#123;&#125;);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> User(id, username, <span class="string">&quot;no-password&quot;</span>, roles);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        TokenService service = <span class="keyword">new</span> TokenService();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 创建用户对象</span></span><br><span class="line">        User user = <span class="keyword">new</span> User(<span class="number">1234L</span>, <span class="string">&quot;Biao&quot;</span>, <span class="string">&quot;---&quot;</span>, <span class="string">&quot;ROLE_ADMIN&quot;</span>, <span class="string">&quot;ROLE_STAFF&quot;</span>);</span><br><span class="line">        user.setMail(<span class="string">&quot;biao.mac@icloud.com&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 使用 user 生成 token</span></span><br><span class="line">        String token = service.generateToken(user);</span><br><span class="line">        System.out.println(token);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 检测 token 是否有效</span></span><br><span class="line">        System.out.println(service.checkToken(token));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 从 token 中提取用户</span></span><br><span class="line">        user = service.extractUser(token);</span><br><span class="line">        System.out.println(JSON.toJSONString(user));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Jwt"><a href="#Jwt" class="headerlink" title="Jwt"></a>Jwt</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.util;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.alibaba.fastjson.JSON;</span><br><span class="line"><span class="keyword">import</span> com.alibaba.fastjson.JSONException;</span><br><span class="line"><span class="keyword">import</span> com.alibaba.fastjson.TypeReference;</span><br><span class="line"><span class="keyword">import</span> lombok.Getter;</span><br><span class="line"><span class="keyword">import</span> lombok.Setter;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.lang3.StringUtils;</span><br><span class="line"><span class="keyword">import</span> org.springframework.util.Assert;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Collections;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.TreeMap;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 使用 JWT 的算法生成 token、验证 token 的有效性以及从 token 中提取数据。Token 中可包含用户数据、签名，能够防止 token 被篡改。</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 标准 JWT 生成的 token 由 3 部分组成，这里对其进行了简化，去掉了算法说明的部分，保留了数据和签名部分.</span></span><br><span class="line"><span class="comment"> * 参考: http://www.jianshu.com/p/576dbf44b2ae</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 需要注意的是，放到 token 里的数据不要太多，否则会使得 token 很大，而 token 有可能放在 cookie, header 中，</span></span><br><span class="line"><span class="comment"> * 如果过大，容易被截断导致 token 无效.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 为什么不使用 com.auth0:java-jwt:3.3.0 实现的 JWT 呢？因为他的算法在 Nginx 端实现是不够方便。</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 使用方法:</span></span><br><span class="line"><span class="comment"> * 生成 token: Jwt.create(appId, appKey).param(&quot;username&quot;, &quot;放下&quot;).expiredAt(System.currentTimeMillis() + 2000).token()</span></span><br><span class="line"><span class="comment"> * 校验 token: Jwt.checkToken(token, appKey)</span></span><br><span class="line"><span class="comment"> * 提取 token 中的用户数据: Jwt.params(token)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Jwt</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 检查 token 是否有效: 使用 payload 计算的签名结果和 token 中的签名一样，如果还存在有效期 expiredAt 并且未过期，则签名有效.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> jwtToken JWT token</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> appKey   应用的 Key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 签名有效返回 true，否则返回 false.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">checkToken</span><span class="params">(String jwtToken, String appKey)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isBlank(jwtToken)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> dotIndex = jwtToken.indexOf(<span class="string">&quot;.&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (dotIndex == -<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 1. 解析出参数的 map params</span></span><br><span class="line">            <span class="comment">// 2. 如果 params 中存在 expiredAt，如果 expiredAt 超过当前时间则 token 过期无效</span></span><br><span class="line">            <span class="comment">// 3. 如果 token 未过期，则用 appKey+params 计算签名，如果和 signature 相等则签名有效</span></span><br><span class="line">            Map&lt;String, String&gt; params = Jwt.params(jwtToken);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 检查签名是否过期</span></span><br><span class="line">                Long expiredAt = Long.parseLong(params.get(<span class="string">&quot;expiredAt&quot;</span>));</span><br><span class="line">                <span class="keyword">if</span> (expiredAt &lt; System.currentTimeMillis()) &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (NumberFormatException ex) &#123;&#125;</span><br><span class="line"></span><br><span class="line">            String signature = jwtToken.substring(dotIndex+<span class="number">1</span>);</span><br><span class="line">            <span class="keyword">return</span> signature.equals(Jwt.sign(params, appKey));</span><br><span class="line">        &#125; <span class="keyword">catch</span> (JSONException ex) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取 token 中的 payload 的 map.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> jwtToken JWT token</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 返回 payload 的 map，如果 token 无效则返回空的 map.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Map&lt;String, String&gt; <span class="title">params</span><span class="params">(String jwtToken)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> dotIndex = jwtToken.indexOf(<span class="string">&quot;.&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (dotIndex == -<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> Collections.emptyMap();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        String payload = Utils.unbase64UrlSafe(jwtToken.substring(<span class="number">0</span>, dotIndex));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> JSON.parseObject(payload, <span class="keyword">new</span> TypeReference&lt;TreeMap&lt;String, String&gt;&gt;() &#123;&#125;);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (NumberFormatException ex) &#123;</span><br><span class="line">            <span class="keyword">return</span> Collections.emptyMap();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">sign</span><span class="params">(Map&lt;String, String&gt; params, String appKey)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 初始化用来计算签名的字符串 toSignedText 为 appKey，</span></span><br><span class="line">        <span class="comment">// 然后按照 params 中 key 的字母序遍历 params，value 挨个的加在到 toSignedText 后面</span></span><br><span class="line">        Map&lt;String, String&gt; sortedMap = <span class="keyword">new</span> TreeMap&lt;&gt;(params);</span><br><span class="line">        StringBuilder toSignedText = <span class="keyword">new</span> StringBuilder(appKey);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (Map.Entry&lt;String, String&gt; entry : sortedMap.entrySet()) &#123;</span><br><span class="line">            toSignedText.append(entry.getValue());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Utils.md5(toSignedText.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 使用 appId 和 appKey 创建一个 JWT 的 builder，然后使用此 builder 设置 payload 的参数计算 token.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> appId  应用的 ID</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> appKey 应用的 key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 返回 builder 对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Builder <span class="title">create</span><span class="params">(String appId, String appKey)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Builder(appId, appKey);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Getter</span></span><br><span class="line">    <span class="meta">@Setter</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Builder</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> Long expiredAt; <span class="comment">// token 过期时间</span></span><br><span class="line">        <span class="keyword">private</span> String appId;   <span class="comment">// 应用的 ID</span></span><br><span class="line">        <span class="keyword">private</span> String appKey;  <span class="comment">// 应用的 key</span></span><br><span class="line">        <span class="keyword">private</span> TreeMap&lt;String, String&gt; params = <span class="keyword">new</span> TreeMap&lt;&gt;(); <span class="comment">// payload 的参数</span></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Builder</span><span class="params">(String appId, String appKey)</span> </span>&#123;</span><br><span class="line">            Assert.notNull(appId, <span class="string">&quot;JWT appId cannot be null&quot;</span>);</span><br><span class="line">            Assert.notNull(appKey, <span class="string">&quot;JWT appKey cannot be null&quot;</span>);</span><br><span class="line">            <span class="keyword">this</span>.appId = appId;</span><br><span class="line">            <span class="keyword">this</span>.appKey = appKey;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 设置 token 的过期时间</span></span><br><span class="line"><span class="comment">         *</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@param</span> expiredAt 过期时间，单位是毫秒</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@return</span> 返回 builder 自己</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Builder <span class="title">expiredAt</span><span class="params">(<span class="keyword">long</span> expiredAt)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.expiredAt = expiredAt;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 添加用户数据到 token 中</span></span><br><span class="line"><span class="comment">         *</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@param</span> name  数据的 key</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@param</span> value 数据的 value</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@return</span> 返回 builder 自己</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Builder <span class="title">param</span><span class="params">(String name, String value)</span> </span>&#123;</span><br><span class="line">            Assert.notNull(name, <span class="string">&quot;JWT param name cannot be null&quot;</span>);</span><br><span class="line">            Assert.notNull(value, <span class="string">&quot;JWT param value cannot be null&quot;</span>);</span><br><span class="line">            params.put(name, value);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 使用 appId, appKey, signedAt [, expiredAt], params 生成 token.</span></span><br><span class="line"><span class="comment">         * 生成算法为:</span></span><br><span class="line"><span class="comment">         *     1. 添加 appId, signedAt[, 如果 expiredAt 不为 null 也加入] 到 params 中</span></span><br><span class="line"><span class="comment">         *     2. 初始化用来计算签名的字符串 toSignedText 为 appKey</span></span><br><span class="line"><span class="comment">         *     3. 按照 params 中 key 的字母序遍历 params，value 挨个的加在到 toSignedText 后面</span></span><br><span class="line"><span class="comment">         *     4. signature = MD5(toSignedText)</span></span><br><span class="line"><span class="comment">         *     5. 把 params 转换为 JSON 字符串并使用 URL Save 的 BASE64 对其进行编码得到 payload</span></span><br><span class="line"><span class="comment">         *     6. 最后得到的签名结果为 payload.signature</span></span><br><span class="line"><span class="comment">         *</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@return</span> 返回使用 JWT 签名的字符串</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">token</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="comment">// 添加签名需要的数据项</span></span><br><span class="line">            params.put(<span class="string">&quot;appId&quot;</span>, appId);</span><br><span class="line">            params.put(<span class="string">&quot;signedAt&quot;</span>, System.currentTimeMillis()+<span class="string">&quot;&quot;</span>);</span><br><span class="line">            <span class="keyword">if</span> (expiredAt != <span class="keyword">null</span>) &#123;</span><br><span class="line">                params.put(<span class="string">&quot;expiredAt&quot;</span>, expiredAt+<span class="string">&quot;&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 计算签名</span></span><br><span class="line">            String payload   = Utils.base64UrlSafe(JSON.toJSONString(params));</span><br><span class="line">            String signature = Jwt.sign(params, appKey);</span><br><span class="line">            <span class="keyword">return</span> payload + <span class="string">&quot;.&quot;</span> + signature;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        String appId  = <span class="string">&quot;school-1&quot;</span>;</span><br><span class="line">        String appKey = <span class="string">&quot;Passw0rd&quot;</span>;</span><br><span class="line">        String token;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 1. 没有期限的 token, 一直有效</span></span><br><span class="line">        token = Jwt.create(appId, appKey).param(<span class="string">&quot;username&quot;</span>, <span class="string">&quot;放下&quot;</span>).token();</span><br><span class="line">        System.out.println(token);</span><br><span class="line">        System.out.println(Jwt.checkToken(token, appKey));</span><br><span class="line">        System.out.println(StringUtils.repeat(<span class="string">&quot;-&quot;</span>, <span class="number">120</span>));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2. 有效期为 2 秒，2 秒后过期</span></span><br><span class="line">        token = Jwt.create(appId, appKey).param(<span class="string">&quot;username&quot;</span>, <span class="string">&quot;放下&quot;</span>).expiredAt(System.currentTimeMillis() + <span class="number">2000</span>).token();</span><br><span class="line">        System.out.println(token);</span><br><span class="line">        System.out.println(Jwt.checkToken(token, appKey));</span><br><span class="line">        Thread.sleep(<span class="number">2500</span>);</span><br><span class="line">        System.out.println(Jwt.checkToken(token, appKey));</span><br><span class="line"></span><br><span class="line">        System.out.println(Jwt.params(token));</span><br><span class="line">        System.out.println(StringUtils.repeat(<span class="string">&quot;-&quot;</span>, <span class="number">80</span>));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3. 乱给的 token, 无效</span></span><br><span class="line">        System.out.println(Jwt.checkToken(<span class="string">&quot;&quot;</span>, appKey));</span><br><span class="line">        System.out.println(Jwt.checkToken(<span class="string">&quot;xxx&quot;</span>, appKey));</span><br><span class="line">        System.out.println(Jwt.checkToken(<span class="string">&quot;xxx.yyy&quot;</span>, appKey));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/spring-boot-start/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Spring Boot Start
+        
+      </div>
+    </a>
+  
+  
+    <a href="/spring-security-9-role-inheritance/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spring Security 权限继承</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

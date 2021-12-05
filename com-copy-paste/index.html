@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>快捷键复制粘贴组件 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="访问剪贴板使用 navigator.clipboard 对象访问系统的剪贴板:  readText: 读取剪贴板的内容 writeText: 设置剪贴板的内容  123456789101112131415161718192021222324252627&lt;!DOCTYPE html&gt;&lt;html lang&#x3D;&quot;en&quot;&gt;&lt;head&gt;    &lt;m">
+<meta property="og:type" content="article">
+<meta property="og:title" content="快捷键复制粘贴组件">
+<meta property="og:url" content="http://xtuer.github.io/com-copy-paste/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="访问剪贴板使用 navigator.clipboard 对象访问系统的剪贴板:  readText: 读取剪贴板的内容 writeText: 设置剪贴板的内容  123456789101112131415161718192021222324252627&lt;!DOCTYPE html&gt;&lt;html lang&#x3D;&quot;en&quot;&gt;&lt;head&gt;    &lt;m">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-12-16T09:37:53.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.142Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="FE">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E5%89%AA%E8%B4%B4%E6%9D%BF"><span class="toc-text">访问剪贴板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%91%E5%AE%9A%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-text">绑定快捷键</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%AA%E8%B4%B4%E6%9D%BF%E5%92%8C%E5%BF%AB%E6%8D%B7%E9%94%AE%E6%8F%92%E4%BB%B6"><span class="toc-text">剪贴板和快捷键插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%8D%E5%88%B6%E7%B2%98%E8%B4%B4%E7%BB%84%E4%BB%B6"><span class="toc-text">复制粘贴组件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E5%A4%8D%E5%88%B6"><span class="toc-text">组件复制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E7%B2%98%E8%B4%B4"><span class="toc-text">组件粘贴</span></a></li></ol></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-com-copy-paste" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/com-copy-paste/" class="article-date">
+  	<!-- <time datetime="2020-12-16T09:37:53.000Z" itemprop="datePublished">2020-12-16</time> -->
+    2020-12-16
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      快捷键复制粘贴组件
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <h2 id="访问剪贴板"><a href="#访问剪贴板" class="headerlink" title="访问剪贴板"></a>访问剪贴板</h2><p>使用 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/Clipboard">navigator.clipboard</a> 对象访问系统的剪贴板:</p>
+<ul>
+<li>readText: 读取剪贴板的内容</li>
+<li>writeText: 设置剪贴板的内容</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>System Clipboard<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">&quot;button-copy&quot;</span>&gt;</span>Copy<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">&quot;button-paste&quot;</span>&gt;</span>Paste<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// 设置系统剪贴板的内容</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#button-copy&#x27;</span>).addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">            navigator.clipboard.writeText(<span class="string">&#x27;Hello&#x27;</span>);</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// 读取系统剪贴板的内容</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#button-paste&#x27;</span>).addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">            navigator.clipboard.readText().then(<span class="function"><span class="params">text</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(text);</span></span><br><span class="line"><span class="javascript">            &#125;);</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>提示: IE 不支持 Navigator.clipboard，但 Edge 支持。</p>
+</blockquote>
+<span id="more"></span>
+
+<h2 id="绑定快捷键"><a href="#绑定快捷键" class="headerlink" title="绑定快捷键"></a>绑定快捷键</h2><p>在 document 上注册键盘事件，按下组合键 <kbd>ctrl + c</kbd> 时触发动作。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>System Clipboard<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// ctrlPressed 和 cPressed 都同时为 true 时，表示组合快捷键 ctrl + c 触发</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> ctrlPressed = <span class="literal">false</span>;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> cPressed    = <span class="literal">false</span>;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// 按下键事件</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.addEventListener(<span class="string">&#x27;keydown&#x27;</span>, <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">switch</span>(e.keyCode) &#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">case</span> <span class="number">17</span>: ctrlPressed = <span class="literal">true</span>; <span class="keyword">break</span>; <span class="comment">// ctrl 按下</span></span></span><br><span class="line"><span class="javascript">                <span class="keyword">case</span> <span class="number">67</span>: cPressed    = <span class="literal">true</span>; <span class="keyword">break</span>; <span class="comment">// c 按下</span></span></span><br><span class="line"><span class="javascript">                <span class="keyword">default</span>: ;</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">            <span class="comment">// ctrl 和 c 同时按下</span></span></span><br><span class="line"><span class="javascript">            <span class="keyword">if</span> (ctrlPressed &amp;&amp; cPressed) &#123;</span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(<span class="string">&#x27;ctrl and c are both pressed: &#x27;</span> + <span class="built_in">Date</span>.now());</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// 松开键事件</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.addEventListener(<span class="string">&#x27;keyup&#x27;</span>, <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">switch</span>(e.keyCode) &#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">case</span> <span class="number">17</span>: ctrlPressed = <span class="literal">false</span>; <span class="keyword">break</span>;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">case</span> <span class="number">67</span>: cPressed    = <span class="literal">false</span>; <span class="keyword">break</span>;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">default</span>: ;</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在指定的元素上触发快捷键，而不是整个 document，如果一个元素可以捕捉键盘事件，其需要能够获得焦点。默认能够获得焦点的 DOM 元素有 input, button 等，div 不能获得焦点。</p>
+<p>为了使得一个元素能够获得焦点，设置其属性 <code>tabindex=&quot;-1&quot;</code> 即可: </p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>System Clipboard<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.container</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">display</span>: inline-block;</span></span><br><span class="line"><span class="css">            <span class="attribute">width</span>: <span class="number">300px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">height</span>: <span class="number">300px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">background</span>: <span class="number">#efefef</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">outline</span>: none;</span></span><br><span class="line"><span class="css">            <span class="attribute">border-radius</span>: <span class="number">4px</span>;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.container</span><span class="selector-pseudo">:focus</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">5px</span> <span class="built_in">rgb</span>(<span class="number">50</span>, <span class="number">123</span>, <span class="number">218</span>) inset;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 设置 div 的 tabindex=&quot;-1&quot; 使其可以获得焦点 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;container-1&quot;</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span> <span class="attr">tabindex</span>=<span class="string">&#x27;-1&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;container-2&quot;</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span> <span class="attr">tabindex</span>=<span class="string">&#x27;-1&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> holder = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#container-2&#x27;</span>);</span></span><br><span class="line"><span class="javascript">        <span class="comment">// holder.focus(); // 编程使得 div 获得焦点</span></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// ctrlPressed 和 cPressed 都同时为 true 时，表示组合快捷键 ctrl + c 触发</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> ctrlPressed = <span class="literal">false</span>;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> cPressed    = <span class="literal">false</span>;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// 按下键事件</span></span></span><br><span class="line"><span class="javascript">        holder.addEventListener(<span class="string">&#x27;keydown&#x27;</span>, <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">switch</span>(e.keyCode) &#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">case</span> <span class="number">17</span>: ctrlPressed = <span class="literal">true</span>; <span class="keyword">break</span>; <span class="comment">// ctrl 按下</span></span></span><br><span class="line"><span class="javascript">                <span class="keyword">case</span> <span class="number">67</span>: cPressed    = <span class="literal">true</span>; <span class="keyword">break</span>; <span class="comment">// c 按下</span></span></span><br><span class="line"><span class="javascript">                <span class="keyword">default</span>: ;</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">            <span class="comment">// ctrl 和 c 同时按下</span></span></span><br><span class="line"><span class="javascript">            <span class="keyword">if</span> (ctrlPressed &amp;&amp; cPressed) &#123;</span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(<span class="string">&#x27;ctrl and c are both pressed: &#x27;</span> + <span class="built_in">Date</span>.now());</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// 松开键事件</span></span></span><br><span class="line"><span class="javascript">        holder.addEventListener(<span class="string">&#x27;keyup&#x27;</span>, <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">switch</span>(e.keyCode) &#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">case</span> <span class="number">17</span>: ctrlPressed = <span class="literal">false</span>; <span class="keyword">break</span>;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">case</span> <span class="number">67</span>: cPressed    = <span class="literal">false</span>; <span class="keyword">break</span>;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">default</span>: ;</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="剪贴板和快捷键插件"><a href="#剪贴板和快捷键插件" class="headerlink" title="剪贴板和快捷键插件"></a>剪贴板和快捷键插件</h2><p>已经有比较成熟的操作系统剪贴板和快捷键的插件可以使用，在项目中没必要像上面这样手动原生的实现一遍:</p>
+<ul>
+<li>剪贴板插件: <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/clipboard-polyfill"><code>clipboard-polyfill</code></a></li>
+<li>快捷键插件: <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/vue-shortkey"><code>vue-shortkey</code></a>: <ul>
+<li>绑定的是全局快捷键</li>
+<li>input 和 textarea 中不受快捷键影响: <code>Vue.use(shortkey, &#123; prevent: [&#39;input&#39;, &#39;textarea&#39;] &#125;);</code></li>
+</ul>
+</li>
+</ul>
+<p>参考示例:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;problem&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Button</span> @<span class="attr">click</span>=<span class="string">&quot;copy&quot;</span>&gt;</span>Copy<span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Button</span> @<span class="attr">click</span>=<span class="string">&quot;paste&quot;</span>&gt;</span>Paste<span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- 绑定快捷键 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;sbtn&quot;</span> <span class="attr">v-shortkey</span>=<span class="string">&quot;[&#x27;ctrl&#x27;, &#x27;c&#x27;]&quot;</span> @<span class="attr">shortkey</span>=<span class="string">&quot;theAction&quot;</span>&gt;</span>Open<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;sbtn&quot;</span> <span class="attr">v-shortkey</span>=<span class="string">&quot;[&#x27;ctrl&#x27;, &#x27;v&#x27;]&quot;</span> @<span class="attr">shortkey</span>=<span class="string">&quot;theAction&quot;</span>&gt;</span>Open<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">Input</span> <span class="attr">v-model</span>=<span class="string">&quot;name&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> * <span class="keyword">as</span> clipboard <span class="keyword">from</span> <span class="string">&#x27;clipboard-polyfill/text&#x27;</span>;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="title">data</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">name</span>: <span class="string">&#x27;Hi&#x27;</span></span></span><br><span class="line"><span class="javascript">        &#125;;</span></span><br><span class="line"><span class="javascript">    &#125;,</span></span><br><span class="line"><span class="javascript">    <span class="attr">methods</span>: &#123;</span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="title">copy</span>(<span class="params">e</span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">            clipboard.writeText(<span class="string">&#x27;This text is plain.&#x27;</span>);</span></span><br><span class="line"><span class="javascript">        &#125;,</span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="title">paste</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">            clipboard.readText().then(<span class="function"><span class="params">text</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">                <span class="built_in">this</span>.name = text;</span></span><br><span class="line"><span class="javascript">            &#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(err);</span></span><br><span class="line"><span class="javascript">            &#125;);</span></span><br><span class="line"><span class="javascript">        &#125;,</span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="title">theAction</span>(<span class="params">e</span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(e);</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript">    &#125;</span></span><br><span class="line"><span class="javascript">&#125;;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">&quot;scss&quot;</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css"><span class="selector-class">.sbtn</span> &#123;</span></span><br><span class="line"><span class="css">    <span class="attribute">display</span>: none;</span></span><br><span class="line"><span class="css">&#125;</span></span><br><span class="line"><span class="css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="复制粘贴组件"><a href="#复制粘贴组件" class="headerlink" title="复制粘贴组件"></a>复制粘贴组件</h2><p>同一个页面中的组件，数据还可以通过全局变量、Vuex 的 store 等进行传递，但是跨页面的时候，不同页面里的 JS 对象就不能够互相访问了，这个时候需要通过一个中间层来传递数据，例如系统的剪贴板。</p>
+<p>跨页面的组件复制粘贴的原理为:</p>
+<ol>
+<li>选择要复制的组件</li>
+<li>按下复制快捷键，把被复制组件的信息保存为 JSON 格式的字符串，然后设置到系统的剪贴板里</li>
+<li>到另一个页面按下粘贴快捷键后，读取系统的剪贴板里的字符串，转换为 JSON 对象，校验得到的对象是否有效</li>
+<li>获取得到的对象信息，创建对应的组件</li>
+</ol>
+<h3 id="组件复制"><a href="#组件复制" class="headerlink" title="组件复制"></a>组件复制</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;com-from&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 按下快捷键 ctrl + c 复制选中的新闻 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;news&quot;</span> <span class="attr">v-shortkey</span>=<span class="string">&quot;[&#x27;ctrl&#x27;, &#x27;c&#x27;]&quot;</span> @<span class="attr">shortkey</span>=<span class="string">&quot;copySelectedNews&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Card</span> <span class="attr">v-for</span>=<span class="string">&quot;news in newses&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;news.title&quot;</span> <span class="attr">dis-hover</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">p</span> <span class="attr">slot</span>=<span class="string">&quot;title&quot;</span>&gt;</span>&#123;&#123; news.title &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123; news.content &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line">                <span class="tag">&lt;<span class="name">Icon</span> <span class="attr">slot</span>=<span class="string">&quot;extra&quot;</span> <span class="attr">:type</span>=<span class="string">&quot;newsIconType(news)&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;selectNews(news)&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">Card</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> * <span class="keyword">as</span> clipboard <span class="keyword">from</span> <span class="string">&#x27;clipboard-polyfill/text&#x27;</span>;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="title">data</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="comment">// 新闻的数据</span></span></span><br><span class="line"><span class="javascript">            <span class="attr">newses</span>: [</span></span><br><span class="line"><span class="javascript">                &#123; <span class="attr">title</span>: <span class="string">&#x27;罗永浩承认售假&#x27;</span>, <span class="attr">content</span>: <span class="string">&#x27;罗永浩在 “交个朋友直播间” 销售了 “皮尔卡丹” 品牌的羊毛衫，有消费者在收到货后怀疑衣服不是纯羊毛，而是假冒伪劣产品&#x27;</span> &#125;,</span></span><br><span class="line"><span class="javascript">                &#123; <span class="attr">title</span>: <span class="string">&#x27;羊肉价格持续上涨&#x27;</span>, <span class="attr">content</span>: <span class="string">&#x27;羊肉价格持续 8 周上涨，每斤超 40 元，什么原因造成“羊贵妃”&#x27;</span> &#125;,</span></span><br><span class="line"><span class="javascript">            ],</span></span><br><span class="line"><span class="javascript">            <span class="comment">// 选中的新闻</span></span></span><br><span class="line"><span class="javascript">            <span class="attr">selectedNews</span>: <span class="literal">null</span>,</span></span><br><span class="line"><span class="javascript">        &#125;;</span></span><br><span class="line"><span class="javascript">    &#125;,</span></span><br><span class="line"><span class="javascript">    <span class="attr">methods</span>: &#123;</span></span><br><span class="line"><span class="javascript">        <span class="comment">// 新闻的图标</span></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="title">newsIconType</span>(<span class="params">news</span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">return</span> news === <span class="built_in">this</span>.selectedNews ? <span class="string">&#x27;ios-checkmark-circle&#x27;</span> : <span class="string">&#x27;ios-checkmark-circle-outline&#x27;</span>;</span></span><br><span class="line"><span class="javascript">        &#125;,</span></span><br><span class="line"><span class="javascript">        <span class="comment">// 选中新闻</span></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="title">selectNews</span>(<span class="params">news</span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">this</span>.selectedNews = news;</span></span><br><span class="line"><span class="javascript">        &#125;,</span></span><br><span class="line"><span class="javascript">        <span class="comment">// 复制选中的新闻到系统的剪贴板里</span></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="title">copySelectedNews</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">            clipboard.writeText(<span class="built_in">JSON</span>.stringify(<span class="built_in">this</span>.selectedNews)).then(<span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">                <span class="built_in">this</span>.$Message.success(<span class="string">&#x27;组件复制成功&#x27;</span>);</span></span><br><span class="line"><span class="javascript">            &#125;);</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript">    &#125;</span></span><br><span class="line"><span class="javascript">&#125;;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">&quot;scss&quot;</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css"><span class="selector-class">.com-from</span> &#123;</span></span><br><span class="line"><span class="css">    <span class="selector-class">.news</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="attribute">width</span>: <span class="number">280px</span>;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.ivu-card</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">margin-bottom</span>: <span class="number">20px</span>;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css">    &#125;</span></span><br><span class="line"><span class="css">&#125;</span></span><br><span class="line"><span class="css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="组件粘贴"><a href="#组件粘贴" class="headerlink" title="组件粘贴"></a>组件粘贴</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;com-to&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 按下快捷键 ctrl + v 粘贴新闻 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;news&quot;</span> <span class="attr">v-shortkey</span>=<span class="string">&quot;[&#x27;ctrl&#x27;, &#x27;v&#x27;]&quot;</span> @<span class="attr">shortkey</span>=<span class="string">&quot;pasteNews&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Card</span> <span class="attr">v-for</span>=<span class="string">&quot;news in newses&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;news.title&quot;</span> <span class="attr">dis-hover</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">p</span> <span class="attr">slot</span>=<span class="string">&quot;title&quot;</span>&gt;</span>&#123;&#123; news.title &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123; news.content &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">Card</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> * <span class="keyword">as</span> clipboard <span class="keyword">from</span> <span class="string">&#x27;clipboard-polyfill/text&#x27;</span>;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="title">data</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="comment">// 新闻的数据</span></span></span><br><span class="line"><span class="javascript">            <span class="attr">newses</span>: [],</span></span><br><span class="line"><span class="javascript">        &#125;;</span></span><br><span class="line"><span class="javascript">    &#125;,</span></span><br><span class="line"><span class="javascript">    <span class="attr">methods</span>: &#123;</span></span><br><span class="line"><span class="javascript">        <span class="comment">// 复制选中的新闻到系统的剪贴板里</span></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="title">pasteNews</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">            clipboard.readText().then(<span class="function"><span class="params">newsJson</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">const</span> news = <span class="built_in">JSON</span>.parse(newsJson);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">                <span class="comment">// 有效的新闻对象 news 才加入</span></span></span><br><span class="line"><span class="javascript">                <span class="keyword">if</span> (<span class="built_in">this</span>.validateNews(news)) &#123;</span></span><br><span class="line"><span class="javascript">                    <span class="built_in">this</span>.newses.push(news);</span></span><br><span class="line"><span class="javascript">                &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="javascript">                    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;无效的新闻对象&#x27;</span>);</span></span><br><span class="line"><span class="javascript">                &#125;</span></span><br><span class="line"><span class="javascript">            &#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">                <span class="built_in">this</span>.$Message.error(<span class="string">`粘贴组件错误: <span class="subst">$&#123;err.message&#125;</span>`</span>);</span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(err);</span></span><br><span class="line"><span class="javascript">            &#125;);</span></span><br><span class="line"><span class="javascript">        &#125;,</span></span><br><span class="line"><span class="javascript">        <span class="comment">// 验证 news 是否有效的新闻对象</span></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="title">validateNews</span>(<span class="params">news</span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="comment">// 对象有属性 title 和 content，说明是一个有效的新闻对象</span></span></span><br><span class="line"><span class="javascript">            <span class="keyword">return</span> <span class="built_in">this</span>.hasProperty(news, <span class="string">&#x27;title&#x27;</span>) &amp;&amp; <span class="built_in">this</span>.hasProperty(news, <span class="string">&#x27;content&#x27;</span>);</span></span><br><span class="line"><span class="javascript">        &#125;,</span></span><br><span class="line"><span class="javascript">        <span class="comment">// 判断对象 obj 是否有属性 property</span></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="title">hasProperty</span>(<span class="params">obj, property</span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">return</span> <span class="built_in">Object</span>.prototype.hasOwnProperty.call(obj, property);</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript">    &#125;</span></span><br><span class="line"><span class="javascript">&#125;;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">&quot;scss&quot;</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css"><span class="selector-class">.com-to</span> &#123;</span></span><br><span class="line"><span class="css">    <span class="selector-class">.news</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="attribute">width</span>: <span class="number">280px</span>;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.ivu-card</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">margin-bottom</span>: <span class="number">20px</span>;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css">    &#125;</span></span><br><span class="line"><span class="css">&#125;</span></span><br><span class="line"><span class="css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/yaml-java/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Java 操作 Yaml
+        
+      </div>
+    </a>
+  
+  
+    <a href="/vue-key/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Vue :key</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Nginx + Tomcat 使用 Https | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Nginx 作为前端反向代理或者负载均衡，Tomcat 不需要自己处理 https，https 由 Nginx 处理:  用户首先和 Nginx 建立连接，完成 SSL 握手 而后 Nginx 作为代理以 http 协议将请求转发给 Tomcat 处理 Nginx 再把 Tomcat 的输出通过 SSL 加密发回给用户  Tomcat 只是在处理 http 请求而已 (默认监听 8080 端口)。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx + Tomcat 使用 Https">
+<meta property="og:url" content="http://xtuer.github.io/java-tomcat-nginx-https/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="Nginx 作为前端反向代理或者负载均衡，Tomcat 不需要自己处理 https，https 由 Nginx 处理:  用户首先和 Nginx 建立连接，完成 SSL 握手 而后 Nginx 作为代理以 http 协议将请求转发给 Tomcat 处理 Nginx 再把 Tomcat 的输出通过 SSL 加密发回给用户  Tomcat 只是在处理 http 请求而已 (默认监听 8080 端口)。">
+<meta property="og:locale">
+<meta property="article:published_time" content="2017-07-26T02:27:07.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.160Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E7%AD%BE%E8%AF%81%E4%B9%A6"><span class="toc-text">自签证书</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-java-tomcat-nginx-https" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/java-tomcat-nginx-https/" class="article-date">
+  	<!-- <time datetime="2017-07-26T02:27:07.000Z" itemprop="datePublished">2017-07-26</time> -->
+    2017-07-26
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Nginx + Tomcat 使用 Https
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Nginx 作为前端反向代理或者负载均衡，Tomcat 不需要自己处理 https，https 由 Nginx 处理:</p>
+<ul>
+<li>用户首先和 Nginx 建立连接，完成 SSL 握手</li>
+<li>而后 Nginx 作为代理以 http 协议将请求转发给 Tomcat 处理</li>
+<li>Nginx 再把 Tomcat 的输出通过 SSL 加密发回给用户</li>
+</ul>
+<p>Tomcat 只是在处理 http 请求而已 (默认监听 8080 端口)。因此，这种情况下不需要配置 Tomcat 的 SSL，只需要配置 Nginx 的 SSL，Tomcat 和 Nginx 需要配置以下几项:</p>
+<ul>
+<li><p>Nginx 中启用 https:</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">    <span class="attribute">include</span>      mime.types;</span><br><span class="line">    <span class="attribute">default_type</span> text/html;</span><br><span class="line">    <span class="attribute">gzip</span>         <span class="literal">on</span>;</span><br><span class="line">    <span class="attribute">gzip_types</span>   text/css text/x-component application/x-javascript application/javascript text/javascript text/x-js text/richtext image/svg+xml text/plain text/xsd text/xsl text/xml image/x-icon;</span><br><span class="line">    <span class="attribute">sendfile</span>     <span class="literal">on</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Tomcat 服务器集群</span></span><br><span class="line">    <span class="attribute">upstream</span> app_server &#123;</span><br><span class="line">        <span class="attribute">server</span> <span class="number">127.0.0.1:8080</span> weight=<span class="number">4</span>;</span><br><span class="line">        <span class="attribute">server</span> <span class="number">127.0.0.1:8081</span> weight=<span class="number">2</span>;</span><br><span class="line">        <span class="attribute">server</span> <span class="number">127.0.0.1:8082</span> weight=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="section">server</span> &#123;</span><br><span class="line">        <span class="attribute">listen</span>      <span class="number">443</span> ssl; <span class="comment"># https 的默认端口是 443</span></span><br><span class="line">        <span class="attribute">charset</span>     utf-<span class="number">8</span>;</span><br><span class="line">        <span class="attribute">server_name</span> www.xtuer.com; <span class="comment"># host_name of URL</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 启用 https</span></span><br><span class="line">        <span class="attribute">ssl_certificate</span>     /Users/Biao/Desktop/cert/server.crt;</span><br><span class="line">        <span class="attribute">ssl_certificate_key</span> /Users/Biao/Desktop/cert/server.key;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">location</span> / &#123;</span><br><span class="line">            <span class="attribute">proxy_redirect</span>   <span class="literal">off</span>;</span><br><span class="line">            <span class="attribute">proxy_set_header</span> Host $host;</span><br><span class="line">            <span class="attribute">proxy_set_header</span> X-Real-IP $remote_addr;</span><br><span class="line">            <span class="attribute">proxy_set_header</span> X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 把 https 的协议告知 Tomcat，否则 Tomcat 可能认为是 http 的请求</span></span><br><span class="line">            <span class="attribute">proxy_set_header</span> X-Forwarded-Proto $scheme;</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 请求转发给 Tomcat 集群处理</span></span><br><span class="line">            <span class="attribute">proxy_pass</span> http://app_server;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>关键是以下几项:</p>
+<ul>
+<li>listen port ssl</li>
+<li>ssl_certificate</li>
+<li>ssl_certificate_key </li>
+<li>X-Forwarded-Proto</li>
+</ul>
+</blockquote>
+</li>
+<li><p>Tomcat 的 server.xml 的 Host 中配置 Valve:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Host</span> <span class="attr">name</span>=<span class="string">&quot;localhost&quot;</span> <span class="attr">appBase</span>=<span class="string">&quot;webapps&quot;</span> <span class="attr">unpackWARs</span>=<span class="string">&quot;true&quot;</span> <span class="attr">autoDeploy</span>=<span class="string">&quot;true&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Valve</span> <span class="attr">className</span>=<span class="string">&quot;org.apache.catalina.valves.RemoteIpValve&quot;</span> <span class="attr">remoteIpHeader</span>=<span class="string">&quot;X-Forwarded-For&quot;</span> <span class="attr">protocolHeader</span>=<span class="string">&quot;X-Forwarded-Proto&quot;</span> <span class="attr">protocolHeaderHttpsValue</span>=<span class="string">&quot;https&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Host</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li><strong>X-Forwarded-Proto</strong> 是为了正确地识别实际用户发出的协议是 http 还是 https</li>
+<li><strong>X-Forwarded-For</strong> 是为了获得实际用户的 IP</li>
+<li>如果不配置它们，则在 redirect 的时候仍然会使用 http 而不是 https</li>
+</ul>
+</blockquote>
+</li>
+<li><p>注意: 当使用非 443 端口，如 9443 时，需要修改 2 个地方:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Nginx: Host 中增加 $server_port</span><br><span class="line">    listen 9443 ssl;</span><br><span class="line">    proxy_set_header Host $host:$server_port;</span><br><span class="line"></span><br><span class="line">Tomcat: 必须配置 httpsServerPort，否则 request.getServerPort() 仍然返回 443</span><br><span class="line">    <span class="tag">&lt;<span class="name">Valve</span> <span class="attr">className</span>=<span class="string">&quot;org.apache.catalina.valves.RemoteIpValve&quot;</span> </span></span><br><span class="line"><span class="tag">        <span class="attr">remoteIpHeader</span>=<span class="string">&quot;X-Forwarded-For&quot;</span> </span></span><br><span class="line"><span class="tag">        <span class="attr">protocolHeader</span>=<span class="string">&quot;X-Forwarded-Proto&quot;</span> </span></span><br><span class="line"><span class="tag">        <span class="attr">protocolHeaderHttpsValue</span>=<span class="string">&quot;https&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">httpsServerPort</span>=<span class="string">&quot;9443&quot;</span></span></span><br><span class="line"><span class="tag">    /&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<span id="more"></span>
+
+<h2 id="自签证书"><a href="#自签证书" class="headerlink" title="自签证书"></a>自签证书</h2><p>https 需要的证书可以去购买，也可以申请免费的证书，不过我们也可以自签一个证书在本地进行测试 (自签的证书在访问时需要用户手动确认信任证书才能继续访问)，步骤如下:</p>
+<ol>
+<li><p>openssl genrsa -des3 -out server.key 1024</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Generating RSA private key, 1024 bit long modulus</span><br><span class="line">.....++++++</span><br><span class="line">..++++++</span><br><span class="line">e is 65537 (0x10001)</span><br><span class="line">Enter pass phrase for server.key:              # 输入密码 changeit</span><br><span class="line">Verifying - Enter pass phrase for server.key:  # 输入密码 changeit</span><br></pre></td></tr></table></figure></li>
+<li><p>openssl req -new -key server.key -out server.csr</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Enter pass phrase for server.key:             # 输入上面设置的密码 changeit</span><br><span class="line">You are about to be asked to enter information that will be incorporated</span><br><span class="line">into your certificate request.</span><br><span class="line">What you are about to enter is what is called a Distinguished Name or a DN.</span><br><span class="line">There are quite a few fields but you can leave some blank</span><br><span class="line">For some fields there will be a default value,</span><br><span class="line">If you enter &#x27;.&#x27;, the field will be left blank.</span><br><span class="line">-----</span><br><span class="line">Country Name (2 letter code) [AU]:CN                    # 国家的代码，中国输入 CN 即可</span><br><span class="line">State or Province Name (full name) [Some-State]:Beijing # 省</span><br><span class="line">Locality Name (eg, city) []:Beijing                     # 城市</span><br><span class="line">Organization Name (eg, company) [Internet Widgits Pty Ltd]:xo # 公司，随意</span><br><span class="line">Organizational Unit Name (eg, section) []:xo                  # 部门，随意</span><br><span class="line">Common Name (e.g. server FQDN or YOUR name) []:xtuer.com      # 可以随意输入，不一定要是域名</span><br><span class="line">Email Address []:            # 回车，不需要输入</span><br><span class="line"></span><br><span class="line">Please enter the following &#x27;extra&#x27; attributes</span><br><span class="line">to be sent with your certificate request</span><br><span class="line">A challenge password []:     # 回车，不需要输入</span><br><span class="line">An optional company name []: # 回车，不需要输入</span><br></pre></td></tr></table></figure></li>
+<li><p>cp server.key server.key.org</p>
+</li>
+<li><p>openssl rsa -in server.key.org -out server.key</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Enter pass phrase for server.key.org: # 输入上面设置的密码 changeit</span><br><span class="line">writing RSA key</span><br></pre></td></tr></table></figure></li>
+<li><p>openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Signature ok</span><br><span class="line">subject=/C=CN/ST=Beijing/L=Beijing/O=xo/OU=xo/CN=xtuer.com</span><br><span class="line">Getting Private key</span><br></pre></td></tr></table></figure></li>
+<li><p>把生成的 server.crt 和 server.key 配置到 Nginx</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># [1]</span><br><span class="line">listen 443 ssl; # https 的默认端口是 443</span><br><span class="line"># ssl on;</span><br><span class="line">ssl_certificate     /Users/Biao/Desktop/cert/server.crt;</span><br><span class="line">ssl_certificate_key /Users/Biao/Desktop/cert/server.key;</span><br><span class="line"></span><br><span class="line"># [2] 把 https 的协议告知 Tomcat，否则 Tomcat 可能认为是 http 的请求</span><br><span class="line">proxy_set_header X-Forwarded-Proto $scheme; </span><br></pre></td></tr></table></figure></li>
+<li><p>加载 Nginx 配置 (以 Mac 下 MAMP 为例)</p>
+<ul>
+<li>测试配置文件语法：<code>sudo /Applications/MAMP/Library/bin/nginxctl -t</code></li>
+<li>重新加载配置文件：<code>sudo /Applications/MAMP/Library/bin/nginxctl -s reload</code></li>
+</ul>
+</li>
+<li><p>使用 https 访问网站，例如 <a target="_blank" rel="noopener" href="https://www.xtuer.com/">https://www.xtuer.com</a></p>
+</li>
+<li><p>浏览器会提示证书不可信任，选择信任即可</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Your connection is not private</span><br><span class="line"></span><br><span class="line">Attackers might be trying to steal your information from www.xtuer.com (for example, passwords, messages, or credit cards). NET::ERR_CERT_AUTHORITY_INVALID</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="/mac-nginx-lua/">Nginx 安装</a></li>
+<li><a target="_blank" rel="noopener" href="http://blog.csdn.net/ws_zll/article/details/8486033">Https 无法与服务器建立安全连接</a></li>
+<li><a target="_blank" rel="noopener" href="http://blog.csdn.net/woshizhangliang999/article/details/51861998">Nginx + Tomcat + SSL 识别 https 还是 http</a></li>
+</ul>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/qtbook-custom-widget-steps/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          实现 Steps 路径样式
+        
+      </div>
+    </a>
+  
+  
+    <a href="/fe-vue-customize-component/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Vue 自定义组件</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

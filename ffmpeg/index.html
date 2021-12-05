@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Java 调用 FFmpeg 转换视频音频 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="使用 FFmpeg 的命令把一种格式的视频转换为另一种格式的视频，例如把 test.avi 转为 test.mp4 的命令为 ffmpeg -i test.avi -vcodec h264 test.mp4，Java 中可以用 ProcessBuilder 调用这个命令执行转换: 12345public static void main(String[] args) throws IOExcept">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 调用 FFmpeg 转换视频音频">
+<meta property="og:url" content="http://xtuer.github.io/ffmpeg/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="使用 FFmpeg 的命令把一种格式的视频转换为另一种格式的视频，例如把 test.avi 转为 test.mp4 的命令为 ffmpeg -i test.avi -vcodec h264 test.mp4，Java 中可以用 ProcessBuilder 调用这个命令执行转换: 12345public static void main(String[] args) throws IOExcept">
+<meta property="og:locale">
+<meta property="article:published_time" content="2019-08-11T08:59:07.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.153Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="Misc">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%AE%89%E8%A3%85-FFmpeg"><span class="toc-text">一、安装 FFmpeg</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Gradle-%E4%BE%9D%E8%B5%96"><span class="toc-text">二、Gradle 依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E8%A7%86%E9%A2%91%E8%BD%AC%E6%8D%A2"><span class="toc-text">三、视频转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E9%9F%B3%E9%A2%91%E8%BD%AC%E6%8D%A2"><span class="toc-text">四、音频转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E6%8F%90%E5%8F%96%E8%A7%86%E9%A2%91%E4%B8%AD%E6%8C%87%E5%AE%9A%E6%97%B6%E9%97%B4%E5%A4%84%E7%9A%84%E7%94%BB%E9%9D%A2"><span class="toc-text">五、提取视频中指定时间处的画面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">六、参考资料</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-ffmpeg" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/ffmpeg/" class="article-date">
+  	<!-- <time datetime="2019-08-11T08:59:07.000Z" itemprop="datePublished">2019-08-11</time> -->
+    2019-08-11
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Java 调用 FFmpeg 转换视频音频
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/" rel="tag">Misc</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>使用 FFmpeg 的命令把一种格式的视频转换为另一种格式的视频，例如把 test.avi 转为 test.mp4 的命令为 <code>ffmpeg -i test.avi -vcodec h264 test.mp4</code>，Java 中可以用 ProcessBuilder 调用这个命令执行转换:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    ProcessBuilder pb = <span class="keyword">new</span> ProcessBuilder(<span class="string">&quot;ffmpeg&quot;</span>, <span class="string">&quot;-i&quot;</span>, <span class="string">&quot;test.avi&quot;</span>, <span class="string">&quot;-vcodec&quot;</span>, <span class="string">&quot;h264&quot;</span>, <span class="string">&quot;test.mp4&quot;</span>);</span><br><span class="line">    pb.directory(<span class="keyword">new</span> File(<span class="string">&quot;/Users/Biao/Desktop&quot;</span>)); <span class="comment">// pb 的工作目录，设置为 test.avi 所在目录</span></span><br><span class="line">    pb.start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>直接调用命令转换虽然很方便，但是如果视频比较大，转换需要的时间比较长时，希望能够及时的得到转换进度并反馈给客户端，就要解析命令的输出获取转换进度，这时就比较麻烦了。接下来介绍 <a target="_blank" rel="noopener" href="https://github.com/bramp/ffmpeg-cli-wrapper">ffmpeg-cli-wrapper</a> 的使用，它对 FFmpeg 的命令进行了封装，简化视频转换的开发难度。</p>
+<blockquote>
+<p>ffmpeg-cli-wrapper: A fluent interface to running FFmpeg from Java.</p>
+</blockquote>
+<span id="more"></span>
+
+<p>使用案例介绍 ffmpeg-cli-wrapper 的三种操作:</p>
+<ul>
+<li>视频转换</li>
+<li>音频转换</li>
+<li>提取视频中指定时间处的画面</li>
+</ul>
+<h2 id="一、安装-FFmpeg"><a href="#一、安装-FFmpeg" class="headerlink" title="一、安装 FFmpeg"></a>一、安装 FFmpeg</h2><p>首先当然是先安装好，FFmpeg 支持 Linux，Windows，Mac，安装步骤就不在此一一列举了，需要注意的是安装好后把 FFmpeg 的 bin 目录设置到系统环境变量中，方便调用。</p>
+<h2 id="二、Gradle-依赖"><a href="#二、Gradle-依赖" class="headerlink" title="二、Gradle 依赖"></a>二、Gradle 依赖</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile &quot;net.bramp.ffmpeg:ffmpeg:0.6.2&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="三、视频转换"><a href="#三、视频转换" class="headerlink" title="三、视频转换"></a>三、视频转换</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 转换任意格式的视频为 mp4 格式的视频</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> src  源视频文件</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> dest 保存 mp4 视频的文件</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">convertToMp4</span><span class="params">(File src, File dest)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    FFmpeg  ffmpeg  = <span class="keyword">new</span> FFmpeg(<span class="string">&quot;/usr/local/Cellar/ffmpeg/4.1/bin/ffmpeg&quot;</span>);</span><br><span class="line">    FFprobe ffprobe = <span class="keyword">new</span> FFprobe(<span class="string">&quot;/usr/local/Cellar/ffmpeg/4.1/bin/ffprobe&quot;</span>);</span><br><span class="line">    FFmpegProbeResult in = ffprobe.probe(src.getAbsolutePath());</span><br><span class="line"></span><br><span class="line">    FFmpegBuilder builder = <span class="keyword">new</span> FFmpegBuilder()</span><br><span class="line">            .overrideOutputFiles(<span class="keyword">true</span>) <span class="comment">// Override the output if it exists</span></span><br><span class="line">            .setInput(in)</span><br><span class="line">            .addOutput(dest.getAbsolutePath())</span><br><span class="line">            .setFormat(<span class="string">&quot;mp4&quot;</span>)                  <span class="comment">// Format is inferred from filename, or can be set</span></span><br><span class="line">            .setVideoCodec(<span class="string">&quot;libx264&quot;</span>)          <span class="comment">// Video using x264</span></span><br><span class="line">            .setVideoFrameRate(<span class="number">24</span>, <span class="number">1</span>)          <span class="comment">// At 24 frames per second</span></span><br><span class="line">            <span class="comment">// .setVideoResolution(width, height) // At 1280x720 resolution (宽高必须都能被 2 整除)</span></span><br><span class="line">            .setAudioCodec(<span class="string">&quot;aac&quot;</span>)              <span class="comment">// Using the aac codec</span></span><br><span class="line">            .setStrict(FFmpegBuilder.Strict.EXPERIMENTAL) <span class="comment">// Allow FFmpeg to use experimental specs (ex. aac)</span></span><br><span class="line">            .done();</span><br><span class="line"></span><br><span class="line">    FFmpegExecutor executor = <span class="keyword">new</span> FFmpegExecutor(ffmpeg, ffprobe);</span><br><span class="line">    FFmpegJob job = executor.createJob(builder, <span class="keyword">new</span> ProgressListener() &#123;</span><br><span class="line">        <span class="comment">// 使用 FFmpegProbeResult 得到视频的长度 (单位为纳秒)</span></span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">double</span> duration_ns = in.getFormat().duration * TimeUnit.SECONDS.toNanos(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">progress</span><span class="params">(Progress progress)</span> </span>&#123;</span><br><span class="line">            <span class="comment">// 转换进度 [0, 100]</span></span><br><span class="line">            <span class="comment">// [Fix] No duration for FLV, SWF file, 所以获取进度无效时都假装转换到了 99%</span></span><br><span class="line">            <span class="keyword">int</span> percentage = (duration_ns &gt; <span class="number">0</span>) ? (<span class="keyword">int</span>)(progress.out_time_ns / duration_ns * <span class="number">100</span>) : <span class="number">99</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 日志中输出转换进度信息</span></span><br><span class="line">            log.debug(<span class="string">&quot;[&#123;&#125;%] status: &#123;&#125;, frame: &#123;&#125;, time: &#123;&#125; ms, fps: &#123;&#125;, speed: &#123;&#125;x&quot;</span>,</span><br><span class="line">                    percentage,</span><br><span class="line">                    progress.status,</span><br><span class="line">                    progress.frame,</span><br><span class="line">                    FFmpegUtils.toTimecode(progress.out_time_ns, TimeUnit.NANOSECONDS),</span><br><span class="line">                    progress.fps.doubleValue(),</span><br><span class="line">                    progress.speed</span><br><span class="line">            );</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    job.run();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="四、音频转换"><a href="#四、音频转换" class="headerlink" title="四、音频转换"></a>四、音频转换</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 转换任意格式的音频为 mp3 格式的音频</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> src  源音频文件</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> dest 保存 mp3 音频的文件</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">convertAudioToMp3</span><span class="params">(File src, File dest)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    FFmpeg  ffmpeg  = <span class="keyword">new</span> FFmpeg(<span class="string">&quot;/usr/local/Cellar/ffmpeg/4.1/bin/ffmpeg&quot;</span>);</span><br><span class="line">    FFprobe ffprobe = <span class="keyword">new</span> FFprobe(<span class="string">&quot;/usr/local/Cellar/ffmpeg/4.1/bin/ffprobe&quot;</span>);</span><br><span class="line">    FFmpegProbeResult in = ffprobe.probe(src.getAbsolutePath());</span><br><span class="line"></span><br><span class="line">    FFmpegBuilder builder = <span class="keyword">new</span> FFmpegBuilder()</span><br><span class="line">            .overrideOutputFiles(<span class="keyword">true</span>)</span><br><span class="line">            .setInput(src.getAbsolutePath())</span><br><span class="line">            .addOutput(dest.getAbsolutePath())</span><br><span class="line">            .done();</span><br><span class="line"></span><br><span class="line">    FFmpegExecutor executor = <span class="keyword">new</span> FFmpegExecutor(ffmpeg, ffprobe);</span><br><span class="line">    FFmpegJob job = executor.createJob(builder, <span class="keyword">new</span> ProgressListener() &#123;</span><br><span class="line">        <span class="comment">// 使用 FFmpegProbeResult 得到视频的长度 (单位为纳秒)</span></span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">double</span> duration_ns = in.getFormat().duration * TimeUnit.SECONDS.toNanos(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">progress</span><span class="params">(Progress progress)</span> </span>&#123;</span><br><span class="line">            <span class="comment">// 转换进度 [0, 100]</span></span><br><span class="line">            <span class="keyword">int</span> percentage = (duration_ns &gt; <span class="number">0</span>) ? (<span class="keyword">int</span>)(progress.out_time_ns / duration_ns * <span class="number">100</span>) : <span class="number">99</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 日志中输出转换进度信息</span></span><br><span class="line">            log.info(<span class="string">&quot;[&#123;&#125;%] status: &#123;&#125;, frame: &#123;&#125;, time: &#123;&#125; ms, fps: &#123;&#125;, speed: &#123;&#125;x&quot;</span>,</span><br><span class="line">                    percentage,</span><br><span class="line">                    progress.status,</span><br><span class="line">                    progress.frame,</span><br><span class="line">                    FFmpegUtils.toTimecode(progress.out_time_ns, TimeUnit.NANOSECONDS),</span><br><span class="line">                    progress.fps.doubleValue(),</span><br><span class="line">                    progress.speed</span><br><span class="line">            );</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    job.run();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="五、提取视频中指定时间处的画面"><a href="#五、提取视频中指定时间处的画面" class="headerlink" title="五、提取视频中指定时间处的画面"></a>五、提取视频中指定时间处的画面</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 提取视频中传入的 time 处的画面</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> video 视频文件</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">extractImage</span><span class="params">(File video, File image, <span class="keyword">int</span> time)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    FFmpeg  ffmpeg  = <span class="keyword">new</span> FFmpeg(<span class="string">&quot;/usr/local/Cellar/ffmpeg/4.1/bin/ffmpeg&quot;</span>);</span><br><span class="line">    FFprobe ffprobe = <span class="keyword">new</span> FFprobe(<span class="string">&quot;/usr/local/Cellar/ffmpeg/4.1/bin/ffprobe&quot;</span>);</span><br><span class="line">    FFmpegBuilder builder = <span class="keyword">new</span> FFmpegBuilder()</span><br><span class="line">            .overrideOutputFiles(<span class="keyword">true</span>)</span><br><span class="line">            .setInput(video.getAbsolutePath())</span><br><span class="line">            .addOutput(image.getAbsolutePath())</span><br><span class="line">            .setFrames(<span class="number">1</span>)</span><br><span class="line">            .setVideoFilter(String.format(<span class="string">&quot;select=&#x27;gte(t\\,%d)&#x27;&quot;</span>, time)) <span class="comment">// 第 time 秒处的画面</span></span><br><span class="line">            .done();</span><br><span class="line"></span><br><span class="line">    FFmpegExecutor executor = <span class="keyword">new</span> FFmpegExecutor(ffmpeg, ffprobe);</span><br><span class="line">    executor.createJob(builder).run();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="六、参考资料"><a href="#六、参考资料" class="headerlink" title="六、参考资料"></a>六、参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/bramp/ffmpeg-cli-wrapper/wiki/Random-Examples">ffmpeg-cli-wrapper Random Examples</a></li>
+<li>FFmpeg 的使用可参考文档 <a target="_blank" rel="noopener" href="https://ffmpeg.org/ffmpeg.html">https://ffmpeg.org/ffmpeg.html</a></li>
+</ul>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/spring-boot-converter/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Spring Boot Converter
+        
+      </div>
+    </a>
+  
+  
+    <a href="/spring-core-aspectj-custom-annotation/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">AspectJ with Annotation - 自定义注解</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

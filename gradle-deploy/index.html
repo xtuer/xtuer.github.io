@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Gradle Deploy | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="项目打包后一般可以按照以下几个步骤进行部署：  选择正确的环境打包: 测试环境、线上环境等 把 war 包上传到服务器（使用 FTP、scp 等） 停止 tomcat: &lt;tomcat&gt;&#x2F;bin&#x2F;shutdown.sh 删除服务器上的项目文件: rm -rf &lt;project_path&gt; 解压 war 包到项目路径下: unzip project.war -d &lt;pr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gradle Deploy">
+<meta property="og:url" content="http://xtuer.github.io/gradle-deploy/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="项目打包后一般可以按照以下几个步骤进行部署：  选择正确的环境打包: 测试环境、线上环境等 把 war 包上传到服务器（使用 FTP、scp 等） 停止 tomcat: &lt;tomcat&gt;&#x2F;bin&#x2F;shutdown.sh 删除服务器上的项目文件: rm -rf &lt;project_path&gt; 解压 war 包到项目路径下: unzip project.war -d &lt;pr">
+<meta property="og:locale">
+<meta property="article:published_time" content="2017-08-01T05:35:01.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.154Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="Gradle">
+<meta property="article:tag" content="SpringWeb">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#build-gradle"><span class="toc-text">build.gradle</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2"><span class="toc-text">项目部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="toc-text">常见问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%80%8E%E4%B9%88%E5%90%8C%E6%97%B6%E9%83%A8%E7%BD%B2%E5%88%B0%E5%A4%9A%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">1) 怎么同时部署到多台服务器?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%B8%8D%E8%83%BD%E4%BD%BF%E7%94%A8%E7%94%A8%E6%88%B7%E5%90%8D%E5%AF%86%E7%A0%81%E8%AE%BF%E9%97%AE"><span class="toc-text">2) 不能使用用户名密码访问</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%8A%A5%E9%94%99-reject-HostKey-%E2%80%A6"><span class="toc-text">3) 报错 reject HostKey …</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%81%9C%E6%AD%A2%E6%88%96%E5%90%AF%E5%8A%A8-tomcat-%E6%8A%A5%E9%94%99"><span class="toc-text">4) 停止或启动 tomcat 报错</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-gradle-deploy" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/gradle-deploy/" class="article-date">
+  	<!-- <time datetime="2017-08-01T05:35:01.000Z" itemprop="datePublished">2017-08-01</time> -->
+    2017-08-01
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Gradle Deploy
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/" rel="tag">Gradle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringWeb/" rel="tag">SpringWeb</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>项目打包后一般可以按照以下几个步骤进行部署：</p>
+<ol>
+<li>选择正确的环境打包: 测试环境、线上环境等</li>
+<li>把 war 包上传到服务器（使用 FTP、scp 等）</li>
+<li>停止 tomcat: <code>&lt;tomcat&gt;/bin/shutdown.sh</code></li>
+<li>删除服务器上的项目文件: <code>rm -rf &lt;project_path&gt;</code></li>
+<li>解压 war 包到项目路径下: <code>unzip project.war -d &lt;project_path&gt;</code></li>
+<li>启动 tomcat: <code>&lt;tomcat&gt;/bin/startup.sh</code></li>
+<li>删除上传的 war 包</li>
+<li>如果有 N 个服务器，就需要重复 2 到 7 共 N 次</li>
+</ol>
+<p>每次部署都要手动重复这么多步骤，效率很低不说，还容易疏忽出错，为了解决这些问题，借助 <a target="_blank" rel="noopener" href="https://gradle-ssh-plugin.github.io/">Gradle 的 deploy 插件</a>，一条命令 <code>gradle deploy</code> 就完成上面的这些事了。<span id="more"></span></p>
+<h2 id="build-gradle"><a href="#build-gradle" class="headerlink" title="build.gradle"></a>build.gradle</h2><p>下面是 gradle deploy 的关键配置，请根据项目具体情况进行修改:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">plugins &#123;</span><br><span class="line">    id <span class="string">&#x27;org.hidetake.ssh&#x27;</span> version <span class="string">&#x27;2.9.0&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">remotes &#123;</span><br><span class="line">    webServer &#123;</span><br><span class="line">        host = <span class="string">&#x27;192.168.82.130&#x27;</span></span><br><span class="line">        user = <span class="string">&#x27;root&#x27;</span></span><br><span class="line">        password = <span class="string">&#x27;xxxx&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">task deploy &#123;</span><br><span class="line">    doLast &#123;</span><br><span class="line">        ssh.settings &#123;</span><br><span class="line">            knownHosts = allowAnyHosts</span><br><span class="line">        &#125;</span><br><span class="line">      </span><br><span class="line">        ssh.run &#123;</span><br><span class="line">            session(remotes.webServer) &#123;</span><br><span class="line">                put <span class="attr">from:</span> <span class="string">&quot;$&#123;buildDir&#125;/libs/mini.war&quot;</span>, <span class="attr">into:</span> <span class="string">&#x27;/root&#x27;</span></span><br><span class="line">                execute <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">                    source /root/.bash_profile;</span></span><br><span class="line"><span class="string">                    /usr/local/tomcat/bin/shutdown.sh;</span></span><br><span class="line"><span class="string">                    rm -rf /usr/local/tomcat/webapps/mini;</span></span><br><span class="line"><span class="string">                    unzip /root/mini.war -d /usr/local/tomcat/webapps/mini;</span></span><br><span class="line"><span class="string">                    /usr/local/tomcat/bin/startup.sh;</span></span><br><span class="line"><span class="string">                    rm -rf /root/mini.war</span></span><br><span class="line"><span class="string">                &quot;&quot;&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>host</td>
+<td>服务器的 IP 或者域名</td>
+</tr>
+<tr>
+<td>user</td>
+<td>服务器的用户名</td>
+</tr>
+<tr>
+<td>password</td>
+<td>服务器的用户的密码</td>
+</tr>
+<tr>
+<td>identity</td>
+<td>ssl 的签名文件 (首先在服务器上把 id_rsa.pub 加入到授权文件中)，使用它的时候就不需要使用密码了</td>
+</tr>
+<tr>
+<td>from</td>
+<td>本地要上传的文件路径<br>工程路径: ${projectDir}<br>构建路径: ${buildDir}</td>
+</tr>
+<tr>
+<td>into</td>
+<td>上传到服务器的目录</td>
+</tr>
+<tr>
+<td>execute</td>
+<td>上传完成后在服务器上接着执行的命令，可以执行多条命令，使用分号分割不同的命令</td>
+</tr>
+</tbody></table>
+<h2 id="项目部署"><a href="#项目部署" class="headerlink" title="项目部署"></a>项目部署</h2><ul>
+<li>把上面的内容添加到 <strong>build.gradle</strong>，执行命令 <code>gradle deploy</code> 即可</li>
+<li>把上面的内容保存到 <strong>deploy.gradle</strong>，执行命令 <code>gradle -b deploy.gradle deploy</code> 即可</li>
+</ul>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="1-怎么同时部署到多台服务器"><a href="#1-怎么同时部署到多台服务器" class="headerlink" title="1) 怎么同时部署到多台服务器?"></a>1) 怎么同时部署到多台服务器?</h3><p>在 remotes 中定义多个 server 的信息，然后在 ssh.run 下面创建多个 session，每个 session 中使用对应的 server 配置。</p>
+<h3 id="2-不能使用用户名密码访问"><a href="#2-不能使用用户名密码访问" class="headerlink" title="2) 不能使用用户名密码访问"></a>2) 不能使用用户名密码访问</h3><p>服务器端为了安全，不允许使用用户名密码访问，而是使用 ssl 的签名文件进行访问，则在 server 配置中使用 identity 指定签名文件即可:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">remotes &#123;</span><br><span class="line">    webServer &#123;</span><br><span class="line">        host = &#x27;192.168.82.130&#x27;</span><br><span class="line">        user = &#x27;root&#x27;</span><br><span class="line">        identity = file(&#x27;/Users/Biao/.ssh/id_rsa&#x27;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-报错-reject-HostKey-…"><a href="#3-报错-reject-HostKey-…" class="headerlink" title="3) 报错 reject HostKey …"></a>3) 报错 reject HostKey …</h3><p>服务器 IP 没有加入到 .ssh/known_hosts 文件，执行 ssh user@host，确认把服务器 IP 加入到 known_hosts 即可。</p>
+<p>也可以偷懒，在 ssh.settings 中设置 knownHosts = allowAnyHosts，这样就不需要执行 ssh 手动把服务器 IP 加入到 known_hosts。</p>
+<h3 id="4-停止或启动-tomcat-报错"><a href="#4-停止或启动-tomcat-报错" class="headerlink" title="4) 停止或启动 tomcat 报错"></a>4) 停止或启动 tomcat 报错</h3><p>发现是不能使用 java 命令，原因是手动安装 JDK 并在 .bash_profile 中设置好了 JAVA_HOME 和 java 加入到了 $PATH:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=&quot;/usr/local/jdk1.8.0_144&quot;</span><br><span class="line">PATH=$PATH:$HOME/bin:$JAVA_HOME/bin</span><br><span class="line">export PATH</span><br></pre></td></tr></table></figure>
+
+<p>但是远程执行时是不知道 .bash_profile 里的配置的，需要在 execute 中先执行一下 source /root/.bash_profile。</p>
+<p>如果创建了 JDK/bin/java 的软连接到 /usr/bin/java 的话，就不需要先执行 source /root/.bash_profile 了:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/java -&gt; /usr/local/edu/jdk/bin/java</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>上面的简单介绍，大多数时候已经够用了，想了解更详细的内容请参考 <a target="_blank" rel="noopener" href="https://gradle-ssh-plugin.github.io/">Gradle 的 deploy 插件</a>。</p>
+<p>熟悉上面的基础后，同时也了解 gradle 的语法，也可以 build 和部署的任务写在一起，或者使用包含文件的方式，下面附上一个实际项目中的 build.gradle 作为参考，<strong>执行 gradle deploy 就能进行重新编译、打包、发布:</strong></p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br></pre></td><td class="code"><pre><span class="line">plugins &#123;</span><br><span class="line">    id <span class="string">&#x27;war&#x27;</span></span><br><span class="line">    id <span class="string">&#x27;java&#x27;</span></span><br><span class="line">    id <span class="string">&#x27;org.hidetake.ssh&#x27;</span>   version <span class="string">&#x27;2.9.0&#x27;</span></span><br><span class="line">    id <span class="string">&#x27;org.akhikhl.gretty&#x27;</span> version <span class="string">&#x27;2.0.0&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">gretty &#123;</span><br><span class="line">    httpPort = <span class="number">8080</span></span><br><span class="line">    contextPath = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    servletContainer = <span class="string">&#x27;tomcat8&#x27;</span></span><br><span class="line"></span><br><span class="line">    inplaceMode  = <span class="string">&#x27;hard&#x27;</span></span><br><span class="line">    debugSuspend = <span class="literal">false</span></span><br><span class="line">    managedClassReload      = <span class="literal">true</span></span><br><span class="line">    recompileOnSourceChange = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 升级 gretty 自带的 springloaded</span></span><br><span class="line">    jvmArgs = [<span class="string">&quot;-javaagent:$&#123;project.projectDir&#125;/springloaded-1.2.8.RELEASE.jar&quot;</span>, <span class="string">&#x27;-noverify&#x27;</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">////////////////////////////////////////////////////////////////////////////////</span></span><br><span class="line"><span class="comment">//                                   Maven 依赖                               //</span></span><br><span class="line"><span class="comment">////////////////////////////////////////////////////////////////////////////////</span></span><br><span class="line">repositories &#123;</span><br><span class="line">    mavenCentral()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ext &#123;</span><br><span class="line">    <span class="comment">// 运行和打包的环境选择, 默认是开发环境</span></span><br><span class="line">    <span class="comment">// 构建: gradle clean build</span></span><br><span class="line">    <span class="comment">//       gradle clean build -Denv=production</span></span><br><span class="line">    <span class="comment">// 部署: gradle clean deploy</span></span><br><span class="line">    <span class="comment">//       gradle clean deploy -Denv=production</span></span><br><span class="line">    environment = System.getProperty(<span class="string">&quot;env&quot;</span>, <span class="string">&quot;development&quot;</span>) <span class="comment">// 获取 gradle 参数中 env 的值，选择环境</span></span><br><span class="line">    war.archiveName = <span class="string">&#x27;Fox.zip&#x27;</span> <span class="comment">// 打包的文件名，不用 war 包自动解压的话，用 .zip 会更好一些</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ext.versions = [</span><br><span class="line">    <span class="attr">spring        :</span> <span class="string">&#x27;5.0.2.RELEASE&#x27;</span>,</span><br><span class="line">    <span class="symbol">springSecurity:</span> <span class="string">&#x27;5.0.0.RELEASE&#x27;</span>,</span><br><span class="line">    <span class="attr">springSession :</span> <span class="string">&#x27;1.3.1.RELEASE&#x27;</span>,</span><br><span class="line">    <span class="attr">servlet       :</span> <span class="string">&#x27;4.0.0&#x27;</span>,</span><br><span class="line">    <span class="attr">lombok        :</span> <span class="string">&#x27;1.16.18&#x27;</span>,</span><br><span class="line">    <span class="attr">fastjson      :</span> <span class="string">&#x27;1.2.41&#x27;</span>,</span><br><span class="line">    <span class="attr">thymeleaf     :</span> <span class="string">&#x27;3.0.9.RELEASE&#x27;</span>,</span><br><span class="line">    <span class="attr">mysql         :</span> <span class="string">&#x27;5.1.21&#x27;</span>,</span><br><span class="line">    <span class="attr">mybatis       :</span> <span class="string">&#x27;3.4.5&#x27;</span>,</span><br><span class="line">    <span class="attr">mybatisSpring :</span> <span class="string">&#x27;1.3.1&#x27;</span>,</span><br><span class="line">    <span class="attr">druid         :</span> <span class="string">&#x27;1.1.5&#x27;</span>,</span><br><span class="line">    <span class="attr">validator     :</span> <span class="string">&#x27;6.0.5.Final&#x27;</span>,</span><br><span class="line">    <span class="attr">commonsLang   :</span> <span class="string">&#x27;3.7&#x27;</span>,</span><br><span class="line">    <span class="symbol">commonsFileupload:</span> <span class="string">&#x27;1.3.3&#x27;</span>,</span><br><span class="line">    <span class="attr">snakeyaml     :</span> <span class="string">&#x27;1.19&#x27;</span>,</span><br><span class="line">    <span class="attr">easyOkHttp    :</span> <span class="string">&#x27;1.1.3&#x27;</span>,</span><br><span class="line">    <span class="attr">logback       :</span> <span class="string">&#x27;1.2.3&#x27;</span>,</span><br><span class="line">    <span class="attr">junit         :</span> <span class="string">&#x27;4.12&#x27;</span>,</span><br><span class="line">    <span class="attr">jclOverSlf4j  :</span> <span class="string">&#x27;1.7.25&#x27;</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">dependencies &#123;</span><br><span class="line">    compile(</span><br><span class="line">            <span class="string">&quot;org.springframework:spring-webmvc:$&#123;versions.spring&#125;&quot;</span>,</span><br><span class="line">            <span class="string">&quot;org.springframework:spring-context-support:$&#123;versions.spring&#125;&quot;</span>,</span><br><span class="line">            <span class="string">&quot;org.springframework.security:spring-security-web:$&#123;versions.springSecurity&#125;&quot;</span>,</span><br><span class="line">            <span class="string">&quot;org.springframework.security:spring-security-config:$&#123;versions.springSecurity&#125;&quot;</span>,</span><br><span class="line">            <span class="string">&quot;org.springframework.session:spring-session-data-redis:$&#123;versions.springSession&#125;&quot;</span>,</span><br><span class="line">            <span class="string">&quot;com.alibaba:fastjson:$&#123;versions.fastjson&#125;&quot;</span>,</span><br><span class="line">            <span class="string">&quot;org.thymeleaf:thymeleaf-spring5:$&#123;versions.thymeleaf&#125;&quot;</span>,</span><br><span class="line">            <span class="string">&quot;mysql:mysql-connector-java:$&#123;versions.mysql&#125;&quot;</span>,</span><br><span class="line">            <span class="string">&quot;org.springframework:spring-jdbc:$&#123;versions.spring&#125;&quot;</span>,</span><br><span class="line">            <span class="string">&quot;org.mybatis:mybatis-spring:$&#123;versions.mybatisSpring&#125;&quot;</span>,</span><br><span class="line">            <span class="string">&quot;org.mybatis:mybatis:$&#123;versions.mybatis&#125;&quot;</span>,</span><br><span class="line">            <span class="string">&quot;com.alibaba:druid:$&#123;versions.druid&#125;&quot;</span>,</span><br><span class="line">            <span class="string">&quot;org.hibernate.validator:hibernate-validator:$&#123;versions.validator&#125;&quot;</span>,</span><br><span class="line">            <span class="string">&quot;org.apache.commons:commons-lang3:$&#123;versions.commonsLang&#125;&quot;</span>,</span><br><span class="line">            <span class="string">&quot;commons-fileupload:commons-fileupload:$&#123;versions.commonsFileupload&#125;&quot;</span>,</span><br><span class="line">            <span class="string">&quot;org.yaml:snakeyaml:$&#123;versions.snakeyaml&#125;&quot;</span>,</span><br><span class="line">            <span class="string">&quot;com.mzlion:easy-okhttp:$&#123;versions.easyOkHttp&#125;&quot;</span>,</span><br><span class="line">            <span class="string">&quot;ch.qos.logback:logback-classic:$&#123;versions.logback&#125;&quot;</span>,</span><br><span class="line">            <span class="string">&quot;org.slf4j:jcl-over-slf4j:$&#123;versions.jclOverSlf4j&#125;&quot;</span></span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    compileOnly(<span class="string">&quot;org.projectlombok:lombok:$&#123;versions.lombok&#125;&quot;</span>)</span><br><span class="line">    compileOnly(<span class="string">&quot;javax.servlet:javax.servlet-api:$&#123;versions.servlet&#125;&quot;</span>)</span><br><span class="line">    testCompile(<span class="string">&quot;org.springframework:spring-test:$&#123;versions.spring&#125;&quot;</span>)</span><br><span class="line">    testCompile(<span class="string">&quot;junit:junit:$&#123;versions.junit&#125;&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">////////////////////////////////////////////////////////////////////////////////</span></span><br><span class="line"><span class="comment">//                                  资源动态替换                                //</span></span><br><span class="line"><span class="comment">////////////////////////////////////////////////////////////////////////////////</span></span><br><span class="line">processResources &#123;</span><br><span class="line">    <span class="comment">// src/main/resources 下的文件中 @key@ 的内容使用 config.groovy 里对应的进行替换</span></span><br><span class="line">    println <span class="string">&quot;==&gt; Load configuration for &#x27;$&#123;environment&#125;&#x27;&quot;</span></span><br><span class="line">    <span class="keyword">def</span> configFile = file(<span class="string">&#x27;config.groovy&#x27;</span>) <span class="comment">// 配置文件</span></span><br><span class="line">    <span class="keyword">def</span> props = <span class="keyword">new</span> ConfigSlurper(environment).parse(configFile.toURI().toURL()).toProperties()</span><br><span class="line"></span><br><span class="line">    from(sourceSets.main.resources.srcDirs) &#123;</span><br><span class="line">        filter(org.apache.tools.ant.filters.ReplaceTokens, <span class="attr">tokens:</span> props)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">////////////////////////////////////////////////////////////////////////////////</span></span><br><span class="line"><span class="comment">//                                   项目部署                                  //</span></span><br><span class="line"><span class="comment">////////////////////////////////////////////////////////////////////////////////</span></span><br><span class="line">remotes &#123;</span><br><span class="line">    server &#123;</span><br><span class="line">        host = <span class="string">&#x27;192.168.82.133&#x27;</span></span><br><span class="line">        user = <span class="string">&#x27;root&#x27;</span></span><br><span class="line">        <span class="comment">// password 和 identity 只用其中一个</span></span><br><span class="line">        <span class="comment">// password = &#x27;xxx&#x27;</span></span><br><span class="line">        identity = file(<span class="string">&quot;$&#123;System.properties[&#x27;user.home&#x27;]&#125;/.ssh/id_rsa&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ssh.settings &#123;</span><br><span class="line">    knownHosts = allowAnyHosts</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">task deploy(<span class="attr">dependsOn:</span> war) &#123;</span><br><span class="line">    <span class="keyword">def</span> targetDir = <span class="string">&#x27;/data/xtuer.com&#x27;</span></span><br><span class="line">    doLast &#123;</span><br><span class="line">        ssh.run &#123;</span><br><span class="line">            session(remotes.server) &#123;</span><br><span class="line">                put <span class="attr">from:</span> <span class="string">&quot;$&#123;buildDir&#125;/libs/$&#123;war.archiveName&#125;&quot;</span>, <span class="attr">into:</span> <span class="string">&quot;$&#123;targetDir&#125;&quot;</span></span><br><span class="line">                execute <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">                    source /root/.bash_profile;</span></span><br><span class="line"><span class="string">                    /usr/local/tomcat/bin/shutdown.sh;</span></span><br><span class="line"><span class="string">                    rm -rf $&#123;targetDir&#125;/ROOT;</span></span><br><span class="line"><span class="string">                    unzip -u $&#123;targetDir&#125;/$&#123;war.archiveName&#125; -d $&#123;targetDir&#125;/ROOT &gt; /dev/null;</span></span><br><span class="line"><span class="string">                    kill `ps aux | grep -i tomcat | grep -v grep | awk &#x27;&#123;print \$2&#125;&#x27;`;</span></span><br><span class="line"><span class="string">                    /usr/local/tomcat/bin/startup.sh;</span></span><br><span class="line"><span class="string">                    rm -rf $&#123;targetDir&#125;/$&#123;war.archiveName&#125;;</span></span><br><span class="line"><span class="string">                &quot;&quot;&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">////////////////////////////////////////////////////////////////////////////////</span></span><br><span class="line"><span class="comment">//                                    JVM                                     //</span></span><br><span class="line"><span class="comment">////////////////////////////////////////////////////////////////////////////////</span></span><br><span class="line">sourceCompatibility = JavaVersion.VERSION_1_8</span><br><span class="line">targetCompatibility = JavaVersion.VERSION_1_8</span><br><span class="line">[compileJava, compileTestJava, javadoc]*.options*.encoding = <span class="string">&#x27;UTF-8&#x27;</span></span><br><span class="line"></span><br><span class="line">tasks.withType(JavaCompile) &#123;</span><br><span class="line">    options.compilerArgs &lt;&lt; <span class="string">&#x27;-Xlint:unchecked&#x27;</span> &lt;&lt; <span class="string">&#x27;-Xlint:deprecation&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>可以把部署的部分放到 deploy.gradle 文件，然后 build.gradle 中 apply from: ‘deploy’ 的方式。</p>
+</blockquote>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/java-develop-process/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          软件开发流程
+        
+      </div>
+    </a>
+  
+  
+    <a href="/qtbook-custom-widget-steps/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">实现 Steps 路径样式</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

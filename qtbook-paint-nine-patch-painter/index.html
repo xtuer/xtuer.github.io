@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>九宫格绘图 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="很多时候都会使用图片作为 widget 的背景，如果图片和 widget 一样大的话那就没什么好说的，背景效果和图片的效果看上去一样，可更多的时候我们会面临图片和 widget 不一样大，如果把图片简单的缩放到和 widget 一样大作为背景的话，背景常常会变形、有锯齿等，如下面的背景图大小为 128 x 108，要作为 300 x 200 大小的背景，直接缩放绘制的效果很不好，如若使用接下来将要">
+<meta property="og:type" content="article">
+<meta property="og:title" content="九宫格绘图">
+<meta property="og:url" content="http://xtuer.github.io/qtbook-paint-nine-patch-painter/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="很多时候都会使用图片作为 widget 的背景，如果图片和 widget 一样大的话那就没什么好说的，背景效果和图片的效果看上去一样，可更多的时候我们会面临图片和 widget 不一样大，如果把图片简单的缩放到和 widget 一样大作为背景的话，背景常常会变形、有锯齿等，如下面的背景图大小为 128 x 108，要作为 300 x 200 大小的背景，直接缩放绘制的效果很不好，如若使用接下来将要">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Nine-Patch-Painter-bkg.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Nine-Patch-Painter-1.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Nine-Patch-Painter-2.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/qss/QSS-BorderImage-Round-Button.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/qss/QSS-BorderImage-Buttons.png">
+<meta property="article:published_time" content="2017-09-06T07:36:38.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.176Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="QtBook">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Nine-Patch-Painter-bkg.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%9D%E5%AE%AB%E6%A0%BC%E7%BB%98%E5%9B%BE%E5%8E%9F%E7%90%86"><span class="toc-text">九宫格绘图原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NinePatchPainter"><span class="toc-text">NinePatchPainter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E5%B1%95%E7%A4%BA"><span class="toc-text">案例展示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%80%83"><span class="toc-text">思考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%9C%E4%B8%9A"><span class="toc-text">作业</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-qtbook-paint-nine-patch-painter" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-paint-nine-patch-painter/" class="article-date">
+  	<!-- <time datetime="2017-09-06T07:36:38.000Z" itemprop="datePublished">2017-09-06</time> -->
+    2017-09-06
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      九宫格绘图
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>很多时候都会使用图片作为 widget 的背景，如果图片和 widget 一样大的话那就没什么好说的，背景效果和图片的效果看上去一样，可更多的时候我们会面临图片和 widget 不一样大，如果把图片简单的缩放到和 widget 一样大作为背景的话，背景常常会变形、有锯齿等，如下面的背景图大小为 128 x 108，要作为 300 x 200 大小的背景，直接缩放绘制的效果很不好，如若使用接下来将要介绍的九宫格绘图技术来绘制背景的话，效果正是我们期望的:</p>
+<ul>
+<li>左边是直接缩放绘制的效果，背景发虚，有锯齿，圆角被放大</li>
+<li>右边是九宫格技术绘制的效果，圆角和背景的圆角一样</li>
+</ul>
+<p><img src="../img/qtbook/paint/Paint-Nine-Patch-Painter-bkg.png"></p>
+<p><img src="../img/qtbook/paint/Paint-Nine-Patch-Painter-1.png"><span id="more"></span></p>
+<h2 id="九宫格绘图原理"><a href="#九宫格绘图原理" class="headerlink" title="九宫格绘图原理"></a>九宫格绘图原理</h2><p>什么是九宫格呢？顾名思义，就是把一个方块分割成 9 个部分，如图所示：</p>
+<p><img src="../img/qtbook/paint/Paint-Nine-Patch-Painter-2.png"></p>
+<p>九宫格绘图的原理就是把背景图分割成 9 个部分，绘制时:</p>
+<ul>
+<li>4 个角的大小不变</li>
+<li>左、右部分宽度不变，进行垂直拉伸或平铺绘制</li>
+<li>上、下部分高度不变，进行水平拉伸或平铺绘制</li>
+<li>中间部分进行拉伸或平铺绘制</li>
+</ul>
+<p>这样终绘制出来的效果非常接近背景图效果。</p>
+<h2 id="NinePatchPainter"><a href="#NinePatchPainter" class="headerlink" title="NinePatchPainter"></a>NinePatchPainter</h2><p>了解九宫格绘制的原理后，接下来实现工具类 NinePatchPainter，在任意的矩形内(widget 也是矩形的)使用九宫格绘制，只需要简单的调用 <code>NinePatchPainter::paint(painter, rect)</code> 即可。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名: NinePatchPainter.h</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> NINEPATCHPAINTER_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NINEPATCHPAINTER_H</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">QRect</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">QMargins</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">QPainter</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">QPixmap</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NinePatchPainterPrivate</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief NinePatchPainter 用于九宫格的方式绘图，当背景图和需要绘制的范围不一样大时，能够最大限度的保证绘制出来的效果和背景图接近.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 需要提供 QPixmap 的背景图和九宫格的 4 个变宽来创建 NinePatchPainter 对象，绘图的接口很简单，只有 2 个参数，QPainter 和 QRect，</span></span><br><span class="line"><span class="comment"> * 调用 NinePatchPainter.paint(painter, rect) 就使用了九宫格的方式绘图，不需要其他的操作.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NinePatchPainter</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * @brief 使用 pixmap, 九宫格的 4 个边宽，水平和垂直的缩放方式创建 NinePatchPainter 对象.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * @param background 背景图</span></span><br><span class="line"><span class="comment">     * @param left   左边宽</span></span><br><span class="line"><span class="comment">     * @param top    上边高</span></span><br><span class="line"><span class="comment">     * @param right  右边宽</span></span><br><span class="line"><span class="comment">     * @param bottom 下边高</span></span><br><span class="line"><span class="comment">     * @param horizontalStretch 水平方向是否使用拉伸绘制，默认为 true</span></span><br><span class="line"><span class="comment">     * @param verticalStretch   垂直方向是否使用拉伸绘制，默认为 true</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="built_in">NinePatchPainter</span>(<span class="keyword">const</span> QPixmap &amp;background,</span><br><span class="line">                     <span class="keyword">int</span> left, <span class="keyword">int</span> top, <span class="keyword">int</span> right, <span class="keyword">int</span> bottom,</span><br><span class="line">                     <span class="keyword">bool</span> horizontalStretch = <span class="literal">true</span>, <span class="keyword">bool</span> verticalStretch = <span class="literal">true</span>);</span><br><span class="line">    ~<span class="built_in">NinePatchPainter</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * @brief 在 rect 中使用九宫格的方式进行绘图.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">paint</span><span class="params">(QPainter *painter, <span class="keyword">const</span> QRect &amp;rect)</span> <span class="keyword">const</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    NinePatchPainterPrivate *d;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// NINEPATCHPAINTER_H</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名: NinePatchPainter.cpp</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;NinePatchPainter.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QPixmap&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QList&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QRect&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QPainter&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QPixmap&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*-----------------------------------------------------------------------------|</span></span><br><span class="line"><span class="comment"> |                           NinePatchPainterPrivate                           |</span></span><br><span class="line"><span class="comment"> |----------------------------------------------------------------------------*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NinePatchPainterPrivate</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">NinePatchPainterPrivate</span>(<span class="keyword">const</span> QPixmap &amp;background,</span><br><span class="line">                            <span class="keyword">int</span> left, <span class="keyword">int</span> top, <span class="keyword">int</span> right, <span class="keyword">int</span> bottom,</span><br><span class="line">                            <span class="keyword">bool</span> horizontalStretch, <span class="keyword">bool</span> verticalStretch);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 根据九宫格 4 边的宽度把 rect 按九宫格分割为 9 个 rect: 左、左上、上、右上、右、右下、下、左下、中间</span></span><br><span class="line">    <span class="function">QList&lt;QRect&gt; <span class="title">calculateNinePatchRects</span><span class="params">(<span class="keyword">const</span> QRect &amp;rect)</span> <span class="keyword">const</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 对图片进行缩放</span></span><br><span class="line">    <span class="function">QPixmap <span class="title">scalePixmap</span><span class="params">(<span class="keyword">const</span> QPixmap &amp;pixmap, <span class="keyword">const</span> QSize &amp;size)</span> <span class="keyword">const</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">int</span>  left;   <span class="comment">// 左边的宽</span></span><br><span class="line">    <span class="keyword">int</span>  top;    <span class="comment">// 上边的宽</span></span><br><span class="line">    <span class="keyword">int</span>  right;  <span class="comment">// 右边的宽</span></span><br><span class="line">    <span class="keyword">int</span>  bottom; <span class="comment">// 下边的宽</span></span><br><span class="line">    <span class="keyword">bool</span> horizontalStretch; <span class="comment">// 水平方向是否使用拉伸绘制</span></span><br><span class="line">    <span class="keyword">bool</span> verticalStretch;   <span class="comment">// 垂直方向是否使用拉伸绘制</span></span><br><span class="line"></span><br><span class="line">    QPixmap leftPixmap;        <span class="comment">// 左边的子图</span></span><br><span class="line">    QPixmap topLeftPixmap;     <span class="comment">// 左上角的子图</span></span><br><span class="line">    QPixmap topPixmap;         <span class="comment">// 顶部的子图</span></span><br><span class="line">    QPixmap topRightPixmap;    <span class="comment">// 右上角的子图</span></span><br><span class="line">    QPixmap rightPixmap;       <span class="comment">// 右边的子图</span></span><br><span class="line">    QPixmap bottomLeftPixmap;  <span class="comment">// 左下角的子图</span></span><br><span class="line">    QPixmap bottomPixmap;      <span class="comment">// 底部的子图</span></span><br><span class="line">    QPixmap bottomRightPixmap; <span class="comment">// 右下角的子图</span></span><br><span class="line">    QPixmap centerPixmap;      <span class="comment">// 中间的子图</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">NinePatchPainterPrivate::<span class="built_in">NinePatchPainterPrivate</span>(<span class="keyword">const</span> QPixmap &amp;background,</span><br><span class="line">                                                 <span class="keyword">int</span> left, <span class="keyword">int</span> top, <span class="keyword">int</span> right, <span class="keyword">int</span> bottom,</span><br><span class="line">                                                 <span class="keyword">bool</span> horizontalStretch, <span class="keyword">bool</span> verticalStretch)</span><br><span class="line">    : <span class="built_in">left</span>(left), <span class="built_in">top</span>(top), <span class="built_in">right</span>(right), <span class="built_in">bottom</span>(bottom),</span><br><span class="line">      <span class="built_in">horizontalStretch</span>(horizontalStretch), <span class="built_in">verticalStretch</span>(verticalStretch) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 把 background 分割成 9 个子图，程序运行期间不会变，所以缓存起来</span></span><br><span class="line">    <span class="function">QRect <span class="title">pixmapRect</span><span class="params">(<span class="number">0</span>, <span class="number">0</span>, background.width(), background.height())</span></span>;</span><br><span class="line">    QList&lt;QRect&gt; rects = <span class="built_in">calculateNinePatchRects</span>(pixmapRect);</span><br><span class="line"></span><br><span class="line">    leftPixmap        = background.<span class="built_in">copy</span>(rects.<span class="built_in">at</span>(<span class="number">0</span>));</span><br><span class="line">    topLeftPixmap     = background.<span class="built_in">copy</span>(rects.<span class="built_in">at</span>(<span class="number">1</span>));</span><br><span class="line">    topPixmap         = background.<span class="built_in">copy</span>(rects.<span class="built_in">at</span>(<span class="number">2</span>));</span><br><span class="line">    topRightPixmap    = background.<span class="built_in">copy</span>(rects.<span class="built_in">at</span>(<span class="number">3</span>));</span><br><span class="line">    rightPixmap       = background.<span class="built_in">copy</span>(rects.<span class="built_in">at</span>(<span class="number">4</span>));</span><br><span class="line">    bottomRightPixmap = background.<span class="built_in">copy</span>(rects.<span class="built_in">at</span>(<span class="number">5</span>));</span><br><span class="line">    bottomPixmap      = background.<span class="built_in">copy</span>(rects.<span class="built_in">at</span>(<span class="number">6</span>));</span><br><span class="line">    bottomLeftPixmap  = background.<span class="built_in">copy</span>(rects.<span class="built_in">at</span>(<span class="number">7</span>));</span><br><span class="line">    centerPixmap      = background.<span class="built_in">copy</span>(rects.<span class="built_in">at</span>(<span class="number">8</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">QList&lt;QRect&gt; <span class="title">NinePatchPainterPrivate::calculateNinePatchRects</span><span class="params">(<span class="keyword">const</span> QRect &amp;rect)</span> <span class="keyword">const</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> x = rect.<span class="built_in">x</span>();</span><br><span class="line">    <span class="keyword">int</span> y = rect.<span class="built_in">y</span>();</span><br><span class="line">    <span class="keyword">int</span> cw = rect.<span class="built_in">width</span>() - left - right;  <span class="comment">// 中间部分的宽</span></span><br><span class="line">    <span class="keyword">int</span> ch = rect.<span class="built_in">height</span>() - top - bottom; <span class="comment">// 中间部分的高</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 根据把 rect 分割成 9 个部分: 左、左上、上、右上、右、右下、下、左下、中间</span></span><br><span class="line">    <span class="function">QRect <span class="title">leftRect</span><span class="params">(x, y + top, left, ch)</span></span>;</span><br><span class="line">    <span class="function">QRect <span class="title">topLeftRect</span><span class="params">(x, y, left, top)</span></span>;</span><br><span class="line">    <span class="function">QRect <span class="title">topRect</span><span class="params">(x + left, y, cw, top)</span></span>;</span><br><span class="line">    <span class="function">QRect <span class="title">topRightRect</span><span class="params">(x + left + cw, y, right, top)</span></span>;</span><br><span class="line">    <span class="function">QRect <span class="title">rightRect</span><span class="params">(x + left + cw, y + top, right, ch)</span></span>;</span><br><span class="line">    <span class="function">QRect <span class="title">bottomRightRect</span><span class="params">(x + left + cw, y + top + ch, right, bottom)</span></span>;</span><br><span class="line">    <span class="function">QRect <span class="title">bottomRect</span><span class="params">(x + left, y + top + ch, cw, bottom)</span></span>;</span><br><span class="line">    <span class="function">QRect <span class="title">bottomLeftRect</span><span class="params">(x, y + top + ch, left, bottom)</span></span>;</span><br><span class="line">    <span class="function">QRect <span class="title">centerRect</span><span class="params">(x + left, y + top, cw, ch)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> QList&lt;QRect&gt;() &lt;&lt; leftRect &lt;&lt; topLeftRect</span><br><span class="line">                          &lt;&lt; topRect &lt;&lt; topRightRect &lt;&lt; rightRect</span><br><span class="line">                          &lt;&lt; bottomRightRect &lt;&lt; bottomRect &lt;&lt; bottomLeftRect</span><br><span class="line">                          &lt;&lt; centerRect;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">QPixmap <span class="title">NinePatchPainterPrivate::scalePixmap</span><span class="params">(<span class="keyword">const</span> QPixmap &amp;pixmap, <span class="keyword">const</span> QSize &amp;size)</span> <span class="keyword">const</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 缩放时忽略图片的高宽比，使用平滑缩放的效果</span></span><br><span class="line">    <span class="keyword">return</span> pixmap.<span class="built_in">scaled</span>(size, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*-----------------------------------------------------------------------------|</span></span><br><span class="line"><span class="comment"> |                              NinePatchPainter                               |</span></span><br><span class="line"><span class="comment"> |----------------------------------------------------------------------------*/</span></span><br><span class="line">NinePatchPainter::<span class="built_in">NinePatchPainter</span>(<span class="keyword">const</span> QPixmap &amp;background,</span><br><span class="line">                                   <span class="keyword">int</span> left, <span class="keyword">int</span> top, <span class="keyword">int</span> right, <span class="keyword">int</span> bottom,</span><br><span class="line">                                   <span class="keyword">bool</span> horizontalStretch, <span class="keyword">bool</span> verticalStretch)</span><br><span class="line">    : <span class="built_in">d</span>(<span class="keyword">new</span> <span class="built_in">NinePatchPainterPrivate</span>(background, left, top, right, bottom, horizontalStretch, verticalStretch)) &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">NinePatchPainter::~<span class="built_in">NinePatchPainter</span>() &#123;</span><br><span class="line">    <span class="keyword">delete</span> d;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">NinePatchPainter::paint</span><span class="params">(QPainter *painter, <span class="keyword">const</span> QRect &amp;rect)</span> <span class="keyword">const</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 把要绘制的 Rect 分割成 9 个部分，上，右，下，左 4 边的宽和背景图的一样</span></span><br><span class="line">    QList&lt;QRect&gt; rects = d-&gt;<span class="built_in">calculateNinePatchRects</span>(rect);</span><br><span class="line"></span><br><span class="line">    QRect leftRect        = rects.<span class="built_in">at</span>(<span class="number">0</span>);</span><br><span class="line">    QRect topLeftRect     = rects.<span class="built_in">at</span>(<span class="number">1</span>);</span><br><span class="line">    QRect topRect         = rects.<span class="built_in">at</span>(<span class="number">2</span>);</span><br><span class="line">    QRect topRightRect    = rects.<span class="built_in">at</span>(<span class="number">3</span>);</span><br><span class="line">    QRect rightRect       = rects.<span class="built_in">at</span>(<span class="number">4</span>);</span><br><span class="line">    QRect bottomRightRect = rects.<span class="built_in">at</span>(<span class="number">5</span>);</span><br><span class="line">    QRect bottomRect      = rects.<span class="built_in">at</span>(<span class="number">6</span>);</span><br><span class="line">    QRect bottomLeftRect  = rects.<span class="built_in">at</span>(<span class="number">7</span>);</span><br><span class="line">    QRect centerRect      = rects.<span class="built_in">at</span>(<span class="number">8</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 绘制 4 个角</span></span><br><span class="line">    painter-&gt;<span class="built_in">drawPixmap</span>(topLeftRect,     d-&gt;topLeftPixmap);</span><br><span class="line">    painter-&gt;<span class="built_in">drawPixmap</span>(topRightRect,    d-&gt;topRightPixmap);</span><br><span class="line">    painter-&gt;<span class="built_in">drawPixmap</span>(bottomRightRect, d-&gt;bottomRightPixmap);</span><br><span class="line">    painter-&gt;<span class="built_in">drawPixmap</span>(bottomLeftRect,  d-&gt;bottomLeftPixmap);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 绘制左、右边</span></span><br><span class="line">    <span class="keyword">if</span> (d-&gt;horizontalStretch) &#123;</span><br><span class="line">        <span class="comment">// 水平拉伸</span></span><br><span class="line">        painter-&gt;<span class="built_in">drawPixmap</span>(leftRect,  d-&gt;<span class="built_in">scalePixmap</span>(d-&gt;leftPixmap,  leftRect.<span class="built_in">size</span>()));</span><br><span class="line">        painter-&gt;<span class="built_in">drawPixmap</span>(rightRect, d-&gt;<span class="built_in">scalePixmap</span>(d-&gt;rightPixmap, rightRect.<span class="built_in">size</span>()));</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 水平平铺</span></span><br><span class="line">        painter-&gt;<span class="built_in">drawTiledPixmap</span>(leftRect,  d-&gt;leftPixmap);</span><br><span class="line">        painter-&gt;<span class="built_in">drawTiledPixmap</span>(rightRect, d-&gt;rightPixmap);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 绘制上、下边</span></span><br><span class="line">    <span class="keyword">if</span> (d-&gt;verticalStretch) &#123;</span><br><span class="line">        <span class="comment">// 垂直拉伸</span></span><br><span class="line">        painter-&gt;<span class="built_in">drawPixmap</span>(topRect,    d-&gt;<span class="built_in">scalePixmap</span>(d-&gt;topPixmap,    topRect.<span class="built_in">size</span>()));</span><br><span class="line">        painter-&gt;<span class="built_in">drawPixmap</span>(bottomRect, d-&gt;<span class="built_in">scalePixmap</span>(d-&gt;bottomPixmap, bottomRect.<span class="built_in">size</span>()));</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 垂直平铺</span></span><br><span class="line">        painter-&gt;<span class="built_in">drawTiledPixmap</span>(topRect,    d-&gt;topPixmap);</span><br><span class="line">        painter-&gt;<span class="built_in">drawTiledPixmap</span>(bottomRect, d-&gt;bottomPixmap);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> pmw = d-&gt;centerPixmap.<span class="built_in">width</span>();</span><br><span class="line">    <span class="keyword">int</span> pmh = d-&gt;centerPixmap.<span class="built_in">height</span>();</span><br><span class="line">    <span class="keyword">int</span> crw = centerRect.<span class="built_in">width</span>();</span><br><span class="line">    <span class="keyword">int</span> crh = centerRect.<span class="built_in">height</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 绘制中间部分(最简单办法就是中间部分都进行拉伸)</span></span><br><span class="line">    <span class="keyword">if</span> (d-&gt;horizontalStretch &amp;&amp; d-&gt;verticalStretch) &#123;</span><br><span class="line">        <span class="comment">// 水平和垂直都拉伸</span></span><br><span class="line">        painter-&gt;<span class="built_in">drawPixmap</span>(centerRect, d-&gt;<span class="built_in">scalePixmap</span>(d-&gt;centerPixmap, centerRect.<span class="built_in">size</span>()));</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (d-&gt;horizontalStretch &amp;&amp; !d-&gt;verticalStretch) &#123;</span><br><span class="line">        <span class="comment">// 水平拉伸，垂直平铺</span></span><br><span class="line">        <span class="keyword">if</span> (crh % pmh != <span class="number">0</span>) &#123;</span><br><span class="line">            pmh = ((<span class="keyword">float</span>)crh) / (crh/pmh+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function">QSize <span class="title">size</span><span class="params">(crw, pmh)</span></span>;</span><br><span class="line">        QPixmap centerPixmap = d-&gt;<span class="built_in">scalePixmap</span>(d-&gt;centerPixmap, size);</span><br><span class="line">        painter-&gt;<span class="built_in">drawTiledPixmap</span>(centerRect, centerPixmap);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!d-&gt;horizontalStretch &amp;&amp; d-&gt;verticalStretch) &#123;</span><br><span class="line">        <span class="comment">// 水平平铺，垂直拉伸</span></span><br><span class="line">        <span class="keyword">if</span> (crw % pmw != <span class="number">0</span>) &#123;</span><br><span class="line">            pmw = ((<span class="keyword">float</span>)crw) / (crw/pmw+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function">QSize <span class="title">size</span><span class="params">(pmw, crh)</span></span>;</span><br><span class="line">        QPixmap centerPixmap = d-&gt;<span class="built_in">scalePixmap</span>(d-&gt;centerPixmap, size);</span><br><span class="line">        painter-&gt;<span class="built_in">drawTiledPixmap</span>(centerRect, centerPixmap);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 水平和垂直都平铺</span></span><br><span class="line">        painter-&gt;<span class="built_in">drawTiledPixmap</span>(centerRect, d-&gt;centerPixmap);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>九宫格的核心是矩形分割和不同的矩形区域内使用拉伸还是平铺绘图，矩形分隔并不难，只是写程序时凭想象和记忆计算坐标容易出错，可以先在纸上画来写上坐标，然后再写程序就会很直观了。绘制时的难点在绘制中间部分，例如水平拉伸、垂直平铺应该怎么理解呢？分两步，一是先水平拉伸图片，拉伸的矩形高度为图片的高度，宽度为中间部分的宽度(想象一下图片高度不变，水平方向给拉长了)，然后使用 drawTiledPixap() 绘图，这样垂直方向绘制时就时平铺的了。</p>
+<h2 id="案例展示"><a href="#案例展示" class="headerlink" title="案例展示"></a>案例展示</h2><p>下面就用一个简单的案例展示 NinePatchPainter 的威力，重点关注 paintEvent() 函数，结果请参考文章开头处的效果图.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名: Widget.h</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> WIDGET_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> WIDGET_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QWidget&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QPixmap&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NinePatchPainter</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Widget</span> :</span> <span class="keyword">public</span> QWidget &#123;</span><br><span class="line">    Q_OBJECT</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">Widget</span><span class="params">(QWidget *parent = <span class="number">0</span>)</span></span>;</span><br><span class="line">    ~<span class="built_in">Widget</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">paintEvent</span><span class="params">(QPaintEvent *event)</span> Q_DECL_OVERRIDE</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    QPixmap pixmap;</span><br><span class="line">    NinePatchPainter *ninePatchPainter;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// WIDGET_H</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名: Widget.cpp</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;Widget.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;NinePatchPainter.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QPixmap&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QPainter&gt;</span></span></span><br><span class="line"></span><br><span class="line">Widget::<span class="built_in">Widget</span>(QWidget *parent) : <span class="built_in">QWidget</span>(parent) &#123;</span><br><span class="line">    pixmap.<span class="built_in">load</span>(<span class="string">&quot;:/rounded-rectangle.png&quot;</span>); <span class="comment">// 加载背景图</span></span><br><span class="line">    ninePatchPainter = <span class="keyword">new</span> <span class="built_in">NinePatchPainter</span>(pixmap, <span class="number">25</span>, <span class="number">25</span>, <span class="number">25</span>, <span class="number">25</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Widget::~<span class="built_in">Widget</span>() &#123;</span><br><span class="line">    <span class="keyword">delete</span> ninePatchPainter;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Widget::paintEvent</span><span class="params">(QPaintEvent *)</span> </span>&#123;</span><br><span class="line">    <span class="function">QPainter <span class="title">painter</span><span class="params">(<span class="keyword">this</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    painter.<span class="built_in">drawPixmap</span>(<span class="number">20</span>, <span class="number">20</span>, <span class="number">300</span>, <span class="number">200</span>, pixmap); <span class="comment">// 普通的拉伸绘制</span></span><br><span class="line">    ninePatchPainter-&gt;<span class="built_in">paint</span>(&amp;painter, <span class="built_in">QRect</span>(<span class="number">340</span>, <span class="number">20</span>, <span class="number">300</span>, <span class="number">200</span>)); <span class="comment">// 九宫格绘制</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名: main.cpp</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;Widget.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QApplication&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="function">QApplication <span class="title">a</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line"></span><br><span class="line">    Widget w;</span><br><span class="line">    w.<span class="built_in">setWindowTitle</span>(<span class="string">&quot;九宫格绘图&quot;</span>);</span><br><span class="line">    w.<span class="built_in">resize</span>(<span class="number">660</span>, <span class="number">240</span>);</span><br><span class="line">    w.<span class="built_in">show</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> a.<span class="built_in">exec</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>有了背景图，怎么确定各边的宽高是多少像素才合适呢？一般是各边的大小不小于对应角的大小，这样 4 个角绘制出来才不会变形。可以参考一下 Border Image 一节 <a target="_blank" rel="noopener" href="http://qtdebug.com/qtbook-qss-border-image">http://qtdebug.com/qtbook-qss-border-image</a>，这样就能理解的更深刻了。</p>
+<p>案例中展示在指定的 rect 中绘制，怎么使用 NinePatchPainter 绘制 widget 的整个背景呢？</p>
+<h2 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h2><p>左图为按钮的背景图，实现右图所示的各种大小的按钮效果。</p>
+<table>
+<thead>
+<tr>
+<th>圆角按钮背景</th>
+<th>圆角按钮效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../img/qtbook/qss/QSS-BorderImage-Round-Button.png"></td>
+<td><img src="../img/qtbook/qss/QSS-BorderImage-Buttons.png"></td>
+</tr>
+</tbody></table>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/hexo-skip-render/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Hexo 跳过指定文件的渲染
+        
+      </div>
+    </a>
+  
+  
+    <a href="/spring-security-11-qq-login/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spring Security QQ 登陆</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

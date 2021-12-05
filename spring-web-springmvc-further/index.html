@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Spring MVC 进一步学习 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本章主要介绍 Spring MVC 中一些常用的知识点，详细说明请参考官方帮助文档。 @RequestMapping @GetMapping 等价于 @RequestMapping(method &#x3D; RequestMethod.GET) @PutMapping 等价于 @RequestMapping(method &#x3D; RequestMethod.PUT) @PostMapping 等价于 @Req">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring MVC 进一步学习">
+<meta property="og:url" content="http://xtuer.github.io/spring-web-springmvc-further/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="本章主要介绍 Spring MVC 中一些常用的知识点，详细说明请参考官方帮助文档。 @RequestMapping @GetMapping 等价于 @RequestMapping(method &#x3D; RequestMethod.GET) @PutMapping 等价于 @RequestMapping(method &#x3D; RequestMethod.PUT) @PostMapping 等价于 @Req">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/spring-web/flash-attribute-1.png">
+<meta property="og:image" content="http://xtuer.github.io/img/spring-web/flash-attribute-2.png">
+<meta property="og:image" content="http://xtuer.github.io/img/spring-web/request-header-1.png">
+<meta property="og:image" content="http://xtuer.github.io/img/spring-web/request-header-1.png">
+<meta property="og:image" content="http://xtuer.github.io/img/spring-web/SpringMVC-Architecture-1.png">
+<meta property="og:image" content="http://xtuer.github.io/img/spring-web/SpringMVC-Architecture-2.png">
+<meta property="og:image" content="http://xtuer.github.io/img/spring-web/SpringMVC-Architecture-3.png">
+<meta property="og:image" content="http://xtuer.github.io/img/spring-web/SpringMVC-Architecture-4.png">
+<meta property="og:image" content="http://xtuer.github.io/img/spring-web/SpringMVC-Architecture-5.jpg">
+<meta property="article:published_time" content="2017-03-31T07:58:26.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.186Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="SpringWeb">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/spring-web/flash-attribute-1.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#RequestMapping"><span class="toc-text">@RequestMapping</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PathVariable"><span class="toc-text">@PathVariable</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RequestParam"><span class="toc-text">@RequestParam</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ModelAttribute"><span class="toc-text">@ModelAttribute</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Forward-and-Redirect"><span class="toc-text">Forward and Redirect</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RedirectAttributes"><span class="toc-text">RedirectAttributes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96-Request-and-Response"><span class="toc-text">获取 Request and Response</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Header"><span class="toc-text">Header</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cookie"><span class="toc-text">Cookie</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Session"><span class="toc-text">Session</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-MVC-%E7%9A%84%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B"><span class="toc-text">Spring MVC 的处理流程</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-spring-web-springmvc-further" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/spring-web-springmvc-further/" class="article-date">
+  	<!-- <time datetime="2017-03-31T07:58:26.000Z" itemprop="datePublished">2017-03-31</time> -->
+    2017-03-31
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Spring MVC 进一步学习
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringWeb/" rel="tag">SpringWeb</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>本章主要介绍 Spring MVC 中一些常用的知识点，详细说明请参考官方帮助文档。</p>
+<h2 id="RequestMapping"><a href="#RequestMapping" class="headerlink" title="@RequestMapping"></a>@RequestMapping</h2><ul>
+<li><code>@GetMapping</code> 等价于 <code>@RequestMapping(method = RequestMethod.GET)</code></li>
+<li><code>@PutMapping</code> 等价于 <code>@RequestMapping(method = RequestMethod.PUT)</code></li>
+<li><code>@PostMapping</code> 等价于 <code>@RequestMapping(method = RequestMethod.POST)</code></li>
+<li><code>@DeleteMapping</code> 等价于 <code>@RequestMapping(method = RequestMethod.DELETE)</code></li>
+</ul>
+<h2 id="PathVariable"><a href="#PathVariable" class="headerlink" title="@PathVariable"></a>@PathVariable</h2><p>取得 <code>URL</code> 路径中匹配的内容，适合 RESTful 的风格。</p>
+<blockquote>
+<p>A <code>@PathVariable</code> argument can be of any simple type such as int, long, Date, etc. Spring automatically converts to the appropriate type or throws a TypeMismatchException if it fails to do so. You can also register support for parsing additional data types.</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.PathVariable;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ParameterController</span> </span>&#123;</span><br><span class="line">    <span class="comment">// &#123;userId&#125; 是 placeholder，里面的内容可以用 @PathVariable 取到</span></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/users/&#123;userId&#125;&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">one</span><span class="params">(<span class="meta">@PathVariable</span> Integer userId)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> userId + <span class="string">&quot;&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果变量名和 &#123;&#125; 中的名字不一样，</span></span><br><span class="line">    <span class="comment">// 需要用 @PathVariable(&quot;nameInPath&quot;) 来指定变量要使用路径中的哪一个变量</span></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/categories/&#123;categoryName&#125;/products/&#123;productId&#125;&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">two</span><span class="params">(<span class="meta">@PathVariable</span> String categoryName,</span></span></span><br><span class="line"><span class="params"><span class="function">                      <span class="meta">@PathVariable(&quot;productId&quot;)</span> Integer pId)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;categoryName: &quot;</span> + categoryName + <span class="string">&quot;, productId: &quot;</span> + pId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 还支持正则表达式的方式</span></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/regex/&#123;text:[a-z]+&#125;-&#123;number:\\d+&#125;&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">three</span><span class="params">(<span class="meta">@PathVariable</span> String text, <span class="meta">@PathVariable</span> Integer number)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Text: &quot;</span> + text + <span class="string">&quot;, Number: &quot;</span> + number;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 路径中有 . 时需要用正则，如 http://localhost:8080//question-img/GYYK034C/Aimage002.jpg</span></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/question-img/&#123;subjectCode&#125;/&#123;imageName:.+&#125;&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">readQuestionImage</span><span class="params">(<span class="meta">@PathVariable</span> String subjectCode, <span class="meta">@PathVariable</span> String imageName)</span> </span>&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>测试：</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://localhost:8080/users/1234">http://localhost:8080/users/1234</a></li>
+<li><a target="_blank" rel="noopener" href="http://localhost:8080/categories/xbox/products/1234">http://localhost:8080/categories/xbox/products/1234</a></li>
+<li><a target="_blank" rel="noopener" href="http://localhost:8080/regex/part-1234">http://localhost:8080/regex/part-1234</a> <span id="more"></span></li>
+</ul>
+<h2 id="RequestParam"><a href="#RequestParam" class="headerlink" title="@RequestParam"></a>@RequestParam</h2><p>取得 <code>HTTP 请求</code> 中的参数(GET 和 POST 都可以)。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestParam;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ParameterController</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 取得名字为 id 的参数的值</span></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/user&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">findUser</span><span class="params">(<span class="meta">@RequestParam</span> Integer id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;ID: &quot;</span> + id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// required 默认是 true，参数是必要的，如果没有提供需要的参数，则报错</span></span><br><span class="line">    <span class="comment">// required 为 false 表示参数是可选的</span></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/product&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">findProduct</span><span class="params">(<span class="meta">@RequestParam(value=&quot;productId&quot;, required=true)</span> Integer id,</span></span></span><br><span class="line"><span class="params"><span class="function">                              <span class="meta">@RequestParam(value=&quot;productName&quot;, required=false)</span> String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;ID: &quot;</span> + id + <span class="string">&quot;, Name: &quot;</span> + name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>测试：</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://localhost:8080/user?id=1234">http://localhost:8080/user?id=1234</a></li>
+<li><a target="_blank" rel="noopener" href="http://localhost:8080/product?productId=1234&amp;productName=PS4">http://localhost:8080/product?productId=1234&amp;productName=PS4</a></li>
+</ul>
+<h2 id="ModelAttribute"><a href="#ModelAttribute" class="headerlink" title="@ModelAttribute"></a>@ModelAttribute</h2><p>把 <code>HTTP 请求</code>的参数映射到对象，参数名和对象中的属性名匹配的就做映射，不匹配的就不管，此注解可以省略。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.xtuer.domain.User;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ModelAttribute;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestParam;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ParameterController</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 表单中的参数被映射到对象 user</span></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/user&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">findUser</span><span class="params">(<span class="meta">@ModelAttribute</span> User user,</span></span></span><br><span class="line"><span class="params"><span class="function">                           <span class="meta">@RequestParam(required=false)</span> Integer age)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Age: &quot;</span> + age);</span><br><span class="line">        <span class="keyword">return</span> user.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.domain;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.Getter;</span><br><span class="line"><span class="keyword">import</span> lombok.Setter;</span><br><span class="line"><span class="keyword">import</span> lombok.ToString;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="meta">@Setter</span></span><br><span class="line"><span class="meta">@ToString</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>测试：</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://localhost:8080/user?id=1234&amp;username=biao">http://localhost:8080/user?id=1234&amp;username=biao</a></li>
+<li><a target="_blank" rel="noopener" href="http://localhost:8080/user?id=1234&amp;username=biao&amp;password=Secret">http://localhost:8080/user?id=1234&amp;username=biao&amp;password=Secret</a></li>
+<li><a target="_blank" rel="noopener" href="http://localhost:8080/user?id=1234&amp;username=biao&amp;password=Secret&amp;age=12">http://localhost:8080/user?id=1234&amp;username=biao&amp;password=Secret&amp;age=12</a></li>
+</ul>
+<h2 id="Forward-and-Redirect"><a href="#Forward-and-Redirect" class="headerlink" title="Forward and Redirect"></a>Forward and Redirect</h2><p>Forward 在 url 前面加上字符串 <code>forward:</code> 即可<br>Redirect 在 url 前面加上字符串 <code>redirect:</code> 即可</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ParameterController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/forward-test&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">forward</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;forward:/helloworld-springmvc&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/redirect-test&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">redirect</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;redirect:/helloworld-springmvc&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>测试：</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://localhost:8080/forward-test">http://localhost:8080/forward-test</a></li>
+<li><a target="_blank" rel="noopener" href="http://localhost:8080/redirect-test">http://localhost:8080/redirect-test</a></li>
+</ul>
+<h2 id="RedirectAttributes"><a href="#RedirectAttributes" class="headerlink" title="RedirectAttributes"></a>RedirectAttributes</h2><p>表单提交后一般都会 redirect 到另一个页面，防止表单重复提交。<strong>RedirectAttributes</strong> 的作用就是把处理 PageA 的结果存储起来，当 redirect 到 PageB 的时候显示 PageA 的结果。</p>
+<p>Request 中的参数不能被传递给 redirect 的页面，因为 redirect 是从浏览器端发起一个新的请求。</p>
+<blockquote>
+<p>Normally when we generate an http redirect request, the data stored in request is lost making it impossible for next GET request to access some of the useful information from request.</p>
+<p>Flash attributes comes handy in such cases. Flash attributes provide a way for one request to store attributes intended for use in another.<br>Flash attributes are saved temporarily (typically in the session) before the redirect to be made available to the request after the redirect and removed immediately.</p>
+</blockquote>
+<p><strong>防止表单重复提交的流程</strong>:<br><img src="../img/spring-web/flash-attribute-1.png"></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 文件名: view/user-form.htm --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Update User<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;/update-user&quot;</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span>&gt;</span></span><br><span class="line">        Username: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">        Password: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span>&gt;</span>Update User<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 文件名: view/result.htm --&gt;</span></span><br><span class="line">Result: $&#123;result&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestParam;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.mvc.support.RedirectAttributes;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ParameterController</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 显示表单</span></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/user-form&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">showUserForm</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;user-form.html&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 更新 User，把结果保存到 RedirectAttributes</span></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/update-user&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">updateUser</span><span class="params">(<span class="meta">@RequestParam</span> String username,</span></span></span><br><span class="line"><span class="params"><span class="function">                             <span class="meta">@RequestParam</span> String password,</span></span></span><br><span class="line"><span class="params"><span class="function">                             <span class="keyword">final</span> RedirectAttributes redirectAttributes)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Update user in database...</span></span><br><span class="line">        System.out.println(<span class="string">&quot;Username: &quot;</span> + username + <span class="string">&quot;, Password: &quot;</span> + password);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 操作结果显示给用户</span></span><br><span class="line">        redirectAttributes.addFlashAttribute(<span class="string">&quot;result&quot;</span>, <span class="string">&quot;The user is already successfully updated&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;redirect:/result&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 显示表单处理结果</span></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/result&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">result</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;result.html&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>测试：</strong></p>
+<p>访问 <a target="_blank" rel="noopener" href="http://localhost:8080/user-form">http://localhost:8080/user-form</a>，填写信息，提交表单，处理好后页面被 redirect 到 <a target="_blank" rel="noopener" href="http://localhost:8080/result">http://localhost:8080/result</a> 显示操作结果。</p>
+<p><img src="../img/spring-web/flash-attribute-2.png"></p>
+<hr>
+<p>Redirect 到另一个 Controller 时获取 RedirectAttributes 里的属性使用 <strong>@ModelAttribute</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(&quot;/flash&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">flash</span><span class="params">(RedirectAttributes redirectAttributes)</span> </span>&#123;</span><br><span class="line">    redirectAttributes.addFlashAttribute(<span class="string">&quot;username&quot;</span>, <span class="string">&quot;Biao&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;redirect:flash2&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/flash2&quot;)</span></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">flash2</span><span class="params">(<span class="meta">@ModelAttribute(&quot;username&quot;)</span> String username)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;username: &quot;</span> + username;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="获取-Request-and-Response"><a href="#获取-Request-and-Response" class="headerlink" title="获取 Request and Response"></a>获取 Request and Response</h2><p>想取得 HttpServletRequest 和 HttpServletResponse 很容易，只要在方法的参数里定义后，Spring MVC 会自动的注入它们到参数里。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ParameterController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/request-response&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">foo</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> </span>&#123;</span><br><span class="line">        System.out.println(request);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;WoW&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>测试：</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://localhost:8080/request-response">http://localhost:8080/request-response</a></li>
+</ul>
+<h2 id="Header"><a href="#Header" class="headerlink" title="Header"></a>Header</h2><ul>
+<li>读取 header: The <code>@RequestHeader</code> annotation allows a method parameter to be bound to a request header</li>
+<li>写入 header: Header 直接写入到 <code>HttpServletResponse</code>，没有注解用来写 header</li>
+</ul>
+<p>下面是浏览器发送请求后的 header 信息:</p>
+<table>
+<thead>
+<tr>
+<th>Header</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Host</td>
+<td>localhost:8080</td>
+</tr>
+<tr>
+<td>Accept</td>
+<td>text/html,application/xhtml+xml,application/xml;q=0.9</td>
+</tr>
+<tr>
+<td>Accept-Language</td>
+<td>fr,en-gb;q=0.7,en;q=0.3</td>
+</tr>
+<tr>
+<td>Accept-Encoding</td>
+<td>gzip,deflate</td>
+</tr>
+<tr>
+<td>Accept-Charset</td>
+<td>ISO-8859-1,utf-8;q=0.7,*;q=0.7</td>
+</tr>
+<tr>
+<td>Keep-Alive</td>
+<td>300</td>
+</tr>
+</tbody></table>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestHeader;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ParameterController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/read-header&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">readHeader</span><span class="params">(<span class="meta">@RequestHeader(&quot;Host&quot;)</span> String host,</span></span></span><br><span class="line"><span class="params"><span class="function">                             <span class="meta">@RequestHeader(value=&quot;Accept-Encoding&quot;, required=false)</span> String encoding,</span></span></span><br><span class="line"><span class="params"><span class="function">                             <span class="meta">@RequestHeader(value=&quot;Accept-Charset&quot;, required=false)</span> String charset)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Host: &quot;</span> + host + <span class="string">&quot;, Encoding: &quot;</span> + encoding + <span class="string">&quot;, Charset: &quot;</span> + charset;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/read-header-error&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">readHeaderError</span><span class="params">(<span class="meta">@RequestHeader(&quot;Host&quot;)</span> String host,</span></span></span><br><span class="line"><span class="params"><span class="function">                                  <span class="meta">@RequestHeader(&quot;Accept-Charset&quot;)</span> String charset)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Host: &quot;</span> + host + <span class="string">&quot;, Charset: &quot;</span> + charset;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/write-header&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">writeHeader</span><span class="params">(HttpServletResponse response)</span> </span>&#123;</span><br><span class="line">        response.setHeader(<span class="string">&quot;token&quot;</span>, <span class="string">&quot;D4BFCEC2-89E6-40CB-AF9A-B5513CB30FED&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Header is wrote.&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>测试：</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://localhost:8080/read-header">http://localhost:8080/read-header</a></li>
+<li><a target="_blank" rel="noopener" href="http://localhost:8080/read-header-error">http://localhost:8080/read-header-error</a></li>
+<li><a target="_blank" rel="noopener" href="http://localhost:8080/write-header">http://localhost:8080/write-header</a></li>
+</ul>
+<p>访问 <a target="_blank" rel="noopener" href="http://localhost:8080/read-header">http://localhost:8080/read-header</a> 成功访问<br><img src="../img/spring-web/request-header-1.png"></p>
+<p>访问 <a target="_blank" rel="noopener" href="http://localhost:8080/read-header-error">http://localhost:8080/read-header-error</a> 提示错误，因为 charset 是 required=true 的，在 header 信息里没有 charset，所以报错。但是这个错误如果不了解的话会一头雾水，因为在控制台中没有输出错误的原因<br><img src="../img/spring-web/request-header-1.png"></p>
+<blockquote>
+<p>参数错误，类型转换错误等默认在控制台中看不到，也不会返回给浏览器端，要看到错误原因，需要把 Spring MVC 的日志调到 Debug 级别。</p>
+</blockquote>
+<h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><ul>
+<li>读取 cookie: The <code>@CookieValue</code> annotation allows a method parameter to be bound to the value of an HTTP cookie</li>
+<li>写入 cookie: Cookie 直接写到 <code>HttpServletResponse</code>，没有注解用来写 cookie</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.CookieValue;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.Cookie;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ParameterController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/read-cookie&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">readCookie</span><span class="params">(<span class="meta">@CookieValue(&quot;username&quot;)</span> String cookie)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Cookie for username: &quot;</span> + cookie;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/write-cookie&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">writeCookie</span><span class="params">(HttpServletResponse response)</span> </span>&#123;</span><br><span class="line">        Cookie cookie = <span class="keyword">new</span> Cookie(<span class="string">&quot;username&quot;</span>, <span class="string">&quot;Don&#x27;t tell you&quot;</span>);</span><br><span class="line">        cookie.setMaxAge(<span class="number">1000</span>);</span><br><span class="line">        response.addCookie(cookie); <span class="comment">// Put cookie in response.</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Cookie is wrote.&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>测试：</strong></p>
+<ol>
+<li><p>访问 <a target="_blank" rel="noopener" href="http://localhost:8080/read-cookie">http://localhost:8080/read-cookie</a> 报错，因为还没有 cookie，<br>可以给 cookie 一个默认值，这样即使没有 cookie 也不会报错了:<br><code>@CookieValue(value=&quot;username&quot;, defaultValue=&quot;&quot;) String cookie</code></p>
+</li>
+<li><p>访问 <a target="_blank" rel="noopener" href="http://localhost:8080/write-cookie">http://localhost:8080/write-cookie</a> 写入 cookie</p>
+</li>
+<li><p>访问 <a target="_blank" rel="noopener" href="http://localhost:8080/read-cookie">http://localhost:8080/read-cookie</a> 输出 cookie</p>
+</li>
+</ol>
+<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><ul>
+<li>可以使用 <code>HttpSession</code> 来直接操作 session</li>
+<li>同时也提供了操作 session 的注解 <code>@SessionAttributes</code></li>
+</ul>
+<p>HttpSession 的方式什么时候都生效，但是 @SessionAttributes 有时候就不行，如返回 AJAX 请求时设置的 session 无效。<strong>所以推荐使用注入 HttpSession 来读写 session</strong>。</p>
+<blockquote>
+<p><code>@SessionAttributes</code> annotation indicates that in the controller’s methods can be assigned some values to arguments of the annotation. In this example I declared just one session attribute with the name “thought“. That’s mean I can put some object into modelAndView using addObject() method, and it will be added to the session if the name of the object will be the same as the name of argument in @SessionAttributes.</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.SessionAttributes;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.ModelAndView;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpSession;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@SessionAttributes(&#123;&quot;result&quot;&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SessionController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/write-session&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">writeSession</span><span class="params">(HttpSession session)</span> </span>&#123;</span><br><span class="line">        session.setAttribute(<span class="string">&quot;username&quot;</span>, <span class="string">&quot;座山雕&quot;</span>);</span><br><span class="line">        session.setAttribute(<span class="string">&quot;password&quot;</span>, <span class="string">&quot;天王盖地虎&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Session wrote...&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/read-session&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">readSession</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;helloworld-freemarker.htm&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/write-session2&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ModelAndView <span class="title">writeSession2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ModelAndView mav = <span class="keyword">new</span> ModelAndView();</span><br><span class="line">        mav.addObject(<span class="string">&quot;result&quot;</span>, <span class="string">&quot;Save session&quot;</span>);</span><br><span class="line">        mav.setViewName(<span class="string">&quot;user-form.htm&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> mav;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/read-session2&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">readSession2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;result.htm&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>测试：</strong></p>
+<ol>
+<li>访问 <a target="_blank" rel="noopener" href="http://localhost:8080/write-session">http://localhost:8080/write-session</a></li>
+<li>访问 <a target="_blank" rel="noopener" href="http://localhost:8080/read-session">http://localhost:8080/read-session</a></li>
+</ol>
+<h2 id="Spring-MVC-的处理流程"><a href="#Spring-MVC-的处理流程" class="headerlink" title="Spring MVC 的处理流程"></a>Spring MVC 的处理流程</h2><ol>
+<li>用户向服务器发送请求，请求被 Spring 前端控制 Servelt <code>DispatcherServlet</code> 捕获</li>
+<li>DispatcherServlet 对请求 URL 进行解析，得到请求资源标识符（URI）。然后根据该 URI，调用<code>HandlerMapping</code> 获得该 Handler 配置的所有相关的对象（包括 Handler 对象以及 Handler 对象对应的拦截器），最后以 <code>HandlerExecutionChain</code> 对象的形式返回</li>
+<li>DispatcherServlet 根据获得的 Handler，选择一个合适的 <code>HandlerAdapter</code>。（附注：如果成功获得HandlerAdapter 后，此时将开始执行拦截器的 preHandler(…)方法）</li>
+<li>提取 Request 中的模型数据，填充 Handler 入参，开始执行 Handler（Controller)。 在填充Handler 的入参过程中，根据你的配置，Spring 将帮你做一些额外的工作：<br><code>HttpMessageConveter</code>： 将请求消息（如 Json、xml 等数据）转换成一个对象，将对象转换为指定的响应信息<br><code>数据转换</code>：对请求消息进行数据转换，如 String 转换成 Integer、Double 等<br><code>格式化</code>：对请求消息进行数据格式化，如将字符串转换成格式化数字或格式化日期等<br><code>数据验证</code>： 验证数据的有效性（长度、格式等），验证结果存储到 BindingResult 或 Error 中</li>
+<li>Handler 执行完成后，向 DispatcherServlet 返回一个 <code>ModelAndView</code> 对象</li>
+<li>根据返回的 ModelAndView，选择一个适合的 <code>ViewResolver</code>（必须是已经注册到 Spring 容器中的ViewResolver）返回给 DispatcherServlet</li>
+<li>ViewResolver 结合 <code>Model</code> 和 <code>View</code>，来渲染视图</li>
+<li>将渲染结果返回给客户端</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="http://elf8848.iteye.com/blog/875830/">Spring MVC 教程, 快速入门, 深入分析</a></p>
+<p><img src="../img/spring-web/SpringMVC-Architecture-1.png"></p>
+<p><img src="../img/spring-web/SpringMVC-Architecture-2.png"></p>
+<p><img src="../img/spring-web/SpringMVC-Architecture-3.png"></p>
+<p><img src="../img/spring-web/SpringMVC-Architecture-4.png"></p>
+<p><img src="../img/spring-web/SpringMVC-Architecture-5.jpg"></p>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/spring-web-interceptor/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          SpringMVC 拦截器
+        
+      </div>
+    </a>
+  
+  
+    <a href="/tomcat-lib/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Tomcat 自定义 lib 目录</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

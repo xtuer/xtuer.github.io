@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>QQ 登陆的 Scribe-Java 实现 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="QQ 提供了标准的 OAuth 2.0 第三方登录功能，可以按照 QQ 互联的文档 (http:&#x2F;&#x2F;wiki.connect.qq.com) 例如使用 HttpClient 进行网络访问，集成 QQ 的第三方登录到我们的系统里，也可以使用 Scribe-Java 来集成 QQ 的第三方登录，这样就会简单很多。 ScribeJava 是一个简单的 Java 实现的 OAuth&#x2F;OAuth2 库。Sc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="QQ 登陆的 Scribe-Java 实现">
+<meta property="og:url" content="http://xtuer.github.io/scribe-qq/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="QQ 提供了标准的 OAuth 2.0 第三方登录功能，可以按照 QQ 互联的文档 (http:&#x2F;&#x2F;wiki.connect.qq.com) 例如使用 HttpClient 进行网络访问，集成 QQ 的第三方登录到我们的系统里，也可以使用 Scribe-Java 来集成 QQ 的第三方登录，这样就会简单很多。 ScribeJava 是一个简单的 Java 实现的 OAuth&#x2F;OAuth2 库。Sc">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/spring/oauth20-flow.png">
+<meta property="article:published_time" content="2016-10-04T07:23:07.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.179Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/spring/oauth20-flow.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C-QQ-%E4%BA%92%E8%81%94%E8%B4%A6%E5%8F%B7"><span class="toc-text">注册 QQ 互联账号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-hosts"><span class="toc-text">修改 hosts</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gradle-%E4%BE%9D%E8%B5%96"><span class="toc-text">Gradle 依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#QQApi"><span class="toc-text">QQApi</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OAuth-%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="toc-text">OAuth 的流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#QQ-%E7%99%BB%E9%99%86%E7%9A%84%E4%BB%A3%E7%A0%81"><span class="toc-text">QQ 登陆的代码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#QQOAuthController-java"><span class="toc-text">QQOAuthController.java</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#QQOAuthService-java"><span class="toc-text">QQOAuthService.java</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E8%AE%B2%E8%A7%A3"><span class="toc-text">代码讲解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%80%83"><span class="toc-text">思考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-scribe-qq" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/scribe-qq/" class="article-date">
+  	<!-- <time datetime="2016-10-04T07:23:07.000Z" itemprop="datePublished">2016-10-04</time> -->
+    2016-10-04
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      QQ 登陆的 Scribe-Java 实现
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>QQ 提供了标准的 OAuth 2.0 第三方登录功能，可以按照 QQ 互联的文档 (<a target="_blank" rel="noopener" href="http://wiki.connect.qq.com/">http://wiki.connect.qq.com</a>) 例如使用 HttpClient 进行网络访问，集成 QQ 的第三方登录到我们的系统里，也可以使用 <code>Scribe-Java</code> 来集成 QQ 的第三方登录，这样就会简单很多。</p>
+<p>ScribeJava 是一个简单的 Java 实现的 OAuth/OAuth2 库。<br>ScribeJava Github 仓库：<a target="_blank" rel="noopener" href="https://github.com/scribejava/scribejava">https://github.com/scribejava/scribejava</a></p>
+<span id="more"></span>
+
+<p>下面就介绍使用 Scribe-Java 实现使用 QQ 的第三方登录。</p>
+<h2 id="注册-QQ-互联账号"><a href="#注册-QQ-互联账号" class="headerlink" title="注册 QQ 互联账号"></a>注册 QQ 互联账号</h2><ol>
+<li>在开发前，需要在 <code>QQ 互联</code> 注册一个开发者账号: <a target="_blank" rel="noopener" href="https://connect.qq.com/">https://connect.qq.com</a></li>
+<li>然后点击 <code>应用管理</code>: <a target="_blank" rel="noopener" href="https://connect.qq.com/manage.html">https://connect.qq.com/manage.html</a></li>
+<li>创建 <code>网站应用</code>，里面有开发需要的 <code>APP ID</code> 和 <code>APP Key</code></li>
+</ol>
+<h2 id="修改-hosts"><a href="#修改-hosts" class="headerlink" title="修改 hosts"></a>修改 hosts</h2><p>例如我们在 QQ 互联中填写的回调 URL 为 <a target="_blank" rel="noopener" href="http://open.qtdebug.com:8080/oauth/qq/callback">http://open.qtdebug.com:8080/oauth/qq/callback</a>，很显然 QQ 服务器是不能访问这个地址的，因为这个地址不存在，为了在 QQ 登陆成功后 QQ 服务器能访问这个地址，需要在系统的 <code>hosts</code> 文件里添加 <code>127.0.0.1 open.qtdebug.com</code>。</p>
+<p>还有另一种方式是使用如 <code>Ngrok</code> 把本地映射为外网可访问。</p>
+<h2 id="Gradle-依赖"><a href="#Gradle-依赖" class="headerlink" title="Gradle 依赖"></a>Gradle 依赖</h2><p>为了使用 ScribeJava，需要依赖</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">&#x27;com.github.scribejava:scribejava-apis:3.2.0&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>为了使用 FastJson 解析 QQ 返回的 JSON 响应，需要依赖</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">&#x27;com.alibaba:fastjson:1.2.17&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="QQApi"><a href="#QQApi" class="headerlink" title="QQApi"></a>QQApi</h2><p><code>ScribeJava</code> 已经集成了了几十个网站登陆的 Service，不幸的是没有提供 QQ 的，不过没关系，我们可以使用 <code>ada.young</code> 实现的 <code>QQApi</code>，在 <a target="_blank" rel="noopener" href="http://git.oschina.net/cng1985/scribejava">http://git.oschina.net/cng1985/scribejava</a> 上下载，把 <code>QQApi.java</code> 和 <code>OsChinaOAuthServiceImpl.java</code> 放到我们的工程中即可。</p>
+<h2 id="OAuth-的流程"><a href="#OAuth-的流程" class="headerlink" title="OAuth 的流程"></a>OAuth 的流程</h2><center><img src="../img/spring/oauth20-flow.png" width=870></center>
+
+<blockquote>
+<p>登录成功后会生成一个临时的 code 作为参数从 Auth Server 重定向到 Web Server，因为重定向是 GET 请求，可能会被拦截到，所以 code 是临时的，用于 Web Server 使用此 code 到 Auth Server 换取最终的 access token，以后客户端使用此 access token 作为凭证访问 Web Server 上的保护资源。</p>
+</blockquote>
+<h2 id="QQ-登陆的代码"><a href="#QQ-登陆的代码" class="headerlink" title="QQ 登陆的代码"></a>QQ 登陆的代码</h2><p>先放上 QQ 登陆的代码 <code>QQOAuthController.java</code> 和 <code>QQOAuthService.java</code>，然后再对其进行讲解。</p>
+<h3 id="QQOAuthController-java"><a href="#QQOAuthController-java" class="headerlink" title="QQOAuthController.java"></a>QQOAuthController.java</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.alibaba.fastjson.JSONObject;</span><br><span class="line"><span class="keyword">import</span> com.xtuer.service.QQOAuthService;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.CookieValue;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestParam;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.Cookie;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">QQOAuthController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> QQOAuthService qqOAuthService;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 访问登陆页面，然后会重定向到 QQ 的登陆页面</span></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/oauth/qq&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">qqLogin</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;redirect:&quot;</span> + qqOAuthService.getLoginUrl();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// QQ 成功登陆后的回调</span></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/oauth/qq/callback&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">qqLoginCallback</span><span class="params">(<span class="meta">@RequestParam(&quot;code&quot;)</span> String code, HttpServletResponse response)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        String accessToken = qqOAuthService.getAccessToken(code); <span class="comment">// 5943BF2461ED97237B878BECE78A8744</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 保存 accessToken 到 cookie，过期时间为 30 天，便于以后使用</span></span><br><span class="line">        Cookie cookie = <span class="keyword">new</span> Cookie(<span class="string">&quot;accessToken&quot;</span>, accessToken);</span><br><span class="line">        cookie.setMaxAge(<span class="number">60</span> * <span class="number">24</span> * <span class="number">30</span>);</span><br><span class="line">        response.addCookie(cookie);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> accessToken;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取 QQ 用户的信息</span></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/oauth/qq/user&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getUserInfo</span><span class="params">(<span class="meta">@CookieValue(name = &quot;accessToken&quot;, required = false)</span> String accessToken)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (accessToken == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;There is no access token, please login first!&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        String openId = qqOAuthService.getOpenId(accessToken);</span><br><span class="line">        JSONObject json = qqOAuthService.getUserInfo(accessToken, openId);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> json.toJSONString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="QQOAuthService-java"><a href="#QQOAuthService-java" class="headerlink" title="QQOAuthService.java"></a>QQOAuthService.java</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.service;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.alibaba.fastjson.JSON;</span><br><span class="line"><span class="keyword">import</span> com.alibaba.fastjson.JSONObject;</span><br><span class="line"><span class="keyword">import</span> com.github.scribejava.apis.QQApi;</span><br><span class="line"><span class="keyword">import</span> com.github.scribejava.core.builder.ServiceBuilder;</span><br><span class="line"><span class="keyword">import</span> com.github.scribejava.core.model.OAuth2AccessToken;</span><br><span class="line"><span class="keyword">import</span> com.github.scribejava.core.model.OAuthRequest;</span><br><span class="line"><span class="keyword">import</span> com.github.scribejava.core.model.Response;</span><br><span class="line"><span class="keyword">import</span> com.github.scribejava.core.oauth.OAuth20Service;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Service;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">QQOAuthService</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 获取用户 openid 的 URL</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String OPEN_ID_URL = <span class="string">&quot;https://graph.qq.com/oauth2.0/me&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取用户信息的 URL，oauth_consumer_key 为 apiKey</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String USER_INFO_URL = <span class="string">&quot;https://graph.qq.com/user/get_user_info?oauth_consumer_key=%s&amp;openid=%s&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 下面的属性可以通过配置读取</span></span><br><span class="line">    <span class="keyword">private</span> String callbackUrl = <span class="string">&quot;http://open.qtdebug.com:8080/oauth/qq/callback&quot;</span>; <span class="comment">// QQ 在登陆成功后回调的 URL，这个 URL 必须在 QQ 互联里填写过</span></span><br><span class="line">    <span class="keyword">private</span> String apiKey      = <span class="string">&quot;101292272&quot;</span>;                                      <span class="comment">// QQ 互联应用管理中心的 APP ID</span></span><br><span class="line">    <span class="keyword">private</span> String apiSecret   = <span class="string">&quot;5bdbe9403fcc3abe8eba172337904b5a&quot;</span>;               <span class="comment">// QQ 互联应用管理中心的 APP Key</span></span><br><span class="line">    <span class="keyword">private</span> String scope       = <span class="string">&quot;get_user_info&quot;</span>;                                  <span class="comment">// QQ 互联的 API 接口，访问用户资料</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> OAuth20Service oauthService; <span class="comment">// 访问 QQ 服务的 service</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">QQOAuthService</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 创建访问 QQ 服务的 service</span></span><br><span class="line">        oauthService = <span class="keyword">new</span> ServiceBuilder().apiKey(apiKey).apiSecret(apiSecret)</span><br><span class="line">                .scope(scope).callback(callbackUrl).build(QQApi.instance());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 取得 QQ 登陆页面的 URL，例如</span></span><br><span class="line"><span class="comment">     * https://graph.qq.com/oauth2.0/authorize?response_type=code&amp;client_id=101292272&amp;</span></span><br><span class="line"><span class="comment">     * redirect_uri=http://open.qtdebug.com:8080/oauth/qq/callback&amp;scope=get_user_info</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> QQ 登陆页面的 URL</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getLoginUrl</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> oauthService.getAuthorizationUrl();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 使用 code 换取 access token</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> code 成功登陆后 QQ Server 返回给回调 URL 的中间 code，用于换取 access token</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 用于访问 QQ 服务的 token</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getAccessToken</span><span class="params">(String code)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        OAuth2AccessToken token = oauthService.getAccessToken(code); <span class="comment">// 使用 code 换取 accessToken</span></span><br><span class="line">        String accessToken = token.getAccessToken(); <span class="comment">// 5943BF2461ED97237B878BECE78A8744</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> accessToken;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取用户的 open id，每个用户对于同一个 APP ID 的 open id 是一样的</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> accessToken 登陆时从 QQ 系统得到的 access token，作为访问的凭证，相当于用户名密码的作用</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 用户的 open id</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getOpenId</span><span class="params">(String accessToken)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        Response oauthResponse = request(oauthService, accessToken, OPEN_ID_URL);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 消息格式: callback( &#123;&quot;client_id&quot;:&quot;101292272&quot;,&quot;openid&quot;:&quot;4584E3AAABFC5F052971C278790E9FCF&quot;&#125; );</span></span><br><span class="line">        String responseBody = oauthResponse.getBody();</span><br><span class="line">        <span class="keyword">int</span> s = responseBody.indexOf(<span class="string">&quot;&#123;&quot;</span>);</span><br><span class="line">        <span class="keyword">int</span> e = responseBody.lastIndexOf(<span class="string">&quot;&#125;&quot;</span>) + <span class="number">1</span>;</span><br><span class="line">        String json = responseBody.substring(s, e);</span><br><span class="line">        JSONObject obj = JSON.parseObject(json);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> obj.getString(<span class="string">&quot;openid&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取用户的信息，QQ 的昵称，QQ 空间的头像等，一般这 2 个属性用的最多</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> accessToken 登陆时从 QQ 系统得到的 access token，作为访问的凭证，相当于用户名密码的作用</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> openId 用户的 open id</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> JSONObject 对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> JSONObject <span class="title">getUserInfo</span><span class="params">(String accessToken, String openId)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        String url = String.format(USER_INFO_URL, apiKey, openId);</span><br><span class="line">        Response oauthResponse = request(oauthService, accessToken, url);</span><br><span class="line">        String responseJson = oauthResponse.getBody();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> JSON.parseObject(responseJson);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 使用 OAuth 2.0 的方式从服务器获取 URL 指定的信息</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> accessToken 登陆时从 QQ 系统得到的 access token，作为访问的凭证，相当于用户名密码的作用</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> url 访问 OAuth Server 服务的 URL</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Response <span class="title">request</span><span class="params">(OAuth20Service service, String accessToken, String url)</span> </span>&#123;</span><br><span class="line">        OAuth2AccessToken token = <span class="keyword">new</span> OAuth2AccessToken(accessToken);</span><br><span class="line">        OAuthRequest oauthRequest = <span class="keyword">new</span> OAuthRequest(service.getApi().getAccessTokenVerb(), url, service);</span><br><span class="line">        service.signRequest(token, oauthRequest); <span class="comment">// 会把 accessToken 添加到请求中，GET 请求即添加到 URL 上</span></span><br><span class="line">        Response oauthResponse = oauthRequest.send();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> oauthResponse;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="代码讲解"><a href="#代码讲解" class="headerlink" title="代码讲解"></a>代码讲解</h2><ul>
+<li><p>创建 OAuth20Service 对象，用于访问 QQ 服务</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">oauthService = <span class="keyword">new</span> ServiceBuilder().apiKey(apiKey).apiSecret(apiSecret)</span><br><span class="line">            .scope(scope).callback(callbackUrl).build(QQApi.instance());</span><br></pre></td></tr></table></figure></li>
+<li><p>  登陆访问 <a target="_blank" rel="noopener" href="http://open.qtdebug.com:8080/oauth/qq">http://open.qtdebug.com:8080/oauth/qq</a>，自动重定向到 QQ 登陆页面，登陆 URL 调用 <code>oauthService.getAuthorizationUrl()</code> 获得。</p>
+</li>
+<li><p>  QQ 登陆成功后，回调到 <code>QQOAuthController.qqLoginCallback()</code>，调用 <code>qqOAuthService.getAccessToken(code)</code> 取得 <code>access token</code>，有效期为 3 个月。为了方便以后使用这个 access token，所以把它存储到 cookie。</p>
+</li>
+<li><p>ScribeJava 只提供了登陆和获取 accessToken 的功能，例如想要获取用户的 open id 等其他信息就必须我们自己实现了，所以上面的代码封装了 <code>QQOAuthService.request()</code>，用于访问 OAuth Server，具体使用请参考 <code>QQOAuthService.getOpenId()</code> 和 <code>QQOAuthService. getUserInfo()</code>:</p>
+<ul>
+<li><p><code>QQOAuthService.getOpenId()</code> 返回的数据格式为</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">callback( &#123;<span class="attr">&quot;client_id&quot;</span>:<span class="string">&quot;101292272&quot;</span>,<span class="attr">&quot;openid&quot;</span>:<span class="string">&quot;4584E3AAABFC5F052971C278790E9FCF&quot;</span>&#125; );</span><br></pre></td></tr></table></figure></li>
+<li><p><code>QQOAuthService. getUserInfo()</code> 返回的数据格式为</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;ret&quot;</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">&quot;msg&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;is_lost&quot;</span>:<span class="number">0</span>,</span><br><span class="line">    <span class="attr">&quot;nickname&quot;</span>: <span class="string">&quot;公孙二狗&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;gender&quot;</span>: <span class="string">&quot;男&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;province&quot;</span>: <span class="string">&quot;北京&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;city&quot;</span>: <span class="string">&quot;东城&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;year&quot;</span>: <span class="string">&quot;2013&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;figureurl&quot;</span>: <span class="string">&quot;http:\/\/qzapp.qlogo.cn\/qzapp\/101292272\/4584E3AAABFC5F052971C278790E9FCF\/30&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;figureurl_1&quot;</span>: <span class="string">&quot;http:\/\/qzapp.qlogo.cn\/qzapp\/101292272\/4584E3AAABFC5F052971C278790E9FCF\/50&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;figureurl_2&quot;</span>: <span class="string">&quot;http:\/\/qzapp.qlogo.cn\/qzapp\/101292272\/4584E3AAABFC5F052971C278790E9FCF\/100&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;figureurl_qq_1&quot;</span>: <span class="string">&quot;http:\/\/q.qlogo.cn\/qqapp\/101292272\/4584E3AAABFC5F052971C278790E9FCF\/40&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;figureurl_qq_2&quot;</span>: <span class="string">&quot;http:\/\/q.qlogo.cn\/qqapp\/101292272\/4584E3AAABFC5F052971C278790E9FCF\/100&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;is_yellow_vip&quot;</span>: <span class="string">&quot;0&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;vip&quot;</span>: <span class="string">&quot;0&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;yellow_vip_level&quot;</span>: <span class="string">&quot;0&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;level&quot;</span>: <span class="string">&quot;0&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;is_yellow_year_vip&quot;</span>: <span class="string">&quot;0&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>拿到用户的 open id 和昵称等后怎么用呢？</p>
+<p>一般都会在用户登陆成功后回调 <code>QQOAuthController.qqLoginCallback()</code> 中得到 access token，然后取得用户的 open id，用它在我们的系统中查看此 open id 是否有对应的账号，如果有则进行自动登录，如果没有，则进入账号绑定页面，询问是创建新账号还是绑定已有账号，其中又有可能需要获取用户的昵称，大致逻辑如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// QQ 成功登陆后的回调</span></span><br><span class="line"><span class="meta">@GetMapping(&quot;/oauth/qq/callback&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">qqLoginCallback</span><span class="params">(<span class="meta">@RequestParam(&quot;code&quot;)</span> String code, HttpServletResponse response)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    String accessToken = qqOAuthService.getAccessToken(code); <span class="comment">// 5943BF2461ED97237B878BECE78A8744</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 保存 accessToken 到 cookie，过期时间为 30 天，便于以后使用</span></span><br><span class="line">    Cookie cookie = <span class="keyword">new</span> Cookie(<span class="string">&quot;accessToken&quot;</span>, accessToken);</span><br><span class="line">    cookie.setMaxAge(<span class="number">60</span> * <span class="number">24</span> * <span class="number">30</span>);</span><br><span class="line">    response.addCookie(cookie);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// TODO</span></span><br><span class="line">    String openId = qqOAuthService.getOpenId(accessToken);</span><br><span class="line">    User user = UserDao.findUserByOpenId(<span class="string">&quot;QQ_&quot;</span> + openId); <span class="comment">// 加上前缀避免冲突</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (user == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="comment">// 1. Navigate to binding account page</span></span><br><span class="line">        <span class="comment">// 2. Create new account or binding with existing account</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;redirect:/bindingAccountPage.html&quot;</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 进行自动登录: 用 openId 查找本地的对应账号，用此账号进行自动登陆</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;登陆结果.html&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>第三方账号和本地的用户账号一般也会使用一个中间表进行关联，例如</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>use_id</th>
+<th>third_party_account_id</th>
+<th>type</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>100000</td>
+<td>QQ_AS23DCF3</td>
+<td>QQ</td>
+</tr>
+<tr>
+<td>2</td>
+<td>100001</td>
+<td>WX_BDAD1D3F</td>
+<td>Weixin</td>
+</tr>
+</tbody></table>
+</blockquote>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html">理解 OAuth2.0</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/flashsun/p/7424071.html">一张图搞定 OAuth2.0</a></li>
+</ul>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/spring-mvc-get-request/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          SpringMVC 获取 Request 和 Response
+        
+      </div>
+    </a>
+  
+  
+    <a href="/qt-xcode8-error/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">升级 Xcode8 后 Qt 出错</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

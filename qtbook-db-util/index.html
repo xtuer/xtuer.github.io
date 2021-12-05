@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>数据库访问工具 DBUtl | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="数据库访问工具 DBUtil DBUtil 用于简化数据库的访问，只要准备好配置文件，调用 DBUtil 的静态函数就能直接得到查询数据库的结果。 本文主要内容有:  数据库访问的思考 DBUtil 实例 DBUtil 的 API DBUtil 的实现 把 SQL 语句放到文件里 ORMapping">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库访问工具 DBUtl">
+<meta property="og:url" content="http://xtuer.github.io/qtbook-db-util/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="数据库访问工具 DBUtil DBUtil 用于简化数据库的访问，只要准备好配置文件，调用 DBUtil 的静态函数就能直接得到查询数据库的结果。 本文主要内容有:  数据库访问的思考 DBUtil 实例 DBUtil 的 API DBUtil 的实现 把 SQL 语句放到文件里 ORMapping">
+<meta property="og:locale">
+<meta property="article:published_time" content="2016-12-22T06:42:15.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.173Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="QtBook">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BF%E9%97%AE%E7%9A%84%E6%80%9D%E8%80%83"><span class="toc-text">1. 数据库访问的思考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-DBUtil-%E5%AE%9E%E4%BE%8B"><span class="toc-text">2. DBUtil 实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-DBUtil-%E7%9A%84-API"><span class="toc-text">3. DBUtil 的 API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-DBUtil-%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">4. DBUtil 的配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-DBUtil-%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-text">5. DBUtil 的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-bindValues"><span class="toc-text">5.1. bindValues()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-getFieldNames"><span class="toc-text">5.2. getFieldNames()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-queryToMaps"><span class="toc-text">5.3. queryToMaps()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-%E6%89%A7%E8%A1%8C-SQL-%E8%AF%AD%E5%8F%A5%EF%BC%8C%E6%9F%A5%E8%AF%A2%E7%BB%93%E6%9E%9C%E4%B8%BA-QList-lt-QVariantMap-gt"><span class="toc-text">5.4. 执行 SQL 语句，查询结果为  QList&lt;QVariantMap&gt;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-%E4%BD%BF%E7%94%A8-Lambda-%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BF%9B%E4%B8%80%E6%AD%A5%E7%AE%80%E5%8C%96"><span class="toc-text">5.5. 使用 Lambda 表达式进一步简化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-6-%E6%9C%80%E5%90%8E%E5%8F%AF%E4%BB%A5%E7%AE%80%E5%8C%96%E5%88%B0%E4%B8%8B%E9%9D%A2%E8%BF%99%E6%A0%B7"><span class="toc-text">5.6. 最后可以简化到下面这样</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-SQL-%E8%AF%AD%E5%8F%A5%E6%94%BE%E5%88%B0%E6%96%87%E4%BB%B6%E9%87%8C"><span class="toc-text">6. SQL 语句放到文件里</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-%E5%AE%9A%E4%B9%89-SQL-%E8%AF%AD%E5%8F%A5%E7%9A%84-xml-%E6%96%87%E4%BB%B6%E7%9A%84%E6%A0%BC%E5%BC%8F"><span class="toc-text">6.1. 定义 SQL 语句的 xml 文件的格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-SQL-%E8%AF%AD%E5%8F%A5%E7%9A%84-xml-%E6%96%87%E4%BB%B6%E7%9A%84%E6%94%BE%E5%9C%A8%E5%93%AA%E9%87%8C%EF%BC%9F"><span class="toc-text">6.2. SQL 语句的 xml 文件的放在哪里？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-%E7%A8%8B%E5%BA%8F%E9%87%8C%E6%80%8E%E4%B9%88%E8%AF%BB%E5%8F%96-SQL-%E8%AF%AD%E5%8F%A5%EF%BC%9F"><span class="toc-text">6.3. 程序里怎么读取 SQL 语句？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-ORMapping"><span class="toc-text">7. ORMapping</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-%E5%9C%A8-DBUtl-%E7%B1%BB%E9%87%8C%E5%A2%9E%E5%8A%A0-2-%E4%B8%AA%E5%87%BD%E6%95%B0-selectBean-%E5%92%8C-selectBeans"><span class="toc-text">7.1. 在 DBUtl 类里增加 2 个函数 selectBean() 和 selectBeans()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-User-h"><span class="toc-text">7.2. User.h</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-User-cpp"><span class="toc-text">7.3. User.cpp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-UserDao-h"><span class="toc-text">7.4. UserDao.h</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-5-UserDao-cpp"><span class="toc-text">7.5. UserDao.cpp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-6-%E6%B5%8B%E8%AF%95-UserDao-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-text">7.6. 测试 UserDao 的使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E6%80%9D%E8%80%83"><span class="toc-text">8. 思考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E8%B5%84%E6%BA%90%E4%B8%8B%E8%BD%BD"><span class="toc-text">9. 资源下载</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-qtbook-db-util" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-db-util/" class="article-date">
+  	<!-- <time datetime="2016-12-22T06:42:15.000Z" itemprop="datePublished">2016-12-22</time> -->
+    2016-12-22
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据库访问工具 DBUtl
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>数据库访问工具 DBUtil</p>
+<p>DBUtil 用于简化数据库的访问，只要准备好配置文件，调用 DBUtil 的静态函数就能直接得到查询数据库的结果。</p>
+<p><strong>本文主要内容有:</strong></p>
+<ul>
+<li>数据库访问的思考</li>
+<li>DBUtil 实例</li>
+<li>DBUtil 的 API</li>
+<li>DBUtil 的实现</li>
+<li>把 SQL 语句放到文件里</li>
+<li>ORMapping<span id="more"></span></li>
+</ul>
+<h2 id="1-数据库访问的思考"><a href="#1-数据库访问的思考" class="headerlink" title="1. 数据库访问的思考"></a>1. 数据库访问的思考</h2><p>以查询数据库中 id 为 1 的 user 为例，思考访问数据库存在的问题以及优化。</p>
+<p><strong>常用的访问数据库为以下几步：</strong></p>
+<ol>
+<li>设置数据库驱动和连接名</li>
+<li>设置数据库所在电脑的 IP，数据库名，访问的用户名和密码</li>
+<li>和数据库建立连接（打开数据库）</li>
+<li>创建 prepare 的 query</li>
+<li>绑定参数</li>
+<li>执行 query 访问数据库表</li>
+<li>处理 query 的执行结果</li>
+<li>关闭数据库连接</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">findUser</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 代码块内使用数据库连接，是为了作用域结束时释放数据库连接不报错</span></span><br><span class="line">    &#123;</span><br><span class="line">        QSqlDatabase db = QSqlDatabase::<span class="built_in">addDatabase</span>(<span class="string">&quot;QMYSQL&quot;</span>, <span class="string">&quot;Connection_Name&quot;</span>);</span><br><span class="line">        db.<span class="built_in">setHostName</span>(<span class="string">&quot;127.0.0.1&quot;</span>);</span><br><span class="line">        db.<span class="built_in">setDatabaseName</span>(<span class="string">&quot;qt&quot;</span>);</span><br><span class="line">        db.<span class="built_in">setUserName</span>(<span class="string">&quot;root&quot;</span>);</span><br><span class="line">        db.<span class="built_in">setPassword</span>(<span class="string">&quot;root&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!db.<span class="built_in">open</span>()) &#123;</span><br><span class="line">            <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;Connect to MySql error: &quot;</span> &lt;&lt; db.<span class="built_in">lastError</span>().<span class="built_in">text</span>();</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function">QSqlQuery <span class="title">query</span><span class="params">(db)</span></span>;</span><br><span class="line">        query.<span class="built_in">prepare</span>(<span class="string">&quot;SELECT * FROM user where id=:id&quot;</span>);</span><br><span class="line">        query.<span class="built_in">bindValue</span>(<span class="string">&quot;:id&quot;</span>, <span class="number">1</span>);</span><br><span class="line">        query.<span class="built_in">exec</span>();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (query.<span class="built_in">next</span>()) &#123;</span><br><span class="line">            <span class="built_in">qDebug</span>() &lt;&lt; query.<span class="built_in">value</span>(<span class="string">&quot;username&quot;</span>).<span class="built_in">toString</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    QSqlDatabase::<span class="built_in">removeDatabase</span>(<span class="string">&quot;Connection_Name&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>思考一下:</strong></p>
+<ul>
+<li>如果要查询名字为 Alice 的 user 呢？<br>写一个函数 findUserByUsername()，在里面重复几乎和上面一样的代码。</li>
+<li>如果数据库，用户名密码等变了呢？<br>是不是需要修改好多地方？在大一些的程序里，用到几十上百个访问数据库的函数很正常，如果都这么修改，想死的心都有了。</li>
+</ul>
+<p><strong>使用前面我们实现的数据库连接池，可以简化一些：</strong></p>
+<ol>
+<li>获取数据库连接</li>
+<li>创建 prepare 的 query</li>
+<li>绑定参数</li>
+<li>执行 query 访问数据库表</li>
+<li>处理 query 的执行结果</li>
+<li>释放数据库连接</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">findUser</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    QSqlDatabase db = ConnectionPool::<span class="built_in">openConnection</span>();</span><br><span class="line">    <span class="function">QSqlQuery <span class="title">query</span><span class="params">(db)</span></span>;</span><br><span class="line">    query.<span class="built_in">prepare</span>(<span class="string">&quot;SELECT * FROM user where id=:id&quot;</span>);</span><br><span class="line">    query.<span class="built_in">bindValue</span>(<span class="string">&quot;:id&quot;</span>, <span class="number">1</span>);</span><br><span class="line">    query.<span class="built_in">exec</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (query.<span class="built_in">next</span>()) &#123;</span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; query.<span class="built_in">value</span>(<span class="string">&quot;username&quot;</span>).<span class="built_in">toString</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里没有了建立数据库连接的信息，有所进步，很好地避免了前面我们提出的问题之一。</p>
+<p><strong>但是，仍然需要花费很多精力在：</strong></p>
+<ul>
+<li>参数绑定（<code>query.bindValue()</code>有可能要调用很多次，忘了 <code>:</code> 等）</li>
+<li>然后还要执行 <code>query.exec()</code>，<code>query.next()</code>，少一个都不行</li>
+<li>最后才能得到查询结果，调用 <code>query.value(fieldName).toXXX()</code></li>
+<li>释放数据库连接（如果忘了这一步，可用连接就越来越少，导致连接泄漏）</li>
+</ul>
+<p>还有很多代码都是模版式的，能不能进一步优化，像下面这样访问数据库：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">findUser</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    QMap&lt;QString, QVariant&gt; params;</span><br><span class="line">    params[<span class="string">&quot;id&quot;</span>] = <span class="number">1</span>;</span><br><span class="line">    </span><br><span class="line">    QMap&lt;QString, QVariant&gt; result = DBUtil::<span class="built_in">selectMap</span>(<span class="string">&quot;select * from user where id=:id&quot;</span>, params);</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; result[<span class="string">&quot;username&quot;</span>].<span class="built_in">toString</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>只要 <code>SQL 语句</code> 和 <code>查询的参数</code>，调用 <code>DBUtil::selectMap()</code> 就能得到查询的结果，再如，查询 Alice 的 id: </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> id = DBUtil::<span class="built_in">selectInt</span>(<span class="string">&quot;select id from user where username=&#x27;Alice&#x27;&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>这里，看不到 <code>数据库连接</code>，看不到 <code>QSqlQuery</code>，看不到 <code>bindValues()</code> 等等，甚至于怎么访问数据库的我们都不知道，但得到了查询结果。</p>
+<p>SQL 语言的特点就是：用户提出 <code>做什么</code>，而不是 <code>怎么做</code>。对于我们也是一样的，访问数据库的中间过程我们都不关心，数据才是我们关心的，给定 SQL 语句，就能得到查询结果，这是最理想的。但是在代码里有太多访问数据库的细节都是不得已而为之，那并不是我们的本意。能不能实现像上面这样简单的访问数据库，把焦点放在 <code>SQL 语句</code> 和 <code>结果</code>上，而忽略数据库访问的细节？答案当然是可以，这一章节讲解怎么实现这样的功能，我们称其为 <code>DBUtil</code>。</p>
+<p>先介绍 <code>DBUtil</code> 的使用，如果对 <code>DBUtil</code> 的实现不感兴趣，可以忽略实现部分的内容，这并不会影响 <code>DBUtil</code> 的使用，有兴趣的话可以继续阅读后面实现部分。</p>
+<h2 id="2-DBUtil-实例"><a href="#2-DBUtil-实例" class="headerlink" title="2. DBUtil 实例"></a>2. DBUtil 实例</h2><p>user 表的数据，下面的例子里需要使用：</p>
+<table>
+<thead>
+<tr>
+<th align="center">id</th>
+<th>username</th>
+<th>password</th>
+<th>email</th>
+<th>mobile</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td>Alice</td>
+<td>passw0rd</td>
+<td>NULL</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td>Bob</td>
+<td>Passw0rd</td>
+<td><a href="mailto:&#x62;&#x6f;&#98;&#x40;&#x67;&#109;&#x61;&#105;&#x6c;&#46;&#99;&#111;&#x6d;">&#x62;&#x6f;&#98;&#x40;&#x67;&#109;&#x61;&#105;&#x6c;&#46;&#99;&#111;&#x6d;</a></td>
+<td>NULL</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td>Josh</td>
+<td>Pa88w0rd</td>
+<td>NULL</td>
+<td>NULL</td>
+</tr>
+</tbody></table>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;db/DBUtil.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QDebug&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QApplication&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">useDBUtil</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="function">QApplication <span class="title">app</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line">    <span class="built_in">useDBUtil</span>();</span><br><span class="line">    <span class="keyword">return</span> app.<span class="built_in">exec</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">useDBUtil</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 1. 查找 Alice 的 ID</span></span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;\n1. 查找 Alice 的 ID&quot;</span>;</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; DBUtil::<span class="built_in">selectInt</span>(<span class="string">&quot;select id from user where username=&#x27;Alice&#x27;&quot;</span>);</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; DBUtil::<span class="built_in">selectVariant</span>(<span class="string">&quot;select id from user where username=&#x27;Alice&#x27;&quot;</span>).<span class="built_in">toInt</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2. 查找 Alice 的密码</span></span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;\n2. 查找 Alice 的密码&quot;</span>;</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; DBUtil::<span class="built_in">selectString</span>(<span class="string">&quot;select password from user where username=&#x27;Alice&#x27;&quot;</span>);</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; DBUtil::<span class="built_in">selectMap</span>(<span class="string">&quot;select password from user where username=&#x27;Alice&#x27;&quot;</span>)[<span class="string">&quot;password&quot;</span>].<span class="built_in">toString</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 3. 查找 Alice 的所有信息，如名字，密码，邮件等</span></span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;\n3. 查找 Alice 的所有信息，如名字，密码，邮件等&quot;</span>;</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; DBUtil::<span class="built_in">selectMap</span>(<span class="string">&quot;select * from user where username=&#x27;Alice&#x27;&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 4. 查找 Alice 和 Bob 的所有信息，如名字，密码，邮件等</span></span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;\n4. 查找 Alice 和 Bob 的所有信息，如名字，密码，邮件等&quot;</span>;</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; DBUtil::<span class="built_in">selectMaps</span>(<span class="string">&quot;select * from user where username=&#x27;Alice&#x27; or username=&#x27;Bob&#x27;&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 5. 查找 Alice 和 Bob 的密码</span></span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;\n5. 查找 Alice 和 Bob 的密码&quot;</span>;</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; DBUtil::<span class="built_in">selectStrings</span>(<span class="string">&quot;select password from user where username=&#x27;Alice&#x27; or username=&#x27;Bob&#x27;&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 6. 查询时使用命名参数</span></span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;\n6. 查询时使用命名参数&quot;</span>;</span><br><span class="line">    QMap&lt;QString, QVariant&gt; params;</span><br><span class="line">    params[<span class="string">&quot;id&quot;</span>] = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; DBUtil::<span class="built_in">selectMap</span>(<span class="string">&quot;select * from user where id=:id&quot;</span>, params);</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; DBUtil::<span class="built_in">selectString</span>(<span class="string">&quot;select username from user where id=:id&quot;</span>, params);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>程序输出</code>：</p>
+<blockquote>
+<ol>
+<li><p>查找 Alice 的 ID<br>1<br>1  </p>
+</li>
+<li><p>查找 Alice 的密码<br>“passw0rd”<br>“passw0rd”  </p>
+</li>
+<li><p>查找 Alice 的所有信息，如名字，密码，邮件等<br>QMap((“email”, QVariant(QString, “”) ) ( “id” ,  QVariant(int, 1) ) ( “mobile” ,  QVariant(QString, “”) ) ( “password” ,  QVariant(QString, “passw0rd”) ) ( “username” ,  QVariant(QString, “Alice”) ) )  </p>
+</li>
+<li><p>查找 Alice 和 Bob 的所有信息，如名字，密码，邮件等<br>(QMap((“email”, QVariant(QString, “”) ) ( “id” ,  QVariant(int, 1) ) ( “mobile” ,  QVariant(QString, “”) ) ( “password” ,  QVariant(QString, “passw0rd”) ) ( “username” ,  QVariant(QString, “Alice”) ) ) , QMap((“email”, QVariant(QString, “<a href="mailto:&#x62;&#111;&#98;&#x40;&#x67;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#109;">&#x62;&#111;&#98;&#x40;&#x67;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#109;</a>“) ) ( “id” ,  QVariant(int, 2) ) ( “mobile” ,  QVariant(QString, “”) ) ( “password” ,  QVariant(QString, “Passw0rd”) ) ( “username” ,  QVariant(QString, “Bob”) ) ) )  </p>
+</li>
+<li><p>查找 Alice 和 Bob 的密码<br>(“passw0rd”, “Passw0rd”)  </p>
+</li>
+<li><p>查询时使用命名参数<br>QMap((“email”, QVariant(QString, “”) ) ( “id” ,  QVariant(int, 1) ) ( “mobile” ,  QVariant(QString, “”) ) ( “password” ,  QVariant(QString, “passw0rd”) ) ( “username” ,  QVariant(QString, “Alice”) ) )<br>“Alice”</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="3-DBUtil-的-API"><a href="#3-DBUtil-的-API" class="headerlink" title="3. DBUtil 的 API"></a>3. DBUtil 的 API</h2><p><strong>DBUtil 的 SQL 语句和参数的格式：</strong></p>
+<ol>
+<li><p><code>QVariantMap</code> 等价于 <code>QMap&lt;QString, QVariant&gt;</code></p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">typedef QMap&lt;QString, QVariant&gt; QVariantMap;</span><br></pre></td></tr></table></figure></li>
+<li><p>参数 <code>sql</code> 可以是一个简单的 SQL 语句，不带参数，也可以带命名参数，如  </p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">QString sql1 = &quot;select id from user where username=&#x27;Alice&#x27;&quot;;</span><br><span class="line">QString sql2 = &quot;select * from user where id=:id&quot;;</span><br></pre></td></tr></table></figure></li>
+<li><p>如果 <code>sql</code> 带有命名参数，才需要 <code>params</code>，key 是命名参数的名字（不要冒号），value 是参数的值，如</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">QString sql = &quot;select * from user where id=:id&quot;;</span><br><span class="line">QVariantMap params;  </span><br><span class="line">params[&quot;id&quot;] = 1;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>DBUtil API 说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th>函数名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>insert</td>
+<td>static int <code>insert</code>(const QString &amp;sql, const QVariantMap &amp;params = QVariantMap()) <br> 执行插入语句，并返回插入行的 id</td>
+</tr>
+<tr>
+<td>update</td>
+<td>static bool <code>update</code>(const QString &amp;sql, const QVariantMap &amp;params = QVariantMap()) <br> 执行更新语句 (update 和 delete 语句都是更新语句)，返回 true 为执行成功，失败则返回 false</td>
+</tr>
+<tr>
+<td>selectMap</td>
+<td>static QVariantMap <code>selectMap</code>(const QString &amp;sql, const QVariantMap &amp;params = QVariantMap()) <br> 执行查询语句，查询到一条记录，并把其映射成 map，Key 是列名，Value 是列值。如果查询结果有多条记录，返回第一条记录的 map</td>
+</tr>
+<tr>
+<td>selectMaps</td>
+<td>static <code>QList&lt;QVariantMap&gt;</code> <code>selectMaps</code>(const QString &amp;sql, const QVariantMap &amp;params = QVariantMap()) <br> 执行查询语句，查询到多条记录的 list，并把每一条记录其映射成一个 map，Key 是列名，Value 是列值</td>
+</tr>
+<tr>
+<td>selectInt</td>
+<td>static int <code>selectInt</code>(const QString &amp;sql, const QVariantMap &amp;params = QVariantMap()) <br> 查询结果是一个整数值，如查询记录的个数，和等.</td>
+</tr>
+<tr>
+<td>selectInt64</td>
+<td>static qint64 <code>selectInt64</code>(const QString &amp;sql, const QVariantMap &amp;params = QVariantMap()) <br> 查询结果是一个长整数值, 如果返回时间戳时很方便</td>
+</tr>
+<tr>
+<td>selectString</td>
+<td>static QString <code>selectString</code>(const QString &amp;sql, const QVariantMap &amp;params = QVariantMap()) <br> 查询结果是一个字符串</td>
+</tr>
+<tr>
+<td>selectStrings</td>
+<td>static QStringList <code>selectStrings</code>(const QString &amp;sql, const QVariantMap &amp;params = QVariantMap()) <br> 查询结果是多个字符串</td>
+</tr>
+<tr>
+<td>selectDate</td>
+<td>static QDate <code>selectDate</code>(const QString &amp;sql, const QVariantMap &amp;params = QVariantMap()) <br> 查询结果是一个日期类型</td>
+</tr>
+<tr>
+<td>selectDateTime</td>
+<td>static QDateTime <code>selectDateTime</code>(const QString &amp;sql, const QVariantMap &amp;params = QVariantMap()) <br> 查询结果是一个日期时间类型</td>
+</tr>
+<tr>
+<td>selectVariant</td>
+<td>static QVariant <code>selectVariant</code>(const QString &amp;sql, const QVariantMap &amp;params = QVariantMap()) <br> 查询结果是一个 QVariant，可以使用它的 toXxx方法转变成对应的类型，例如 toDouble(), toBool()</td>
+</tr>
+</tbody></table>
+<h2 id="4-DBUtil-的配置文件"><a href="#4-DBUtil-的配置文件" class="headerlink" title="4. DBUtil 的配置文件"></a>4. DBUtil 的配置文件</h2><p>在 <code>config.json</code> 里配置创建连接池的参数，下面是 <code>config.json</code> 样例:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;database&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;debug&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;QMYSQL&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;host&quot;</span>: <span class="string">&quot;127.0.0.1&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;port&quot;</span>: <span class="number">3306</span>,</span><br><span class="line">        <span class="attr">&quot;database_name&quot;</span>: <span class="string">&quot;qt&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;username&quot;</span>: <span class="string">&quot;root&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;password&quot;</span>: <span class="string">&quot;root&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;test_on_borrow&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">&quot;test_on_borrow_sql&quot;</span>: <span class="string">&quot;SELECT 1&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;sql_files&quot;</span>: [</span><br><span class="line">            <span class="string">&quot;resources/sql/user.sql&quot;</span>,</span><br><span class="line">            <span class="string">&quot;resources/sql/product.sql&quot;</span></span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="attr">&quot;qss_files&quot;</span>: [</span><br><span class="line">        <span class="string">&quot;resources/qss/button.css&quot;</span>,</span><br><span class="line">        <span class="string">&quot;resources/qss/groupbox.css&quot;</span>,</span><br><span class="line">        <span class="string">&quot;resources/qss/centralWidget.css&quot;</span></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>debug</td>
+<td>bool</td>
+<td>false</td>
+<td>为 true，输出访问数据库的调试信息，例如执行的 SQL 语句，SQL 语句用到的参数，false 则不输出</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>无</td>
+<td>QSqlDatabase::addDatabase() 时指定的数据库的类型，如 QMYSQL, QSQLITE, QODBC 等</td>
+</tr>
+<tr>
+<td>host</td>
+<td>string</td>
+<td>无</td>
+<td>数据库所在电脑的 IP</td>
+</tr>
+<tr>
+<td>port</td>
+<td>integer</td>
+<td>0</td>
+<td>数据库的端口号，如果不设置则用默认值 0，则不设置端口号，自动使用默认端口号，例如 MySQL 的是 3306</td>
+</tr>
+<tr>
+<td>database_name</td>
+<td>string</td>
+<td>无</td>
+<td>数据库的名字，SQLite 为数据库的文件名</td>
+</tr>
+<tr>
+<td>username</td>
+<td>string</td>
+<td>无</td>
+<td>访问数据库的用户名</td>
+</tr>
+<tr>
+<td>password</td>
+<td>string</td>
+<td>无</td>
+<td>访问数据库的密码</td>
+</tr>
+<tr>
+<td>test_on_borrow</td>
+<td>bool</td>
+<td>false</td>
+<td>从数据库连接池取连接时是否测试连接有效</td>
+</tr>
+<tr>
+<td>test_on_borrow_sql</td>
+<td>string</td>
+<td>SELECT 1</td>
+<td>测试连接是否有效时用的 SQL 语句，如 SELECT 1</td>
+</tr>
+</tbody></table>
+<p>如果有默认值，在 <code>config.json</code> 没有配置的话，会使用默认值。sql_files 和 qss_files 先忽略，sql_files 下面会有涉及。</p>
+<p><strong><code>config.json</code> 放在哪里？</strong></p>
+<ol>
+<li>解压下载得到的文件 DBUtil.7z（文末有下载链接）</li>
+<li>复制 <code>data</code> 目录到可执行文件所在目录（Windows 为 .exe 所在目录，Mac 的如图所示，DBUtil 是 Mac 下的可执行文件）</li>
+<li>复制配置文件 <code>bin/config.json</code> 到可执行文件所在目录 (Windows 为 .exe 所在目录，Mac 的如图所示，DBUtil 是 Mac 下的可执行文件), 程序运行的时候类 <code>Config</code> 读取配置信息，用来创建数据库连接池。</li>
+</ol>
+<h2 id="5-DBUtil-的实现"><a href="#5-DBUtil-的实现" class="headerlink" title="5. DBUtil 的实现"></a>5. DBUtil 的实现</h2><p>这里只对 DBUtil 的核心部分进行说明，其他内容请参考源码。</p>
+<h3 id="5-1-bindValues"><a href="#5-1-bindValues" class="headerlink" title="5.1. bindValues()"></a>5.1. bindValues()</h3><p>执行 SQL 语句前，为 prepared 的 query 绑定参数（query 的 SQL 语句里有命名参数）。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DBUtil::bindValues</span><span class="params">(QSqlQuery *query, <span class="keyword">const</span> QVariantMap &amp;params)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (QVariantMap::const_iterator i=params.<span class="built_in">constBegin</span>(); i!=params.<span class="built_in">constEnd</span>(); ++i) &#123;</span><br><span class="line">        query-&gt;<span class="built_in">bindValue</span>(<span class="string">&quot;:&quot;</span> + i.<span class="built_in">key</span>(), i.<span class="built_in">value</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-2-getFieldNames"><a href="#5-2-getFieldNames" class="headerlink" title="5.2. getFieldNames()"></a>5.2. getFieldNames()</h3><p>执行查询 SQL 语句后，得到 query 中所有的列名。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">QStringList <span class="title">DBUtil::getFieldNames</span><span class="params">(<span class="keyword">const</span> QSqlQuery &amp;query)</span> </span>&#123;</span><br><span class="line">    QSqlRecord record = query.<span class="built_in">record</span>();</span><br><span class="line">    QStringList names;</span><br><span class="line">    <span class="keyword">int</span> count = record.<span class="built_in">count</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; ++i) &#123;</span><br><span class="line">        names &lt;&lt; record.<span class="built_in">fieldName</span>(i);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> names;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-3-queryToMaps"><a href="#5-3-queryToMaps" class="headerlink" title="5.3. queryToMaps()"></a>5.3. queryToMaps()</h3><p>执行查询 SQL 语句后，得到的每一行记录映射成一个 map，key 是列名，value 是列的值，并把所有行放在 list 里。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">QList&lt;QVariantMap&gt; <span class="title">DBUtil::queryToMaps</span><span class="params">(QSqlQuery *query)</span> </span>&#123;</span><br><span class="line">    QList&lt;QVariantMap&gt; rowMaps;</span><br><span class="line">    QStringList fieldNames = <span class="built_in">getFieldNames</span>(*query);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (query-&gt;<span class="built_in">next</span>()) &#123;</span><br><span class="line">        QVariantMap rowMap;</span><br><span class="line"></span><br><span class="line">        foreach (QString fieldName, fieldNames) &#123;</span><br><span class="line">            rowMap.<span class="built_in">insert</span>(fieldName, query-&gt;<span class="built_in">value</span>(fieldName));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        rowMaps.<span class="built_in">append</span>(rowMap);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> rowMaps;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-4-执行-SQL-语句，查询结果为-QList-lt-QVariantMap-gt"><a href="#5-4-执行-SQL-语句，查询结果为-QList-lt-QVariantMap-gt" class="headerlink" title="5.4. 执行 SQL 语句，查询结果为  QList&lt;QVariantMap&gt;"></a>5.4. 执行 SQL 语句，查询结果为  <code>QList&lt;QVariantMap&gt;</code></h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">QList&lt;QVariantMap&gt; <span class="title">DBUtil::selectMaps</span><span class="params">(<span class="keyword">const</span> QString &amp;sql, <span class="keyword">const</span> QVariantMap &amp;params)</span> </span>&#123;</span><br><span class="line">    QSqlDatabase db = ConnectionPool::<span class="built_in">instance</span>().<span class="built_in">openConnection</span>(); <span class="comment">// [1]</span></span><br><span class="line">    <span class="function">QSqlQuery <span class="title">query</span><span class="params">(db)</span></span>; <span class="comment">// [2]</span></span><br><span class="line">    query.<span class="built_in">prepare</span>(sql);  <span class="comment">// [3]</span></span><br><span class="line">    <span class="built_in">bindValues</span>(&amp;query, params); <span class="comment">// [4]</span></span><br><span class="line"></span><br><span class="line">    QList&lt;QVariantMap&gt; maps;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (query.<span class="built_in">exec</span>()) &#123; <span class="comment">// [5]</span></span><br><span class="line">        maps = <span class="built_in">queryToMaps</span>(&amp;query); <span class="comment">// [6]</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">debug</span>(query, params); <span class="comment">// 调试使用</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> maps;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>执行 SQL 的过程和前面描述的都差不多，包括查询、插入、更新和删除等都相似：</strong></p>
+<ol>
+<li>取得数据库连接</li>
+<li>创建 QSqlQuery 对象</li>
+<li>调用 query.prepare(sql) 表明要使用 prepared 的方式查询数据库</li>
+<li>绑定参数</li>
+<li>执行 SQL 查询</li>
+<li><strong>处理 SQL 语句的执行结果</strong></li>
+</ol>
+<p>这 6  个步骤中，只有第 6 步处理 SQL 的查询结果的代码不一样，所以可以看到下面的 <code>selectVariant()</code> 和 <code>selectMaps()</code> 几乎一样，其它几个执行 SQL 语句相关的函数就不一一列举了。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">QVariant <span class="title">DBUtil::selectVariant</span><span class="params">(<span class="keyword">const</span> QString &amp;sql, <span class="keyword">const</span> QVariantMap &amp;params)</span> </span>&#123;</span><br><span class="line">    QSqlDatabase db = ConnectionPool::<span class="built_in">instance</span>().<span class="built_in">openConnection</span>();</span><br><span class="line">    <span class="function">QSqlQuery <span class="title">query</span><span class="params">(db)</span></span>;</span><br><span class="line">    query.<span class="built_in">prepare</span>(sql);</span><br><span class="line">    <span class="built_in">bindValues</span>(&amp;query, params);</span><br><span class="line"></span><br><span class="line">    QVariant result;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (query.<span class="built_in">exec</span>() &amp;&amp; query.<span class="built_in">next</span>()) &#123;</span><br><span class="line">        result = query.<span class="built_in">value</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">debug</span>(query, params);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>步骤 1, 2, 3, 4, 5, 7 都还是重复的</code>，虽然 DBUtil 提供访问数据库的函数不会太多，也即是说，即使上面的代码有重复的，也只是在 DBUtil 里重复，不会在其他地方发生，也还是能接受的。不过，消灭重复代码是个永远的话题，如有可能，我们将进行到底，想一下还能怎么继续简化呢？</p>
+<h3 id="5-5-使用-Lambda-表达式进一步简化"><a href="#5-5-使用-Lambda-表达式进一步简化" class="headerlink" title="5.5. 使用 Lambda 表达式进一步简化"></a>5.5. 使用 Lambda 表达式进一步简化</h3><p>C++11 支持 Lambda 表达式，利用 Lambda 表达式可以对上面的代码进一步简化。在类 DBUtil 里定义静态函数 <code>executeSql()</code>，它定义了访问数据库算法骨架，也就是我们前面说的访问数据库的 7 个步骤，唯一变化的是第 6 步，处理不同 SQL 语句执行的结果的逻辑不一样，所以第 6 步的实现由参数传进来的 Lambda 表达式提供（注：这就是传说中设计模式里的 <code>策略模式</code>）。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DBUtil::executeSql</span><span class="params">(<span class="keyword">const</span> QString &amp;sql, </span></span></span><br><span class="line"><span class="params"><span class="function">                        <span class="keyword">const</span> QVariantMap &amp;params,</span></span></span><br><span class="line"><span class="params"><span class="function">                        std::function&lt;<span class="keyword">void</span> (QSqlQuery *query)&gt; handleResult)</span> </span>&#123;</span><br><span class="line">    QSqlDatabase db = ConnectionPool::<span class="built_in">instance</span>().<span class="built_in">openConnection</span>(); <span class="comment">// [1]</span></span><br><span class="line">    <span class="function">QSqlQuery <span class="title">query</span><span class="params">(db)</span></span>; <span class="comment">// [2]</span></span><br><span class="line">    query.<span class="built_in">prepare</span>(sql);  <span class="comment">// [3]</span></span><br><span class="line">    <span class="built_in">bindValues</span>(&amp;query, params); <span class="comment">// [4]</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (query.<span class="built_in">exec</span>()) &#123; <span class="comment">// [5]</span></span><br><span class="line">        <span class="built_in">handleResult</span>(&amp;query); <span class="comment">// [6]</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">debug</span>(query, params);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-6-最后可以简化到下面这样"><a href="#5-6-最后可以简化到下面这样" class="headerlink" title="5.6. 最后可以简化到下面这样"></a>5.6. 最后可以简化到下面这样</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">QList&lt;QVariantMap&gt; <span class="title">DBUtil::selectMaps</span><span class="params">(<span class="keyword">const</span> QString &amp;sql, <span class="keyword">const</span> QVariantMap &amp;params)</span> </span>&#123;</span><br><span class="line">    QList&lt;QVariantMap&gt; maps;</span><br><span class="line">    <span class="built_in">executeSql</span>(sql, params, [&amp;maps](QSqlQuery *query) &#123;</span><br><span class="line">        maps = <span class="built_in">queryToMaps</span>(query);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> maps;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">QVariant <span class="title">DBUtil::selectVariant</span><span class="params">(<span class="keyword">const</span> QString &amp;sql, <span class="keyword">const</span> QVariantMap &amp;params)</span> </span>&#123;</span><br><span class="line">    QVariant result;</span><br><span class="line">    <span class="built_in">executeSql</span>(sql, params, [&amp;result](QSqlQuery *query) &#123;</span><br><span class="line">        <span class="keyword">if</span> (query-&gt;<span class="built_in">next</span>()) &#123;</span><br><span class="line">            result = query-&gt;<span class="built_in">value</span>(<span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">DBUtil::insert</span><span class="params">(<span class="keyword">const</span> QString &amp;sql, <span class="keyword">const</span> QVariantMap &amp;params)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> id = <span class="number">-1</span>;</span><br><span class="line">    <span class="built_in">executeSql</span>(sql, params, [&amp;id](QSqlQuery *query) &#123;</span><br><span class="line">        id = query-&gt;<span class="built_in">lastInsertId</span>().<span class="built_in">toInt</span>(); <span class="comment">// 插入行的主键</span></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> id;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">DBUtil::update</span><span class="params">(<span class="keyword">const</span> QString &amp;sql, <span class="keyword">const</span> QVariantMap &amp;params)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">bool</span> result;</span><br><span class="line">    <span class="built_in">executeSql</span>(sql, params, [&amp;result](QSqlQuery *query) &#123;</span><br><span class="line">        result = query-&gt;<span class="built_in">lastError</span>().<span class="built_in">type</span>() == QSqlError::NoError;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>访问数据库的函数只需要实现处理 SQL 语句执行的结果的 Lambda 表达式，其它不停重复的步骤如获取连接，参数绑定，执行 SQL 语句等都交给 executeSql() 函数，代码更加简洁了，也减少了出错的机率。</p>
+<p>还能再继续优化吗？也许可以，但是我的脑子已经断片！</p>
+<h2 id="6-SQL-语句放到文件里"><a href="#6-SQL-语句放到文件里" class="headerlink" title="6. SQL 语句放到文件里"></a>6. SQL 语句放到文件里</h2><p><strong>到目前为止，我们列举的例子中，SQL 语句都是写死在代码里的，有没有缺点？</strong></p>
+<p>先看看分页语句：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> MySQL 数据库分页</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> 表名 limit startrow, pagesize</span><br><span class="line"> </span><br><span class="line"><span class="number">2.</span> PostgreSQL 数据库分页</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> 表名 limit pagesize <span class="keyword">offset</span> startrow</span><br><span class="line"></span><br><span class="line"><span class="number">3.</span> Oracle 数据库分页</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> (<span class="keyword">select</span> a.<span class="operator">*</span>, rownum rc <span class="keyword">from</span> 表名 <span class="keyword">where</span> rownum<span class="operator">&lt;=</span>endrow) a <span class="keyword">where</span> a.rc<span class="operator">&gt;=</span>startrow</span><br><span class="line"> </span><br><span class="line"><span class="number">4.</span> DB2 数据库分页</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> (</span><br><span class="line">    <span class="keyword">select</span> rownumber() <span class="keyword">over</span>() <span class="keyword">as</span> rc,a.<span class="operator">*</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> 表名 <span class="keyword">order</span> <span class="keyword">by</span> 列名) </span><br><span class="line"><span class="keyword">as</span> a) <span class="keyword">where</span> rc <span class="keyword">between</span> startrow <span class="keyword">and</span> endrow</span><br><span class="line"> </span><br><span class="line"><span class="number">5.</span> <span class="keyword">SQL</span> Server <span class="number">2000</span> 数据库分页</span><br><span class="line"><span class="keyword">select</span> top pagesize <span class="operator">*</span> <span class="keyword">from</span> 表名 </span><br><span class="line"><span class="keyword">where</span> 列名 <span class="keyword">not</span> <span class="keyword">in</span> (<span class="keyword">select</span> top pagesize<span class="operator">*</span>page 列名 <span class="keyword">from</span>  表名 <span class="keyword">order</span> <span class="keyword">by</span> 列名)</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> 列名</span><br></pre></td></tr></table></figure>
+
+<p>同样功能的 SQL 语句有可能在不同的数据里写法不一样，如上面的分页 SQL，如果把 SQL 语句硬编码写死在代码里，当需要把数据库从 MySQL 换到 PostgreSQL 时，就很可能需要修改代码中的 SQL 语句了，既然代码被修改了，那么就需要重新编译和发布程序。</p>
+<p><strong>什么时候可能会修改 SQL 语句？</strong></p>
+<ol>
+<li>开发的时候，经常修改 SQL 语句是很正常的事。</li>
+<li>项目开始时决定使用 MySQL，后期更换为其它数据库的可能性很小。但是假设我们有被迫害狂想症，担心哪一天老板要求更换数据库，毕竟老板的思维可不是你我能猜透的。更换数据库后，很多 SQL 语句就得修改，例如 MySQL 的分页和 Oracle 的就不一样，尤其是高级功能相关的 SQL 语句大多都和数据库相关的，并不通用。</li>
+<li>如果 SQL 语句很长，在代码里拼出来也很不容易，分成很多行，用好多加号连起来，不但容易出错，可读性也不好。</li>
+<li>还有一个很重要的问题，SQL 语句调优，我们程序员写出来的 SQL 语句大多数时候是很低效的，毕竟我们不是专业的 DBA，不能让 DBA 来修改程序吧。</li>
+</ol>
+<p>如果把 SQL 语句放在文件里而不是程序的源码里，修改 SQL 语句后，不需要修改程序源码，不需要重新编译，重启一下程序就能看到修改后的 SQL 语句执行的效果，效率非常高。由于 SQL 语句是在文件里，写很长的 SQL 语句容易得多，出错了修改也方便，不用像在源码里那样用字符串相加慢慢的拼出来。SQL 语句还可以集中管理，否则去源码里到处找出 SQL 语句来修改，漏掉一些是经常发生的事，此外还能让 DBA 帮助优化 SQL 语句。</p>
+<p>我们提供了工具类 <code>Sqls</code> 用来读取 xml 文件里的 SQL 语句，读取 xml 文件不是这里的重点，所以就不作介绍了，把焦点放在定义 SQL 语句的 xml 文件的格式和使用上。</p>
+<h3 id="6-1-定义-SQL-语句的-xml-文件的格式"><a href="#6-1-定义-SQL-语句的-xml-文件的格式" class="headerlink" title="6.1. 定义 SQL 语句的 xml 文件的格式"></a>6.1. 定义 SQL 语句的 xml 文件的格式</h3><p>用下面这个 SQL 语句的 xml 文件为例，包含了插入，删除，查询：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">sqls</span> <span class="attr">namespace</span>=<span class="string">&quot;User&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">define</span> <span class="attr">id</span>=<span class="string">&quot;fields&quot;</span>&gt;</span>id, username, password, email, mobile<span class="tag">&lt;/<span class="name">define</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">sql</span> <span class="attr">id</span>=<span class="string">&quot;findByUserId&quot;</span>&gt;</span></span><br><span class="line">        SELECT <span class="tag">&lt;<span class="name">include</span> <span class="attr">defineId</span>=<span class="string">&quot;fields&quot;</span>/&gt;</span> FROM user WHERE id=%1</span><br><span class="line">        <span class="comment">&lt;!-- include 会引用前面使用 define 定义的内容，相当于：</span></span><br><span class="line"><span class="comment">            SELECT id, username, password, email, mobile FROM user WHERE id=%1</span></span><br><span class="line"><span class="comment">        --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">sql</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">sql</span> <span class="attr">id</span>=<span class="string">&quot;findAll&quot;</span>&gt;</span></span><br><span class="line">        SELECT id, username, password, email, mobile FROM user</span><br><span class="line">    <span class="tag">&lt;/<span class="name">sql</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">sql</span> <span class="attr">id</span>=<span class="string">&quot;insert&quot;</span>&gt;</span></span><br><span class="line">        INSERT INTO user (username, password, email, mobile)</span><br><span class="line">        VALUES (:username, :password, :email, :mobile)</span><br><span class="line">    <span class="tag">&lt;/<span class="name">sql</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">sql</span> <span class="attr">id</span>=<span class="string">&quot;update&quot;</span>&gt;</span></span><br><span class="line">        UPDATE user SET username=:username, password=:password,</span><br><span class="line">            email=:email, mobile=:mobile</span><br><span class="line">        WHERE id=:id</span><br><span class="line">    <span class="tag">&lt;/<span class="name">sql</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">sqls</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>名字</th>
+<th align="center">类型</th>
+<th align="center">可选</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>sqls</td>
+<td align="center">元素</td>
+<td align="center">必须</td>
+<td>xml 文档的根元素</td>
+</tr>
+<tr>
+<td>namespace</td>
+<td align="center">属性</td>
+<td align="center">必须</td>
+<td>sqls 的属性，主要为了减少命名冲突，更好的描述当前 SQL 的作用范围</td>
+</tr>
+<tr>
+<td>define</td>
+<td align="center">元素</td>
+<td align="center">可选</td>
+<td>定义一个字符串，可以被重复引用，必须在所有的 sql 元素前定义，有一个唯一的 id</td>
+</tr>
+<tr>
+<td>include</td>
+<td align="center">元素</td>
+<td align="center">可选</td>
+<td>使用 defineId 引用 define 定义的内容，defineId 等于 define 的 id。include 元素被对应的 define 的内容替换</td>
+</tr>
+<tr>
+<td>sql</td>
+<td align="center">元素</td>
+<td align="center">可选</td>
+<td>定义一个 SQL 语句，可使用 include 引用定义好的 define，include 元素被 define 的内容替换</td>
+</tr>
+</tbody></table>
+<h3 id="6-2-SQL-语句的-xml-文件的放在哪里？"><a href="#6-2-SQL-语句的-xml-文件的放在哪里？" class="headerlink" title="6.2. SQL 语句的 xml 文件的放在哪里？"></a>6.2. SQL 语句的 xml 文件的放在哪里？</h3><p>还记得 <code>config.json</code> 里的 sql_files 吗？</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> &quot;sql_files&quot;: [</span><br><span class="line">    &quot;resources/sql/user.sql&quot;,</span><br><span class="line">    &quot;resources/sql/product.sql&quot;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p> <strong><code>sql_files</code> 的值就是定义 SQL 语句的 xml 文件的路径：</strong></p>
+<ul>
+<li>可以指定多个路径</li>
+<li>路径可以是绝对路径</li>
+<li>路径也可以是相对于可执行文件的相对路径</li>
+</ul>
+<p>下面的目录结构可以直观的看到 SQL 的 xml 文件存储的位置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">├── DBUtil.exe</span><br><span class="line">├── data</span><br><span class="line">│   └── config.json</span><br><span class="line">└── resources</span><br><span class="line">    └── sql</span><br><span class="line">        ├── product.sql</span><br><span class="line">        └── user.sql</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-3-程序里怎么读取-SQL-语句？"><a href="#6-3-程序里怎么读取-SQL-语句？" class="headerlink" title="6.3. 程序里怎么读取 SQL 语句？"></a>6.3. 程序里怎么读取 SQL 语句？</h3><p>调用 static QString <code>Sqls::instance().getSql</code>(const QString &amp;sqlNamespace, const QString &amp;sqlId) 读取 SQL 语句：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>sqlNamespace</td>
+<td>sqls 的属性 namespace 的值</td>
+</tr>
+<tr>
+<td>sqlId</td>
+<td>sql 的属性 id 的值</td>
+</tr>
+</tbody></table>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;db/Sqls.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QDebug&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">useSqlFromFile</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="built_in">useSqlFromFile</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">useSqlFromFile</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 读取 namespace 为 User 下，id 为 findByUserId 的 SQL 语句</span></span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; Sqls::<span class="built_in">instance</span>().<span class="built_in">getSql</span>(<span class="string">&quot;User&quot;</span>, <span class="string">&quot;findByUserId&quot;</span>);</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; Sqls::<span class="built_in">instance</span>().<span class="built_in">getSql</span>(<span class="string">&quot;User&quot;</span>, <span class="string">&quot;findByUserId-1&quot;</span>); <span class="comment">// 找不到这条 SQL 语句会有提示</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>程序输出</code>：</p>
+<blockquote>
+<p>“加载 SQL 文件 resources/sql/user.sql”<br>“加载 SQL 文件 resources/sql/product.sql”<br>“SELECT id, username, password, email, mobile FROM user WHERE id=%1”<br>“Cannot find SQL for User::findByUserId-1”  </p>
+</blockquote>
+<p>从程序的输出里可以看到，加载了 2 个定义 SQL 语句的文件 <code>user.sql</code> 和 <code>product.sql</code>，在 namespace <code>User</code> 里找到了 id 为 <code>findByUserId</code> 的 SQL 语句，找不到 id 为 <code>findByUserId-1</code> 的 SQL 语句。</p>
+<h2 id="7-ORMapping"><a href="#7-ORMapping" class="headerlink" title="7. ORMapping"></a>7. ORMapping</h2><p>使用前面的技术，如下访问 user 表</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">QVariantMap userMap = DBUtil::<span class="built_in">selectMap</span>(Sqls::<span class="built_in">getSql</span>(<span class="string">&quot;User&quot;</span>, <span class="string">&quot;findByUserId&quot;</span>).<span class="built_in">arg</span>(<span class="number">2</span>));</span><br><span class="line"><span class="keyword">int</span> id = userMap[<span class="string">&quot;id&quot;</span>].<span class="built_in">toInt</span>();</span><br><span class="line">QString name = userMap[<span class="string">&quot;username&quot;</span>].<span class="built_in">toString</span>();</span><br></pre></td></tr></table></figure>
+
+<p>但是，要在 20 个地方查询数据库访问 user 呢？不但调用上面的代码 20 次，每次使用的时候还需要注意数据类型，总是感觉不是很方便。如果熟悉 Java，可能对 <code>ORMapping</code> 会很熟悉，即把从数据库查询到的数据映射成一个类的对象，访问 user 表数据的时候，如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">User user = UserDao::<span class="built_in">findByUserId</span>(<span class="number">2</span>); <span class="comment">// 查询数据库</span></span><br><span class="line"><span class="keyword">int</span> id = user.id;</span><br><span class="line">QString name = user.username;</span><br></pre></td></tr></table></figure>
+
+<p>用类 UserDao 从数据库查询 user 的数据（DAO 即数据访问对象 Data Access Object 的缩写），查询到的数据映射到类 User 的对象，这样做的好处是：</p>
+<ul>
+<li>访问数据库的操作集中在 UserDao 里，而不是分散在代码的各个地方</li>
+<li>访问 user 的时候不需要每次都转换数据的类型，因为对象的属性有自己的类型</li>
+<li>如果新来个架构师认为 user 表中 id 作为列名太土了，要改为 user_id，那么只需要修改 SQL 语句和映射地方就可以。如果用 map 的话，所有用到 userMap[“id”] 的地方都要修改为 userMap[“user_id”]，调用的地方多了就很容易漏掉</li>
+<li>而且 userMap[“id”] 即使不存在也不会报错，看一下 <code>T &amp; QMap::operator[](const Key &amp; key)</code> 的说明：<br>If the map contains no item with key key, the function inserts a default-constructed value into the map with key key, and returns a reference to it.<br>这种有错，但是编译器又不报错的错误，调试是非常困难的，如果是变量名的话，修改不对，编译的时候就会报错。</li>
+</ul>
+<p>所以使用 <code>ORMapping</code> 的方式来访问数据库还是不错的。下面就以 User 和 UserDao 访问数据库表 user 为例来介绍 ORMapping 的实现：</p>
+<ul>
+<li><code>User</code> 类只是用于持有数据，没有业务逻辑，所以只是简单的定义几个属性，这里为了方便，把属性定义为 public 的，也可以定义为 private 的，然后给属性定义读写函数</li>
+<li><code>UserDao</code> 用于查询数据库，并且提供把查询记录得到的 map 映射成对象的函数</li>
+</ul>
+<h3 id="7-1-在-DBUtl-类里增加-2-个函数-selectBean-和-selectBeans"><a href="#7-1-在-DBUtl-类里增加-2-个函数-selectBean-和-selectBeans" class="headerlink" title="7.1. 在 DBUtl 类里增加 2 个函数 selectBean() 和 selectBeans()"></a>7.1. 在 <code>DBUtl</code> 类里增加 2 个函数 <code>selectBean()</code> 和 <code>selectBeans()</code></h3><p><code>selectBean()</code> 和 <code>selectBeans()</code> 的第一个参数都是一个函数指针 <code>T mapToBean(const QVariantMap &amp;rowMap)</code>，这个函数的作用是把一个 QVariantMap 映射成为一个对象，一般都是在 Dao 类里定义，参考 UserDao 的实现。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 查询结果封装成一个对象 bean.</span></span><br><span class="line"><span class="comment"> * @param sql</span></span><br><span class="line"><span class="comment"> * @param mapToBean - 把 map 映射成对象的函数.</span></span><br><span class="line"><span class="comment"> * @return 返回查找到的 bean, 如果没有查找到，返回 T 的默认对象，其 id 最好是 -1，这样便于有效的对象区别。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">static</span> T <span class="title">selectBean</span><span class="params">(T mapToBean(<span class="keyword">const</span> QVariantMap &amp;rowMap), </span></span></span><br><span class="line"><span class="params"><span class="function">                    <span class="keyword">const</span> QString &amp;sql, </span></span></span><br><span class="line"><span class="params"><span class="function">                    <span class="keyword">const</span> QVariantMap &amp;params = QVariantMap())</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 把 map 都映射成一个 bean 对象</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">mapToBean</span>(<span class="built_in">selectMap</span>(sql, params));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 执行查询语句，查询到多个结果并封装成 bean 的 list.</span></span><br><span class="line"><span class="comment"> * @param sql</span></span><br><span class="line"><span class="comment"> * @param params</span></span><br><span class="line"><span class="comment"> * @param mapToBean - 把 map 映射成 bean 对象函数.</span></span><br><span class="line"><span class="comment"> * @return 返回 bean 的 list，如果没有查找到，返回空的 list.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> QList&lt;T&gt; <span class="title">selectBeans</span><span class="params">(T mapToBean(<span class="keyword">const</span> QVariantMap &amp;rowMap), </span></span></span><br><span class="line"><span class="params"><span class="function">                            <span class="keyword">const</span> QString &amp;sql, </span></span></span><br><span class="line"><span class="params"><span class="function">                            <span class="keyword">const</span> QVariantMap &amp;params = QVariantMap())</span> </span>&#123;</span><br><span class="line">    QList&lt;T&gt; beans;</span><br><span class="line">    QList&lt;QVariantMap&gt; rows = <span class="built_in">selectMaps</span>(sql, params);</span><br><span class="line">    <span class="function">QListIterator&lt;QVariantMap&gt; <span class="title">iter</span><span class="params">(rows)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 每一个 map 都映射成一个 bean 对象</span></span><br><span class="line">    <span class="keyword">while</span> (iter.<span class="built_in">hasNext</span>()) &#123;</span><br><span class="line">        beans.<span class="built_in">append</span>(<span class="built_in">mapToBean</span>(iter.<span class="built_in">next</span>()));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> beans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-2-User-h"><a href="#7-2-User-h" class="headerlink" title="7.2. User.h"></a>7.2. <code>User.h</code></h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> USER_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> USER_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QString&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">int</span> id = <span class="number">0</span>;</span><br><span class="line">    QString username;</span><br><span class="line">    QString password;</span><br><span class="line">    QString email;</span><br><span class="line">    QString mobile;</span><br><span class="line"></span><br><span class="line">    <span class="function">QString <span class="title">toString</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// USER_H</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="7-3-User-cpp"><a href="#7-3-User-cpp" class="headerlink" title="7.3. User.cpp"></a>7.3. <code>User.cpp</code></h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;User.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">QString <span class="title">User::toString</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">QString</span>(<span class="string">&quot;ID: %1, Username: %2, Password: %3, Email: %4, Mobile: %5&quot;</span>)</span><br><span class="line">            .<span class="built_in">arg</span>(id).<span class="built_in">arg</span>(username).<span class="built_in">arg</span>(password).<span class="built_in">arg</span>(email).<span class="built_in">arg</span>(mobile);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>例如我们查询 id = 10000 的 User，数据库里没有这个 User，执行查询函数 <code>selectBean()</code> 返回的是一个默认的 User 对象，那么我们就需要有一个标志判断得到的 User 是没有意义的。User 表的主键 id 我们用的是自增长的类型 (auto increment)，从 1 开始，所以 id 不会为 0，于是把 id 初始化为 0，则查询得到的 User 的 id 为 0 的话，那么说明没有查询到 id 为 10000 的 User。这只是一个小技巧，不一定都要和用这里一样的做法，但是表示数据无效的标志是有必要的，应该根据实际情况来设定这个标志。</p>
+<p><code>toString()</code> 函数是为了方便打印 User 信息，例如调用 qDebug() &lt;&lt; user.toString() 就可以打印出 User 的全部信息，而不用 qDebug() &lt;&lt; user.username &lt;&lt; user.password &lt;&lt; user.email 等这么长的调用，如果这么打印的地方太多，写起来太麻烦，除此之外没有其它的意义。</p>
+<h3 id="7-4-UserDao-h"><a href="#7-4-UserDao-h" class="headerlink" title="7.4. UserDao.h"></a>7.4. <code>UserDao.h</code></h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> USERDAO_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> USERDAO_H</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">QString</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">QVariant</span>;</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="class"><span class="keyword">class</span> <span class="title">QList</span>;</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> KT, <span class="keyword">typename</span> VT&gt; <span class="class"><span class="keyword">class</span> <span class="title">QMap</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserDao</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> User <span class="title">findByUserId</span><span class="params">(<span class="keyword">int</span> id)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> QList&lt;User&gt; <span class="title">findtAll</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">int</span>  <span class="title">insert</span><span class="params">(<span class="keyword">const</span> User &amp;user)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">update</span><span class="params">(<span class="keyword">const</span> User &amp;user)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> User <span class="title">mapToUser</span><span class="params">(<span class="keyword">const</span> QMap&lt;QString, QVariant&gt; &amp;rowMap)</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// USERDAO_H</span></span></span><br></pre></td></tr></table></figure>
+
+<p>UserDao 里所有的函数都定义为静态函数，因为 UserDao 不需要成员变量保存调用状态，所以调用这些函数的时候没有必要先创建一个对象然后调用对象的函数。mapToUser() 必须是静态函数，因为 selectBean() 和 selectBeans() 的参数的一个普通函数的指针，不接受成员函数的指针。</p>
+<h3 id="7-5-UserDao-cpp"><a href="#7-5-UserDao-cpp" class="headerlink" title="7.5. UserDao.cpp"></a>7.5. <code>UserDao.cpp</code></h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;UserDao.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;bean/User.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;db/DBUtil.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;db/Sqls.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QMap&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QList&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span> * <span class="keyword">const</span> SQL_NAMESPACE_USER = <span class="string">&quot;User&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function">User <span class="title">UserDao::findByUserId</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">    QString sql = Singleton&lt;Sqls&gt;::<span class="built_in">getInstance</span>().<span class="built_in">getSql</span>(SQL_NAMESPACE_USER, <span class="string">&quot;findByUserId&quot;</span>).<span class="built_in">arg</span>(id);</span><br><span class="line">    <span class="keyword">return</span> DBUtil::<span class="built_in">selectBean</span>(mapToUser, sql);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">QList&lt;User&gt; <span class="title">UserDao::findtAll</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    QString sql = Singleton&lt;Sqls&gt;::<span class="built_in">getInstance</span>().<span class="built_in">getSql</span>(SQL_NAMESPACE_USER, <span class="string">&quot;findAll&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> DBUtil::<span class="built_in">selectBeans</span>(mapToUser, sql);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">UserDao::insert</span><span class="params">(<span class="keyword">const</span> User&amp; user)</span> </span>&#123;</span><br><span class="line">    QString sql = Singleton&lt;Sqls&gt;::<span class="built_in">getInstance</span>().<span class="built_in">getSql</span>(SQL_NAMESPACE_USER, <span class="string">&quot;insert&quot;</span>);</span><br><span class="line"></span><br><span class="line">    QVariantMap params;</span><br><span class="line">    params[<span class="string">&quot;username&quot;</span>] = user.username;</span><br><span class="line">    params[<span class="string">&quot;password&quot;</span>] = user.password;</span><br><span class="line">    params[<span class="string">&quot;email&quot;</span>]    = user.email;</span><br><span class="line">    params[<span class="string">&quot;mobile&quot;</span>]   = user.mobile;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> DBUtil::<span class="built_in">insert</span>(sql, params);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">UserDao::update</span><span class="params">(<span class="keyword">const</span> User&amp; user)</span> </span>&#123;</span><br><span class="line">    QString sql = Singleton&lt;Sqls&gt;::<span class="built_in">getInstance</span>().<span class="built_in">getSql</span>(SQL_NAMESPACE_USER, <span class="string">&quot;update&quot;</span>);</span><br><span class="line"></span><br><span class="line">    QVariantMap params;</span><br><span class="line">    params[<span class="string">&quot;id&quot;</span>]       = user.id;</span><br><span class="line">    params[<span class="string">&quot;username&quot;</span>] = user.username;</span><br><span class="line">    params[<span class="string">&quot;password&quot;</span>] = user.password;</span><br><span class="line">    params[<span class="string">&quot;email&quot;</span>]    = user.email;</span><br><span class="line">    params[<span class="string">&quot;mobile&quot;</span>]   = user.mobile;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> DBUtil::<span class="built_in">update</span>(sql, params);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 把 map 映射为 User 对象</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">User <span class="title">UserDao::mapToUser</span><span class="params">(<span class="keyword">const</span> QMap&lt;QString, QVariant&gt; &amp;rowMap)</span> </span>&#123;</span><br><span class="line">    User user;</span><br><span class="line"></span><br><span class="line">    user.id       = rowMap.<span class="built_in">value</span>(<span class="string">&quot;id&quot;</span>, <span class="number">0</span>).<span class="built_in">toInt</span>();</span><br><span class="line">    user.username = rowMap.<span class="built_in">value</span>(<span class="string">&quot;username&quot;</span>).<span class="built_in">toString</span>();</span><br><span class="line">    user.password = rowMap.<span class="built_in">value</span>(<span class="string">&quot;password&quot;</span>).<span class="built_in">toString</span>();</span><br><span class="line">    user.email    = rowMap.<span class="built_in">value</span>(<span class="string">&quot;email&quot;</span>).<span class="built_in">toString</span>();</span><br><span class="line">    user.mobile   = rowMap.<span class="built_in">value</span>(<span class="string">&quot;mobile&quot;</span>).<span class="built_in">toString</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> user;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>操作数据库的函数 findByUserId(), findAll(), insert(), update() 等都很简单，和前面讲过的内容没什么区别，SQL 语句是从文件里读取的，唯一需要注意的就是 mapToUser() 这个函数，其作用就是把一个 map 映射成一个对象，<code>user.id = rowMap.value(&quot;id&quot;, 0).toInt()</code> 有一个默认值 0，前面我们说过 User 的 id 为 0，表示 User 的数据是无效的，所以这个默认值是很重要的，既然很重要而且可能会被很多地方用到，那么更好的实践是把值 0 定义为一个常量如 const int <code>INVALID_ID</code> = 0，用到的地方用常量 INVALID_ID 而不是直接用 0，万一要修改也方便。</p>
+<h3 id="7-6-测试-UserDao-的使用"><a href="#7-6-测试-UserDao-的使用" class="headerlink" title="7.6. 测试 UserDao 的使用"></a>7.6. 测试 UserDao 的使用</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;bean/User.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;dao/UserDao.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">useDao</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="built_in">useDao</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">useDao</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 使用基于 DBUtil 封装好的 DAO 查询数据库</span></span><br><span class="line">    User user = UserDao::<span class="built_in">findByUserId</span>(<span class="number">2</span>);</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; user.username;</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; user.<span class="built_in">toString</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 更新数据库</span></span><br><span class="line">    user.email = <span class="string">&quot;bob@gmail.com&quot;</span>;</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;Update: &quot;</span> &lt;&lt; UserDao::<span class="built_in">update</span>(user);</span><br><span class="line"></span><br><span class="line">    QList&lt;User&gt; users = UserDao::<span class="built_in">findtAll</span>();</span><br><span class="line">    foreach (<span class="keyword">const</span> User &amp;u, users) &#123;</span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; u.<span class="built_in">toString</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>程序输出</code>：</p>
+<blockquote>
+<p>“加载 SQL 文件 resources/sql/user.sql”<br>“加载 SQL 文件 resources/sql/product.sql”<br>“Bob”<br>“ID: 2, Username: Bob, Password: Passw0rd, Email: <a href="mailto:&#98;&#x6f;&#x62;&#64;&#x67;&#109;&#97;&#x69;&#108;&#x2e;&#99;&#111;&#109;">&#98;&#x6f;&#x62;&#64;&#x67;&#109;&#97;&#x69;&#108;&#x2e;&#99;&#111;&#109;</a>, Mobile: “<br>Update:  true<br>“ID: 1, Username: Alice, Password: passw0rd, Email: , Mobile: “<br>“ID: 2, Username: Bob, Password: Passw0rd, Email: <a href="mailto:&#98;&#111;&#98;&#x40;&#x67;&#109;&#x61;&#105;&#108;&#46;&#x63;&#x6f;&#109;">&#98;&#111;&#98;&#x40;&#x67;&#109;&#x61;&#105;&#108;&#46;&#x63;&#x6f;&#109;</a>, Mobile: “<br>“ID: 3, Username: Josh, Password: Pa88w0rd, Email: , Mobile: “  </p>
+</blockquote>
+<h2 id="8-思考"><a href="#8-思考" class="headerlink" title="8. 思考"></a>8. 思考</h2><ol>
+<li>上面的例子中，映射成对象的时候，表 user 对应类 User 的对象。想一下，查询到的结果能不能不只是映射到简单成员变量？如果成员变量是另一个类的对象时怎么做？</li>
+<li>前面把 map 映射成对象是通过提供一个函数来映射，能不能实现一个自动的映射呢？<br>提示可以通过 Qt 的 <code>Meta System</code> 来实现，具体就是 <code>Q_PROPERTY</code>。</li>
+<li>每次访问 User 的数据都要从数据库里查询一遍吗？<br>数据库查询的效率很多时候是很慢的，如数据库运行在其它电脑上，网络还很慢。能不能实现一个缓存功能，如果要查询的 User 的数据已经存在缓存里了就直接从缓存取，没有才去数据库里查询。</li>
+<li>配置文件我们使用了 Json 文件，可以自行实现使用 xml 格式，ini 格式等。</li>
+</ol>
+<blockquote>
+<p><code>小提示</code>: 类 Config，Sqls，ConnectionPool 都用到了单例模式，例如  </p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Singleton&lt;ConnectionPool&gt;::getInstance().destroy()</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>单例的实现和使用请参考 <a href="/qtbook-singleton">单例 Singleton</a> 。</p>
+</blockquote>
+<h2 id="9-资源下载"><a href="#9-资源下载" class="headerlink" title="9. 资源下载"></a>9. 资源下载</h2><p>DBUtil 相关的代码和文件可以在这里下载到: <a href="/download/qtbook/db/DBUtil.7z">DBUtil.7z</a></p>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/pdf-online/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          在线预览 PDF
+        
+      </div>
+    </a>
+  
+  
+    <a href="/qtbook-db-connection-pool/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">数据库连接池</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

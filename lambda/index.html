@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Lambda 笔记 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Lambda 是什么 ?简单的说，Lambda 就是匿名函数。由于 Java 是完全面向对象的，不能像 C 语言那样独立的定义函数以及函数变量，Java 中的方法 (函数) 只能定义在类或者接口中，所以 Java 采取了一种折衷的方案实现 Lambda: 通过有且只有一个未实现的方法的接口来实现 Lambda，所以这样的接口又叫做 Functional Interface。 在 Java 中，La">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lambda 笔记">
+<meta property="og:url" content="http://xtuer.github.io/lambda/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="Lambda 是什么 ?简单的说，Lambda 就是匿名函数。由于 Java 是完全面向对象的，不能像 C 语言那样独立的定义函数以及函数变量，Java 中的方法 (函数) 只能定义在类或者接口中，所以 Java 采取了一种折衷的方案实现 Lambda: 通过有且只有一个未实现的方法的接口来实现 Lambda，所以这样的接口又叫做 Functional Interface。 在 Java 中，La">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/java/functional-interface.png">
+<meta property="article:published_time" content="2020-05-24T01:08:07.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.161Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/java/functional-interface.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Lambda-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-text">Lambda 是什么 ?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lambda-%E6%9C%89%E4%BB%80%E4%B9%88%E4%BC%98%E7%82%B9"><span class="toc-text">Lambda 有什么优点 ?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lambda-%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8"><span class="toc-text">Lambda 怎么使用?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FunctionalInterface"><span class="toc-text">@FunctionalInterface</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lambda-%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E4%BB%80%E4%B9%88"><span class="toc-text">Lambda 需要注意什么?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java-%E4%B8%AD%E5%85%B8%E5%9E%8B%E7%9A%84-Lambda-%E6%8E%A5%E5%8F%A3"><span class="toc-text">Java 中典型的 Lambda 接口</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-lambda" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/lambda/" class="article-date">
+  	<!-- <time datetime="2020-05-24T01:08:07.000Z" itemprop="datePublished">2020-05-24</time> -->
+    2020-05-24
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Lambda 笔记
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <h2 id="Lambda-是什么"><a href="#Lambda-是什么" class="headerlink" title="Lambda 是什么 ?"></a>Lambda 是什么 ?</h2><p>简单的说，<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/16501/what-is-a-lambda-function">Lambda 就是<strong>匿名函数</strong></a>。由于 Java 是完全面向对象的，不能像 C 语言那样独立的定义函数以及函数变量，Java 中的方法 (函数) 只能定义在类或者接口中，所以 Java 采取了一种折衷的方案实现 Lambda: 通过有且只有一个未实现的方法的接口来实现 Lambda，所以这样的接口又叫做 <strong>Functional Interface</strong>。</p>
+<p>在 Java 中，Lambda 的本质是匿名内部类的语法糖，用于简化匿名内部类的编码。也许您要问，匿名内部类在编译的时候都会成功 class 文件，但 Lambda 却没有看到对应的 class 文件啊。其实这也好理解，class 文件最后会被 JVM 加载到 byte[] 中，用于生成 Class 对象，Lambda 实现的匿名内部类在运行时生成对应的 bytes[] 来生成 Class 对象就可以了，class 文件只是一个载体，其内容也可以通过 URL 远程加载呢，这样本地是不是也一样看不到 class 文件了呢？</p>
+<blockquote>
+<p>Lambda comes from the <a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Lambda_calculus">Lambda Calculus</a> and refers to <strong>anonymous functions</strong> in programming. <span id="more"></span></p>
+</blockquote>
+<h2 id="Lambda-有什么优点"><a href="#Lambda-有什么优点" class="headerlink" title="Lambda 有什么优点 ?"></a>Lambda 有什么优点 ?</h2><p>使用 Lambda 表达式可以使代码变的更加简洁紧凑，具体就是简化接口的<strong>匿名类的创建</strong>，例如下面以创建线程为例演示 Lambda 对代码的简化:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LambdaTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 未使用 Lambda 创建线程</span></span><br><span class="line">        Thread t1 = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(Thread.currentThread().getName());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 使用 Lambda 创建线程</span></span><br><span class="line">        Thread t2 = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName());</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        t1.start();</span><br><span class="line">        t2.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从上面的例子中可以看到，使用 Lambda 简化了代码，但是业务逻辑的部分改怎么写还继续怎么写。</p>
+<h2 id="Lambda-怎么使用"><a href="#Lambda-怎么使用" class="headerlink" title="Lambda 怎么使用?"></a>Lambda 怎么使用?</h2><p>Lambda 使用的接口，首先是一个普通的 Java 接口，使用关键字  <code>interface</code> 定义，但有一个限制条件: 有且仅有一个未实现的方法。</p>
+<p>Lambda 表达式的语法格式如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">() -&gt; expression</span><br><span class="line">() -&gt;&#123; statements; &#125;</span><br><span class="line">(parameters) -&gt; expression</span><br><span class="line">(parameters) -&gt;&#123; statements; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>Lambda 的用例:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">greeting</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Bar</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">fahren</span><span class="params">(<span class="keyword">int</span> value)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">gehen</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;gehen()&quot;</span>);</span><br><span class="line">        fahren(<span class="number">33</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">fliegen</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;fliegen()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试用例:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LambdaTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Foo foo = () -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;foo()&quot;</span>);</span><br><span class="line">        &#125;;</span><br><span class="line">        foo.greeting();</span><br><span class="line"></span><br><span class="line">        Bar bar = (value) -&gt; &#123;</span><br><span class="line">            System.out.printf(<span class="string">&quot;bar(%d)\n&quot;</span>, value);</span><br><span class="line">        &#125;;</span><br><span class="line">        bar.fahren(<span class="number">66</span>);</span><br><span class="line">        bar.gehen();</span><br><span class="line"></span><br><span class="line">        arbeiten(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;Lambda Foo as arg&quot;</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">arbeiten</span><span class="params">(Foo foo)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;arbeiten()&quot;</span>);</span><br><span class="line">        foo.greeting();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="FunctionalInterface"><a href="#FunctionalInterface" class="headerlink" title="@FunctionalInterface"></a>@FunctionalInterface</h2><p>在定义 用于 Lambda 接口的时候可以使用 <code>@FunctionalInterface</code> 进行限定，当它修饰的对象不满足条件时在编译期就会报错。定义函数式接口时这个注解是可选的，用于在及早发现问题。</p>
+<blockquote>
+<p>An informative annotation type used to indicate that an interface type declaration is intended to be a functional interface as defined by the Java Language Specification. Conceptually, a functional interface has exactly one abstract method.</p>
+<p>If a type is annotated with this annotation type, compilers are required to generate an error message unless:</p>
+<ul>
+<li>The type is an interface type and not an annotation type, enum, or class.</li>
+<li>The annotated type satisfies the requirements of a functional interface.</li>
+</ul>
+</blockquote>
+<p>正确:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><del>报错: Foo 不是函数接口, 在 接口 Foo 中找到多个非覆盖抽象方</del></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">bar</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Lambda-需要注意什么"><a href="#Lambda-需要注意什么" class="headerlink" title="Lambda 需要注意什么?"></a>Lambda 需要注意什么?</h2><p>使用 Lambda 的时候，有以下几点需要注意 :</p>
+<ul>
+<li>和普通的接口一样，Lambda 使用的接口可以有 0 个或者多个 default 方法</li>
+<li>Lambda 的接口中未实现的那个方法中不能调用此接口的 default 的方法，但是 default 的方法中可以调用未实现的那个方法</li>
+<li>Lambda 的接口除了未实现的方法的个数限制，其他方面和普通的接口一样，例如方法可以无参数、有参数、泛型以及Lambda 接口作为方法的参数等</li>
+<li>Lambda 的接口实现中，不能直接给外部的变量赋值，但可以修改外部变量的属性值</li>
+</ul>
+<p>有时候直接修改外部变量是必不可少的，下面以求和为例通过中间层进行解决:</p>
+<blockquote>
+<p>计算机科学领域的任何问题都可以通过增加一个间接的中间层来解决，这句话几乎概括了计算机软件体系结构的设计要点。</p>
+</blockquote>
+<p><del>错误的代码</del>:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    Stream.of(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>).forEach(n -&gt; &#123;</span><br><span class="line">        sum += n; <span class="comment">// // Error: Variable used in lambda expression should be final or effectively final</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>正确的代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span>[] result = &#123; <span class="number">0</span> &#125;; <span class="comment">// 中间层: 缓存结果</span></span><br><span class="line"></span><br><span class="line">    Stream.of(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>).forEach(n -&gt; &#123;</span><br><span class="line">        result[<span class="number">0</span>] += n;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    sum = result[<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Java-中典型的-Lambda-接口"><a href="#Java-中典型的-Lambda-接口" class="headerlink" title="Java 中典型的 Lambda 接口"></a>Java 中典型的 Lambda 接口</h2><p>下图为 Java 中比较典型的 Lambda 的接口，在 Stream 中大量使用，其中:</p>
+<ul>
+<li>R (return) 表示返回类型</li>
+<li>T 和 U 表示参数类型</li>
+<li>Function 的参数类型和返回类型有可能不一样</li>
+<li>Operator 的参数类型和返回类型是一样的</li>
+</ul>
+<img src="../img/java/functional-interface.png" width=550>
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/stream/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Stream 笔记
+        
+      </div>
+    </a>
+  
+  
+    <a href="/fabric/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Fabric 笔记</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>收藏夹</title>
+    <link rel="stylesheet" href="button.css">
+</head>
+
+<body>
+    <a id="back-button">退</a>
+    <div id="links"></div>
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="button.js"></script>
+    <script>
+        // [1] 链接
+        window.links = [
+            { name: 'UML 时序图',      url: '/html/seqdiag' },
+            { name: 'JSON 格式化',     url: 'http://json.cn' },
+            { name: 'SQL 格式化',      url: 'https://tool.lu/sql/' },
+            { name: '正则可视化',       url: 'https://jex.im/regulex' },
+            { name: 'CSS 可视化',      url: 'https://html-css-js.com/css/generator/' },
+            { name: '在线工具箱',       url: 'https://tool.lu' },
+            { name: 'OSC 在线工具箱',   url: 'http://tool.oschina.net' },
+            { name: '二维码',          url: 'https://cli.im/deqr' },
+            { name: '颜色工具箱', links: [
+                { name: 'CSS 渐变背景',  url: 'https://webgradients.com' },
+                { name: '色阶',         url: 'https://coolors.co/96bbbb-618985-a8aaa3-f2e3bc-c19875' },
+                { name: '颜色码转换工具', url: 'https://www.sioe.cn/yingyong/yanse-rgb-16/' },
+                { name: 'WEB 安全色',    url: 'http://www.bootcss.com/p/websafecolors/' },
+                { name: '调色板',        url: 'http://paletton.com/#uid=11I0u0kv-llnqsWt1pMDygZNBby' },
+                { name: 'Color Hex Color Codes', url: 'https://www.color-hex.com' },
+                { name: 'Color Spaces', url: 'https://www.color-hex.com/color/777777' },
+                { name: 'HSL Color Picker', url: 'http://hslpicker.com/#36c94c' },
+                { name: '搜图导航-配色', url: 'https://www.91sotu.com/colors/plate' },
+            ] },
+            { name: '程序员英语', links: [
+                { name: '中国程序员容易发音错误的单词', url: 'https://lovetingyuan.github.io/chinese-programmer-wrong-pronunciation/' },
+                { name: 'chinese-programmer-wrong-pronunciation',  url: 'https://github.com/shimohq/chinese-programmer-wrong-pronunciation' },
+                { name: '英语 444 句', url: '/html/tools/444.html' },
+                { name: '编程单词',    url: '/html/tools/programm-word.html' },
+            ] },
+            { name: 'Underscore.js',  url: 'https://underscorejs.org' },
+            { name: 'Lodash.js',      url: 'https://lodash.com/docs/' },
+            { name: '现代 Javascript 教程', url: 'https://zh.javascript.info' },
+            { name: '设计模式',        url: 'https://zh.wikipedia.org/zh-cn/设计模式_(计算机)' },
+            { name: 'Learn Git Game', url: 'https://git.mo.mk' },
+            { name: 'Redis 在线练习',  url: 'http://try.redis.io' },
+            { name: '缓动函数速查表',   url: 'https://easings.net' },
+            { name: '数据库 ER 图',    url: 'https://app.quickdatabasediagrams.com' },
+            { name: 'PDF All in One', url: 'https://easypdf.com' },
+            { name: '阿里巴巴矢量图库',  url: 'http://www.iconfont.cn/' },
+            { name: 'Leetcode 题解',   url: 'https://mp.weixin.qq.com/s/DhfXloRLmZnm786jNPK90Q' },
+            { name: '在线画函数曲线',    url: 'https://www.desmos.com/calculator' },
+            { name: 'Ui Kit',         url: 'https://collectui.com/?ref=flatuicolors' },
+            { name: '字符串、HTML、MD 表格', url: 'https://www.tablesgenerator.com/text_tables' },
+            { name: 'PNG to ICO',          url: 'https://convertico.com' },
+            { name: '格式化: Json、SQL 等', url: 'http://tool.oschina.net/codeformat/sql' },
+            { name: 'Properties <-> Yaml', url: 'https://www.toyaml.com/index.html' },
+            { name: 'ER Diagram',    url: 'https://dbdiagram.io/d' },
+            { name: 'Linux 命令速查', url: 'https://tldr.linux.cn' },
+            { name: 'CSS 动画库', url: 'https://www.toutiao.com/i6783815009324499463/' },
+            { name: 'Tools Fun', url: 'https://tools.fun/' },
+        ];
+
+        // [2] 创建链接的按钮
+        createButtons(window.links);
+    </script>
+</body>
+
+</html>

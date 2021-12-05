@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>ID Name Alias | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="id, name, alias 每个 Bean 都有标志符，用这个标志符从 Spring IoC Container 里获取 Bean id, name, alias 都必须在 IoC 容器里唯一 每个 Bean 可以有一个 id 属性，并可以根据该 id 在 IoC 容器中查找该 Bean，该 id 属性值必须在 IoC 容器中唯一 如果不指定 id，只指定 name，那么 name 为 Bea">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ID Name Alias">
+<meta property="og:url" content="http://xtuer.github.io/spring-core-id-name-alias/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="id, name, alias 每个 Bean 都有标志符，用这个标志符从 Spring IoC Container 里获取 Bean id, name, alias 都必须在 IoC 容器里唯一 每个 Bean 可以有一个 id 属性，并可以根据该 id 在 IoC 容器中查找该 Bean，该 id 属性值必须在 IoC 容器中唯一 如果不指定 id，只指定 name，那么 name 为 Bea">
+<meta property="og:locale">
+<meta property="article:published_time" content="2017-04-01T07:18:32.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.180Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="SpringCore">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#id-name-alias"><span class="toc-text">id, name, alias</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#id-%E4%B8%8E-name-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">id 与 name 的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%AB%E5%90%8D-alias-%E7%9A%84%E5%A5%BD%E5%A4%84"><span class="toc-text">别名 alias 的好处</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#spring-beans-xml"><span class="toc-text">spring-beans.xml</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#com-xtuer-beans-User"><span class="toc-text">com.xtuer.beans.User</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IdentifierTest"><span class="toc-text">IdentifierTest</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-spring-core-id-name-alias" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/spring-core-id-name-alias/" class="article-date">
+  	<!-- <time datetime="2017-04-01T07:18:32.000Z" itemprop="datePublished">2017-04-01</time> -->
+    2017-04-01
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ID Name Alias
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringCore/" rel="tag">SpringCore</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <h2 id="id-name-alias"><a href="#id-name-alias" class="headerlink" title="id, name, alias"></a>id, name, alias</h2><ul>
+<li>每个 Bean 都有<code>标志符</code>，用这个标志符从 Spring IoC Container 里获取 Bean</li>
+<li><code>id, name, alias 都必须在 IoC 容器里唯一</code></li>
+<li>每个 Bean 可以有一个 id 属性，并可以根据该 id 在 IoC 容器中查找该 Bean，该 id 属性值必须在 IoC 容器中唯一</li>
+<li>如果不指定 id，只指定 name，那么 name 为 Bean 的<code>标识符</code>，并且需要在容器中唯一</li>
+<li>同时指定 name 和 id，此时 id 为标识符，而 name 为 Bean 的别名，两者都可以找到目标 Bean</li>
+<li>可以指定多个 name，之间可以用分号 <code>;</code>、空格 <code> </code> 或逗号 <code>,</code> 分隔开，如果没有指定 id，那么第一个 name 为标识符，其余的为别名；若指定了 id 属性，则 id 为标识符，所有的 name 均为别名</li>
+<li>可以使用 <code>&lt;alias&gt;</code> 标签指定别名，别名也必须在 IoC 容器中唯一</li>
+<li>如果 id 和 name 都不指定，那么 Spring 容器会为 Bean 生成一个 id，生成规则：<br>  按 Bean 定义的顺序，在<code>类的全路径名</code>加上 <code>#序号</code> (序号从 0 开始，第一个 bean 的别名是类的全路径名，所以可以使用类的全路径名来获取)，如：<br>  com.xtuer.beans.User#0 (<code>com.xtuer.beans.User</code>)<br>  com.xtuer.beans.User#1<br>  com.xtuer.beans.User#2<br>  com.xtuer.beans.User#3<span id="more"></span></li>
+</ul>
+<h2 id="id-与-name-的区别"><a href="#id-与-name-的区别" class="headerlink" title="id 与 name 的区别"></a>id 与 name 的区别</h2><ul>
+<li><code>id 与 name 属性在作用上基本没有区别，推荐使用 id</code></li>
+<li>id 命名必须满足 XML 的命名规范，因为 id 其实是 XML 中就做了限定的。总结起来就相当于一个Java 变量的命名：不能以数字，符号打头，不能有空格，如 123，?ad, “ab” 等都是不规范的，Spring 在初始化时就会报错</li>
+<li>name 属性则没有这些限定，你可以使用几乎任何的名称，就是一普通字符串</li>
+<li>在 Spring 同一个上下文中 id，name 只能有一个，但是同一个 id 可以用多个别名</li>
+<li>在 IDE 里，id 重复会实时报错，而 name 重复则不会在 IDE 里报错，从开发的角度来说，也是推荐使用 id</li>
+</ul>
+<h2 id="别名-alias-的好处"><a href="#别名-alias-的好处" class="headerlink" title="别名 alias 的好处"></a>别名 alias 的好处</h2><ol>
+<li>接口 UserDao 定义了多个实现: UserDaoMySqlImpl, UserDaoOracleImpl，而且可以在 XML 里同时定义他们的 Bean: userDaoMySqlImpl、userDaoOracleImpl</li>
+<li>使用别名 userDao 可以指向 userDaoMySqlImpl 或者 userDaoOracleImpl，在程序里获取 Bean 时使用别名来获取，而不是具体的 userDaoMySqlImpl 或者 userDaoOracleImpl，这样在切换接口的实现时只需要修改 XML 里的别名，而不是代码里 Bean 的 id</li>
+<li>重要的是 alias 可以在 bean 定义后在定义，id 和 name 只能在 bean 定义时定义</li>
+</ol>
+<p>下面将用例子演示给 Bean 指定 id, name, alias 以及不指定 id 和 name，Spring 自动生成 id。</p>
+<h2 id="spring-beans-xml"><a href="#spring-beans-xml" class="headerlink" title="spring-beans.xml"></a>spring-beans.xml</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;</span></span></span><br><span class="line"><span class="string"><span class="tag">       http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="string"><span class="tag">       http://www.springframework.org/schema/beans/spring-beans.xsd&quot;</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!--给 bean 指定 id--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;alice&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.xtuer.beans.User&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Alice&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--bean 可以有 name，可以有多个 name--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;robert&quot;</span> <span class="attr">name</span>=<span class="string">&quot;hacker, developer&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.xtuer.beans.User&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Robert&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--可以给 bean 指定别名--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">alias</span> <span class="attr">alias</span>=<span class="string">&quot;user-x&quot;</span> <span class="attr">name</span>=<span class="string">&quot;alice&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--没有指定 id 和 name，则自动生成 id--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--id 为 com.xtuer.beans.User#0, 别名为 com.xtuer.beans.User--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">&quot;com.xtuer.beans.User&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">value</span>=<span class="string">&quot;com.xtuer.beans.User or com.xtuer.beans.User#0&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--id 为 com.xtuer.beans.User#1--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">&quot;com.xtuer.beans.User&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">value</span>=<span class="string">&quot;com.xtuer.beans.User#1&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--id 为 com.xtuer.beans.User#2--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">&quot;com.xtuer.beans.User&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">value</span>=<span class="string">&quot;com.xtuer.beans.User#2&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="com-xtuer-beans-User"><a href="#com-xtuer-beans-User" class="headerlink" title="com.xtuer.beans.User"></a>com.xtuer.beans.User</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.beans;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">(<span class="keyword">int</span> id, String username)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">        <span class="keyword">this</span>.username = username;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getUsername</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> username;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUsername</span><span class="params">(String username)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.username = username;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="IdentifierTest"><a href="#IdentifierTest" class="headerlink" title="IdentifierTest"></a>IdentifierTest</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.core.JsonProcessingException;</span><br><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.databind.ObjectMapper;</span><br><span class="line"><span class="keyword">import</span> com.xtuer.beans.User;</span><br><span class="line"><span class="keyword">import</span> org.junit.AfterClass;</span><br><span class="line"><span class="keyword">import</span> org.junit.Assert;</span><br><span class="line"><span class="keyword">import</span> org.junit.BeforeClass;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IdentifierTest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ApplicationContext context;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ObjectMapper mapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@BeforeClass</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">setup</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        context = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">&quot;spring-beans.xml&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AfterClass</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">tearDown</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 测试使用 bean id 获取 user</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testBeanById</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        User alice = context.getBean(<span class="string">&quot;alice&quot;</span>, User.class);</span><br><span class="line">        output(alice);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 测试使用 bean name 获取 user</span></span><br><span class="line"><span class="comment">     * robert, hacker, developer 都是同一个人</span></span><br><span class="line"><span class="comment">     * robert 是 id</span></span><br><span class="line"><span class="comment">     * hacker 和 developer 是 name</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testBeanByName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        User robert = context.getBean(<span class="string">&quot;robert&quot;</span>, User.class);</span><br><span class="line">        output(robert);</span><br><span class="line"></span><br><span class="line">        User hacker = context.getBean(<span class="string">&quot;hacker&quot;</span>, User.class);</span><br><span class="line">        output(hacker);</span><br><span class="line"></span><br><span class="line">        User developer = context.getBean(<span class="string">&quot;developer&quot;</span>, User.class);</span><br><span class="line">        output(developer);</span><br><span class="line"></span><br><span class="line">        Assert.assertEquals(robert, hacker);</span><br><span class="line">        Assert.assertEquals(robert, developer);</span><br><span class="line">        Assert.assertEquals(hacker, developer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 测试使用 bean alias 获取 user</span></span><br><span class="line"><span class="comment">     * alice 和 user-x 是同一个人</span></span><br><span class="line"><span class="comment">     * alice 是 id</span></span><br><span class="line"><span class="comment">     * user-x 是别名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testBeanByAlias</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        User alice = context.getBean(<span class="string">&quot;alice&quot;</span>, User.class);</span><br><span class="line">        output(alice);</span><br><span class="line"></span><br><span class="line">        User userX = context.getBean(<span class="string">&quot;user-x&quot;</span>, User.class);</span><br><span class="line">        output(userX);</span><br><span class="line"></span><br><span class="line">        Assert.assertEquals(alice, userX);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 测试自动生成的 bean identifier</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testBeanByGeneratedIdentifier</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        User user = context.getBean(<span class="string">&quot;com.xtuer.beans.User&quot;</span>, User.class); <span class="comment">// 等于 User.class.getName()</span></span><br><span class="line">        output(user);</span><br><span class="line"></span><br><span class="line">        User user0 = context.getBean(<span class="string">&quot;com.xtuer.beans.User#0&quot;</span>, User.class);</span><br><span class="line">        output(user0);</span><br><span class="line"></span><br><span class="line">        User user1 = context.getBean(<span class="string">&quot;com.xtuer.beans.User#1&quot;</span>, User.class);</span><br><span class="line">        output(user1);</span><br><span class="line"></span><br><span class="line">        User user2 = context.getBean(<span class="string">&quot;com.xtuer.beans.User#2&quot;</span>, User.class);</span><br><span class="line">        output(user2);</span><br><span class="line"></span><br><span class="line">        Assert.assertEquals(user, user0);</span><br><span class="line">        Assert.assertNotEquals(user0, user1);</span><br><span class="line">        Assert.assertNotEquals(user0, user2);</span><br><span class="line">        Assert.assertNotEquals(user1, user2);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 以 Json 的格式输出对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> obj</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">output</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            System.out.println(mapper.writeValueAsString(obj));</span><br><span class="line">        &#125; <span class="keyword">catch</span> (JsonProcessingException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/spring-core-injection-setter/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Setter 注入
+        
+      </div>
+    </a>
+  
+  
+    <a href="/spring-core-ioc-introduction/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spring IoC Introduction</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

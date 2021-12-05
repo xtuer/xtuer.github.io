@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>盒子模型 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="每个 Widget 所在的范围都是一个矩形区域（无规则窗口也是一个矩形，只是有的地方是透明的，看上去不是一个矩形），像是一个盒子一样。QSS 支持盒子模型（Box Model），和 CSS 的盒子模型是一样的，由 4 个部分组成：content, padding, border, margin，也就是说，Widget 的矩形区域，用这 4 个矩形表示  content: 绘制内容的矩形区域（如绘制">
+<meta property="og:type" content="article">
+<meta property="og:title" content="盒子模型">
+<meta property="og:url" content="http://xtuer.github.io/qtbook-qss-boxmodel/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="每个 Widget 所在的范围都是一个矩形区域（无规则窗口也是一个矩形，只是有的地方是透明的，看上去不是一个矩形），像是一个盒子一样。QSS 支持盒子模型（Box Model），和 CSS 的盒子模型是一样的，由 4 个部分组成：content, padding, border, margin，也就是说，Widget 的矩形区域，用这 4 个矩形表示  content: 绘制内容的矩形区域（如绘制">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/qss/QSS-BoxModel-1.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/qss/QSS-BoxModel-2.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/qss/QSS-BoxModel-0.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/qss/QSS-BoxModel-3.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/qss/QSS-BoxModel-4.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/qss/QSS-BoxModel-5.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/qss/QSS-BoxModel-6.png">
+<meta property="article:published_time" content="2017-02-02T09:36:28.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.177Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="QtBook">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/qtbook/qss/QSS-BoxModel-1.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#padding-%E7%9A%84%E8%AF%AD%E6%B3%95"><span class="toc-text">padding 的语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#padding-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-text">padding 是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97-border-%E5%92%8C-content-%E7%9A%84%E7%9F%A9%E5%BD%A2"><span class="toc-text">计算 border 和 content 的矩形</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E8%A7%86%E5%8C%96%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B"><span class="toc-text">可视化盒子模型</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-qtbook-qss-boxmodel" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-qss-boxmodel/" class="article-date">
+  	<!-- <time datetime="2017-02-02T09:36:28.000Z" itemprop="datePublished">2017-02-02</time> -->
+    2017-02-02
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      盒子模型
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>每个 Widget 所在的范围都是一个矩形区域（无规则窗口也是一个矩形，只是有的地方是透明的，看上去不是一个矩形），像是一个盒子一样。QSS 支持盒子模型（Box Model），和 CSS 的盒子模型是一样的，由 4 个部分组成：content, padding, border, margin，也就是说，Widget 的矩形区域，用这 4 个矩形表示<br><img src="../img/qtbook/qss/QSS-BoxModel-1.png"></p>
+<ul>
+<li><code>content</code>: 绘制内容的矩形区域（如绘制文本、图片），Qt 自带的 widget 都是在 content 区里绘制内容，这只是一个约定，只要你愿意，也可以在绘制到 padding, border, margin 区</li>
+<li><code>padding</code>: 内容区和边框之间的间隔</li>
+<li><code>border</code>: 边框，可视化的显示一个 widget 的逻辑范围，而不一定是 widget 所占矩形区域的实际大小</li>
+<li><code>margin</code>: 想像 widget 的矩形区域有一个隐形的边框，margin 就是 border 和这个隐形边框之间的间隔</li>
+</ul>
+<p>QWidget 的 content, padding, border, margin 的矩形区域都是一样大的，也就是说，margin, border, padding 的值为 0，content 的矩形和 QWidget 的矩形一样大，但是 QPushButton 默认的 margin, border, padding 的值不为 0（可以试试 <code>setFlat(true)</code> 后再看看这几个值是什么）。</p>
+<p>Margin，Border，Padding 都分为 4 个部分：上、右、下、左，它们的值可以不同：<br><img src="../img/qtbook/qss/QSS-BoxModel-2.png"></p>
+<span id="more"></span>
+
+<h2 id="padding-的语法"><a href="#padding-的语法" class="headerlink" title="padding 的语法"></a>padding 的语法</h2><p><code>padding: 2px 3px 4px 5px</code>，表示:</p>
+<ul>
+<li>padding-top 为 2px</li>
+<li>padding-right 为 3px</li>
+<li>padding-bottom 为 4px</li>
+<li>padding-left 为 5px</li>
+</ul>
+<p><code>padding: 2px 4px</code> 表示:</p>
+<ul>
+<li>padding-top 和 padding-bottom 为 2px</li>
+<li>padding-right 和 padding-left 为 4px</li>
+</ul>
+<p><code>padding: 2px</code> 表示:</p>
+<ul>
+<li>padding-top、padding-right、padding-bottom、padding-left 都为 2px</li>
+</ul>
+<p>margin 的语法和 padding 的一样，border 除了分成 4 个部分外，还有颜色，圆角等。</p>
+<p>也许你也有和我一样的疑问，为什么上面表示的顺序不是从左开始，而是从上开始？对我来说，从左开始更习惯一些，但是 CSS 和 QSS 里就是这么规定的，没办法，既然不能反抗，那么就享受吧！</p>
+<h2 id="padding-是什么"><a href="#padding-是什么" class="headerlink" title="padding 是什么"></a>padding 是什么</h2><p>可能你还是不明白 margin, padding 具体是什么，下面用例子具体的的介绍它们。在 Qt Designer 里用 QGridLayout 布局，拖放一个 QLabel 到窗口上，让其占据整个窗口，用下面的 QSS 把 QLabel 的 margin, border, padding 都设置为 50px：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">QLabel &#123;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">50px</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">50px</span> solid <span class="built_in">rgb</span>(<span class="number">74</span>, <span class="number">74</span>, <span class="number">74</span>);</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">50px</span>;</span><br><span class="line">    <span class="attribute">background</span>: white;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="../img/qtbook/qss/QSS-BoxModel-0.png"></p>
+<p><strong>在 Qt Designer 里选中 QLabel:</strong></p>
+<ul>
+<li>8 个蓝色小方块内就是 QLabel，外面是 parent widget 的，不属于 QLabel</li>
+<li>标记为 margin 的部分是 margin，为 50px</li>
+<li>标记为 padding 的部分是 padding，为 50px</li>
+<li>用工具测量一下，得到 border 的宽也是 50px</li>
+<li>小虚线方框内是 content rectangle，QLabel 就是在它里面绘制文本，图片等，不会绘制到 padding, border, margin 等上面（如果你自己想继承 QLabel 然后绘制到它们上面当然没问题）</li>
+<li>当拖动修改窗口的大小后，QLabel 的大小随着改变了，但是 margin, border（宽）, padding 的大小都不会变，变化的只有 content rectangle</li>
+<li>Margin 是不可见的，不绘制任何东西</li>
+<li>Padding 是不可见的，但是 QLabel 的背景会绘制到它里面</li>
+<li>Border 是可见的，在背景上面绘制 border（如果 border 是半透明的时候可以看到和背景的融合效果），也就是说，背景会绘制到 padding, border, content 3 个部分上</li>
+<li>Content 是可见的，在背景上绘制 QLabel 的内容：文本，图片</li>
+</ul>
+<h2 id="计算-border-和-content-的矩形"><a href="#计算-border-和-content-的矩形" class="headerlink" title="计算 border 和 content 的矩形"></a>计算 border 和 content 的矩形</h2><p>Padding 和 margin 都是不可见的，用它们来控制间隔，让绘制的效果更好，只有 border 和 content 是可见的。Border 和 content 要绘制在它们自己的矩形区域内，那么这些矩形怎么计算呢？Content 的矩形一定要在 border 的矩形内吗？</p>
+<p><strong>设定</strong></p>
+<ul>
+<li>Widget 的矩形为 widgetRect，其实就是 (0, 0, width, height)</li>
+<li>Border 的矩形为 borderRect</li>
+<li>Content 的矩形为 contentRect</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 计算 border 的矩形</span></span><br><span class="line">borderRect.x = marginLeft</span><br><span class="line">borderRect.y = marginTop</span><br><span class="line">borderRect.width  = widgetRect.width  - marginLeft - marginRight</span><br><span class="line">borderRect.height = widgetRect.height - marginTop  - marginBottom</span><br><span class="line"></span><br><span class="line"><span class="comment">// 计算 content 的矩形</span></span><br><span class="line">contentRect.x = marginLeft + borderLeft + paddingLeft</span><br><span class="line">contentRect.y = marginTop  + borderTop  + paddingTop</span><br><span class="line">contentRect.width  = widgetRect.width -</span><br><span class="line">    marginLeft     - borderLeft   - paddingLeft -</span><br><span class="line">    paddingRight   - borderRight  - marginRight;</span><br><span class="line">contentRect.height = widgetRect.height -</span><br><span class="line">    marginTop      - borderTop    - paddingTop -</span><br><span class="line">    paddingBottom  - borderBottom - marginBottom;</span><br></pre></td></tr></table></figure>
+
+<p><strong>为了简单起见，下面的 margin 指的是它对应的 4 个值，而且都一样大，padding 也一样:</strong></p>
+<ul>
+<li>Margin 大于 0 时，borderRect 在 widgetRect 内</li>
+<li>Margin 小于 0 时，borderRect 包含 widgetRect</li>
+<li>Padding 大于 0 时，contentRect 在 borderRect 内</li>
+<li>Padding 小于 0 时，contentRect 和 borderRect 中绘制 border 的区域相交，甚至包含 borderRect</li>
+</ul>
+<p>Qt 绘制自带的 Widget 时，先绘制 border，然后才绘制 content 的内容，所以，padding 小于 0 时，可以看到 content 绘制到了 border 上，在 Border-Image 一节里，就会使用这个特点，使得实现的效果更好。</p>
+<p><strong>需要注意的是:</strong></p>
+<ul>
+<li>QWidget::contentsRect() 和上面的 contentRect 一样</li>
+<li>QWidget::contentsMargins() 不是 margin，而是 margin + border + padding 的和: content 离边框的距离</li>
+<li>QWidget::size() 返回的是 margin + border + padding + content 的和</li>
+<li>需要注意一点: QSS 中设置的 width, height, min-width, max-height 等设置的都是 content width 和 content height，而 QWidget::size() 返回的却是整个 QWidget 的大小</li>
+</ul>
+<h2 id="可视化盒子模型"><a href="#可视化盒子模型" class="headerlink" title="可视化盒子模型"></a>可视化盒子模型</h2><p>下面的程序，可以直观地验证盒子模型的理论，有助于加深理解，界面虽然俗气了点，但效果却是不凡，正所谓：大俗即大雅。顶级窗口的 content margin 和 spacing 设置为 0，有 4 个 QLabel，它们只有 border 的颜色不一样，还有一个 QPushButton，按下 QPushButton 时输出左上角 flagLabel 的 size(), contentsRect() 和 contentsMargins()</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">MainWidget::<span class="built_in">MainWidget</span>(QWidget *parent) :</span><br><span class="line">    <span class="built_in">QWidget</span>(parent), <span class="built_in">ui</span>(<span class="keyword">new</span> Ui::MainWidget) &#123;</span><br><span class="line">    ui-&gt;<span class="built_in">setupUi</span>(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 为了简化代码，使用了 C++11 才支持的 Lambda 语法的信号槽连接</span></span><br><span class="line">    <span class="built_in">connect</span>(ui-&gt;dumpButton, &amp;QPushButton::clicked, [<span class="keyword">this</span>]() &#123;</span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;Label size: &quot;</span> &lt;&lt; ui-&gt;flagLabel-&gt;<span class="built_in">size</span>();</span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;Contents rect: &quot;</span> &lt;&lt; ui-&gt;flagLabel-&gt;<span class="built_in">contentsRect</span>();</span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;Contents margins: &quot;</span> &lt;&lt; ui-&gt;flagLabel-&gt;<span class="built_in">contentsMargins</span>();</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">QLabel &#123;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0px</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0px</span>;</span><br><span class="line">    <span class="attribute">border-width</span>: <span class="number">30px</span>;</span><br><span class="line">    <span class="attribute">border-style</span>: solid;</span><br><span class="line">    <span class="attribute">background</span>: white;</span><br><span class="line">    <span class="attribute">min-width</span>: <span class="number">140px</span>;  <span class="comment">/* 设置 content rect 的最小 width，不是 widget 的 width() */</span></span><br><span class="line">    <span class="attribute">min-height</span>: <span class="number">140px</span>; <span class="comment">/* 设置 content rect 的最小 heightd，不是 widget 的 height()*/</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#flagLabel</span> &#123;</span><br><span class="line">    <span class="attribute">border-color</span>: <span class="built_in">qlineargradient</span>(</span><br><span class="line">    spread:pad, x1:<span class="number">0</span>,</span><br><span class="line">    y1:<span class="number">0</span>, x2:<span class="number">0</span>, y2:<span class="number">1</span>,</span><br><span class="line">    stop:<span class="number">0</span> <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>),</span><br><span class="line">    stop:<span class="number">0.33</span> <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>),</span><br><span class="line">    stop:<span class="number">0.34</span> <span class="built_in">rgba</span>(<span class="number">255</span>, <span class="number">30</span>, <span class="number">30</span>, <span class="number">255</span>),</span><br><span class="line">    stop:<span class="number">0.66</span> <span class="built_in">rgba</span>(<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>),</span><br><span class="line">    stop:<span class="number">0.67</span> <span class="built_in">rgba</span>(<span class="number">255</span>, <span class="number">255</span>, <span class="number">0</span>, <span class="number">255</span>),</span><br><span class="line">    stop:<span class="number">1</span> <span class="built_in">rgba</span>(<span class="number">255</span>, <span class="number">255</span>, <span class="number">0</span>, <span class="number">255</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#greenLabel</span> &#123;</span><br><span class="line">    <span class="attribute">border-color</span>: green;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#blueLabel</span> &#123;</span><br><span class="line">    <span class="attribute">border-color</span>: blue;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#yellowLabel</span> &#123;</span><br><span class="line">    <span class="attribute">border-color</span>: yellow;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>初始 QSS 如上，效果为:</p>
+<p><img src="../img/qtbook/qss/QSS-BoxModel-3.png"></p>
+<blockquote>
+<p>点击 <code>Dump</code> 按钮，输出:<br>Label size:  QSize(200, 200)<br>Contents rect:  QRect(30,30 140x140)<br>Contents margins:  QMargins(30, 30, 30, 30)</p>
+</blockquote>
+<p><strong>由于 margin 为 0px，padding 为 0px，border-width 为 30px, 所以:</strong></p>
+<ul>
+<li><strong>label width</strong>：0 + 30 + 0 + 140 + 0 + 30 + 0，为 200</li>
+<li><strong>label height</strong>：0 + 30 + 0 + 140 + 0 + 30 + 0，为 200</li>
+<li><strong>content rect 的 x</strong>: 0 + 30 + 0，为 30</li>
+<li><strong>content rect 的 y</strong>: 0 + 30 + 0，为 30</li>
+<li><strong>content margin</strong>：0 + 30，为 30</li>
+</ul>
+<hr>
+<p>修改 <code>margin: 20px; padding: 0px;</code>，效果为:</p>
+<p><img src="../img/qtbook/qss/QSS-BoxModel-4.png"></p>
+<blockquote>
+<p>点击 <code>Dump</code> 按钮，输出:<br>Label size:  QSize(240, 240)<br>Contents rect:  QRect(50,50 140x140)<br>Contents margins:  QMargins(50, 50, 50, 50)</p>
+</blockquote>
+<p><strong>由于 margin 为 20px，padding 为 0px，所以</strong></p>
+<ul>
+<li><strong>label width</strong>：20 + 30 + 0 + 140 + 0 + 30 + 20，为 240</li>
+<li><strong>label height</strong>：20 + 30 + 0 + 140 + 0 + 30 + 20，为 240</li>
+<li><strong>content rect 的 x</strong>: 20 + 30 + 0，为 50</li>
+<li><strong>content rect 的 y</strong>: 20 + 30 + 0，为 50</li>
+<li><strong>content margin</strong>：20 + 30 + 0，为 50</li>
+</ul>
+<p>左上角 QLabel 的大小为红框括起来的范围，而不是可见的 border 括起来的范围，因为 margin 为 20px。</p>
+<hr>
+<p>修改 <code>margin: 0px; padding: -20px;</code>，效果为:</p>
+<p><img src="../img/qtbook/qss/QSS-BoxModel-5.png"></p>
+<blockquote>
+<p>点击 <code>Dump</code> 按钮，输出:<br>Label size:  QSize(160, 160)<br>Contents rect:  QRect(10,10 140x140)<br>Contents margins:  QMargins(10, 10, 10, 10)</p>
+</blockquote>
+<p><strong>由于 margin 为 0px，padding 为 -20px，所以:</strong></p>
+<ul>
+<li><strong>label width</strong>：0 + 30 + -20 + 140 + -20 + 30 + 0，为 160</li>
+<li><strong>label height</strong>：0 + 30 + -20 + 140 + -20 + 30 + 0，为 160</li>
+<li><strong>content rect 的 x</strong>: 0 + 30 + -20，为 10</li>
+<li><strong>content rect 的 y</strong>: 0 + 30 + -20，为 10</li>
+<li><strong>content margin</strong>：0 + 30 + -20，为 10</li>
+</ul>
+<p>contentRect 和 borderRect 中绘制 border 的区域相交，所以 QLabel 的文本 <code>Flag</code> 被绘制到了 border 上面。</p>
+<hr>
+<p>修改 <code>margin: -10px; padding: -20px;</code>，效果为：<br><img src="../img/qtbook/qss/QSS-BoxModel-6.png"></p>
+<blockquote>
+<p>点击 <code>Dump</code> 按钮，输出:<br>Label size:  QSize(140, 140)<br>Contents rect:  QRect(0,0 140x140)<br>Contents margins:  QMargins(0, 0, 0, 0)</p>
+</blockquote>
+<p><strong>由于 margin 为 -10px，padding 为 -20px，所以</strong></p>
+<ul>
+<li><strong>label width</strong>：-10 + 30 + -20 + 140 + -20 + 30 + -10，为 140</li>
+<li><strong>label height</strong>：-10 + 30 + -20 + 140 + -20 + 30 + -10，为 140</li>
+<li><strong>content rect 的 x</strong>: -10 + 30 + -20，为 0</li>
+<li><strong>content rect 的 y</strong>: -10 + 30 + -20，为 0</li>
+<li><strong>content margin</strong>：-10 + 30 + -20，为 0</li>
+</ul>
+<p>因为 margin 为 -10px，border-width 为 30px，所以上边的 border 应该从 (-10, -10) 开始绘制，有三分之一给绘制到了 QLabel 的不可见区域，所以从图中看不到，这里我们使用了一个三色的 border，能直观的看到 border 的变化。</p>
+<p>QSS 里盒子模型是很关键的，相信大家现在已经明白了，但是，古人云：纸上得来终觉浅，绝知此事要躬行，请自己尝试修改不同的 margin, border, padding, min-width, min-height 等，计算、对比输出的结果，这样才会有更深刻的体会。</p>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/qtbook-qss-selector/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          QSS 选择器
+        
+      </div>
+    </a>
+  
+  
+    <a href="/qtbook-qss-load/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">加载 QSS</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

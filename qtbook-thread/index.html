@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>多线程编程 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="读取文件显示到 text edit 中，一个非常简单的需求，啥也不说了，撸起袖子，打开 Qt Creator 开干。 先设计 UI 如下，中间是 QTextEdit，底部是按钮 QPushButton:  点击按钮，按行读取文件，然后添加到 QTextEdit，对我们来说也是分分钟的事(Lambda Lambda Lambda): 123456789101112131415161718Readin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多线程编程">
+<meta property="og:url" content="http://xtuer.github.io/qtbook-thread/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="读取文件显示到 text edit 中，一个非常简单的需求，啥也不说了，撸起袖子，打开 Qt Creator 开干。 先设计 UI 如下，中间是 QTextEdit，底部是按钮 QPushButton:  点击按钮，按行读取文件，然后添加到 QTextEdit，对我们来说也是分分钟的事(Lambda Lambda Lambda): 123456789101112131415161718Readin">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/thread/thread-1.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/thread/process-events.png">
+<meta property="article:published_time" content="2017-10-29T02:57:10.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.178Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="QtBook">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/qtbook/thread/thread-1.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-qtbook-thread" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-thread/" class="article-date">
+  	<!-- <time datetime="2017-10-29T02:57:10.000Z" itemprop="datePublished">2017-10-29</time> -->
+    2017-10-29
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      多线程编程
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>读取文件显示到 text edit 中，一个非常简单的需求，啥也不说了，撸起袖子，打开 Qt Creator 开干。</p>
+<p>先设计 UI 如下，中间是 QTextEdit，底部是按钮 QPushButton:</p>
+<p><img src="../img/qtbook/thread/thread-1.png"></p>
+<p>点击按钮，按行读取文件，然后添加到 QTextEdit，对我们来说也是分分钟的事(Lambda Lambda Lambda):</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">ReadingWidget::<span class="built_in">ReadingWidget</span>(QWidget *parent) : <span class="built_in">QWidget</span>(parent), <span class="built_in">ui</span>(<span class="keyword">new</span> Ui::ReadingWidget) &#123;</span><br><span class="line">    ui-&gt;<span class="built_in">setupUi</span>(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 点击按钮，按行读取文件，添加到 text edit 中显示出来</span></span><br><span class="line">    <span class="built_in">connect</span>(ui-&gt;pushButton, &amp;QPushButton::clicked, [<span class="keyword">this</span>] &#123;</span><br><span class="line">        QFile <span class="built_in">file</span>(<span class="string">&quot;/Users/Biao/Desktop/data.txt&quot;</span>); <span class="comment">// 文件路径自己修改一下啊</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!file.<span class="built_in">open</span>(QIODevice::Text | QIODevice::ReadOnly)) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        QTextStream <span class="built_in">in</span>(&amp;file);</span><br><span class="line">        <span class="keyword">while</span> (!in.<span class="built_in">atEnd</span>()) &#123;</span><br><span class="line">            QString line = in.<span class="built_in">readLine</span>(); <span class="comment">// 读取一行</span></span><br><span class="line">            ui-&gt;textEdit-&gt;<span class="built_in">append</span>(line); <span class="comment">// 添加到 text edit</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>是不是好简单！运行程序，点击 `开始读取` 按钮，刷的一下，文件内容都显示出来了，没毛病。换一个大一些的文件试试，例如 Qt 文档中的 `qtgui.index`(有 30m)，
+
+<blockquote>
+<p>我系统上的路径是 <code>/Users/Biao/Qt5.9.2/Docs/Qt-5.9.2/qtgui/qtgui.index</code>，大家在自己系统上 Qt 的安装路径下找一下。</p>
+</blockquote>
+<p>再次点击 <code>开始读取</code>，什么鬼，界面被冻住了，提示正忙，等几分钟内容才一次性显示出来。原因是读取文件、<code>textEdit-&gt;append()</code>、然后向 UI 事件队列发送了一个更新 textEdit 界面的事件，由于这些操作和执行 UI 事件队列中的事件等都是在同一个线程中按顺序执行(UI 线程)，所以要等到 while 循环结束后才执行 UI 事件队列中的更新 textEdit 界面事件，导致我们看到界面被冻住，读取完文件后一次性显示出所有内容。如果我们想每当读取到内容后，立即在 textEdit 中能够看到，解决这个题一般有 2 个方法:</p>
+<ul>
+<li><strong>立即执行 UI 事件队列中的事件</strong>：在第 15 行的下面加上一句 <code>QApplication::processEvents()</code>，立即执行 UI 事件队列中的事件</li>
+<li><strong>使用多线程</strong>：在一个新的线程中读取文件，不要在 UI 线程里读取，这样文件读取就不会阻塞 UI 线程了，将在 <a href="/qtbook-thread-inheritance">继承 QThread 实现多线程</a> 中介绍使用多线程改写上面的程序</li>
+</ul>
+<blockquote>
+<p>为什么增加一句 <code>QApplication::processEvents()</code> 就能够解决问题呢，对比一下前后的流程图就能明白了:<img src="../img/qtbook/thread/process-events.png"></p>
+</blockquote>
+<p>通过这个简单的例子，我们知道了多线程的使用场景，<strong>把耗时的操作放到一个新线程中取执行</strong>，执行的状态通知 UI 线程显示给用户，不要让其阻塞用户界面，能够增加应用程序的响应，提高用户体验，下面介绍多线程的优点和缺点的内容来自于 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Multithreading_(computer_architecture)">https://en.wikipedia.org/wiki/Multithreading_(computer_architecture)</a>，先从宏观上了解一下多线程:</p>
+<blockquote>
+<p><strong>Advantages of Multithreading</strong></p>
+<p>If a thread gets a lot of cache misses, the other threads can continue taking advantage of the unused computing resources, which may lead to faster overall execution as these resources would have been idle if only a single thread were executed. Also, if a thread cannot use all the computing resources of the CPU (because instructions depend on each other’s result), running another thread may prevent those resources from becoming idle.</p>
+<p>If several threads work on the same set of data, they can actually share their cache, leading to better cache usage or synchronization on its values.</p>
+<br>
+
+<p><strong>Disadvantages of Multithreading</strong></p>
+<p>Multiple threads can interfere with each other when sharing hardware resources such as caches or <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Translation_lookaside_buffer">translation lookaside buffers</a> (TLBs). As a result, execution times of a single thread are not improved but can be degraded, even when only one thread is executing, due to lower frequencies or additional pipeline stages that are necessary to accommodate thread-switching hardware.</p>
+<p>Overall efficiency varies; Intel claims up to 30% improvement with its <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Hyper-Threading_Technology">Hyper-Threading Technology</a>,[<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Multithreading_(computer_architecture)#cite_note-1">1]</a> while a synthetic program just performing a loop of non-optimized dependent floating-point operations actually gains a 100% speed improvement when run in parallel. On the other hand, hand-tuned <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Assembly_language">assembly language</a> programs using <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/MMX_(instruction_set)">MMX</a> or <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/AltiVec">AltiVec</a> extensions and performing data prefetches (as a good video encoder might) do not suffer from cache misses or idle computing resources. Such programs therefore do not benefit from hardware multithreading and can indeed see degraded performance due to contention for shared resources.</p>
+<p>From the software standpoint, hardware support for multithreading is more visible to software, requiring more changes to both application programs and operating systems than multiprocessing. Hardware techniques used to support <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Thread_(computer_science)">multithreading</a> often parallel the software techniques used for <a target="_blank" rel="noopener" href="https://en.wikipedia.org/w/index.php?title=Multitasking_of_computer_programs&action=edit&redlink=1">computer multitasking</a>. Thread scheduling is also a major problem in multithreading.</p>
+</blockquote>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/qtbook-thread-inheritance/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          继承 QThread 实现多线程
+        
+      </div>
+    </a>
+  
+  
+    <a href="/java-snowflake/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">分布式 ID 生成算法 Snowflake</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

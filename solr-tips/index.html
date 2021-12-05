@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Solr Tips | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="安装 Solr 下载 Solr: http:&#x2F;&#x2F;www.apache.org&#x2F;dyn&#x2F;closer.lua&#x2F;lucene&#x2F;solr&#x2F;6.0.0 解压到任意目录，不需要安装，绿色软件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Solr Tips">
+<meta property="og:url" content="http://xtuer.github.io/solr-tips/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="安装 Solr 下载 Solr: http:&#x2F;&#x2F;www.apache.org&#x2F;dyn&#x2F;closer.lua&#x2F;lucene&#x2F;solr&#x2F;6.0.0 解压到任意目录，不需要安装，绿色软件">
+<meta property="og:locale">
+<meta property="article:published_time" content="2016-04-19T12:42:10.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.179Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Solr"><span class="toc-text">安装 Solr</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87-Solr"><span class="toc-text">准备 Solr</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E9%97%AD-Solr"><span class="toc-text">关闭 Solr</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-Core-or-Collection"><span class="toc-text">创建 Core or Collection</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A0%E9%99%A4-Core-or-Collection"><span class="toc-text">删除 Core or Collection</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Admin-%E5%B7%A5%E5%85%B7"><span class="toc-text">Admin 工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solr-%E7%9A%84%E9%87%8D%E8%A6%81%E6%A6%82%E5%BF%B5"><span class="toc-text">Solr 的重要概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E7%B4%A2%E5%BC%95"><span class="toc-text">添加索引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%90%9C%E7%B4%A2"><span class="toc-text">常用搜索</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Running-Solr"><span class="toc-text">Running Solr</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-solr-tips" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/solr-tips/" class="article-date">
+  	<!-- <time datetime="2016-04-19T12:42:10.000Z" itemprop="datePublished">2016-04-19</time> -->
+    2016-04-19
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Solr Tips
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <h2 id="安装-Solr"><a href="#安装-Solr" class="headerlink" title="安装 Solr"></a>安装 Solr</h2><ul>
+<li>下载 Solr: <a target="_blank" rel="noopener" href="http://www.apache.org/dyn/closer.lua/lucene/solr/6.0.0">http://www.apache.org/dyn/closer.lua/lucene/solr/6.0.0</a></li>
+<li>解压到任意目录，不需要安装，绿色软件</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="准备-Solr"><a href="#准备-Solr" class="headerlink" title="准备 Solr"></a>准备 Solr</h2><ul>
+<li><p>启动 Solr: <code>bin/solr start</code></p>
+</li>
+<li><p>创建 Core，命名为 ebag: <code>bin/solr create -c ebag</code></p>
+<ul>
+<li><code>-c</code> 的意义为 Core or Collection，不可缺少</li>
+</ul>
+</li>
+<li><p>添加索引: <code>bin/post -c ebag example/exampledocs/books.json</code></p>
+</li>
+<li><p>搜索: <a target="_blank" rel="noopener" href="http://localhost:8983/solr/ebag/select?indent=on&amp;wt=json&amp;q=Greek">http://localhost:8983/solr/ebag/select?indent=on&amp;wt=json&amp;q=Greek</a>，输出</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;responseHeader&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;zkConnected&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="string">&quot;status&quot;</span>: <span class="number">0</span>,</span><br><span class="line">        <span class="string">&quot;QTime&quot;</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="string">&quot;params&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;q&quot;</span>: <span class="string">&quot;Greek&quot;</span>,</span><br><span class="line">            <span class="string">&quot;indent&quot;</span>: <span class="string">&quot;on&quot;</span>,</span><br><span class="line">            <span class="string">&quot;wt&quot;</span>: <span class="string">&quot;json&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">&quot;response&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;numFound&quot;</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="string">&quot;start&quot;</span>: <span class="number">0</span>,</span><br><span class="line">        <span class="string">&quot;docs&quot;</span>: [&#123;</span><br><span class="line">            <span class="string">&quot;id&quot;</span>: <span class="string">&quot;978-1857995879&quot;</span>,</span><br><span class="line">            <span class="string">&quot;cat&quot;</span>: [</span><br><span class="line">                <span class="string">&quot;book&quot;</span>,</span><br><span class="line">                <span class="string">&quot;paperback&quot;</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="string">&quot;name&quot;</span>: [<span class="string">&quot;Sophie&#x27;s World : The Greek Philosophers&quot;</span>],</span><br><span class="line">            <span class="string">&quot;author&quot;</span>: [<span class="string">&quot;Jostein Gaarder&quot;</span>],</span><br><span class="line">            <span class="string">&quot;sequence_i&quot;</span>: <span class="number">1</span>,</span><br><span class="line">            <span class="string">&quot;genre_s&quot;</span>: <span class="string">&quot;fantasy&quot;</span>,</span><br><span class="line">            <span class="string">&quot;inStock&quot;</span>: [<span class="literal">true</span>],</span><br><span class="line">            <span class="string">&quot;price&quot;</span>: [<span class="number">3.07</span>],</span><br><span class="line">            <span class="string">&quot;pages_i&quot;</span>: <span class="number">64</span>,</span><br><span class="line">            <span class="string">&quot;_version_&quot;</span>: <span class="number">1532134320281485312</span></span><br><span class="line">        &#125;]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Solr Start Script Reference: <a target="_blank" rel="noopener" href="https://cwiki.apache.org/confluence/display/solr/Solr+Start+Script+Reference">https://cwiki.apache.org/confluence/display/solr/Solr+Start+Script+Reference</a>，有命令和参数的详细说明</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="关闭-Solr"><a href="#关闭-Solr" class="headerlink" title="关闭 Solr"></a>关闭 Solr</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/solr stop -all</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建-Core-or-Collection"><a href="#创建-Core-or-Collection" class="headerlink" title="创建 Core or Collection"></a>创建 Core or Collection</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/solr create -c &lt;name&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="删除-Core-or-Collection"><a href="#删除-Core-or-Collection" class="headerlink" title="删除 Core or Collection"></a>删除 Core or Collection</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/solr delete -c ebag</span><br></pre></td></tr></table></figure>
+
+<h2 id="Admin-工具"><a href="#Admin-工具" class="headerlink" title="Admin 工具"></a>Admin 工具</h2><ul>
+<li>访问 <a target="_blank" rel="noopener" href="http://localhost:8983/solr">http://localhost:8983/solr</a></li>
+<li>选择 Core，例如 <code>ebag</code></li>
+<li>选择 <code>Query</code></li>
+<li>在 <code>q</code> 下面输入要搜索的内容例如 <code>Greek</code> 替换 <code>*:*</code></li>
+<li>点击 <code>Execute Query</code>，右边会列出搜索到的内容</li>
+<li>或者直接用 URL 进行搜索: <a target="_blank" rel="noopener" href="http://localhost:8983/solr/ebag/select?indent=on&amp;wt=json&amp;q=Greek">http://localhost:8983/solr/ebag/select?indent=on&amp;wt=json&amp;q=Greek</a><ul>
+<li>q 为搜索的内容</li>
+<li>wt 为搜索结果返回的格式，默认为 xml</li>
+<li>indent 为是否对结果进行缩进</li>
+</ul>
+</li>
+</ul>
+<h2 id="Solr-的重要概念"><a href="#Solr-的重要概念" class="headerlink" title="Solr 的重要概念"></a>Solr 的重要概念</h2><ul>
+<li>Core (Collection): Document 的集合</li>
+<li>Document: 相当于数据库里的一个记录，Field 的集合</li>
+<li>Field: 数据项</li>
+<li>Schema: The schema is the place where you tell Solr how it should build indexes from input documents.</li>
+</ul>
+<h2 id="添加索引"><a href="#添加索引" class="headerlink" title="添加索引"></a>添加索引</h2><p>Solr 支持多种数据格式，例如 PDF，Html，Json，Xml 等。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bin/post -c ebag docs/</span><br><span class="line">bin/post -c ebag example/exampledocs/*.xml</span><br><span class="line">bin/post -c ebag example/exampledocs/books.json</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>ebag 是 collection 的名字</li>
+<li>把目录 docs 下的所有文件都添加到 Solr 的索引里(递归添加)</li>
+<li>对目录 exampledocs 中的所有 xml 做索引</li>
+<li>对 books.json 做索引</li>
+<li>多次对同一个文件做上面的索引操作，不会出现多个，只会更新，因为索引是以 id 来区分的(<code>uniqueKey</code>)，每个 Document 都有一个 id</li>
+</ul>
+<h2 id="常用搜索"><a href="#常用搜索" class="headerlink" title="常用搜索"></a>常用搜索</h2><ul>
+<li>搜索所有 document 的所有 field，包含关系<ul>
+<li><a target="_blank" rel="noopener" href="http://localhost:8983/solr/ebag/select?indent=on&amp;wt=json&amp;q=Greek">http://localhost:8983/solr/ebag/select?indent=on&amp;wt=json&amp;q=Greek</a></li>
+</ul>
+</li>
+<li>搜索指定的 field，精确匹配，<code>q=field:value</code><ul>
+<li><a target="_blank" rel="noopener" href="http://localhost:8983/solr/ebag/select?indent=on&amp;wt=json&amp;q=name:Greek">http://localhost:8983/solr/ebag/select?indent=on&amp;wt=json&amp;q=name:Greek</a></li>
+</ul>
+</li>
+<li>搜索指定的 field，模糊匹配<ul>
+<li><a target="_blank" rel="noopener" href="http://localhost:8983/solr/ebag/select?indent=on&amp;wt=json&amp;q=name:*Greek*">http://localhost:8983/solr/ebag/select?indent=on&amp;wt=json&amp;q=name:*Greek*</a></li>
+</ul>
+</li>
+<li>限定要显示的 field，<code>fl</code><ul>
+<li><a target="_blank" rel="noopener" href="http://localhost:8983/solr/ebag/select?wt=json&amp;indent=true&amp;q=Greek&amp;fl=id">http://localhost:8983/solr/ebag/select?wt=json&amp;indent=true&amp;q=Greek&amp;fl=id</a></li>
+</ul>
+</li>
+<li>范围搜索，q=field:[start<code>%20TO%20</code>end]，价格为 0 到 10<ul>
+<li><a target="_blank" rel="noopener" href="http://localhost:8983/solr/ebag/select?wt=json&amp;indent=on&amp;fl=id,name,price&amp;q=price:%5B0%20TO%2010%5D">http://localhost:8983/solr/ebag/select?wt=json&amp;indent=on&amp;fl=id,name,price&amp;q=price:[0%20TO%2010]</a></li>
+</ul>
+</li>
+<li>Facet 查询，统计 <code>facet.field</code> 属性在搜索结果中有多少个: <code>The facet information shows how many of the query results have each possible value of the cat field.</code><ul>
+<li><a target="_blank" rel="noopener" href="http://localhost:8983/solr/ebag/select?q=price:%5B0%20TO%20400%5D&amp;facet=on&amp;facet.field=cat&amp;wt=json&amp;indent=on">http://localhost:8983/solr/ebag/select?q=price:[0%20TO%20400]&amp;facet=on&amp;facet.field=cat&amp;wt=json&amp;indent=on</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><h2 id="Running-Solr"><a href="#Running-Solr" class="headerlink" title="Running Solr"></a><a target="_blank" rel="noopener" href="https://cwiki.apache.org/confluence/display/solr/Running+Solr">Running Solr</a></h2></li>
+</ul>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/mac-safari-extension/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Safari 插件
+        
+      </div>
+    </a>
+  
+  
+    <a href="/spring-mvc-conversion/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spring 数据绑定之类型转换</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

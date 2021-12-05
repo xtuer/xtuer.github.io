@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>襁褓中的系统界面 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="是否还记得在开始的时候我们说过：  给我一个 QPainter，我也能实现整个操作系统的图形界面 操作系统的界面本质也是**画(Hua)**出来的 图形界面的本质都是一样的，就是一张静态的画 点击按钮，看到按钮动了  这里我们就用 QPainter 绘图来模拟实现一个系统的界面原型，为了简单说明问题，只绘制了 Button 和 CheckBox，其他的控件同理。当然 Button 是能够点击的，点">
+<meta property="og:type" content="article">
+<meta property="og:title" content="襁褓中的系统界面">
+<meta property="og:url" content="http://xtuer.github.io/qtbook-paint-osui/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="是否还记得在开始的时候我们说过：  给我一个 QPainter，我也能实现整个操作系统的图形界面 操作系统的界面本质也是**画(Hua)**出来的 图形界面的本质都是一样的，就是一张静态的画 点击按钮，看到按钮动了  这里我们就用 QPainter 绘图来模拟实现一个系统的界面原型，为了简单说明问题，只绘制了 Button 和 CheckBox，其他的控件同理。当然 Button 是能够点击的，点">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-OSUi-1.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-OSUi-2.png">
+<meta property="article:published_time" content="2017-03-19T12:37:30.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.176Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="QtBook">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-OSUi-1.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Widget"><span class="toc-text">Widget</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Button"><span class="toc-text">Button</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CheckBox"><span class="toc-text">CheckBox</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OSUi"><span class="toc-text">OSUi</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#main"><span class="toc-text">main</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%80%83"><span class="toc-text">思考</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-qtbook-paint-osui" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-paint-osui/" class="article-date">
+  	<!-- <time datetime="2017-03-19T12:37:30.000Z" itemprop="datePublished">2017-03-19</time> -->
+    2017-03-19
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      襁褓中的系统界面
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>是否还记得在开始的时候我们说过：</p>
+<ul>
+<li>给我一个 <strong>QPainter</strong>，我也能实现整个操作系统的图形界面</li>
+<li>操作系统的界面本质也是**画(Hua)**出来的</li>
+<li>图形界面的本质都是一样的，就是一张静态的画</li>
+<li>点击按钮，看到按钮动了</li>
+</ul>
+<p>这里我们就用 QPainter 绘图来模拟实现一个系统的界面原型，为了简单说明问题，只绘制了 Button 和 CheckBox，其他的控件同理。当然 Button 是能够点击的，点击 CheckBox 也能够切换选中状态，没有点击到 Button 和 CheckBox 的时候它们不会接收到鼠标事件，点击一个控件也不会影响另一个控件，效果如下图:</p>
+<p><img src="../img/qtbook/paint/Paint-OSUi-1.png"> <img src="../img/qtbook/paint/Paint-OSUi-2.png"></p>
+<span id="more"></span>
+
+<h2 id="Widget"><a href="#Widget" class="headerlink" title="Widget"></a>Widget</h2><p>Widget 是所有控件的所有控件的父类，实现控件共有的逻辑，Button 和 CheckBox 是具体的控件，不同控件的行为和样式都不一样，都需要在自己的类中实现。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名: Widget.h</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> WIDGET_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> WIDGET_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QRect&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">QPainter</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 控件的基类 Widget，所有控件类都需要直接或者间接的继承类 Widget，它处理控件类的一些共有的逻辑。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Widget</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Widget</span>(<span class="keyword">const</span> QRect &amp;boundingRect);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 绘制控件的函数，不同的控件提供不同的实现，绘制出不同的样子。</span></span><br><span class="line">    <span class="comment">// paint() 是纯虚函数，控件子类必须提供它的实现。</span></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">paint</span><span class="params">(QPainter *painter)</span> </span>= <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 一下几个为鼠标事件</span></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mouseMove</span><span class="params">()</span></span>;     <span class="comment">// 鼠标移动事件</span></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mouseEnter</span><span class="params">()</span></span>;    <span class="comment">// 鼠标进入事件</span></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mouseLeave</span><span class="params">()</span></span>;    <span class="comment">// 鼠标离开事件</span></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mousePressed</span><span class="params">()</span></span>;  <span class="comment">// 鼠标按下事件</span></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mouseReleased</span><span class="params">()</span></span>; <span class="comment">// 鼠标按下后松开事件</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">bool</span>  hover;        <span class="comment">// 鼠标移动到 widget 上时为 true，其他时候为 false</span></span><br><span class="line">    <span class="keyword">bool</span>  pressed;      <span class="comment">// 鼠标在按住 widget 时为 true，其他时候为 false</span></span><br><span class="line">    QRect boundingRect; <span class="comment">// Widget 的范围: 左上角的坐标和宽、高</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// WIDGET_H</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名: Widget.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;Widget.h&quot;</span></span></span><br><span class="line"></span><br><span class="line">Widget::<span class="built_in">Widget</span>(<span class="keyword">const</span> QRect &amp;boundingRect)</span><br><span class="line">    : <span class="built_in">hover</span>(<span class="literal">false</span>), <span class="built_in">pressed</span>(<span class="literal">false</span>), <span class="built_in">boundingRect</span>(boundingRect) &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Widget::mouseMove</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Widget::mouseEnter</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    hover = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Widget::mouseLeave</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    hover = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Widget::mousePressed</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    pressed = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Widget::mouseReleased</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    pressed = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Button"><a href="#Button" class="headerlink" title="Button"></a>Button</h2><p>下面的代码只做出了鼠标移动到 Button 上，鼠标点击时的不同高亮效果，点击 Button 时没有发射 clicked() 事件。</p>
+<p>如果需要实现点击时发射 clicked() 信号也容易，鼠标事件的时候把鼠标的坐标发送给 Button，在 mouseReleased() 事件发生时如果鼠标仍然在 Button 上，发射 clicked() 信号即可，和这个信号关联的槽函数就能被调用了，实现点击的事件处理。传递坐标的时候最好把 parent 的坐标映射为 child 的坐标，即 parent 的坐标减去 Button 在 parent 中左上角的坐标即可。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名: Button.h</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> BUTTON_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BUTTON_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;Widget.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QRect&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QColor&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QPainter&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 按钮类，可以定义按钮的背景色，鼠标放在它上面时的背景色以及鼠标按下时的背景色等。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Button</span> :</span> <span class="keyword">public</span> Widget &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Button</span>(<span class="keyword">const</span> QString &amp;text, <span class="keyword">const</span> QRect &amp;boundingRect = <span class="built_in">QRect</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">25</span>),</span><br><span class="line">           <span class="keyword">const</span> QColor &amp;normalBackgroundColor = <span class="built_in">QColor</span>(<span class="number">200</span>, <span class="number">200</span>, <span class="number">200</span>),</span><br><span class="line">           <span class="keyword">const</span> QColor &amp;hoverBackgroundColor = <span class="built_in">QColor</span>(<span class="number">200</span>, <span class="number">0</span>, <span class="number">200</span>),</span><br><span class="line">           <span class="keyword">const</span> QColor &amp;pressedBackgroundColor = <span class="built_in">QColor</span>(<span class="number">0</span>, <span class="number">200</span>, <span class="number">200</span>));</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">paint</span><span class="params">(QPainter *painter)</span> Q_DECL_OVERRIDE</span>;</span><br><span class="line"></span><br><span class="line">    QString text; <span class="comment">// 按钮的文本</span></span><br><span class="line">    QColor  normalBackgroundColor;  <span class="comment">// 背景色</span></span><br><span class="line">    QColor  hoverBackgroundColor;   <span class="comment">// 鼠标放到按钮上的背景色</span></span><br><span class="line">    QColor  pressedBackgroundColor; <span class="comment">// 鼠标按下按钮的背景色</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// BUTTON_H</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名: Button.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;Button.h&quot;</span></span></span><br><span class="line"></span><br><span class="line">Button::<span class="built_in">Button</span>(<span class="keyword">const</span> QString &amp;text, <span class="keyword">const</span> QRect &amp;boundingRect,</span><br><span class="line">               <span class="keyword">const</span> QColor &amp;normalBackgroundColor,</span><br><span class="line">               <span class="keyword">const</span> QColor &amp;hoverBackgroundColor,</span><br><span class="line">               <span class="keyword">const</span> QColor &amp;pressedBackgroundColor)</span><br><span class="line">    : <span class="built_in">Widget</span>(boundingRect), <span class="built_in">text</span>(text),</span><br><span class="line">      <span class="built_in">normalBackgroundColor</span>(normalBackgroundColor),</span><br><span class="line">      <span class="built_in">hoverBackgroundColor</span>(hoverBackgroundColor),</span><br><span class="line">      <span class="built_in">pressedBackgroundColor</span>(pressedBackgroundColor) &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Button::paint</span><span class="params">(QPainter *painter)</span> </span>&#123;</span><br><span class="line">    QColor backgroundColor; <span class="comment">// 按钮的背景色</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (pressed) &#123;</span><br><span class="line">        backgroundColor = pressedBackgroundColor;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (hover) &#123;</span><br><span class="line">        backgroundColor = hoverBackgroundColor;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        backgroundColor = normalBackgroundColor;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 先绘制按钮的背景，然后居中绘制按钮的文本</span></span><br><span class="line">    painter-&gt;<span class="built_in">setBrush</span>(<span class="built_in">QBrush</span>(backgroundColor));</span><br><span class="line">    painter-&gt;<span class="built_in">drawRoundedRect</span>(boundingRect, <span class="number">2</span>, <span class="number">2</span>);</span><br><span class="line">    painter-&gt;<span class="built_in">drawText</span>(boundingRect, Qt::AlignCenter, text);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="CheckBox"><a href="#CheckBox" class="headerlink" title="CheckBox"></a>CheckBox</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名: CheckBox.h</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> CHECKBOX_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CHECKBOX_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;Widget.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QString&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QRect&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">QPainter</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * CheckBox 类，有选中和未被选中状态。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CheckBox</span> :</span> <span class="keyword">public</span> Widget &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">CheckBox</span>(<span class="keyword">const</span> QString &amp;text, <span class="keyword">bool</span> checked = <span class="literal">true</span>, <span class="keyword">const</span> QRect &amp;boundingRect = <span class="built_in">QRect</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">25</span>));</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">paint</span><span class="params">(QPainter *painter)</span> Q_DECL_OVERRIDE</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">mousePressed</span><span class="params">()</span> Q_DECL_OVERRIDE</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">bool</span> checked; <span class="comment">// 选中时为 true，否则为 false</span></span><br><span class="line">    QString text; <span class="comment">// CheckBox 的文本</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// CHECKBOX_H</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名: CheckBox.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;CheckBox.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QPainter&gt;</span></span></span><br><span class="line"></span><br><span class="line">CheckBox::<span class="built_in">CheckBox</span>(<span class="keyword">const</span> QString &amp;text, <span class="keyword">bool</span> checked, <span class="keyword">const</span> QRect &amp;boundingRect)</span><br><span class="line">    : <span class="built_in">Widget</span>(boundingRect), <span class="built_in">checked</span>(checked), <span class="built_in">text</span>(text) &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CheckBox::paint</span><span class="params">(QPainter *painter)</span> </span>&#123;</span><br><span class="line">    painter-&gt;<span class="built_in">translate</span>(boundingRect.<span class="built_in">x</span>(), boundingRect.<span class="built_in">y</span>());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> w = boundingRect.<span class="built_in">width</span>();</span><br><span class="line">    <span class="keyword">int</span> h = boundingRect.<span class="built_in">height</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 绘制 Indicator 的边框</span></span><br><span class="line">    painter-&gt;<span class="built_in">setPen</span>(<span class="built_in">QPen</span>(Qt::darkGray, <span class="number">2</span>));</span><br><span class="line">    painter-&gt;<span class="built_in">drawRect</span>(<span class="number">0</span>, <span class="number">0</span>, h, h);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 选中时，Indicator 内部绘制一个勾</span></span><br><span class="line">    <span class="keyword">if</span> (checked) &#123;</span><br><span class="line">        painter-&gt;<span class="built_in">setPen</span>(<span class="built_in">QPen</span>(Qt::darkGray, <span class="number">3</span>, Qt::SolidLine, Qt::RoundCap));</span><br><span class="line">        painter-&gt;<span class="built_in">drawLine</span>(h*<span class="number">0.2</span>, h*<span class="number">0.5</span>,  h*<span class="number">0.4</span>, h*<span class="number">0.75</span>);</span><br><span class="line">        painter-&gt;<span class="built_in">drawLine</span>(h*<span class="number">0.4</span>, h*<span class="number">0.75</span>, h*<span class="number">0.9</span>, h*<span class="number">0.3</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 绘制 CheckBox 的文本</span></span><br><span class="line">    painter-&gt;<span class="built_in">setPen</span>(Qt::black);</span><br><span class="line">    painter-&gt;<span class="built_in">drawText</span>(h+<span class="number">10</span>, <span class="number">0</span>, w-h<span class="number">-10</span>, h, Qt::AlignLeft|Qt::AlignVCenter, text);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CheckBox::mousePressed</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    checked = !checked; <span class="comment">// 鼠标按下时切换选中状态</span></span><br><span class="line">    <span class="comment">// 可以发射 statusChanged 信号</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="OSUi"><a href="#OSUi" class="headerlink" title="OSUi"></a>OSUi</h2><p>OSUi 就假设是操作系统的界面吧，各种控件都是放置在它的上面，当 OSUi 接收到鼠标事件后，会查找此时鼠标在哪个控件上，然后就把鼠标事件传递给对应的控件，然后控件对此鼠标事件作出自己特有的响应。</p>
+<p>因为所有的控件都继承自 Widget，所以用一个 List 保存了所有控件的指针，paintEvent() 更新界面时调 Widget::paint() 把所有的控件都重新绘制一次，需要注意的是每个 Widget::paint() 调用的时候，都需要保存一下 QPainter 的状态，绘制完后恢复，避免不同的控件使用 QPainter 后影响到其他控件的绘制。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名: OSUi.h</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> OSUI_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OSUI_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QWidget&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QList&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Widget</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 操作系统的界面，在它的上面放置各种控件。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OSUi</span> :</span> <span class="keyword">public</span> QWidget &#123;</span><br><span class="line">    Q_OBJECT</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">OSUi</span><span class="params">(QWidget *parent = <span class="number">0</span>)</span></span>;</span><br><span class="line">    ~<span class="built_in">OSUi</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">paintEvent</span><span class="params">(QPaintEvent *event)</span> Q_DECL_OVERRIDE</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">mouseMoveEvent</span><span class="params">(QMouseEvent *event)</span> Q_DECL_OVERRIDE</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">mousePressEvent</span><span class="params">(QMouseEvent *event)</span> Q_DECL_OVERRIDE</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">mouseReleaseEvent</span><span class="params">(QMouseEvent *event)</span> Q_DECL_OVERRIDE</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    QList&lt;Widget*&gt; widgets; <span class="comment">// 界面上所有的控件的集合</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// OSUI_H</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名: OSUi.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;OSUi.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;Button.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;CheckBox.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QRect&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QPainter&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QMouseEvent&gt;</span></span></span><br><span class="line"></span><br><span class="line">OSUi::<span class="built_in">OSUi</span>(QWidget *parent) : <span class="built_in">QWidget</span>(parent) &#123;</span><br><span class="line">    <span class="built_in">setMouseTracking</span>(<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建界面上的所有控件</span></span><br><span class="line">    widgets &lt;&lt; <span class="keyword">new</span> <span class="built_in">Button</span>(<span class="string">&quot;按钮一&quot;</span>, <span class="built_in">QRect</span>(<span class="number">20</span>, <span class="number">20</span>, <span class="number">100</span>, <span class="number">25</span>))</span><br><span class="line">            &lt;&lt; <span class="keyword">new</span> <span class="built_in">Button</span>(<span class="string">&quot;按钮二&quot;</span>, <span class="built_in">QRect</span>(<span class="number">20</span>, <span class="number">70</span>, <span class="number">100</span>, <span class="number">25</span>), <span class="built_in">QColor</span>(<span class="number">200</span>, <span class="number">200</span>, <span class="number">200</span>), <span class="built_in">QColor</span>(<span class="number">200</span>, <span class="number">200</span>, <span class="number">0</span>), <span class="built_in">QColor</span>(<span class="number">0</span>, <span class="number">200</span>, <span class="number">0</span>))</span><br><span class="line">            &lt;&lt; <span class="keyword">new</span> <span class="built_in">CheckBox</span>(<span class="string">&quot;生杀大权在你手里&quot;</span>, <span class="literal">true</span>, <span class="built_in">QRect</span>(<span class="number">150</span>, <span class="number">50</span>, <span class="number">150</span>, <span class="number">25</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">OSUi::~<span class="built_in">OSUi</span>() &#123;</span><br><span class="line">    <span class="built_in">qDeleteAll</span>(widgets);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">OSUi::paintEvent</span><span class="params">(QPaintEvent *)</span> </span>&#123;</span><br><span class="line">    <span class="function">QPainter <span class="title">painter</span><span class="params">(<span class="keyword">this</span>)</span></span>;</span><br><span class="line">    painter.<span class="built_in">setRenderHint</span>(QPainter::Antialiasing, <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 每次更新都需要绘制所有的控件</span></span><br><span class="line">    foreach (Widget *w, widgets) &#123;</span><br><span class="line">        painter.<span class="built_in">save</span>();</span><br><span class="line">        w-&gt;<span class="built_in">paint</span>(&amp;painter);</span><br><span class="line">        painter.<span class="built_in">restore</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">OSUi::mouseMoveEvent</span><span class="params">(QMouseEvent *event)</span> </span>&#123;</span><br><span class="line">    foreach (Widget *w, widgets) &#123;</span><br><span class="line">        <span class="keyword">if</span> (w-&gt;boundingRect.<span class="built_in">contains</span>(event-&gt;<span class="built_in">pos</span>())) &#123;</span><br><span class="line">            w-&gt;<span class="built_in">mouseMove</span>();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 当鼠标在 widget 上移动时，如果 widget 的 hover 为 false，则触发一次 mouseEnter 事件，告知鼠标进入它了</span></span><br><span class="line">            <span class="keyword">if</span> (!w-&gt;hover) &#123;</span><br><span class="line">                w-&gt;<span class="built_in">mouseEnter</span>();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 当鼠标不在 widget 上移动时，如果 widget 的 hover 为 true，则触发一次 mouseLeave 事件，告知鼠标已经离开它了</span></span><br><span class="line">            <span class="keyword">if</span> (w-&gt;hover) &#123;</span><br><span class="line">                w-&gt;<span class="built_in">mouseLeave</span>();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">update</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">OSUi::mousePressEvent</span><span class="params">(QMouseEvent *event)</span> </span>&#123;</span><br><span class="line">    foreach (Widget *w, widgets) &#123;</span><br><span class="line">        <span class="keyword">if</span> (w-&gt;boundingRect.<span class="built_in">contains</span>(event-&gt;<span class="built_in">pos</span>())) &#123;</span><br><span class="line">            w-&gt;<span class="built_in">mousePressed</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">update</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">OSUi::mouseReleaseEvent</span><span class="params">(QMouseEvent *)</span> </span>&#123;</span><br><span class="line">    foreach (Widget *w, widgets) &#123;</span><br><span class="line">        <span class="keyword">if</span> (w-&gt;pressed) &#123;</span><br><span class="line">            w-&gt;<span class="built_in">mouseReleased</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">update</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="main"><a href="#main" class="headerlink" title="main"></a>main</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QApplication&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;AppWidget.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="function">QApplication <span class="title">a</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line">    AppWidget w;</span><br><span class="line">    w.<span class="built_in">show</span>();</span><br><span class="line">    <span class="keyword">return</span> a.<span class="built_in">exec</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><ol>
+<li>上面的程序只绘制了 Button 和 CheckBox，只是最最简单的控件，绘制复杂控件例如 Table 应该要怎么做呢？当需要的控件都一个一个地加入到这个系统里，并能够进行相应的事件响应，我们就创造了一个系统的界面。</li>
+<li>更新的时候把所有的控件都绘制了一遍，如果控件很多时效率是不是很低？如果能够只绘制状态改变了的控件是不是就更好了？要实现好这样的算法应该不容易，会涉及到重叠绘制。</li>
+<li>鼠标事件发生时选择控件也是遍历了所有的控件，Qt Graphics/View 框架使用 binary space partition 算法来选择控件，大幅的提升了效率，所以它能够高效的处理上百万个图元。</li>
+<li>如果控件放在了界面上不可见的地方，是不是就不需要绘制出来了呢？</li>
+<li>怎么实现像 QPushButton 的 clicked 信号，响应点击事件？</li>
+<li>鼠标事件处理的时候没有把鼠标的坐标信息传给 Widget。</li>
+<li>如果多个控件重叠到一起，鼠标移动到它们上时，它们都应该做出响应还是只有最上面那个作出响应？可以参考 QGraphicsItem 的 zValue。</li>
+</ol>
+<p>还有太多太多的问题，这里就不一一列举了，说了这么多，只是希望大家能够理解系统界面的本质画出来的，不要感觉很神秘，大道至简。</p>
+<p>当然道理很简单，但要做好绝不是简单的事，就像原子弹的原理很简单一样：把两块或几块较小的铀的同位素铀-235放进弹头里，周围用黄色炸药包围，只要先引爆炸药，强迫几块较小的铀燃料合并成一块大的，使铀达到可与中子进行链式核反应的程度，就能够引起核爆炸。世界上只有几个有限的国家能够制造原子弹，不是其他国家不知道原理，而是制造工艺跟不上，这就和我们知道了系统界面的原理一个样，但是做不出一个好用的来，原因是各种处理的算法跟不上。</p>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/fe-attr-prop/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          jQuery 的 attr 和 prop
+        
+      </div>
+    </a>
+  
+  
+    <a href="/spring-web-exception/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">异常处理</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

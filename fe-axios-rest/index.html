@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Axios 的 REST 封装 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="jQuery 的 REST 插件中介绍了使用 restful 风格封装 jQuery 的 Ajax，这里再对 Axios 使用 restful 风格进行封装 (首先页面中得引入 axios)，Axios 的使用可参考 Axios 中文说明。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Axios 的 REST 封装">
+<meta property="og:url" content="http://xtuer.github.io/fe-axios-rest/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="jQuery 的 REST 插件中介绍了使用 restful 风格封装 jQuery 的 Ajax，这里再对 Axios 使用 restful 风格进行封装 (首先页面中得引入 axios)，Axios 的使用可参考 Axios 中文说明。">
+<meta property="og:locale">
+<meta property="article:published_time" content="2019-05-17T02:36:32.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.144Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="FE">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JS-%E8%AF%B7%E6%B1%82%E7%9A%84%E7%B1%BB-Rest"><span class="toc-text">JS 请求的类 Rest</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E6%B5%8B%E8%AF%95-Spring-MVC"><span class="toc-text">服务器端测试 (Spring MVC)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%AB%AF%E6%B5%8B%E8%AF%95"><span class="toc-text">前端测试</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-fe-axios-rest" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/fe-axios-rest/" class="article-date">
+  	<!-- <time datetime="2019-05-17T02:36:32.000Z" itemprop="datePublished">2019-05-17</time> -->
+    2019-05-17
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Axios 的 REST 封装
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p><a href="/fe-rest/">jQuery 的 REST 插件</a>中介绍了使用 restful 风格封装 jQuery 的 Ajax，这里再对 Axios 使用 restful 风格进行封装 (首先页面中得引入 <a target="_blank" rel="noopener" href="https://unpkg.com/axios/dist/axios.min.js">axios</a>)，Axios 的使用可参考 <a target="_blank" rel="noopener" href="https://www.kancloud.cn/yunye/axios/234845">Axios 中文说明</a>。<span id="more"></span></p>
+<h2 id="JS-请求的类-Rest"><a href="#JS-请求的类-Rest" class="headerlink" title="JS 请求的类 Rest"></a>JS 请求的类 Rest</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 对 axios 根据 restful 风格进行的封装，不管是什么类型的请求，都统一了参数的格式 func(url, &#123; params, data, json, config &#125;):</span></span><br><span class="line"><span class="comment"> *     url   : 请求的 URL</span></span><br><span class="line"><span class="comment"> *     params: 替换 url 路径中的变量 (参考 vue router 的命名习惯)</span></span><br><span class="line"><span class="comment"> *     data  : 不管是 GET，还是 POST, PUT, PATCH 等都统一使用 data 传递参数</span></span><br><span class="line"><span class="comment"> *     config: axios 的配置信息</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 只有 url 是必要的参数，其他几个参数是可选的，根据需求传入，支持下面 4 种请求:</span></span><br><span class="line"><span class="comment"> * 获取资源: Rest.get()    -&gt; GET  请求</span></span><br><span class="line"><span class="comment"> * 创建资源: Rest.create() -&gt; POST 请求</span></span><br><span class="line"><span class="comment"> * 更新资源: Rest.update() -&gt; PUT  请求</span></span><br><span class="line"><span class="comment"> * 部分更新: Rest.patch()  -&gt; PATCH  请求</span></span><br><span class="line"><span class="comment"> * 删除资源: Rest.remove() -&gt; DELETE 请求 (别名 del)</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 这 4 个函数都返回 Promise 对象，then 的参数为请求成功的响应，catch 的参数为失败的响应, 调用示例</span></span><br><span class="line"><span class="comment"> * [1] 普通 GET 请求</span></span><br><span class="line"><span class="comment"> * Rest.get(&#x27;/api/rest&#x27;, &#123; data: &#123; pageNumber: 3 &#125; &#125;).then(result =&gt; &#123;</span></span><br><span class="line"><span class="comment"> *     console.log(result);</span></span><br><span class="line"><span class="comment"> * &#125;);</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * [2] 替换 url 中的变量: 下面的 &#123;bookId&#125; 会被替换为 params.bookId 的值 23，得到请求的 url &#x27;/rest/books/23&#x27;</span></span><br><span class="line"><span class="comment"> * Rest.update(&#x27;/rest/books/&#123;bookId&#125;&#x27;, &#123; params: &#123; bookId: 23 &#125;, data: &#123; name: &#x27;C&amp;S&#x27; &#125; &#125;).then(result =&gt; &#123;</span></span><br><span class="line"><span class="comment"> *     console.log(result);</span></span><br><span class="line"><span class="comment"> * &#125;);</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * [3] 设置 json 为 true 使用 request body 传输复杂的 data 对象 (有多级属性)</span></span><br><span class="line"><span class="comment"> * json 默认为 false，使用 application/x-www-form-urlencoded 的方式，即普通表单的方式</span></span><br><span class="line"><span class="comment"> * Rest.get(&#x27;/api/rest&#x27;, &#123; data: &#123; user: &#123; username: &#x27;Bob&#x27;, password: &#x27;123456&#x27; &#125;, company: &#x27;Appo&#x27; &#125;, json: true &#125;).then(result =&gt; &#123;</span></span><br><span class="line"><span class="comment"> *     console.log(result);</span></span><br><span class="line"><span class="comment"> * &#125;);</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * [4] axios 不支持同步请求，但可以在同一个函数里使用 async await 进行同步操作:</span></span><br><span class="line"><span class="comment"> * async function syncFunc() &#123;</span></span><br><span class="line"><span class="comment"> *     const r1 = await Rest.get(&#x27;/api/rest1&#x27;); // r1 为 then 或者 catch 的参数</span></span><br><span class="line"><span class="comment"> *     const r2 = await Rest.create(/api/rest2&#x27;, &#123; data: &#123; name: &#x27;Goqu&#x27; &#125; &#125;);</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *     console.log(r1, r2);</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> * 注: jQuery 的 Ajax 支持同步请求，但是新版本中也不推荐使用了，浏览器中会有警告</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 提示:</span></span><br><span class="line"><span class="comment"> *     错误处理: 绝大多数时候不需要在 catch 中进行错误处理，已经默认提供了 401，403，404，服务器抛异常时的 500，服务不可达的 502 等错误处理: 弹窗提示和控制台打印错误信息。</span></span><br><span class="line"><span class="comment"> *     额外参数: 可以在 config 参数中传入 axios 的其他配置，最多的情况可能就是 headers 了。</span></span><br><span class="line"><span class="comment"> *              需要注意以下几个参数在 config 中设置会被忽略: data, params, method, responseType, headers.Content-Type, headers.X-Requested-With</span></span><br><span class="line"><span class="comment"> *     合并参数: data 综合了 axios 的 params 和 data 参数</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rest</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 使用 Ajax 的方式异步执行 REST 的 GET 请求 (服务器响应的数据根据 REST 的规范，必须是 Json 对象，否则浏览器端会解析出错)。</span></span><br><span class="line"><span class="comment">     * 以下几个 REST 的函数 Rest.create(), Rest.update(), Rest.remove(), Rest.del() 等和 Rest.get() 的参数都是一样的，就不再重复注释了。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param <span class="type">&#123;String&#125;</span> </span>url 请求的 URL (必填)</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param <span class="type">&#123;Json&#125;</span> </span>options 有以下几个选项 (可选):</span></span><br><span class="line"><span class="comment">     *      &#123;Json&#125;  params URL 路径中的变量，例如 /rest/users/&#123;id&#125;，其中 &#123;id&#125; 替换为 params.id 的值 [可选]</span></span><br><span class="line"><span class="comment">     *      &#123;Json&#125;  data   请求的参数  [可选]</span></span><br><span class="line"><span class="comment">     *      &#123;Bool&#125; json    是否使用 application/json 的方式进行请求，默认为 false 使用 application/x-www-form-urlencoded [可选]</span></span><br><span class="line"><span class="comment">     *      &#123;Json&#125; config  Axios 的 config [可选] (参考 https://www.kancloud.cn/yunye/axios/234845)，需要注意以下几个参数在 config 中设置会被忽略:</span></span><br><span class="line"><span class="comment">     *                     data, params, method, responseType, headers.Content-Type, headers.X-Requested-With</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return </span>返回 Promise 对象, then 的参数为请求成功的响应, catch 的参数为失败的响应</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="title">get</span>(<span class="params">url, options</span>)</span> &#123;</span><br><span class="line">        options = options || &#123;&#125;;</span><br><span class="line">        options.method = <span class="string">&#x27;GET&#x27;</span>;</span><br><span class="line">        <span class="keyword">return</span> Rest.executeRequest(url, options);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="title">create</span>(<span class="params">url, options</span>)</span> &#123;</span><br><span class="line">        options = options || &#123;&#125;;</span><br><span class="line">        options.method = <span class="string">&#x27;POST&#x27;</span>;</span><br><span class="line">        <span class="keyword">return</span> Rest.executeRequest(url, options);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="title">update</span>(<span class="params">url, options</span>)</span> &#123;</span><br><span class="line">        options = options || &#123;&#125;;</span><br><span class="line">        options.method = <span class="string">&#x27;PUT&#x27;</span>;</span><br><span class="line">        <span class="keyword">return</span> Rest.executeRequest(url, options);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="title">patch</span>(<span class="params">url, options</span>)</span> &#123;</span><br><span class="line">        options = options || &#123;&#125;;</span><br><span class="line">        options.method = <span class="string">&#x27;PATCH&#x27;</span>;</span><br><span class="line">        <span class="keyword">return</span> Rest.executeRequest(url, options);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="title">remove</span>(<span class="params">url, options</span>)</span> &#123;</span><br><span class="line">        options = options || &#123;&#125;;</span><br><span class="line">        options.method = <span class="string">&#x27;DELETE&#x27;</span>;</span><br><span class="line">        <span class="keyword">return</span> Rest.executeRequest(url, options);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="title">del</span>(<span class="params">url, options</span>)</span> &#123;</span><br><span class="line">        options = options || &#123;&#125;;</span><br><span class="line">        options.method = <span class="string">&#x27;DELETE&#x27;</span>;</span><br><span class="line">        <span class="keyword">return</span> Rest.executeRequest(url, options);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 上传文件</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param <span class="type">&#123;String&#125;</span> </span>url 上传地址</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param <span class="type">&#123;JSON&#125;</span> </span>formData 表单数据</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="title">upload</span>(<span class="params">url, formData</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">            axios.post(url, formData, &#123; <span class="attr">headers</span>: &#123; <span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;multipart/form-data&#x27;</span> &#125; &#125;).then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (response.data.success) &#123;</span><br><span class="line">                    <span class="keyword">const</span> uplaodedFile = response.data.data;</span><br><span class="line">                    resolve(uplaodedFile);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    reject(response.data.message);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;).catch(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">const</span> error = response.response;</span><br><span class="line">                <span class="built_in">console</span>.error(error);</span><br><span class="line">                reject(error);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 执行请求</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="title">executeRequest</span>(<span class="params">url, &#123; params, data, json, method, config &#125;</span>)</span> &#123;</span><br><span class="line">        <span class="comment">// 保证把 Date 对象转为字符串正确的传给服务器端，其格式由 Date.prototype.toJSON() 确定，推荐使用 yyyy-MM-dd HH:mm:ss</span></span><br><span class="line">        data = <span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(data || &#123;&#125;));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="comment">// url 变量不存在，立即返回</span></span><br><span class="line">            <span class="keyword">if</span> (!url) &#123;</span><br><span class="line">                reject(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;URL undefined&#x27;</span>));</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 如果是 GET，把数组变为字符串: [1, 2, 3] 转换为字符串 &#x27;1,2,3&#x27;</span></span><br><span class="line">            <span class="keyword">if</span> (method === <span class="string">&#x27;GET&#x27;</span>) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> data) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(data[key])) &#123;</span><br><span class="line">                        data[key] += <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// json 为 false，构建 POST, PUT, DELETE, PATCH 请求的参数,</span></span><br><span class="line">            <span class="comment">// json 为 true，则 data 仍然使用 JSON 格式，放在 request body 里即可。</span></span><br><span class="line">            <span class="comment">//</span></span><br><span class="line">            <span class="comment">// 注: 此处结合 Spring MVC 的 HiddenHttpMethodFilter 拦截器，使用 POST 执行 PUT, PATCH, DELETE, PATCH 请求时的额外参数 _method</span></span><br><span class="line">            <span class="comment">//     PUT   : _method=PUT</span></span><br><span class="line">            <span class="comment">//     PATCH : _method=PATCH</span></span><br><span class="line">            <span class="comment">//     DELETE: _method=DELETE</span></span><br><span class="line">            <span class="comment">// 服务器端是其他框架的话，根据具体情况进行修改</span></span><br><span class="line">            <span class="keyword">if</span> (!json &amp;&amp; method !== <span class="string">&#x27;GET&#x27;</span>) &#123;</span><br><span class="line">                data = Rest.serializeData(&#123; ...data, <span class="attr">_method</span>: method &#125;);</span><br><span class="line">                method = <span class="string">&#x27;POST&#x27;</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// content type 为 applicatoin/json 时 data 为 json 对象，使用 request body 传输</span></span><br><span class="line">            <span class="comment">// content type 为 application/x-www-form-urlencoded 时 data 为 key=value 字符串 (FormData)</span></span><br><span class="line">            <span class="keyword">let</span> options = <span class="built_in">Object</span>.assign(&#123; <span class="attr">headers</span>: &#123;&#125; &#125;, config, &#123;</span><br><span class="line">                <span class="attr">url</span>: Rest.formatUrl(url, params),      <span class="comment">// 替换 URL 上的占位变量</span></span><br><span class="line">                data,                                  <span class="comment">// 非 GET 请求时使用</span></span><br><span class="line">                <span class="attr">params</span>: (method === <span class="string">&#x27;GET&#x27;</span>) ? data: &#123;&#125;, <span class="comment">// GET 请求时 URL 后面的 query parameters</span></span><br><span class="line">                method,</span><br><span class="line">                <span class="attr">responseType</span>: <span class="string">&#x27;json&#x27;</span>,</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 服务器抛异常时，有时 Windows 的 Tomcat 环境下竟然取不到 header X-Requested-With, Mac 下没问题，</span></span><br><span class="line">            <span class="comment">// 正常请求时都是好的，手动添加 X-Requested-With 为 XMLHttpRequest 后所有环境下正常和异常时都能取到了</span></span><br><span class="line">            options.headers[<span class="string">&#x27;X-Requested-With&#x27;</span>] = <span class="string">&#x27;XMLHttpRequest&#x27;</span>;</span><br><span class="line">            options.headers[<span class="string">&#x27;Content-Type&#x27;</span>] = json ? <span class="string">&#x27;application/json;charset=UTF-8&#x27;</span> : <span class="string">&#x27;application/x-www-form-urlencoded&#x27;</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 执行请求</span></span><br><span class="line">            axios(options).then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">                resolve(response.data);</span><br><span class="line">            &#125;).catch(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">const</span> error = response.response;</span><br><span class="line">                Rest.handleError(error);</span><br><span class="line">                reject(error);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 错误处理</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="title">handleError</span>(<span class="params">error</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> status = error.status;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="number">401</span> === status) &#123;</span><br><span class="line">            alert(<span class="string">&#x27;401: Token 无效&#x27;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="number">403</span> === status) &#123;</span><br><span class="line">            alert(<span class="string">&#x27;403: 权限不够&#x27;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="number">404</span> === status) &#123;</span><br><span class="line">            alert(<span class="string">&#x27;404: URL 不存在&#x27;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="number">500</span> === status) &#123;</span><br><span class="line">            <span class="keyword">if</span> (error.data &amp;&amp; error.data.message) &#123;</span><br><span class="line">                <span class="comment">// 发生 500 错误时服务器抛出异常，在控制台打印出异常信息</span></span><br><span class="line">                <span class="built_in">console</span>.error(error.data.message);</span><br><span class="line">                <span class="built_in">console</span>.error(error.data.stack);</span><br><span class="line">                alert(<span class="string">`500: 发生异常，<span class="subst">$&#123;error.data.message&#125;</span>\n\n详细错误信息请查看控制台输出 (Chrome 按下快捷键 F12)`</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="number">502</span> === status) &#123;</span><br><span class="line">            <span class="comment">// 发生 502 错误时，Tomcat Web 服务器不可访问，一般有 2 个原因</span></span><br><span class="line">            <span class="comment">// 1. Nginx 配置出错</span></span><br><span class="line">            <span class="comment">// 2. Tomcat 的 Web 服务没启动或者不接收请求</span></span><br><span class="line">            alert(<span class="string">&#x27;502: 服务不可访问&#x27;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="number">504</span> === status) &#123;</span><br><span class="line">            alert(<span class="string">&#x27;504: Gateway Timeout\n\n&#x27;</span> + error.statusText);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 替换 URL 路径中的变量，例如 /rest/users/&#123;id&#125;，其中 &#123;id&#125; 替换为 params.id 的值</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param <span class="type">&#123;String&#125;</span> </span>url           URL 例如 /rest/users/&#123;id&#125;，如果没有占位的变量，则原样返回</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param <span class="type">&#123;Json&#125;</span>   </span>params Json 对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return <span class="type">&#123;String&#125;</span> </span>返回替换变量后的 URL</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="title">formatUrl</span>(<span class="params">url, params</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!params) &#123;</span><br><span class="line">            <span class="keyword">return</span> url;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 查找 &#123;&#123;、&#125;&#125;、或者 &#123;name&#125;，然后进行替换</span></span><br><span class="line">        <span class="comment">// m 是正则中捕获的组 $0，即匹配的整个子串</span></span><br><span class="line">        <span class="comment">// n 是正则中捕获的组 $1，即 () 中的内容</span></span><br><span class="line">        <span class="comment">// function($0, $1, $2, ...)</span></span><br><span class="line">        <span class="keyword">return</span> url.replace(<span class="regexp">/\&#123;\&#123;|\&#125;\&#125;|\&#123;(\w+)\&#125;/g</span>, <span class="function"><span class="keyword">function</span>(<span class="params">m, n</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (m === <span class="string">&#x27;&#123;&#123;&#x27;</span>) &#123; <span class="keyword">return</span> <span class="string">&#x27;&#123;&#x27;</span>; &#125;</span><br><span class="line">            <span class="keyword">if</span> (m === <span class="string">&#x27;&#125;&#125;&#x27;</span>) &#123; <span class="keyword">return</span> <span class="string">&#x27;&#125;&#x27;</span>; &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> params[n];</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 序列化 data 为 key value 的字符串 key1=value1&amp;key2=value2</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param <span class="type">&#123;Json&#125;</span> </span>data Json 对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return </span>返回 key value 的字符串</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="title">serializeData</span>(<span class="params">data</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> [...Object.keys(data)]</span><br><span class="line">            .map(<span class="function"><span class="params">key</span> =&gt;</span> <span class="built_in">encodeURIComponent</span>(key) + <span class="string">&#x27;=&#x27;</span> + <span class="built_in">encodeURIComponent</span>(data[key]))</span><br><span class="line">            .join(<span class="string">&#x27;&amp;&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">window</span>.Rest = Rest;</span><br></pre></td></tr></table></figure>
+
+<h2 id="服务器端测试-Spring-MVC"><a href="#服务器端测试-Spring-MVC" class="headerlink" title="服务器端测试 (Spring MVC)"></a>服务器端测试 (Spring MVC)</h2><p>web.xml 中配置过滤器 HiddenHttpMethodFilter:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Filter: 浏览器的 form 不支持 put, delete 等 method, 由该 filter 将 /blog?_method=delete 转换为标准的 http delete 方法 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">filter</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>HiddenHttpMethodFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-class</span>&gt;</span>org.springframework.web.filter.HiddenHttpMethodFilter<span class="tag">&lt;/<span class="name">filter-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">filter-mapping</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>HiddenHttpMethodFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>springmvc<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">filter-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * http://localhost:8080/api/rest</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/api/rest&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">restGet</span><span class="params">(<span class="meta">@RequestParam(required = false, defaultValue = &quot;Alice&quot;)</span> String name,</span></span></span><br><span class="line"><span class="params"><span class="function">                          <span class="meta">@RequestParam(required = false, defaultValue = &quot;0&quot;)</span> <span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">        Map&lt;String, String&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        map.put(<span class="string">&quot;name&quot;</span>, name);</span><br><span class="line">        map.put(<span class="string">&quot;value&quot;</span>, value + <span class="string">&quot;&quot;</span>);</span><br><span class="line">        map.put(<span class="string">&quot;method&quot;</span>, <span class="string">&quot;GET&quot;</span>);</span><br><span class="line">        System.out.println(name);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> map;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * http://localhost:8080/api/rest</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@PostMapping(&quot;/api/rest&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">restPost</span><span class="params">(<span class="meta">@RequestParam(required = false, defaultValue = &quot;Alice&quot;)</span> String name,</span></span></span><br><span class="line"><span class="params"><span class="function">                           <span class="meta">@RequestParam(required = false, defaultValue = &quot;0&quot;)</span> <span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">        Map&lt;String, String&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        map.put(<span class="string">&quot;name&quot;</span>, name);</span><br><span class="line">        map.put(<span class="string">&quot;value&quot;</span>, value + <span class="string">&quot;&quot;</span>);</span><br><span class="line">        map.put(<span class="string">&quot;method&quot;</span>, <span class="string">&quot;POST&quot;</span>);</span><br><span class="line">        System.out.println(name);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> map;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * http://localhost:8080/api/rest</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@PutMapping(&quot;/api/rest&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">restPut</span><span class="params">(<span class="meta">@RequestParam(required = false, defaultValue = &quot;Alice&quot;)</span> String name,</span></span></span><br><span class="line"><span class="params"><span class="function">                          <span class="meta">@RequestParam(required = false, defaultValue = &quot;0&quot;)</span> <span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">        Map&lt;String, String&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        map.put(<span class="string">&quot;name&quot;</span>, name);</span><br><span class="line">        map.put(<span class="string">&quot;value&quot;</span>, value + <span class="string">&quot;&quot;</span>);</span><br><span class="line">        map.put(<span class="string">&quot;method&quot;</span>, <span class="string">&quot;PUT&quot;</span>);</span><br><span class="line">        System.out.println(name);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> map;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * http://localhost:8080/api/rest</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@DeleteMapping(&quot;/api/rest&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">restDelete</span><span class="params">(<span class="meta">@RequestParam(required = false, defaultValue = &quot;Alice&quot;)</span> String name,</span></span></span><br><span class="line"><span class="params"><span class="function">                             <span class="meta">@RequestParam(required = false, defaultValue = &quot;0&quot;)</span> <span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">        Map&lt;String, String&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        map.put(<span class="string">&quot;name&quot;</span>, name);</span><br><span class="line">        map.put(<span class="string">&quot;value&quot;</span>, value + <span class="string">&quot;&quot;</span>);</span><br><span class="line">        map.put(<span class="string">&quot;method&quot;</span>, <span class="string">&quot;DELETE&quot;</span>);</span><br><span class="line">        System.out.println(name);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> map;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * http://localhost:8080/api/rest1</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@PostMapping(&quot;/api/rest1&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">restPost</span><span class="params">(<span class="meta">@RequestBody</span> Map map)</span> </span>&#123;</span><br><span class="line">        map.put(<span class="string">&quot;method&quot;</span>, <span class="string">&quot;POST&quot;</span>);</span><br><span class="line">        System.out.println(map);</span><br><span class="line">        <span class="keyword">return</span> map;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * http://localhost:8080/api/rest1</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@PutMapping(&quot;/api/rest1&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">restPut</span><span class="params">(<span class="meta">@RequestBody</span> Map map)</span> </span>&#123;</span><br><span class="line">        map.put(<span class="string">&quot;method&quot;</span>, <span class="string">&quot;PUT&quot;</span>);</span><br><span class="line">        System.out.println(map);</span><br><span class="line">        <span class="keyword">return</span> map;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * http://localhost:8080/api/rest1</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@DeleteMapping(&quot;/api/rest1&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">restDelete</span><span class="params">(<span class="meta">@RequestBody</span> Map map)</span> </span>&#123;</span><br><span class="line">        map.put(<span class="string">&quot;method&quot;</span>, <span class="string">&quot;DELETE&quot;</span>);</span><br><span class="line">        System.out.println(map);</span><br><span class="line">        <span class="keyword">return</span> map;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="前端测试"><a href="#前端测试" class="headerlink" title="前端测试"></a>前端测试</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Rest.get(<span class="string">&#x27;/api/rest&#x27;</span>, &#123; <span class="attr">data</span>: &#123; <span class="attr">name</span>: <span class="string">&#x27;张飞&#x27;</span>, <span class="attr">value</span>: <span class="number">99</span> &#125; &#125;).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(result);</span><br><span class="line">&#125;);</span><br><span class="line">Rest.create(<span class="string">&#x27;/api/rest&#x27;</span>, &#123; <span class="attr">data</span>: &#123; <span class="attr">name</span>: <span class="string">&#x27;张飞&#x27;</span>, <span class="attr">value</span>: <span class="number">99</span> &#125; &#125;).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(result);</span><br><span class="line">&#125;);</span><br><span class="line">Rest.update(<span class="string">&#x27;/api/rest&#x27;</span>, &#123; <span class="attr">data</span>: &#123; <span class="attr">name</span>: <span class="string">&#x27;张飞&#x27;</span>, <span class="attr">value</span>: <span class="number">99</span> &#125; &#125;).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(result);</span><br><span class="line">&#125;);</span><br><span class="line">Rest.remove(<span class="string">&#x27;/api/rest&#x27;</span>, &#123; <span class="attr">data</span>: &#123; <span class="attr">name</span>: <span class="string">&#x27;张飞&#x27;</span>, <span class="attr">value</span>: <span class="number">99</span> &#125; &#125;).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(result);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">Rest.create(<span class="string">&#x27;/api/rest1&#x27;</span>, &#123; <span class="attr">data</span>: &#123; <span class="attr">name</span>: <span class="string">&#x27;张飞&#x27;</span>, <span class="attr">value</span>: <span class="number">99</span> &#125;, <span class="attr">json</span>: <span class="literal">true</span> &#125;).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(result);</span><br><span class="line">&#125;);</span><br><span class="line">Rest.update(<span class="string">&#x27;/api/rest1&#x27;</span>, &#123; <span class="attr">data</span>: &#123; <span class="attr">name</span>: <span class="string">&#x27;张飞&#x27;</span>, <span class="attr">value</span>: <span class="number">99</span> &#125;, <span class="attr">json</span>: <span class="literal">true</span> &#125;).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(result);</span><br><span class="line">&#125;);</span><br><span class="line">Rest.remove(<span class="string">&#x27;/api/rest1&#x27;</span>, &#123; <span class="attr">data</span>: &#123; <span class="attr">name</span>: <span class="string">&#x27;张飞&#x27;</span>, <span class="attr">value</span>: <span class="number">99</span> &#125;, <span class="attr">json</span>: <span class="literal">true</span> &#125;).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(result);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>输出:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;method: <span class="string">&quot;GET&quot;</span>, name: <span class="string">&quot;张飞&quot;</span>, value: <span class="string">&quot;99&quot;</span>&#125;</span><br><span class="line">&#123;method: <span class="string">&quot;POST&quot;</span>, name: <span class="string">&quot;张飞&quot;</span>, value: <span class="string">&quot;99&quot;</span>&#125;</span><br><span class="line">&#123;method: <span class="string">&quot;PUT&quot;</span>, name: <span class="string">&quot;张飞&quot;</span>, value: <span class="string">&quot;99&quot;</span>&#125;</span><br><span class="line">&#123;method: <span class="string">&quot;DELETE&quot;</span>, name: <span class="string">&quot;张飞&quot;</span>, value: <span class="string">&quot;99&quot;</span>&#125;</span><br><span class="line">&#123;method: <span class="string">&quot;POST&quot;</span>, name: <span class="string">&quot;张飞&quot;</span>, value: <span class="number">99</span>&#125;</span><br><span class="line">&#123;method: <span class="string">&quot;DELETE&quot;</span>, name: <span class="string">&quot;张飞&quot;</span>, value: <span class="number">99</span>&#125;</span><br><span class="line">&#123;method: <span class="string">&quot;PUT&quot;</span>, name: <span class="string">&quot;张飞&quot;</span>, value: <span class="number">99</span>&#125;</span><br></pre></td></tr></table></figure>
+
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/qtbook-misc-flags/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          枚举与 QFlags
+        
+      </div>
+    </a>
+  
+  
+    <a href="/cpp-temp-var/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">C++ 临时变量的析构</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

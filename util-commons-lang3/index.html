@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Commons-Lang3 例子 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="可以使用 Apache Commons-Lang3:  日期格式化 序列化和反序列化 生成随机字符串 字符串 join, 包含, 空判断, 缩写, 补全输出指定长度的字符串 (leftPad, center, rightPad) 等 获取系统信息 获取 Class 的信息 HTML escape and unescape 数字相关, 如求数组中的最大最小值">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Commons-Lang3 例子">
+<meta property="og:url" content="http://xtuer.github.io/util-commons-lang3/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="可以使用 Apache Commons-Lang3:  日期格式化 序列化和反序列化 生成随机字符串 字符串 join, 包含, 空判断, 缩写, 补全输出指定长度的字符串 (leftPad, center, rightPad) 等 获取系统信息 获取 Class 的信息 HTML escape and unescape 数字相关, 如求数组中的最大最小值">
+<meta property="og:locale">
+<meta property="article:published_time" content="2016-05-22T06:01:33.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.187Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Util">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96"><span class="toc-text">依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A5%E6%9C%9F%E6%A0%BC%E5%BC%8F%E5%8C%96"><span class="toc-text">日期格式化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-text">序列化和反序列化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">生成随机字符串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2-join-%E5%8C%85%E5%90%AB-%E7%A9%BA%E5%88%A4%E6%96%AD-%E7%BC%A9%E5%86%99%E7%AD%89"><span class="toc-text">字符串 join, 包含, 空判断, 缩写等</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF"><span class="toc-text">获取系统信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96-Class-%E7%9A%84%E4%BF%A1%E6%81%AF"><span class="toc-text">获取 Class 的信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML-escape-and-unescape"><span class="toc-text">HTML escape and unescape</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E7%9B%B8%E5%85%B3-%E5%A6%82%E6%B1%82%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E6%9C%80%E5%B0%8F%E5%80%BC"><span class="toc-text">数字相关, 如求数组中的最大最小值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E7%A8%8B%E5%BA%8F"><span class="toc-text">主程序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-util-commons-lang3" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/util-commons-lang3/" class="article-date">
+  	<!-- <time datetime="2016-05-22T06:01:33.000Z" itemprop="datePublished">2016-05-22</time> -->
+    2016-05-22
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Commons-Lang3 例子
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Util/" rel="tag">Util</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>可以使用 Apache Commons-Lang3:</p>
+<ul>
+<li>日期格式化</li>
+<li>序列化和反序列化</li>
+<li>生成随机字符串</li>
+<li>字符串 join, 包含, 空判断, 缩写, 补全输出指定长度的字符串 (leftPad, center, rightPad) 等</li>
+<li>获取系统信息</li>
+<li>获取 Class 的信息</li>
+<li>HTML escape and unescape</li>
+<li>数字相关, 如求数组中的最大最小值</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">&#x27;org.apache.commons:commons-lang3:3.4&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="日期格式化"><a href="#日期格式化" class="headerlink" title="日期格式化"></a>日期格式化</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dateFormatUtilsDemo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(genHeader(<span class="string">&quot;DateFormatUtilsDemo&quot;</span>));</span><br><span class="line">    System.out.println(<span class="string">&quot;格式化日期输出.&quot;</span>);</span><br><span class="line">    System.out.println(DateFormatUtils.format(System.currentTimeMillis(), <span class="string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="序列化和反序列化"><a href="#序列化和反序列化" class="headerlink" title="序列化和反序列化"></a>序列化和反序列化</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">serializationUtilsDemo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    String src = <span class="string">&quot;道格拉斯二狗&quot;</span>;</span><br><span class="line">    <span class="keyword">byte</span>[] result = SerializationUtils.serialize(src); <span class="comment">// 序列化</span></span><br><span class="line"></span><br><span class="line">    String dst = SerializationUtils.deserialize(result); <span class="comment">// 反序列化</span></span><br><span class="line">    System.out.println(dst); <span class="comment">// 输出: 道格拉斯二狗</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="生成随机字符串"><a href="#生成随机字符串" class="headerlink" title="生成随机字符串"></a>生成随机字符串</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">randomStringUtilsDemo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;**RandomStringUtilsDemo**&quot;</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;生成指定长度的随机字符串,好像没什么用.&quot;</span>);</span><br><span class="line">    System.out.println(RandomStringUtils.random(<span class="number">500</span>));</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;在指定字符串中生成长度为 n 的随机字符串.&quot;</span>);</span><br><span class="line">    System.out.println(RandomStringUtils.random(<span class="number">5</span>, <span class="string">&quot;abcdefghijk&quot;</span>));</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;指定从字符或数字中生成随机字符串.&quot;</span>);</span><br><span class="line">    System.out.println(RandomStringUtils.random(<span class="number">5</span>, <span class="keyword">true</span>, <span class="keyword">false</span>));</span><br><span class="line">    System.out.println(RandomStringUtils.random(<span class="number">5</span>, <span class="keyword">false</span>, <span class="keyword">true</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="字符串-join-包含-空判断-缩写等"><a href="#字符串-join-包含-空判断-缩写等" class="headerlink" title="字符串 join, 包含, 空判断, 缩写等"></a>字符串 join, 包含, 空判断, 缩写等</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">stringUtilsDemo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;**StringUtilsDemo**&quot;</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;将字符串重复n次，将文字按某宽度居中，将字符串数组用某字符串连接.&quot;</span>);</span><br><span class="line">    String[] header = <span class="keyword">new</span> String[<span class="number">3</span>];</span><br><span class="line">    header[<span class="number">0</span>] = StringUtils.repeat(<span class="string">&quot;*&quot;</span>, <span class="number">50</span>);</span><br><span class="line">    header[<span class="number">1</span>] = StringUtils.center(<span class="string">&quot;  StringUtilsDemo  &quot;</span>, <span class="number">50</span>, <span class="string">&quot;^O^&quot;</span>);</span><br><span class="line">    header[<span class="number">2</span>] = header[<span class="number">0</span>];</span><br><span class="line">    String head = StringUtils.join(header, <span class="string">&quot;/n&quot;</span>);</span><br><span class="line">    System.out.println(head);</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;缩短到某长度,用...结尾.&quot;</span>);</span><br><span class="line">    System.out.println(StringUtils.abbreviate(<span class="string">&quot;The quick brown fox jumps over the lazy dog.&quot;</span>, <span class="number">10</span>));</span><br><span class="line">    System.out.println(StringUtils.abbreviate(<span class="string">&quot;The quick brown fox jumps over the lazy dog.&quot;</span>, <span class="number">15</span>, <span class="number">10</span>));</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;返回两字符串不同处索引号.&quot;</span>);</span><br><span class="line">    System.out.println(StringUtils.indexOfDifference(<span class="string">&quot;aaabc&quot;</span>, <span class="string">&quot;aaacc&quot;</span>));</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;返回两字符串不同处开始至结束.&quot;</span>);</span><br><span class="line">    System.out.println(StringUtils.difference(<span class="string">&quot;aaabcde&quot;</span>, <span class="string">&quot;aaaccde&quot;</span>));</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;检查一字符串是否为另一字符串的子集.&quot;</span>);</span><br><span class="line">    System.out.println(StringUtils.containsOnly(<span class="string">&quot;aad&quot;</span>, <span class="string">&quot;aadd&quot;</span>));</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;检查一字符串是否不是另一字符串的子集.&quot;</span>);</span><br><span class="line">    System.out.println(StringUtils.containsNone(<span class="string">&quot;defg&quot;</span>, <span class="string">&quot;aadd&quot;</span>));</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;检查一字符串是否包含另一字符串.&quot;</span>);</span><br><span class="line">    System.out.println(StringUtils.contains(<span class="string">&quot;defg&quot;</span>, <span class="string">&quot;ef&quot;</span>));</span><br><span class="line">    System.out.println(StringUtils.containsOnly(<span class="string">&quot;ef&quot;</span>, <span class="string">&quot;defg&quot;</span>));</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;返回可以处理null的toString().&quot;</span>);</span><br><span class="line">    System.out.println(StringUtils.defaultString(<span class="string">&quot;aaaa&quot;</span>));</span><br><span class="line">    System.out.println(<span class="string">&quot;?&quot;</span> + StringUtils.defaultString(<span class="keyword">null</span>) + <span class="string">&quot;!&quot;</span>);</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;去除字符中的空格.&quot;</span>);</span><br><span class="line">    System.out.println(StringUtils.deleteWhitespace(<span class="string">&quot;aa  bb  cc&quot;</span>));</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;判断是否是某类字符.&quot;</span>);</span><br><span class="line">    System.out.println(StringUtils.isAlpha(<span class="string">&quot;ab&quot;</span>));</span><br><span class="line">    System.out.println(StringUtils.isAlphanumeric(<span class="string">&quot;12&quot;</span>));</span><br><span class="line">    System.out.println(StringUtils.isBlank(<span class="string">&quot;&quot;</span>));</span><br><span class="line">    System.out.println(StringUtils.isNumeric(<span class="string">&quot;123&quot;</span>));</span><br><span class="line">    </span><br><span class="line">    System.out.println(<span class="string">&quot;左边加字符, 总长度为指定的长度 20, 格式化输出时用&quot;</span>);</span><br><span class="line">    System.out.println(StringUtils.leftPad(<span class="string">&quot;道格拉斯二狗&quot;</span>, <span class="number">20</span>, <span class="string">&quot; &quot;</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="获取系统信息"><a href="#获取系统信息" class="headerlink" title="获取系统信息"></a>获取系统信息</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">systemUtilsDemo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(genHeader(<span class="string">&quot;SystemUtilsDemo&quot;</span>));</span><br><span class="line">    System.out.println(<span class="string">&quot;获得系统文件分隔符.&quot;</span>);</span><br><span class="line">    System.out.println(SystemUtils.FILE_SEPARATOR);</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;获得源文件编码.&quot;</span>);</span><br><span class="line">    System.out.println(SystemUtils.FILE_ENCODING);</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;获得ext目录.&quot;</span>);</span><br><span class="line">    System.out.println(SystemUtils.JAVA_EXT_DIRS);</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;获得java版本.&quot;</span>);</span><br><span class="line">    System.out.println(SystemUtils.JAVA_VM_VERSION);</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;获得java厂商.&quot;</span>);</span><br><span class="line">    System.out.println(SystemUtils.JAVA_VENDOR);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="获取-Class-的信息"><a href="#获取-Class-的信息" class="headerlink" title="获取 Class 的信息"></a>获取 Class 的信息</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">classUtilsDemo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(genHeader(<span class="string">&quot;ClassUtilsDemo&quot;</span>));</span><br><span class="line">    System.out.println(<span class="string">&quot;获取类实现的所有接口.&quot;</span>);</span><br><span class="line">    System.out.println(ClassUtils.getAllInterfaces(Date.class));</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;获取类所有父类.&quot;</span>);</span><br><span class="line">    System.out.println(ClassUtils.getAllSuperclasses(Date.class));</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;获取简单类名.&quot;</span>);</span><br><span class="line">    System.out.println(ClassUtils.getShortClassName(Date.class));</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;获取包名.&quot;</span>);</span><br><span class="line">    System.out.println(ClassUtils.getPackageName(Date.class));</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;判断是否可以转型.&quot;</span>);</span><br><span class="line">    System.out.println(ClassUtils.isAssignable(Date.class, Object.class));</span><br><span class="line">    System.out.println(ClassUtils.isAssignable(Object.class, Date.class));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="HTML-escape-and-unescape"><a href="#HTML-escape-and-unescape" class="headerlink" title="HTML escape and unescape"></a>HTML escape and unescape</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">stringEscapeUtilsDemo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(genHeader(<span class="string">&quot;StringEscapeUtils&quot;</span>));</span><br><span class="line">    System.out.println(<span class="string">&quot;转换特殊字符.&quot;</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;html:&quot;</span> + StringEscapeUtils.escapeHtml4(<span class="string">&quot;/n\n&quot;</span>));</span><br><span class="line">    System.out.println(<span class="string">&quot;html:&quot;</span> + StringEscapeUtils.unescapeHtml4(<span class="string">&quot;&lt;p&gt;&quot;</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="数字相关-如求数组中的最大最小值"><a href="#数字相关-如求数组中的最大最小值" class="headerlink" title="数字相关, 如求数组中的最大最小值"></a>数字相关, 如求数组中的最大最小值</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">numberUtils</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(genHeader(<span class="string">&quot;NumberUtils&quot;</span>));</span><br><span class="line">    System.out.println(<span class="string">&quot;字符串转为数字(不知道有什么用).&quot;</span>);</span><br><span class="line">    System.out.println(NumberUtils.toInt(<span class="string">&quot;ba&quot;</span>, <span class="number">33</span>));</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;从数组中选出最大值.&quot;</span>);</span><br><span class="line">    System.out.println(NumberUtils.max(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span> &#125;));</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;判断字符串是否全是整数.&quot;</span>);</span><br><span class="line">    System.out.println(NumberUtils.isDigits(<span class="string">&quot;123.1&quot;</span>));</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;判断字符串是否是有效数字.&quot;</span>);</span><br><span class="line">    System.out.println(NumberUtils.isNumber(<span class="string">&quot;0123.1&quot;</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="主程序"><a href="#主程序" class="headerlink" title="主程序"></a>主程序</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.commons.lang3.*;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.lang3.math.NumberUtils;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.lang3.time.DateFormatUtils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LangDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        LangDemo langDemo = <span class="keyword">new</span> LangDemo();</span><br><span class="line"></span><br><span class="line">        langDemo.serializationUtilsDemo();</span><br><span class="line">        langDemo.randomStringUtilsDemo();</span><br><span class="line">        langDemo.stringUtilsDemo();</span><br><span class="line">        langDemo.systemUtilsDemo();</span><br><span class="line">        langDemo.classUtilsDemo();</span><br><span class="line">        langDemo.stringEscapeUtilsDemo();</span><br><span class="line">        langDemo.numberUtils();</span><br><span class="line">        langDemo.dateFormatUtilsDemo();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">genHeader</span><span class="params">(String head)</span> </span>&#123;</span><br><span class="line">        String[] header = <span class="keyword">new</span> String[<span class="number">3</span>];</span><br><span class="line">        header[<span class="number">0</span>] = StringUtils.repeat(<span class="string">&quot;*&quot;</span>, <span class="number">50</span>);</span><br><span class="line">        header[<span class="number">1</span>] = StringUtils.center(<span class="string">&quot;  &quot;</span> + head + <span class="string">&quot;  &quot;</span>, <span class="number">50</span>, <span class="string">&quot;^O^&quot;</span>);</span><br><span class="line">        header[<span class="number">2</span>] = header[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">return</span> StringUtils.join(header, <span class="string">&quot;&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="http://blog.csdn.net/djun100/article/details/11879797">Commons Lang3 功能示例</a></p>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/util-commons-io/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Commons IO 例子
+        
+      </div>
+    </a>
+  
+  
+    <a href="/util-commons-codec/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Commons-Codec 例子</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Qt 自定义日志工具 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="C++ 中比较不错的日志工具有 log4cxx，log4qt 等，但是它们都不能和 qDebug(), qInfo() 等有机的结合在一起，所以在 Qt 中使用总觉得不够舒服，感谢 Qt 提供了 qInstallMessageHandler() 这个函数，使用这个函数可以安装自定义的日志输出处理函数，把日志输出到文件，控制台等，具体的使用可以查看 Qt 的帮助文档。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Qt 自定义日志工具">
+<meta property="og:url" content="http://xtuer.github.io/qt-logger/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="C++ 中比较不错的日志工具有 log4cxx，log4qt 等，但是它们都不能和 qDebug(), qInfo() 等有机的结合在一起，所以在 Qt 中使用总觉得不够舒服，感谢 Qt 提供了 qInstallMessageHandler() 这个函数，使用这个函数可以安装自定义的日志输出处理函数，把日志输出到文件，控制台等，具体的使用可以查看 Qt 的帮助文档。">
+<meta property="og:locale">
+<meta property="article:published_time" content="2016-09-25T08:31:43.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.170Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="Qt">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-QT-MESSAGELOGCONTEXT"><span class="toc-text">定义 QT_MESSAGELOGCONTEXT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#main-cpp"><span class="toc-text">main.cpp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LogHandler-h"><span class="toc-text">LogHandler.h</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LogHandler-cpp"><span class="toc-text">LogHandler.cpp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Singleton-h"><span class="toc-text">Singleton.h</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%80%83"><span class="toc-text">思考</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-qt-logger" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/qt-logger/" class="article-date">
+  	<!-- <time datetime="2016-09-25T08:31:43.000Z" itemprop="datePublished">2016-09-25</time> -->
+    2016-09-25
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Qt 自定义日志工具
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/" rel="tag">Qt</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>C++ 中比较不错的日志工具有 <code>log4cxx</code>，<code>log4qt</code> 等，但是它们都不能和 <code>qDebug()</code>, <code>qInfo()</code> 等有机的结合在一起，所以在 Qt 中使用总觉得不够舒服，感谢 Qt 提供了 <code>qInstallMessageHandler()</code> 这个函数，使用这个函数可以安装自定义的日志输出处理函数，把日志输出到文件，控制台等，具体的使用可以查看 Qt 的帮助文档。</p>
+<span id="more"></span>
+
+<p>本文主要是介绍使用 <code>qInstallMessageHandler()</code> 实现一个简单的日志工具，例如调用 <code>qDebug() &lt;&lt; &quot;Hi&quot;</code>，输出的内容会同时输出到日志文件和控制台，并且日志文件如果不是当天创建的，会使用它的创建日期备份起来，涉及到的文件有:</p>
+<ul>
+<li>main.cpp: 使用示例</li>
+<li>Singleton.h: 单例模版</li>
+<li>LogHandler.h: 自定义日志相关类的头文件</li>
+<li>LogHandler.cpp: 自定义日志相关类的实现文件</li>
+</ul>
+<h2 id="定义-QT-MESSAGELOGCONTEXT"><a href="#定义-QT-MESSAGELOGCONTEXT" class="headerlink" title="定义 QT_MESSAGELOGCONTEXT"></a>定义 QT_MESSAGELOGCONTEXT</h2><p><code>qDebug</code> 其实是一个宏: <code>#define qDebug QMessageLogger(QT_MESSAGELOG_FILE, QT_MESSAGELOG_LINE, QT_MESSAGELOG_FUNC).debug</code>，在 Debug 版本的时候会输出行号，文件名，函数名等，但是在 Release 版本的时候不会输出，为了输出它们，需要在 .pro 文件里加入下面的定义:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DEFINES += QT_MESSAGELOGCONTEXT</span><br></pre></td></tr></table></figure>
+
+<h2 id="main-cpp"><a href="#main-cpp" class="headerlink" title="main.cpp"></a>main.cpp</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;LogHandler.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QApplication&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QDebug&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QTime&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QPushButton&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="function">QApplication <span class="title">app</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [[1]] 安装消息处理函数</span></span><br><span class="line">    Singleton&lt;LogHandler&gt;::<span class="built_in">getInstance</span>().<span class="built_in">installMessageHandler</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [[2]] 输出测试，查看是否写入到文件</span></span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;当前时间是: &quot;</span> &lt;&lt; QTime::<span class="built_in">currentTime</span>().<span class="built_in">toString</span>(<span class="string">&quot;hh:mm:ss&quot;</span>);</span><br><span class="line">    <span class="built_in">qInfo</span>() &lt;&lt; <span class="built_in">QString</span>(<span class="string">&quot;God bless you!&quot;</span>);</span><br><span class="line"></span><br><span class="line">    QPushButton *button = <span class="keyword">new</span> <span class="built_in">QPushButton</span>(<span class="string">&quot;退出&quot;</span>);</span><br><span class="line">    button-&gt;<span class="built_in">show</span>();</span><br><span class="line">    QObject::<span class="built_in">connect</span>(button, &amp;QPushButton::clicked, [&amp;app] &#123;</span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;退出&quot;</span>;</span><br><span class="line">        app.<span class="built_in">quit</span>();</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [[3]] 删除自定义消息处理，然后启用</span></span><br><span class="line">    Singleton&lt;LogHandler&gt;::<span class="built_in">getInstance</span>().<span class="built_in">uninstallMessageHandler</span>();</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;........&quot;</span>; <span class="comment">// 不写入日志</span></span><br><span class="line">    Singleton&lt;LogHandler&gt;::<span class="built_in">getInstance</span>().<span class="built_in">installMessageHandler</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> ret = app.<span class="built_in">exec</span>(); <span class="comment">// 事件循环结束</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// [[4]] 程序结束时释放 LogHandler 的资源，例如刷新并关闭日志文件</span></span><br><span class="line">    Singleton&lt;LogHandler&gt;::<span class="built_in">getInstance</span>().<span class="built_in">uninstallMessageHandler</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>控制台输出:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Hello</span><br><span class="line">当前时间是:  &quot;16:29:42&quot;</span><br><span class="line">&quot;God bless you!&quot;</span><br><span class="line">........</span><br><span class="line">退出</span><br></pre></td></tr></table></figure>
+
+<p>日志文件:<br>位置: exe 所在目录的 log 目录下的 log.txt<br>格式: 时间 - [Level] (文件名:行数, 函数): 消息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">16:29:42 - [Debug] (main.cpp:15, int main(int, char **)): Hello</span><br><span class="line">16:29:42 - [Debug] (main.cpp:16, int main(int, char **)): 当前时间是:  &quot;16:29:42&quot;</span><br><span class="line">16:29:42 - [Info ] (main.cpp:17, int main(int, char **)): &quot;God bless you!&quot;</span><br><span class="line">16:29:46 - [Debug] (main.cpp:22, auto main(int, char **)::(anonymous class)::operator()() const): 退出</span><br></pre></td></tr></table></figure>
+
+<h2 id="LogHandler-h"><a href="#LogHandler-h" class="headerlink" title="LogHandler.h"></a>LogHandler.h</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> LOGHANDLER_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LOGHANDLER_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;Singleton.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LogHandlerInstance Singleton<span class="meta-string">&lt;LogHandler&gt;</span>::getInstance()</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">LogHandlerPrivate</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LogHandler</span> &#123;</span></span><br><span class="line">    <span class="built_in">SINGLETON</span>(LogHandler) <span class="comment">// 使用单例模式</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">uninstallMessageHandler</span><span class="params">()</span></span>; <span class="comment">// 释放资源</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">installMessageHandler</span><span class="params">()</span></span>;   <span class="comment">// 给 Qt 安装消息处理函数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    LogHandlerPrivate *d;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// LOGHANDLER_H</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="LogHandler-cpp"><a href="#LogHandler-cpp" class="headerlink" title="LogHandler.cpp"></a>LogHandler.cpp</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;LogHandler.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QDebug&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QDateTime&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QMutexLocker&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QtGlobal&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QDir&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QFile&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QFileInfo&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QTimer&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QTextStream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QTextCodec&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/************************************************************************************************************</span></span><br><span class="line"><span class="comment"> *                                                                                                          *</span></span><br><span class="line"><span class="comment"> *                                               LogHandlerPrivate                                          *</span></span><br><span class="line"><span class="comment"> *                                                                                                          *</span></span><br><span class="line"><span class="comment"> ***********************************************************************************************************/</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">LogHandlerPrivate</span> &#123;</span></span><br><span class="line">    <span class="built_in">LogHandlerPrivate</span>();</span><br><span class="line">    ~<span class="built_in">LogHandlerPrivate</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 打开日志文件 log.txt，如果日志文件不是当天创建的，则使用创建日期把其重命名为 yyyy-MM-dd.log，并重新创建一个 log.txt</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">openAndBackupLogFile</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 消息处理函数</span></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">messageHandler</span><span class="params">(QtMsgType type, <span class="keyword">const</span> QMessageLogContext &amp;context, <span class="keyword">const</span> QString &amp;msg)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果日志所在目录不存在，则创建</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">makeSureLogDirectory</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line"></span><br><span class="line">    QDir   logDir;              <span class="comment">// 日志文件夹</span></span><br><span class="line">    QTimer renameLogFileTimer;  <span class="comment">// 重命名日志文件使用的定时器</span></span><br><span class="line">    QTimer flushLogFileTimer;   <span class="comment">// 刷新输出到日志文件的定时器</span></span><br><span class="line">    QDate  logFileCreatedDate;  <span class="comment">// 日志文件创建的时间</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> QFile *logFile;      <span class="comment">// 日志文件</span></span><br><span class="line">    <span class="keyword">static</span> QTextStream *logOut; <span class="comment">// 输出日志的 QTextStream，使用静态对象就是为了减少函数调用的开销</span></span><br><span class="line">    <span class="keyword">static</span> QMutex logMutex;     <span class="comment">// 同步使用的 mutex</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始化 static 变量</span></span><br><span class="line">QMutex LogHandlerPrivate::logMutex;</span><br><span class="line">QFile* LogHandlerPrivate::logFile = <span class="literal">nullptr</span>;</span><br><span class="line">QTextStream* LogHandlerPrivate::logOut = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line">LogHandlerPrivate::<span class="built_in">LogHandlerPrivate</span>() &#123;</span><br><span class="line">    logDir.<span class="built_in">setPath</span>(<span class="string">&quot;log&quot;</span>); <span class="comment">// <span class="doctag">TODO:</span> 日志文件夹的路径，为 exe 所在目录下的 log 文件夹，可从配置文件读取</span></span><br><span class="line">    QString logPath = logDir.<span class="built_in">absoluteFilePath</span>(<span class="string">&quot;log.txt&quot;</span>); <span class="comment">// 日志的路径</span></span><br><span class="line">    <span class="comment">// 日志文件创建的时间</span></span><br><span class="line">    <span class="comment">// QFileInfo::created(): On most Unix systems, this function returns the time of the last status change.</span></span><br><span class="line">    <span class="comment">// 所以不能运行时使用这个函数检查创建时间，因为会在运行时变化，于是在程序启动时保存下日志文件的最后修改时间，</span></span><br><span class="line">    <span class="comment">// 在后面判断如果不是今天则用于重命名 log.txt</span></span><br><span class="line">    <span class="comment">// 如果是 Qt 5.10 后，lastModified() 可以使用 birthTime() 代替</span></span><br><span class="line">    logFileCreatedDate = <span class="built_in">QFileInfo</span>(logPath).<span class="built_in">lastModified</span>().<span class="built_in">date</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 打开日志文件，如果不是当天创建的，备份已有日志文件</span></span><br><span class="line">    <span class="built_in">openAndBackupLogFile</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 十分钟检查一次日志文件创建时间</span></span><br><span class="line">    renameLogFileTimer.<span class="built_in">setInterval</span>(<span class="number">1000</span> * <span class="number">60</span> * <span class="number">10</span>); <span class="comment">// <span class="doctag">TODO:</span> 可从配置文件读取</span></span><br><span class="line">    <span class="comment">// renameLogFileTimer.setInterval(1000); // 为了快速测试看到日期变化后是否新创建了对应的日志文件，所以 1 秒检查一次</span></span><br><span class="line">    renameLogFileTimer.<span class="built_in">start</span>();</span><br><span class="line">    QObject::<span class="built_in">connect</span>(&amp;renameLogFileTimer, &amp;QTimer::timeout, [<span class="keyword">this</span>] &#123;</span><br><span class="line">        QMutexLocker <span class="built_in">locker</span>(&amp;LogHandlerPrivate::logMutex);</span><br><span class="line">        <span class="built_in">openAndBackupLogFile</span>();</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 定时刷新日志输出到文件，尽快的能在日志文件里看到最新的日志</span></span><br><span class="line">    flushLogFileTimer.<span class="built_in">setInterval</span>(<span class="number">1000</span>); <span class="comment">// <span class="doctag">TODO:</span> 可从配置文件读取</span></span><br><span class="line">    flushLogFileTimer.<span class="built_in">start</span>();</span><br><span class="line">    QObject::<span class="built_in">connect</span>(&amp;flushLogFileTimer, &amp;QTimer::timeout, [] &#123;</span><br><span class="line">        <span class="comment">// qDebug() &lt;&lt; QDateTime::currentDateTime().toString(&quot;yyyy-MM-dd hh:mm:ss&quot;); // 测试不停的写入内容到日志文件</span></span><br><span class="line">        QMutexLocker <span class="built_in">locker</span>(&amp;LogHandlerPrivate::logMutex);</span><br><span class="line">        <span class="keyword">if</span> (<span class="literal">nullptr</span> != logOut) &#123;</span><br><span class="line">            logOut-&gt;<span class="built_in">flush</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">LogHandlerPrivate::~<span class="built_in">LogHandlerPrivate</span>() &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">nullptr</span> != logFile) &#123;</span><br><span class="line">        logFile-&gt;<span class="built_in">flush</span>();</span><br><span class="line">        logFile-&gt;<span class="built_in">close</span>();</span><br><span class="line">        <span class="keyword">delete</span> logOut;</span><br><span class="line">        <span class="keyword">delete</span> logFile;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 因为他们是 static 变量</span></span><br><span class="line">        logOut  = <span class="literal">nullptr</span>;</span><br><span class="line">        logFile = <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 打开日志文件 log.txt，如果不是当天创建的，则使用创建日期把其重命名为 yyyy-MM-dd.log，并重新创建一个 log.txt</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LogHandlerPrivate::openAndBackupLogFile</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 总体逻辑:</span></span><br><span class="line">    <span class="comment">// 1. 程序启动时 logFile 为 nullptr，初始化 logFile，有可能是同一天打开已经存在的 logFile，所以使用 Append 模式</span></span><br><span class="line">    <span class="comment">// 2. logFileCreatedDate is nullptr, 说明日志文件在程序开始时不存在，所以记录下创建时间</span></span><br><span class="line">    <span class="comment">// 3. 程序运行时检查如果 logFile 的创建日期和当前日期不相等，则使用它的创建日期重命名，然后再生成一个新的 log.txt 文件</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">makeSureLogDirectory</span>(); <span class="comment">// 如果日志所在目录不存在，则创建</span></span><br><span class="line">    QString logPath = logDir.<span class="built_in">absoluteFilePath</span>(<span class="string">&quot;log.txt&quot;</span>); <span class="comment">// 日志的路径</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// [[1]] 程序启动时 logFile 为 nullptr</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">nullptr</span> == logFile) &#123;</span><br><span class="line">        logFile = <span class="keyword">new</span> <span class="built_in">QFile</span>(logPath);</span><br><span class="line">        logOut  = (logFile-&gt;<span class="built_in">open</span>(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Append)) ?  <span class="keyword">new</span> <span class="built_in">QTextStream</span>(logFile) : <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="literal">nullptr</span> != logOut) &#123;</span><br><span class="line">            logOut-&gt;<span class="built_in">setCodec</span>(<span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// [[2]] 如果文件是第一次创建，则创建日期是无效的，把其设置为当前日期</span></span><br><span class="line">        <span class="keyword">if</span> (logFileCreatedDate.<span class="built_in">isNull</span>()) &#123;</span><br><span class="line">            logFileCreatedDate = QDate::<span class="built_in">currentDate</span>();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// <span class="doctag">TODO:</span> 可以检查日志文件超过 30 个，删除 30 天前的日志文件</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [[3]] 程序运行时如果创建日期不是当前日期，则使用创建日期重命名，并生成一个新的 log.txt</span></span><br><span class="line">    <span class="keyword">if</span> (logFileCreatedDate != QDate::<span class="built_in">currentDate</span>()) &#123;</span><br><span class="line">        logFile-&gt;<span class="built_in">flush</span>();</span><br><span class="line">        logFile-&gt;<span class="built_in">close</span>();</span><br><span class="line">        <span class="keyword">delete</span> logOut;</span><br><span class="line">        <span class="keyword">delete</span> logFile;</span><br><span class="line"></span><br><span class="line">        QString newLogPath = logDir.<span class="built_in">absoluteFilePath</span>(logFileCreatedDate.<span class="built_in">toString</span>(<span class="string">&quot;yyyy-MM-dd.log&quot;</span>));;</span><br><span class="line">        QFile::<span class="built_in">copy</span>(logPath, newLogPath); <span class="comment">// Bug: 按理说 rename 会更合适，但是 rename 时最后一个文件总是显示不出来，需要 killall Finder 后才出现</span></span><br><span class="line">        QFile::<span class="built_in">remove</span>(logPath); <span class="comment">// 删除重新创建，改变创建时间</span></span><br><span class="line"></span><br><span class="line">        logFile = <span class="keyword">new</span> <span class="built_in">QFile</span>(logPath);</span><br><span class="line">        logOut  = (logFile-&gt;<span class="built_in">open</span>(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate)) ?  <span class="keyword">new</span> <span class="built_in">QTextStream</span>(logFile) : <span class="literal">nullptr</span>;</span><br><span class="line">        logFileCreatedDate = QDate::<span class="built_in">currentDate</span>();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="literal">nullptr</span> != logOut) &#123;</span><br><span class="line">            logOut-&gt;<span class="built_in">setCodec</span>(<span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果日志所在目录不存在，则创建</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LogHandlerPrivate::makeSureLogDirectory</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!logDir.<span class="built_in">exists</span>()) &#123;</span><br><span class="line">        logDir.<span class="built_in">mkpath</span>(<span class="string">&quot;.&quot;</span>); <span class="comment">// 可以递归的创建文件夹</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 消息处理函数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LogHandlerPrivate::messageHandler</span><span class="params">(QtMsgType type, <span class="keyword">const</span> QMessageLogContext &amp;context, <span class="keyword">const</span> QString &amp;msg)</span> </span>&#123;</span><br><span class="line">    <span class="function">QMutexLocker <span class="title">locker</span><span class="params">(&amp;LogHandlerPrivate::logMutex)</span></span>;</span><br><span class="line">    QString level;</span><br><span class="line"></span><br><span class="line">    <span class="built_in"><span class="keyword">switch</span></span> (type) &#123;</span><br><span class="line">    <span class="keyword">case</span> QtDebugMsg:</span><br><span class="line">        level = <span class="string">&quot;DEBUG&quot;</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> QtInfoMsg:</span><br><span class="line">        level = <span class="string">&quot;INFO &quot;</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> QtWarningMsg:</span><br><span class="line">        level = <span class="string">&quot;WARN &quot;</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> QtCriticalMsg:</span><br><span class="line">        level = <span class="string">&quot;ERROR&quot;</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> QtFatalMsg:</span><br><span class="line">        level = <span class="string">&quot;FATAL&quot;</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 输出到标准输出: Windows 下 std::cout 使用 GB2312，而 msg 使用 UTF-8，但是程序的 Local 也还是使用 UTF-8</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> defined(Q_OS_WIN)</span></span><br><span class="line">    QByteArray localMsg = QTextCodec::<span class="built_in">codecForName</span>(<span class="string">&quot;GB2312&quot;</span>)-&gt;<span class="built_in">fromUnicode</span>(msg); <span class="comment">//msg.toLocal8Bit();</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">    QByteArray localMsg = msg.<span class="built_in">toLocal8Bit</span>();</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; std::<span class="built_in">string</span>(localMsg) &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">nullptr</span> == LogHandlerPrivate::logOut) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 输出到日志文件, 格式: 时间 - [Level] (文件名:行数, 函数): 消息</span></span><br><span class="line">    QString fileName = context.file;</span><br><span class="line">    <span class="keyword">int</span> index = fileName.<span class="built_in">lastIndexOf</span>(QDir::<span class="built_in">separator</span>());</span><br><span class="line">    fileName = fileName.<span class="built_in">mid</span>(index + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    (*LogHandlerPrivate::logOut) &lt;&lt; <span class="built_in">QString</span>(<span class="string">&quot;%1 - [%2] (%3:%4, %5): %6\n&quot;</span>)</span><br><span class="line">                                    .<span class="built_in">arg</span>(QDateTime::<span class="built_in">currentDateTime</span>().<span class="built_in">toString</span>(<span class="string">&quot;yyyy-MM-dd hh:mm:ss&quot;</span>)).<span class="built_in">arg</span>(level)</span><br><span class="line">                                    .<span class="built_in">arg</span>(fileName).<span class="built_in">arg</span>(context.line).<span class="built_in">arg</span>(context.function).<span class="built_in">arg</span>(msg);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/************************************************************************************************************</span></span><br><span class="line"><span class="comment"> *                                                                                                          *</span></span><br><span class="line"><span class="comment"> *                                               LogHandler                                                 *</span></span><br><span class="line"><span class="comment"> *                                                                                                          *</span></span><br><span class="line"><span class="comment"> ***********************************************************************************************************/</span></span><br><span class="line">LogHandler::<span class="built_in">LogHandler</span>() : <span class="built_in">d</span>(<span class="literal">nullptr</span>) &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">LogHandler::~<span class="built_in">LogHandler</span>() &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LogHandler::installMessageHandler</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="function">QMutexLocker <span class="title">locker</span><span class="params">(&amp;LogHandlerPrivate::logMutex)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">nullptr</span> == d) &#123;</span><br><span class="line">        d = <span class="keyword">new</span> <span class="built_in">LogHandlerPrivate</span>();</span><br><span class="line">        <span class="built_in">qInstallMessageHandler</span>(LogHandlerPrivate::messageHandler); <span class="comment">// 给 Qt 安装自定义消息处理函数</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LogHandler::uninstallMessageHandler</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="function">QMutexLocker <span class="title">locker</span><span class="params">(&amp;LogHandlerPrivate::logMutex)</span></span>;</span><br><span class="line">    <span class="built_in">qInstallMessageHandler</span>(<span class="literal">nullptr</span>);</span><br><span class="line">    <span class="keyword">delete</span> d;</span><br><span class="line">    d = <span class="literal">nullptr</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Singleton-h"><a href="#Singleton-h" class="headerlink" title="Singleton.h"></a>Singleton.h</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> SINGLETON_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SINGLETON_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QMutex&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QScopedPointer&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">////////////////////////////////////////////////////////////////////////////////</span></span><br><span class="line"><span class="comment">///                                                                          ///</span></span><br><span class="line"><span class="comment">///                            Singleton signature                           ///</span></span><br><span class="line"><span class="comment">///                                                                          ///</span></span><br><span class="line"><span class="comment">////////////////////////////////////////////////////////////////////////////////</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 使用方法:</span></span><br><span class="line"><span class="comment"> * 1. 定义类为单例:</span></span><br><span class="line"><span class="comment"> *     class ConnectionPool &#123;</span></span><br><span class="line"><span class="comment"> *         SINGLETON(ConnectionPool) // Here</span></span><br><span class="line"><span class="comment"> *     public:</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 2. 实现无参构造函数，析构函数</span></span><br><span class="line"><span class="comment"> * 3. 获取单例类的对象:</span></span><br><span class="line"><span class="comment"> *     Singleton&lt;ConnectionPool&gt;::getInstance();</span></span><br><span class="line"><span class="comment"> *     ConnectionPool &amp;pool = Singleton&lt;ConnectionPool&gt;::getInstance();</span></span><br><span class="line"><span class="comment"> * 注意: 如果单例的类需要释放的资源和 Qt 底层的信号系统有关系，例如 QSettings，QSqlDatabase 等，</span></span><br><span class="line"><span class="comment"> *     需要在程序结束前手动释放(也就是在 main() 函数返回前调用释放资源的函数)，</span></span><br><span class="line"><span class="comment"> *     否则有可能在程序退出时报系统底层的信号错误，导致如 QSettings 的数据没有保存。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> T&amp; <span class="title">getInstance</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">Singleton</span>(<span class="keyword">const</span> Singleton &amp;other);</span><br><span class="line">    Singleton&lt;T&gt;&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> Singleton &amp;other);</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">static</span> QMutex mutex;</span><br><span class="line">    <span class="keyword">static</span> QScopedPointer&lt;T&gt; instance;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">////////////////////////////////////////////////////////////////////////////////</span></span><br><span class="line"><span class="comment">///                                                                          ///</span></span><br><span class="line"><span class="comment">///                            Singleton definition                          ///</span></span><br><span class="line"><span class="comment">///                                                                          ///</span></span><br><span class="line"><span class="comment">////////////////////////////////////////////////////////////////////////////////</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; QMutex Singleton&lt;T&gt;::mutex;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; QScopedPointer&lt;T&gt; Singleton&lt;T&gt;::instance;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line">T&amp; Singleton&lt;T&gt;::<span class="built_in">getInstance</span>() &#123;</span><br><span class="line">    <span class="keyword">if</span> (instance.<span class="built_in">isNull</span>()) &#123;</span><br><span class="line">        mutex.<span class="built_in">lock</span>();</span><br><span class="line">        <span class="keyword">if</span> (instance.<span class="built_in">isNull</span>()) &#123;</span><br><span class="line">            instance.<span class="built_in">reset</span>(<span class="keyword">new</span> <span class="built_in">T</span>());</span><br><span class="line">        &#125;</span><br><span class="line">        mutex.<span class="built_in">unlock</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> *instance.<span class="built_in">data</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">////////////////////////////////////////////////////////////////////////////////</span></span><br><span class="line"><span class="comment">///                                                                          ///</span></span><br><span class="line"><span class="comment">///                               Singleton Macro                            ///</span></span><br><span class="line"><span class="comment">///                                                                          ///</span></span><br><span class="line"><span class="comment">////////////////////////////////////////////////////////////////////////////////</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SINGLETON(Class)                        \</span></span><br><span class="line"><span class="meta">private:                                        \</span></span><br><span class="line"><span class="meta">    Class();                                    \</span></span><br><span class="line"><span class="meta">    ~Class();                                   \</span></span><br><span class="line"><span class="meta">    Class(const Class &amp;other);                  \</span></span><br><span class="line"><span class="meta">    Class&amp; operator=(const Class &amp;other);       \</span></span><br><span class="line"><span class="meta">    friend class Singleton<span class="meta-string">&lt;Class&gt;</span>;              \</span></span><br><span class="line"><span class="meta">    friend struct QScopedPointerDeleter<span class="meta-string">&lt;Class&gt;</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// SINGLETON_H</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><ol>
+<li>main() 函数里的 qDebug() 输出都是在 UI 线程，LogHandler 是否多线程安全？怎么测试？</li>
+<li>日志的相关配置数据例如输出目录等都是写死在程序里的，如果写到配置文件里是不是更灵活？</li>
+<li>日志的格式也是写死在程序里的，如果能做到通过配置修改日志格式那就更强大了，就像 <code>log4cxx</code> 一样</li>
+<li>测试如何快速的看到不同日期生成的日志文件不同？</li>
+<li>删除超过 30 天的日志</li>
+<li>单个日志文件例如大于 100M 后重新创建一个新的日志文件</li>
+</ol>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/php-curl/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          PHP Curl
+        
+      </div>
+    </a>
+  
+  
+    <a href="/qtbook-network-http-httpclient/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Qt 访问网络的 HttpClient</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

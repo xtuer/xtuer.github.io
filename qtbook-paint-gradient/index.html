@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>渐变及原理 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="渐变有三种：QLinearGradient, QConicalGradient and QRadialGradient，接下来将介绍它们的使用和实现原理。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="渐变及原理">
+<meta property="og:url" content="http://xtuer.github.io/qtbook-paint-gradient/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="渐变有三种：QLinearGradient, QConicalGradient and QRadialGradient，接下来将介绍它们的使用和实现原理。">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Base-LinearGradient.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Base-LinearGradient-Demo-1.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Base-LinearGradient-Coordinate.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Base-LinearGradient-Color.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Base-LinearGradient-Demo-1.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Base-LinearGradient-Demo-2.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Base-RadialGradient.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Base-ConicalGradient.png">
+<meta property="article:published_time" content="2016-12-08T15:17:42.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.175Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="QtBook">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Base-LinearGradient.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#QLinearGradient"><span class="toc-text">QLinearGradient</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#QRadialGradient"><span class="toc-text">QRadialGradient</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#QConicalGradient"><span class="toc-text">QConicalGradient</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-qtbook-paint-gradient" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-paint-gradient/" class="article-date">
+  	<!-- <time datetime="2016-12-08T15:17:42.000Z" itemprop="datePublished">2016-12-08</time> -->
+    2016-12-08
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      渐变及原理
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>渐变有三种：QLinearGradient, QConicalGradient and QRadialGradient，接下来将介绍它们的使用和实现原理。<span id="more"></span></p>
+<h2 id="QLinearGradient"><a href="#QLinearGradient" class="headerlink" title="QLinearGradient"></a>QLinearGradient</h2><p>QLinearGradient 是线性渐变，也就是颜色的各个分量（red, green, blue）在两点之间的变化是线性的，需要设置渐变的起始和结束坐标、颜色，超出渐变范围的填充方式，它并不能单独的使用，而是要和 QBrush 一起使用实现填充效果，主要有以下一些函数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建 QLinearGradient，同时设置起始和结束坐标</span></span><br><span class="line"><span class="built_in">QLinearGradient</span>(<span class="keyword">const</span> QPointF &amp;start, <span class="keyword">const</span> QPointF &amp;finalStop)</span><br><span class="line"><span class="built_in">QLinearGradient</span>(qreal x1, qreal y1, qreal x2, qreal y2)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置渐变的颜色，position 的取值范围是 [0.0, 1.0]</span></span><br><span class="line"><span class="built_in">setColorAt</span>(qreal position, <span class="keyword">const</span> QColor &amp;color)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 超出渐变范围后的填充方式，默认使用 PadSpread:</span></span><br><span class="line"><span class="comment">//     QGradient::PadSpread</span></span><br><span class="line"><span class="comment">//     QGradient::RepeatSpread</span></span><br><span class="line"><span class="comment">//     QGradient::ReflectSpread</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setSpread</span><span class="params">(Spread method)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">// 使用渐变创建画刷</span></span></span><br><span class="line"><span class="function"><span class="title">QBrush</span><span class="params">(<span class="keyword">const</span> QGradient &amp;gradient)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>下图来自 QLinearGradient 的帮助文档，两个灰色的点表示渐变的起始和结束位置，从黄色渐变到有点发灰的黄色，同时展示了超出渐变范围时的三种填充方式：</p>
+<p><img src="../img/qtbook/paint/Paint-Base-LinearGradient.png"></p>
+<p>为了介绍 QLinearGradient 的使用，下面的程序使用线性渐变，在垂直方向从红色渐变到蓝色，填充矩形 QRect(20, 20, 200, 200)：</p>
+<p><img src="../img/qtbook/paint/Paint-Base-LinearGradient-Demo-1.png"></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LinearGradientWidget::paintEvent</span><span class="params">(QPaintEvent *)</span> </span>&#123;</span><br><span class="line">    <span class="function">QPainter <span class="title">painter</span><span class="params">(<span class="keyword">this</span>)</span></span>;</span><br><span class="line">    painter.<span class="built_in">setRenderHint</span>(QPainter::Antialiasing);</span><br><span class="line">    <span class="function">QRect <span class="title">rect</span><span class="params">(<span class="number">20</span>, <span class="number">20</span>, <span class="number">200</span>, <span class="number">200</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 渐变开始的坐标为 (20, 20), 结束的坐标为 (20, 220)</span></span><br><span class="line">    <span class="function">QLinearGradient <span class="title">gradient</span><span class="params">(rect.x(), rect.y(),</span></span></span><br><span class="line"><span class="params"><span class="function">                             rect.x(), rect.y() + rect.height())</span></span>;</span><br><span class="line">    gradient.<span class="built_in">setColorAt</span>(<span class="number">0.0</span>, Qt::red);</span><br><span class="line">    gradient.<span class="built_in">setColorAt</span>(<span class="number">1.0</span>, Qt::blue);</span><br><span class="line">    <span class="comment">// 超出渐变范围后的填充方式</span></span><br><span class="line">    gradient.<span class="built_in">setSpread</span>(QGradient::ReflectSpread);</span><br><span class="line"></span><br><span class="line">    painter.<span class="built_in">setPen</span>(Qt::NoPen);</span><br><span class="line">    painter.<span class="built_in">setBrush</span>(gradient); <span class="comment">// QBrush(const QGradient &amp;gradient)</span></span><br><span class="line">    painter.<span class="built_in">drawRect</span>(rect);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果不用 QLinearGradient，怎么实现上面的渐变效果呢？也既是线性渐变的原理是什么呢？<br>以求线段上任意点的坐标为例，如图，已知线段的两端点 A(x1, y1)，B(x2, y2)，求线段上任意一点 M 的坐标 (x, y)，则</p>
+<p><img src="../img/qtbook/paint/Paint-Base-LinearGradient-Coordinate.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">根据两点的距离公式可以求出线段的长度 |AB|（用 || 表示线段的长度）</span><br><span class="line">t = |AM| / |AB|;</span><br><span class="line">因为 |AM| &gt;= 0 且 |AM| &lt;= |AB|，所以 t 的值为 [0.0, 1.0]，用 length 表示 |AB|，则</span><br><span class="line">x = x1 + t * length</span><br><span class="line">y = y1 + t * length</span><br><span class="line"></span><br><span class="line">t 为 0.0 时 M 和 A 重合，t 为 1.0 时 M 和 B 重合。</span><br><span class="line">因为 t 的值为 0 到 1 之间，所以可以用循环求出 AB 上任意点的坐标</span><br><span class="line"></span><br><span class="line">for (float t = 0.0; rate &lt;= 1.0; t += 0.1) &#123;</span><br><span class="line">    x = x1 + t * length;</span><br><span class="line">    y = y1 + t * length;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">其实这就是线段的参数方程。</span><br></pre></td></tr></table></figure>
+
+<p>上面可以理解为坐标的渐变，变化的是坐标的 x, y 分量，颜色的渐变理论上也是一样的，只不过要变化的是颜色的 R, G, B 三个分量。如果同时已知点 A，B 的坐标和颜色 (r1, g1, b1), (r2, g2, b2)，那么 M 点的坐标和颜色为：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">float</span> t = <span class="number">0.0</span>; rate &lt;= <span class="number">1.0</span>; t += <span class="number">0.1</span>) &#123;</span><br><span class="line">    x = x1 + t * length;</span><br><span class="line">    y = y1 + t * length;</span><br><span class="line"></span><br><span class="line">    r = r1 + t * (r2-r1);</span><br><span class="line">    g = g1 + t * (g2-g1);</span><br><span class="line">    b = b1 + t * (b2-b1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>也既是说，如果知道某个点对应的 t，那么就能计算出此点的颜色。如下图，要在矩形内沿着 AB 进行渐变填充，已知点 A，B 的坐标和颜色，在矩形内任意一点 N 的坐标也是已知的（循环遍历矩形内所有的点），那么就可以求出点 N 在 AB 上的投影 M（MN 垂直于 AB），t=|AM|/|AB|，使用上面的方法求出点 M 的颜色，点 M 的颜色就是点 N 的颜色。</p>
+<p><img src="../img/qtbook/paint/Paint-Base-LinearGradient-Color.png"></p>
+<p>对于下图垂直方向的渐变来说，点 A(x1, y1) 为矩形的左上角，点 B(x2, y2) 为矩形的坐下角，矩形内任意一点 N(x, y) 在 AB 上的投影 M 的坐标为 (x1, y)，所以 t = (y-y1)/(y2-y1)，知道了 t，那么就能计算出对应的颜色了。</p>
+<p><img src="../img/qtbook/paint/Paint-Base-LinearGradient-Demo-1.png"></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LinearGradientAlgorithmWidget::paintEvent</span><span class="params">(QPaintEvent *)</span> </span>&#123;</span><br><span class="line">    <span class="function">QPainter <span class="title">painter</span><span class="params">(<span class="keyword">this</span>)</span></span>;</span><br><span class="line">    painter.<span class="built_in">setRenderHint</span>(QPainter::Antialiasing);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 渐变填充的矩形</span></span><br><span class="line">    <span class="function">QRect <span class="title">rect</span><span class="params">(<span class="number">20</span>, <span class="number">20</span>, <span class="number">200</span>, <span class="number">200</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 渐变开始和结束的颜色</span></span><br><span class="line">    <span class="function">QColor <span class="title">gradientStartColor</span><span class="params">(<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="function">QColor <span class="title">gradientFinalColor</span><span class="params">(<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> r1, g1, b1, r2, g2, b2;</span><br><span class="line">    gradientStartColor.<span class="built_in">getRgb</span>(&amp;r1, &amp;g1, &amp;b1);</span><br><span class="line">    gradientFinalColor.<span class="built_in">getRgb</span>(&amp;r2, &amp;g2, &amp;b2);</span><br><span class="line"></span><br><span class="line">    qreal y1 = rect.<span class="built_in">y</span>();</span><br><span class="line">    qreal y2 = rect.<span class="built_in">y</span>() + rect.<span class="built_in">height</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 计算矩形中每一个点的颜色，然后用此颜色绘制这个点</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> x = rect.<span class="built_in">x</span>(); x &lt;= rect.<span class="built_in">x</span>() + rect.<span class="built_in">width</span>(); ++x) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> y = rect.<span class="built_in">y</span>(); y &lt;= rect.<span class="built_in">y</span>() + rect.<span class="built_in">height</span>(); ++y) &#123;</span><br><span class="line">            qreal t = (y-y1) / (y2-y1);</span><br><span class="line">            t = <span class="built_in">qMax</span>(<span class="number">0.0</span>, <span class="built_in">qMin</span>(t, <span class="number">1.0</span>));</span><br><span class="line"></span><br><span class="line">            <span class="keyword">int</span> r = r1 + t * (r2-r1);</span><br><span class="line">            <span class="keyword">int</span> g = g1 + t * (g2-g1);</span><br><span class="line">            <span class="keyword">int</span> b = b1 + t * (b2-b1);</span><br><span class="line"></span><br><span class="line">            painter.<span class="built_in">setPen</span>(<span class="built_in">QColor</span>(r, g, b));</span><br><span class="line">            painter.<span class="built_in">drawPoint</span>(x, y);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行程序，看看效果是不是和使用 QLinearGradient 的一样？</p>
+<p>对于下图这样指定渐变的开始和结束位置，非垂直和水平方向渐变的实现，关键是求任意一点在另一条线上的投影，有很多方法和公式可以使用，这里我们使用 QTransform 进行移动，旋转求出 t，计算出对应的颜色，由于 QTransform 的知识比较复杂，这里就不作深入介绍，有兴趣的可以自行查看相关文档。</p>
+<p><img src="../img/qtbook/paint/Paint-Base-LinearGradient-Demo-2.png"></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LinearGradientAlgorithm2Widget::paintEvent</span><span class="params">(QPaintEvent *)</span> </span>&#123;</span><br><span class="line">    <span class="function">QPainter <span class="title">painter</span><span class="params">(<span class="keyword">this</span>)</span></span>;</span><br><span class="line">    painter.<span class="built_in">setRenderHint</span>(QPainter::Antialiasing);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 渐变填充的矩形</span></span><br><span class="line">    <span class="function">QRect <span class="title">rect</span><span class="params">(<span class="number">20</span>, <span class="number">20</span>, <span class="number">200</span>, <span class="number">200</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 渐变开始和结束的颜色、位置</span></span><br><span class="line">    <span class="function">QColor <span class="title">gradientStartColor</span><span class="params">(<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="function">QColor <span class="title">gradientFinalColor</span><span class="params">(<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>)</span></span>;</span><br><span class="line">    <span class="function">QPoint <span class="title">gradientStartPoint</span><span class="params">(<span class="number">60</span>, <span class="number">60</span>)</span></span>;</span><br><span class="line">    <span class="function">QPoint <span class="title">gradientFinalPoint</span><span class="params">(<span class="number">180</span>, <span class="number">180</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 颜色分量</span></span><br><span class="line">    <span class="keyword">int</span> r1, g1, b1, r2, g2, b2;</span><br><span class="line">    gradientStartColor.<span class="built_in">getRgb</span>(&amp;r1, &amp;g1, &amp;b1);</span><br><span class="line">    gradientFinalColor.<span class="built_in">getRgb</span>(&amp;r2, &amp;g2, &amp;b2);</span><br><span class="line"></span><br><span class="line">    qreal dx = gradientFinalPoint.<span class="built_in">x</span>() - gradientStartPoint.<span class="built_in">x</span>();</span><br><span class="line">    qreal dy = gradientFinalPoint.<span class="built_in">y</span>() - gradientStartPoint.<span class="built_in">y</span>();</span><br><span class="line">    qreal length = <span class="built_in">qSqrt</span>(dx*dx + dy*dy); <span class="comment">// 渐变开始和结束的线段的长度</span></span><br><span class="line">    <span class="keyword">float</span> radian = <span class="built_in">qAtan2</span>(dy, dx); <span class="comment">// 渐变方向和 X 轴的夹角</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 先移动，后旋转，要先调用旋转的函数，然后在调用移动的函数，一定要注意这点，</span></span><br><span class="line">    <span class="comment">// 因为底层实现是 matrix 矩阵右乘点的坐标的列矩阵</span></span><br><span class="line">    QTransform transform;</span><br><span class="line">    transform.<span class="built_in">rotateRadians</span>(-radian);</span><br><span class="line">    transform.<span class="built_in">translate</span>(-gradientStartPoint.<span class="built_in">x</span>(), -gradientStartPoint.<span class="built_in">y</span>());</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 计算矩形中每一个点的颜色，然后用此颜色绘制这个点</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> x = rect.<span class="built_in">x</span>(); x &lt;= rect.<span class="built_in">x</span>() + rect.<span class="built_in">width</span>(); ++x) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> y = rect.<span class="built_in">y</span>(); y &lt;= rect.<span class="built_in">y</span>() + rect.<span class="built_in">height</span>(); ++y) &#123;</span><br><span class="line">            QPointF p = transform.<span class="built_in">map</span>(<span class="built_in">QPointF</span>(x ,y));</span><br><span class="line">            qreal t = p.<span class="built_in">x</span>() / length;</span><br><span class="line">            t = <span class="built_in">qMax</span>(<span class="number">0.0</span>, <span class="built_in">qMin</span>(t, <span class="number">1.0</span>));</span><br><span class="line"></span><br><span class="line">            <span class="keyword">int</span> r = r1 + t * (r2-r1);</span><br><span class="line">            <span class="keyword">int</span> g = g1 + t * (g2-g1);</span><br><span class="line">            <span class="keyword">int</span> b = b1 + t * (b2-b1);</span><br><span class="line"></span><br><span class="line">            painter.<span class="built_in">setPen</span>(<span class="built_in">QColor</span>(r, g, b));</span><br><span class="line">            painter.<span class="built_in">drawPoint</span>(x, y);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>t&lt;0 或 t&gt;1 时，即超出渐变范围后的填充方式是需要考虑的，我们这里的实现就是 PadSpread 的方式，怎么实现 RepeatSpread 和 ReflectSpread 的渐变呢？这个就作为大家的作业吧。</p>
+<h2 id="QRadialGradient"><a href="#QRadialGradient" class="headerlink" title="QRadialGradient"></a>QRadialGradient</h2><p>QRadialGradient 名为 <code>径向渐变</code>，在圆的范围内进行渐变，有三个主要参数：圆心、半径、焦点：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">QRadialGradient</span>(<span class="keyword">const</span> QPointF &amp;center, qreal radius,</span><br><span class="line">                <span class="keyword">const</span> QPointF &amp;focalPoint)</span><br><span class="line"><span class="built_in">QRadialGradient</span>(<span class="keyword">const</span> QPointF &amp; center, qreal radius)</span><br></pre></td></tr></table></figure>
+
+<p>圆心和半径确定颜色渐变的范围，焦点是渐变开始的点，渐变结束的点在圆周上。很多人都认为径向渐变是从圆心开始渐变的，其实不是这样的，只不过焦点和圆心默认是在同一个位置，所以看上去渐变好像是从圆心开始。</p>
+<p>如图，我们故意设置圆心和焦点不在同一个位置，这样就能很明显的看到渐变的范围，开始和结束的位置，连接焦点和圆周的线上的点的颜色做线性渐变（是不是知道怎么实现 QRadialGradient 了？）。</p>
+<p><img src="../img/qtbook/paint/Paint-Base-RadialGradient.png"></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">RadialGradientWidget::paintEvent</span><span class="params">(QPaintEvent *)</span> </span>&#123;</span><br><span class="line">    <span class="function">QPainter <span class="title">painter</span><span class="params">(<span class="keyword">this</span>)</span></span>;</span><br><span class="line">    painter.<span class="built_in">setRenderHint</span>(QPainter::Antialiasing);</span><br><span class="line">    painter.<span class="built_in">translate</span>(<span class="built_in">width</span>() / <span class="number">2</span>, <span class="built_in">height</span>() / <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">    qreal radius = <span class="number">150</span>;    <span class="comment">// 半径</span></span><br><span class="line">    <span class="function">QPointF <span class="title">center</span><span class="params">(<span class="number">0</span>, <span class="number">0</span>)</span></span>;  <span class="comment">// 圆心</span></span><br><span class="line">    <span class="function">QPointF <span class="title">focus</span><span class="params">(<span class="number">80</span>, <span class="number">30</span>)</span></span>; <span class="comment">// 焦点</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 径向渐变</span></span><br><span class="line">    <span class="function">QRadialGradient <span class="title">gradient</span><span class="params">(center, radius, focus)</span></span>;</span><br><span class="line">    gradient.<span class="built_in">setColorAt</span>(<span class="number">0.0</span>, Qt::red);</span><br><span class="line">    gradient.<span class="built_in">setColorAt</span>(<span class="number">1.0</span>, Qt::blue);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 径向渐变填充圆</span></span><br><span class="line">    painter.<span class="built_in">setPen</span>(Qt::darkGray);</span><br><span class="line">    painter.<span class="built_in">setBrush</span>(gradient);</span><br><span class="line">    painter.<span class="built_in">drawEllipse</span>(center, radius, radius);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 绘制圆心和焦点</span></span><br><span class="line">    painter.<span class="built_in">setBrush</span>(Qt::gray);</span><br><span class="line">    painter.<span class="built_in">drawEllipse</span>(center, <span class="number">4</span>, <span class="number">4</span>);</span><br><span class="line">    painter.<span class="built_in">drawEllipse</span>(focus, <span class="number">4</span>, <span class="number">4</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="QConicalGradient"><a href="#QConicalGradient" class="headerlink" title="QConicalGradient"></a>QConicalGradient</h2><p>QConicalGradient 名为 <code>角度渐变</code>，在同一条半径上的像素的颜色值是相同的，只需要指定渐变的中心和开始的角度：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">QConicalGradient</span>(<span class="keyword">const</span> QPointF &amp;center, qreal angle)</span><br><span class="line"><span class="built_in">QConicalGradient</span>(qreal cx, qreal cy, qreal angle)</span><br></pre></td></tr></table></figure>
+
+<p>经过线性渐变和径向渐变的学习，相信现在大家都能很容易的推断得出角度渐变的原理，这里就不作解释，作为悬念留给大家吧。</p>
+<p><img src="../img/qtbook/paint/Paint-Base-ConicalGradient.png"></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ConicalGradientWidget::paintEvent</span><span class="params">(QPaintEvent *)</span> </span>&#123;</span><br><span class="line">    <span class="function">QPainter <span class="title">painter</span><span class="params">(<span class="keyword">this</span>)</span></span>;</span><br><span class="line">    painter.<span class="built_in">setRenderHint</span>(QPainter::Antialiasing);</span><br><span class="line">    painter.<span class="built_in">translate</span>(<span class="built_in">width</span>() / <span class="number">2</span>, <span class="built_in">height</span>() / <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">    qreal startAngle = <span class="number">45</span>; <span class="comment">// 渐变开始的角度</span></span><br><span class="line">    <span class="function">QPointF <span class="title">center</span><span class="params">(<span class="number">0</span>, <span class="number">0</span>)</span></span>;  <span class="comment">// 渐变的中心</span></span><br><span class="line"></span><br><span class="line">    <span class="function">QConicalGradient <span class="title">gradient</span><span class="params">(center, startAngle)</span></span>;</span><br><span class="line">    gradient.<span class="built_in">setColorAt</span>(<span class="number">0.0</span>, Qt::red);</span><br><span class="line">    gradient.<span class="built_in">setColorAt</span>(<span class="number">0.33</span>, Qt::green);</span><br><span class="line">    gradient.<span class="built_in">setColorAt</span>(<span class="number">0.66</span>, Qt::blue);</span><br><span class="line">    gradient.<span class="built_in">setColorAt</span>(<span class="number">1.0</span>, Qt::red);</span><br><span class="line"></span><br><span class="line">    painter.<span class="built_in">setPen</span>(Qt::darkGray);</span><br><span class="line">    painter.<span class="built_in">setBrush</span>(gradient);</span><br><span class="line">    painter.<span class="built_in">drawEllipse</span>(center, <span class="number">150</span>, <span class="number">150</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/qtbook-paint-status/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          QPainter 的状态保存与恢复
+        
+      </div>
+    </a>
+  
+  
+    <a href="/qtbook-paint-brush/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">画刷</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

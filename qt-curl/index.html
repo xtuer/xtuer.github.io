@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Qt 使用 curl | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Qt 已经提供了 QNetworkAccessManager 用于 Http 访问，Qt 访问网络的 HttpClient 对其进行了简单封装，如下就可以进行 GET 请求: 123HttpClient(&quot;http:&#x2F;&#x2F;localhost:8080&#x2F;device&quot;).get([](const QString &amp;response) &amp;#123;    qDebug() &amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Qt 使用 curl">
+<meta property="og:url" content="http://xtuer.github.io/qt-curl/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="Qt 已经提供了 QNetworkAccessManager 用于 Http 访问，Qt 访问网络的 HttpClient 对其进行了简单封装，如下就可以进行 GET 请求: 123HttpClient(&quot;http:&#x2F;&#x2F;localhost:8080&#x2F;device&quot;).get([](const QString &amp;response) &amp;#123;    qDebug() &amp;">
+<meta property="og:locale">
+<meta property="article:published_time" content="2017-10-23T05:42:12.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.169Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="Qt">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91-curl"><span class="toc-text">编译 curl</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-curl"><span class="toc-text">使用 curl</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%A1%88%E4%BE%8B"><span class="toc-text">参考案例</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-qt-curl" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/qt-curl/" class="article-date">
+  	<!-- <time datetime="2017-10-23T05:42:12.000Z" itemprop="datePublished">2017-10-23</time> -->
+    2017-10-23
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Qt 使用 curl
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/" rel="tag">Qt</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Qt 已经提供了 QNetworkAccessManager 用于 Http 访问，<a target="_blank" rel="noopener" href="http://qtdebug.com/qt-httpclient/">Qt 访问网络的 HttpClient</a> 对其进行了简单封装，如下就可以进行 GET 请求:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">HttpClient</span>(<span class="string">&quot;http://localhost:8080/device&quot;</span>).<span class="built_in">get</span>([](<span class="keyword">const</span> QString &amp;response) &#123;</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; response;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>但是，在非 Qt 项目中就不能使用 QNetworkAccessManager 了，还有就是因为 curl 成熟、强大、跨平台，可能有些项目更希望使用 curl，所以在此以 <strong>Windows MinGW 的 Qt 项目</strong>为例，介绍 curl 的集成使用。<span id="more"></span></p>
+<h2 id="编译-curl"><a href="#编译-curl" class="headerlink" title="编译 curl"></a>编译 curl</h2><p>curl 没有提供编译好的库，需要自己编译，可按照下面的步骤进行(curl 相关的目录根据对应的版本好做出修改)</p>
+<ul>
+<li><p>Windows 中可使用 VS2013 编译 curl，所以当然是要先安装 VS2013</p>
+</li>
+<li><p>到 <a target="_blank" rel="noopener" href="https://curl.haxx.se/download.html">https://curl.haxx.se/download.html</a> 下载 curl 源码，选择最新版吧，解压得到的压缩包保存到 <code>C:/curl-7.56.0</code></p>
+</li>
+<li><p><code>Win + CMD</code> 打开命令行</p>
+</li>
+<li><p><code>&quot;C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\vcvars32.bat&quot;</code> 设置 VS 的环境变量，只会当前 CMD 生效</p>
+</li>
+<li><p><code>cd C:\curl-7.56.0\winbuild</code></p>
+</li>
+<li><p><code>nmake /f Makefile.vc mode=dll VC=12</code> 进行编译动态编译，也可以阅读 BUILD.WINDOWS.txt 查看更详细的信息</p>
+</li>
+<li><p>编译后的库文件保存到 <code>C:\curl-7.56.0\builds\libcurl-vc12-x86-release-dll-ipv6-sspi-winssl</code>，复制此目录到 C 盘根目录，重命名为 libcurl，目录结构如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">C:/</span><br><span class="line">└── libcurl</span><br><span class="line">    ├── bin</span><br><span class="line">    │   ├── curl.exe</span><br><span class="line">    │   └── libcurl.dll</span><br><span class="line">    ├── include</span><br><span class="line">    │   └── curl</span><br><span class="line">    │       ├── curl.h</span><br><span class="line">    │       ├── curlver.h</span><br><span class="line">    │       ├── easy.h</span><br><span class="line">    │       ├── mprintf.h</span><br><span class="line">    │       ├── multi.h</span><br><span class="line">    │       ├── stdcheaders.h</span><br><span class="line">    │       ├── system.h</span><br><span class="line">    │       └── typecheck-gcc.h</span><br><span class="line">    └── lib</span><br><span class="line">        ├── libcurl.exp</span><br><span class="line">        └── libcurl.lib</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="使用-curl"><a href="#使用-curl" class="headerlink" title="使用 curl"></a>使用 curl</h2><p>Qt Creator 中创建一个 Qt 项目，pro 文件里加上 curl 的库信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INCLUDEPATH += C:/libcurl/include</span><br><span class="line">LIBS += C:/libcurl/bin/libcurl.dll</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里不需要动态库的索引 .lib 文件，也不需要把 .lib 转换成 .a，直接使用 .dll 就可以了，MinGW 的编译器能够识别，和 VS 的编译器有些不一样。</p>
+</blockquote>
+<p>接下来就可以使用 curl 发送 Http 请求了</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QDebug&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;curl/curl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// curl 读取到的数据保存到 std::string</span></span><br><span class="line"><span class="function"><span class="keyword">size_t</span> <span class="title">curlSaveResponseToStdString</span><span class="params">(<span class="keyword">void</span> *contents, <span class="keyword">size_t</span> size, <span class="keyword">size_t</span> nmemb, std::string *s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">size_t</span> newLength = size * nmemb;</span><br><span class="line">    <span class="keyword">size_t</span> oldLength = s-&gt;<span class="built_in">size</span>();</span><br><span class="line">    s-&gt;<span class="built_in">resize</span>(oldLength + newLength);</span><br><span class="line">    std::<span class="built_in">copy</span>((<span class="keyword">char</span>*)contents, (<span class="keyword">char</span>*)contents+newLength, s-&gt;<span class="built_in">begin</span>()+oldLength);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> size * nmemb;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 初始化 curl</span></span><br><span class="line">    CURL *curl = <span class="built_in">curl_easy_init</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (curl) &#123;</span><br><span class="line">        std::string response;</span><br><span class="line">        <span class="built_in">curl_easy_setopt</span>(curl, CURLOPT_URL, <span class="string">&quot;http://www.qtdebug.com/html/data.json&quot;</span>); <span class="comment">// 设置要访问的网址</span></span><br><span class="line">        <span class="built_in">curl_easy_setopt</span>(curl, CURLOPT_WRITEFUNCTION, curlSaveResponseToStdString); <span class="comment">// 告诉 curl 保存响应到 string 中</span></span><br><span class="line">        <span class="built_in">curl_easy_setopt</span>(curl, CURLOPT_WRITEDATA, &amp;response); <span class="comment">// 请求的响应保存到变量 response 中</span></span><br><span class="line">        <span class="built_in">curl_easy_setopt</span>(curl, CURLOPT_VERBOSE, <span class="number">0L</span>); <span class="comment">// 0 不输出请求的详细信息，1 输出</span></span><br><span class="line">        CURLcode code = <span class="built_in">curl_easy_perform</span>(curl);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (code == CURLE_OK) &#123;</span><br><span class="line">            <span class="comment">// std::cout &lt;&lt; response &lt;&lt; std::endl; // 中文乱码，因为 std::string 对中文的支持不好</span></span><br><span class="line">            <span class="comment">// qDebug() &lt;&lt; QString::fromUtf8(response.data()); // response.data() 返回的是 UTF-8 的字节数据</span></span><br><span class="line">            <span class="built_in">qDebug</span>() &lt;&lt; QString::<span class="built_in">fromStdString</span>(response); <span class="comment">// 使用 qDebug() 输出，UTF-8 的中文不会乱码</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;Error&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 释放 curl 资源</span></span><br><span class="line">    <span class="built_in">curl_easy_cleanup</span>(curl);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编译正常，运行时程序异常结束，这是因为程序找不到 libcurl.dll，把 libcurl.dll 复制到编译出来的 exe 目录，再次运行程序，看到控制台输出</p>
+<blockquote>
+<p>“{&quot;name&quot;: &quot;Alice&quot;}\n”</p>
+</blockquote>
+<p>哈哈，curl 终于集成到我们的项目里了，至于 curl 的更多使用，请执行搜索相关教程即可，在这里就不赘述了，可以看看 <a target="_blank" rel="noopener" href="http://www.cnblogs.com/moodlxs/archive/2012/10/15/2724318.html">C++ 用libcurl库进行http通讯网络编程</a>，这篇文章不错 。</p>
+<p>上面演示了 GET 请求，POST 请求只需要设置 CURLOPT_POST 为 1 即可:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (curl) &#123;</span><br><span class="line">    std::string response;</span><br><span class="line">    <span class="built_in">curl_easy_setopt</span>(curl, CURLOPT_URL, <span class="string">&quot;http://192.168.10.52:8080/rest&quot;</span>);</span><br><span class="line">    <span class="built_in">curl_easy_setopt</span>(curl, CURLOPT_WRITEFUNCTION, curlSaveResponseToStdString);</span><br><span class="line">    <span class="built_in">curl_easy_setopt</span>(curl, CURLOPT_WRITEDATA, &amp;response);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">curl_easy_setopt</span>(curl,CURLOPT_POST, <span class="number">1</span>); <span class="comment">// POST 请求</span></span><br><span class="line">    <span class="built_in">curl_easy_setopt</span>(curl,CURLOPT_POSTFIELDS, <span class="string">&quot;name=赵子龙&amp;department=Dev&quot;</span>); <span class="comment">// POST 参数: GET 请求中的中文要进行 URL 编码，否则提示错误</span></span><br><span class="line"></span><br><span class="line">    CURLcode code = <span class="built_in">curl_easy_perform</span>(curl);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (code == CURLE_OK) &#123;</span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; QString::<span class="built_in">fromUtf8</span>(response.<span class="built_in">data</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考案例"><a href="#参考案例" class="headerlink" title="参考案例"></a>参考案例</h2><p>最后，附上一个小程序，包含了 GET 和 POST 的请求，作为参考:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QDebug&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;curl/curl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">std::string <span class="title">get</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* url, CURLcode *code = <span class="literal">NULL</span>, std::list&lt;<span class="keyword">const</span> <span class="keyword">char</span> *&gt; headers = std::list&lt;<span class="keyword">const</span> <span class="keyword">char</span> *&gt;())</span></span>;</span><br><span class="line"><span class="function">std::string <span class="title">post</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* url, <span class="keyword">const</span> <span class="keyword">char</span>* data = <span class="literal">NULL</span>, <span class="keyword">bool</span> jsonBody = <span class="literal">false</span>, CURLcode *code = <span class="literal">NULL</span>, std::list&lt;<span class="keyword">const</span> <span class="keyword">char</span> *&gt; headers = std::list&lt;<span class="keyword">const</span> <span class="keyword">char</span> *&gt;())</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    CURLcode code;</span><br><span class="line">    std::string r1 = <span class="built_in">get</span>(<span class="string">&quot;http://qtdebug.com/html/data.json&quot;</span>);</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; QString::<span class="built_in">fromUtf8</span>(r1.<span class="built_in">data</span>());</span><br><span class="line"></span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;------------------------------------------------&quot;</span>;</span><br><span class="line"></span><br><span class="line">    std::string r2 = <span class="built_in">post</span>(<span class="string">&quot;http://eplatform.edu-edu.com.cn/live/api/auth/login&quot;</span>, <span class="string">&quot;&#123; \&quot;username\&quot;: \&quot;u1\&quot;, \&quot;password\&quot;: \&quot;abcd\&quot;&#125;&quot;</span>, <span class="literal">true</span>);</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; QString::<span class="built_in">fromUtf8</span>(r2.<span class="built_in">data</span>());</span><br><span class="line"></span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;------------------------------------------------&quot;</span>;</span><br><span class="line"></span><br><span class="line">    std::string r3 = <span class="built_in">get</span>(<span class="string">&quot;http://eplatform.edu-edu.com.cn/live/api/channels/mine&quot;</span>, &amp;code, &#123;<span class="string">&quot;Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4NjM1Y2Y4NGY0N2M4MGYyNGI1NDQ5NyIsImlhdCI6MTUwOTA3NjY5MCwiZXhwIjoxNTA5MTYzMDkwfQ.6nLBnhjTYJgwjwFf_Lf0LreKryrQ6ITdT-PcGAPhKB8&quot;</span>&#125;);</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; QString::<span class="built_in">fromUtf8</span>(r3.<span class="built_in">data</span>());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// curl 读取到的数据保存到 std::string</span></span><br><span class="line"><span class="function"><span class="keyword">size_t</span> <span class="title">curlSaveResponseToStdString</span><span class="params">(<span class="keyword">void</span> *contents, <span class="keyword">size_t</span> size, <span class="keyword">size_t</span> nmemb, std::string *s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">size_t</span> newLength = size * nmemb;</span><br><span class="line">    <span class="keyword">size_t</span> oldLength = s-&gt;<span class="built_in">size</span>();</span><br><span class="line">    s-&gt;<span class="built_in">resize</span>(oldLength + newLength);</span><br><span class="line">    std::<span class="built_in">copy</span>((<span class="keyword">char</span>*)contents, (<span class="keyword">char</span>*)contents+newLength, s-&gt;<span class="built_in">begin</span>()+oldLength);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> size * nmemb;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 执行 HTTP GET 请求</span></span><br><span class="line"><span class="comment"> * @param url  请求的 URL</span></span><br><span class="line"><span class="comment"> * @param code 请求返回的状态码的指针</span></span><br><span class="line"><span class="comment"> * @param headers 请求头</span></span><br><span class="line"><span class="comment"> * @return 请求执行成功时返回响应的字符串，失败则返回空字符串，请求是否执行成功可以通过 code 进行判断</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">std::string <span class="title">get</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* url, CURLcode *code, std::list&lt;<span class="keyword">const</span> <span class="keyword">char</span> *&gt; headers)</span> </span>&#123;</span><br><span class="line">    std::string response;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初始化 curl</span></span><br><span class="line">    CURL *curl = <span class="built_in">curl_easy_init</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (curl) &#123;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">curl_slist</span> *<span class="title">tempHeaders</span> =</span> <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">        std::list&lt;<span class="keyword">const</span> <span class="keyword">char</span> *&gt;::const_iterator iter;</span><br><span class="line">        <span class="keyword">for</span> (iter = headers.<span class="built_in">cbegin</span>(); iter != headers.<span class="built_in">cend</span>(); ++iter) &#123;</span><br><span class="line">            tempHeaders = <span class="built_in">curl_slist_append</span>(tempHeaders, *iter);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">curl_easy_setopt</span>(curl, CURLOPT_HTTPHEADER, tempHeaders);</span><br><span class="line">        <span class="built_in">curl_easy_setopt</span>(curl, CURLOPT_URL, url);</span><br><span class="line">        <span class="built_in">curl_easy_setopt</span>(curl, CURLOPT_WRITEFUNCTION, curlSaveResponseToStdString);</span><br><span class="line">        <span class="built_in">curl_easy_setopt</span>(curl, CURLOPT_WRITEDATA, &amp;response);</span><br><span class="line">        <span class="built_in">curl_easy_setopt</span>(curl, CURLOPT_VERBOSE, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        CURLcode temp = <span class="built_in">curl_easy_perform</span>(curl);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (code != <span class="literal">NULL</span>) &#123;</span><br><span class="line">            *code = temp;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">curl_slist_free_all</span>(tempHeaders); <span class="comment">/* free the header list */</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (code != <span class="literal">NULL</span>) &#123;</span><br><span class="line">            *code = CURLE_FAILED_INIT;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 释放 curl 资源</span></span><br><span class="line">    <span class="built_in">curl_easy_cleanup</span>(curl);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> response;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 执行 HTTP POST 请求</span></span><br><span class="line"><span class="comment"> * @param url  请求的 URL</span></span><br><span class="line"><span class="comment"> * @param data 请求的参数</span></span><br><span class="line"><span class="comment"> * @param jsonBody 如果为 true，则请求的参数是 JSON 格式，否则为 Form 表单的格式 key1=value1&amp;key2=value2&amp;...</span></span><br><span class="line"><span class="comment"> * @param code 请求返回的状态码的指针</span></span><br><span class="line"><span class="comment"> * @param headers 请求头</span></span><br><span class="line"><span class="comment"> * @return 请求执行成功时返回响应的字符串，失败则返回空字符串，请求是否执行成功可以通过 code 进行判断</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">std::string <span class="title">post</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* url, <span class="keyword">const</span> <span class="keyword">char</span>* data, <span class="keyword">bool</span> jsonBody, CURLcode *code, std::list&lt;<span class="keyword">const</span> <span class="keyword">char</span> *&gt; headers)</span> </span>&#123;</span><br><span class="line">    std::string response;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初始化 curl</span></span><br><span class="line">    CURL *curl = <span class="built_in">curl_easy_init</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (curl) &#123;</span><br><span class="line">        <span class="comment">// Headers</span></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">curl_slist</span> *<span class="title">tempHeaders</span> =</span> <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">        std::list&lt;<span class="keyword">const</span> <span class="keyword">char</span> *&gt;::const_iterator iter;</span><br><span class="line">        <span class="keyword">for</span> (iter = headers.<span class="built_in">cbegin</span>(); iter != headers.<span class="built_in">cend</span>(); ++iter) &#123;</span><br><span class="line">            tempHeaders = <span class="built_in">curl_slist_append</span>(tempHeaders, *iter);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (jsonBody) &#123;</span><br><span class="line">            tempHeaders = <span class="built_in">curl_slist_append</span>(tempHeaders, <span class="string">&quot;Accept: application/json; charset=utf-8&quot;</span>);</span><br><span class="line">            tempHeaders = <span class="built_in">curl_slist_append</span>(tempHeaders, <span class="string">&quot;Content-Type: application/json&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">curl_easy_setopt</span>(curl, CURLOPT_HTTPHEADER, tempHeaders);</span><br><span class="line">        <span class="built_in">curl_easy_setopt</span>(curl, CURLOPT_URL, url);</span><br><span class="line">        <span class="built_in">curl_easy_setopt</span>(curl, CURLOPT_WRITEFUNCTION, curlSaveResponseToStdString);</span><br><span class="line">        <span class="built_in">curl_easy_setopt</span>(curl, CURLOPT_WRITEDATA, &amp;response);</span><br><span class="line">        <span class="built_in">curl_easy_setopt</span>(curl,CURLOPT_POST, <span class="number">1</span>); <span class="comment">// POST 请求</span></span><br><span class="line">        <span class="built_in">curl_easy_setopt</span>(curl,CURLOPT_POSTFIELDS, data); <span class="comment">// POST 参数</span></span><br><span class="line"></span><br><span class="line">        CURLcode temp = <span class="built_in">curl_easy_perform</span>(curl);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (code != <span class="literal">NULL</span>) &#123;</span><br><span class="line">            *code = temp;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">curl_slist_free_all</span>(tempHeaders); <span class="comment">/* free the header list */</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (code != <span class="literal">NULL</span>) &#123;</span><br><span class="line">            *code = CURLE_FAILED_INIT;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 释放 curl 资源</span></span><br><span class="line">    <span class="built_in">curl_easy_cleanup</span>(curl);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> response;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/qt-vs2013-dll/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          VS2013 使用 dll
+        
+      </div>
+    </a>
+  
+  
+    <a href="/qt-install/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Qt 安装</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

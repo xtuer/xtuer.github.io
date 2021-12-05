@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Vue-Cli 3 创建单页项目 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Vue-Cli 3 相比以前的版本有更多的优点: 项目结构更加清晰简洁, 运行效率更高, 打包速度更快, 包更小, 原生支持创建多页项目, 支持 yarn 进行包管理, 支持 Webpack 4 等, 生成的项目结构如下:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue-Cli 3 创建单页项目">
+<meta property="og:url" content="http://xtuer.github.io/fe-vue-cli-3-single/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="Vue-Cli 3 相比以前的版本有更多的优点: 项目结构更加清晰简洁, 运行效率更高, 打包速度更快, 包更小, 原生支持创建多页项目, 支持 yarn 进行包管理, 支持 Webpack 4 等, 生成的项目结构如下:">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/fe/vue-cli-3-single.png">
+<meta property="article:published_time" content="2018-10-29T01:32:29.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.151Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="FE">
+<meta property="article:tag" content="Vue">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/fe/vue-cli-3-single.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-fe-vue-cli-3-single" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/fe-vue-cli-3-single/" class="article-date">
+  	<!-- <time datetime="2018-10-29T01:32:29.000Z" itemprop="datePublished">2018-10-29</time> -->
+    2018-10-29
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Vue-Cli 3 创建单页项目
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p><a target="_blank" rel="noopener" href="https://cli.vuejs.org/zh/">Vue-Cli 3</a> 相比以前的版本有更多的优点: 项目结构更加清晰简洁, 运行效率更高, 打包速度更快, 包更小, 原生支持创建多页项目, 支持 yarn 进行包管理, 支持 Webpack 4 等, 生成的项目结构如下:</p>
+<p><img src="../img/fe/vue-cli-3-single.png"></p>
+<span id="more"></span>
+
+<p>下面就简要的介绍下使用 Vue-Cli 3 创建单页项目的步骤:</p>
+<ol>
+<li><p>安装 yarn, 可参考 <a target="_blank" rel="noopener" href="https://yarnpkg.com/lang/zh-hans/docs/cli/add/">Yarn 新手指南</a></p>
+<ul>
+<li><p>yarn 安装项目依赖: <code>yarn add package-name [--dev/-D]</code></p>
+<p>yarn 升级项目依赖: <code>yarn upgrade package-name</code></p>
+</li>
+<li><p>yarn 安装全局依赖: <code>yarn global add package-name</code></p>
+</li>
+</ul>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://cli.vuejs.org/zh/guide/installation.html">安装 Vue-Cli 3</a>: <code>yarn global add @vue/cli</code></p>
+</li>
+<li><p>使用 Vue-Cli 3 创建项目:</p>
+<ul>
+<li>启动项目管理页面: <code>vue ui</code></li>
+<li>选择项目所在目录，输入项目名称</li>
+<li>选择需要的插件, 推荐<ul>
+<li>Babel</li>
+<li>Router</li>
+<li>Vuex</li>
+<li>Css Pre-processors (推荐 SCSS)</li>
+<li>Linter/Formatter (推荐 Airbnb)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>根据项目规范修改 eslint rules (在 package.json 文件里): 例如使用 4 个空格缩进, 代码中可以允许有多个空格进行排版, 更多的规则请自行定制:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;rules&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;vue/no-reserved-keys&quot;</span>: <span class="string">&quot;warning&quot;</span>,</span><br><span class="line">    <span class="string">&quot;indent&quot;</span>: [<span class="string">&quot;error&quot;</span>, <span class="number">4</span>],</span><br><span class="line">    <span class="string">&quot;no-multi-spaces&quot;</span>: <span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>修改运行端口 (修改 <code>vue.config.js</code>, 在项目根目录下, 没有的话自行创建), 默认端口是 8080, 但是如果同时开发后端, 要运行 Tomcat 等, 8080 端口已经被占用, 需要修改为其他端口, 例如修改为 8888:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="attr">devServer</span>: &#123;</span><br><span class="line">        <span class="attr">port</span>: <span class="number">8888</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>更多配置请参考 <a target="_blank" rel="noopener" href="https://cli.vuejs.org/zh/config/">https://cli.vuejs.org/zh/config/</a></p>
+</li>
+<li><p>运行: <code>yarn serve</code></p>
+</li>
+<li><p>打包: <code>yarn build</code></p>
+<p>默认输出目录为项目根路径下 dist 目录, 可以修改 outputDir 进行指定:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="attr">devServer</span>: &#123;</span><br><span class="line">        <span class="attr">port</span>: <span class="number">8888</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">outputDir</span>: <span class="string">&#x27;../static&#x27;</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+<li><p>安装 iView: </p>
+<ul>
+<li>运行 <code>vue ui</code> </li>
+<li>搜索插件 <code>vue-cli-plugin-iview</code>，点击安装</li>
+<li>等一会，安装完成后 <code>main.js</code> 中自动增加了使用 iView 的语句 <code>import &#39;./plugins/iview&#39;</code></li>
+</ul>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yangshifu/p/9724709.html">启用 gzip 压缩</a> (能够减少差不多 js, css 五分之三的流量)</p>
+<ul>
+<li><p>增加 gzip 依赖: <code>yarn add -D compression-webpack-plugin</code></p>
+</li>
+<li><p>修改 vue.config.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> CompressionWebpackPlugin = <span class="built_in">require</span>(<span class="string">&#x27;compression-webpack-plugin&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="attr">devServer</span>: &#123;</span><br><span class="line">        <span class="attr">port</span>: <span class="number">8888</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">productionSourceMap</span>: <span class="literal">false</span>, <span class="comment">// 不生成 map 文件</span></span><br><span class="line">    <span class="attr">configureWebpack</span>: <span class="function"><span class="params">config</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (process.env.NODE_ENV === <span class="string">&#x27;production&#x27;</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> &#123;</span><br><span class="line">                <span class="attr">plugins</span>: [<span class="keyword">new</span> CompressionWebpackPlugin(&#123;</span><br><span class="line">                    <span class="attr">test</span>: <span class="regexp">/\.(js|css)(\?.*)?$/i</span>, <span class="comment">// 需要压缩的文件正则</span></span><br><span class="line">                    threshold: <span class="number">10240</span>,            <span class="comment">// 文件大小大于这个值时启用压缩 (10K)</span></span><br><span class="line">                    <span class="attr">deleteOriginalAssets</span>: <span class="literal">false</span>, <span class="comment">// 压缩后保留原文件</span></span><br><span class="line">                &#125;)]</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+<li><p>Nginx 开启 gzip</p>
+</li>
+</ul>
+</li>
+<li><p>打包分析: <code>yarn build --report</code> (不需要步骤 11 的方法了)，编译后会自动打开生成的报告 <code>report.html</code></p>
+</li>
+<li><p>打包分析工具 webpack-bundle-analyzer</p>
+</li>
+</ol>
+<ul>
+<li><p>安装: 运行 <code>vue ui</code>，然后搜索 <code>vue-cli-plugin-webpack-bundle-analyzer</code> 进行安装</p>
+</li>
+<li><p>编译: 运行 <code>yarn build</code>，编译后会自动打开生成的报告 <code>report.html</code></p>
+</li>
+<li><p>如果想编译后不自动打开生成的报告，在 vue.config.js 中添加下面的代码即可，需要的时候再去收到打开</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="attr">pluginOptions</span>: &#123;</span><br><span class="line">        <span class="attr">webpackBundleAnalyzer</span>: &#123;</span><br><span class="line">            <span class="attr">openAnalyzer</span>: <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<p>提示: Atom 使用 atom-beautify 格式化时, 如果不是 4 个空格, 可以手动在项目根目录下创建文件 .editorconfig, 修改 <code>indent_size = 4</code></p>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/fe-vue-cli-3-multi/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Vue-Cli 3 创建多页项目
+        
+      </div>
+    </a>
+  
+  
+    <a href="/misc-distributed-lock/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ZooKeeper 实现分布式锁</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

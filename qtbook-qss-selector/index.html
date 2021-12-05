@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>QSS 选择器 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="选择器决定了 style sheet 作用于哪些 widget，QSS 支持 CSS2 定义的所有选择器。 QSS 的选择器有  通用选择器 * 类型选择器 类选择器 ID 选择器 属性选择器 包含选择器 子元素选择器 伪类选择器 Subcontrol 选择器  很多时候，可以使用不同的选择器实现相同效果的样式，使用非常灵活。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="QSS 选择器">
+<meta property="og:url" content="http://xtuer.github.io/qtbook-qss-selector/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="选择器决定了 style sheet 作用于哪些 widget，QSS 支持 CSS2 定义的所有选择器。 QSS 的选择器有  通用选择器 * 类型选择器 类选择器 ID 选择器 属性选择器 包含选择器 子元素选择器 伪类选择器 Subcontrol 选择器  很多时候，可以使用不同的选择器实现相同效果的样式，使用非常灵活。">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/qss/QSS-Selector-Type-Selector.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/qss/QSS-Selector-Class-Selector.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/qss/QSS-Selector-Descendant-Selector.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/qss/QSS-Selector-Child-Selector.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/qss/QSS-Selector-Subcontrol-Selector.png">
+<meta property="article:published_time" content="2017-02-02T12:47:09.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.177Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="QtBook">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/qtbook/qss/QSS-Selector-Type-Selector.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E7%94%A8%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-text">通用选择器 *</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-text">类型选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-text">类选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ID-%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-text">ID 选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B1%9E%E6%80%A7%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-text">属性选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%85%E5%90%AB%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-text">包含选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%90%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-text">子元素选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-text">伪类选择器</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8%E6%9C%89%EF%BC%9A"><span class="toc-text">常用伪类选择器有：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Subcontrol-%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-text">Subcontrol 选择器</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-qtbook-qss-selector" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-qss-selector/" class="article-date">
+  	<!-- <time datetime="2017-02-02T12:47:09.000Z" itemprop="datePublished">2017-02-02</time> -->
+    2017-02-02
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      QSS 选择器
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>选择器决定了 style sheet 作用于哪些 widget，QSS 支持 <a target="_blank" rel="noopener" href="http://www.w3.org/TR/REC-CSS2/selector.html#q1">CSS2 定义的所有选择器</a>。</p>
+<p><strong>QSS 的选择器有</strong></p>
+<ul>
+<li>通用选择器 <code>*</code></li>
+<li>类型选择器</li>
+<li>类选择器</li>
+<li>ID 选择器</li>
+<li>属性选择器</li>
+<li>包含选择器</li>
+<li>子元素选择器</li>
+<li>伪类选择器</li>
+<li>Subcontrol 选择器</li>
+</ul>
+<p>很多时候，可以使用不同的选择器实现相同效果的样式，使用非常灵活。<span id="more"></span></p>
+<h2 id="通用选择器"><a href="#通用选择器" class="headerlink" title="通用选择器 *"></a>通用选择器 *</h2><p><code>*</code> 作为选择器，作用于所有的 widget。</p>
+<h2 id="类型选择器"><a href="#类型选择器" class="headerlink" title="类型选择器"></a>类型选择器</h2><p><code>类名</code> 作为选择器，作用于它自己和它的所有子类。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">QFrame &#123;</span><br><span class="line">   <span class="attribute">background</span>: gray;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用了类型选择器 <code>QFrame</code>，所以 QFrame 和它的子类 QLable，QLCDNumber，QTableWidget 等的背景会是灰色的，QPushButton 不是 QFrame 的子类，所以不受影响：<br><img src="../img/qtbook/qss/QSS-Selector-Type-Selector.png"></p>
+<h2 id="类选择器"><a href="#类选择器" class="headerlink" title="类选择器"></a>类选择器</h2><p><code>. + 类名</code> 或者 <code>. + class 的属性值</code> 作为选择器（使用 setProperty(“class”, “QSSClassName”) 设置），只会作用于它自己，它的子类不受影响，注意和类型选择器的区别。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QApplication&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QPushButton&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QHBoxLayout&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="function">QApplication <span class="title">app</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line"></span><br><span class="line">    app.<span class="built_in">setStyleSheet</span>(<span class="string">&quot;QWidget &#123; background: gray; &#125;&quot;</span>);</span><br><span class="line"></span><br><span class="line">    QWidget *window = <span class="keyword">new</span> <span class="built_in">QWidget</span>();</span><br><span class="line">    QPushButton *openButton  = <span class="keyword">new</span> <span class="built_in">QPushButton</span>(<span class="string">&quot;打开&quot;</span>, window);</span><br><span class="line">    QPushButton *closeButton = <span class="keyword">new</span> <span class="built_in">QPushButton</span>(<span class="string">&quot;关闭&quot;</span>, window);</span><br><span class="line">    QPushButton *saveButton  = <span class="keyword">new</span> <span class="built_in">QPushButton</span>(<span class="string">&quot;保存&quot;</span>, window);</span><br><span class="line"></span><br><span class="line">    QHBoxLayout *layout = <span class="keyword">new</span> <span class="built_in">QHBoxLayout</span>(window);</span><br><span class="line">    layout-&gt;<span class="built_in">addWidget</span>(openButton);</span><br><span class="line">    layout-&gt;<span class="built_in">addWidget</span>(closeButton);</span><br><span class="line">    layout-&gt;<span class="built_in">addWidget</span>(saveButton);</span><br><span class="line">    window-&gt;<span class="built_in">setLayout</span>(layout);</span><br><span class="line">    window-&gt;<span class="built_in">show</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> app.<span class="built_in">exec</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>window, openButton, closeButton 和 saveButton 的背景都变成灰色的了，如果只想要 window 的背景是灰色的，按钮的背景不变，可以使用类选择器 <code>.QWidget</code></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 把 QWidget 改成 .QWidget */</span></span><br><span class="line">app.<span class="built_in">setStyleSheet</span>(<span class="string">&quot;.QWidget &#123;background: gray;&#125;&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>如果 openButton 和 closeButton 的背景是洋红色的，但是 saveButton 不受影响，则可以使用 <code>. ＋ class 的属性值</code> 作为类选择器来设置</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="built_in">setStyleSheet</span>(<span class="string">&quot;.QWidget &#123; background: gray; &#125;&quot;</span></span><br><span class="line">                  <span class="string">&quot;.RedButton &#123; background: magenta; &#125;&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// .RedButton 将作为类选择器</span></span><br><span class="line">openButton-&gt;<span class="built_in">setProperty</span>(<span class="string">&quot;class&quot;</span>,  <span class="string">&quot;RedButton&quot;</span>);</span><br><span class="line">closeButton-&gt;<span class="built_in">setProperty</span>(<span class="string">&quot;class&quot;</span>, <span class="string">&quot;RedButton&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p><img src="../img/qtbook/qss/QSS-Selector-Class-Selector.png"></p>
+<h2 id="ID-选择器"><a href="#ID-选择器" class="headerlink" title="ID 选择器"></a>ID 选择器</h2><p><code># + objectName</code> 作为选择器，只作用于用此 objectName 的对象（多个对象可以使用同一个 objectName，但是不推荐这么做，既然是 ID，那么语义上就表示唯一了）。如上面的程序， openButton 和 closeButton 的背景是洋红色的，但是 saveButton 不受影响，也可以使用 <code>ID 选择器</code> 来实现：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// #openButton 和 #closeButton 作为 ID 选择器</span></span><br><span class="line">app.<span class="built_in">setStyleSheet</span>(<span class="string">&quot;.QWidget &#123; background: gray; &#125;&quot;</span></span><br><span class="line">                  <span class="string">&quot;#openButton, #closeButton &#123; background: magenta; &#125;&quot;</span>);</span><br><span class="line"></span><br><span class="line">openButton-&gt;<span class="built_in">setObjectName</span>(<span class="string">&quot;openButton&quot;</span>);</span><br><span class="line">closeButton-&gt;<span class="built_in">setObjectName</span>(<span class="string">&quot;closeButton&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="属性选择器"><a href="#属性选择器" class="headerlink" title="属性选择器"></a>属性选择器</h2><p><code>选择器[属性=&quot;值&quot;]</code> 作为选择器，这个属性可用通过 <code>object-&gt;property(propertyName)</code> 访问的，Qt 里称为 <code>Dynamic Properties</code>。</p>
+<p>如上面的程序， openButton 和 closeButton 的背景是洋红色的，但是 saveButton 不受影响，也可以使用属性选择器来实现：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="built_in">setStyleSheet</span>(<span class="string">&quot;.QWidget &#123; background: gray; &#125;&quot;</span></span><br><span class="line">                  <span class="string">&quot;QPushButton[level=&#x27;dangerous&#x27;] &#123; background: magenta; &#125;&quot;</span>);</span><br><span class="line"></span><br><span class="line">openButton-&gt;<span class="built_in">setProperty</span>(<span class="string">&quot;level&quot;</span>,  <span class="string">&quot;dangerous&quot;</span>);</span><br><span class="line">closeButton-&gt;<span class="built_in">setProperty</span>(<span class="string">&quot;level&quot;</span>, <span class="string">&quot;dangerous&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>QSS 会把所有 QPushButton 中属性 level 值为 dangerous 按钮的背景绘制为洋红色，其他按钮的背景色不受这个 QSS 影响。</p>
+<blockquote>
+<p>注意: 程序运行时属性值变化后 QSS 不会自动生效，需要调用 <code>widget-&gt;setStyleSheet(&quot;/**/&quot;)</code> 或者 <code>widget-&gt;style()-&gt;polish(widget)</code> 强制刷新 QSS 才行。</p>
+</blockquote>
+<p>属性的值可以用单引号、双引号括起来，如果值没有空格甚至可以不用引号 (不推荐这么做)，以下三种写法都是有效的:</p>
+<ol>
+<li><code>.QPushButton[level=&quot;dangerous&quot;]</code></li>
+<li><code>.QPushButton[level=&#39;dangerous&#39;]</code></li>
+<li><code>.QPushButton[level=dangerous]</code></li>
+</ol>
+<h2 id="包含选择器"><a href="#包含选择器" class="headerlink" title="包含选择器"></a>包含选择器</h2><p>英语叫做 <code>Descendant Selector</code>，descendant 的表达比较到位。</p>
+<p><code>选择器之间用空格隔开</code>，作用于 Widget 的 <code>子Widget</code>，<code>子Widget 的 子Widget</code>，……，子子孙孙，无穷尽也。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">QFrame &#123;</span><br><span class="line">	<span class="attribute">background</span>: gray;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 设置 QFrame 中的 QPushButton 的 QSS */</span></span><br><span class="line">QFrame QPushButton &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">2px</span> solid magenta;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">background</span>: white;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">2px</span> <span class="number">15px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>顶部的 QPushButton 是 QFrame 的 descendant，所以 QSS 生效了，左下角的 QPushButton 的 parent 是 QWidget，所以 QSS 不起作用:</p>
+<p><img src="../img/qtbook/qss/QSS-Selector-Descendant-Selector.png"></p>
+<h2 id="子元素选择器"><a href="#子元素选择器" class="headerlink" title="子元素选择器"></a>子元素选择器</h2><p><code>选择器之间用 &gt; 隔开</code>，作用于 Widget 的直接 <code>子Widget</code>，注意和包含选择器的区别。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">QFrame &#123;</span><br><span class="line">	background: gray;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">QFrame &gt; QPushButton &#123;</span><br><span class="line">    border: 2px solid magenta;</span><br><span class="line">    border-radius: 10px;</span><br><span class="line">    background: white;</span><br><span class="line">    padding: 2px 15px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>按钮 <code>Child of QGroupBox</code> 的 parent 是 QGroupBox，QGroupBox 的 parent 是 QFrame，所以 <code>Child of QGroupBox</code> 虽然是 QFrame 的 <code>子Widget</code> 的 <code>子Widget</code>，但不是 QFrame 的直接 <code>子Widget</code>，故 QSS 不起作用，而 按钮 <code>Child of QFrame</code> 的 parent 是 QFrame，所以它的样式改变了:</p>
+<p><img src="../img/qtbook/qss/QSS-Selector-Child-Selector.png"></p>
+<h2 id="伪类选择器"><a href="#伪类选择器" class="headerlink" title="伪类选择器"></a>伪类选择器</h2><p><code>选择器:状态</code> 作为选择器，支持 <code>!</code> 操作符，表示 <code>非</code>。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">QPushButton<span class="selector-pseudo">:hover</span> &#123; <span class="attribute">color</span>: white &#125;</span><br><span class="line">QCheckBox<span class="selector-pseudo">:checked</span> &#123; <span class="attribute">color</span>: white &#125;</span><br><span class="line">QCheckBox:!checked &#123; color: red &#125;</span><br></pre></td></tr></table></figure>
+<p>鼠标放到 QPushButton 上时，它的文字为白色，QCheckBox 选中时文字为白色，未选中时为红色。</p>
+<p>伪类选择器还支持链式规则：<code>选择器:状态1:状态2:状态3</code>，状态之间使用逻辑与，同时满足条件样式才生效​</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">QCheckBox<span class="selector-pseudo">:hover</span><span class="selector-pseudo">:checked</span> &#123; <span class="attribute">color</span>: white &#125;</span><br></pre></td></tr></table></figure>
+<p>鼠标 <code>放到</code> <code>选中的</code> QCheckBox 上时，它的字体为白色。</p>
+<h5 id="常用伪类选择器有："><a href="#常用伪类选择器有：" class="headerlink" title="常用伪类选择器有："></a>常用伪类选择器有：</h5><table>
+<thead>
+<tr>
+<th>伪类</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>:disabled</td>
+<td>Widget 被禁用时</td>
+</tr>
+<tr>
+<td>:enabled</td>
+<td>Widget 可使用时</td>
+</tr>
+<tr>
+<td>:focus</td>
+<td>Widget 得到输入焦点</td>
+</tr>
+<tr>
+<td>:hover</td>
+<td>鼠标放到 Widget 上</td>
+</tr>
+<tr>
+<td>:pressed</td>
+<td>鼠标按下时</td>
+</tr>
+<tr>
+<td>:checked</td>
+<td>被选中时</td>
+</tr>
+<tr>
+<td>:unchecked</td>
+<td>未选中时</td>
+</tr>
+<tr>
+<td>:has-children</td>
+<td>Item 有子 item，例如 QTreeView 的 item 有子 item 时</td>
+</tr>
+<tr>
+<td>:has-siblings</td>
+<td>Item 有 兄弟，例如 QTreeView 的 item 有兄弟 item 时</td>
+</tr>
+<tr>
+<td>:open</td>
+<td>打开或展开状态，例如 QTreeView 的 item 展开，QPushButton 的菜单弹出时</td>
+</tr>
+<tr>
+<td>:closed</td>
+<td>关闭或者非展开状态</td>
+</tr>
+<tr>
+<td>:on</td>
+<td>Widget 状态是可切换的（toggle）, 在 on 状态</td>
+</tr>
+<tr>
+<td>:off</td>
+<td>Widget 状态是可切换的（toggle）, 在 off 状态</td>
+</tr>
+</tbody></table>
+<p>伪类的说明写成中文怎么感觉都很别扭，惭愧，表达能力欠佳，在此仅作为抛砖引玉吧，更多更详细的内容请参考 Qt 的帮助文档，搜索 <code>Qt Style Sheets Reference</code>，查看最下面的 <code>List of Pseudo-States</code>。</p>
+<p>当然，这些伪类并不是对任何 widget 都起作用，例如 QLabel 没有 :checked 状态，即使设置了样式 <code>QLabel:checked &#123;color: red&#125;</code>，对 QLabel 也是没有效果的，只有 widget 支持某个状态，那么对应的伪类的样式才有作用。</p>
+<h2 id="Subcontrol-选择器"><a href="#Subcontrol-选择器" class="headerlink" title="Subcontrol 选择器"></a>Subcontrol 选择器</h2><p><code>选择器::subcontrol</code> 作为选择 Subcontrol 的选择器。</p>
+<p>有些 widget 是由多个部分组合成的，例如 QCheckBox 由 icon(indicator) 和 text 组成，可以使用 <code>选择器::subcontrol</code> 来设置 subcontrol 的样式：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">QCheckBox::indicator &#123;</span><br><span class="line">    width: <span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">20px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">QCheckBox &#123;</span><br><span class="line">    spacing: <span class="number">8px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="../img/qtbook/qss/QSS-Selector-Subcontrol-Selector.png"></p>
+<p><strong>常用的 Subcontrol 有:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Subcontrol</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>::indicator</td>
+<td>A QCheckBox, QRadioButton, checkable QMenu item, <br>or a checkable QGroupBox’s indicator</td>
+</tr>
+<tr>
+<td>::menu-indicator</td>
+<td>A QPushButton’s menu indicator</td>
+</tr>
+<tr>
+<td>::item</td>
+<td>A QMenu, QMenuBar, or QStatusBar’s item</td>
+</tr>
+<tr>
+<td>::up-button</td>
+<td>A QSpinBox or QScrollBar’s up button</td>
+</tr>
+<tr>
+<td>::down-button</td>
+<td>A QSpinBox or QScrollBar’s down button</td>
+</tr>
+<tr>
+<td>::up-arrow</td>
+<td>A QSpinBox, QScrollBar, or QHeaderView’s up arrow</td>
+</tr>
+<tr>
+<td>::down-arrow</td>
+<td>A QSpinBox, QScrollBar, or QHeaderView’s down arrow</td>
+</tr>
+<tr>
+<td>::drop-down</td>
+<td>A QComboBox’s drop-down arrow</td>
+</tr>
+<tr>
+<td>::title</td>
+<td>A QGroupBox or QDockWidget’s title</td>
+</tr>
+<tr>
+<td>::groove</td>
+<td>A QSlider’s groove</td>
+</tr>
+<tr>
+<td>::chunk</td>
+<td>A QProgressBar’s progress chunk</td>
+</tr>
+<tr>
+<td>::branch</td>
+<td>A QTreeView’s branch indicator</td>
+</tr>
+</tbody></table>
+<p>Subcontrol 选择器的应用比较复杂，所以专门开辟了 <a href="/qtbook-subcontrol">QSS Subcontrol</a> 一章来介绍。</p>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/qtbook-qss-border-image/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Border Image
+        
+      </div>
+    </a>
+  
+  
+    <a href="/qtbook-qss-boxmodel/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">盒子模型</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

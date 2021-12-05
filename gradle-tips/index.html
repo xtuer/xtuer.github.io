@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Gradle Tips | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="依赖的 Scope compile (使用 implementation 替代，提高编译速度) runtime compileOnly (新版才支持，就是 provided) testCompile (使用 testImplementation 替代) testRuntime">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gradle Tips">
+<meta property="og:url" content="http://xtuer.github.io/gradle-tips/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="依赖的 Scope compile (使用 implementation 替代，提高编译速度) runtime compileOnly (新版才支持，就是 provided) testCompile (使用 testImplementation 替代) testRuntime">
+<meta property="og:locale">
+<meta property="article:published_time" content="2016-04-05T09:30:45.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.154Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="Gradle">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96%E7%9A%84-Scope"><span class="toc-text">依赖的 Scope</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB"><span class="toc-text">项目依赖关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96-Maven-%E4%BB%93%E5%BA%93"><span class="toc-text">依赖 Maven 仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96%E5%85%B6%E4%BB%96%E5%AD%90%E9%A1%B9%E7%9B%AE"><span class="toc-text">依赖其他子项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96%E6%9C%AC%E5%9C%B0-jar-%E5%8C%85"><span class="toc-text">依赖本地 jar 包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%93%E5%8C%85%E5%B7%A5%E7%A8%8B"><span class="toc-text">打包工程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E5%88%B6%E5%8C%85%E5%90%8D"><span class="toc-text">定制包名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E5%B7%A5%E7%A8%8B"><span class="toc-text">编译工程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E5%AE%9A%E7%BC%96%E8%AF%91%E7%9A%84%E8%BE%93%E5%87%BA%E7%9B%AE%E5%BD%95"><span class="toc-text">指定编译的输出目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E5%AE%9A-Maven-%E4%BB%93%E5%BA%93"><span class="toc-text">指定 Maven 仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8A%E4%BC%A0-jar-%E5%8C%85%E5%88%B0-Maven-%E4%BB%93%E5%BA%93"><span class="toc-text">上传 jar 包到 Maven 仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%92%E9%99%A4%E5%86%B2%E7%AA%81%E7%9A%84-jar-%E5%8C%85"><span class="toc-text">排除冲突的 jar 包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%93%E5%8C%85%E6%97%B6%E8%BF%87%E6%BB%A4%E6%8E%89%E4%B8%8D%E9%9C%80%E8%A6%81%E7%9A%84-jar-%E5%8C%85"><span class="toc-text">打包时过滤掉不需要的 jar 包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%93%E5%8C%85%E6%97%B6%E6%9B%BF%E6%8D%A2-META-INF-context-xml-%E4%B8%AD%E7%9A%84%E5%8D%A0%E4%BD%8D%E7%AC%A6"><span class="toc-text">打包时替换 META-INF&#x2F;context.xml 中的占位符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E6%9B%BF%E6%8D%A2-META-INF-context-xml-%E4%B8%AD%E7%9A%84%E5%8D%A0%E4%BD%8D%E7%AC%A6"><span class="toc-text">运行时替换 META-INF&#x2F;context.xml 中的占位符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%91%BD%E4%BB%A4%E4%B8%AD%E7%9A%84%E5%8F%82%E6%95%B0"><span class="toc-text">获取命令中的参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%E5%8A%A8%E6%80%81%E6%9B%BF%E6%8D%A2"><span class="toc-text">资源文件内容动态替换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%B5%8C%E5%85%A5%E5%BC%8F%E6%9C%8D%E5%8A%A1%E5%99%A8-Tomcat"><span class="toc-text">使用嵌入式服务器 Tomcat</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gretty-%E7%83%AD%E9%83%A8%E7%BD%B2%E4%BC%98%E5%8C%96"><span class="toc-text">Gretty 热部署优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-JNDI"><span class="toc-text">使用 JNDI</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E6%A8%A1%E5%9D%97%E5%B7%A5%E7%A8%8B"><span class="toc-text">多模块工程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E8%B7%AF%E5%BE%84"><span class="toc-text">获取路径</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#settings-gradle"><span class="toc-text">settings.gradle</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%BA%E5%88%B6-Gradle-%E4%BD%BF%E7%94%A8-UTF-8"><span class="toc-text">强制 Gradle 使用 UTF-8</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E7%A8%8B%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-text">创建工程目录结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Spring-%E7%9A%84%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E6%89%93%E5%8C%85"><span class="toc-text">使用 Spring 的应用程序打包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%93%E5%8C%85%E6%97%B6%E5%8F%AA%E8%A6%81%E6%8C%87%E5%AE%9A%E7%9A%84-jar-%E5%8C%85%E3%80%81%E8%A7%A3%E5%8E%8B"><span class="toc-text">打包时只要指定的 jar 包、解压</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E6%B5%8B%E8%AF%95%E8%BE%93%E5%87%BA%E7%9A%84%E7%9B%AE%E5%BD%95"><span class="toc-text">设置测试输出的目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E4%B8%80%E4%B8%AA%E5%85%B7%E4%BD%93%E7%9A%84%E6%B5%8B%E8%AF%95%E5%87%BD%E6%95%B0"><span class="toc-text">执行一个具体的测试函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E5%9C%B0%E5%9D%80"><span class="toc-text">修改本地仓库地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81%E5%92%8C%E6%96%87%E6%A1%A3"><span class="toc-text">下载源码和文档</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-gradle-tips" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/gradle-tips/" class="article-date">
+  	<!-- <time datetime="2016-04-05T09:30:45.000Z" itemprop="datePublished">2016-04-05</time> -->
+    2016-04-05
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Gradle Tips
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/" rel="tag">Gradle</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <h2 id="依赖的-Scope"><a href="#依赖的-Scope" class="headerlink" title="依赖的 Scope"></a>依赖的 Scope</h2><ul>
+<li>compile (使用 implementation 替代，提高编译速度)</li>
+<li>runtime</li>
+<li>compileOnly (新版才支持，就是 provided)</li>
+<li>testCompile (使用 testImplementation 替代)</li>
+<li>testRuntime</li>
+</ul>
+<span id="more"></span>   
+
+<h2 id="项目依赖关系"><a href="#项目依赖关系" class="headerlink" title="项目依赖关系"></a>项目依赖关系</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gradle dep</span><br><span class="line">gradle dependencies</span><br></pre></td></tr></table></figure>
+
+<h2 id="依赖-Maven-仓库"><a href="#依赖-Maven-仓库" class="headerlink" title="依赖 Maven 仓库"></a>依赖 Maven 仓库</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile &#x27;groupId:artifactId:version&#x27;</span><br></pre></td></tr></table></figure>
+
+<h2 id="依赖其他子项目"><a href="#依赖其他子项目" class="headerlink" title="依赖其他子项目"></a>依赖其他子项目</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile project(&#x27;:dependency-project&#x27;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>被依赖的项目会被打成 jar 包放到 lib 目录(包含它的资源文件，资源文件在 jar 包里，不能进行修改呢)。</p>
+</blockquote>
+<h2 id="依赖本地-jar-包"><a href="#依赖本地-jar-包" class="headerlink" title="依赖本地 jar 包"></a>依赖本地 jar 包</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">compile files(&#x27;spring-core.jar&#x27;, &#x27;spring-aop.jar&#x27;)</span><br><span class="line">compile fileTree(dir: &#x27;src/main/webapp/WEB-INF/lib&#x27;, include: &#x27;*.jar&#x27;)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>dir 可以是绝对路径，也可以是相对于工程目录的项目路径</p>
+</blockquote>
+<h2 id="打包工程"><a href="#打包工程" class="headerlink" title="打包工程"></a>打包工程</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gradle assemble // 编译，打包</span><br><span class="line">gradle build    // 编译，执行测试，打包</span><br></pre></td></tr></table></figure>
+
+<h2 id="定制包名"><a href="#定制包名" class="headerlink" title="定制包名"></a>定制包名</h2><p>打包时制定包名，例如默认打包出来是 <code>Exam.war</code>，而我们需要的是 <code>Exam.zip</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">war.archiveFileName = &#x27;Exam.zip&#x27;</span><br></pre></td></tr></table></figure>
+
+<h2 id="编译工程"><a href="#编译工程" class="headerlink" title="编译工程"></a>编译工程</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle compileJava</span><br></pre></td></tr></table></figure>
+
+<h2 id="指定编译的输出目录"><a href="#指定编译的输出目录" class="headerlink" title="指定编译的输出目录"></a>指定编译的输出目录</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">buildDir = new File(rootProject.projectDir, &#x27;../build/&#x27; + project.name)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>一般是不会修改这个属性的</p>
+</blockquote>
+<h2 id="指定-Maven-仓库"><a href="#指定-Maven-仓库" class="headerlink" title="指定 Maven 仓库"></a>指定 Maven 仓库</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">allprojects &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        mavenLocal()</span><br><span class="line">        mavenCentral()</span><br><span class="line">      </span><br><span class="line">        <span class="comment">// [1]</span></span><br><span class="line">        maven &#123; url <span class="string">&#x27;http://maven.edu-edu.com.cn/content/groups/public/&#x27;</span> &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// [2] 带认证的库</span></span><br><span class="line">        maven &#123;</span><br><span class="line">            url <span class="string">&#x27;http://maven.edu-edu.com.cn/content/groups/public/&#x27;</span></span><br><span class="line">            credentials &#123;</span><br><span class="line">                username <span class="string">&#x27;admin&#x27;</span></span><br><span class="line">                password <span class="string">&#x27;*****&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="上传-jar-包到-Maven-仓库"><a href="#上传-jar-包到-Maven-仓库" class="headerlink" title="上传 jar 包到 Maven 仓库"></a>上传 jar 包到 Maven 仓库</h2><ul>
+<li>命令: <code>gradle uploadArchives</code></li>
+<li>Release 版本地址: <a target="_blank" rel="noopener" href="http://maven.edu-edu.com.cn/nexus/content/repositories/releases/">http://maven.edu-edu.com.cn/nexus/content/repositories/releases/</a></li>
+<li>Snapshop 版本地址: <a target="_blank" rel="noopener" href="http://maven.edu-edu.com.cn/nexus/content/repositories/snapshots/">http://maven.edu-edu.com.cn/nexus/content/repositories/snapshots/</a></li>
+<li>上传的地址和下载的地址是有区别的</li>
+</ul>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">uploadArchives &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        mavenDeployer &#123;</span><br><span class="line">            repository(<span class="attr">url:</span> <span class="string">&quot;http://maven.edu-edu.com.cn/nexus/content/repositories/releases/&quot;</span>) &#123;</span><br><span class="line">                authentication(<span class="attr">userName:</span> <span class="string">&quot;admin&quot;</span>, <span class="attr">password:</span> <span class="string">&quot;*****&quot;</span>)</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 以下三项可选</span></span><br><span class="line">            pom.groupId    = <span class="string">&quot;$project.group&quot;</span></span><br><span class="line">            pom.artifactId = <span class="string">&quot;$artifactId&quot;</span> <span class="comment">// 默认为项目的目录名</span></span><br><span class="line">            pom.version    = <span class="string">&quot;$project.version&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="排除冲突的-jar-包"><a href="#排除冲突的-jar-包" class="headerlink" title="排除冲突的 jar 包"></a>排除冲突的 jar 包</h2><p>例如 dubbo 2.5 依赖 Spring 2，现在基本都用 Spring 4，所以需要把 dubbo 依赖的 Spring 2 的依赖去掉，使用 exclude:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">compile(<span class="string">&#x27;com.alibaba:dubbo:2.5.3&#x27;</span>) &#123;</span><br><span class="line">    exclude <span class="attr">group:</span> <span class="string">&#x27;org.springframework&#x27;</span>, <span class="attr">module:</span> <span class="string">&#x27;spring&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="打包时过滤掉不需要的-jar-包"><a href="#打包时过滤掉不需要的-jar-包" class="headerlink" title="打包时过滤掉不需要的 jar 包"></a>打包时过滤掉不需要的 jar 包</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">war &#123;    </span><br><span class="line">    <span class="comment">// 打包时只包含以下几个 jar 包</span></span><br><span class="line">    classpath = classpath.filter &#123; file -&gt;</span><br><span class="line">        file.name.startsWith(<span class="string">&#x27;lms-client&#x27;</span>) ||</span><br><span class="line">        file.name.startsWith(<span class="string">&#x27;dict-client&#x27;</span>) ||</span><br><span class="line">        file.name.startsWith(<span class="string">&#x27;e-platform-client&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>也可以把不需要的 jar 的依赖替换为 compileOnly，这样就不需要判断了</p>
+</blockquote>
+<h2 id="打包时替换-META-INF-context-xml-中的占位符"><a href="#打包时替换-META-INF-context-xml-中的占位符" class="headerlink" title="打包时替换 META-INF/context.xml 中的占位符"></a>打包时替换 <code>META-INF/context.xml</code> 中的占位符</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">war &#123;</span><br><span class="line">    <span class="comment">// gradle build 打包时替换 META-INF 下的文件</span></span><br><span class="line">    from(<span class="string">&quot;$webAppDir/META-INF&quot;</span>) &#123;</span><br><span class="line">        eachFile &#123;</span><br><span class="line">            it.filter(ReplaceTokens, <span class="attr">tokens:</span> loadConfiguration())</span><br><span class="line">        &#125;</span><br><span class="line">        into(<span class="string">&#x27;META-INF&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="运行时替换-META-INF-context-xml-中的占位符"><a href="#运行时替换-META-INF-context-xml-中的占位符" class="headerlink" title="运行时替换 META-INF/context.xml 中的占位符"></a>运行时替换 <code>META-INF/context.xml</code> 中的占位符</h2><p>任务 <code>prepareInplaceWebApp</code> 执行完后执行自定义任务，例如替换 <code>context.xml</code> 中的占位符</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">project.afterEvaluate &#123;</span><br><span class="line">    <span class="comment">// 执行 prepareInplaceWebApp 的时候替换 META-INF 下的文件，例如生成 context.xml</span></span><br><span class="line">    tasks.getByPath(<span class="string">&#x27;prepareInplaceWebApp&#x27;</span>).doLast &#123;</span><br><span class="line">        copy &#123;</span><br><span class="line">            from(<span class="string">&quot;$webAppDir/META-INF&quot;</span>) &#123;</span><br><span class="line">                eachFile &#123;</span><br><span class="line">                    it.filter(ReplaceTokens, <span class="attr">tokens:</span> loadConfiguration())</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            into(<span class="string">&quot;$buildDir/inplaceWebapp/META-INF&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="获取命令中的参数"><a href="#获取命令中的参数" class="headerlink" title="获取命令中的参数"></a>获取命令中的参数</h2><p>推荐使用 -D 的方式</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">命令: gradle -Denv=development clean assemble</span><br><span class="line">获取: <span class="keyword">def</span> environment = System.getProperty(<span class="string">&#x27;env&#x27;</span>, <span class="string">&#x27;development&#x27;</span>)</span><br><span class="line"></span><br><span class="line">命令: gradle -Penv=develop clean assemble</span><br><span class="line">获取: <span class="keyword">def</span> environment = hasProperty(<span class="string">&#x27;env&#x27;</span>) ? env : <span class="string">&#x27;development&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="资源文件内容动态替换"><a href="#资源文件内容动态替换" class="headerlink" title="资源文件内容动态替换"></a>资源文件内容动态替换</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> loadConfiguration() &#123;</span><br><span class="line">    <span class="comment">// 获取 gradle 参数中 -Denv 的值: gradle -Denv=development clean assemble</span></span><br><span class="line">    <span class="keyword">def</span> environment = System.getProperty(<span class="string">&#x27;env&#x27;</span>, <span class="string">&#x27;development&#x27;</span>)</span><br><span class="line">    <span class="keyword">def</span> configFile  = file(<span class="string">&#x27;config.groovy&#x27;</span>) <span class="comment">// 配置文件</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ConfigSlurper(environment).parse(configFile.toURI().toURL()).toProperties()</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line">processResources &#123;</span><br><span class="line">    <span class="comment">// src/main/resources 下的所有文件中 @key@ 的内容使用 config.groovy 里对应的进行替换</span></span><br><span class="line">    from(sourceSets.main.resources.srcDirs) &#123;</span><br><span class="line">        filter(ReplaceTokens, <span class="attr">tokens:</span> loadConfiguration())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果只想替换 src/main/resources 下指定的文件中的 @key@，其他文件仍然希望按原来的目录结构复制到 build 目录中，可以像下面这样进行过滤:</span></span><br><span class="line">processResources &#123;</span><br><span class="line">    from(sourceSets.main.resources.srcDirs) &#123;</span><br><span class="line">        eachFile &#123; file -&gt;</span><br><span class="line">            <span class="keyword">if</span> (file.name.endsWith(<span class="string">&#x27;.properties&#x27;</span>)) &#123;</span><br><span class="line">                file.filter(org.apache.tools.ant.filters.ReplaceTokens, <span class="attr">tokens:</span> loadConfiguration())</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// config.groovy 的内容</span></span><br><span class="line">environments &#123;</span><br><span class="line">    development &#123;</span><br><span class="line">        db &#123;</span><br><span class="line">            host = <span class="string">&#x27;127.0.0.1&#x27;</span></span><br><span class="line">            username = <span class="string">&#x27;root&#x27;</span></span><br><span class="line">            password = <span class="string">&#x27;root&#x27;</span></span><br><span class="line">            database = <span class="string">&#x27;db_exam&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    production &#123;</span><br><span class="line">        db &#123;</span><br><span class="line">            host = <span class="string">&#x27;192.168.10.123&#x27;</span></span><br><span class="line">            username = <span class="string">&#x27;root&#x27;</span></span><br><span class="line">            password = <span class="string">&#x27;sluper&#x27;</span></span><br><span class="line">            database = <span class="string">&#x27;db_exam&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用嵌入式服务器-Tomcat"><a href="#使用嵌入式服务器-Tomcat" class="headerlink" title="使用嵌入式服务器 Tomcat"></a>使用嵌入式服务器 Tomcat</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">plugins &#123;</span><br><span class="line">    id <span class="string">&#x27;war&#x27;</span></span><br><span class="line">    id <span class="string">&#x27;java&#x27;</span></span><br><span class="line">    id <span class="string">&#x27;org.gretty&#x27;</span> version <span class="string">&#x27;2.2.0&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line">gretty &#123;</span><br><span class="line">    httpPort    = <span class="number">8080</span></span><br><span class="line">    contextPath = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    servletContainer = <span class="string">&#x27;tomcat8&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// gretty 的更多配置</span></span><br><span class="line">gretty &#123;</span><br><span class="line">    httpPort     = <span class="number">8080</span></span><br><span class="line">    debugPort    = httpPort + <span class="number">1</span> <span class="comment">// 默认为 5005</span></span><br><span class="line">    servicePort  = httpPort + <span class="number">2</span></span><br><span class="line">    statusPort   = httpPort + <span class="number">3</span></span><br><span class="line">    httpsPort    = httpPort + <span class="number">4</span></span><br><span class="line">    httpsEnabled = <span class="literal">true</span></span><br><span class="line">    contextPath  = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    jvmArgs = [<span class="string">&#x27;-Xmx1024M&#x27;</span>, <span class="string">&#x27;-XX:PermSize=128M&#x27;</span>, <span class="string">&#x27;-XX:MaxPermSize=256M&#x27;</span>]</span><br><span class="line">    servletContainer = <span class="string">&#x27;jetty7&#x27;</span></span><br><span class="line">    scanInterval = <span class="number">0</span></span><br><span class="line">    inplaceMode  = <span class="string">&#x27;hard&#x27;</span></span><br><span class="line">    debugSuspend = <span class="literal">false</span></span><br><span class="line">    enableNaming = <span class="literal">true</span> <span class="comment">// 启用 JNDI</span></span><br><span class="line">    managedClassReload = <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Tomcat 的 GET 请求的默认编码是 ISO8859-1，如果 GET 需要使用 UTF-8 的话，需要在 <code>server.xml</code> 中设置 <code>URIEncoding</code> 为 UTF-8:</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;Connector port=&quot;8080&quot; protocol=&quot;HTTP/1.1&quot;</span><br><span class="line">         connectionTimeout=&quot;20000&quot;</span><br><span class="line">         redirectPort=&quot;8443&quot;</span><br><span class="line">         URIEncoding=&quot;UTF-8&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在 Gretty 中没有提供设置 <code>URIEncoding</code> 的选项，但是可以设置 <code>serverConfigFile</code> 引用 Tomcat 的 <code>server.xml</code> 来达到目的，例如:</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">gretty &#123;</span><br><span class="line">    httpPort = 8080</span><br><span class="line">    contextPath = &#x27;&#x27;</span><br><span class="line">    servletContainer = &#x27;tomcat7&#x27;</span><br><span class="line">    serverConfigFile = &quot;server.xml&quot;</span><br><span class="line"></span><br><span class="line">    inplaceMode = &#x27;hard&#x27;</span><br><span class="line">    debugSuspend = false</span><br><span class="line">    managedClassReload      = true</span><br><span class="line">    recompileOnSourceChange = false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Gretty-热部署优化"><a href="#Gretty-热部署优化" class="headerlink" title="Gretty 热部署优化"></a>Gretty 热部署优化</h2><blockquote>
+<p>Gretty 热部署的相关配置，下面几项都默认设置为 true (reload 表示重新加载整个 web 应用):</p>
+<ul>
+<li><code>recompileOnSourceChange</code> // Java 文件变化后自动编译</li>
+<li><code>reloadOnClassChange</code> // Class 文件变化后 reload</li>
+<li><code>reloadOnConfigChange</code> // 配置文件如 web.xml 变化后 reload</li>
+<li><code>reloadOnLibChange</code> // lib 目录下的 jar 变化后 reload</li>
+</ul>
+<p>例如 Java 文件修改保存后会自动编译，导致 Class 文件变化，然后 gretty 会重新加载整个 Web 应用，例如应用启动时要执行计划任务，检查数据库的结构等，这样的热部署效率太低。</p>
+<p>如果 Class 文件变化后，能不能只加载 Class 文件，而不是重新加载整个 Web 应用呢？设置 <code>managedClassReload=true</code> 即可 (使用的是 SpringLoaded 来进行热加载，并自动设置 reloadOnClassChange=false):</p>
+</blockquote>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">gretty &#123;</span><br><span class="line">    httpPort = <span class="number">80</span></span><br><span class="line">    contextPath = <span class="string">&#x27;/&#x27;</span></span><br><span class="line">    servletContainer = <span class="string">&#x27;tomcat8&#x27;</span></span><br><span class="line">    </span><br><span class="line">    managedClassReload      = <span class="literal">true</span></span><br><span class="line">    recompileOnSourceChange = <span class="literal">false</span> <span class="comment">// 禁止自动编译过度频繁的进行热部署</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用-JNDI"><a href="#使用-JNDI" class="headerlink" title="使用 JNDI"></a>使用 JNDI</h2><p>参考 <a target="_blank" rel="noopener" href="https://qtdebug.com/misc-jndi-datasource">JNDI 数据源</a>:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">gretty &#123;</span><br><span class="line">    port = <span class="number">8080</span></span><br><span class="line">    contextPath = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    servletContainer  = <span class="string">&#x27;tomcat7&#x27;</span></span><br><span class="line">    enableNaming      = <span class="literal">true</span> <span class="comment">// 启用 JNDI</span></span><br><span class="line">    contextConfigFile = <span class="string">&#x27;tomcat-context.xml&#x27;</span></span><br><span class="line">    serverConfigFile  = <span class="string">&#x27;tomcat-server.xml&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="多模块工程"><a href="#多模块工程" class="headerlink" title="多模块工程"></a>多模块工程</h2><p>由 3 个模块组成:</p>
+<ul>
+<li><code>parent</code> 是父模块</li>
+<li><code>mix1</code> 和 <code>mix2</code> 是子模块</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">└── parent</span><br><span class="line">    ├── mix1</span><br><span class="line">    │   ├── build.gradle</span><br><span class="line">    │   └── src</span><br><span class="line">    │       └── main</span><br><span class="line">    │           ├── java</span><br><span class="line">    │           └── resources</span><br><span class="line">    ├── mix2</span><br><span class="line">    │   ├── build.gradle</span><br><span class="line">    │   └── src</span><br><span class="line">    │       └── main</span><br><span class="line">    │           ├── java</span><br><span class="line">    │           └── resources</span><br><span class="line">    ├── build.gradle</span><br><span class="line">    └── settings.gradle</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// parent/settings.gradle</span></span><br><span class="line">include <span class="string">&#x27;mix1&#x27;</span></span><br><span class="line">include <span class="string">&#x27;mix2&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// parent/build.gradle</span></span><br><span class="line"><span class="comment">// 所有模块生效</span></span><br><span class="line">allprojects &#123;</span><br><span class="line">    ext &#123;</span><br><span class="line">        <span class="comment">// gradle build or gradle -Dprofile=product build</span></span><br><span class="line">        profile = System.getProperty(<span class="string">&quot;profile&quot;</span>, <span class="string">&quot;dev&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    println <span class="string">&#x27;++ Building: &#x27;</span> + project.name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 所有子项目的通用配置</span></span><br><span class="line">subprojects &#123;</span><br><span class="line">    apply <span class="attr">plugin:</span> <span class="string">&#x27;java&#x27;</span></span><br><span class="line"></span><br><span class="line">    tasks.withType(JavaCompile) &#123;</span><br><span class="line">        sourceCompatibility = JavaVersion.VERSION_1_8</span><br><span class="line">        targetCompatibility = JavaVersion.VERSION_1_8</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    [compileJava, compileTestJava, javadoc]*.options*.encoding = <span class="string">&#x27;UTF-8&#x27;</span></span><br><span class="line"></span><br><span class="line">    repositories &#123;</span><br><span class="line">        mavenLocal()</span><br><span class="line">        mavenCentral()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line"><span class="comment">// 某一个指定模块生效</span></span><br><span class="line">project(<span class="string">&#x27;mix1&#x27;</span>) &#123;</span><br><span class="line">    println <span class="string">&#x27;Building module mix1&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 多个匹配的子模块生效</span></span><br><span class="line">configure(subprojects.findAll &#123;</span><br><span class="line">        it.name.equals(<span class="string">&#x27;mix1&#x27;</span>) ||</span><br><span class="line">        it.name.equals(<span class="string">&#x27;mix2&#x27;</span>)</span><br><span class="line">&#125;) &#123;</span><br><span class="line">    apply <span class="attr">plugin:</span> <span class="string">&#x27;java&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>进入 parent 目录:   </p>
+<ul>
+<li>执行 <code>gradle build</code> 构建所有的模块</li>
+<li>执行 <code>gradle :mix1:build</code> 构建子模块 <code>mix1</code></li>
+</ul>
+<hr>
+<h2 id="获取路径"><a href="#获取路径" class="headerlink" title="获取路径"></a>获取路径</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">println &quot;$&#123;rootProject.projectDir&#125;/config&quot;</span><br><span class="line">    </span><br><span class="line">不能用</span><br><span class="line">println $&#123;rootProject.projectDir&#125; + &quot;/config&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="settings-gradle"><a href="#settings-gradle" class="headerlink" title="settings.gradle"></a>settings.gradle</h2><p>除了构建脚本文件，Gradle 还定义了一个约定名称的设置文件 (默认为 settings.gradle)，该文件在初始化阶段被执行，对于多项目构建必须保证在根目录下有 settings.gradle 文件，对于单项目构建设置文件是可选的</p>
+<h2 id="强制-Gradle-使用-UTF-8"><a href="#强制-Gradle-使用-UTF-8" class="headerlink" title="强制 Gradle 使用 UTF-8"></a>强制 Gradle 使用 UTF-8</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">打开 gradle/bin 目录下的 gradle.bat 文件，修改 12 行附近的代码为</span><br><span class="line">set DEFAULT_JVM_OPTS=&quot;-Dfile.encoding=UTF-8&quot;</span><br></pre></td></tr></table></figure>
+
+<p>或者 <strong>gradle.properties</strong> 里添加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemProp.file.encoding=UTF-8</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建工程目录结构"><a href="#创建工程目录结构" class="headerlink" title="创建工程目录结构"></a>创建工程目录结构</h2><p>Gradle 默认没有提供创建各种项目目录结构的任务，但是可以使用 <code>gradle-templates</code> 来创建工程的目录结构。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="attr">plugin:</span> <span class="string">&#x27;java&#x27;</span></span><br><span class="line">apply <span class="attr">plugin:</span> <span class="string">&#x27;templates&#x27;</span></span><br><span class="line"></span><br><span class="line">repositories &#123;</span><br><span class="line">    mavenCentral()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">buildscript &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        maven &#123;</span><br><span class="line">            url <span class="string">&#x27;http://dl.bintray.com/cjstehno/public&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    dependencies &#123;</span><br><span class="line">        classpath <span class="string">&#x27;gradle-templates:gradle-templates:1.5&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行 <code>gradle tasks</code> 可以看到有很多创建不同项目结构的任务</p>
+<ul>
+<li>使用 <code>gradle initJavaProject</code> 创建 Java 应用程序的目录结构</li>
+<li>使用 <code>gradle initWebappProject</code> 创建 Web 项目的目录结构</li>
+</ul>
+<h2 id="使用-Spring-的应用程序打包"><a href="#使用-Spring-的应用程序打包" class="headerlink" title="使用 Spring 的应用程序打包"></a>使用 Spring 的应用程序打包</h2><p>Gradle 默认的打包任务 <code>jar</code> 不能带上依赖的类，在有依赖 Spring 的项目中，最好是使用 <code>shadowJar</code> 来打包，其会合并 spring 冲突的配置文件，例如 fatJar 则不会。</p>
+<blockquote>
+<p>如果是可执行的 jar 包，配置 mainClassName 为 jar 包启动运行的类，否则可以忽略掉。</p>
+</blockquote>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">plugins &#123;</span><br><span class="line">    id <span class="string">&#x27;java&#x27;</span></span><br><span class="line">    id <span class="string">&#x27;application&#x27;</span></span><br><span class="line">    id <span class="string">&#x27;com.github.johnrengelman.shadow&#x27;</span> version <span class="string">&#x27;2.0.2&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">////////////////////////////////////////////////////////////////////////////////</span></span><br><span class="line"><span class="comment">//                                [1] [2] 运行、打包                           //</span></span><br><span class="line"><span class="comment">////////////////////////////////////////////////////////////////////////////////</span></span><br><span class="line"><span class="comment">// [1.1] 从命令行运行默认类: gradle run</span></span><br><span class="line"><span class="comment">// [1.2] 从命令行运行某个类: gradle run -DmainClass=Foo</span></span><br><span class="line">ext &#123;</span><br><span class="line">    project.mainClassName = System.getProperty(<span class="string">&quot;mainClass&quot;</span>, <span class="string">&quot;DefaultMainClass&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// [2] 打包: gradle clean shadowJar [-DmainClass=Foo]</span></span><br><span class="line">shadowJar &#123;</span><br><span class="line">    mergeServiceFiles(<span class="string">&#x27;META-INF/spring.*&#x27;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="打包时只要指定的-jar-包、解压"><a href="#打包时只要指定的-jar-包、解压" class="headerlink" title="打包时只要指定的 jar 包、解压"></a>打包时只要指定的 jar 包、解压</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">war &#123;</span><br><span class="line">    <span class="comment">// 打包时只包含以下几个 jar 包</span></span><br><span class="line">    classpath = classpath.filter &#123; file -&gt;</span><br><span class="line">        file.name.startsWith(<span class="string">&#x27;javaee-mvc-framework&#x27;</span>) ||</span><br><span class="line">        file.name.startsWith(<span class="string">&#x27;e-platform-client&#x27;</span>) ||</span><br><span class="line">        file.name.equals(<span class="string">&#x27;main&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    archiveName = <span class="string">&#x27;qa.zip&#x27;</span> <span class="comment">// 默认为 qa.war</span></span><br><span class="line">    <span class="keyword">def</span> zipFile = file(<span class="string">&quot;$buildDir/libs/qa.zip&quot;</span>)</span><br><span class="line">    doLast &#123;</span><br><span class="line">        copy &#123;</span><br><span class="line">            from zipFile</span><br><span class="line">            into <span class="string">&quot;$rootProject.projectDir/output/$school/&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 解压</span></span><br><span class="line">        <span class="keyword">def</span> outputDir = file(<span class="string">&quot;$rootProject.projectDir/output/qa&quot;</span>)</span><br><span class="line">        delete outputDir</span><br><span class="line">        copy&#123;</span><br><span class="line">            from zipTree(zipFile)</span><br><span class="line">            into outputDir</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="设置测试输出的目录"><a href="#设置测试输出的目录" class="headerlink" title="设置测试输出的目录"></a>设置测试输出的目录</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">test &#123;</span><br><span class="line">    <span class="comment">// we want display the following test events</span></span><br><span class="line">    testLogging &#123;</span><br><span class="line">        events <span class="string">&quot;PASSED&quot;</span>, <span class="string">&quot;STARTED&quot;</span>, <span class="string">&quot;FAILED&quot;</span>, <span class="string">&quot;SKIPPED&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    reports.html.destination = <span class="string">&quot;$&#123;buildDir&#125;/reports/test&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="执行一个具体的测试函数"><a href="#执行一个具体的测试函数" class="headerlink" title="执行一个具体的测试函数"></a>执行一个具体的测试函数</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle test --tests UserTest.findUsers</span><br></pre></td></tr></table></figure>
+
+<h2 id="修改本地仓库地址"><a href="#修改本地仓库地址" class="headerlink" title="修改本地仓库地址"></a>修改本地仓库地址</h2><p>修改环境变量 <strong>GRADLE_USER_HOME</strong> 的路径值，参考 <a target="_blank" rel="noopener" href="https://howtoprogram.xyz/2016/09/12/gradle-cache-location/">Where is Gradle Cache Location</a>。</p>
+<h2 id="下载源码和文档"><a href="#下载源码和文档" class="headerlink" title="下载源码和文档"></a>下载源码和文档</h2><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/28404149/how-to-download-javadocs-and-sources-for-jar-using-gradle-2-0">在 build.gradle 中增加</a>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">plugins &#123;</span><br><span class="line">    id &#x27;java&#x27;</span><br><span class="line">    id &#x27;idea&#x27;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">idea &#123;</span><br><span class="line">    module &#123;</span><br><span class="line">        downloadJavadoc = true</span><br><span class="line">        downloadSources = true</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://my.oschina.net/enyo/blog/369843">Gradle 替代 Maven</a></li>
+<li><a target="_blank" rel="noopener" href="http://akhikhl.github.io/gretty-doc/Hot-deployment.html">Gretty Hot deployment</a></li>
+<li><a target="_blank" rel="noopener" href="http://blog.csdn.net/yanbober/article/details/49314255">Gradle 脚本基础全攻略</a></li>
+</ul>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/redis/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Java 访问 Redis
+        
+      </div>
+    </a>
+  
+  
+    <a href="/hexo-usage/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hexo 环境搭建</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

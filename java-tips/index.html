@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Java Tips | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一些 Java 里常用的代码片段，例如 Bean to String 等。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java Tips">
+<meta property="og:url" content="http://xtuer.github.io/java-tips/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="一些 Java 里常用的代码片段，例如 Bean to String 等。">
+<meta property="og:locale">
+<meta property="article:published_time" content="2016-04-02T03:13:52.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.160Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Util">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Bean-to-String"><span class="toc-text">Bean to String</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%96%E5%BE%97%E5%BD%93%E5%89%8D%E7%9A%84%E6%96%B9%E6%B3%95%E5%90%8D"><span class="toc-text">取得当前的方法名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-%E8%8E%B7%E5%8F%96-HttpServletRequest"><span class="toc-text">Spring 获取 HttpServletRequest</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringSecurity-%E8%8E%B7%E5%8F%96%E7%99%BB%E9%99%86%E7%94%A8%E6%88%B7%E5%90%8D"><span class="toc-text">SpringSecurity 获取登陆用户名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Servlet-%E8%8E%B7%E5%8F%96%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%9A%84-IP"><span class="toc-text">Servlet 获取客户端的 IP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2-MD5"><span class="toc-text">字符串 MD5</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%9A%84-MD5"><span class="toc-text">文件的 MD5</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E6%88%90-UUID"><span class="toc-text">生成 UUID</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%BB%E6%96%87%E4%BB%B6%E8%87%AA%E5%8A%A8%E5%85%B3%E9%97%AD%E6%B5%81"><span class="toc-text">读文件自动关闭流</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E6%9C%9F%E6%89%A7%E8%A1%8C%E4%BB%BB%E5%8A%A1"><span class="toc-text">定期执行任务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4%E5%90%8E%E6%98%A0%E5%B0%84"><span class="toc-text">过滤后映射</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B"><span class="toc-text">创建线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E6%98%A0%E5%B0%84"><span class="toc-text">内存映射</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%A7%E5%B0%8F%E5%86%99%E4%B8%8D%E6%95%8F%E6%84%9F%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">大小写不敏感的正则表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84"><span class="toc-text">文件路径</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E5%AE%9A%E7%BC%96%E8%AF%91%E5%92%8C%E8%BF%90%E8%A1%8C%E6%97%B6%E5%AD%97%E7%AC%A6%E9%9B%86"><span class="toc-text">指定编译和运行时字符集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MessageFormat-%E6%A0%BC%E5%BC%8F%E5%8C%96%E6%95%B0%E5%AD%97%E5%92%8C%E6%97%A5%E6%9C%9F"><span class="toc-text">MessageFormat 格式化数字和日期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringSecurity-iframe"><span class="toc-text">SpringSecurity iframe</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B-SpringMVC-Application-Context-%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1"><span class="toc-text">查看 SpringMVC Application Context 中的对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Easypoi-%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA-Excel"><span class="toc-text">Easypoi 导入导出 Excel</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E5%AD%97%E7%AC%A6%E4%B8%B2-join"><span class="toc-text">连接字符串 join</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-java-tips" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/java-tips/" class="article-date">
+  	<!-- <time datetime="2016-04-02T03:13:52.000Z" itemprop="datePublished">2016-04-02</time> -->
+    2016-04-02
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Java Tips
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Util/" rel="tag">Util</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>一些 Java 里常用的代码片段，例如 Bean to String 等。</p>
+<span id="more"></span>
+
+<h2 id="Bean-to-String"><a href="#Bean-to-String" class="headerlink" title="Bean to String"></a>Bean to String</h2><p>使用 Apache Commons Lang3</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.commons.lang3.builder.ReflectionToStringBuilder;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.lang3.builder.ToStringStyle;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.lang3.builder.ToStringBuilder;</span><br><span class="line"></span><br><span class="line">System.out.println(ReflectionToStringBuilder.toString(obj));</span><br><span class="line">System.out.println(ReflectionToStringBuilder.toString(obj, ToStringStyle.MULTI_LINE_STYLE));</span><br><span class="line">System.out.println(ToStringBuilder.reflectionToString(p));</span><br></pre></td></tr></table></figure>
+
+<p>使用 Fastjson 格式化为 JSON 字符串更漂亮</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.alibaba.fastjson.JSON;</span><br><span class="line"></span><br><span class="line">System.out.println(JSON.toJSONString(box));</span><br></pre></td></tr></table></figure>
+
+<p>或则使用 Lombok 的 @ToString 自动生成字符串也不错</p>
+<h2 id="取得当前的方法名"><a href="#取得当前的方法名" class="headerlink" title="取得当前的方法名"></a>取得当前的方法名</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Thread.currentThread().getStackTrace()[<span class="number">1</span>].getMethodName()</span><br></pre></td></tr></table></figure>
+
+<h2 id="Spring-获取-HttpServletRequest"><a href="#Spring-获取-HttpServletRequest" class="headerlink" title="Spring 获取 HttpServletRequest"></a>Spring 获取 HttpServletRequest</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();</span><br></pre></td></tr></table></figure>
+
+<h2 id="SpringSecurity-获取登陆用户名"><a href="#SpringSecurity-获取登陆用户名" class="headerlink" title="SpringSecurity 获取登陆用户名"></a>SpringSecurity 获取登陆用户名</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String username = SecurityContextHolder.getContext().getAuthentication().getName();</span><br></pre></td></tr></table></figure>
+
+<h2 id="Servlet-获取客户端的-IP"><a href="#Servlet-获取客户端的-IP" class="headerlink" title="Servlet 获取客户端的 IP"></a>Servlet 获取客户端的 IP</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 获取客户端的 IP</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> request</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> 客户端的 IP</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getClientIp</span><span class="params">(HttpServletRequest request)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> String UNKNOWN = <span class="string">&quot;unknown&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 需要注意有多个 Proxy 的情况: X-Forwarded-For: client, proxy1, proxy2</span></span><br><span class="line">    <span class="comment">// 没有最近的 Proxy 的 IP, 只有 1 个 Proxy 时是客户端的 IP</span></span><br><span class="line">    String ip = request.getHeader(<span class="string">&quot;X-Forwarded-For&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (ip == <span class="keyword">null</span> || ip.length() == <span class="number">0</span> || UNKNOWN.equalsIgnoreCase(ip)) &#123;</span><br><span class="line">        ip = request.getHeader(<span class="string">&quot;X-Real-IP&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (ip == <span class="keyword">null</span> || ip.length() == <span class="number">0</span> || UNKNOWN.equalsIgnoreCase(ip)) &#123;</span><br><span class="line">        ip = request.getHeader(<span class="string">&quot;Proxy-Client-IP&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (ip == <span class="keyword">null</span> || ip.length() == <span class="number">0</span> || UNKNOWN.equalsIgnoreCase(ip)) &#123;</span><br><span class="line">        ip = request.getHeader(<span class="string">&quot;WL-Proxy-Client-IP&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (ip == <span class="keyword">null</span> || ip.length() == <span class="number">0</span> || UNKNOWN.equalsIgnoreCase(ip)) &#123;</span><br><span class="line">        ip = request.getHeader(<span class="string">&quot;HTTP_CLIENT_IP&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (ip == <span class="keyword">null</span> || ip.length() == <span class="number">0</span> || UNKNOWN.equalsIgnoreCase(ip)) &#123;</span><br><span class="line">        ip = request.getHeader(<span class="string">&quot;HTTP_X_FORWARDED_FOR&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (ip == <span class="keyword">null</span> || ip.length() == <span class="number">0</span> || UNKNOWN.equalsIgnoreCase(ip)) &#123;</span><br><span class="line">        ip = request.getRemoteAddr(); <span class="comment">// 没有使用 Proxy 时是客户端的 IP, 使用 Proxy 时是最近的 Proxy 的 IP</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ip;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Nginx 的配置参考:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> location / &#123;</span><br><span class="line"></span><br><span class="line">    proxy_redirect   off;</span><br><span class="line">    proxy_set_header Host $host;</span><br><span class="line">    proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">    proxy_pass http://app_server;</span><br><span class="line">    add_header Cache-Control &#x27;no-store&#x27;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>参考 <a target="_blank" rel="noopener" href="https://imququ.com/post/x-forwarded-for-header-in-http.html">HTTP 请求头中的 X-Forwarded-For</a></p>
+<p><code>X-Forwarded-For</code> 是用于记录代理信息的，每经过一级代理(匿名代理除外)，代理服务器都会把这次请求的来源 IP 追加在 X-Forwarded-For 中，例如来自 4.4.4.4 的一个请求，header 包含这样一行 <code>X-Forwarded-For: 1.1.1.1, 2.2.2.2, 3.3.3.3</code> 代表请求由 1.1.1.1 发出，经过三层代理，第一层是 2.2.2.2，第二层是 3.3.3.3，而本次请求的来源 IP 4.4.4.4 是第三层代理。</p>
+<p><code>X-Real-IP</code>，一般只记录<code>真实发出请求的客户端 IP</code>，上面的例子，如果配置了 X-Read-IP，将会是 X-Real-IP: 1.1.1.1 1所以 ，如果只有一层代理，这两个头的值就是一样的</p>
+</blockquote>
+<h2 id="字符串-MD5"><a href="#字符串-MD5" class="headerlink" title="字符串 MD5"></a>字符串 MD5</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.util.DigestUtils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(DigestUtils.md5DigestAsHex(<span class="string">&quot;Biao&quot;</span>.getBytes()));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="文件的-MD5"><a href="#文件的-MD5" class="headerlink" title="文件的 MD5"></a>文件的 MD5</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.util.DigestUtils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 计算文件的 MD5.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> path 文件的路径</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 文件的 MD5</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">fileMd5</span><span class="params">(String path)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> (InputStream in = <span class="keyword">new</span> FileInputStream(path)) &#123;</span><br><span class="line">            <span class="keyword">return</span> DigestUtils.md5DigestAsHex(in); <span class="comment">// Spring 自带的 MD5 工具</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(fileMd5(<span class="string">&quot;/Users/Biao/Desktop/x.png&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="生成-UUID"><a href="#生成-UUID" class="headerlink" title="生成 UUID"></a>生成 UUID</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.UUID;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">uuid</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> UUID.randomUUID().toString().replace(<span class="string">&quot;-&quot;</span>, <span class="string">&quot;&quot;</span>).toUpperCase();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="读文件自动关闭流"><a href="#读文件自动关闭流" class="headerlink" title="读文件自动关闭流"></a>读文件自动关闭流</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.FileReader;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String path = <span class="string">&quot;/Users/Biao/Documents/workspace/Java/mix/src/main/java/Test.java&quot;</span>;</span><br><span class="line">        <span class="keyword">try</span> (BufferedReader reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> FileReader(path))) &#123;</span><br><span class="line">            String line = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">while</span> ((line = reader.readLine()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">                System.out.println(line);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="定期执行任务"><a href="#定期执行任务" class="headerlink" title="定期执行任务"></a>定期执行任务</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.Executors;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.ScheduledExecutorService;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ScheduledExecutorService.scheduleAtFixedRate(() -&gt; &#123;</span><br><span class="line">            System.out.println(System.currentTimeMillis() / <span class="number">1000</span>);</span><br><span class="line">        &#125;, <span class="number">0</span>, <span class="number">1</span>, TimeUnit.SECONDS);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="过滤后映射"><a href="#过滤后映射" class="headerlink" title="过滤后映射"></a>过滤后映射</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.stream.Stream;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Integer[] ns = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;; <span class="comment">// 不能是 int[]</span></span><br><span class="line">        Stream.of(ns).filter(n -&gt; n &gt;= <span class="number">3</span>).mapToInt(n -&gt; n * <span class="number">2</span>).forEach(System.out::println);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li>过滤: 去掉不要的</li>
+<li>映射: 每一个元素映射为对应的值，一个输入对应一个输出</li>
+</ul>
+</blockquote>
+<h2 id="创建线程"><a href="#创建线程" class="headerlink" title="创建线程"></a>创建线程</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// [1] 方法一</span></span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; System.out.println(<span class="number">1</span>)).start();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// [2] 方法二</span></span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="number">2</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="内存映射"><a href="#内存映射" class="headerlink" title="内存映射"></a>内存映射</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.RandomAccessFile;</span><br><span class="line"><span class="keyword">import</span> java.nio.MappedByteBuffer;</span><br><span class="line"><span class="keyword">import</span> java.nio.channels.FileChannel;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        FileInputStream in = <span class="keyword">new</span> FileInputStream(<span class="string">&quot;/Users/Biao/Desktop/1.cpp&quot;</span>);</span><br><span class="line">        <span class="keyword">long</span> size = in.available();</span><br><span class="line">        FileChannel inChannel = in.getChannel();</span><br><span class="line">        MappedByteBuffer inBuffer = inChannel.map(FileChannel.MapMode.READ_ONLY, <span class="number">0</span>, size);</span><br><span class="line"></span><br><span class="line">        RandomAccessFile out = <span class="keyword">new</span> RandomAccessFile(<span class="string">&quot;/Users/Biao/Desktop/2.cpp&quot;</span>, <span class="string">&quot;rw&quot;</span>);</span><br><span class="line">        FileChannel outChannel = out.getChannel();</span><br><span class="line">        MappedByteBuffer outBuffer = outChannel.map(FileChannel.MapMode.READ_WRITE, <span class="number">0</span>, size);</span><br><span class="line">        outBuffer.put(inBuffer);</span><br><span class="line"></span><br><span class="line">        inChannel.close();</span><br><span class="line">        outChannel.close();</span><br><span class="line">        in.close();</span><br><span class="line">        out.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="大小写不敏感的正则表达式"><a href="#大小写不敏感的正则表达式" class="headerlink" title="大小写不敏感的正则表达式"></a>大小写不敏感的正则表达式</h2><p>在前面加上 <strong>(?i)</strong> 即可</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String name = <span class="string">&quot;names.NSF&quot;</span>.replaceAll(<span class="string">&quot;(?i)\\.nsf$&quot;</span>, <span class="string">&quot;&quot;</span>); <span class="comment">// name</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="文件路径"><a href="#文件路径" class="headerlink" title="文件路径"></a>文件路径</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 说明这个 prop.properties 和类 PropUtil.class 是在同一个目录下 </span></span><br><span class="line">PropUtil.class.getClassLoader().getResourceAsStream(<span class="string">&quot;prop.properties&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 注意有个斜杠，说明是在 classpath 根目录下，eclipse 写的话一般如果是 bin 目录，netbeans 的话可能会在 build/classes 目录下   </span></span><br><span class="line">PropUtil .class.getClassLoader().getResourceAsStream(<span class="string">&quot;/prop.properties&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这种是从 System Property &#x27;user.dir&#x27;下读 prop.properties, 用 IDE 编写的话默认就是你的工程目录，一般来说 user.dir 是执行 java 命令所在的当前目录。 </span></span><br><span class="line"><span class="keyword">new</span> FileInputStream(<span class="string">&quot;prop.properties&quot;</span>); </span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>不存在所谓的 JAVASE 默认根路径的说法，java（无论是 J2SE 还是，J2EE, Web）中只有 classpath，看你的 java 命令怎么配置 classpath。</p>
+</blockquote>
+<h2 id="指定编译和运行时字符集"><a href="#指定编译和运行时字符集" class="headerlink" title="指定编译和运行时字符集"></a>指定编译和运行时字符集</h2><ul>
+<li><p>编译时使用参数 encoding</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javac -encoding utf-8 Test.java</span><br></pre></td></tr></table></figure></li>
+<li><p>运行时使用参数 -Dfile.encoding</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar -Dfile.encoding=utf-8 Test.jar</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="MessageFormat-格式化数字和日期"><a href="#MessageFormat-格式化数字和日期" class="headerlink" title="MessageFormat 格式化数字和日期"></a>MessageFormat 格式化数字和日期</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.text.MessageFormat;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] argv)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        Object[] params = &#123; <span class="keyword">new</span> Integer(<span class="number">123</span>), <span class="keyword">new</span> Double(<span class="number">1222234.567</span>) &#125;;</span><br><span class="line">        String msg = MessageFormat.format(<span class="string">&quot;&#123;0,number,percent&#125; and &#123;1,number,,###.##&#125;&quot;</span>, params);</span><br><span class="line">        System.out.println(msg); <span class="comment">// 12,300% and 1,222,234.57</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="SpringSecurity-iframe"><a href="#SpringSecurity-iframe" class="headerlink" title="SpringSecurity iframe"></a>SpringSecurity iframe</h2><p>SpringSecurity 默认不让 iframe 嵌入当前站点的网页的，连同域都不允许，可以配置 http 让其允许</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">http</span> <span class="attr">auto-config</span>=<span class="string">&quot;true&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">headers</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">frame-options</span> <span class="attr">policy</span>=<span class="string">&quot;SAMEORIGIN&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">headers</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">http</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="查看-SpringMVC-Application-Context-中的对象"><a href="#查看-SpringMVC-Application-Context-中的对象" class="headerlink" title="查看 SpringMVC Application Context 中的对象"></a>查看 SpringMVC Application Context 中的对象</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">WebApplicationContext webApplicationContext = ContextLoader.getCurrentWebApplicationContext();</span><br><span class="line">String[] names = webApplicationContext.getBeanDefinitionNames();</span><br></pre></td></tr></table></figure>
+
+<h2 id="Easypoi-导入导出-Excel"><a href="#Easypoi-导入导出-Excel" class="headerlink" title="Easypoi 导入导出 Excel"></a>Easypoi 导入导出 Excel</h2><p>直接使用 POI 导入导出 Excel 需要写很多代码，使用 Easypoi 只需要很简单的代码就能完成，请访问 <a target="_blank" rel="noopener" href="http://www.afterturn.cn/doc/easypoi.html">http://www.afterturn.cn/doc/easypoi.html</a></p>
+<h2 id="连接字符串-join"><a href="#连接字符串-join" class="headerlink" title="连接字符串 join"></a>连接字符串 join</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    List&lt;String&gt; strs = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">    strs.add(<span class="string">&quot;1&quot;</span>);</span><br><span class="line">    strs.add(<span class="string">&quot;2&quot;</span>);</span><br><span class="line">    strs.add(<span class="string">&quot;3&quot;</span>);</span><br><span class="line">    System.out.println(String.join(<span class="string">&quot;, &quot;</span>, strs)); <span class="comment">// 输出: 1, 2, 3</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/hexo-usage/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Hexo 环境搭建
+        
+      </div>
+    </a>
+  
+  
+    <a href="/all/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">All Documents</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

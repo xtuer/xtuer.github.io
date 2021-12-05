@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Vue 的地址选择器组件 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="有时候会用到地址选择的功能，已经有了很多使用 Vue 实现的地址选择组件，下面使用 Vue + iView 的 Cascader 来介绍怎么使用一个简单的地址选择组件 AddressPicker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue 的地址选择器组件">
+<meta property="og:url" content="http://xtuer.github.io/fe-vue-address-picker/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="有时候会用到地址选择的功能，已经有了很多使用 Vue 实现的地址选择组件，下面使用 Vue + iView 的 Cascader 来介绍怎么使用一个简单的地址选择组件 AddressPicker">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/fe/address-picker.png">
+<meta property="og:image" content="http://xtuer.github.io/img/fe/region.png">
+<meta property="article:published_time" content="2019-06-08T12:41:01.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.150Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="FE">
+<meta property="article:tag" content="Vue">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/fe/address-picker.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#AddressPicker-vue"><span class="toc-text">AddressPicker.vue</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81"><span class="toc-text">测试代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%B0%E5%9D%80%E6%A0%BC%E5%BC%8F"><span class="toc-text">地址格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%B0%E5%8C%BA%E6%95%B0%E6%8D%AE"><span class="toc-text">地区数据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RegionController-java"><span class="toc-text">RegionController.java</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RegionMapper-java"><span class="toc-text">RegionMapper.java</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RegionMapper-xml"><span class="toc-text">RegionMapper.xml</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%80%83"><span class="toc-text">思考</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-fe-vue-address-picker" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/fe-vue-address-picker/" class="article-date">
+  	<!-- <time datetime="2019-06-08T12:41:01.000Z" itemprop="datePublished">2019-06-08</time> -->
+    2019-06-08
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Vue 的地址选择器组件
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>有时候会用到地址选择的功能，已经有了很多使用 Vue 实现的地址选择组件，下面使用 Vue + iView 的 Cascader 来介绍怎么使用一个简单的地址选择组件 AddressPicker</p>
+<center><img src="../img/fe/address-picker.png" width="372"></center>
+<span id="more"></span>
+
+<h2 id="AddressPicker-vue"><a href="#AddressPicker-vue" class="headerlink" title="AddressPicker.vue"></a>AddressPicker.vue</h2><p>地址选择组件 AddressPicker 的实现比较直观，关键是使用 <a target="_blank" rel="noopener" href="https://www.iviewui.com/components/cascader">Cascader</a> 的动态加载特性，点击一个地区的时候使用 Ajax 加载它的下一级地区</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">名字:</span></span><br><span class="line"><span class="comment">地址选择器 AddressPicker</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">说明:</span></span><br><span class="line"><span class="comment">地址是按地区的层级从上到下构成的，例如 &#x27;北京市 / 西城区 / 新街口街道&#x27;，使用地区 id 的数组 [1, 38, 580] 表示一个地址，数组中前一个地区是后一个地区的上一级。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">案例:</span></span><br><span class="line"><span class="comment">1. &lt;AddressPicker @on-change=&quot;change&quot;/&gt;</span></span><br><span class="line"><span class="comment">2. 传入初始化地址，地址选择器会高亮选中该地址:</span></span><br><span class="line"><span class="comment">   &lt;AddressPicker :address=&quot;address&quot; @on-change=&quot;change&quot;/&gt;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">   data() &#123;</span></span><br><span class="line"><span class="comment">        return &#123;</span></span><br><span class="line"><span class="comment">            address: &#123;</span></span><br><span class="line"><span class="comment">                path: &#x27;&#x27;,                // 地址的路径，便于阅读，可选</span></span><br><span class="line"><span class="comment">                regionIds: [1, 40, 593], // 地址的地区 id 数组，用于表示一个唯一的地址</span></span><br><span class="line"><span class="comment">            &#125;</span></span><br><span class="line"><span class="comment">        &#125;;</span></span><br><span class="line"><span class="comment">    &#125;,</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">参数:</span></span><br><span class="line"><span class="comment">address [地址，可选参数]: 必须有属性 regionIds，其类型为数组，例如 &#123; regionIds: [1, 38], path: &#x27;&#x27; &#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">事件:</span></span><br><span class="line"><span class="comment">on-change: 选择地区的时候触发，参数为地址对象，例如 &#123;&quot;path&quot;:&quot;北京市宣武区大栅栏街道&quot;,&quot;regionIds&quot;:[1,40,591]&#125;，</span></span><br><span class="line"><span class="comment">    同时绑定的 address 的属性 path 和 regionIds 也会进行更新</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Cascader</span> <span class="attr">:data</span>=<span class="string">&quot;country.children&quot;</span> <span class="attr">:load-data</span>=<span class="string">&quot;loadData&quot;</span> <span class="attr">v-model</span>=<span class="string">&quot;selection&quot;</span> <span class="attr">change-on-select</span> @<span class="attr">on-change</span>=<span class="string">&quot;onChange&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">    <span class="attr">props</span>: &#123;</span></span><br><span class="line"><span class="javascript">        <span class="attr">address</span>: &#123; <span class="attr">type</span>: <span class="built_in">Object</span>, <span class="attr">default</span>: <span class="function">() =&gt;</span> &#123; <span class="keyword">return</span> &#123; <span class="attr">regionIds</span>: [] &#125;; &#125; &#125;,</span></span><br><span class="line"><span class="javascript">    &#125;,</span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="title">data</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">selection</span>: [],</span></span><br><span class="line"><span class="javascript">            <span class="attr">country</span>  : &#123; <span class="attr">value</span>: <span class="number">0</span>, <span class="attr">children</span>: [] &#125;,</span></span><br><span class="line"><span class="javascript">        &#125;;</span></span><br><span class="line"><span class="javascript">    &#125;,</span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="title">mounted</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="comment">// 初始化，加载传入的地区</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">this</span>.loadHierarchyRegions(<span class="built_in">this</span>.country, [...this.address.regionIds], <span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">this</span>.selection.push(...this.address.regionIds);</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript">    &#125;,</span></span><br><span class="line"><span class="javascript">    <span class="attr">methods</span>: &#123;</span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="title">onChange</span>(<span class="params">value, selectedData</span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">this</span>.address.path = <span class="string">&#x27;&#x27;</span>;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">this</span>.address.regionIds = [];</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">            <span class="keyword">for</span> (<span class="keyword">const</span> region <span class="keyword">of</span> selectedData) &#123;</span></span><br><span class="line"><span class="javascript">                <span class="built_in">this</span>.address.regionIds.push(region.value);</span></span><br><span class="line"><span class="javascript">                <span class="built_in">this</span>.address.path += region.label;</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">            <span class="built_in">this</span>.$emit(<span class="string">&#x27;on-change&#x27;</span>, <span class="built_in">this</span>.address);</span></span><br><span class="line"><span class="javascript">        &#125;,</span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="title">loadData</span>(<span class="params">item, callback</span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">            item.loading = <span class="literal">true</span>;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">            <span class="built_in">this</span>.loadRegions(item, <span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">                item.loading = <span class="literal">false</span>;</span></span><br><span class="line"><span class="javascript">                callback();</span></span><br><span class="line"><span class="javascript">            &#125;);</span></span><br><span class="line"><span class="javascript">        &#125;,</span></span><br><span class="line"><span class="javascript">        <span class="comment">// 加载地区 parent 的下级地区，下级地区会放入 parent.children 数组中</span></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="title">loadRegions</span>(<span class="params">parent, callback</span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="comment">// 注意: Rest 是基于 axios 封装的功能，访问 https://qtdebug.com/fe-axios-rest/</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">// Rest.get 只是个 Ajax 请求，可以替换为自己熟悉的方式</span></span></span><br><span class="line"><span class="javascript">            Rest.get(&#123; <span class="attr">url</span>: <span class="string">&#x27;/api/regions&#x27;</span>, <span class="attr">data</span>: &#123; <span class="attr">parentId</span>: parent.value &#125; &#125;).then(<span class="function"><span class="params">regions</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">for</span> (<span class="keyword">const</span> region <span class="keyword">of</span> regions) &#123;</span></span><br><span class="line"><span class="javascript">                    <span class="comment">// 提示: 有属性 loading 则表明需要加载 children，界面中 item 上有箭头，否则就是最后一级，没有箭头</span></span></span><br><span class="line"><span class="javascript">                    <span class="keyword">if</span> (region.childrenCount === <span class="number">0</span>) &#123;</span></span><br><span class="line"><span class="javascript">                        parent.children.push(&#123; <span class="attr">label</span>: region.name, <span class="attr">value</span>: region.id, <span class="attr">children</span>: [] &#125;);</span></span><br><span class="line"><span class="javascript">                    &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="javascript">                        parent.children.push(&#123; <span class="attr">label</span>: region.name, <span class="attr">value</span>: region.id, <span class="attr">children</span>: [], <span class="attr">loading</span>: <span class="literal">false</span> &#125;);</span></span><br><span class="line"><span class="javascript">                    &#125;</span></span><br><span class="line"><span class="javascript">                &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">                callback &amp;&amp; callback();</span></span><br><span class="line"><span class="javascript">            &#125;);</span></span><br><span class="line"><span class="javascript">        &#125;,</span></span><br><span class="line"><span class="javascript">        <span class="comment">/**</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         * 加载地区 id 的数组 regionIds 指定路径上的所有地区。</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         * 地址是按地区的层级从上到下构成的，例如 &#x27;北京市 / 西城区 / 新街口街道&#x27;，</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         * 使用地区 id 的数组 [1, 38, 580] 表示一个地址，数组中前一个地区是后一个地区的上一级。</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         *</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         * <span class="doctag">@param <span class="type">&#123;Array   &#125;</span> </span>parent         上级地区</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         * <span class="doctag">@param <span class="type">&#123;Array   &#125;</span> </span>regionIds      组成地址的所有地区 id 的数组，前一个地区是后一个地区的上一级</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         * <span class="doctag">@param <span class="type">&#123;Function&#125;</span> </span>finishCallback 地址加载完时的回调函数</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         */</span></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="title">loadHierarchyRegions</span>(<span class="params">parent, regionIds, finishCallback</span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="comment">// 1. 加载 parent 下的地区</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">// 2. 找到 parent 下的地区中 value 为 regionIds[0] 的地区 topRegion，并且删除 regionIds[0]，如果找不到，结束递归</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">// 3. 递归加载 topRegion 下的地区</span></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">            <span class="built_in">this</span>.loadRegions(parent, <span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">let</span> topId     = regionIds.shift();</span></span><br><span class="line"><span class="javascript">                <span class="keyword">let</span> topRegion = parent.children.find(<span class="function"><span class="params">child</span> =&gt;</span> child.value === topId);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">                <span class="keyword">if</span> (topRegion) &#123;</span></span><br><span class="line"><span class="javascript">                    <span class="built_in">this</span>.loadHierarchyRegions(topRegion, regionIds, finishCallback);</span></span><br><span class="line"><span class="javascript">                &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="javascript">                    finishCallback &amp;&amp; finishCallback();</span></span><br><span class="line"><span class="javascript">                &#125;</span></span><br><span class="line"><span class="javascript">            &#125;);</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript">    &#125;,</span></span><br><span class="line"><span class="javascript">&#125;;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;demo&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">AddressPicker</span> @<span class="attr">on-change</span>=<span class="string">&quot;change1&quot;</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">AddressPicker</span> <span class="attr">:address</span>=<span class="string">&quot;address&quot;</span> @<span class="attr">on-change</span>=<span class="string">&quot;change2&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> AddressPicker <span class="keyword">from</span> <span class="string">&#x27;@/components/AddressPicker.vue&#x27;</span>;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">    <span class="attr">components</span>: &#123; AddressPicker &#125;,</span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="title">data</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">address</span>: &#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">path</span>: <span class="string">&#x27;&#x27;</span>,</span></span><br><span class="line"><span class="javascript">                <span class="attr">regionIds</span>: [<span class="number">1</span>, <span class="number">40</span>, <span class="number">593</span>],</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript">        &#125;;</span></span><br><span class="line"><span class="javascript">    &#125;,</span></span><br><span class="line"><span class="javascript">    <span class="attr">methods</span>: &#123;</span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="title">change1</span>(<span class="params">address</span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(address));</span></span><br><span class="line"><span class="javascript">        &#125;,</span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="title">change2</span>(<span class="params">address</span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(address), <span class="built_in">JSON</span>.stringify(<span class="built_in">this</span>.address));</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript">    &#125;</span></span><br><span class="line"><span class="javascript">&#125;;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">&quot;scss&quot;</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css"><span class="selector-class">.demo</span> &#123;</span></span><br><span class="line"><span class="css">    <span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="css">&#125;</span></span><br><span class="line"><span class="css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="地址格式"><a href="#地址格式" class="headerlink" title="地址格式"></a>地址格式</h2><p>服务器响应的地址格式使用 Json 数组，需要属性 id, name, childrenCount (有多少个下一级地区):</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[&#123;</span><br><span class="line">    <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;大栅栏街道&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;id&quot;</span>: <span class="number">591</span>,</span><br><span class="line">    <span class="attr">&quot;parentId&quot;</span>: <span class="number">40</span>,</span><br><span class="line">    <span class="attr">&quot;childrenCount&quot;</span>: <span class="number">0</span></span><br><span class="line">&#125;, &#123;</span><br><span class="line">    <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;天桥街道&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;id&quot;</span>: <span class="number">592</span>,</span><br><span class="line">    <span class="attr">&quot;parentId&quot;</span>: <span class="number">40</span>,</span><br><span class="line">    <span class="attr">&quot;childrenCount&quot;</span>: <span class="number">0</span></span><br><span class="line">&#125;, &#123;</span><br><span class="line">    <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;广安门内街道&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;id&quot;</span>: <span class="number">593</span>,</span><br><span class="line">    <span class="attr">&quot;parentId&quot;</span>: <span class="number">40</span>,</span><br><span class="line">    <span class="attr">&quot;childrenCount&quot;</span>: <span class="number">0</span></span><br><span class="line">&#125;, &#123;</span><br><span class="line">    <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;陶然亭街道&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;id&quot;</span>: <span class="number">598</span>,</span><br><span class="line">    <span class="attr">&quot;parentId&quot;</span>: <span class="number">40</span>,</span><br><span class="line">    <span class="attr">&quot;childrenCount&quot;</span>: <span class="number">0</span></span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure>
+
+<h2 id="地区数据"><a href="#地区数据" class="headerlink" title="地区数据"></a>地区数据</h2><p>全国的地区数据 <a href="../download/region.sql">region.sql</a>，直接导入 MySQL 即可使用。</p>
+<center><img src="../img/fe/region.png" width="428"></center>
+## 服务器端
+
+<p>服务器端可以根据自己的情况实现，使用 SpringMVC + MyBatis 的代码如下:</p>
+<h3 id="RegionController-java"><a href="#RegionController-java" class="headerlink" title="RegionController.java"></a>RegionController.java</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RegionContrller</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取指定地区的下一级地区，省为第一级地区，它的 parentId 为 0</span></span><br><span class="line"><span class="comment">     * 地址: http://localhost:8080/api/regions?parentId=1</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> parentId</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 返回地区的数组</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/api/regions&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Region&gt; <span class="title">findRegionsByParentId</span><span class="params">(<span class="meta">@RequestParam(defaultValue=&quot;0&quot;)</span> <span class="keyword">int</span> parentId)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> regionMapper.findRegionsByParentId(parentId);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="RegionMapper-java"><a href="#RegionMapper-java" class="headerlink" title="RegionMapper.java"></a>RegionMapper.java</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.ibatis.annotations.Mapper;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Mapper</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">RegionMapper</span> </span>&#123;</span><br><span class="line">    <span class="function">List&lt;Region&gt; <span class="title">findRegionsByParentId</span><span class="params">(<span class="keyword">int</span> parentId)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="RegionMapper-xml"><a href="#RegionMapper-xml" class="headerlink" title="RegionMapper.xml"></a>RegionMapper.xml</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">mapper</span> <span class="meta-keyword">PUBLIC</span> <span class="meta-string">&quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span> <span class="meta-string">&quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">&quot;com.xtuer.mapper.RegionMapper&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--查找 parentId 为传入的 parentId 的地区--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;findRegionsByParentId&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;Region&quot;</span>&gt;</span></span><br><span class="line">        SELECT id, name, parent_id as parentId, children_count as childrenCount FROM region WHERE parent_id=#&#123;parentId&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>上面提供的地区数据只有省、市、县、乡等，数据不全，很多地方没有到街道、小区等，如果需要，可以找一个更全的地区数据库来使用，或者缺失的部分让用户进行输入，我们的核心是介绍怎么实现一个地址选择工具。</p>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/misc-red-envelope/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          线段切割法生成红包
+        
+      </div>
+    </a>
+  
+  
+    <a href="/fe-vue-sync-init/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Vue 同步初始化</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>MongoDB 初接触 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="MongoDB 的结构是：数据库 &gt; 集合 (collection) &gt; 文档 (document) &gt; 属性 (field) MySQL 的结构是: 数据库 &gt; 表 (table) &gt; 记录 (record or row) &gt; 属性 (field or column) 下载安装不同的系统安装 MongoDB 差别挺大的:  Mac: 使用 brew insta">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MongoDB 初接触">
+<meta property="og:url" content="http://xtuer.github.io/mac-mongodb/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="MongoDB 的结构是：数据库 &gt; 集合 (collection) &gt; 文档 (document) &gt; 属性 (field) MySQL 的结构是: 数据库 &gt; 表 (table) &gt; 记录 (record or row) &gt; 属性 (field or column) 下载安装不同的系统安装 MongoDB 差别挺大的:  Mac: 使用 brew insta">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/java/mongo-repository-methods.png">
+<meta property="article:published_time" content="2018-02-11T14:26:51.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.162Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="Mac">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/java/mongo-repository-methods.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85"><span class="toc-text">下载安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E8%AE%BF%E9%97%AE"><span class="toc-text">启动访问</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%A4%A7%E8%BF%9E%E6%8E%A5%E6%95%B0"><span class="toc-text">最大连接数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF"><span class="toc-text">信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%88%A0%E9%99%A4"><span class="toc-text">创建删除</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%92%E5%85%A5"><span class="toc-text">插入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2"><span class="toc-text">查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0"><span class="toc-text">更新</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%9D%E5%AD%98"><span class="toc-text">保存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A0%E9%99%A4"><span class="toc-text">删除</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%81%9A%E5%90%88"><span class="toc-text">聚合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95"><span class="toc-text">索引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java-%E8%AE%BF%E9%97%AE-MongoDB"><span class="toc-text">Java 访问 MongoDB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-%E9%9B%86%E6%88%90-MongoDB"><span class="toc-text">Spring 集成 MongoDB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Query-%E8%BF%9B%E8%A1%8C%E6%9F%A5%E8%AF%A2"><span class="toc-text">Query 进行查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Update-%E8%BF%9B%E8%A1%8C%E6%9B%B4%E6%96%B0"><span class="toc-text">Update 进行更新</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Upsert-%E6%8F%92%E5%85%A5%E6%88%96%E6%9B%B4%E6%96%B0"><span class="toc-text">Upsert 插入或更新</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Remove-%E8%BF%9B%E8%A1%8C%E5%88%A0%E9%99%A4"><span class="toc-text">Remove 进行删除</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%B9%E9%87%8F%E6%93%8D%E4%BD%9C"><span class="toc-text">批量操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-mac-mongodb" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/mac-mongodb/" class="article-date">
+  	<!-- <time datetime="2018-02-11T14:26:51.000Z" itemprop="datePublished">2018-02-11</time> -->
+    2018-02-11
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      MongoDB 初接触
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>MongoDB 的结构是：数据库 &gt; 集合 (collection) &gt; 文档 (document) &gt; 属性 (field)</p>
+<p>MySQL 的结构是: 数据库 &gt; 表 (table) &gt; 记录 (record or row) &gt; 属性 (field or column)</p>
+<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><p>不同的系统安装 MongoDB 差别挺大的:</p>
+<ul>
+<li><p>Mac: 使用 <code>brew install mongodb</code></p>
+</li>
+<li><p>Linux: 参考 <a target="_blank" rel="noopener" href="http://qtdebug.com/mac-centos7/#%E5%AE%89%E8%A3%85-MongoDB">http://qtdebug.com/mac-centos7/#安装-MongoDB</a></p>
+</li>
+<li><p>Windows: <a target="_blank" rel="noopener" href="http://www.mongodb.org/downloads">下载</a>然后安装，安装的时候不要选择安装 MongoDB Compass，因为需要联网下载，国内有可能很久都装不好, 或者下载压缩版解压直接用:</p>
+<p>在 bin 目录中创建文件 mongod.conf, 内容如下:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">systemLog:</span></span><br><span class="line">    <span class="attr">destination:</span> <span class="string">file</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">D:\MongoDB\logs\mongodb.log</span> <span class="comment">#日志输出文件路径</span></span><br><span class="line">    <span class="attr">logAppend:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">storage:</span></span><br><span class="line">    <span class="attr">dbPath:</span> <span class="string">D:\MongoDB\data</span> <span class="comment">#数据库路径</span></span><br><span class="line"><span class="attr">net:</span></span><br><span class="line">    <span class="attr">bindIp:</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span> <span class="comment">#允许其他电脑访问</span></span><br></pre></td></tr></table></figure>
+
+<p>然后创建 path 和 dbPath 指向的文件夹 (文件夹不存在则会导致启动失败)</p>
+</li>
+</ul>
+<h2 id="启动访问"><a href="#启动访问" class="headerlink" title="启动访问"></a>启动访问</h2><ul>
+<li>启动 MongoDB:<ul>
+<li><code>mongod</code></li>
+<li><code>mongod --config C:/etc/mongod.conf</code></li>
+<li><code>mongod --auth --config C:/etc/mongod.conf</code></li>
+</ul>
+</li>
+<li>访问 MongoDB:<ul>
+<li><code>mongo</code></li>
+<li><code>mongo --host IP</code></li>
+<li>使用 IDEA 的插件 <code>Mongo Plugin</code></li>
+<li>漂亮的免费客户端 dbKoda</li>
+<li>智能的免费客户端 NoSQLBooster for MongoDB (推荐使用)</li>
+</ul>
+</li>
+<li>删除 MongoDB:<ul>
+<li>CentOS<ul>
+<li>关闭 MongoDB 服务: <code>kill -9 pid</code></li>
+<li>查看有 MongoDB 哪些包: <code>rpm -qa | less | grep mongo</code></li>
+<li>删除 MongoDB 的包: <code>yum erase $(rpm -qa | grep mongodb-org)</code></li>
+<li>删除 MongoDB 的目录: <code>rm -rf /var/log/mongodb ; rm -rf /var/lib/mongo</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">systemLog:</span></span><br><span class="line">    <span class="attr">destination:</span> <span class="string">file</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">D:/MongoDB/logs/mongodb.log</span> <span class="comment">#日志输出文件路径</span></span><br><span class="line">    <span class="attr">logAppend:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">storage:</span></span><br><span class="line">    <span class="attr">dbPath:</span> <span class="string">D:/MongoDB/data</span> <span class="comment">#数据库路径</span></span><br><span class="line"><span class="attr">net:</span></span><br><span class="line">    <span class="attr">bindIp:</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span> <span class="comment">#允许其他电脑访问</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>默认只允许本机访问，在 mongod.conf 中配置 bindIp 允许其他机器访问:</p>
+<ul>
+<li><code>bindIp = 127.0.0.1, 192.168.1.10</code>: 允许这 2 个 IP 访问</li>
+<li><code>bindIp = 0.0.0.0</code>: 允许任意机器访问</li>
+</ul>
+<p>注意：Winows 中 MongoDB 的数据库目录需要我们手动创建，如果目录不存在则会启动失败</p>
+<ul>
+<li>默认的目录为 <code>C:/data/db</code></li>
+<li>上面配置文件的为 <code>D:/MongoDB/data</code> 和 <code>D:/MongoDB/logs</code></li>
+</ul>
+</blockquote>
+<p>配置文件路径:</p>
+<ul>
+<li><p>Linux: <code>/etc/mongod.conf</code>，自动创建</p>
+</li>
+<li><p>Mac: <code>/usr/local/etc/mongod.conf</code>，自动创建</p>
+</li>
+<li><p>Windows: 手动创建</p>
+<p>Windows 安装 MongoDB 后不会自动生成配置文件，如果要使用，需要我们自己创建</p>
+</li>
+</ul>
+<h2 id="最大连接数"><a href="#最大连接数" class="headerlink" title="最大连接数"></a>最大连接数</h2><p>进入 Mongo 客户端: <code>mongo</code>，输入 <code>db.serverStatus().connections;</code> 查看输出结果:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="string">&quot;current&quot;</span> : <span class="number">1</span>, <span class="string">&quot;available&quot;</span> : <span class="number">203</span>, <span class="string">&quot;totalCreated&quot;</span> : <span class="number">1</span> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>在 mongodb.conf 中修改最大连接数:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">maxConns=20000</span><br></pre></td></tr></table></figure>
+
+<p>参考 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/baihuitestsoftware/articles/6951103.html">https://www.cnblogs.com/baihuitestsoftware/articles/6951103.html</a>。</p>
+<h2 id="信息"><a href="#信息" class="headerlink" title="信息"></a>信息</h2><ul>
+<li><p><code>help</code>: 查看 MongoDB 支持哪些命令</p>
+</li>
+<li><p><code>db.help()</code>: 查看当前数据库支持哪些的方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">db.getName() - 当前 DB 的名字</span><br><span class="line">db.stats() - 当前 DB 的状态，例如名字，有多少 collections，数据库大小等</span><br><span class="line">db.dropDatabase() - 删除当前数据库</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p><code>db.collection_name.help()</code>: DBCollection help，例如各种 CURD 命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">db.test.drop() - drop the collection 删除 collection test</span><br><span class="line">db.test.dropIndexes()</span><br><span class="line">db.test.find(...).count()</span><br></pre></td></tr></table></figure></li>
+<li><p><code>show databases</code>: 显示所有数据库，简写 <code>show dbs</code>，和 MySQL 一样</p>
+</li>
+<li><p><code>show collections</code>: 显示当前数据库下的所有 collection</p>
+</li>
+</ul>
+<h2 id="创建删除"><a href="#创建删除" class="headerlink" title="创建删除"></a>创建删除</h2><ul>
+<li><p>创建数据库: <code>use db_name</code></p>
+<p>如果数据库存在则使用它，不存在则创建</p>
+</li>
+<li><p>删除数据库: <code>db.dropDatabase()</code></p>
+<p>删除的是当前数据库</p>
+</li>
+<li><p>添加集合: <code>db.createCollection(&#39;collection_name&#39;)</code></p>
+<p>集合相当于 MySQL 中的 Table，MongoDB 插入时如果集合不存在则会自动创建集合，MySQL 不一样，需要事先创建好表才能进行插入</p>
+</li>
+</ul>
+<ul>
+<li>删除集合: <code>db.collection_name.drop()</code></li>
+</ul>
+<h2 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h2><p>语法: <code>固定前缀 db</code> + <code>集合名字</code> + <code>函数 insert()</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">db.movie.insert(&#123;</span><br><span class="line">    <span class="attr">title</span>: <span class="string">&#x27;Forrest Gump&#x27;</span>,</span><br><span class="line">    <span class="attr">directed_by</span>: <span class="string">&#x27;Robert Zemeckis&#x27;</span>,</span><br><span class="line">    <span class="attr">stars</span>: [<span class="string">&#x27;Tom Hanks&#x27;</span>, <span class="string">&#x27;Robin Wright&#x27;</span>, <span class="string">&#x27;Gary Sinise&#x27;</span>],</span><br><span class="line">    <span class="attr">tags</span>: [<span class="string">&#x27;drama&#x27;</span>, <span class="string">&#x27;romance&#x27;</span>],</span><br><span class="line">    <span class="attr">debut</span>: <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">1994</span>, <span class="number">7</span>, <span class="number">6</span>, <span class="number">0</span>, <span class="number">0</span>),</span><br><span class="line">    <span class="attr">likes</span>: <span class="number">864367</span>,</span><br><span class="line">    <span class="attr">dislikes</span>: <span class="number">30127</span>,</span><br><span class="line">    <span class="attr">comments</span>: [&#123;</span><br><span class="line">            <span class="attr">user</span>: <span class="string">&#x27;user1&#x27;</span>,</span><br><span class="line">            <span class="attr">message</span>: <span class="string">&#x27;My first comment&#x27;</span>,</span><br><span class="line">            <span class="attr">dateCreated</span>: <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">2013</span>, <span class="number">11</span>, <span class="number">10</span>, <span class="number">2</span>, <span class="number">35</span>),</span><br><span class="line">            <span class="attr">like</span>: <span class="number">0</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">user</span>: <span class="string">&#x27;user2&#x27;</span>,</span><br><span class="line">            <span class="attr">message</span>: <span class="string">&#x27;My first comment too!&#x27;</span>,</span><br><span class="line">            <span class="attr">dateCreated</span>: <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">2013</span>, <span class="number">11</span>, <span class="number">11</span>, <span class="number">6</span>, <span class="number">20</span>),</span><br><span class="line">            <span class="attr">like</span>: <span class="number">0</span></span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h2><p>语法: <code>固定前缀 db</code> + <code>集合名字</code> + <code>函数 find()</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// [1] 查询所有</span></span><br><span class="line">db.movie.find() <span class="comment">// 查询出集合 movie 下的所有 documents</span></span><br><span class="line">db.movie.find().pretty() <span class="comment">// pretty() 格式化查询得到的 JSON</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// [2] 条件查询</span></span><br><span class="line">db.movie.find(&#123;<span class="attr">directed_by</span>: <span class="string">&#x27;David Fincher&#x27;</span>&#125;) <span class="comment">// directed_by 等于 David Fincher</span></span><br><span class="line">db.movie.find(&#123;<span class="attr">directed_by</span>: <span class="string">&#x27;David Fincher&#x27;</span>, <span class="attr">title</span>: <span class="string">&#x27;Seven&#x27;</span>&#125;) <span class="comment">// AND: 同时满足多个条件</span></span><br><span class="line">db.movie.find(&#123;<span class="attr">$or</span>: [&#123;<span class="attr">directed_by</span>: <span class="string">&#x27;David Fincher&#x27;</span>&#125;, &#123;<span class="attr">title</span>: <span class="string">&#x27;Forrest Gump&#x27;</span>&#125;]&#125;) <span class="comment">// OR</span></span><br><span class="line"><span class="comment">// AND 和 OR 一起使用</span></span><br><span class="line">db.movie.find(&#123;&#123;<span class="attr">likes</span>: &#123;<span class="attr">$gt</span>: <span class="number">50</span>&#125;&#125;, <span class="attr">$or</span>: [&#123;<span class="attr">directed_by</span>: <span class="string">&#x27;David Fincher&#x27;</span>&#125;, &#123;<span class="attr">title</span>: <span class="string">&#x27;Forrest Gump&#x27;</span>&#125;]&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// [3] 范围搜索</span></span><br><span class="line"><span class="comment">// $gt: 大于，$gte: 大于等于</span></span><br><span class="line"><span class="comment">// $lt: 小于，$lte: 小于等于</span></span><br><span class="line"><span class="comment">// $ne: 不等于</span></span><br><span class="line"><span class="comment">// $in: 属于</span></span><br><span class="line">db.movie.find(&#123;<span class="attr">likes</span>: &#123;<span class="attr">$gt</span>: <span class="number">134360</span>, <span class="attr">$lt</span>: <span class="number">500000</span>&#125;&#125;)</span><br><span class="line">db.movie.find(&#123;<span class="attr">likes</span>: &#123;<span class="attr">$gt</span>: <span class="number">134360</span>, <span class="attr">$lt</span>: <span class="number">500000</span>&#125;, <span class="attr">title</span>: <span class="string">&#x27;Seven&#x27;</span>&#125;)</span><br><span class="line">db.movie.find(&#123;<span class="attr">likes</span>: &#123;<span class="attr">$in</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">400</span>]&#125;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// [4] 如果有多个结果，则会按磁盘存储顺序返回第一个</span></span><br><span class="line">db.movie.findOne(&#123;<span class="string">&#x27;title&#x27;</span>:<span class="string">&#x27;Forrest Gump&#x27;</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// [5] 分页: 使用 skip() + limit()，但要注意 skip 方法是一条条数据数过去的，百万级时效率很低</span></span><br><span class="line">db.movie.find().skip(<span class="number">2</span>).limit(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// [6] 只列出需要的属性: 第一个参数是条件，第二个参数是需要显示的属性，1 为输出，0 为不输出</span></span><br><span class="line">db.movie.find(&#123;&#125;, &#123;<span class="attr">title</span>: <span class="number">1</span>, <span class="attr">directed_by</span>: <span class="number">1</span>&#125;)</span><br><span class="line">db.movie.find(&#123;<span class="attr">directed_by</span>: <span class="string">&#x27;David Fincher&#x27;</span>&#125;, &#123;<span class="attr">title</span>: <span class="number">1</span>, <span class="attr">stars</span>: <span class="number">1</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// [7] 统计个数</span></span><br><span class="line">db.movie.find().count()</span><br><span class="line"></span><br><span class="line"><span class="comment">// [8] 排序: 1 为升序，-1 为降序</span></span><br><span class="line">db.blog.find().sort(&#123;<span class="attr">byuser</span>: <span class="number">1</span>, <span class="attr">likes</span>: -<span class="number">1</span>&#125;).pretty()</span><br><span class="line"></span><br><span class="line"><span class="comment">// [9] 查询子文档: http://www.runoob.com/mongodb/mongodb-advanced-indexing.html</span></span><br><span class="line">db.users.find(&#123;<span class="string">&#x27;address.city&#x27;</span>: <span class="string">&#x27;Los Angeles&#x27;</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><p>语法: <code>固定前缀 db</code> + <code>集合名字</code> + <code>函数 update()</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// [1] $set: 修改为最新的值，如果属性不存在则会自动增加，不会影响其他属性</span></span><br><span class="line">db.movie.update(&#123;<span class="attr">title</span>: <span class="string">&#x27;Seven&#x27;</span>&#125;, &#123;<span class="attr">$set</span>: &#123;<span class="attr">likes</span>: <span class="number">1</span>&#125;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// [2] $inc: 在原来的值上增加</span></span><br><span class="line">db.movie.update(&#123;<span class="attr">title</span>: <span class="string">&#x27;Seven&#x27;</span>&#125;, &#123;<span class="attr">$inc</span>: &#123;<span class="attr">likes</span>: <span class="number">1</span>&#125;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// [3] $push: 往数组中增加一个新的元素</span></span><br><span class="line">db.movie.update(&#123;<span class="attr">title</span>: <span class="string">&#x27;Seven&#x27;</span>&#125;, &#123;<span class="attr">$push</span>: &#123;<span class="attr">tags</span>: <span class="string">&#x27;Marvel&#x27;</span>&#125;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// [3] 更新多个: 默认只会更新第一个，如果要多个同时更新，要设置 &#123;multi:true&#125;</span></span><br><span class="line">db.movie.update(&#123;<span class="attr">title</span>: <span class="string">&#x27;Seven&#x27;</span>&#125;, &#123;<span class="attr">$inc</span>: &#123;<span class="attr">likes</span>: <span class="number">1</span>&#125;&#125;, &#123;<span class="attr">multi</span>: <span class="literal">true</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="保存"><a href="#保存" class="headerlink" title="保存"></a>保存</h2><p>语法: <code>固定前缀 db</code> + <code>集合名字</code> + <code>函数 save()</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.movie.save(&#123;<span class="attr">_id</span>: ObjectId(<span class="string">&#x27;5a9a0c871e7e7233a7453f16&#x27;</span>), <span class="attr">likes</span>: <span class="number">34</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>save 时，如果已经存在则 <code>替换</code> 整个 document，不存在则 <code>插入</code> (使用 _id 判断)，不能像 update 一样使用条件参数:</p>
+<p>The save() method uses either the insert or the update command, which use the default write concern. To specify a different write concern, include the write concern in the options parameter.</p>
+<ul>
+<li>If the document does not contain an _id field, then the save() method calls the insert() method.</li>
+<li>If the document contains an _id field, then the save() method is equivalent to an update with the upsert option set to true and the query predicate on the _id field.</li>
+</ul>
+<p><code>update</code> changes an existing document found by your find-parameters and does nothing when no such document exist (unless you use the <code>upsert</code> option).</p>
+<p><code>save</code> doesn’t allow any find-parameters. It checks if there is a document with the same <code>_id</code> as the one you save exists. When it exists, it replaces it. When no such document exists, it inserts the document as a new one. When the document you insert has no <code>_id</code> field, it generates one with a newly created ObjectId before inserting.</p>
+</blockquote>
+<h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><p>语法: <code>固定前缀 db</code> + <code>集合名字</code> + <code>函数 remove() | deleteOne() | deleteMany()</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// [1] 推荐使用 delete</span></span><br><span class="line">db.movie.deleteOne(&#123;<span class="attr">tags</span>: <span class="string">&#x27;romance&#x27;</span>&#125;)</span><br><span class="line">db.movie.deleteMany(&#123;<span class="attr">tags</span>: <span class="string">&#x27;romance&#x27;</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// [2] 删除所有包含 romance 的 document</span></span><br><span class="line">db.movie.remove(&#123;<span class="attr">tags</span>: <span class="string">&#x27;romance&#x27;</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// [3] 删除第一个包含 romance 的 document</span></span><br><span class="line">db.movie.remove(&#123;<span class="attr">tags</span>: <span class="string">&#x27;romance&#x27;</span>&#125;, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// [4] 删除集合下的所有 document</span></span><br><span class="line">db.movie.remove(&#123;&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="聚合"><a href="#聚合" class="headerlink" title="聚合"></a>聚合</h2><p>语法: <code>固定前缀 db</code> + <code>集合名字</code> + <code>函数 aggregate()</code></p>
+<p>数据</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">title</span>: <span class="string">&#x27;MongoDB Overview&#x27;</span>,</span><br><span class="line">        <span class="attr">description</span>: <span class="string">&#x27;MongoDB is no sql database&#x27;</span>,</span><br><span class="line">        <span class="attr">by_user</span>: <span class="string">&#x27;runoob.com&#x27;</span>,</span><br><span class="line">        <span class="attr">url</span>: <span class="string">&#x27;http://www.runoob.com&#x27;</span>,</span><br><span class="line">        <span class="attr">tags</span>: [<span class="string">&#x27;mongodb&#x27;</span>, <span class="string">&#x27;database&#x27;</span>, <span class="string">&#x27;NoSQL&#x27;</span>],</span><br><span class="line">        <span class="attr">likes</span>: <span class="number">100</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">title</span>: <span class="string">&#x27;NoSQL Overview&#x27;</span>,</span><br><span class="line">        <span class="attr">description</span>: <span class="string">&#x27;No sql database is very fast&#x27;</span>,</span><br><span class="line">        <span class="attr">by_user</span>: <span class="string">&#x27;runoob.com&#x27;</span>,</span><br><span class="line">        <span class="attr">url</span>: <span class="string">&#x27;http://www.runoob.com&#x27;</span>,</span><br><span class="line">        <span class="attr">tags</span>: [<span class="string">&#x27;mongodb&#x27;</span>, <span class="string">&#x27;database&#x27;</span>, <span class="string">&#x27;NoSQL&#x27;</span>],</span><br><span class="line">        <span class="attr">likes</span>: <span class="number">10</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">title</span>: <span class="string">&#x27;Neo4j Overview&#x27;</span>,</span><br><span class="line">        <span class="attr">description</span>: <span class="string">&#x27;Neo4j is no sql database&#x27;</span>,</span><br><span class="line">        <span class="attr">by_user</span>: <span class="string">&#x27;Neo4j&#x27;</span>,</span><br><span class="line">        <span class="attr">url</span>: <span class="string">&#x27;http://www.neo4j.com&#x27;</span>,</span><br><span class="line">        <span class="attr">tags</span>: [<span class="string">&#x27;neo4j&#x27;</span>, <span class="string">&#x27;database&#x27;</span>, <span class="string">&#x27;NoSQL&#x27;</span>],</span><br><span class="line">        <span class="attr">likes</span>: <span class="number">750</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>聚合</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 类似 SELECT by_user, count(*) FROM mycol GROUP BY by_user</span></span><br><span class="line"><span class="comment">// _id 不是 document 的 id，而是用于分组的属性</span></span><br><span class="line">db.mycol.aggregate([&#123;<span class="attr">$group</span>: &#123;<span class="attr">_id</span>: <span class="string">&#x27;$by_user&#x27;</span>, <span class="attr">num_tutorial</span>: &#123;<span class="attr">$sum</span>: <span class="number">1</span>&#125;&#125;&#125;])</span><br><span class="line">输出</span><br><span class="line">&#123; <span class="string">&quot;_id&quot;</span> : <span class="string">&quot;Neo4j&quot;</span>, <span class="string">&quot;num_tutorial&quot;</span> : <span class="number">1</span> &#125;</span><br><span class="line">&#123; <span class="string">&quot;_id&quot;</span> : <span class="string">&quot;runoob.com&quot;</span>, <span class="string">&quot;num_tutorial&quot;</span> : <span class="number">2</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 管道: $match 先筛选符合条件的文档，然后进行聚合，这就明白 aggregate 的参数为啥是 [] 了吧</span></span><br><span class="line"><span class="comment">// 管道常用操作有: $project, $match, $skip, $limit, $unwind, $sort, $geoNear</span></span><br><span class="line">db.mycol.aggregate([&#123;<span class="attr">$match</span>: &#123;<span class="attr">likes</span>: &#123;<span class="attr">$gt</span>: <span class="number">50</span>&#125;&#125;&#125;, &#123;<span class="attr">$group</span>: &#123;<span class="attr">_id</span>: <span class="string">&#x27;$by_user&#x27;</span>, <span class="attr">num</span>: &#123;<span class="attr">$sum</span>: <span class="number">1</span>&#125;&#125;&#125;])</span><br><span class="line">db.mycol.aggregate([&#123;<span class="attr">$match</span>: &#123;<span class="attr">likes</span>: &#123;<span class="attr">$gt</span>: <span class="number">50</span>&#125;&#125;&#125;, &#123;<span class="attr">$group</span>: &#123;<span class="attr">_id</span>: <span class="string">&#x27;$by_user&#x27;</span>, <span class="attr">num</span>: &#123;<span class="attr">$max</span>: <span class="string">&#x27;$likes&#x27;</span>&#125;&#125;&#125;])</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>表达式</th>
+<th>描述</th>
+<th>实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$sum</td>
+<td>计算总和</td>
+<td><code>db.mycol.aggregate([&#123;$group : &#123;_id : &quot;$by_user&quot;, num_tutorial : &#123;$sum : &quot;$likes&quot;&#125;&#125;&#125;])</code></td>
+</tr>
+<tr>
+<td>$avg</td>
+<td>计算平均值</td>
+<td><code>db.mycol.aggregate([&#123;$group : &#123;_id : &quot;$by_user&quot;, num_tutorial : &#123;$avg : &quot;$likes&quot;&#125;&#125;&#125;])</code></td>
+</tr>
+<tr>
+<td>$min</td>
+<td>获取集合中所有文档对应值得最小值</td>
+<td><code>db.mycol.aggregate([&#123;$group : &#123;_id : &quot;$by_user&quot;, num_tutorial : &#123;$min : &quot;$likes&quot;&#125;&#125;&#125;])</code></td>
+</tr>
+<tr>
+<td>$max</td>
+<td>获取集合中所有文档对应值得最大值</td>
+<td><code>db.mycol.aggregate([&#123;$group : &#123;_id : &quot;$by_user&quot;, num_tutorial : &#123;$max : &quot;$likes&quot;&#125;&#125;&#125;])</code></td>
+</tr>
+<tr>
+<td>$push</td>
+<td>在结果文档中插入值到一个数组中</td>
+<td><code>db.mycol.aggregate([&#123;$group : &#123;_id : &quot;$by_user&quot;, url : &#123;$push: &quot;$url&quot;&#125;&#125;&#125;])</code></td>
+</tr>
+<tr>
+<td>$addToSet</td>
+<td>在结果文档中插入值到一个数组中，但不创建副本</td>
+<td><code>db.mycol.aggregate([&#123;$group : &#123;_id : &quot;$by_user&quot;, url : &#123;$addToSet : &quot;$url&quot;&#125;&#125;&#125;])</code></td>
+</tr>
+<tr>
+<td>$first</td>
+<td>根据资源文档的排序获取第一个文档数据</td>
+<td><code>db.mycol.aggregate([&#123;$group : &#123;_id : &quot;$by_user&quot;, first_url : &#123;$first : &quot;$url&quot;&#125;&#125;&#125;])</code></td>
+</tr>
+<tr>
+<td>$last</td>
+<td>根据资源文档的排序获取最后一个文档数据</td>
+<td><code>db.mycol.aggregate([&#123;$group : &#123;_id : &quot;$by_user&quot;, last_url : &#123;$last : &quot;$url&quot;&#125;&#125;&#125;])</code></td>
+</tr>
+</tbody></table>
+<p>按天 (年月日) 统计在线时长:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// time 是时间戳类型，Java 里的 Date</span></span><br><span class="line"><span class="comment">// Mongo shell 不能直接使用 Long，需要用 NumberLong(longValue) 来构造</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法一: 使用 dateToString</span></span><br><span class="line">db.online_tick.aggregate([</span><br><span class="line">    &#123; <span class="attr">$match</span>: &#123; <span class="attr">schoolId</span>: NumberLong(<span class="string">&quot;271909232880648192&quot;</span>) &#125; &#125;,</span><br><span class="line">    &#123; <span class="attr">$group</span>: &#123;</span><br><span class="line">        <span class="attr">_id</span> : &#123; <span class="attr">$dateToString</span>: &#123; <span class="attr">format</span>: <span class="string">&#x27;%Y-%m-%d&#x27;</span>, <span class="attr">date</span>: <span class="string">&#x27;$time&#x27;</span> &#125; &#125;,</span><br><span class="line">        <span class="attr">total</span>: &#123; <span class="attr">$sum</span>: <span class="string">&quot;$interval&quot;</span> &#125;</span><br><span class="line">    &#125; &#125;,</span><br><span class="line">    &#123; <span class="attr">$sort</span>: &#123; <span class="attr">_id</span>: <span class="number">1</span> &#125; &#125; <span class="comment">// 这里排序使用 _id，而不是 day，和下面的不一样</span></span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;_id&quot;</span> : <span class="string">&quot;2019-01-30&quot;</span>,</span><br><span class="line">    <span class="string">&quot;total&quot;</span> : <span class="number">360</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法二: 年月日分开</span></span><br><span class="line">db.online_tick.aggregate([</span><br><span class="line">    &#123; <span class="attr">$match</span>: &#123; <span class="attr">schoolId</span>: NumberLong(<span class="string">&quot;271909232880648192&quot;</span>) &#125; &#125;,</span><br><span class="line">    &#123; <span class="attr">$group</span>: &#123;</span><br><span class="line">        <span class="attr">_id</span> : &#123; <span class="comment">// 按年月日进行分组</span></span><br><span class="line">            <span class="attr">year</span> : &#123; <span class="attr">$year</span> : <span class="string">&quot;$time&quot;</span> &#125;,</span><br><span class="line">            <span class="attr">month</span>: &#123; <span class="attr">$month</span>: <span class="string">&quot;$time&quot;</span> &#125;,</span><br><span class="line">            <span class="attr">day</span>  : &#123; <span class="attr">$dayOfMonth</span>: <span class="string">&quot;$time&quot;</span> &#125;,</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">total</span>: &#123; <span class="attr">$sum</span>: <span class="string">&quot;$interval&quot;</span> &#125;</span><br><span class="line">    &#125;&#125;,</span><br><span class="line">    &#123; <span class="attr">$sort</span>: &#123; <span class="string">&#x27;_id.year&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;_id.month&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;_id.day&#x27;</span>: <span class="number">1</span> &#125; &#125; <span class="comment">// 按日期升序排序</span></span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;_id&quot;</span> : &#123;</span><br><span class="line">        <span class="string">&quot;year&quot;</span> : <span class="number">2019</span>,</span><br><span class="line">        <span class="string">&quot;month&quot;</span> : <span class="number">1</span>,</span><br><span class="line">        <span class="string">&quot;day&quot;</span> : <span class="number">30</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">&quot;total&quot;</span> : <span class="number">360</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对应的 Java 代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 按照年月日时间聚合在线访问时长</span></span><br><span class="line">Aggregation agg = Aggregation.newAggregation(</span><br><span class="line">        <span class="comment">// Aggregation.match(Criteria.where(&quot;schoolId&quot;).is(schoolId)),</span></span><br><span class="line">        <span class="comment">// Aggregation.project(&quot;interval&quot;)</span></span><br><span class="line">        <span class="comment">//         .andExpression(&quot;year(time)&quot;).as(&quot;year&quot;)</span></span><br><span class="line">        <span class="comment">//         .andExpression(&quot;month(time)&quot;).as(&quot;month&quot;)</span></span><br><span class="line">        <span class="comment">//         .andExpression(&quot;dayOfMonth(time)&quot;).as(&quot;day&quot;),</span></span><br><span class="line">        <span class="comment">// Aggregation.group(Aggregation.fields().and(&quot;year&quot;).and(&quot;month&quot;).and(&quot;day&quot;)).sum(&quot;interval&quot;).as(&quot;total&quot;),</span></span><br><span class="line">        <span class="comment">// Aggregation.sort(Sort.Direction.ASC, &quot;year&quot;, &quot;month&quot;, &quot;day&quot;)</span></span><br><span class="line"></span><br><span class="line">        Aggregation.match(Criteria.where(<span class="string">&quot;schoolId&quot;</span>).is(schoolId)),</span><br><span class="line">        Aggregation.project(<span class="string">&quot;interval&quot;</span>).andExpression(<span class="string">&quot;&#123; $dateToString: &#123; date: &#x27;$time&#x27;, format: &#x27;%Y-%m-%d&#x27;&#125;&#125;&quot;</span>).as(<span class="string">&quot;day&quot;</span>),</span><br><span class="line">        Aggregation.group(<span class="string">&quot;day&quot;</span>).sum(<span class="string">&quot;interval&quot;</span>).as(<span class="string">&quot;total&quot;</span>),</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 只用一个属性进行聚合时，虽然上面使用了 as(&quot;day&quot;)，但是结果中的 key 是 _id，而不是 day</span></span><br><span class="line">        <span class="comment">// 使用多个属性进行聚合时，结果中的属性就能和 as 的属性一一对应: _id.year, _id.month, _id.day</span></span><br><span class="line">        <span class="comment">// 排序使用 _id，而不是 day，因为对应的 shell 语句为: $group: &#123; _id : &#123; $dateToString: &#123; format: &#x27;%Y-%m-%d&#x27;, date: &#x27;$time&#x27; &#125; &#125;</span></span><br><span class="line">        Aggregation.sort(Sort.Direction.ASC, <span class="string">&quot;_id&quot;</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">AggregationResults&lt;OnlineTickTime&gt; result = mongoTemplate.aggregate(agg, <span class="string">&quot;online_tick&quot;</span>, OnlineTickTime.class);</span><br><span class="line">List&lt;OnlineTickTime&gt; resultList = result.getMappedResults();</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="meta">@Setter</span></span><br><span class="line"><span class="meta">@Accessors(chain = true)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OnlineTickTime</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 因为 MongoDB 使用 group 聚合得到的年月日的 key 是 _id，所以使用 @Id 让其把值存储到 day 中</span></span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="keyword">private</span> String day; <span class="comment">// 年月日: 2019-02-14</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> total; <span class="comment">// 时长</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>时区问题：为了国际化，MongoDB 存储时间使用 0 时区 UTC 格式 (而我们的系统使用 8 区的时间)，所以使用时间进行聚合时需要传入时区:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> List&lt;OnlineTickTime&gt; <span class="title">onlineTimeByHour</span><span class="params">(Criteria criteria)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 按照年月日小时聚合在线访问时长</span></span><br><span class="line">    Aggregation agg = Aggregation.newAggregation(</span><br><span class="line">            Aggregation.match(criteria),</span><br><span class="line">            Aggregation.project(<span class="string">&quot;interval&quot;</span>)</span><br><span class="line">                    .andExpression(<span class="string">&quot;&#123; $dateToString: &#123; date: &#x27;$time&#x27;, format: &#x27;%Y-%m-%d&#x27;, timezone: &#x27;Asia/Shanghai&#x27; &#125;&#125;&quot;</span>).as(<span class="string">&quot;date&quot;</span>)</span><br><span class="line">                    .andExpression(<span class="string">&quot;&#123; $hour: &#123; date: &#x27;$time&#x27;, timezone: &#x27;Asia/Shanghai&#x27; &#125;&#125;&quot;</span>).as(<span class="string">&quot;hour&quot;</span>),</span><br><span class="line">            Aggregation.group(<span class="string">&quot;date&quot;</span>, <span class="string">&quot;hour&quot;</span>).sum(<span class="string">&quot;interval&quot;</span>).as(<span class="string">&quot;total&quot;</span>),</span><br><span class="line">            Aggregation.sort(Sort.Direction.ASC, <span class="string">&quot;date&quot;</span>, <span class="string">&quot;hour&quot;</span>)</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    AggregationResults&lt;OnlineTickTime&gt; result = mongoTemplate.aggregate(agg, <span class="string">&quot;online_tick&quot;</span>, OnlineTickTime.class);</span><br><span class="line">    List&lt;OnlineTickTime&gt; resultList = result.getMappedResults();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> resultList;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可参考 <a target="_blank" rel="noopener" href="https://blog.csdn.net/if_you_can_please_do/article/details/80087045">mongoTemplate andExpression的一些使用方式</a>，<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/34914737/mongodb-aggregate-convert-date-to-another-timezone">Mongodb aggregate: convert date to another timezone</a></p>
+<blockquote>
+<p>ISO8601 是一种 UTC 时间的表示方式。</p>
+</blockquote>
+<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><p>索引是特殊的数据结构，索引存储在一个易于遍历读取的数据集合中，索引是对数据库表中一列或多列的值进行排序的一种结构。索引通常能够极大的提高查询的效率，如果没有索引，MongoDB 在读取数据时必须扫描集合中的每个文件并选取那些符合查询条件的记录。</p>
+<p>语法: <code>固定前缀 db</code> + <code>集合名字</code> + <code>函数 createIndex()</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1 为升序，-1 为降序，text 为全文索引</span></span><br><span class="line">db.col.createIndex(&#123;<span class="attr">title</span>: <span class="number">1</span>&#125;)</span><br><span class="line">db.col.createIndex(&#123;<span class="attr">title</span>: <span class="number">1</span>, <span class="attr">description</span>: -<span class="number">1</span>&#125;)</span><br><span class="line">db.col.createIndex(&#123;<span class="attr">description</span>: <span class="string">&#x27;text&#x27;</span>&#125;)  <span class="comment">// 建立全文索引</span></span><br><span class="line">db.col.find(&#123;<span class="attr">$text</span>: &#123;<span class="attr">$search</span>: <span class="string">&#x27;Fincher&#x27;</span>&#125;&#125;) <span class="comment">// 搜索有关键词 Fincher 的文档</span></span><br></pre></td></tr></table></figure>
+
+<p>查看查询语句的效率使用 explain 函数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.users.find(&#123;<span class="string">&#x27;address.city&#x27;</span>: <span class="string">&#x27;Los Angeles&#x27;</span>&#125;).explain()</span><br></pre></td></tr></table></figure>
+
+<h2 id="Java-访问-MongoDB"><a href="#Java-访问-MongoDB" class="headerlink" title="Java 访问 MongoDB"></a>Java 访问 MongoDB</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">&#x27;org.mongodb:mongo-java-driver:3.6.2&#x27;</span> <span class="comment">// Gradle 依赖</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.mongodb.MongoClient;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.FindIterable;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.MongoCollection;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.MongoDatabase;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.model.Filters;</span><br><span class="line"><span class="keyword">import</span> org.bson.Document;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        MongoClient client = <span class="keyword">new</span> MongoClient(<span class="string">&quot;localhost&quot;</span>, <span class="number">27017</span>);</span><br><span class="line">        MongoDatabase database = client.getDatabase(<span class="string">&quot;test&quot;</span>);</span><br><span class="line">        MongoCollection&lt;Document&gt; collection = database.getCollection(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line"></span><br><span class="line">        insert(collection);</span><br><span class="line">        find(collection);</span><br><span class="line"></span><br><span class="line">        update(collection);</span><br><span class="line">        find(collection);</span><br><span class="line"></span><br><span class="line">        delete(collection);</span><br><span class="line">        find(collection);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(MongoCollection&lt;Document&gt; collection)</span> </span>&#123;</span><br><span class="line">        Document document = <span class="keyword">new</span> Document()</span><br><span class="line">                .append(<span class="string">&quot;username&quot;</span>, <span class="string">&quot;Alice&quot;</span>)</span><br><span class="line">                .append(<span class="string">&quot;password&quot;</span>, <span class="string">&quot;Secret&quot;</span>)</span><br><span class="line">                .append(<span class="string">&quot;age&quot;</span>, <span class="number">23</span>)</span><br><span class="line">                .append(<span class="string">&quot;rate&quot;</span>, <span class="number">652</span>);</span><br><span class="line">        collection.insertOne(document); <span class="comment">// insertMany()</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 删除</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(MongoCollection&lt;Document&gt; collection)</span> </span>&#123;</span><br><span class="line">        collection.deleteOne(Filters.eq(<span class="string">&quot;username&quot;</span>, <span class="string">&quot;Alice&quot;</span>)); <span class="comment">// deleteMany()</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 查询</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">find</span><span class="params">(MongoCollection&lt;Document&gt; collection)</span> </span>&#123;</span><br><span class="line">        FindIterable&lt;Document&gt; docs = collection.find(Filters.eq(<span class="string">&quot;username&quot;</span>, <span class="string">&quot;Alice&quot;</span>));</span><br><span class="line">        <span class="keyword">for</span> (Document doc : docs) &#123;</span><br><span class="line">            System.out.println(doc.getInteger(<span class="string">&quot;rate&quot;</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 更新</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(MongoCollection&lt;Document&gt; collection)</span> </span>&#123;</span><br><span class="line">        collection.updateOne(Filters.eq(<span class="string">&quot;username&quot;</span>, <span class="string">&quot;Alice&quot;</span>),</span><br><span class="line">                <span class="keyword">new</span> Document(<span class="string">&quot;$set&quot;</span>, <span class="keyword">new</span> Document(<span class="string">&quot;rate&quot;</span>, <span class="number">1000</span>))); <span class="comment">// updateMany()</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Spring-集成-MongoDB"><a href="#Spring-集成-MongoDB" class="headerlink" title="Spring 集成 MongoDB"></a>Spring 集成 MongoDB</h2><p>可以使用 <code>org.springframework.data:spring-data-mongodb</code> 在 Spring 中集成 MongoDB，使用 JPA + Bean 的方式访问 MongoDB，参考 <a target="_blank" rel="noopener" href="https://docs.spring.io/spring-data/mongodb/docs/2.0.5.RELEASE/reference/html/">MongoDB repositories</a>、<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000005829384">Spring + MongoDB 的整合</a>。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">&#x27;org.springframework.data:spring-data-mongodb:2.0.5.RELEASE&#x27;</span> <span class="comment">// Gradle 依赖</span></span><br></pre></td></tr></table></figure>
+
+<p>创建一个 Bean 的类 Person:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> bean;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.ToString;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.annotation.Id;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.Getter;</span><br><span class="line"><span class="keyword">import</span> lombok.Setter;</span><br><span class="line"><span class="keyword">import</span> lombok.experimental.Accessors;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="meta">@Setter</span></span><br><span class="line"><span class="meta">@ToString</span></span><br><span class="line"><span class="meta">@Accessors(chain = true)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line">    <span class="keyword">private</span> String firstName;</span><br><span class="line">    <span class="keyword">private</span> String lastName;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(Long id, String firstName, String lastName)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">        <span class="keyword">this</span>.firstName = firstName;</span><br><span class="line">        <span class="keyword">this</span>.lastName = lastName;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>创建 Repository，继承 MogoRepository，除了默认的方法外，在这里可定义一些访问方法，参考 JPA 的函数命名:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.repository;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> bean.Person;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.mongodb.repository.MongoRepository;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * PersonRepository 对应集合 person，会自动创建</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">PersonRepository</span> <span class="keyword">extends</span> <span class="title">MongoRepository</span>&lt;<span class="title">Person</span>, <span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line">    <span class="comment">// Spring Data MongoDB 会自动生成下面 2 个函数</span></span><br><span class="line">    <span class="function">List&lt;Person&gt; <span class="title">findByFirstName</span><span class="params">(String firstName)</span></span>;</span><br><span class="line">    <span class="function">List&lt;Person&gt; <span class="title">findByLastName</span><span class="params">(String lastName)</span></span>;</span><br><span class="line">    <span class="comment">// 复杂的如 List&lt;Person&gt; findByFirstNamdAndLastNameAndAgeGreaterThan(String firstName, String lastName, int age);</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>访问测试 (测试前先执行 initData() 函数创建数据，执行后会自动创建一个名为 person 的集合):</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> bean.Person;</span><br><span class="line"><span class="keyword">import</span> com.xtuer.repository.PersonRepository;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RepositoryTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ApplicationContext context = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">&quot;mongodb.xml&quot;</span>);</span><br><span class="line">        PersonRepository repository = context.getBean(<span class="string">&quot;personRepository&quot;</span>, PersonRepository.class);</span><br><span class="line">        <span class="comment">// MongoTemplate template = context.getBean(&quot;mongoTemplate&quot;, MongoTemplate.class);</span></span><br><span class="line">        initData(repository);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// System.out.println(repository.findAll());</span></span><br><span class="line">        System.out.println(repository.findByFirstName(<span class="string">&quot;Kelly&quot;</span>));</span><br><span class="line">        System.out.println(repository.findByLastName(<span class="string">&quot;Giles&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">initData</span><span class="params">(PersonRepository repository)</span> </span>&#123;</span><br><span class="line">        repository.insert(<span class="keyword">new</span> Person(<span class="number">1L</span>, <span class="string">&quot;Hodgson&quot;</span>,  <span class="string">&quot;Giles&quot;</span>));</span><br><span class="line">        repository.save(<span class="keyword">new</span> Person(<span class="number">2L</span>, <span class="string">&quot;Richardson&quot;</span>, <span class="string">&quot;Giles&quot;</span>));</span><br><span class="line">        repository.insert(<span class="keyword">new</span> Person(<span class="number">3L</span>, <span class="string">&quot;Kelly&quot;</span>,    <span class="string">&quot;Hall&quot;</span>));</span><br><span class="line">        repository.insert(<span class="keyword">new</span> Person(<span class="number">4L</span>, <span class="string">&quot;Veblen&quot;</span>,   <span class="string">&quot;Hall&quot;</span>));</span><br><span class="line">        repository.insert(<span class="keyword">new</span> Person(<span class="number">5L</span>, <span class="string">&quot;Cowper&quot;</span>,   <span class="string">&quot;Gerard&quot;</span>));</span><br><span class="line">        repository.insert(<span class="keyword">new</span> Person(<span class="number">6L</span>, <span class="string">&quot;Chaucer&quot;</span>,  <span class="string">&quot;Oliver&quot;</span>));</span><br><span class="line">        repository.insert(<span class="keyword">new</span> Person(<span class="number">7L</span>, <span class="string">&quot;Hood&quot;</span>,     <span class="string">&quot;David&quot;</span>));</span><br><span class="line">        repository.insert(<span class="keyword">new</span> Person(<span class="number">8L</span>, <span class="string">&quot;Walton&quot;</span>,   <span class="string">&quot;Lester&quot;</span>));</span><br><span class="line">        repository.insert(<span class="keyword">new</span> Person(<span class="number">9L</span>, <span class="string">&quot;Whitehead&quot;</span>, <span class="string">&quot;Eddy&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>除了使用 MongoRepository 外，可以使用 MongoTemplate 访问。</p>
+</blockquote>
+<p>MongoRepository 提供了下面这些方法:</p>
+<p><img src="../img/java/mongo-repository-methods.png"></p>
+<p>XML 配置文件:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:mongo</span>=<span class="string">&quot;http://www.springframework.org/schema/data/mongo&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:context</span>=<span class="string">&quot;http://www.springframework.org/schema/context&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="string"><span class="tag">            http://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span><br><span class="line"><span class="string"><span class="tag">            http://www.springframework.org/schema/data/mongo</span></span></span><br><span class="line"><span class="string"><span class="tag">            http://www.springframework.org/schema/data/mongo/spring-mongo.xsd</span></span></span><br><span class="line"><span class="string"><span class="tag">            http://www.springframework.org/schema/context</span></span></span><br><span class="line"><span class="string"><span class="tag">            http://www.springframework.org/schema/context/spring-context.xsd&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:annotation-config</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">mongo:mongo-client</span> <span class="attr">host</span>=<span class="string">&quot;localhost&quot;</span> <span class="attr">port</span>=<span class="string">&quot;27017&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">mongo:client-options</span> <span class="attr">connections-per-host</span>=<span class="string">&quot;8&quot;</span></span></span><br><span class="line"><span class="tag">                              <span class="attr">threads-allowed-to-block-for-connection-multiplier</span>=<span class="string">&quot;4&quot;</span></span></span><br><span class="line"><span class="tag">                              <span class="attr">connect-timeout</span>=<span class="string">&quot;1000&quot;</span></span></span><br><span class="line"><span class="tag">                              <span class="attr">max-wait-time</span>=<span class="string">&quot;1500&quot;</span></span></span><br><span class="line"><span class="tag">                              <span class="attr">socket-keep-alive</span>=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="tag">                              <span class="attr">socket-timeout</span>=<span class="string">&quot;1500&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">mongo:mongo-client</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mongo:db-factory</span> <span class="attr">id</span>=<span class="string">&quot;mongoDbFactory&quot;</span> <span class="attr">dbname</span>=<span class="string">&quot;test&quot;</span> <span class="attr">mongo-ref</span>=<span class="string">&quot;mongoClient&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mongo:template</span> <span class="attr">id</span>=<span class="string">&quot;mongoTemplate&quot;</span> <span class="attr">db-factory-ref</span>=<span class="string">&quot;mongoDbFactory&quot;</span> <span class="attr">write-concern</span>=<span class="string">&quot;NORMAL&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mongo:repositories</span> <span class="attr">base-package</span>=<span class="string">&quot;com.xtuer.repository&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li><strong>writeConcern</strong>: 抛出异常的级别</li>
+<li>参考: <a target="_blank" rel="noopener" href="https://blog.csdn.net/duzm200542901104/article/details/81483245">https://blog.csdn.net/duzm200542901104/article/details/81483245</a></li>
+</ul>
+</blockquote>
+<h2 id="Query-进行查询"><a href="#Query-进行查询" class="headerlink" title="Query 进行查询"></a>Query 进行查询</h2><p>JPA 的方式简单查询时非常方便，复杂一些的情况就需要使用 MongoTemplate 了。使用 Criteria 创建 Query，PageRequest 进行分页，Sort 进行排序：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongoTemplate.findOne(Query.query(Criteria.where(<span class="string">&quot;receiverId&quot;</span>).is(receiverId)), Document.class, <span class="string">&quot;message&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 等价 SQL: SELECT * FROM message_private WHERE receiverId=#&#123;receiverId&#125; AND read=#&#123;read&#125; ORDER BY createdTime DESC LIMIT page*size, size</span></span><br><span class="line"></span><br><span class="line">PageRequest pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, <span class="string">&quot;createdTime&quot;</span>));</span><br><span class="line">Criteria criteria = Criteria.where(<span class="string">&quot;receiverId&quot;</span>).is(receiverId).and(<span class="string">&quot;read&quot;</span>).is(read);</span><br><span class="line">List&lt;Message&gt; messages = mongoTemplate.find(Query.query(criteria).with(pageable), Message.class, <span class="string">&quot;message&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>多个 OR 条件使用 <code>Criteria.orOperator</code> 进行连接，例如下面的这个语句有多个 AND，并且还有多个 OR 条件，OR 中还有 AND：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 等价 SQL:</span></span><br><span class="line"><span class="comment">// SELECT * FROM message_group</span></span><br><span class="line"><span class="comment">// WHERE (schoolId=#&#123;schoolId&#125; AND createdTime&gt;#&#123;from&#125;) AND (</span></span><br><span class="line"><span class="comment">//     (type=&#x27;SCHOOL&#x27; AND schoolId=#&#123;schoolId&#125;) OR (type=&#x27;CLAZZ&#x27; AND groupId=#&#123;clazzId&#125;) OR (type=&#x27;TEAM&#x27; AND groupId=#&#123;teamId&#125;)</span></span><br><span class="line"><span class="comment">// )</span></span><br><span class="line"><span class="comment">// ORDER BY createdTime ASC</span></span><br><span class="line"></span><br><span class="line">Criteria orCriteria = <span class="keyword">new</span> Criteria().orOperator(</span><br><span class="line">    Criteria.where(<span class="string">&quot;type&quot;</span>).is(<span class="string">&quot;SCHOOL&quot;</span>).and(<span class="string">&quot;schoolId&quot;</span>).is(schoolId),</span><br><span class="line">    Criteria.where(<span class="string">&quot;type&quot;</span>).is(<span class="string">&quot;CLAZZ&quot;</span>).and(<span class="string">&quot;groupId&quot;</span>).is(clazzId),</span><br><span class="line">    Criteria.where(<span class="string">&quot;type&quot;</span>).is(<span class="string">&quot;TEAM&quot;</span>).and(<span class="string">&quot;groupId&quot;</span>).is(teamId)</span><br><span class="line">);</span><br><span class="line">Criteria criteria = Criteria.where(<span class="string">&quot;schoolId&quot;</span>).is(schoolId).and(<span class="string">&quot;createdTime&quot;</span>).gt(from).andOperator(orCriteria);</span><br><span class="line">Sort sortByCreatedTime = Sort.by(Sort.Direction.ASC, <span class="string">&quot;createdTime&quot;</span>);</span><br><span class="line">mongoTemplate.find(Query.query(criteria).with(sortByCreatedTime), Message.class, MESSAGE_GROUP);</span><br></pre></td></tr></table></figure>
+
+<p>上面程序的 MongoDB 查询语句为:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">db.message_group.find(</span><br><span class="line">&#123;<span class="attr">$and</span>: [&#123;<span class="attr">schoolId</span>: <span class="number">1</span>&#125;, &#123;<span class="attr">createdTime</span>: &#123;<span class="attr">$gt</span>: ISODate(<span class="string">&quot;2017-04-09T09:25:26.286Z&quot;</span>)&#125;&#125;, &#123;</span><br><span class="line">    <span class="attr">$or</span>: [</span><br><span class="line">        &#123;<span class="attr">$and</span>: [&#123;<span class="attr">type</span>: <span class="string">&#x27;SCHOOL&#x27;</span>&#125;, &#123;<span class="attr">schoolId</span>: <span class="number">1</span>&#125;]&#125;,</span><br><span class="line">        &#123;<span class="attr">$and</span>: [&#123;<span class="attr">type</span>: <span class="string">&#x27;CLAZZ&#x27;</span>&#125;, &#123;<span class="attr">groupId</span>: <span class="number">1</span>&#125;]&#125;,</span><br><span class="line">        &#123;<span class="attr">$and</span>: [&#123;<span class="attr">type</span>: <span class="string">&#x27;TEAM&#x27;</span>&#125;, &#123;<span class="attr">groupId</span>: <span class="number">2</span>&#125;]&#125;,</span><br><span class="line">    ]</span><br><span class="line">&#125;]&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Update-进行更新"><a href="#Update-进行更新" class="headerlink" title="Update 进行更新"></a>Update 进行更新</h2><p>使用 <code>Query</code> 查询符合条件的记录，用 <code>Update</code> 进行更新：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 等价 SQL: UPDATE message_private SET read=true WHERE _id=#&#123;receiverId&#125;</span></span><br><span class="line">Criteria criteria = Criteria.where(<span class="string">&quot;_id&quot;</span>).is(messageId).and(<span class="string">&quot;receiverId&quot;</span>).is(receiverId);</span><br><span class="line">Update update = Update.update(<span class="string">&quot;read&quot;</span>, <span class="keyword">true</span>);</span><br><span class="line">mongoTemplate.updateFirst(Query.query(criteria), update, MESSAGE_USER);</span><br></pre></td></tr></table></figure>
+
+<p>使用 <code>updateMulti</code> 更新符合条件的多个 document。</p>
+<h2 id="Upsert-插入或更新"><a href="#Upsert-插入或更新" class="headerlink" title="Upsert 插入或更新"></a>Upsert 插入或更新</h2><p>If no document is found that matches the query, a new document is created and inserted by combining the query document and the update document.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Document document = <span class="keyword">new</span> Document().append(<span class="string">&quot;receiverId&quot;</span>, receiverId).append(<span class="string">&quot;time&quot;</span>, date);</span><br><span class="line">mongoTemplate.upsert(Query.query(Criteria.where(<span class="string">&quot;receiverId&quot;</span>).is(receiverId)), Update.fromDocument(document), MESSAGE_FETCH);</span><br></pre></td></tr></table></figure>
+
+<p><code>save</code> 执行的也是 <code>upsert</code> 操作，但是只是使用 <code>_id</code> 进行比较，upsert 能够使用 Query 进行查询。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 查找年级下学科的单词，如果存在则 count 加 1，否则创建，count 为 1</span></span><br><span class="line">Query query = <span class="keyword">new</span> Query(Criteria.where(<span class="string">&quot;word&quot;</span>).is(word).and(<span class="string">&quot;grade&quot;</span>).is(grade).and(<span class="string">&quot;subject&quot;</span>).is(subject));</span><br><span class="line">Update update = <span class="keyword">new</span> Update().inc(<span class="string">&quot;count&quot;</span>, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">mongoTemplate.findAndModify(query, update, FindAndModifyOptions.options().upsert(<span class="keyword">true</span>), CloudWord.class, COLLECTION_WC);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Remove-进行删除"><a href="#Remove-进行删除" class="headerlink" title="Remove 进行删除"></a>Remove 进行删除</h2><p>用 <code>remove(Query query, String collectionName)</code> 和 <code>findAllAndRemove(Query query, String collectionName)</code> 进行删除。</p>
+<h2 id="批量操作"><a href="#批量操作" class="headerlink" title="批量操作"></a>批量操作</h2><p>使用 BulkOperations 进行批量操作:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">public <span class="keyword">void</span> <span class="function"><span class="title">upsertSubjectiveQuestionsWithAnswer</span>(<span class="params">List&lt;QuestionWithAnswer&gt; questions</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (questions.size() == <span class="number">0</span>) &#123; <span class="keyword">return</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用批量操作</span></span><br><span class="line">    BulkOperations bulkOps = mongoTemplate.bulkOps(BulkOperations.BulkMode.UNORDERED, QUESTION_CORRECT);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (QuestionWithAnswer question : questions) &#123;</span><br><span class="line">        Update update = Update.update(<span class="string">&quot;examId&quot;</span>, question.getExamId())</span><br><span class="line">                .set(<span class="string">&quot;examRecordId&quot;</span>, question.getExamRecordId())</span><br><span class="line">                .set(<span class="string">&quot;questionId&quot;</span>, question.getQuestionId())</span><br><span class="line">                .set(<span class="string">&quot;teacherId&quot;</span>, question.getTeacherId())</span><br><span class="line">                .set(<span class="string">&quot;answers&quot;</span>, question.getAnswers())</span><br><span class="line">                .set(<span class="string">&quot;score&quot;</span>, question.getScore())</span><br><span class="line">                .set(<span class="string">&quot;scoreStatus&quot;</span>, question.getScoreStatus())</span><br><span class="line">                .set(<span class="string">&quot;comment&quot;</span>, question.getComment());</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 更新条件: 指定考试记录的题目</span></span><br><span class="line">        Query condition = Query.query(Criteria</span><br><span class="line">                .where(<span class="string">&quot;examRecordId&quot;</span>).is(question.getExamRecordId())</span><br><span class="line">                .and(<span class="string">&quot;questionId&quot;</span>).is(question.getQuestionId())</span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line">        bulkOps.upsert(condition, update);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    bulkOps.execute();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="http://www.runoob.com/mongodb/mongodb-tutorial.html">MongoDB 教程</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/gy-ph/p/7725172.html">MongoDB 两小时入门</a></p>
+<p><a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/">MongoDB Manual</a></p>
+<p><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-data/mongodb/docs/2.0.5.RELEASE/reference/html/">MongoDB repositories</a></p>
+<p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000005829384">Spring + MongoDB 的整合</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_32475739/article/details/79194852">MongoTemplate用法笔记</a></p>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/qtbook-custom-widget-shadow-round-label/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          带阴影的圆形 Label
+        
+      </div>
+    </a>
+  
+  
+    <a href="/java-ocr-baidu/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">使用百度 OCR 服务识别图片中的文本</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

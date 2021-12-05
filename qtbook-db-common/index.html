@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>数据库常用操作 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前面的章节介绍了怎么使用 Qt 连接访问数据库 SQLite 和 MySQL，在这一节里将介绍访问数据库的常用操作，主要内容有:  QSqlDatabase 查询 使用 Prepared Query 查询 SQL 注入 使用 LIKE 模糊查询 解决列名冲突   更新 删除 事务">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库常用操作">
+<meta property="og:url" content="http://xtuer.github.io/qtbook-db-common/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="前面的章节介绍了怎么使用 Qt 连接访问数据库 SQLite 和 MySQL，在这一节里将介绍访问数据库的常用操作，主要内容有:  QSqlDatabase 查询 使用 Prepared Query 查询 SQL 注入 使用 LIKE 模糊查询 解决列名冲突   更新 删除 事务">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/db/DB-Query-1.png">
+<meta property="article:published_time" content="2016-12-21T06:26:11.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.173Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="QtBook">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/qtbook/db/DB-Query-1.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%87%86%E5%A4%87%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%B0%E6%8D%AE"><span class="toc-text">1. 准备数据库数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-QSqlDatabase"><span class="toc-text">2. QSqlDatabase</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-QSqlQuery"><span class="toc-text">3. QSqlQuery</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%9F%A5%E8%AF%A2%E6%93%8D%E4%BD%9C"><span class="toc-text">4. 查询操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E8%BE%93%E5%87%BA-user-%E8%A1%A8%E9%87%8C%E6%89%80%E6%9C%89%E7%9A%84-id-username-password"><span class="toc-text">4.1. 输出 user 表里所有的 id, username, password</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E8%BE%93%E5%87%BA-username-%E4%B8%BA-Alice-%E7%9A%84-user"><span class="toc-text">4.2. 输出 username 为 Alice 的 user</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E6%80%8E%E4%B9%88%E9%81%BF%E5%85%8DSQL-%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB%EF%BC%9F"><span class="toc-text">4.3. 怎么避免SQL 注入攻击？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-%E4%BD%BF%E7%94%A8-LIKE-%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2"><span class="toc-text">4.4. 使用 LIKE 模糊查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2%E6%97%B6%E5%AD%97%E6%AE%B5%E5%90%8D%E5%86%B2%E7%AA%81"><span class="toc-text">4.5. 多表查询时字段名冲突</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%8F%92%E5%85%A5%E6%93%8D%E4%BD%9C"><span class="toc-text">5. 插入操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%88%A0%E9%99%A4%E6%93%8D%E4%BD%9C"><span class="toc-text">6. 删除操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E4%BA%8B%E5%8A%A1"><span class="toc-text">7. 事务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9D%9F%E8%AF%AD"><span class="toc-text">结束语</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-qtbook-db-common" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-db-common/" class="article-date">
+  	<!-- <time datetime="2016-12-21T06:26:11.000Z" itemprop="datePublished">2016-12-21</time> -->
+    2016-12-21
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据库常用操作
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>前面的章节介绍了怎么使用 Qt 连接访问数据库 SQLite 和 MySQL，在这一节里将介绍访问数据库的常用操作，主要内容有:</p>
+<ul>
+<li>QSqlDatabase</li>
+<li>查询<ul>
+<li>使用 Prepared Query 查询</li>
+<li>SQL 注入</li>
+<li>使用 LIKE 模糊查询</li>
+<li>解决列名冲突</li>
+</ul>
+</li>
+<li>更新</li>
+<li>删除</li>
+<li>事务<span id="more"></span></li>
+</ul>
+<h2 id="1-准备数据库数据"><a href="#1-准备数据库数据" class="headerlink" title="1. 准备数据库数据"></a>1. 准备数据库数据</h2><blockquote>
+<p><code>小提示</code></p>
+<ol>
+<li>数据库设计，推荐每个表都有一个无意义的主键，如命名为 <code>id</code>。</li>
+<li>尽量不使用外键，数据的逻辑关系使用上面提到的无意义的 id 来关联，这样的好处是数据迁移的时候不需要考虑外键的因素而造成很多麻烦，数据的逻辑关系由应用程序来控制，典型的应用有如很有名的电商开发框架 Hybris。</li>
+<li>因为没有用外键而不能级连删除，如果担心数据库里会留下一些垃圾数据，可以用定时任务在系统负载比较轻的时候删除它们，例如晚上 3 点。</li>
+<li>如果时间需要根据不同的时区显示，时间相关的字段最好使用 <code>timestamp</code> 而不是 <code>datetime</code>，既存储时间的 UTC 毫秒值。<br>例如开发一个会议管理软件，日期使用 datetime 存储，同时有中国，美国，德国人参加会议，如果大家看到开会时间是 2015-03-03 10:00:00，每个人都会自然的认为是自己当地的时间，那么开会的时候就只有你自己一个人了。使用毫秒的话，显示的时候，根据使用者的时区自动显示为当地时间。</li>
+</ol>
+<p><strong>在开始讲解之前，先准备好需要用到的数据：</strong></p>
+</blockquote>
+<ol>
+<li>创建数据库 <code>qt</code></li>
+<li>然后在此数据库里创建 3 张表 <code>user</code>, <code>blog</code>, <code>comment</code></li>
+<li>在每一张表里插入一些数据</li>
+</ol>
+<p><strong>创建 <code>user</code> 表</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `<span class="keyword">user</span>` (</span><br><span class="line">    `id` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> AUTO_INCREMENT,</span><br><span class="line">    `username` <span class="type">varchar</span>(<span class="number">256</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    `password` <span class="type">varchar</span>(<span class="number">256</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    `email` <span class="type">varchar</span>(<span class="number">256</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    `mobile` <span class="type">varchar</span>(<span class="number">32</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (`id`)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> `<span class="keyword">user</span>` (`id`, `username`, `password`, `email`, `mobile`) <span class="keyword">VALUES</span></span><br><span class="line">(<span class="number">1</span>, <span class="string">&#x27;Alice&#x27;</span>, <span class="string">&#x27;passw0rd&#x27;</span>, <span class="keyword">NULL</span>, <span class="keyword">NULL</span>),</span><br><span class="line">(<span class="number">2</span>, <span class="string">&#x27;Bob&#x27;</span>, <span class="string">&#x27;Passw0rd&#x27;</span>, <span class="keyword">NULL</span>, <span class="keyword">NULL</span>),</span><br><span class="line">(<span class="number">3</span>, <span class="string">&#x27;Josh&#x27;</span>, <span class="string">&#x27;Pa88w0rd&#x27;</span>, <span class="keyword">NULL</span>, <span class="keyword">NULL</span>);</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>username</th>
+<th>password</th>
+<th>email</th>
+<th>mobile</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Alice</td>
+<td>passw0rd</td>
+<td>NULL</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bob</td>
+<td>Passw0rd</td>
+<td>NULL</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Josh</td>
+<td>Pa88w0rd</td>
+<td>NULL</td>
+<td>NULL</td>
+</tr>
+</tbody></table>
+<p><strong>创建 <code>blog</code> 表</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `blog` (</span><br><span class="line">    `id` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> AUTO_INCREMENT,</span><br><span class="line">    `user_id` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    `content` text <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    `created_time` datetime <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    `last_updated_time` datetime <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (`id`)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> `blog` (`id`, `user_id`, `content`, `created_time`, `last_updated_time`) <span class="keyword">VALUES</span></span><br><span class="line">(<span class="number">1</span>, <span class="number">1</span>, <span class="string">&#x27;Content of blog 1.&#x27;</span>, <span class="string">&#x27;2015-01-01 10:10:10&#x27;</span>, <span class="string">&#x27;2015-01-01 10:10:10&#x27;</span>),</span><br><span class="line">(<span class="number">2</span>, <span class="number">2</span>, <span class="string">&#x27;Content of blog 2.&#x27;</span>, <span class="string">&#x27;2015-02-02 20:20:20&#x27;</span>, <span class="string">&#x27;2015-02-02 20:20:20&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>user_id</th>
+<th>content</th>
+<th>created_time</th>
+<th>last_updated_time</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>1</td>
+<td>Content of blog 1.</td>
+<td>2015-01-01 10:10:10</td>
+<td>2015-01-01 10:10:10</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>Content of blog 2.</td>
+<td>2015-02-02 20:20:20</td>
+<td>2015-02-02 20:20:20</td>
+</tr>
+</tbody></table>
+<p> <strong>创建 <code>comment</code> 表</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `comment` (</span><br><span class="line">    `id` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> AUTO_INCREMENT,</span><br><span class="line">    `user_id` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    `blog_id` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    `content` text <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    `created_time` datetime <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (`id`)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> `comment` (`id`, `user_id`, `blog_id`, `content`, `created_time`) <span class="keyword">VALUES</span></span><br><span class="line">(<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="string">&#x27;Very useful.&#x27;</span>, <span class="string">&#x27;2015-01-02 11:11:11&#x27;</span>),</span><br><span class="line">(<span class="number">2</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="string">&#x27;Super&#x27;</span>, <span class="string">&#x27;2015-03-03 23:33:33&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>user_id</th>
+<th>blog_id</th>
+<th>content</th>
+<th>created_time</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>Very useful.</td>
+<td>2015-01-02 11:11:11</td>
+</tr>
+<tr>
+<td>2</td>
+<td>3</td>
+<td>2</td>
+<td>Super</td>
+<td>2015-03-03 23:33:33</td>
+</tr>
+</tbody></table>
+<h2 id="2-QSqlDatabase"><a href="#2-QSqlDatabase" class="headerlink" title="2. QSqlDatabase"></a>2. QSqlDatabase</h2><p>访问数据库前必须先和数据库建立连接，Qt 里用 <code>QSqlDatabase</code> 表示一个数据库的连接（有点不习惯，既然表示的是连接，有没有觉得如果叫 QSqlConnection 会更好？可惜 Qt 不是我们设计的！），每个连接都有自己的名字 connectionName，用同一个 connectionName 得取的 QSqlDatabase 对象都是表示同一个连接。有一点需要注意，如果要在多线程里访问数据库，<code>每个线程都要使用不同的数据库连接</code>，即每个线程使用的 QSqlDatabase 的 connectionName 都不一样，否则可能会遇到很多预料不到的事。</p>
+<p><strong>创建 QSqlDatabase 对象用静态函数 <code>QSqlDatabase::addDatabase()</code></strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">QSqlDatabase <span class="title">QSqlDatabase::addDatabase</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="keyword">const</span> QString &amp;type,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="keyword">const</span> QString &amp;connectionName=QLatin1String(defaultConnection)</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第一个参数 type 是指定数据库的驱动，例如 <code>&quot;QSQLITE&quot;</code>, <code>&quot;QMYSQL&quot;</code>, <code>&quot;QPSQL&quot;</code></li>
+<li>第二个参数 connectionName 是连接的名字，可以是任意的字符串</li>
+</ul>
+<p><strong>获取 QSqlDatabase 对象用静态函数  <code>QSqlDatabase::database()</code></strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">QSqlDatabase <span class="title">QSqlDatabase::database</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="keyword">const</span> QString &amp;connectionName=QLatin1String(defaultConnection),</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="keyword">bool</span> open=<span class="literal">true</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第一个参数 connectionName 是连接的名字，调用 <code>QSqlDatabase::addDatabase()</code> 创建连接时使用的连接名</li>
+<li>第二个参数 open 为 true，返回连接前打开连接</li>
+</ul>
+<p><strong>使用默认的 connectionName 创建和获取连接：</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">createDefaultConnection</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    QSqlDatabase db = QSqlDatabase::<span class="built_in">addDatabase</span>(<span class="string">&quot;QMYSQL&quot;</span>);</span><br><span class="line">    db.<span class="built_in">setHostName</span>(<span class="string">&quot;127.0.0.1&quot;</span>);</span><br><span class="line">    db.<span class="built_in">setDatabaseName</span>(<span class="string">&quot;qt&quot;</span>); <span class="comment">// 如果是 SQLite 则为数据库文件路径</span></span><br><span class="line">    db.<span class="built_in">setUserName</span>(<span class="string">&quot;root&quot;</span>);   <span class="comment">// 如果是 SQLite 不需要</span></span><br><span class="line">    db.<span class="built_in">setPassword</span>(<span class="string">&quot;root&quot;</span>);   <span class="comment">// 如果是 SQLite 不需要</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!db.<span class="built_in">open</span>()) &#123; <span class="comment">// 连接数据库</span></span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;Connect to MySql error: &quot;</span> &lt;&lt; db.<span class="built_in">lastError</span>().<span class="built_in">text</span>();</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">QSqlDatabase <span class="title">getDefaultConnection</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> QSqlDatabase::<span class="built_in">database</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>不提供 connectName，Qt 使用默认的 connectName <code>qt_sql_default_connection</code></li>
+<li>调用 createDefaultConnection() 创建数据库连接</li>
+<li>调用 getConnectionByName() 取得数据库连接，多次调用这条语句得到的都是同一个数据库连接</li>
+</ul>
+<p><strong>给定 connectionName 创建和获取连接：</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">createConnectionByName</span><span class="params">(<span class="keyword">const</span> QString &amp;connectionName)</span> </span>&#123;</span><br><span class="line">    QSqlDatabase db = QSqlDatabase::<span class="built_in">addDatabase</span>(<span class="string">&quot;QMYSQL&quot;</span>, connectionName);</span><br><span class="line">    db.<span class="built_in">setHostName</span>(<span class="string">&quot;127.0.0.1&quot;</span>);</span><br><span class="line">    db.<span class="built_in">setDatabaseName</span>(<span class="string">&quot;qt&quot;</span>); <span class="comment">// 如果是 SQLite 则为数据库文件名</span></span><br><span class="line">    db.<span class="built_in">setUserName</span>(<span class="string">&quot;root&quot;</span>);   <span class="comment">// 如果是 SQLite 不需要</span></span><br><span class="line">    db.<span class="built_in">setPassword</span>(<span class="string">&quot;root&quot;</span>);   <span class="comment">// 如果是 SQLite 不需要</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!db.<span class="built_in">open</span>()) &#123; <span class="comment">// 连接数据库</span></span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;Connect to MySql error: &quot;</span> &lt;&lt; db.<span class="built_in">lastError</span>().<span class="built_in">text</span>();</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">QSqlDatabase <span class="title">getConnectionByName</span><span class="params">(<span class="keyword">const</span> QString &amp;connectionName)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> QSqlDatabase::<span class="built_in">database</span>(connectionName);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>例如 connectName 为 “MyConnection”</li>
+<li>调用 createConnectionByName(“MyConnection”) 创建数据库连接</li>
+<li>调用 getConnectionByName(“MyConnection”) 取得数据库连接，多次调用这条语句得到的都是同一个数据库连接，因为连接的名字都是同一个</li>
+</ul>
+<p>重复使用同一个 connectionName 创建数据库连接不会创建多个同名的连接，也不会发生错误，只是会删除已经存在的连接，然后用此 connectionName 重新创建连接。这是很有用的，如程序开始运行的时候数据库连接是好用的，数据库后来崩溃了重启，已有的数据库连接就无效了导致不能访问数据库（不过调用 <code>QDatabase::isOpen()</code> 仍然返回 true），这时还是使用同一个 connectionName 再次创建数据库连接，就可以访问数据库了。</p>
+<p><strong>为了防止连接断开导致不能访问数据库，于是每次使用数据库连接的时候就用同样的 connectionName 重新创建一个数据库连接</strong>，这种做法是不可取的，虽然保证了程序的正确性，但是效率很低，因为创建数据库连接底层是 Socket 连接，也就是创建连接时也要进行三次握手等操作。</p>
+<p><strong>传递 QSqlDatabase 的栈对象而不是指针或者引用会不会占用很多栈空间，会不会由于调用它的复制构造函数而生成另一个 QSqlDatabase 对象导致什么问题？</strong></p>
+<ul>
+<li>首先 <code>sizeof(QSqlDatabase)</code> 输出 8，说明 QSqlDatabase 占用 8 个字节。<br>打开 QSqlDatabase 的源码也可以看到它只有 2 个指针的成员变量 char *defaultConnection 和 QSqlDatabasePrivate *d，空间不是问题</li>
+<li>其次，它的复制构造函数创建的新对象和原来的对象共享 <code>char *defaultConnection</code> 和 <code>QSqlDatabasePrivate *d</code>，使用的是浅拷贝而不是深拷贝，数据也没问题</li>
+</ul>
+<p>所以可以放心的在函数之间传递 QSqlDatabase 对象而不用担心出什么问题。</p>
+<h2 id="3-QSqlQuery"><a href="#3-QSqlQuery" class="headerlink" title="3. QSqlQuery"></a>3. QSqlQuery</h2><p>使用 QSqlQuery 来执行数据库操作，它有两个重要的构造函数，大多数时候也是用这两种形式来构造 QSqlQuery 对象。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果没有或者传入一个无效的 QSqlDatabase 对象，则使用默认的数据库连接</span></span><br><span class="line"><span class="comment">// 如果 query 不是空字符串，则执行这个 query</span></span><br><span class="line">QSqlQuery::<span class="built_in">QSqlQuery</span>(<span class="keyword">const</span> QString &amp;query=<span class="built_in">QString</span>(), QSqlDatabase db=<span class="built_in">QSqlDatabase</span>())</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>QSqlQuery query(&quot;SELECT * FROM user&quot;)</code>，使用默认的数据库连接执行查询操作</li>
+<li><code>QSqlQuery query</code>，则会使用默认的数据库连接创建一个 QSqlQuery 对象，但是不执行任何操作。</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用指定的数据库连接创建 QSqlQuery 对象，如果数据库连接无效，则使用默认的数据库连接</span></span><br><span class="line">QSqlQuery::<span class="built_in">QSqlQuery</span>(QSqlDatabase db)</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-查询操作"><a href="#4-查询操作" class="headerlink" title="4. 查询操作"></a>4. 查询操作</h2><p>已经有了数据库和相关数据，了解了 QSqlDatabase 和 QSqlQuery，接下来就可以举例使用 QSqlQuery 执行数据库操作，分析可能遇到的问题以及解决办法。为了简单起见，都使用默认的数据库连接，思考一下下面的例子里怎么把默认的数据库连接换成我们自己指定的 connectionName 的连接呢？</p>
+<h3 id="4-1-输出-user-表里所有的-id-username-password"><a href="#4-1-输出-user-表里所有的-id-username-password" class="headerlink" title="4.1. 输出 user 表里所有的 id, username, password"></a>4.1. 输出 user 表里所有的 id, username, password</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 输出 user 表里所有的 id, username, password</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">outputIdUsernamePassword</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="function">QSqlQuery <span class="title">query</span><span class="params">(<span class="string">&quot;SELECT id, username, password FROM user&quot;</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (query.<span class="built_in">next</span>()) &#123;</span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; <span class="built_in">QString</span>(<span class="string">&quot;Id: %1, Username: %2, Password: %3&quot;</span>)</span><br><span class="line">                    .<span class="built_in">arg</span>(query.<span class="built_in">value</span>(<span class="string">&quot;id&quot;</span>).<span class="built_in">toInt</span>())</span><br><span class="line">                    .<span class="built_in">arg</span>(query.<span class="built_in">value</span>(<span class="string">&quot;username&quot;</span>).<span class="built_in">toString</span>())</span><br><span class="line">                    .<span class="built_in">arg</span>(query.<span class="built_in">value</span>(<span class="string">&quot;password&quot;</span>).<span class="built_in">toString</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出:</p>
+<blockquote>
+<p>“Id: 1, Username: Alice, Password: passw0rd”<br>“Id: 2, Username: Bob, Password: Passw0rd”<br>“Id: 3, Username: Josh, Password: Pa88w0rd”</p>
+</blockquote>
+<h3 id="4-2-输出-username-为-Alice-的-user"><a href="#4-2-输出-username-为-Alice-的-user" class="headerlink" title="4.2. 输出 username 为 Alice 的 user"></a>4.2. 输出 username 为 Alice 的 user</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> 函数定义</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 输出 user 其 username 等于传入的参数 username</span></span><br><span class="line"><span class="comment"> * @param username</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">outputUser</span><span class="params">(<span class="keyword">const</span> QString &amp;username)</span> </span>&#123;</span><br><span class="line">    QString sql = <span class="string">&quot;SELECT * FROM user WHERE username=&#x27;&quot;</span> + username + <span class="string">&quot;&#x27;&quot;</span>;</span><br><span class="line">    <span class="function">QSqlQuery <span class="title">query</span><span class="params">(sql)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (query.<span class="built_in">next</span>()) &#123;</span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; <span class="built_in">QString</span>(<span class="string">&quot;Id: %1, Username: %2, Password: %3&quot;</span>)</span><br><span class="line">                    .<span class="built_in">arg</span>(query.<span class="built_in">value</span>(<span class="string">&quot;id&quot;</span>).<span class="built_in">toInt</span>())</span><br><span class="line">                    .<span class="built_in">arg</span>(query.<span class="built_in">value</span>(<span class="string">&quot;username&quot;</span>).<span class="built_in">toString</span>())</span><br><span class="line">                    .<span class="built_in">arg</span>(query.<span class="built_in">value</span>(<span class="string">&quot;password&quot;</span>).<span class="built_in">toString</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="number">2.</span> 函数调用</span><br><span class="line"><span class="built_in">outputUser</span>(<span class="string">&quot;Alice&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<blockquote>
+<p>“Id: 1, Username: Alice, Password: passw0rd”</p>
+</blockquote>
+<p>输出结果和我们期待的一样。但是思考一下，上面的程序有没有什么问题？<br>如果我们这么调用函数 <code>outputUser(&quot;Alice&#39; OR &#39;1=1&quot;)</code>，输出如下：</p>
+<blockquote>
+<p>“Id: 1, Username: Alice, Password: passw0rd”<br>“Id: 2, Username: Bob, Password: Passw0rd”<br>“Id: 3, Username: Josh, Password: Pa88w0rd”</p>
+</blockquote>
+<p>是不是有什么不对？<code>outputUser(&quot;Alice&#39; OR &#39;1=1&quot;)</code> 按我们的想法应该输出 username 等于 <code>Alice&#39; OR &#39;1=1</code> 的记录，即查询结果是空，但却输出了 user 表里的所有记录，完全和期望的不一样，一定是有什么地方出错了，<code>但是看上去都没什么问题呀，怎么都找不到错误吧</code>！</p>
+<p>这里我们引入一个概念叫做 <code>SQL 注入攻击</code>：</p>
+<blockquote>
+<p>SQL 注入攻击指的是通过构建特殊的输入作为参数传入，而这些输入大都是 SQL 语法里的一些组合，通过执行 SQL 语句进而执行攻击者所要的操作，其主要原因是程序没有细致地过滤用户输入的数据，致使非法数据侵入系统。</p>
+</blockquote>
+<p>上面的程序在查询一个用户的时候却输出了所有用户的信息，就是一个 <code>SQL 注入攻击</code>的例子，原因是使用的 <code>SQL 语句是用字符串相加拼凑出来的</code>，以至于参数中的特殊字符 <code>&#39;</code> 没有被转义而拼成了 <code>SELECT * FROM user WHERE username=&#39;Alice&#39; OR &#39;1=1&#39;</code>，WHERE 条件里有 <code>OR &#39;1=1&#39;</code>，所以条件永远为真，于是输出了所有的记录，这样做是很危险的，如果因此而泄漏了公司机密信息，老板的小宇宙就要爆发了。</p>
+<h3 id="4-3-怎么避免SQL-注入攻击？"><a href="#4-3-怎么避免SQL-注入攻击？" class="headerlink" title="4.3. 怎么避免SQL 注入攻击？"></a>4.3. 怎么避免<code>SQL 注入攻击</code>？</h3><p>使用 <code>Prepared Query</code> 可以避免<code>SQL 注入攻击</code>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 输出 user 其 username 等于传入的参数 username</span></span><br><span class="line"><span class="comment"> * @param username</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">outputUserWithPreparedQuery</span><span class="params">(<span class="keyword">const</span> QString &amp;username)</span> </span>&#123;</span><br><span class="line">    QString sql = <span class="string">&quot;SELECT * FROM user WHERE username=:username&quot;</span>;</span><br><span class="line">    QSqlQuery query;    <span class="comment">// [1] 可以传入数据库连接，但是不能传入 SQL 语句</span></span><br><span class="line">    query.<span class="built_in">prepare</span>(sql); <span class="comment">// [2] 声明使用 prepqred 的方式解析 SQL 语句</span></span><br><span class="line"></span><br><span class="line">    query.<span class="built_in">bindValue</span>(<span class="string">&quot;:username&quot;</span>, username); <span class="comment">// [3] 把占位符替换为传入的参数</span></span><br><span class="line">    query.<span class="built_in">exec</span>(); <span class="comment">// [4] 执行数据库操作</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (query.<span class="built_in">next</span>()) &#123; <span class="comment">// [5]</span></span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; <span class="built_in">QString</span>(<span class="string">&quot;Id: %1, Username: %2, Password: %3&quot;</span>)</span><br><span class="line">                    .<span class="built_in">arg</span>(query.<span class="built_in">value</span>(<span class="string">&quot;id&quot;</span>).<span class="built_in">toInt</span>())</span><br><span class="line">                    .<span class="built_in">arg</span>(query.<span class="built_in">value</span>(<span class="string">&quot;username&quot;</span>).<span class="built_in">toString</span>())</span><br><span class="line">                    .<span class="built_in">arg</span>(query.<span class="built_in">value</span>(<span class="string">&quot;password&quot;</span>).<span class="built_in">toString</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>调用 <code>outputUserWithPreparedQuery(&quot;Alice&quot;)</code> 输出：</p>
+<blockquote>
+<p>“Id: 1, Username: Alice, Password: passw0rd”</p>
+</blockquote>
+<p>调用 <code>outputUserWithPreparedQuery(&quot;Alice&#39; OR &#39;1=1&quot;)</code> 则没有输出，因为 user 表里没有 username 为 <code>Alice&#39; OR &#39;1=1</code> 的记录，太好了，<code>SQL 注入攻击</code>的问题很容易就解决了。</p>
+<p><strong>使用 <code>Prepared Query</code> 分为以下 5 步：</strong></p>
+<ol>
+<li>创建 QSqlQuery 对象：<code>QSqlQuery query;</code></li>
+<li>调用 <code>query.prepare(sql);</code> 声明要使用 <code>Prepared Query</code> 的方式来解析 SQL 语句</li>
+<li>调用 <code>bindValue()</code> 函数把<code>占位符</code>替换为传入的参数：<code>query.bindValue(&quot;:username&quot;, username);</code></li>
+<li>所有的占位符都替换好后，调用 <code>query.exec();</code> 执行 SQL 语句</li>
+<li>遍历查询结果</li>
+</ol>
+<p><strong>占位符的格式为</strong>：<code>:</code> 后跟一个单词，如 <code>:username</code>。</p>
+<p><strong>思考一下下面几个问题：</strong></p>
+<ol>
+<li><code>SELECT * FROM user WHERE username=:username AND password=:password</code> 的占位符是什么呢？</li>
+<li>Prepared Query 中 SQL 里的字符串需要用 <code>‘’</code> 括起来吗？</li>
+<li>如果传入的参数是 QDateTime 类型，占位符应该怎么写？</li>
+</ol>
+<p><strong>答案：</strong></p>
+<ol>
+<li>这条 SQL 语句里有 2 个占位符，分别为 <code>:username</code> 和 <code>:password</code>（不要想成是 <del>username AND password=:password</del>）</li>
+<li>不需要。普通 SQL 里字符串需要用 <code>&#39;&#39;</code> 括起来，但是在这里不需要，Qt 在替换参数的时候会智能的根据参数的类型判断是否需要加上 <code>&#39;&#39;</code>，如果传入的字符串参数里有 <code>&#39;</code>，也会智能的将其转义，所以避免了<code>SQL 注入攻击</code>。</li>
+<li>写法也是一样的，<code>:</code> 后跟一个单词，可以看看下面的这个例子</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 输出 2015-02-01 10:10:10 后创建的 blog.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">outputBlogWithPreparedQuery</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    QDateTime dateTime = QDateTime::<span class="built_in">fromString</span>(<span class="string">&quot;2015-02-01 10:10:10&quot;</span>, <span class="string">&quot;yyyy-MM-dd hh:mm:ss&quot;</span>);</span><br><span class="line"></span><br><span class="line">    QSqlQuery query;</span><br><span class="line">    query.<span class="built_in">prepare</span>(<span class="string">&quot;SELECT * FROM blog WHERE created_time&gt;:createdTime&quot;</span>);</span><br><span class="line">    query.<span class="built_in">bindValue</span>(<span class="string">&quot;:createdTime&quot;</span>, dateTime);</span><br><span class="line">    query.<span class="built_in">exec</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (query.<span class="built_in">next</span>()) &#123;</span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; <span class="built_in">QString</span>(<span class="string">&quot;Id: %1, Content: %2, Created_Time: %3&quot;</span>)</span><br><span class="line">                    .<span class="built_in">arg</span>(query.<span class="built_in">value</span>(<span class="string">&quot;id&quot;</span>).<span class="built_in">toInt</span>())</span><br><span class="line">                    .<span class="built_in">arg</span>(query.<span class="built_in">value</span>(<span class="string">&quot;content&quot;</span>).<span class="built_in">toString</span>())</span><br><span class="line">                    .<span class="built_in">arg</span>(query.<span class="built_in">value</span>(<span class="string">&quot;created_time&quot;</span>).<span class="built_in">toDateTime</span>().<span class="built_in">toString</span>(<span class="string">&quot;yyyy-MM-dd hh:mm:ss&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<blockquote>
+<p>“Id: 2, Content: Content of blog 2., Created_Time: 2015-02-02 20:20:20”</p>
+</blockquote>
+<p><strong>什么时候使用 Prepared Query 呢？插入时能使用吗？删除时能使用吗？</strong></p>
+<ol>
+<li>如果传入参数构造 SQL 语句，为了避免 <code>SQL 注入攻击</code>，所以这时需要使用</li>
+<li>SQL 语句比较长时，使用 Prepared Query 的方式构造的 SQL 语句比用字符串相加的方式容易一些，可读性也好很多</li>
+<li>插入和删除语句都能用</li>
+</ol>
+<h3 id="4-4-使用-LIKE-模糊查询"><a href="#4-4-使用-LIKE-模糊查询" class="headerlink" title="4.4. 使用 LIKE 模糊查询"></a>4.4. 使用 LIKE 模糊查询</h3><p>查询名字里有 <code>o</code> 的所有用户：<code>SELECT * FROM user WHERE username LIKE &#39;%o%&#39;</code>，使用</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">query.<span class="built_in">prepare</span>(<span class="string">&quot;SELECT * FROM user WHERE username LIKE &#x27;%:match%&#x27;&quot;</span>);</span><br><span class="line">query.<span class="built_in">bindValue</span>(<span class="string">&quot;:match&quot;</span>, <span class="string">&quot;o&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>查询结果为空，因为 :match 是字符串，替换后 o 的两边会加上 <code>&#39;</code>，所以生存的 SQL 语句为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM user WHERE username LIKE &#x27;%&#x27;o&#x27;%&#x27;</span><br></pre></td></tr></table></figure>
+<p>这个 SQL 语句是错的，应该像下面这样使用：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">query.<span class="built_in">prepare</span>(<span class="string">&quot;SELECT * FROM user WHERE username LIKE :match&quot;</span>);</span><br><span class="line">query.<span class="built_in">bindValue</span>(<span class="string">&quot;:match&quot;</span>, <span class="string">&quot;%o%&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>也可以使用数据库的字符串连接函数（这个函数是数据库相关的）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">query.<span class="built_in">prepare</span>(<span class="string">&quot;SELECT * FROM user WHERE username LIKE CONCAT(&#x27;%&#x27;, :match,&#x27;%&#x27;)&quot;</span>);</span><br><span class="line">query.<span class="built_in">bindValue</span>(<span class="string">&quot;:match&quot;</span>, <span class="string">&quot;o&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>MySql</code><br>SELECT * FROM user WHERE username like CONCAT(‘%’,:match,’%’)</p>
+</blockquote>
+<blockquote>
+<p><code>Oracle</code><br>SELECT * FROM user WHERE username like CONCAT(‘%’,:match,’%’) 或<br>SELECT * FROM user WHERE username like ‘%’||:match||’%’</p>
+</blockquote>
+<blockquote>
+<p><code>SQLServer</code><br>SELECT * FROM user WHERE username like ‘%’+:match+’%’</p>
+</blockquote>
+<blockquote>
+<p><code>DB2</code><br>SELECT * FROM user WHERE username like CONCAT(‘%’,:match,’%’) 或<br>SELECT * FROM user WHERE username like ‘%’||:match||’%’</p>
+</blockquote>
+<h3 id="4-5-多表查询时字段名冲突"><a href="#4-5-多表查询时字段名冲突" class="headerlink" title="4.5. 多表查询时字段名冲突"></a>4.5. 多表查询时字段名冲突</h3><p>列出所有的 user，如果 user 有 blog，则列出 blog：<code>SELECT * FROM user LEFT JOIN blog ON user.id = blog.user_id</code>。在数据库客户端执行这条 SQL 语句结果如下图：<br><img src="../img/qtbook/db/DB-Query-1.png"></p>
+<p>有 2 个列名都叫 id，第一个 id 是 user 表的 id，第二个 id 是 blog 表的 id。运行下面的程序：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">outputUserAndBlog</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="function">QSqlQuery <span class="title">query</span><span class="params">(<span class="string">&quot;SELECT * FROM user LEFT JOIN blog ON user.id = blog.user_id&quot;</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (query.<span class="built_in">next</span>()) &#123;</span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; query.<span class="built_in">value</span>(<span class="string">&quot;id&quot;</span>).<span class="built_in">toInt</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<blockquote>
+<p>1<br>2<br>3</p>
+</blockquote>
+<p>取到的是第一列的 id，即 user 表的 id，并没有输出 blog 表的 id。如果我们想取得 blog 表的 id 应该怎么做呢？显然上面的 SQL 不行，但是我们可以给<code>查询字段重命名</code>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">outputUserAndBlog</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="function">QSqlQuery <span class="title">query</span><span class="params">(<span class="string">&quot;SELECT user.id as user_id, blog.id as blog_id, blog.content as content &quot;</span></span></span></span><br><span class="line"><span class="params"><span class="function">                    <span class="string">&quot;FROM user &quot;</span></span></span></span><br><span class="line"><span class="params"><span class="function">                    <span class="string">&quot;LEFT JOIN blog ON user.id = blog.user_id&quot;</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (query.<span class="built_in">next</span>()) &#123;</span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; <span class="built_in">QString</span>(<span class="string">&quot;User_Id: %1, Blog_ID: %2, Blog_Content: %3&quot;</span>)</span><br><span class="line">                    .<span class="built_in">arg</span>(query.<span class="built_in">value</span>(<span class="string">&quot;user_id&quot;</span>).<span class="built_in">toInt</span>())</span><br><span class="line">                    .<span class="built_in">arg</span>(query.<span class="built_in">value</span>(<span class="string">&quot;blog_id&quot;</span>).<span class="built_in">toInt</span>())</span><br><span class="line">                    .<span class="built_in">arg</span>(query.<span class="built_in">value</span>(<span class="string">&quot;content&quot;</span>).<span class="built_in">toString</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<blockquote>
+<p>“User_Id: 1, Blog_ID: 1, Blog_Content: Content of blog 1.”<br>“User_Id: 2, Blog_ID: 2, Blog_Content: Content of blog 2.”<br>“User_Id: 3, Blog_ID: 0, Blog_Content: “</p>
+</blockquote>
+<p>通过给查询字段重命名的方式，解决了<code>多表查询时字段名冲突</code>的问题。</p>
+<h2 id="5-插入操作"><a href="#5-插入操作" class="headerlink" title="5. 插入操作"></a>5. 插入操作</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 向 user 表里插入一个 user</span></span><br><span class="line"><span class="comment"> * @param username</span></span><br><span class="line"><span class="comment"> * @param password</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insertUser</span><span class="params">(<span class="keyword">const</span> QString &amp;username, <span class="keyword">const</span> QString &amp;password)</span> </span>&#123;</span><br><span class="line">    QSqlQuery query;</span><br><span class="line">    query.<span class="built_in">prepare</span>(<span class="string">&quot;INSERT INTO user (username, password) VALUES (:username, :password)&quot;</span>);</span><br><span class="line">    query.<span class="built_in">bindValue</span>(<span class="string">&quot;:username&quot;</span>, username);</span><br><span class="line">    query.<span class="built_in">bindValue</span>(<span class="string">&quot;:password&quot;</span>, password);</span><br><span class="line">    query.<span class="built_in">exec</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>调用 <code>insertUser(&quot;Qter&quot;, &quot;secret&quot;)</code> 可以看到数据库里多出了刚才插入的数据。</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>username</th>
+<th>password</th>
+<th>email</th>
+<th>mobile</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Alice</td>
+<td>passw0rd</td>
+<td>NULL</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bob</td>
+<td>Passw0rd</td>
+<td>NULL</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Josh</td>
+<td>Pa88w0rd</td>
+<td>NULL</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Qter</td>
+<td>secret</td>
+<td>NULL</td>
+<td>NULL</td>
+</tr>
+</tbody></table>
+<h2 id="6-删除操作"><a href="#6-删除操作" class="headerlink" title="6. 删除操作"></a>6. 删除操作</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 删除名字等于传入的 username 的 user</span></span><br><span class="line"><span class="comment"> * @param username</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">deleteUser</span><span class="params">(<span class="keyword">const</span> QString &amp;username)</span> </span>&#123;</span><br><span class="line">    QSqlQuery query;</span><br><span class="line">    query.<span class="built_in">prepare</span>(<span class="string">&quot;DELETE FROM user WHERE username=:username&quot;</span>);</span><br><span class="line">    query.<span class="built_in">bindValue</span>(<span class="string">&quot;:username&quot;</span>, username);</span><br><span class="line">    query.<span class="built_in">exec</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>调用 <code>deleteUser(&quot;Qter&quot;)</code> 则删除了 user 表里 username 为 <code>Qter</code> 的所有记录。</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>username</th>
+<th>password</th>
+<th>email</th>
+<th>mobile</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Alice</td>
+<td>passw0rd</td>
+<td>NULL</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bob</td>
+<td>Passw0rd</td>
+<td>NULL</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Josh</td>
+<td>Pa88w0rd</td>
+<td>NULL</td>
+<td>NULL</td>
+</tr>
+</tbody></table>
+<p>想像一个场景，如果使用删除 user 的代码如下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">deleteUser2</span><span class="params">(<span class="keyword">const</span> QString &amp;username)</span> </span>&#123;</span><br><span class="line">    <span class="function">QSqlQuery <span class="title">query</span><span class="params">(<span class="string">&quot;DELETE FROM user WHERE username=&#x27;&quot;</span> + username + <span class="string">&quot;&#x27;&quot;</span>)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>调用 <code>deleteUser(&quot;Qter&#39; OR &#39;1=1&quot;)</code>，结果是什么？大神，你把 user 表清空了，想一下，这种问题叫什么，怎么解决？</p>
+<h2 id="7-事务"><a href="#7-事务" class="headerlink" title="7. 事务"></a>7. 事务</h2><blockquote>
+<p>事务（Transaction）是并发控制的单位，是用户定义的一个操作序列。这些操作要么都做，要么都不做，是一个不可分割的工作单位。通过事务，能将逻辑相关的一组操作绑定在一起，以便服务器保持数据的完整性。</p>
+</blockquote>
+<p><strong>Qt 里事物相关的函数：</strong></p>
+<ol>
+<li>是否支持事务：<code>bool QSqlDriver::hasFeature(DriverFeature feature) const</code>，返回 true 表示支持事务，返回 false 表示不支持事务</li>
+<li>开启事务：<code>bool QSqlDatabase::​transaction()</code></li>
+<li>提交事务：<code>bool QSqlDatabase::​commit()</code></li>
+<li>回滚事务：<code>bool QSqlDatabase::rollback()</code></li>
+</ol>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 查看是否支持事物</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">void</span> isTransactionSupported() &#123;</span><br><span class="line">    createConnectionByName(<span class="string">&quot;Buda&quot;</span>);</span><br><span class="line">    QSqlDatabase db = getConnectionByName(<span class="string">&quot;Buda&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (db.driver()-&gt;hasFeature(QSqlDriver::Transactions)) &#123;</span><br><span class="line">        qDebug() &lt;&lt; <span class="string">&quot;支持事务&quot;</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        qDebug() &lt;&lt; <span class="string">&quot;不支持事务&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>下面的例子展示了事务的使用：</strong></p>
+<ol>
+<li>开启事物</li>
+<li>操作数据库</li>
+<li>提交事务或者回滚事务</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">transactionDemo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">createConnectionByName</span>(<span class="string">&quot;Buda&quot;</span>);</span><br><span class="line">    QSqlDatabase db = <span class="built_in">getConnectionByName</span>(<span class="string">&quot;Buda&quot;</span>);</span><br><span class="line"></span><br><span class="line">    db.<span class="built_in">transaction</span>(); <span class="comment">// [1] 开启事务</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// [2] 执行 SQL，在事务提交前更新不会提交到数据库</span></span><br><span class="line">    <span class="function">QSqlQuery <span class="title">query1</span><span class="params">(<span class="string">&quot;INSERT INTO user (id, username, password) VALUES (1, &#x27;Biao&#x27;, &#x27;xxxx&#x27;)&quot;</span>, db)</span></span>;</span><br><span class="line">    <span class="function">QSqlQuery <span class="title">query2</span><span class="params">(<span class="string">&quot;INSERT INTO user (id, username, password) VALUES (5, &#x27;Bing&#x27;, &#x27;xxxx&#x27;)&quot;</span>, db)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (query1.<span class="built_in">lastError</span>().<span class="built_in">type</span>() == QSqlError::NoError &amp;&amp;</span><br><span class="line">            query2.<span class="built_in">lastError</span>().<span class="built_in">type</span>() == QSqlError::NoError) &#123;</span><br><span class="line">        db.<span class="built_in">commit</span>();   <span class="comment">// [3] 提交事务</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        db.<span class="built_in">rollback</span>(); <span class="comment">// [3] 回滚事务</span></span><br><span class="line"></span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; query1.<span class="built_in">lastError</span>().<span class="built_in">text</span>();</span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; query2.<span class="built_in">lastError</span>().<span class="built_in">text</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>调用 <code>transactionDemo()</code> 输出</p>
+<blockquote>
+<p>“Duplicate entry ‘1’ for key ‘PRIMARY’ QMYSQL: Unable to execute query”<br>“ “</p>
+</blockquote>
+<p>可以看到 query1 执行时发生了主键冲突所以插入时报错，因为数据库里已经有一条记录其 id 为 1，而 query2 执行成功，但是在数据库里却没有看到 query2 插入的用户 <code>Bing</code>，这是因为我们使用了事务，只有 query1 和 query2 同时都插入成功后才会提交事务，如果其中任意一个插入失败都会导致整个插入操作失败。</p>
+<p><code>把 query1 里的 1 改成 4</code>，再次调用 <code>transactionDemo()</code>，可以看到这次插入成功了。</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>username</th>
+<th>password</th>
+<th>email</th>
+<th>mobile</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Alice</td>
+<td>passw0rd</td>
+<td>NULL</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bob</td>
+<td>Passw0rd</td>
+<td>NULL</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Josh</td>
+<td>Pa88w0rd</td>
+<td>NULL</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Biao</td>
+<td>xxxx</td>
+<td>NULL</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Bing</td>
+<td>xxxx</td>
+<td>NULL</td>
+<td>NULL</td>
+</tr>
+</tbody></table>
+<p><strong>思考一下，我们要向 user 表里插入 100000 个用户：</strong></p>
+<ol>
+<li>开启事务每次插入 1000 个</li>
+<li>不使用事务插入 1 个</li>
+</ol>
+<p>哪一个的效率高，相差大吗？</p>
+<p><strong><code>事物是面向数据库连接的</code>，思考一个问题，开启事务，更新数据库，提交|回滚事务不在同一个函数里可以吗？</strong></p>
+<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>这一节我们主要讲了 QSqlDataBase，QSqlQuery 的常用操作，使用 Prepared Query 的方式避免 <code>SQL 注入攻击</code>提高了系统的安全性，以及介绍了事务的使用。</p>
+<blockquote>
+<p><code>再次提示</code><br>尽可能的使用 Prepared Query 的方式来构造 SQL 语句，尤其是其中的部分内容由调用者传入，因为我们不能控制调用者传入的内容，但是我们可以控制自己的代码。</p>
+</blockquote>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/qtbook-db-connection-pool/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          数据库连接池
+        
+      </div>
+    </a>
+  
+  
+    <a href="/qtbook-db-mysql/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">访问 MySql</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

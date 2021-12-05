@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>动态切换数据源 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="动态切换数据源的原理为使用 AbstractRoutingDataSource，根据数据源的名字查找数据源:   在 Spring IoC 容器中创建一个 AbstractRoutingDataSource 实现的对象 routingDataSource (Spring 默认没有使用此数据源) 创建一个数据源的 Map dataSourceMap，key 为 DataSource 的名字，valu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="动态切换数据源">
+<meta property="og:url" content="http://xtuer.github.io/java-dynamic-datasource/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="动态切换数据源的原理为使用 AbstractRoutingDataSource，根据数据源的名字查找数据源:   在 Spring IoC 容器中创建一个 AbstractRoutingDataSource 实现的对象 routingDataSource (Spring 默认没有使用此数据源) 创建一个数据源的 Map dataSourceMap，key 为 DataSource 的名字，valu">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-05-07T01:56:09.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.157Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%9A%B4%E5%8A%9B%E5%AE%9E%E7%8E%B0"><span class="toc-text">一、暴力实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E6%BA%90"><span class="toc-text">配置数据源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E6%95%B0%E6%8D%AE%E6%BA%90"><span class="toc-text">动态数据源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%90"><span class="toc-text">验证多数据源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%96%91%E6%83%91"><span class="toc-text">疑惑</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%BD%BF%E7%94%A8%E8%BF%9E%E6%8E%A5%E6%B1%A0"><span class="toc-text">二、使用连接池</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81MyBatis-%E6%95%B0%E6%8D%AE%E6%BA%90%E9%85%8D%E7%BD%AE"><span class="toc-text">三、MyBatis 数据源配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB"><span class="toc-text">四、读写分离</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-java-dynamic-datasource" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/java-dynamic-datasource/" class="article-date">
+  	<!-- <time datetime="2020-05-07T01:56:09.000Z" itemprop="datePublished">2020-05-07</time> -->
+    2020-05-07
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      动态切换数据源
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>动态切换数据源的原理为使用 <strong>AbstractRoutingDataSource</strong>，根据数据源的名字查找数据源: </p>
+<ol>
+<li>在 Spring IoC 容器中创建一个 AbstractRoutingDataSource 实现的对象 <strong>routingDataSource</strong> (Spring 默认没有使用此数据源)</li>
+<li>创建一个数据源的 Map <strong>dataSourceMap</strong>，key 为 DataSource 的名字，value 为 DataSource 的对象</li>
+<li>调用 <code>routingDataSource.setTargetDataSources(dataSourceMap)</code> 设置可供使用的数据源</li>
+<li>在需要使用数据源的时候，Spring JDBC 会调用 <code>routingDataSource.determineTargetDataSource()</code> 获取数据源，而要返回哪个数据源，由 <code>routingDataSource.determineCurrentLookupKey()</code> 返回的数据源的名字决定</li>
+</ol>
+<p>下面我们从最简单的方式实现数据源切换，然后一步一步的深入优化基于 AbstractRoutingDataSource 的数据源。</p>
+<span id="more"></span>
+
+<h2 id="一、暴力实现"><a href="#一、暴力实现" class="headerlink" title="一、暴力实现"></a>一、暴力实现</h2><p>把下面的代码放到项目中，就实现了数据源的动态切换，会自动的轮流使用数据源一 master 和数据源二 slave。</p>
+<h3 id="配置数据源"><a href="#配置数据源" class="headerlink" title="配置数据源"></a>配置数据源</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.jdbc.DataSourceBuilder;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.sql.DataSource;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 配置数据源</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DataSourceConfig</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 数据源一</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DataSource <span class="title">masterDataSource</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> DataSourceBuilder.create()</span><br><span class="line">                .username(<span class="string">&quot;root&quot;</span>)</span><br><span class="line">                .password(<span class="string">&quot;root&quot;</span>)</span><br><span class="line">                .url(<span class="string">&quot;jdbc:mysql://127.0.0.1:3306/test-1?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false&quot;</span>)</span><br><span class="line">                .driverClassName(<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>)</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 数据源二</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DataSource <span class="title">slaveDataSource</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> DataSourceBuilder.create()</span><br><span class="line">                .username(<span class="string">&quot;root&quot;</span>)</span><br><span class="line">                .password(<span class="string">&quot;root&quot;</span>)</span><br><span class="line">                .url(<span class="string">&quot;jdbc:mysql://127.0.0.1:3306/test-2?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false&quot;</span>)</span><br><span class="line">                .driverClassName(<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>)</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 在 Spring IoC 容器中创建一个 AbstractRoutingDataSource 实现的对象 routingDataSource</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DataSource <span class="title">routingDataSource</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// [1] 实际的物理数据源</span></span><br><span class="line">        DataSource masterDataSource = <span class="keyword">this</span>.masterDataSource();</span><br><span class="line">        DataSource slaveDataSource  = <span class="keyword">this</span>.slaveDataSource();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// [2] 给每个物理数据源绑定一个名字，把它们传递给 RoutingDataSource</span></span><br><span class="line">        Map&lt;Object, Object&gt; targetDataSources = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        targetDataSources.put(<span class="string">&quot;master&quot;</span>, masterDataSource);</span><br><span class="line">        targetDataSources.put(<span class="string">&quot;slave&quot;</span>, slaveDataSource);</span><br><span class="line"></span><br><span class="line">        RoutingDataSource rds = <span class="keyword">new</span> RoutingDataSource();</span><br><span class="line">        rds.setTargetDataSources(targetDataSources);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// [3] 如果 determineCurrentLookupKey 返回的 key 找不到对应的数据源，则使用这里设置的默认数据源</span></span><br><span class="line">        rds.setDefaultTargetDataSource(masterDataSource);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> rds;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="动态数据源"><a href="#动态数据源" class="headerlink" title="动态数据源"></a>动态数据源</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 动态数据源</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RoutingDataSource</span> <span class="keyword">extends</span> <span class="title">AbstractRoutingDataSource</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用此 lookupKey (数据源的名字) 查找对应的数据源</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> Object <span class="title">determineCurrentLookupKey</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 轮流使用不同的数据源访问数据库</span></span><br><span class="line">        String dataSourceName = count % <span class="number">2</span> == <span class="number">0</span> ? <span class="string">&quot;master&quot;</span> : <span class="string">&quot;slave&quot;</span>;</span><br><span class="line">        System.out.println(<span class="string">&quot;获取数据源: &quot;</span> + dataSourceName);</span><br><span class="line">        count++;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dataSourceName;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="验证多数据源"><a href="#验证多数据源" class="headerlink" title="验证多数据源"></a>验证多数据源</h3><p>使用动态切换数据源的目的，大多数目标都是为了实现读写分离，不过配置 MySQL 的读写分离有点花时间，为了验证数据源的切换是否生效，可以采用下面的简单办法:</p>
+<ol>
+<li>创建 2 个数据库: test-1, test-2</li>
+<li>在它们里面分别创建结构完全一样的表 foo，只有 2 列: id 和 name<ul>
+<li>test-1 中: id 为 1，name 为 test-1-name</li>
+<li>test-1 中: id 为 1，name 为 test-2-name</li>
+</ul>
+</li>
+<li>使用 MyBatis 的 Mapper 查询 id 为 1 的记录，如果看到轮流的输出 test-1-name 和 test-2-name，说明数据源切换生效了</li>
+</ol>
+<p>数据库脚本:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> foo (</span><br><span class="line">    id <span class="type">INT</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    name <span class="type">VARCHAR</span>(<span class="number">64</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (id)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"># 数据库 test<span class="number">-1</span> 中执行</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> foo (id, name) <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="string">&#x27;test-1-name&#x27;</span>);</span><br><span class="line"></span><br><span class="line"># 数据库 test<span class="number">-2</span> 中执行</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> foo (id, name) <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="string">&#x27;test-2-name&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="疑惑"><a href="#疑惑" class="headerlink" title="疑惑"></a>疑惑</h3><p>在不少其他人的文章中，上面的 <strong>masterDataSource</strong> 和 <strong>slaveDataSource</strong> 会使用 <code>@Bean</code> 的方式自动创建，然后注入 <code>routingDataSource()</code> 但是我们没这么做，有以下几个原因:</p>
+<ul>
+<li>在 Spring IoC 容器中，如果同时存在多个 DataSource 对象，有时候有可能会出错，例如引入分布式唯一 ID 生成器 <a target="_blank" rel="noopener" href="https://github.com/wujun234/uid-generator-spring-boot-starter">uid-generator-spring-boot-starter</a>，可能是由于 Mapper 存在于不同的包中导致的</li>
+<li>不同环境中数据库的配置可能不同，读取数据源的配置动态生成数据源比较合理 (这里为了方便说明原理，忽略这种做法)，而不是用函数固定写死，例如:<ul>
+<li>开发环境: 只有一个</li>
+<li>测试环境: 一主一从</li>
+<li>线上环境: 一主多从，甚至使用 MySQL 的黑洞引擎实现多主多从</li>
+</ul>
+</li>
+<li>方便创建数据库连接池: 在 Spring Boot 2.0 中，每个 DataSource 都会自动的为其创建一个连接池，但是使用的是默认配置，application.yml 中 HikariCP 的配置不会生效</li>
+</ul>
+<p>到此我们已经知道了怎么实现动态的切换数据源，接下来的内容只是为了把事情做的更好，大家可以先看标题，然后思考一下如果是自己来做，应该怎么实现呢？</p>
+<h2 id="二、使用连接池"><a href="#二、使用连接池" class="headerlink" title="二、使用连接池"></a>二、使用连接池</h2><p>修改 masterDataSource() 和 slaveDataSource() 的代码，返回 HikariDataSource 即可使用数据库连接池 HikariCP，使用其他数据库连接池如 Druid 在此修改即可:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 数据源一</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> DataSource <span class="title">masterDataSource</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    HikariDataSource ds = <span class="keyword">new</span> HikariDataSource();</span><br><span class="line">    ds.setUsername(<span class="string">&quot;root&quot;</span>);</span><br><span class="line">    ds.setPassword(<span class="string">&quot;root&quot;</span>);</span><br><span class="line">    ds.setJdbcUrl(<span class="string">&quot;jdbc:mysql://127.0.0.1:3306/test-1?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false&quot;</span>);</span><br><span class="line">    ds.setDriverClassName(<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>);</span><br><span class="line">    ds.setMaximumPoolSize(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ds;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 数据源二</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> DataSource <span class="title">slaveDataSource</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    HikariDataSource ds = <span class="keyword">new</span> HikariDataSource();</span><br><span class="line">    ds.setUsername(<span class="string">&quot;root&quot;</span>);</span><br><span class="line">    ds.setPassword(<span class="string">&quot;root&quot;</span>);</span><br><span class="line">    ds.setJdbcUrl(<span class="string">&quot;jdbc:mysql://127.0.0.1:3306/test-2?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false&quot;</span>);</span><br><span class="line">    ds.setDriverClassName(<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>);</span><br><span class="line">    ds.setMaximumPoolSize(<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ds;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>连接池的配置都写在代码里不太好，可以把它们放到 application.yml 中:</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Connection Pool: Hikari</span></span><br><span class="line"><span class="attr">spring.datasource.hikari.minimumIdle      :</span> <span class="number">5</span></span><br><span class="line"><span class="attr">spring.datasource.hikari.maximumPoolSize  :</span> <span class="number">5</span></span><br><span class="line"><span class="attr">spring.datasource.hikari.idleTimeout      :</span> <span class="number">30000</span></span><br><span class="line"><span class="attr">spring.datasource.hikari.maxLifetime      :</span> <span class="number">2000000</span></span><br><span class="line"><span class="attr">spring.datasource.hikari.connectionTimeout:</span> <span class="number">30000</span></span><br></pre></td></tr></table></figure>
+
+<p>在 DataSourceConfig 中读取这些配置到 HikariConfig，用于创建 HikariDataSource:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.zaxxer.hikari.HikariConfig;</span><br><span class="line"><span class="keyword">import</span> com.zaxxer.hikari.HikariDataSource;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.context.properties.ConfigurationProperties;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.sql.DataSource;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 创建数据源</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DataSourceConfig</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 数据库连接池的配置</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@ConfigurationProperties(&quot;spring.datasource.hikari&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> HikariConfig <span class="title">hikariConfig</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> HikariConfig();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 数据源一</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DataSource <span class="title">masterDataSource</span><span class="params">(HikariConfig hikariConfig)</span> </span>&#123;</span><br><span class="line">        hikariConfig.setUsername(<span class="string">&quot;root&quot;</span>);</span><br><span class="line">        hikariConfig.setPassword(<span class="string">&quot;root&quot;</span>);</span><br><span class="line">        hikariConfig.setJdbcUrl(<span class="string">&quot;jdbc:mysql://127.0.0.1:3306/test-1?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false&quot;</span>);</span><br><span class="line">        HikariDataSource ds = <span class="keyword">new</span> HikariDataSource(hikariConfig);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ds;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 数据源二</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DataSource <span class="title">slaveDataSource</span><span class="params">(HikariConfig hikariConfig)</span> </span>&#123;</span><br><span class="line">        hikariConfig.setUsername(<span class="string">&quot;root&quot;</span>);</span><br><span class="line">        hikariConfig.setPassword(<span class="string">&quot;root&quot;</span>);</span><br><span class="line">        hikariConfig.setJdbcUrl(<span class="string">&quot;jdbc:mysql://127.0.0.1:3306/test-2?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false&quot;</span>);</span><br><span class="line">        HikariDataSource ds = <span class="keyword">new</span> HikariDataSource(hikariConfig);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ds;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 在 Spring IoC 容器中创建一个 AbstractRoutingDataSource 实现的对象 routingDataSource</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DataSource <span class="title">routingDataSource</span><span class="params">(HikariConfig hikariConfig)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// [1] 实际的物理数据源</span></span><br><span class="line">        DataSource masterDataSource = <span class="keyword">this</span>.masterDataSource(hikariConfig);</span><br><span class="line">        DataSource slaveDataSource  = <span class="keyword">this</span>.slaveDataSource(hikariConfig);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// [2] 给每个物理数据源绑定一个名字，把它们传递给 RoutingDataSource</span></span><br><span class="line">        Map&lt;Object, Object&gt; targetDataSources = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        targetDataSources.put(<span class="string">&quot;master&quot;</span>, masterDataSource);</span><br><span class="line">        targetDataSources.put(<span class="string">&quot;slave&quot;</span>, slaveDataSource);</span><br><span class="line"></span><br><span class="line">        RoutingDataSource rds = <span class="keyword">new</span> RoutingDataSource();</span><br><span class="line">        rds.setTargetDataSources(targetDataSources);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// [3] 如果 determineCurrentLookupKey 返回的 key 找不到对应的数据源，则使用这里设置的默认数据源</span></span><br><span class="line">        rds.setDefaultTargetDataSource(masterDataSource);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> rds;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由于 username, password, url 因数据库而异，应该使用其他配置，而不能放在连接池的统一配置中，如:</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring.datasource.master:</span></span><br><span class="line">	<span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">	<span class="attr">password:</span> <span class="string">root</span></span><br><span class="line">	<span class="attr">url:</span> <span class="string">jdbc:mysql://127.0.0.1:3306/test-1?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spring.datasource.slaves:</span></span><br><span class="line">	<span class="bullet">-</span> &#123; <span class="attr">username:</span> <span class="string">root</span>, <span class="attr">password:</span> <span class="string">root</span>, <span class="attr">url:</span> <span class="string">jdbc:mysql://192.168.0.90:3306/test-2?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false</span> &#125;</span><br><span class="line">	<span class="bullet">-</span> &#123; <span class="attr">username:</span> <span class="string">root</span>, <span class="attr">password:</span> <span class="string">root</span>, <span class="attr">url:</span> <span class="string">jdbc:mysql://192.168.0.91:3306/test-2?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false</span> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>读取数据库的配置和连接池的配置，替换代码中 <code>routingDataSource()</code> 创建数据源的部分，就可以根据不同的环境生成不同的动态数据源。</p>
+<h2 id="三、MyBatis-数据源配置"><a href="#三、MyBatis-数据源配置" class="headerlink" title="三、MyBatis 数据源配置"></a>三、MyBatis 数据源配置</h2><p>在 Spring Boot 2.0 中不需要配置下面的代码也会自动的使用我们注入的数据源 routingDataSource，Spring MVC 4 等没有试过，如果有需要时就给加上吧。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableTransactionManagement</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyBatisConfig</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 注入 routingDataSource</span></span><br><span class="line">    <span class="meta">@Resource(name = &quot;routingDataSource&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> DataSource dataSource;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> SqlSessionFactory <span class="title">sqlSessionFactory</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        SqlSessionFactoryBean sqlSessionFactoryBean = <span class="keyword">new</span> SqlSessionFactoryBean();</span><br><span class="line"></span><br><span class="line">        sqlSessionFactoryBean.setDataSource(dataSource);</span><br><span class="line">        sqlSessionFactoryBean.setMapperLocations(<span class="keyword">new</span> PathMatchingResourcePatternResolver()</span><br><span class="line">                .getResources(<span class="string">&quot;classpath:mapper/*.xml&quot;</span>));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> sqlSessionFactoryBean.getObject();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> PlatformTransactionManager <span class="title">platformTransactionManager</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> DataSourceTransactionManager(dataSource);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="四、读写分离"><a href="#四、读写分离" class="headerlink" title="四、读写分离"></a>四、读写分离</h2><p>读写分离的本质也是动态切换数据源，使用 Spring AoP 的 Before Advice 进行数据源切换，一般实现方式有:</p>
+<ul>
+<li>在方法上使用注解明确的指定要使用写的数据源还是读的数据源</li>
+<li>按照一定的规则命名读或写的方法，AoP 中根据方法名确定要使用读还是写的数据源，自动切换。方法的命名规则如:<ul>
+<li>读: <ul>
+<li>findUserByName</li>
+<li>countUsers</li>
+<li>selectUser</li>
+<li>getUser</li>
+</ul>
+</li>
+<li>写:<ul>
+<li>saveUser</li>
+<li>insertUser</li>
+<li>createUser</li>
+<li>updateUser</li>
+<li>upsertUser</li>
+<li>deleteUser</li>
+</ul>
+</li>
+<li>推荐参考 JPA 的命名规则</li>
+</ul>
+</li>
+<li>为了解决线程安全问题，可以使用 ThreadLocal 存储当前线程使用的数据源名称: Before Advice 的函数中确定数据源的名字，接下来 Spring 在 <code>determineCurrentLookUpKey()</code> 中使用此数据源名字</li>
+<li>读库的负载均衡，可以使用简单的轮询方式使用读数据源</li>
+</ul>
+<p>读写分离的实现主要就是 Spring AoP 的内容了，可以搜索其他人的文章进行学习，例如:</p>
+<ul>
+<li><p>[1 个小时实战 SSM+MySQL 读写分离，分库分表不过如此](<a target="_blank" rel="noopener" href="https://www.ixigua.com/i68155690439535498">https://www.ixigua.com/i68155690439535498</a> 28/) (视频)</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/8904af2c029a">SpringBoot + MyBatis + MySQL 读写分离实战</a></p>
+</li>
+</ul>
+<p>这里我们介绍通过切换数据源的方式实现读写分离，主要目的是介绍实现原理，此外还可以使用专业的分布式数据库中间件 <a target="_blank" rel="noopener" href="http://www.mycat.org.cn/">MyCat</a>，<a target="_blank" rel="noopener" href="http://shardingsphere.apache.org/index_zh.html">Apache ShardingSphere</a> 等来实现。</p>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/locate/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          微信网页中精确定位
+        
+      </div>
+    </a>
+  
+  
+    <a href="/promise-tips/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Promise 知识点</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

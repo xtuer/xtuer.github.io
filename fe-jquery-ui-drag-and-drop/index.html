@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>jQuery ui 拖拽 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="jQuery ui 提供了拖拽元素，拖拽排序等功能，例如要让一个元素能够被拖拽，只要给它执行 draggable() 函数即可，要实现 ul li 拖拽排序，只要在 ul 上执行函数 sortable() 就能实现了，具体更多的例子请参考 jQuery UI 实例 - 拖动">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jQuery ui 拖拽">
+<meta property="og:url" content="http://xtuer.github.io/fe-jquery-ui-drag-and-drop/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="jQuery ui 提供了拖拽元素，拖拽排序等功能，例如要让一个元素能够被拖拽，只要给它执行 draggable() 函数即可，要实现 ul li 拖拽排序，只要在 ul 上执行函数 sortable() 就能实现了，具体更多的例子请参考 jQuery UI 实例 - 拖动">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/fe/drag-and-drop.png">
+<meta property="og:image" content="http://xtuer.github.io/img/fe/list-sort.png">
+<meta property="article:published_time" content="2016-05-02T06:06:11.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.146Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="FE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/fe/drag-and-drop.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8E%E4%B8%80%E4%B8%AA%E5%AE%B9%E5%99%A8%E6%8B%96%E5%8A%A8%E5%88%B0%E5%8F%A6%E4%B8%80%E4%B8%AA%E5%AE%B9%E5%99%A8"><span class="toc-text">从一个容器拖动到另一个容器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%97%E8%A1%A8%E6%8B%96%E5%8A%A8%E6%8E%92%E5%BA%8F"><span class="toc-text">列表拖动排序</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-fe-jquery-ui-drag-and-drop" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/fe-jquery-ui-drag-and-drop/" class="article-date">
+  	<!-- <time datetime="2016-05-02T06:06:11.000Z" itemprop="datePublished">2016-05-02</time> -->
+    2016-05-02
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      jQuery ui 拖拽
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p><code>jQuery ui</code> 提供了拖拽元素，拖拽排序等功能，例如要让一个元素能够被拖拽，只要给它执行 <code>draggable()</code> 函数即可，要实现 <code>ul li</code> 拖拽排序，只要在 ul 上执行函数 <code>sortable()</code> 就能实现了，具体更多的例子请参考 <a target="_blank" rel="noopener" href="http://www.runoob.com/jqueryui/example-draggable.html">jQuery UI 实例 - 拖动</a></p>
+<span id="more"></span>
+
+<h2 id="从一个容器拖动到另一个容器"><a href="#从一个容器拖动到另一个容器" class="headerlink" title="从一个容器拖动到另一个容器"></a>从一个容器拖动到另一个容器</h2><p>如图，从上面把色块拖动到下面，核心代码就 2 个函数的调用 <code>draggable()</code> 和 <code>droppable()</code><br><img src="../img/fe/drag-and-drop.png"></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css">    <span class="selector-id">#src</span>, <span class="selector-id">#dst</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="attribute">border</span>: <span class="number">1px</span> solid gray;</span></span><br><span class="line"><span class="css">        <span class="attribute">width</span>: <span class="number">400px</span>;</span></span><br><span class="line"><span class="css">        <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="css">        <span class="attribute">margin-top</span>: <span class="number">10px</span>;</span></span><br><span class="line"><span class="css">    &#125;</span></span><br><span class="line"><span class="css">    <span class="selector-class">.item</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="attribute">display</span>: inline-block;</span></span><br><span class="line"><span class="css">        <span class="attribute">float</span>: left;</span></span><br><span class="line"><span class="css">        <span class="attribute">width</span>: <span class="number">50px</span>;</span></span><br><span class="line"><span class="css">        <span class="attribute">height</span>: <span class="number">50px</span>;</span></span><br><span class="line"><span class="css">        <span class="attribute">background-color</span>: red;</span></span><br><span class="line"><span class="css">        <span class="attribute">cursor</span>: pointer;</span></span><br><span class="line"><span class="css">        <span class="attribute">line-height</span>: <span class="number">50px</span>;</span></span><br><span class="line"><span class="css">        <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="css">    &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">    <span class="selector-class">.item-1</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="attribute">background</span>: red;</span></span><br><span class="line"><span class="css">    &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">    <span class="selector-class">.item-2</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="attribute">background</span>: green;</span></span><br><span class="line"><span class="css">    &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">    <span class="selector-class">.item-3</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="attribute">background</span>: blue;</span></span><br><span class="line"><span class="css">    &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">    <span class="selector-class">.item-4</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="attribute">background</span>: yellow;</span></span><br><span class="line"><span class="css">    &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">    <span class="selector-class">.ui-draggable-dragging</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="attribute">opacity</span>: <span class="number">0.5</span>;</span></span><br><span class="line"><span class="css">    &#125;</span></span><br><span class="line"><span class="css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;src&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;item item-1&quot;</span>&gt;</span>1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;item item-2&quot;</span>&gt;</span>2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;item item-3&quot;</span>&gt;</span>3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;item item-4&quot;</span>&gt;</span>4<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;dst&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;../jquery.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;../jquery-ui.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">        $(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            $(<span class="string">&#x27;.item&#x27;</span>).draggable(&#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">helper</span> : <span class="string">&#x27;clone&#x27;</span>,</span></span><br><span class="line"><span class="javascript">                <span class="attr">cursor</span>: <span class="string">&#x27;move&#x27;</span>,</span></span><br><span class="line"><span class="javascript">                <span class="attr">revert</span>: <span class="string">&#x27;invalid&#x27;</span> <span class="comment">// 拖拽失败时漂回原来的位置</span></span></span><br><span class="line"><span class="javascript">            &#125;);</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        $(<span class="string">&#x27;#dst&#x27;</span>).droppable(&#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">drop</span>: <span class="function"><span class="keyword">function</span>(<span class="params">event, ui</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                $(<span class="string">&#x27;#dst&#x27;</span>).append(ui.draggable);</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="列表拖动排序"><a href="#列表拖动排序" class="headerlink" title="列表拖动排序"></a>列表拖动排序</h2><p>如图，拖动左边的 list，同时右边对应的信息也进行排序，核心代码就 1 个函数的调用 <code>sortable()</code><br><img src="../img/fe/list-sort.png"></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>jQuery 对元素拖动排序<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-id">#animals</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">cursor</span>: pointer;</span></span><br><span class="line"><span class="css">            <span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-tag">li</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="comment">/*float:left; */</span></span></span><br><span class="line"><span class="css">            <span class="attribute">display</span>: block;  <span class="comment">/*需要是 block 或者 float 的*/</span></span></span><br><span class="line"><span class="css">            <span class="attribute">list-style-type</span>: none;</span></span><br><span class="line"><span class="css">            <span class="attribute">margin-top</span>: <span class="number">10px</span>;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-id">#animals</span> <span class="selector-tag">li</span><span class="selector-pseudo">:hover</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">background</span>: <span class="number">#EEE</span>;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-id">#left</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">float</span>: left;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-id">#right</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">float</span>: left;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-id">#info</span> <span class="selector-tag">li</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">2px</span> <span class="number">#DDD</span>;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;content-wrap&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;left&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">&quot;animals&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span> <span class="attr">data-order</span>=<span class="string">&quot;1&quot;</span>&gt;</span>(☆_☆)<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span> <span class="attr">data-order</span>=<span class="string">&quot;2&quot;</span>&gt;</span>凸^-^凸<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span> <span class="attr">data-order</span>=<span class="string">&quot;3&quot;</span>&gt;</span>(^_−)−☆<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span> <span class="attr">data-order</span>=<span class="string">&quot;4&quot;</span>&gt;</span>(◐‿◑)﻿</span><br><span class="line">                    <span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">&quot;inner&quot;</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">li</span> <span class="attr">data-order</span>=<span class="string">&quot;21&quot;</span>&gt;</span>(☆_☆)<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">li</span> <span class="attr">data-order</span>=<span class="string">&quot;22&quot;</span>&gt;</span>凸^-^凸<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">li</span> <span class="attr">data-order</span>=<span class="string">&quot;23&quot;</span>&gt;</span>(^_−)−☆<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">li</span> <span class="attr">data-order</span>=<span class="string">&quot;24&quot;</span>&gt;</span>☆*:.｡. o(≧▽≦)o .｡.:*☆<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;right&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">&quot;info&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span> <span class="attr">data-order</span>=<span class="string">&quot;1&quot;</span>&gt;</span>(☆_☆)<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span> <span class="attr">data-order</span>=<span class="string">&quot;2&quot;</span>&gt;</span>凸^-^凸<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span> <span class="attr">data-order</span>=<span class="string">&quot;3&quot;</span>&gt;</span>(^_−)−☆<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span> <span class="attr">data-order</span>=<span class="string">&quot;4&quot;</span>&gt;</span>(◐‿◑)﻿<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;../jquery.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;../jquery-ui.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">        $(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="comment">// 启用拖拽排列操作</span></span></span><br><span class="line"><span class="javascript">            $(<span class="string">&quot;#animals&quot;</span>).sortable(&#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">opacity</span>: <span class="number">0.5</span>,</span></span><br><span class="line"><span class="javascript">                <span class="attr">update</span>: <span class="function"><span class="keyword">function</span> (<span class="params">event, ui</span>) </span>&#123; <span class="comment">// 拖拽完成后的回调函数，例如保存到数据库等</span></span></span><br><span class="line"><span class="javascript">                    <span class="keyword">var</span> order = ui.item.attr(<span class="string">&#x27;data-order&#x27;</span>); <span class="comment">// 被拖拽的元素: ui.item</span></span></span><br><span class="line"><span class="javascript">                    <span class="keyword">var</span> preOrder = ui.item.prev().attr(<span class="string">&#x27;data-order&#x27;</span>);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">                    <span class="keyword">if</span> (preOrder) &#123;</span></span><br><span class="line"><span class="javascript">                        $(<span class="string">&#x27;#info li[data-order=&quot;&#x27;</span> + order + <span class="string">&#x27;&quot;]&#x27;</span>).insertAfter($(<span class="string">&#x27;#info li[data-order=&quot;&#x27;</span> + preOrder + <span class="string">&#x27;&quot;]&#x27;</span>));</span></span><br><span class="line"><span class="javascript">                    &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="javascript">                        $(<span class="string">&#x27;#info&#x27;</span>).prepend($(<span class="string">&#x27;#info li[data-order=&quot;&#x27;</span> + order + <span class="string">&#x27;&quot;]&#x27;</span>));</span></span><br><span class="line"><span class="javascript">                    &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">                    regenerateOrder();</span></span><br><span class="line"><span class="javascript">                &#125;</span></span><br><span class="line"><span class="javascript">            &#125;);</span></span><br><span class="line"><span class="javascript">            $(<span class="string">&quot;#inner&quot;</span>).sortable();</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// 重新生成 order</span></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">regenerateOrder</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> order = <span class="number">1</span>;</span></span><br><span class="line"><span class="javascript">            $(<span class="string">&#x27;#animals &gt; li&#x27;</span>).each(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                $(<span class="built_in">this</span>).attr(<span class="string">&#x27;data-order&#x27;</span>, order);</span></span><br><span class="line"><span class="javascript">                order++;</span></span><br><span class="line"><span class="javascript">            &#125;);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">            order = <span class="number">1</span>;</span></span><br><span class="line"><span class="javascript">            $(<span class="string">&#x27;#info &gt; li&#x27;</span>).each(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                $(<span class="built_in">this</span>).attr(<span class="string">&#x27;data-order&#x27;</span>, order);</span></span><br><span class="line"><span class="javascript">                order++;</span></span><br><span class="line"><span class="javascript">            &#125;);</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/java-future/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Future
+        
+      </div>
+    </a>
+  
+  
+    <a href="/fe-string-format/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JavaScript 里格式化字符串</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

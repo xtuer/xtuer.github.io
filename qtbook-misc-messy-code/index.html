@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Qt5 乱码 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Qt5 强制要求源码的编码必须使用 UTF-8，不过，即使我们的源码都是 UTF-8 的了，仍然会遇到乱码问题，例如  MinGW 编译没问题的工程使用 VS 编译时有可能报错 MinGW 编译的程序运行时中文正常显示，VS 下编译通过，运行时却是乱码  通常有下面几种情况导致中文乱码:  源码不是 UTF-8 的 源码是 UTF-8 的，但 BOM 导致乱码 (VS 的需要 BOM，而 Linu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Qt5 乱码">
+<meta property="og:url" content="http://xtuer.github.io/qtbook-misc-messy-code/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="Qt5 强制要求源码的编码必须使用 UTF-8，不过，即使我们的源码都是 UTF-8 的了，仍然会遇到乱码问题，例如  MinGW 编译没问题的工程使用 VS 编译时有可能报错 MinGW 编译的程序运行时中文正常显示，VS 下编译通过，运行时却是乱码  通常有下面几种情况导致中文乱码:  源码不是 UTF-8 的 源码是 UTF-8 的，但 BOM 导致乱码 (VS 的需要 BOM，而 Linu">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/qt/BOM.png">
+<meta property="article:published_time" content="2016-12-28T02:46:31.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.174Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="QtBook">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/qt/BOM.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E4%BD%BF%E7%94%A8-UTF-8"><span class="toc-text">源码使用 UTF-8</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BOM-%E9%97%AE%E9%A2%98"><span class="toc-text">BOM 问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%95%8C%E9%9D%A2%E6%98%BE%E7%A4%BA%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81"><span class="toc-text">界面显示中文乱码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%BB%E5%8F%96-UTF-8-%E6%96%87%E4%BB%B6%E4%B9%B1%E7%A0%81"><span class="toc-text">读取 UTF-8 文件乱码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E6%97%B6%E7%BC%96%E7%A0%81"><span class="toc-text">判断程序运行时编码</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-qtbook-misc-messy-code" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-misc-messy-code/" class="article-date">
+  	<!-- <time datetime="2016-12-28T02:46:31.000Z" itemprop="datePublished">2016-12-28</time> -->
+    2016-12-28
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Qt5 乱码
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Qt5 强制要求源码的编码必须使用 UTF-8，不过，即使我们的源码都是 UTF-8 的了，仍然会遇到乱码问题，例如</p>
+<ul>
+<li>MinGW 编译没问题的工程使用 VS 编译时有可能报错</li>
+<li>MinGW 编译的程序运行时中文正常显示，VS 下编译通过，运行时却是乱码</li>
+</ul>
+<p>通常有下面几种情况导致中文乱码:</p>
+<ul>
+<li>源码不是 UTF-8 的</li>
+<li>源码是 UTF-8 的，但 BOM 导致乱码 (VS 的需要 BOM，而 Linux，Mac 下默认是没有 BOM 的)</li>
+<li>非 UTF-8 的运行环境导致乱码</li>
+</ul>
+<p>下面来解决 Qt5 的乱码问题。<span id="more"></span></p>
+<h2 id="源码使用-UTF-8"><a href="#源码使用-UTF-8" class="headerlink" title="源码使用 UTF-8"></a>源码使用 UTF-8</h2><p>为了保证源码是 UTF-8 的，需要把源码保存为 UTF-8 编码的</p>
+<ul>
+<li>QtCreator 的话设置编辑器的编码为 UTF-8 即可：<code>设置 -&gt; 文本编辑器 -&gt; 行为 &gt; 文件编码，设置默认编码为 UTF-8</code></li>
+<li>其他编辑器请自行进行相应的设置</li>
+</ul>
+<h2 id="BOM-问题"><a href="#BOM-问题" class="headerlink" title="BOM 问题"></a>BOM 问题</h2><p><img src="../img/qt/BOM.png"></p>
+<p>使用 VS 的编译器编译 Qt 项目时有可能会遇到像上面这样的警告和错误 <strong>C4819</strong>，一般都是因为程序的源文件 .h 和 .cpp 文件的编码虽然是 UTF-8 的，但是 <code>缺少 BOM</code>。这个问题也很好解决，给程序的源文件都加上 BOM 就可以了。</p>
+<p>给文件添加 BOM 的方法也很多，例如使用 Notepad++ 一个一个的打开所有文件，然后都保存为带 BOM 的 UTF-8 就可以了，不过这样做效率显然不高，这里提供一个可以递归的给指定目录下所有指定后缀名的文件批量添加和删除 BOM 的工具，也是一个 Qt 的工程，请自行下载编译: <a href="/download/Bomer.7z">Bomer 的源码</a></p>
+<blockquote>
+<p>怎么判断一个 UTF-8 的文件是否有 BOM？</p>
+<p>使用 HEX 文件编辑器打开文件，如果前 3 个字节为 <code>EF BB BF</code> 则说明文件含有 BOM，否则没有 BOM。</p>
+</blockquote>
+<h2 id="界面显示中文乱码"><a href="#界面显示中文乱码" class="headerlink" title="界面显示中文乱码"></a>界面显示中文乱码</h2><p>下面的程序只有一个按钮，按钮的文本为 “你好”，使用 MinGW 编译运行，程序没有乱码问题。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QApplication&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QPushButton&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="function">QApplication <span class="title">a</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">QPushButton <span class="title">b</span><span class="params">(<span class="string">&quot;你好&quot;</span>)</span></span>;</span><br><span class="line">    b.<span class="built_in">show</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> a.<span class="built_in">exec</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后使用 VS 编译器编译运行，编译没问题的情况下(如有 BOM 问题，请按上面方法先解决)，运行后按钮的文字出现了乱码，有 2 个解决方法:</p>
+<ul>
+<li><p>中文字符串使用 QStringLiteral 创建</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QApplication&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QPushButton&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="function">QApplication <span class="title">a</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">QPushButton <span class="title">b</span><span class="params">(QStringLiteral(<span class="string">&quot;你好&quot;</span>))</span></span>; <span class="comment">// 瞅这里</span></span><br><span class="line">    b.<span class="built_in">show</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> a.<span class="built_in">exec</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>再次编译运行，乱码问题解决了。这种方法在 MinGW 和 VS 中都没问题，但是仔细考虑一下，程序中如果有成百上千的中文字符串，每个地方都要修改，工作量大到让人崩溃。</p>
+</li>
+<li><p>使用 VS 的时候在 main() 函数前添加 pragma 指定程序编译时使用 UTF-8 处理字符串即可:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> _MSC_BUILD</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> execution_character_set(<span class="meta-string">&quot;utf-8&quot;</span>) <span class="comment">// 瞅这里: 编译时把程序里的字符串使用 UTF-8 进行处理</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QApplication&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QPushButton&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="function">QApplication <span class="title">a</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">QPushButton <span class="title">b</span><span class="params">(<span class="string">&quot;你好&quot;</span>)</span></span>;</span><br><span class="line">    b.<span class="built_in">show</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> a.<span class="built_in">exec</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="读取-UTF-8-文件乱码"><a href="#读取-UTF-8-文件乱码" class="headerlink" title="读取 UTF-8 文件乱码"></a>读取 UTF-8 文件乱码</h2><p>能够正常的显示界面上的中文了，但是在 Windows 下读取 UTF-8 的文件仍然会发生乱码，因为如果不指定程序的运行时编码，就使用系统默认的，Windows 默认的编码是 GB2312，读取 UTF-8 文件时就默认作为 GB2312 来读取，所以就发生乱码了。解决这个问题只需要在 main 函数中调用 QTextCodec 指定为 UTF-8 即可：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> _MSC_BUILD</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> execution_character_set(<span class="meta-string">&quot;utf-8&quot;</span>) <span class="comment">// 瞅这里: 编译时把程序里的字符串使用 UTF-8 进行处理</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QApplication&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QPushButton&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QTextCodec&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="function">QApplication <span class="title">a</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line">    QTextCodec::<span class="built_in">setCodecForLocale</span>(QTextCodec::<span class="built_in">codecForName</span>(<span class="string">&quot;UTF-8&quot;</span>));</span><br><span class="line"></span><br><span class="line">    <span class="function">QPushButton <span class="title">b</span><span class="params">(<span class="string">&quot;你好&quot;</span>)</span></span>;</span><br><span class="line">    b.<span class="built_in">show</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> a.<span class="built_in">exec</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="判断程序运行时编码"><a href="#判断程序运行时编码" class="headerlink" title="判断程序运行时编码"></a>判断程序运行时编码</h2><p>使用 QTextStream，使用默认的 Codec，写中文到文件，然后使用 Notepad++，或者 Linux 的 file 命令就能看到文件的编码，这个编码就是程序的运行时编码，指定程序的运行时编码调用 <code>QTextCodec::setCodecForLocale</code>。</p>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/https-pkix/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Https PKIX
+        
+      </div>
+    </a>
+  
+  
+    <a href="/pdf-online/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">在线预览 PDF</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

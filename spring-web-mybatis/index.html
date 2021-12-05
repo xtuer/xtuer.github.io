@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>MyBatis 集成 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="SpringMVC 集成 MyBatis 需要以下几个文件  配置文件 datasource.xml mybatis.xml web.xml   查询需要的文件 可选：bean（也可以不要，直接用 Map） 必要：mapper xml 必要：mapper interface">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MyBatis 集成">
+<meta property="og:url" content="http://xtuer.github.io/spring-web-mybatis/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="SpringMVC 集成 MyBatis 需要以下几个文件  配置文件 datasource.xml mybatis.xml web.xml   查询需要的文件 可选：bean（也可以不要，直接用 Map） 必要：mapper xml 必要：mapper interface">
+<meta property="og:locale">
+<meta property="article:published_time" content="2016-10-15T13:35:46.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.185Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="SpringWeb">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Gradle-%E4%BE%9D%E8%B5%96"><span class="toc-text">Gradle 依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#datasource-xml"><span class="toc-text">datasource.xml</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mybatis-xml"><span class="toc-text">mybatis.xml</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MyBatis-%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="toc-text">MyBatis 的配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web-xml-%E5%8A%A0%E8%BD%BD-mybatis-%E9%85%8D%E7%BD%AE"><span class="toc-text">web.xml 加载 mybatis 配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-MyBatis-%E8%AE%BF%E9%97%AE%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">使用 MyBatis 访问数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%A1%A8-demo"><span class="toc-text">数据表 demo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Demo-java"><span class="toc-text">Demo.java</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DemoMapper-java"><span class="toc-text">DemoMapper.java</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mapper-DemoMapper-xml"><span class="toc-text">mapper&#x2F;DemoMapper.xml</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Controller"><span class="toc-text">Controller</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95"><span class="toc-text">测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MyBatis-%E7%9B%B8%E5%85%B3%E6%97%A5%E5%BF%97"><span class="toc-text">MyBatis 相关日志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mapper-xml-%E6%A0%B7%E4%BE%8B%E6%96%87%E4%BB%B6"><span class="toc-text">Mapper xml 样例文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-DBCP2-%E4%BD%9C%E4%B8%BA%E6%95%B0%E6%8D%AE%E6%BA%90"><span class="toc-text">使用 DBCP2 作为数据源</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-spring-web-mybatis" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/spring-web-mybatis/" class="article-date">
+  	<!-- <time datetime="2016-10-15T13:35:46.000Z" itemprop="datePublished">2016-10-15</time> -->
+    2016-10-15
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      MyBatis 集成
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringWeb/" rel="tag">SpringWeb</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>SpringMVC 集成 MyBatis 需要以下几个文件</p>
+<ul>
+<li>配置文件<ul>
+<li>datasource.xml</li>
+<li>mybatis.xml</li>
+<li>web.xml</li>
+</ul>
+</li>
+<li>查询需要的文件<ul>
+<li>可选：bean（也可以不要，直接用 Map）</li>
+<li>必要：mapper xml</li>
+<li>必要：mapper interface</li>
+</ul>
+</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="Gradle-依赖"><a href="#Gradle-依赖" class="headerlink" title="Gradle 依赖"></a>Gradle 依赖</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">compile(</span><br><span class="line">    <span class="string">&quot;org.springframework:spring-jdbc:5.0.2.RELEASE&quot;</span>,</span><br><span class="line">    <span class="string">&quot;mysql:mysql-connector-java:5.1.21&quot;</span>,         </span><br><span class="line">    <span class="string">&quot;org.mybatis:mybatis:3.4.5&quot;</span>,            </span><br><span class="line">    <span class="string">&quot;org.mybatis:mybatis-spring:1.3.1&quot;</span>, </span><br><span class="line">    <span class="string">&quot;com.alibaba:druid:1.1.5&quot;</span> </span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h2 id="datasource-xml"><a href="#datasource-xml" class="headerlink" title="datasource.xml"></a>datasource.xml</h2><p>保存在 <code>resources/config/datasource.xml</code></p>
+<blockquote>
+<p>连接池使用 Druid，可以监控数据库访问的性能，参考文档</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/alibaba/druid/wiki/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98">https://github.com/alibaba/druid/wiki/常见问题</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/alibaba/druid/wiki/DruidDataSource%E9%85%8D%E7%BD%AE">https://github.com/alibaba/druid/wiki/DruidDataSource配置</a> </li>
+<li><a target="_blank" rel="noopener" href="https://github.com/alibaba/druid/wiki/DruidDataSource%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7%E5%88%97%E8%A1%A8">https://github.com/alibaba/druid/wiki/DruidDataSource配置属性列表</a></li>
+</ul>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;</span></span></span><br><span class="line"><span class="string"><span class="tag">            http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="string"><span class="tag">            http://www.springframework.org/schema/beans/spring-beans.xsd&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Data Source using Druid. --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;dataSource&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.alibaba.druid.pool.DruidDataSource&quot;</span> <span class="attr">init-method</span>=<span class="string">&quot;init&quot;</span> <span class="attr">destroy-method</span>=<span class="string">&quot;close&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;url&quot;</span> <span class="attr">value</span>=<span class="string">&quot;jdbc:mysql://localhost:3306/test?useUnicode=true<span class="symbol">&amp;amp;</span>characterEncoding=UTF-8&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">value</span>=<span class="string">&quot;root&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> <span class="attr">value</span>=<span class="string">&quot;root&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;maxActive&quot;</span> <span class="attr">value</span>=<span class="string">&quot;600&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;initialSize&quot;</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;maxWait&quot;</span> <span class="attr">value</span>=<span class="string">&quot;60000&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;minIdle&quot;</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;timeBetweenEvictionRunsMillis&quot;</span> <span class="attr">value</span>=<span class="string">&quot;60000&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;minEvictableIdleTimeMillis&quot;</span> <span class="attr">value</span>=<span class="string">&quot;300000&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;validationQuery&quot;</span> <span class="attr">value</span>=<span class="string">&quot;SELECT 1 FROM dual&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;testWhileIdle&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;testOnBorrow&quot;</span> <span class="attr">value</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;testOnReturn&quot;</span> <span class="attr">value</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;poolPreparedStatements&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;maxOpenPreparedStatements&quot;</span> <span class="attr">value</span>=<span class="string">&quot;20&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>testOnBorrow</strong> 为 false，服务器重启后也会自动重连。<br><strong>driverClassName</strong> 可以不写，能够根据 url 自动识别 dbType</p>
+</blockquote>
+<h2 id="mybatis-xml"><a href="#mybatis-xml" class="headerlink" title="mybatis.xml"></a>mybatis.xml</h2><p>保存在 <code>resources/config/mybatis.xml </code></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;</span></span></span><br><span class="line"><span class="string"><span class="tag">            http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="string"><span class="tag">            http://www.springframework.org/schema/beans/spring-beans.xsd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 1. Data Source --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">import</span> <span class="attr">resource</span>=<span class="string">&quot;classpath:config/datasource.xml&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 2. SQL session factory --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;sqlSessionFactory&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.mybatis.spring.SqlSessionFactoryBean&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;dataSource&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;dataSource&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;mapperLocations&quot;</span> <span class="attr">value</span>=<span class="string">&quot;classpath:mapper/**/*.xml&quot;</span>/&gt;</span> <span class="comment">&lt;!-- Mapper xml --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;typeAliasesPackage&quot;</span> <span class="attr">value</span>=<span class="string">&quot;com.xtuer.bean&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 3. Instantiate Mapper --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">&quot;org.mybatis.spring.mapper.MapperScannerConfigurer&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;basePackage&quot;</span> <span class="attr">value</span>=<span class="string">&quot;com.xtuer.mapper&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>MapperScannerConfigurer</code> 会为包 <code>com.xtuer.mapper</code> 下的每个类在 Spring 容器里创建一个对象，可以使用 <code>@Autowired</code> 获取这些对象。</p>
+<p>如果不使用 <code>MapperScannerConfigurer</code>，我们就必须手动的创建 Mapper 的对象。</p>
+<p>参考: <a target="_blank" rel="noopener" href="http://mybatis.github.io/spring/zh/">MyBatis - MyBatis-Spring | 简介</a></p>
+</blockquote>
+<h2 id="MyBatis-的配置"><a href="#MyBatis-的配置" class="headerlink" title="MyBatis 的配置"></a>MyBatis 的配置</h2><p>例如可以配置 MyBatis 自动把 underscore 的列名转换为 camelcase，可以新建一个文件 <code>mybatis-config.xml</code>，然后配置到 mybatis.xml 的 sqlSessionFactory 中:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">configuration</span> <span class="meta-keyword">PUBLIC</span> <span class="meta-string">&quot;-//mybatis.org//DTD Config 3.0//EN&quot;</span> <span class="meta-string">&quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">settings</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">&quot;mapUnderscoreToCamelCase&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 2. SQL session factory --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;sqlSessionFactory&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.mybatis.spring.SqlSessionFactoryBean&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;dataSource&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;dataSource&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;configLocation&quot;</span> <span class="attr">value</span>=<span class="string">&quot;classpath:config/mybatis-config.xml&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;mapperLocations&quot;</span> <span class="attr">value</span>=<span class="string">&quot;classpath:mapper/**/*.xml&quot;</span>/&gt;</span> <span class="comment">&lt;!-- Mapper xml --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;typeAliasesPackage&quot;</span> <span class="attr">value</span>=<span class="string">&quot;com.xtuer.bean&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="web-xml-加载-mybatis-配置"><a href="#web-xml-加载-mybatis-配置" class="headerlink" title="web.xml 加载 mybatis 配置"></a>web.xml 加载 mybatis 配置</h2><p>在 web.xml 中用 ContextLoaderListener 加载 mybatis.xml，因为 MyBatis 是整个应用级别的，供多个 servlet 使用，而 Spring MVC Servlet 只是 Servlet 级别的。<br>ContextLoaderListener 对应的容器是其他 Spring 容器的父容器，所以在里面创建的 MyBatis 的 mapper 在 springmvc 这个容易以及其他的容器中都能使用。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 加载 MyBatis, Spring Security 配置等 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">context-param</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param-value</span>&gt;</span></span><br><span class="line">        classpath:config/mybatis.xml</span><br><span class="line">    <span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Listener --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">listener</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">listener-class</span>&gt;</span>org.springframework.web.context.ContextLoaderListener<span class="tag">&lt;/<span class="name">listener-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">listener</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="使用-MyBatis-访问数据库"><a href="#使用-MyBatis-访问数据库" class="headerlink" title="使用 MyBatis 访问数据库"></a>使用 MyBatis 访问数据库</h2><p>至此，MyBatis 已经配置好，下面以查询数据库中表 demo 为例，其对应的 bean 为 Demo</p>
+<blockquote>
+<p>一般对一个表的查询，需要准备</p>
+<ul>
+<li>bean</li>
+<li>mapper interface: 其实例通过 MapperScannerConfigurer 自动创建到 Spring 容器</li>
+<li>mapper xml: SQL 语句的文件</li>
+</ul>
+</blockquote>
+<h2 id="数据表-demo"><a href="#数据表-demo" class="headerlink" title="数据表 demo"></a>数据表 demo</h2><table>
+<thead>
+<tr>
+<th>id</th>
+<th>info</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Biao</td>
+</tr>
+<tr>
+<td>2</td>
+<td>海龙</td>
+</tr>
+</tbody></table>
+<h2 id="Demo-java"><a href="#Demo-java" class="headerlink" title="Demo.java"></a>Demo.java</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.bean;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String info;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Demo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Demo</span><span class="params">(<span class="keyword">int</span> id, String info)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">        <span class="keyword">this</span>.info = info;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Getters and Setters</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="DemoMapper-java"><a href="#DemoMapper-java" class="headerlink" title="DemoMapper.java"></a>DemoMapper.java</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.mapper;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.xtuer.bean.Demo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">DemoMapper</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Demo <span class="title">findDemoById</span><span class="params">(<span class="keyword">int</span> id)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="mapper-DemoMapper-xml"><a href="#mapper-DemoMapper-xml" class="headerlink" title="mapper/DemoMapper.xml"></a>mapper/DemoMapper.xml</h2><p>保存在 <code>resources/mapper/DemoMapper.xml</code>，在这里编写 SQL 语句。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">mapper</span> <span class="meta-keyword">PUBLIC</span></span></span><br><span class="line"><span class="meta">        <span class="meta-string">&quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span></span></span><br><span class="line"><span class="meta">        <span class="meta-string">&quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--namespace 非常重要：必须是 Mapper 类的全路径--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">&quot;com.xtuer.mapper.DemoMapper&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;findDemoById&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;int&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;Demo&quot;</span>&gt;</span></span><br><span class="line">        SELECT id, info FROM demo WHERE id = #&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> DemoMapper demoMapper;</span><br><span class="line"></span><br><span class="line"><span class="meta">@GetMapping(&quot;/demos/&#123;id&#125;&quot;)</span></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Demo <span class="title">findDemoById</span><span class="params">(<span class="meta">@PathVariable</span> <span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> demoMapper.findDemoById(id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><ul>
+<li><p>访问 <a target="_blank" rel="noopener" href="http://localhost:8080/demos/1">http://localhost:8080/demos/1</a></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">控制台输出:</span><br><span class="line">[2016-10-15 21:54:29] [DEBUG] [BaseJdbcLogger.java-debug:132] - ==&gt;  Preparing: SELECT id, info FROM demo WHERE id = ?</span><br><span class="line">[2016-10-15 21:54:29] [DEBUG] [BaseJdbcLogger.java-debug:132] - ==&gt; Parameters: 1(Integer)</span><br><span class="line"></span><br><span class="line">网页输出:</span><br><span class="line">&#123;&quot;id&quot;:1,&quot;info&quot;:&quot;Biao&quot;&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>访问 <a target="_blank" rel="noopener" href="http://localhost:8080/demos/2">http://localhost:8080/demos/2</a> 输出</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">控制台输出:</span><br><span class="line">[2016-10-15 21:54:33] [DEBUG] [BaseJdbcLogger.java-debug:132] - ==&gt;  Preparing: SELECT id, info FROM demo WHERE id = ?</span><br><span class="line">[2016-10-15 21:54:33] [DEBUG] [BaseJdbcLogger.java-debug:132] - ==&gt; Parameters: 2(Integer)</span><br><span class="line"></span><br><span class="line">网页输出:</span><br><span class="line">&#123;&quot;id&quot;:2,&quot;info&quot;:&quot;海龙&quot;&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="MyBatis-相关日志"><a href="#MyBatis-相关日志" class="headerlink" title="MyBatis 相关日志"></a>MyBatis 相关日志</h2><ul>
+<li><p>关闭 MyBatis 日志，修改 logback.xml</p>
+  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">&quot;org.mybatis&quot;</span> <span class="attr">level</span>=<span class="string">&quot;debug&quot;</span>/&gt;</span> 修改为 <span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">&quot;org.mybatis&quot;</span> <span class="attr">level</span>=<span class="string">&quot;off&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>关闭 MyBatis 输出的 SQL 语句，修改 logback.xml</p>
+  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">&quot;com.xtuer.mapper&quot;</span> <span class="attr">level</span>=<span class="string">&quot;debug&quot;</span>/&gt;</span> 修改为 <span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">&quot;com.xtuer.mapper&quot;</span> <span class="attr">level</span>=<span class="string">&quot;off&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="Mapper-xml-样例文件"><a href="#Mapper-xml-样例文件" class="headerlink" title="Mapper xml 样例文件"></a>Mapper xml 样例文件</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">mapper</span> <span class="meta-keyword">PUBLIC</span></span></span><br><span class="line"><span class="meta">        <span class="meta-string">&quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span></span></span><br><span class="line"><span class="meta">        <span class="meta-string">&quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;</span> &gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">&quot;com.tur.mapper.UserMapper&quot;</span> &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">sql</span> <span class="attr">id</span>=<span class="string">&quot;columns&quot;</span> &gt;</span> id, age, name<span class="tag">&lt;/<span class="name">sql</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- [[1]] 简单的 JavaBean，直接使用 resultType: 数据库表的列与 JavaBean 的属性对应 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;selectUserById&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;int&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;com.tur.domain.User&quot;</span> &gt;</span></span><br><span class="line">        SELECT <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">&quot;columns&quot;</span>/&gt;</span></span><br><span class="line">        FROM user WHERE id = #&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;selectUsersByName&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;string&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;com.tur.domain.User&quot;</span> &gt;</span></span><br><span class="line">        SELECT <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">&quot;columns&quot;</span>/&gt;</span></span><br><span class="line">        FROM user WHERE name = #&#123;name&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- [[2]] 可以使用 resultMap 映射自己的类: 例如多表查询时 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;selectUserById&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;int&quot;</span> <span class="attr">resultMap</span>=<span class="string">&quot;userResultMap&quot;</span> &gt;</span></span><br><span class="line">        SELECT <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">&quot;columns&quot;</span>/&gt;</span></span><br><span class="line">        FROM user WHERE id = #&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">&quot;userResultMap&quot;</span> <span class="attr">type</span>=<span class="string">&quot;com.tur.domain.User&quot;</span> &gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">property</span>=<span class="string">&quot;id&quot;</span> <span class="attr">column</span>=<span class="string">&quot;id&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">&quot;age&quot;</span> <span class="attr">column</span>=<span class="string">&quot;age&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">&quot;name&quot;</span> <span class="attr">column</span>=<span class="string">&quot;name&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- [[3]] 使用 resultMap 映射，属性是另一个类的对象: association --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;selectFullUserById&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;int&quot;</span> <span class="attr">resultMap</span>=<span class="string">&quot;userAssociationResultMap&quot;</span> &gt;</span></span><br><span class="line">        SELECT</span><br><span class="line">            user.id         as id, <span class="comment">&lt;!-- 重命名列非常有用 --&gt;</span></span><br><span class="line">            user.age        as age,</span><br><span class="line">            user.name       as name,</span><br><span class="line">            ui.id           as user_info_id,</span><br><span class="line">            ui.user_id      as user_info_user_id,</span><br><span class="line">            ui.telephone    as user_info_telephone,</span><br><span class="line">            ui.address      as user_info_address</span><br><span class="line">        <span class="comment">&lt;!--FROM user, user_info ui--&gt;</span></span><br><span class="line">        FROM user</span><br><span class="line">            INNER JOIN user_info ui ON user.id=ui.user_id</span><br><span class="line">        WHERE user.id=#&#123;id&#125;</span><br><span class="line">            <span class="comment">&lt;!--AND user.id=ui.user_id--&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">&quot;userAssociationResultMap&quot;</span> <span class="attr">type</span>=<span class="string">&quot;com.tur.domain.User&quot;</span> &gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">property</span>=<span class="string">&quot;id&quot;</span> <span class="attr">column</span>=<span class="string">&quot;id&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">&quot;age&quot;</span> <span class="attr">column</span>=<span class="string">&quot;age&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">&quot;name&quot;</span> <span class="attr">column</span>=<span class="string">&quot;name&quot;</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--嵌套映射中还可以使用 resultMap: association, collection</span></span><br><span class="line"><span class="comment">        还可以使用嵌套查询，但是会产生 N＋1 问题，在大数量的数据库里会有很大的性能问题--&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--&lt;association property=&quot;userInfo&quot; column=&quot;user_info_id&quot; javaType=&quot;domain.UserInfo&quot;&gt;</span></span><br><span class="line"><span class="comment">            &lt;id     property=&quot;id&quot;        column=&quot;user_info_id&quot;/&gt;</span></span><br><span class="line"><span class="comment">            &lt;result property=&quot;userId&quot;    column=&quot;user_info_user_id&quot;/&gt;</span></span><br><span class="line"><span class="comment">            &lt;result property=&quot;telephone&quot; column=&quot;user_info_telephone&quot;/&gt;</span></span><br><span class="line"><span class="comment">            &lt;result property=&quot;address&quot;   column=&quot;user_info_address&quot;/&gt;</span></span><br><span class="line"><span class="comment">        &lt;/association&gt;--&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--association 是一对一关系，collection 是一对多关系--&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--使用 columnPrefix 可以使 result map 重用--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">&quot;userInfo&quot;</span> <span class="attr">column</span>=<span class="string">&quot;user_info_id&quot;</span> <span class="attr">columnPrefix</span>=<span class="string">&quot;user_info_&quot;</span> <span class="attr">resultMap</span>=<span class="string">&quot;userInfoResultMap&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">&quot;userInfoResultMap&quot;</span> <span class="attr">type</span>=<span class="string">&quot;com.tur.domain.UserInfo&quot;</span> &gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>     <span class="attr">property</span>=<span class="string">&quot;id&quot;</span>        <span class="attr">column</span>=<span class="string">&quot;id&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">&quot;userId&quot;</span>    <span class="attr">column</span>=<span class="string">&quot;user_id&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">&quot;telephone&quot;</span> <span class="attr">column</span>=<span class="string">&quot;telephone&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">&quot;address&quot;</span>   <span class="attr">column</span>=<span class="string">&quot;address&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;selectUsersWithName&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;list&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;com.tur.domain.User&quot;</span> &gt;</span></span><br><span class="line">        SELECT  <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">&quot;columns&quot;</span>/&gt;</span></span><br><span class="line">        FROM    user</span><br><span class="line">        WHERE   name in</span><br><span class="line">        <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">item</span>=<span class="string">&quot;item&quot;</span> <span class="attr">index</span>=<span class="string">&quot;index&quot;</span> <span class="attr">open</span>=<span class="string">&quot;(&quot;</span><span class="attr">separator</span>=<span class="string">&quot;,&quot;</span><span class="attr">close</span>=<span class="string">&quot;)&quot;</span> <span class="attr">collection</span>=<span class="string">&quot;list&quot;</span> &gt;</span></span><br><span class="line">            #&#123;item&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>一对一使用 <code>association</code><br>一对多使用 <code>collection</code></p>
+</blockquote>
+<h2 id="使用-DBCP2-作为数据源"><a href="#使用-DBCP2-作为数据源" class="headerlink" title="使用 DBCP2 作为数据源"></a>使用 DBCP2 作为数据源</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">&#x27;org.apache.commons:commons-dbcp2:2.1.1&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;</span></span></span><br><span class="line"><span class="string"><span class="tag">            http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="string"><span class="tag">            http://www.springframework.org/schema/beans/spring-beans.xsd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- Data Source using DBCP. --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;dataSource&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.apache.commons.dbcp2.BasicDataSource&quot;</span> <span class="attr">destroy-method</span>=<span class="string">&quot;close&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;driverClassName&quot;</span> <span class="attr">value</span>=<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;url&quot;</span> <span class="attr">value</span>=<span class="string">&quot;jdbc:mysql://localhost:3306/test?useUnicode=true<span class="symbol">&amp;amp;</span>characterEncoding=UTF-8&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">value</span>=<span class="string">&quot;root&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> <span class="attr">value</span>=<span class="string">&quot;root&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- 连接池启动时的初始值 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;initialSize&quot;</span> <span class="attr">value</span>=<span class="string">&quot;10&quot;</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 连接池的最大值 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;maxTotal&quot;</span> <span class="attr">value</span>=<span class="string">&quot;100&quot;</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 最大空闲值.当经过一个高峰时间后，连接池可以慢慢将已经用不到的连接慢慢释放一部分，一直减少到maxIdle为止 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;maxIdle&quot;</span> <span class="attr">value</span>=<span class="string">&quot;50&quot;</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 最小空闲值.当空闲的连接数少于阀值时，连接池就会预申请去一些连接，以免洪峰来时来不及申请 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;minIdle&quot;</span> <span class="attr">value</span>=<span class="string">&quot;5&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;poolPreparedStatements&quot;</span>    <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;maxOpenPreparedStatements&quot;</span> <span class="attr">value</span>=<span class="string">&quot;10&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- 给出一条简单的sql语句进行验证 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;validationQuery&quot;</span> <span class="attr">value</span>=<span class="string">&quot;select NOW()&quot;</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 在取出连接时进行有效验证, 实现如服务器重启后自动重连 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;testOnBorrow&quot;</span>  <span class="attr">value</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;testWhileIdle&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;logAbandoned&quot;</span>  <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;removeAbandonedTimeout&quot;</span> <span class="attr">value</span>=<span class="string">&quot;120&quot;</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 运行判断连接超时任务的时间间隔，单位为毫秒，默认为-1，即不执行任务 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;timeBetweenEvictionRunsMillis&quot;</span> <span class="attr">value</span>=<span class="string">&quot;3600000&quot;</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 连接的超时时间，默认为半小时 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;minEvictableIdleTimeMillis&quot;</span> <span class="attr">value</span>=<span class="string">&quot;3600000&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果 testOnBorrow 为 false，服务器重启后链接都会无效，访问数据库就会报错，为了实现服务器重启后能够自动重连，需要把 testOnBorrow 设置为 true。</p>
+</blockquote>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/spring-web-mybatis-syntax/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Mybatis 语法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/spring-web-logback/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">使用 Logback 记录日志</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

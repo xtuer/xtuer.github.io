@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>CentOS 7 简单使用 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="下载 CentOS访问  https:&#x2F;&#x2F;www.centos.org&#x2F;download&#x2F; 下载 Minimal ISO 即可，其他的虽然功能齐全，但是太大了。 必要工具 yum install zip unzip -y:  12345# 把文件夹 H5 和文件 x.html 压缩成 result.zipzip -r result.zip H5 x.html# 解压 filename.zip, 如">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS 7 简单使用">
+<meta property="og:url" content="http://xtuer.github.io/mac-centos7/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="下载 CentOS访问  https:&#x2F;&#x2F;www.centos.org&#x2F;download&#x2F; 下载 Minimal ISO 即可，其他的虽然功能齐全，但是太大了。 必要工具 yum install zip unzip -y:  12345# 把文件夹 H5 和文件 x.html 压缩成 result.zipzip -r result.zip H5 x.html# 解压 filename.zip, 如">
+<meta property="og:locale">
+<meta property="article:published_time" content="2016-04-07T17:49:37.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.161Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="Mac">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD-CentOS"><span class="toc-text">下载 CentOS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%85%E8%A6%81%E5%B7%A5%E5%85%B7"><span class="toc-text">必要工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Java"><span class="toc-text">安装 Java</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Tomcat"><span class="toc-text">安装 Tomcat</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E6%94%BE%E7%AB%AF%E5%8F%A3"><span class="toc-text">开放端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A6%81%E7%94%A8%E7%AB%AF%E5%8F%A3"><span class="toc-text">禁用端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSH-%E7%99%BB%E9%99%86"><span class="toc-text">SSH 登陆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSH-Key-%E7%99%BB%E9%99%86"><span class="toc-text">SSH + Key 登陆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E6%8D%A2-yum-%E9%95%9C%E5%83%8F"><span class="toc-text">更换 yum 镜像</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7z-%E4%BD%BF%E7%94%A8"><span class="toc-text">7z 使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Nodejs-8"><span class="toc-text">安装 Nodejs 8</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-MongoDB"><span class="toc-text">安装 MongoDB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F"><span class="toc-text">后台运行程序</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-mac-centos7" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/mac-centos7/" class="article-date">
+  	<!-- <time datetime="2016-04-07T17:49:37.000Z" itemprop="datePublished">2016-04-08</time> -->
+    2016-04-08
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      CentOS 7 简单使用
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <h2 id="下载-CentOS"><a href="#下载-CentOS" class="headerlink" title="下载 CentOS"></a>下载 CentOS</h2><p>访问  <a target="_blank" rel="noopener" href="https://www.centos.org/download/">https://www.centos.org/download/</a> 下载 <strong>Minimal ISO</strong> 即可，其他的虽然功能齐全，但是太大了。</p>
+<h2 id="必要工具"><a href="#必要工具" class="headerlink" title="必要工具"></a>必要工具</h2><ul>
+<li><p>yum install zip unzip -y: </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 把文件夹 H5 和文件 x.html 压缩成 result.zip</span><br><span class="line">zip -r result.zip H5 x.html</span><br><span class="line"></span><br><span class="line"># 解压 filename.zip, 如无 -d 则解压到当前目录，有则解压到目录 dest-directory</span><br><span class="line">unzip filename.zip [-d dest-directory]</span><br></pre></td></tr></table></figure></li>
+<li><p>yum install bzip2 (解压 .bz2 文件)</p>
+</li>
+<li><p>yum install net-tools (安装后才能使用 ifconfig 等)</p>
+</li>
+<li><p>yum install psmisc 安装 pstree 查看进程树 (<code>pstree -g</code>)</p>
+</li>
+<li><p>tar 解压 tar.gz: <code>tar xf filename.tar.gz</code> </p>
+</li>
+<li><p>安装 tree: <code>yum install tree</code></p>
+</li>
+<li><p>安装 7z: <code>yum install -y p7zip</code>，如果不能用 yum 安装，可以自己编译</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget http://nchc.dl.sourceforge.net/project/p7zip/p7zip/9.20.1/p7zip_9.20.1_src_all.tar.bz2</span><br><span class="line">tar -jxvf p7zip_9.20.1_src_all.tar.bz2</span><br><span class="line">cd p7zip_9.20.1</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure></li>
+<li><p>安装 VIM (默认只安装了 VI，不能高亮搜索，不能语法高亮等)</p>
+<ul>
+<li>查看本机是否已经安装 VIM: <code>rpm -qa | grep vim</code><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim-minimal-7.4.629-5.el6.x86_64</span><br><span class="line">vim-enhanced-7.4.629-5.el6_8.1.x86_64</span><br><span class="line">vim-common-7.4.629-5.el6_8.1.x86_64</span><br></pre></td></tr></table></figure>
+如果安装了则会显示上面 3 个包，缺少了的需要进行安装:<ul>
+<li>缺少 vim-common: <code>yum -y install vim-common</code></li>
+<li>缺少 vim-minimal: <code>yum -y install vim-minimal</code></li>
+<li>缺少 vim-enhanced: <code>yum -y install vim-enhanced</code></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>查看 yum 安装的软件的文件都放到了哪些地方: <code>rpm -ql nodejs</code>。</p>
+</blockquote>
+<span id="more"></span></li>
+</ul>
+<h2 id="安装-Java"><a href="#安装-Java" class="headerlink" title="安装 Java"></a>安装 Java</h2><ul>
+<li><p>下载 Linux 64  位版本的 <a target="_blank" rel="noopener" href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">Java 8</a></p>
+<blockquote>
+<p>查看系统的信息 uname -a，可以看到 CentOS 7 是 64 位的</p>
+<p>Linux bogon 3.10.0-514.el7.x86_64 #1 SMP Tue Nov 22 16:42:41 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux</p>
+</blockquote>
+</li>
+<li><p>解压到 <strong>/usr/local</strong> 目录</p>
+</li>
+<li><p>修改 <strong>.bash_profile</strong> 文件(在用户目录下)，添加 Java 到环境变量</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=&quot;/usr/local/jdk1.8.0_144&quot;</span><br><span class="line">export PATH=&quot;$PATH:$JAVA_HOME/bin&quot;</span><br></pre></td></tr></table></figure></li>
+<li><p>使修改的 <strong>.bash_profile</strong> 生效: <code>source .bash_profile</code></p>
+</li>
+<li><p>执行 <code>java -version</code> 正常输出则安装好了</p>
+</li>
+</ul>
+<h2 id="安装-Tomcat"><a href="#安装-Tomcat" class="headerlink" title="安装 Tomcat"></a>安装 Tomcat</h2><ul>
+<li>下载 <a target="_blank" rel="noopener" href="https://tomcat.apache.org/download-80.cgi">Tomcat 8</a></li>
+<li>解压到 <strong>/usr/local</strong> 目录</li>
+<li>运行 Tomcat: <code>&lt;tomcat&gt;/bin/startup.sh</code></li>
+<li>wget 访问 Tomcat 首页: <code>wget http://127.0.0.1:8080</code> </li>
+<li>其他机器访问 Tomcat 首页，拒绝访问，因为 CentOS 7 的端口 8080 默认是禁用的，需要开放此端口</li>
+</ul>
+<h2 id="开放端口"><a href="#开放端口" class="headerlink" title="开放端口"></a>开放端口</h2><p>CentOS 7 使用 firewalld 控制端口，不再使用 iptables，默认 8080 端口等都是禁用的。</p>
+<ul>
+<li><p>开启端口: <code>firewall-cmd --zone=public --add-port=8080/tcp --permanent</code></p>
+<blockquote>
+<p>–zone #作用域<br>–add-port=8080/tcp  #添加端口，格式为：端口/通讯协议<br>–permanent  #永久生效，没有此参数重启后失效</p>
+</blockquote>
+</li>
+<li><p>重启防火墙: <code>firewall-cmd --reload</code></p>
+</li>
+<li><p>查看开放的端口: <code>firewall-cmd --zone=public --list-ports</code></p>
+</li>
+<li><p>正在监听的端口: <code>netstat -an | grep LISTEN</code> </p>
+</li>
+</ul>
+<p>参考: <a target="_blank" rel="noopener" href="http://blog.csdn.net/spxfzc/article/details/39645133">CentOS 7 firewalld 使用简介</a></p>
+<h2 id="禁用端口"><a href="#禁用端口" class="headerlink" title="禁用端口"></a>禁用端口</h2><ul>
+<li>禁用端口: <code>firewall-cmd --zone=public --remove-port=8080/tcp --permanent</code></li>
+<li>重启防火墙: <code>firewall-cmd --reload</code></li>
+</ul>
+<h2 id="SSH-登陆"><a href="#SSH-登陆" class="headerlink" title="SSH 登陆"></a>SSH 登陆</h2><p><code>ssh root@192.168.82.130</code>，然后输入密码。</p>
+<blockquote>
+<p>ssh username@host</p>
+</blockquote>
+<h2 id="SSH-Key-登陆"><a href="#SSH-Key-登陆" class="headerlink" title="SSH + Key 登陆"></a>SSH + Key 登陆</h2><ul>
+<li>客户端: <ol>
+<li>执行 <code>ssh-keygen -t rsa -C &quot;your_email@example.com&quot;</code></li>
+<li>在用户目录的 <strong>.ssh</strong> 目录下找到生成的 <strong>id_rsa</strong> 和 <strong>id_rsa.pub</strong></li>
+<li>复制 <strong>id_rsa.pub</strong> 到 CentOS 的服务器上</li>
+</ol>
+</li>
+<li>服务器:<ol>
+<li>用户的 <strong>id_rsa.pub</strong> 放到 <strong>/root</strong> 目录</li>
+<li><code>mkdir /root/.ssh</code></li>
+<li><code>cd /root/.ssh</code></li>
+<li><code>cat /root/id_rsa.pub &gt;&gt; /root/.ssh/authorized_keys</code></li>
+</ol>
+</li>
+<li>客户端: <code>ssh username@host</code>，不需要密码，直接能访问了</li>
+</ul>
+<h2 id="更换-yum-镜像"><a href="#更换-yum-镜像" class="headerlink" title="更换 yum 镜像"></a>更换 yum 镜像</h2><p>国内访问 yum 默认镜像太慢，可以更换为比较稳定的阿里云镜像。</p>
+<ol>
+<li><p>备份:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</span><br></pre></td></tr></table></figure></li>
+<li><p>下载新的 CentOS-Base.repo 到 /etc/yum.repos.d/</p>
+<ul>
+<li><p>CentOS 6</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-6.repo</span><br></pre></td></tr></table></figure></li>
+<li><p>CentOS 7</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>运行 <code>yum makecache</code> 生成缓存</p>
+</li>
+</ol>
+<h2 id="7z-使用"><a href="#7z-使用" class="headerlink" title="7z 使用"></a>7z 使用</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># 解压 filename.7z 到当前目录</span><br><span class="line">7za x filename.7z</span><br><span class="line"></span><br><span class="line"># 解压 filename.7z 到 here 目录，注意 -o 和 here 之间没有空格</span><br><span class="line">7za x filename.7z -ohere</span><br><span class="line"></span><br><span class="line">命令: 7za &#123;a|d|l|e|u|x&#125; 压缩包文件名 &#123;文件列表或目录，可选&#125;</span><br><span class="line">x: 以完整路径解压</span><br><span class="line">a: 向压缩包里添加文件或创建压缩包，如</span><br><span class="line">   向 001.7z 添加 001.jpg，执行：7za a 001.7z 001.jpg</span><br><span class="line">   将 001 目录打包，执行：7za a 001.7z 001</span><br><span class="line">d: 删除压缩包里的文件，如将 001.7z 里的 001.jpg 删除，执行：7za d 001.7z 001.jpg</span><br><span class="line">l: 列出压缩包里的文件，如列出 001.7z 里的文件，执行：7za l 001.7z</span><br><span class="line">e: 解压到当前目录，目录结构会被破坏，如 001.rar 内有如下目录及文件 123/456/789.html，</span><br><span class="line">   执行：7za e 001.rar，目录 123 和 456 及文件 789.html 都会存放在当前目录下。</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装-Nodejs-8"><a href="#安装-Nodejs-8" class="headerlink" title="安装 Nodejs 8"></a>安装 Nodejs 8</h2><p>直接 <code>yum install nodejs</code> 安装的是 Nodejs 6，如果想要安装 Nodejs 8、Nodejs 9 则需要看<a target="_blank" rel="noopener" href="https://www.hugeserver.com/kb/install-nodejs8-centos7-debian8-ubuntu16/">官方文档</a>，安装步骤如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curl -sL https://rpm.nodesource.com/setup_8.x | bash -</span><br><span class="line">yum install nodejs</span><br><span class="line"></span><br><span class="line"># 安装后查看版本</span><br><span class="line">node -v</span><br></pre></td></tr></table></figure>
+
+<p>使用淘宝 NPM 镜像，安装时使用 cnpm 代替 npm:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装-MongoDB"><a href="#安装-MongoDB" class="headerlink" title="安装 MongoDB"></a>安装 MongoDB</h2><p>详细内容请参考<a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-red-hat/#configure-the-package-management-system-yum">官方文档</a>，安装步骤如下:</p>
+<ol>
+<li><p>指定 MongoDB 的原: 创建文件 <code>/etc/yum.repos.d/mongodb-org-4.0.repo</code>，内容如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[mongodb-org-4.0]</span><br><span class="line">name=MongoDB Repository</span><br><span class="line">baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.0/x86_64/</span><br><span class="line">gpgcheck=1</span><br><span class="line">enabled=1</span><br><span class="line">gpgkey=https://www.mongodb.org/static/pgp/server-4.0.asc</span><br></pre></td></tr></table></figure></li>
+<li><p>安装 MongoDB: <code>yum install -y mongodb-org</code></p>
+</li>
+<li><p>启动 MongoDB: <code>systemctl start mongod</code></p>
+<p>或者 <code>mongod --auth --config /etc/mongod.conf</code></p>
+</li>
+<li><p>关闭 MongoDB: <code>systemctl stop mongod</code></p>
+</li>
+<li><p>访问 MongoDB: <code>mongo --host 127.0.0.1:27017</code></p>
+</li>
+</ol>
+<p>MongoDB 默认使用端口 27017，配置在 <code>/etc/mongod.conf</code>。</p>
+<h2 id="后台运行程序"><a href="#后台运行程序" class="headerlink" title="后台运行程序"></a>后台运行程序</h2><p>例如使用 ssh 远程用 node 运行的程序不是 deamon 进程 (systemctl, service 运行的是)，当前 ssh 窗口关闭后程序就会退出，可以使用 <code>nohup node app.js &amp;</code> 解决这个问题，能使命令永久的在后台执行:</p>
+<ul>
+<li><code>nohup</code> 不挂断地运行命令</li>
+<li><code>&amp;</code> 指在后台运行，但关掉 ssh 窗口后程序就会退出</li>
+</ul>
+<p>nohup 执行后，会产生日志文件:</p>
+<ul>
+<li><code>nohup node app.js &amp;</code>: 在运行命令的目录产生日志文件 nohup.out</li>
+<li><code>nohup node app.js &gt;&gt; /temp/logs/my-app.log 2&gt;&amp;1 &amp;</code>: 日志被重定向到 <code>my-app.log</code> 文件中 (推荐使用这种方式)</li>
+<li><code>nohup node app.js &gt; /dev/null 2&gt;&amp;1 &amp;</code>: 不生成日志文件</li>
+</ul>
+<blockquote>
+<p><strong>注意:</strong> 为什么 <code>nohup &amp;</code> 启动的进程在终端退出之后会退出？</p>
+<p>因为在 nohup 执行之后，该终端必须以命令 <code>exit</code> 正常退出，若直接关闭 ssh 窗口退出，则有些主机会认为你异常退出而关闭你的进程。</p>
+</blockquote>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/mac-homebrew/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Mac Homebrew
+        
+      </div>
+    </a>
+  
+  
+    <a href="/mac-tips/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Mac Tips</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

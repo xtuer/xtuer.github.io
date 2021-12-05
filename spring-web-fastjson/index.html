@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Fastjson 简单使用 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Fastjson API 入口类是 com.alibaba.fastjson.JSON，常用的序列化操作都可以在 JSON 类上的静态方法直接完成。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Fastjson 简单使用">
+<meta property="og:url" content="http://xtuer.github.io/spring-web-fastjson/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="Fastjson API 入口类是 com.alibaba.fastjson.JSON，常用的序列化操作都可以在 JSON 类上的静态方法直接完成。">
+<meta property="og:locale">
+<meta property="article:published_time" content="2016-10-16T00:09:09.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.184Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="Util">
+<meta property="article:tag" content="SpringWeb">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Gradle-%E4%BE%9D%E8%B5%96"><span class="toc-text">Gradle 依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81-API"><span class="toc-text">主要 API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TypeReference"><span class="toc-text">TypeReference</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95"><span class="toc-text">测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8-API"><span class="toc-text">常用 API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-spring-web-fastjson" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/spring-web-fastjson/" class="article-date">
+  	<!-- <time datetime="2016-10-16T00:09:09.000Z" itemprop="datePublished">2016-10-16</time> -->
+    2016-10-16
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Fastjson 简单使用
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringWeb/" rel="tag">SpringWeb</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Util/" rel="tag">Util</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Fastjson API 入口类是 com.alibaba.fastjson.JSON，常用的序列化操作都可以在 JSON 类上的静态方法直接完成。</p>
+<span id="more"></span>
+
+<h2 id="Gradle-依赖"><a href="#Gradle-依赖" class="headerlink" title="Gradle 依赖"></a>Gradle 依赖</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">&#x27;com.alibaba:fastjson:1.2.41&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="主要-API"><a href="#主要-API" class="headerlink" title="主要 API"></a>主要 API</h2><p>把对象转换为 JSON 字符串</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">toJSONString</span><span class="params">(Object object)</span> <span class="comment">// 转为压缩格式的，去掉多余的空格，占用空间少</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">toJSONString</span><span class="params">(Object object, <span class="keyword">boolean</span> prettyFormat)</span> <span class="comment">// prettyFormat 为 true 转为格式化后的，可读性好</span></span></span><br></pre></td></tr></table></figure>
+
+<p>把 JSON 字符串转换为对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">T <span class="title">parseObject</span><span class="params">(String text, Class&lt;T&gt; clazz)</span></span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">T <span class="title">parseObject</span><span class="params">(String text, TypeReference&lt;T&gt; type, Feature... features)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>转为字符串时忽略某一个属性，使用 ignores</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@JSONType(ignores = &#123;&quot;children&quot;&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span> </span>&#123;</span><br><span class="line">    Long id;</span><br><span class="line">    Long parentId;</span><br><span class="line"></span><br><span class="line">    List&lt;Node&gt; children = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>前端 JS 不支持 Long，可以把 Long 转换为 String 后返回给前端</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> 在后台将这个Long类型的字段转换成String类型的，风险比较大</span><br><span class="line"><span class="number">2.</span> 使用 Fastjson 的提供的注解: </span><br><span class="line">   <span class="meta">@JSONField(serializeUsing = ToStringSerializer.class)</span></span><br><span class="line">   <span class="keyword">private</span> Long id</span><br><span class="line"><span class="number">3.</span> 使用浏览器兼容模式，全局配置 BrowserCompatible 的 serializerFeatures，例如 SpringMVC 里</span><br><span class="line">   &lt;property name=<span class="string">&quot;fastJsonConfig&quot;</span>&gt;</span><br><span class="line">       &lt;bean <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;com.alibaba.fastjson.support.config.FastJsonConfig&quot;</span>&gt;</span><br><span class="line">           &lt;property name=<span class="string">&quot;serializerFeatures&quot;</span>&gt;</span><br><span class="line">               &lt;list&gt;</span><br><span class="line">                   &lt;value&gt;BrowserCompatible&lt;/value&gt; &lt;!-- 解决 JS 不支持 Long 类型: Long 输出为字符串 --&gt;</span><br><span class="line">               &lt;/list&gt;</span><br><span class="line">           &lt;/property&gt;</span><br><span class="line">       &lt;/bean&gt;</span><br><span class="line">   &lt;/property&gt;</span><br><span class="line">   注意: 这种方式中文会转为 UTF-<span class="number">8</span> 的编码，如 &#123;<span class="string">&quot;id&quot;</span>:<span class="number">2</span>,<span class="string">&quot;info&quot;</span>:<span class="string">&quot;\u6D77\u9F99&quot;</span>&#125;，不过浏览器里能自动识别</span><br><span class="line"><span class="number">4.</span> 自定义 FastJsonConfig，只把 Long 转为字符串，中文进行 UTF-<span class="number">8</span> 编码，比方法 <span class="number">3</span> 好一些，请参考 http:<span class="comment">//sparkgis.com/java/2018/02/springmvc使用fastjson并解决长数值精度丢失问题-原-springmvc使用fastjson并/</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="TypeReference"><a href="#TypeReference" class="headerlink" title="TypeReference"></a>TypeReference</h2><p>什么时候用 <code>TypeReference</code> 呢？使用 <code>parseObject()</code> 转换的结果使用范型时。</p>
+<blockquote>
+<p><strong>public class TypeReference<T> extends Object</strong>  </p>
+<p>Represents a generic type T. Java doesn’t yet provide a way to represent generic types(例如 <code>List&lt;String&gt;.class</code> 是不存在的), so this class does. Forces clients to create a subclass of this class which enables retrieval the type information even at runtime.<br>For example, to create a type literal for <code>List&lt;String&gt;</code>, you can create an empty anonymous inner class:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<code>TypeReference&lt;List&lt;String&gt;&gt; list = new TypeReference&lt;List&lt;String&gt;&gt;() &#123;&#125;;</code></p>
+<p>This syntax cannot be used to create type literals that have wildcard parameters, such as <code>Class&lt;?&gt;</code> or <code>List&lt;? extends CharSequence&gt;</code>.</p>
+</blockquote>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.alibaba.fastjson.JSON;</span><br><span class="line"><span class="keyword">import</span> com.alibaba.fastjson.TypeReference;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestFastJson</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Box box = <span class="keyword">new</span> Box(<span class="string">&quot;Foo&quot;</span>);</span><br><span class="line"></span><br><span class="line">        String json = JSON.toJSONString(box);</span><br><span class="line">        System.out.println(json); <span class="comment">// &#123;&quot;data&quot;:&quot;Foo&quot;&#125;</span></span><br><span class="line"></span><br><span class="line">        box = JSON.parseObject(json, Box.class);</span><br><span class="line">        System.out.println(box); <span class="comment">// Box&#123;data=Foo&#125;</span></span><br><span class="line"></span><br><span class="line">        List&lt;Box&gt; list = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        list.add(<span class="keyword">new</span> Box(<span class="string">&quot;Alice&quot;</span>));</span><br><span class="line">        list.add(<span class="keyword">new</span> Box(<span class="string">&quot;John&quot;</span>));</span><br><span class="line">        json = JSON.toJSONString(list);</span><br><span class="line">        System.out.println(json); <span class="comment">// [&#123;&quot;data&quot;:&quot;Alice&quot;&#125;,&#123;&quot;data&quot;:&quot;John&quot;&#125;]</span></span><br><span class="line"></span><br><span class="line">        list = JSON.parseObject(json, List.class);</span><br><span class="line">        System.out.println(list); <span class="comment">// [&#123;&quot;data&quot;:&quot;Alice&quot;&#125;, &#123;&quot;data&quot;:&quot;John&quot;&#125;]，可以看到，输出的不是 Box.toString() 输出的内容，说明 list 中存储的不是 Box</span></span><br><span class="line">        <span class="comment">// System.out.println(list.get(0).getClass()); // Error: ClassCastException: com.alibaba.fastjson.JSONObject cannot be cast to Box</span></span><br><span class="line"></span><br><span class="line">        list = JSON.parseObject(json, <span class="keyword">new</span> TypeReference&lt;List&lt;Box&gt;&gt;() &#123;&#125;); <span class="comment">// 使用 parseObject() 转换的结果使用范型时使用 TypeReference</span></span><br><span class="line">        System.out.println(list.get(<span class="number">0</span>).getClass()); <span class="comment">// class Box</span></span><br><span class="line">        System.out.println(list); <span class="comment">// [Box&#123;data=Alice&#125;, Box&#123;data=John&#125;]</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Box</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String data;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Box</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Box</span><span class="params">(String data)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.data = data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getData</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setData</span><span class="params">(String data)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.data = data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> String.format(<span class="string">&quot;Box&#123;data=%s&#125;&quot;</span>, data);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="常用-API"><a href="#常用-API" class="headerlink" title="常用 API"></a>常用 API</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 把 JSON 文本 parse 为 JSONObject 或者 JSONArray </span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Object <span class="title">parse</span><span class="params">(String text)</span></span>; </span><br><span class="line"></span><br><span class="line"><span class="comment">// 把 JSON 文本 parse 成 JSONObject  </span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> JSONObject <span class="title">parseObject</span><span class="params">(String text)</span>；   </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">// 把 JSON 文本 parse 为 JavaBean</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> &lt;T&gt; T <span class="title">parseObject</span><span class="params">(String text, Class&lt;T&gt; clazz)</span></span>; </span><br><span class="line"></span><br><span class="line"><span class="comment">// 把 JSON 文本 parse 成 JSONArray </span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> JSONArray <span class="title">parseArray</span><span class="params">(String text)</span></span>;  </span><br><span class="line"></span><br><span class="line"><span class="comment">// 把 JSON 文本 parse 成 JavaBean 集合 </span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> &lt;T&gt; <span class="function">List&lt;T&gt; <span class="title">parseArray</span><span class="params">(String text, Class&lt;T&gt; clazz)</span></span>; </span><br><span class="line"></span><br><span class="line"><span class="comment">// 将 JavaBean 序列化为 JSON 文本 </span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String <span class="title">toJSONString</span><span class="params">(Object object)</span></span>; </span><br><span class="line"></span><br><span class="line"><span class="comment">// 将 JavaBean 序列化为带格式的 JSON 文本 </span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String <span class="title">toJSONString</span><span class="params">(Object object, <span class="keyword">boolean</span> prettyFormat)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将 JavaBean 转换为 JSONObject 或者 JSONArray</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Object <span class="title">toJSON</span><span class="params">(Object javaObject)</span></span>; </span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>SerializeWriter</code>: 相当于 <code>StringBuffer</code><br><code>JSONArray</code>: 相当于 <code>List&lt;Object&gt;</code><br><code>JSONObject</code>: 相当于 <code>Map&lt;String, Object&gt;</code></p>
+</blockquote>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/Alibaba/fastjson/wiki/%E9%A6%96%E9%A1%B5">Wiki</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/alibaba/fastjson/wiki/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98">常见问题</a>: 例如怎么处理日期</li>
+</ul>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/fe-webuploader/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Webuploader 上传文件
+        
+      </div>
+    </a>
+  
+  
+    <a href="/spring-web-redis/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Redis 集成</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

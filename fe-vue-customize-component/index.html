@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Vue 自定义组件 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Vue 提供了自定义组件的功能，可以定义全局组件，也可以定义局部组件：  全局组件: 使用 Vue.component() 来注册 局部组件: 使用 Vue 对象的 components 属性来注册  下面先介绍全局组件的自定义，然后再简要的介绍局部组件的自定义。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue 自定义组件">
+<meta property="og:url" content="http://xtuer.github.io/fe-vue-customize-component/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="Vue 提供了自定义组件的功能，可以定义全局组件，也可以定义局部组件：  全局组件: 使用 Vue.component() 来注册 局部组件: 使用 Vue 对象的 components 属性来注册  下面先介绍全局组件的自定义，然后再简要的介绍局部组件的自定义。">
+<meta property="og:locale">
+<meta property="article:published_time" content="2017-07-24T09:31:52.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.151Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="FE">
+<meta property="article:tag" content="Vue">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E7%BB%84%E4%BB%B6"><span class="toc-text">最简单的组件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE%E7%BB%99%E7%BB%84%E4%BB%B6"><span class="toc-text">传递数据给组件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E5%85%84%E5%BC%9F%E7%BB%84%E4%BB%B6%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="toc-text">访问兄弟组件的数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-SLOT"><span class="toc-text">使用 SLOT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E5%8F%91%E5%B0%84%E4%BF%A1%E5%8F%B7"><span class="toc-text">组件发射信号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%88%B6%E7%BB%84%E4%BB%B6%E4%BD%BF%E7%94%A8-ref-%E8%AE%BF%E9%97%AE%E5%AD%90%E7%BB%84%E4%BB%B6%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="toc-text">父组件使用 ref 访问子组件的属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bus-%E8%BF%9B%E8%A1%8C%E7%BB%84%E4%BB%B6%E9%97%B4%E9%80%9A%E8%AE%AF"><span class="toc-text">Bus 进行组件间通讯</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E5%8C%96-template-%E6%A8%A1%E7%89%88"><span class="toc-text">简化 template 模版</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B1%80%E9%83%A8%E7%BB%84%E4%BB%B6"><span class="toc-text">自定义局部组件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-v-model-%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A"><span class="toc-text">使用 v-model 双向绑定</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-fe-vue-customize-component" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/fe-vue-customize-component/" class="article-date">
+  	<!-- <time datetime="2017-07-24T09:31:52.000Z" itemprop="datePublished">2017-07-24</time> -->
+    2017-07-24
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Vue 自定义组件
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Vue 提供了自定义组件的功能，可以定义全局组件，也可以定义局部组件：</p>
+<ul>
+<li>全局组件: 使用 <strong>Vue.component()</strong> 来注册</li>
+<li>局部组件: 使用 Vue 对象的 <strong>components</strong> 属性来注册</li>
+</ul>
+<p>下面先介绍全局组件的自定义，然后再简要的介绍局部组件的自定义。</p>
+<span id="more"></span>
+
+<h2 id="最简单的组件"><a href="#最简单的组件" class="headerlink" title="最简单的组件"></a>最简单的组件</h2><p>定义:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(&#x27;com-name&#x27;, &#123;</span><br><span class="line">    template: &#x27;<span class="tag">&lt;<span class="name">span</span>&gt;</span>你好<span class="tag">&lt;/<span class="name">span</span>&gt;</span>&#x27;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>使用:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">com-name</span>&gt;</span><span class="tag">&lt;/<span class="name">com-name</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>组件的自定义和使用都非常简单，下面请看完整的可执行代码:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://cdn.staticfile.org/vue/2.0.3/vue.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app-one&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">com-name</span>&gt;</span><span class="tag">&lt;/<span class="name">com-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app-two&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">com-name</span>&gt;</span><span class="tag">&lt;/<span class="name">com-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// 自定义全局组件</span></span></span><br><span class="line"><span class="javascript">        <span class="comment">// com-name 为组件的名字</span></span></span><br><span class="line"><span class="javascript">        <span class="comment">// template 为组件的模版</span></span></span><br><span class="line"><span class="javascript">        Vue.component(<span class="string">&#x27;com-name&#x27;</span>, &#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">template</span>: <span class="string">&#x27;&lt;span&gt;你好&lt;/span&gt;&#x27;</span></span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">el</span>: <span class="string">&#x27;#app-one&#x27;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="attr">data</span>: &#123;&#125;</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript">        <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">el</span>: <span class="string">&#x27;#app-two&#x27;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="attr">data</span>: &#123;&#125;</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>输出:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app-one&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>你好<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app-two&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>你好<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注: 下面为了描述简单，定义术语 parent 和 children:</p>
+<ul>
+<li><code>app-one</code>、<code>app-two</code> 称为 parent</li>
+<li><code>app-one</code>、<code>app-two</code> 调用的自定义组件 <code>com-name</code> 称为它们的 child</li>
+</ul>
+</blockquote>
+<h2 id="传递数据给组件"><a href="#传递数据给组件" class="headerlink" title="传递数据给组件"></a>传递数据给组件</h2><p>Parent 使用 <strong>props</strong> 给 children 组件传递数据:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app-one&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">x-button</span> <span class="attr">:text</span>=<span class="string">&quot;&#x27;No&#x27;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">x-button</span>&gt;</span> <span class="comment">&lt;!-- 直接使用字符串 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">x-button</span> <span class="attr">:text</span>=<span class="string">&quot;buttonText&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">x-button</span>&gt;</span> <span class="comment">&lt;!-- 绑定 data --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">        Vue.component(<span class="string">&#x27;x-button&#x27;</span>, &#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">props</span>: [<span class="string">&#x27;text&#x27;</span>],</span></span><br><span class="line"><span class="javascript">            <span class="attr">template</span>: <span class="string">&#x27;&lt;button&gt;&#123;&#123;text&#125;&#125;&lt;/button&gt;&#x27;</span></span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">el</span>: <span class="string">&#x27;#app-one&#x27;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="attr">data</span>: &#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">buttonText</span>: <span class="string">&#x27;按钮&#x27;</span></span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>buttonText 的值改变后使用它的 x-button 的属性 text 的值也会变化。</p>
+</blockquote>
+<p>组件中的 props 除了使用字符串数组外，还可以使用对象的方式:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">props: &#123;</span><br><span class="line">    <span class="attr">html</span>: <span class="built_in">String</span>,</span><br><span class="line">    <span class="attr">attachments</span>: <span class="built_in">Array</span>,</span><br><span class="line">    <span class="attr">closable</span>: &#123; <span class="attr">type</span>: <span class="built_in">Boolean</span>, <span class="attr">default</span>: <span class="literal">false</span> &#125; <span class="comment">// 默认为不可关闭</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="访问兄弟组件的数据"><a href="#访问兄弟组件的数据" class="headerlink" title="访问兄弟组件的数据"></a>访问兄弟组件的数据</h2><p>在父组件中给兄弟组件定义一个 ref，子组件可以通过父组件的 ref 访问兄弟组件的数据:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">Com1</span> <span class="attr">ref</span>=<span class="string">&quot;com1&quot;</span> /&gt;</span></span></span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">Com2</span> /&gt;</span></span></span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在 Com2 的函数中可以使用 ref 访问 Com1 的数据:</span></span><br><span class="line"><span class="built_in">this</span>.$parent.$refs.com1.count</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用-SLOT"><a href="#使用-SLOT" class="headerlink" title="使用 SLOT"></a>使用 SLOT</h2><p>上面使用 props 来给组件 x-button 传递按钮的文本，能不能这么 <code>&lt;x-button&gt;按钮&lt;/x-button&gt;</code> 更直观的创建按钮呢？可以，使用 <strong>SLOT</strong> 就可以了：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app-one&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">x-button</span>&gt;</span>按钮<span class="tag">&lt;/<span class="name">x-button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">        Vue.component(<span class="string">&#x27;x-button&#x27;</span>, &#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">template</span>: <span class="string">&#x27;&lt;button&gt;&lt;slot&gt;&lt;/slot&gt;&lt;/button&gt;&#x27;</span></span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">el</span>: <span class="string">&#x27;#app-one&#x27;</span></span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>输出:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span>&gt;</span>按钮<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>能不能使用多个 SLOT 呢？可以，有多个 SLOT 时，需要给每个 SLOT 一个名字:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app-one&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">x-button</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">span</span> <span class="attr">slot</span>=<span class="string">&quot;first&quot;</span>&gt;</span>前缀<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">span</span> <span class="attr">slot</span>=<span class="string">&quot;second&quot;</span>&gt;</span>后缀<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">x-button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="handlebars"><span class="xml"></span></span></span><br><span class="line"><span class="xml"><span class="handlebars">        Vue.component(&#x27;x-button&#x27;, &#123;</span></span></span><br><span class="line"><span class="xml"><span class="handlebars">            template: &#x27;<span class="tag">&lt;<span class="name">button</span>&gt;</span><span class="tag">&lt;<span class="name">slot</span> <span class="attr">name</span>=<span class="string">&quot;first&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">slot</span>&gt;</span> -按钮- <span class="tag">&lt;<span class="name">slot</span> <span class="attr">name</span>=<span class="string">&quot;second&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">slot</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span>&#x27;</span></span></span><br><span class="line"><span class="xml"><span class="handlebars">        &#125;);</span></span></span><br><span class="line"><span class="xml"><span class="handlebars"></span></span></span><br><span class="line"><span class="xml"><span class="handlebars">        new Vue(&#123;</span></span></span><br><span class="line"><span class="xml"><span class="handlebars">            el: &#x27;#app-one&#x27;,</span></span></span><br><span class="line"><span class="xml"><span class="handlebars">            data: &#123;</span></span></span><br><span class="line"><span class="xml"><span class="handlebars">                buttonText: &#x27;按钮&#x27;</span></span></span><br><span class="line"><span class="xml"><span class="handlebars">            &#125;</span></span></span><br><span class="line"><span class="xml"><span class="handlebars">        &#125;);</span></span></span><br><span class="line"><span class="xml"><span class="handlebars">    </span></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>输出:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>前缀<span class="tag">&lt;/<span class="name">span</span>&gt;</span> -按钮- <span class="tag">&lt;<span class="name">span</span>&gt;</span>后缀<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="组件发射信号"><a href="#组件发射信号" class="headerlink" title="组件发射信号"></a>组件发射信号</h2><p>Parent 使用 <code>props</code> 和 <code>slot</code> 给 children 组件传递数据，children 使用 <code>emit</code> 把数据响应给 parent:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app-one&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">x-button</span> @<span class="attr">increased</span>=<span class="string">&quot;valueChanged&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">x-button</span>&gt;</span> - &#123;&#123;value&#125;&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// 点击按钮 count 加 1，让后发射信号，参数为当前的 count 值</span></span></span><br><span class="line"><span class="javascript">        <span class="comment">// parent 监听到 increased 信号，然后调用 valueChanged 函数</span></span></span><br><span class="line"><span class="javascript">        Vue.component(<span class="string">&#x27;x-button&#x27;</span>, &#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">template</span>: <span class="string">&#x27;&lt;button @click=&quot;increase&quot;&gt;Count - &#123;&#123;count&#125;&#125;&lt;/button&gt;&#x27;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="attr">data</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="javascript">                    <span class="attr">count</span>: <span class="number">0</span></span></span><br><span class="line"><span class="javascript">                &#125;;</span></span><br><span class="line"><span class="javascript">            &#125;,</span></span><br><span class="line"><span class="javascript">            <span class="attr">methods</span>: &#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">increase</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                    <span class="built_in">this</span>.count += <span class="number">1</span>;</span></span><br><span class="line"><span class="javascript">                    <span class="built_in">this</span>.$emit(<span class="string">&#x27;increased&#x27;</span>, <span class="built_in">this</span>.count); <span class="comment">// 发射 increased 信号，参数为 count</span></span></span><br><span class="line"><span class="javascript">                &#125;</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">el</span>: <span class="string">&#x27;#app-one&#x27;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="attr">data</span>: &#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">value</span>: <span class="number">0</span></span></span><br><span class="line"><span class="javascript">            &#125;,</span></span><br><span class="line"><span class="javascript">            <span class="attr">methods</span>: &#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">valueChanged</span>: <span class="function"><span class="keyword">function</span>(<span class="params">c</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                    <span class="built_in">this</span>.value = c;</span></span><br><span class="line"><span class="javascript">                &#125;</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意:</p>
+<ul>
+<li>组件的 data 必须是一个函数，返回一个 JSON 对象</li>
+<li>组件发射信号使用 <code>this.$emit</code> 把数据传给 parent</li>
+<li>信号的名字不能使用驼峰规则命名，例如 <code>valueChanged</code> 是无效的</li>
+<li>信号名字的单词间可以用 <code>-</code> 分割，例如 <code>value-changed</code> 是合法的</li>
+</ul>
+</blockquote>
+<h2 id="父组件使用-ref-访问子组件的属性"><a href="#父组件使用-ref-访问子组件的属性" class="headerlink" title="父组件使用 ref 访问子组件的属性"></a>父组件使用 ref 访问子组件的属性</h2><p>在 parent 中给 child 定义一个 ref 属性，然后在 parent 你就可以通过 ref 直接访问 child 中 data 和 computed 定义的属性了：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app-one&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">x-button</span> <span class="attr">ref</span>=<span class="string">&quot;button&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">x-button</span>&gt;</span> - &#123;&#123;value&#125;&#125; <span class="comment">&lt;!-- [1] 这里 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Button</span> @<span class="attr">click</span>=<span class="string">&quot;refChild&quot;</span>&gt;</span>Button<span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// 点击按钮 count 加 1，让后发射信号，参数为当前的 count 值</span></span></span><br><span class="line"><span class="javascript">        <span class="comment">// parent 监听到 increased 信号，然后调用 valueChanged 函数</span></span></span><br><span class="line"><span class="javascript">        Vue.component(<span class="string">&#x27;x-button&#x27;</span>, &#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">template</span>: <span class="string">&#x27;&lt;button @click=&quot;increase&quot;&gt;Count - &#123;&#123;count&#125;&#125;&lt;/button&gt;&#x27;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="attr">data</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="javascript">                    <span class="attr">count</span>: <span class="number">0</span></span></span><br><span class="line"><span class="javascript">                &#125;;</span></span><br><span class="line"><span class="javascript">            &#125;,</span></span><br><span class="line"><span class="javascript">            <span class="attr">methods</span>: &#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">increase</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                    <span class="built_in">this</span>.count += <span class="number">1</span>;</span></span><br><span class="line"><span class="javascript">                &#125;</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">el</span>: <span class="string">&#x27;#app-one&#x27;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="attr">data</span>: &#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">value</span>: <span class="number">0</span></span></span><br><span class="line"><span class="javascript">            &#125;,</span></span><br><span class="line"><span class="javascript">            <span class="attr">methods</span>: &#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">refChild</span>: <span class="function"><span class="keyword">function</span>(<span class="params">c</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                    <span class="built_in">console</span>.log(<span class="built_in">this</span>.$refs[<span class="string">&#x27;button&#x27;</span>].count); <span class="comment">// &lt;!-- [2] 这里 --&gt;</span></span></span><br><span class="line"><span class="javascript">                &#125;</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Bus-进行组件间通讯"><a href="#Bus-进行组件间通讯" class="headerlink" title="Bus 进行组件间通讯"></a>Bus 进行组件间通讯</h2><p>组件之间通讯还可以使用 Bus，其实 Bus 就是一个 Vue 的对象 (<code>var Bus = new Vue()</code>)，使用 emit 发射信号和使用 on 注册信号回调函数，典型的观察者模式应用:</p>
+<ol>
+<li><code>Bus.$emit(&#39;foo&#39;, 123)</code></li>
+<li><code>Bus.$on(&#39;foo&#39;, (p) =&gt; &#123;&#125;);</code></li>
+</ol>
+<p>当 Bus 调用 emit 发射信号的时候，此 Bus 对象使用 on 绑定响应此信号的回调函数会被自动调用，可以参考 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/fanlinqiang/p/7756566.html">https://www.cnblogs.com/fanlinqiang/p/7756566.html</a>。</p>
+<p>为了方便，可以把 Bus 对象注入到根 Vue 对象中，然后使用 <code>this.$Bus</code> 进行访问：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// [1] 注入</span></span><br><span class="line"><span class="keyword">const</span> Bus = <span class="keyword">new</span> Vue();</span><br><span class="line">Vue.prototype.$Bus = Bus;</span><br><span class="line"></span><br><span class="line"><span class="comment">// [2] 使用</span></span><br><span class="line"><span class="built_in">this</span>.$Bus.$emit(<span class="string">&#x27;foo&#x27;</span>, <span class="number">123</span>);</span><br><span class="line"><span class="built_in">this</span>.$Bus.$on(<span class="string">&#x27;foo&#x27;</span>, <span class="function">(<span class="params">p</span>) =&gt;</span> &#123;&#125;);</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="简化-template-模版"><a href="#简化-template-模版" class="headerlink" title="简化 template 模版"></a>简化 template 模版</h2><p>上面自定义组件的 template 是通过拼接字符串来实现的，如果这个字符串很长时就不好拼接了，可以把其放在 HTML 中的 <strong>template</strong> 元素里，通过 id 来引用，其他的 props, data, methods 等还是和以前的一样用法:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app-one&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">x-button</span> <span class="attr">:text</span>=<span class="string">&quot;&#x27;按钮&#x27;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">x-button</span>&gt;</span> <span class="comment">&lt;!-- 绑定 data --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 组件的 template 部分 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">template</span> <span class="attr">id</span>=<span class="string">&quot;x-button-template&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;click&quot;</span>&gt;</span>按钮<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">        Vue.component(<span class="string">&#x27;x-button&#x27;</span>, &#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">template</span>: <span class="string">&#x27;#x-button-template&#x27;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="attr">methods</span>: &#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">click</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                    <span class="built_in">console</span>.log(<span class="keyword">new</span> <span class="built_in">Date</span>().getTime());</span></span><br><span class="line"><span class="javascript">                &#125;</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript">        &#125;)</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">el</span>: <span class="string">&#x27;#app-one&#x27;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="attr">data</span>: &#123;&#125;</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>模版的标签名不一定要是 <code>template</code>，也可以是例如 <code>&lt;script type=&quot;html/text&quot;&gt;template content&lt;/script&gt;</code>，只要是在网页中不可见的就好。</p>
+</blockquote>
+<h2 id="自定义局部组件"><a href="#自定义局部组件" class="headerlink" title="自定义局部组件"></a>自定义局部组件</h2><p>使用 Vue 对象的 <strong>components</strong> 属性来注册局部组件，下面定义的局部组件 <strong>x-button</strong> 只能在 <strong>app-one</strong> 中使用，不能在 <strong>app-two</strong> 使用:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app-one&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">x-button</span> <span class="attr">:text</span>=<span class="string">&quot;buttonText&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">x-button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app-two&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">x-button</span> <span class="attr">:text</span>=<span class="string">&quot;buttonText&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">x-button</span>&gt;</span> <span class="comment">&lt;!-- x-button 是在 app-one 的 Vue 对象中定义的，所以不能访问 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">el</span>: <span class="string">&#x27;#app-one&#x27;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="attr">data</span>: &#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">buttonText</span>: <span class="string">&#x27;按钮一&#x27;</span></span></span><br><span class="line"><span class="javascript">            &#125;,</span></span><br><span class="line"><span class="javascript">            <span class="attr">components</span>: &#123;</span></span><br><span class="line"><span class="javascript">                <span class="string">&#x27;x-button&#x27;</span>: &#123;</span></span><br><span class="line"><span class="javascript">                    <span class="attr">props</span>: [<span class="string">&#x27;text&#x27;</span>],</span></span><br><span class="line"><span class="javascript">                    <span class="attr">template</span>: <span class="string">&#x27;&lt;button&gt;&#123;&#123;text&#125;&#125;&lt;/button&gt;&#x27;</span></span></span><br><span class="line"><span class="javascript">                &#125;</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">el</span>: <span class="string">&#x27;#app-two&#x27;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="attr">data</span>: &#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">buttonText</span>: <span class="string">&#x27;按钮二&#x27;</span></span></span><br><span class="line"><span class="javascript">            &#125;,</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="使用-v-model-双向绑定"><a href="#使用-v-model-双向绑定" class="headerlink" title="使用 v-model 双向绑定"></a>使用 v-model 双向绑定</h2><p>双向绑定的 v-model 只是一个语法糖，相当于同时使用 v-bind:value 和 v-on:input，也可以使用组件的 model 对象自定义 v-bind 的属性和 v-on 的事件名字，可参考 <a target="_blank" rel="noopener" href="https://juejin.im/post/598bf7a3f265da3e252a1d6a">v-model 指令在组件中怎么玩</a> 了解更多:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">props: &#123;</span><br><span class="line">    <span class="attr">html</span>: <span class="built_in">String</span>,</span><br><span class="line">    <span class="attr">attachments</span>: <span class="built_in">Array</span>,</span><br><span class="line">    <span class="attr">closable</span>: &#123; <span class="attr">type</span>: <span class="built_in">Boolean</span>, <span class="attr">default</span>: <span class="literal">false</span> &#125; <span class="comment">// 默认为不可关闭</span></span><br><span class="line">&#125;,</span><br><span class="line"><span class="attr">model</span>: &#123;</span><br><span class="line">    <span class="attr">prop</span>: <span class="string">&#x27;html&#x27;</span>, <span class="comment">// props 中定义的变量</span></span><br><span class="line">    <span class="attr">event</span>: <span class="string">&#x27;editingFinished&#x27;</span> <span class="comment">// this.$emit(&#x27;editingFinished&#x27;, something) 发射的事件名字</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>v-model</code> 只是一个语法糖，实际的含义是：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a-select</span></span></span><br><span class="line"><span class="tag">    <span class="attr">v-bind:value</span>=<span class="string">&quot;parentValue&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">v-on:input</span>=<span class="string">&quot;parentValue = arguments[0]&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">a-select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/java-tomcat-nginx-https/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Nginx + Tomcat 使用 Https
+        
+      </div>
+    </a>
+  
+  
+    <a href="/qt-refactor/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">QtCreator 中重构 Widget 的名字</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

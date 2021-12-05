@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>绘图基础 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="这一节介绍 Qt 的绘图基础知识，我们都知道，Qt 里绘图使用的是 QPainter，但是首先需要弄明白：在什么上绘图和在哪里绘图，然后才是怎么绘图，我们就围绕这几个问题来展开。 在什么上绘图 The QPaintDevice class is the base class of objects that can be painted on with QPainter. A paint devic">
+<meta property="og:type" content="article">
+<meta property="og:title" content="绘图基础">
+<meta property="og:url" content="http://xtuer.github.io/qtbook-paint-base/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="这一节介绍 Qt 的绘图基础知识，我们都知道，Qt 里绘图使用的是 QPainter，但是首先需要弄明白：在什么上绘图和在哪里绘图，然后才是怎么绘图，我们就围绕这几个问题来展开。 在什么上绘图 The QPaintDevice class is the base class of objects that can be painted on with QPainter. A paint devic">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Base-Draw-Methods.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Base-Coordinate-System.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Base-Grid.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Base-Polygon-Circle.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Base-RoundRect.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Base-Ellipse.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Base-Arc-Chord-Pie.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Base-Arc-Chord-Pie-1.png">
+<meta property="article:published_time" content="2016-12-08T11:22:05.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.175Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="QtBook">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Base-Draw-Methods.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8%E4%BB%80%E4%B9%88%E4%B8%8A%E7%BB%98%E5%9B%BE"><span class="toc-text">在什么上绘图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8%E5%93%AA%E9%87%8C%E7%BB%98%E5%9B%BE"><span class="toc-text">在哪里绘图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%8E%E4%B9%88%E7%BB%98%E5%9B%BE"><span class="toc-text">怎么绘图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9D%90%E6%A0%87%E7%B3%BB"><span class="toc-text">坐标系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%BB%E7%BA%BF-drawLine"><span class="toc-text">画线 - drawLine()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%BB%E5%A4%9A%E7%BA%BF%E6%AE%B5-drawLines"><span class="toc-text">画多线段 - drawLines()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%BB%E6%8A%98%E7%BA%BF-drawPolyline"><span class="toc-text">画折线- drawPolyline()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%BB%E5%A4%9A%E8%BE%B9%E5%BD%A2-drawPolygon"><span class="toc-text">画多边形 - drawPolygon()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%BB%E7%9F%A9%E5%BD%A2-drawRect"><span class="toc-text">画矩形 - drawRect()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%BB%E5%9C%86%E8%A7%92%E7%9F%A9%E5%BD%A2-drawRoundRect-amp-drawRoundedRect"><span class="toc-text">画圆角矩形- drawRoundRect() &amp; drawRoundedRect()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%BB%E5%9C%86%E3%80%81%E6%A4%AD%E5%9C%86-drawEllipse"><span class="toc-text">画圆、椭圆 - drawEllipse()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%BB%E5%BC%A7%E3%80%81%E5%BC%A6%E3%80%81%E9%A5%BC%E5%9B%BE-drawArc-%E3%80%81drawChord-%E3%80%81drawPie"><span class="toc-text">画弧、弦、饼图 - drawArc()、drawChord()、drawPie()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%98%E5%88%B6-QPixmap-drawPixmap"><span class="toc-text">绘制 QPixmap - drawPixmap()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%98%E5%88%B6-QImage-drawImage"><span class="toc-text">绘制 QImage - drawImage()</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-qtbook-paint-base" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-paint-base/" class="article-date">
+  	<!-- <time datetime="2016-12-08T11:22:05.000Z" itemprop="datePublished">2016-12-08</time> -->
+    2016-12-08
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      绘图基础
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>这一节介绍 Qt 的绘图基础知识，我们都知道，Qt 里绘图使用的是 QPainter，但是首先需要弄明白：在什么上绘图和在哪里绘图，然后才是怎么绘图，我们就围绕这几个问题来展开。</p>
+<h2 id="在什么上绘图"><a href="#在什么上绘图" class="headerlink" title="在什么上绘图"></a>在什么上绘图</h2><blockquote>
+<p>The QPaintDevice class is the base class of objects that can be painted on with QPainter.</p>
+<p>A paint device is an abstraction of a two-dimensional space that can be drawn on using a QPainter. Its default coordinate system has its origin located at the top-left position. X increases to the right and Y increases downwards. The unit is one pixel.</p>
+<p>The drawing capabilities of QPaintDevice are currently implemented by the QWidget, QImage, QPixmap, QGLPixelBuffer, QPicture, and QPrinter subclasses.</p>
+</blockquote>
+<p>上面的内容来自于 Qt 的帮助文档，在 QPaintDevice 的子类里用 QPainter 绘图，最常见的就是在 QWidget, QPixmap, QPixture, QPrinter 上面绘图。<span id="more"></span></p>
+<h2 id="在哪里绘图"><a href="#在哪里绘图" class="headerlink" title="在哪里绘图"></a>在哪里绘图</h2><p>知道了可以在哪些类中绘图了，总不能在这些类的子类中随便写个函数就可以绘图了吧！这需要分情况，例如在 MainWidget 的构造函数里创建一个 QPixmap，并在它上面画图，然后设置为 QLabel 的 pixmap：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">MainWidget::<span class="built_in">MainWidget</span>(QWidget *parent)</span><br><span class="line">    : <span class="built_in">QWidget</span>(parent), <span class="built_in">ui</span>(<span class="keyword">new</span> Ui::MainWidget) &#123;</span><br><span class="line">    ui-&gt;<span class="built_in">setupUi</span>(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建 pixmap</span></span><br><span class="line">    pixmap = <span class="built_in">QPixmap</span>(<span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line">    pixmap.<span class="built_in">fill</span>(Qt::gray);</span><br><span class="line">    <span class="function">QPainter <span class="title">painter</span><span class="params">(&amp;pixmap)</span></span>;</span><br><span class="line">    painter.<span class="built_in">drawRect</span>(<span class="number">10</span>, <span class="number">10</span>, <span class="number">80</span>, <span class="number">80</span>);</span><br><span class="line">    painter.<span class="built_in">drawText</span>(<span class="number">20</span>, <span class="number">30</span>, <span class="string">&quot;Hello World&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用 pixmap</span></span><br><span class="line">    ui-&gt;label-&gt;<span class="built_in">setPixmap</span>(pixmap);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在非 widget 上绘图，如上面的 QPixmap，在什么地方都可以，但是在 QWidget 及其子类里绘图却没有这么自由，通常都是要在哪个 widget 上绘图，就需要在它的 <code>paintEvent()</code> 函数里绘图，即重写 paintEvent() 函数。</p>
+<p>例如类 PandoraWidget 是 QWidget 的子类，要在它上面画一个矩形，它的 paintEvent() 函数如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PandoraWidget::paintEvent</span><span class="params">(QPaintEvent *)</span> </span>&#123;</span><br><span class="line">    <span class="function">QPainter <span class="title">painter</span><span class="params">(<span class="keyword">this</span>)</span></span>; <span class="comment">// this 是 PandoraWidget 的指针</span></span><br><span class="line">    painter.<span class="built_in">setPen</span>(Qt::gray);</span><br><span class="line">    painter.<span class="built_in">setBrush</span>(Qt::green);</span><br><span class="line">    painter.<span class="built_in">drawRect</span>(<span class="number">10</span>, <span class="number">10</span>, <span class="number">50</span>, <span class="number">50</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>考虑一个问题，PandoraWidget 上有一个叫 magicLabel 的 QLabel，打算在 magicLabel 上画一个矩形，在 PandoraWidget 的 paintEvent() 函数像下面这样用 magicLabel 构造 QPainter，然后绘图可以吗？</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PandoraWidget::paintEvent</span><span class="params">(QPaintEvent *)</span> </span>&#123;</span><br><span class="line">    <span class="function">QPainter <span class="title">painter</span><span class="params">(ui-&gt;magicLabel)</span></span>; <span class="comment">// 注意这里</span></span><br><span class="line">    painter.<span class="built_in">setPen</span>(Qt::gray);</span><br><span class="line">    painter.<span class="built_in">setBrush</span>(Qt::green);</span><br><span class="line">    painter.<span class="built_in">drawRect</span>(<span class="number">10</span>, <span class="number">10</span>, <span class="number">50</span>, <span class="number">50</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行程序，结果并没有在 magicLabel 上绘制出矩形，而且还输出了下面的错误：</p>
+<blockquote>
+<p>QWidget::paintEngine: Should no longer be called<br>QPainter::begin: Paint device returned engine == 0, type: 1<br>QPainter::setPen: Painter not active<br>QPainter::setBrush: Painter not active<br>QPainter::drawRects: Painter not active</p>
+</blockquote>
+<p>总是提示 <strong>Painter not active</strong>，上面提到过：<code>想要在哪个 widget 上绘图，就需要在它的 paintEvent() 函数里绘图</code>，这里的 paintEvent() 函数是 PandoraWidget 的，所以绘图到 PandoraWidget 上成功了，但 paintEvent() 函数不是 QLabel 的，所以企图绘图到 magicLabel 上没成功。</p>
+<p>那是不是就是说，如果想在 magicLabel 上绘图，就必须新创建一个类例如叫 MagicLabel，并且继承自 QLabel，然后在它的 paintEvent() 里绘图？如果有 10 个子 widget，都想在上面画点啥，是不是每个 widget 都要对应创建一个类来实现绘图？我就是想画个圈而已，要创建这么多类也太麻烦了，真的想画个圈圈诅咒 Qt 啊。</p>
+<p>莫急莫急，这里传大家本人秘藏多年的一绝技，就能在 PandoraWidget 的函数里给 magicLabel 绘图了：在事件过滤器 <code>eventFilter()</code> 中拦截 magicLabel 的 <code>QEvent::Paint</code> 事件，用 magicLabel 创建 QPainter，就可以在 magicLabel 上绘图了，上代码，否则估计有人要把我画在圈圈里了：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">PandoraWidget::<span class="built_in">PandoraWidget</span>(QWidget *parent)</span><br><span class="line">    : <span class="built_in">QWidget</span>(parent), <span class="built_in">ui</span>(<span class="keyword">new</span> Ui::PandoraWidget) &#123;</span><br><span class="line">    ui-&gt;<span class="built_in">setupUi</span>(<span class="keyword">this</span>);</span><br><span class="line">    ui-&gt;magicLabel-&gt;<span class="built_in">installEventFilter</span>(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">PandoraWidget::eventFilter</span><span class="params">(QObject *watched, QEvent *event)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (watched == ui-&gt;magicLabel &amp;&amp; event-&gt;<span class="built_in">type</span>() == QEvent::Paint) &#123;</span><br><span class="line">        <span class="built_in">magicTime</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> QWidget::<span class="built_in">eventFilter</span>(watched, event);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PandoraWidget::magicTime</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="function">QPainter <span class="title">painter</span><span class="params">(ui-&gt;magicLabel)</span></span>;</span><br><span class="line">    painter.<span class="built_in">setPen</span>(Qt::gray);</span><br><span class="line">    painter.<span class="built_in">setBrush</span>(Qt::green);</span><br><span class="line">    painter.<span class="built_in">drawRect</span>(<span class="number">10</span>, <span class="number">10</span>, <span class="number">50</span>, <span class="number">50</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="怎么绘图"><a href="#怎么绘图" class="headerlink" title="怎么绘图"></a>怎么绘图</h2><p>下图来自《C++ GUI Programming with Qt 4》，列出了 QPainter 常用的画图方法，都是以 <code>draw</code> 开头，非常直观的列出了绘图函数和绘制出来的图形：</p>
+<p><img src="../img/qtbook/paint/Paint-Base-Draw-Methods.png"></p>
+<p>下面具体的介绍这些函数的使用，它们中很多都有重载的函数，这里只使用其中的一种，其它的用法都差不多，就不一一介绍，需要时查看帮助文档就可以了。</p>
+<h2 id="坐标系"><a href="#坐标系" class="headerlink" title="坐标系"></a>坐标系</h2><p>数学中使用的坐标系是笛卡尔坐标系，X 轴正向向右，Y 轴正向向上。但是，QPainter 也有自己的坐标系，和笛卡尔坐标系有点不一样，原点在 widget 的左上角而不是正中心，X 轴正向向右，Y 轴正向向下。注意: 每个 widget 都有自己独立的坐标系。</p>
+<p><img src="../img/qtbook/paint/Paint-Base-Coordinate-System.png"></p>
+<h2 id="画线-drawLine"><a href="#画线-drawLine" class="headerlink" title="画线 - drawLine()"></a>画线 - drawLine()</h2><p>给定 2 个点，使用 <code>drawLine()</code> 画一条线。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MainWidget::paintEvent</span><span class="params">(QPaintEvent *)</span> </span>&#123;</span><br><span class="line">    <span class="function">QPainter <span class="title">painter</span><span class="params">(<span class="keyword">this</span>)</span></span>;</span><br><span class="line">    painter.<span class="built_in">drawLine</span>(<span class="number">30</span>, <span class="number">30</span>, <span class="number">150</span>, <span class="number">150</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>drawLine() 有什么用？例如可以用来画网格线:<br><img src="../img/qtbook/paint/Paint-Base-Grid.png"></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">GridWidget::paintEvent</span><span class="params">(QPaintEvent *)</span> </span>&#123;</span><br><span class="line">    <span class="function">QPainter <span class="title">painter</span><span class="params">(<span class="keyword">this</span>)</span></span>;</span><br><span class="line">    painter.<span class="built_in">translate</span>(<span class="number">30</span>, <span class="number">30</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> w   = <span class="number">300</span>;</span><br><span class="line">    <span class="keyword">int</span> h   = <span class="number">210</span>;</span><br><span class="line">    <span class="keyword">int</span> gap = <span class="number">30</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 画水平线</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> y = <span class="number">0</span>; y &lt;= h; y += gap) &#123;</span><br><span class="line">        painter.<span class="built_in">drawLine</span>(<span class="number">0</span>, y, w, y);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 画垂直线</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt;= w; x += gap) &#123;</span><br><span class="line">        painter.<span class="built_in">drawLine</span>(x, <span class="number">0</span>, x, h);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="画多线段-drawLines"><a href="#画多线段-drawLines" class="headerlink" title="画多线段 - drawLines()"></a>画多线段 - drawLines()</h2><p>给定 N 个点，第 1 和第 2 个点连成线，第 3 和第 4 个点连成线，……，N 个点练成 (N+1)/2 条线，如果 N 是奇数，第 N 个点和 (0,0) 连成线。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MultipleLinesWidget::paintEvent</span><span class="params">(QPaintEvent *)</span> </span>&#123;</span><br><span class="line">    <span class="function">QPainter <span class="title">painter</span><span class="params">(<span class="keyword">this</span>)</span></span>;</span><br><span class="line">    painter.<span class="built_in">setRenderHint</span>(QPainter::Antialiasing);</span><br><span class="line">    painter.<span class="built_in">translate</span>(<span class="number">20</span>, <span class="number">20</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">const</span> QPointF points[<span class="number">4</span>] = &#123;</span><br><span class="line">        <span class="built_in">QPointF</span>(<span class="number">0.0</span>, <span class="number">100.0</span>),</span><br><span class="line">        <span class="built_in">QPointF</span>(<span class="number">20.0</span>, <span class="number">0.0</span>),</span><br><span class="line">        <span class="built_in">QPointF</span>(<span class="number">100.0</span>, <span class="number">0.0</span>),</span><br><span class="line">        <span class="built_in">QPointF</span>(<span class="number">120.0</span>, <span class="number">100.0</span>)</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    painter.<span class="built_in">drawLines</span>(points, <span class="number">2</span>); <span class="comment">// 4 个点连成 2 条线</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="画折线-drawPolyline"><a href="#画折线-drawPolyline" class="headerlink" title="画折线- drawPolyline()"></a>画折线- drawPolyline()</h2><p>给定 N 个点，第 1 和第 2 个点连成线，第 2 和第 3 个点连成线，……，第 N-1 和第 N 个点连成线，N 个点共连成 N-1 条线。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PolylineWidget::paintEvent</span><span class="params">(QPaintEvent *)</span> </span>&#123;</span><br><span class="line">    <span class="function">QPainter <span class="title">painter</span><span class="params">(<span class="keyword">this</span>)</span></span>;</span><br><span class="line">    painter.<span class="built_in">setRenderHint</span>(QPainter::Antialiasing);</span><br><span class="line">    painter.<span class="built_in">translate</span>(<span class="number">20</span>, <span class="number">20</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">const</span> QPointF points[<span class="number">4</span>] = &#123;</span><br><span class="line">        <span class="built_in">QPointF</span>(<span class="number">0.0</span>, <span class="number">100.0</span>),</span><br><span class="line">        <span class="built_in">QPointF</span>(<span class="number">20.0</span>, <span class="number">0.0</span>),</span><br><span class="line">        <span class="built_in">QPointF</span>(<span class="number">100.0</span>, <span class="number">0.0</span>),</span><br><span class="line">        <span class="built_in">QPointF</span>(<span class="number">120.0</span>, <span class="number">100.0</span>)</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    painter.<span class="built_in">drawPolyline</span>(points, <span class="number">4</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="画多边形-drawPolygon"><a href="#画多边形-drawPolygon" class="headerlink" title="画多边形 - drawPolygon()"></a>画多边形 - drawPolygon()</h2><p>给定 N 个点，第 1 和第 2 个点连成线，第 2 和第 3 个点连成线，……，第 N-1 和第 N 个点连成线，第 N 个点和第 1 个点连接成线形成一个封闭的多边形。</p>
+<blockquote>
+<p>drawPolygon() 和 drawPolyline() 很像，但是 drawPolygon() 画的是一个封闭的区域，可以填充颜色，而 drawPolyline() 画的是一些线段，即使它们连成一个封闭的区域也不能填充颜色。</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PolygonWidget::paintEvent</span><span class="params">(QPaintEvent *)</span> </span>&#123;</span><br><span class="line">    <span class="function">QPainter <span class="title">painter</span><span class="params">(<span class="keyword">this</span>)</span></span>;</span><br><span class="line">    painter.<span class="built_in">setRenderHint</span>(QPainter::Antialiasing);</span><br><span class="line">    painter.<span class="built_in">translate</span>(<span class="number">20</span>, <span class="number">20</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">const</span> QPointF points[<span class="number">4</span>] = &#123;</span><br><span class="line">        <span class="built_in">QPointF</span>(<span class="number">0.0</span>, <span class="number">100.0</span>),</span><br><span class="line">        <span class="built_in">QPointF</span>(<span class="number">20.0</span>, <span class="number">0.0</span>),</span><br><span class="line">        <span class="built_in">QPointF</span>(<span class="number">100.0</span>, <span class="number">0.0</span>),</span><br><span class="line">        <span class="built_in">QPointF</span>(<span class="number">120.0</span>, <span class="number">100.0</span>)</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    painter.<span class="built_in">setBrush</span>(Qt::yellow);</span><br><span class="line">    painter.<span class="built_in">drawPolygon</span>(points, <span class="number">4</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以用 drawPolygon() 来画圆，其实本没有圆，正多边形的边多了，便成了圆，这正是计算机里绘制曲线的原理，<code>插值逼近</code>，在曲线上取 N 个点，点之间用线段连接起来，当 N 越大时，连接出来的图形就越平滑，越接近曲线。</p>
+<p><img src="../img/qtbook/paint/Paint-Base-Polygon-Circle.png"></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PolygonCircleWidget::paintEvent</span><span class="params">(QPaintEvent *)</span> </span>&#123;</span><br><span class="line">    <span class="function">QPainter <span class="title">painter</span><span class="params">(<span class="keyword">this</span>)</span></span>;</span><br><span class="line">    painter.<span class="built_in">setRenderHint</span>(QPainter::Antialiasing); <span class="comment">// 启用抗锯齿效果</span></span><br><span class="line">    painter.<span class="built_in">translate</span>(<span class="built_in">width</span>() / <span class="number">2</span>, <span class="built_in">height</span>() / <span class="number">2</span>); <span class="comment">// 把坐标原点移动到 widget 的中心</span></span><br><span class="line">    painter.<span class="built_in">setBrush</span>(Qt::lightGray);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> COUNT  = <span class="number">10</span>;  <span class="comment">// 边数，越大就越像圆</span></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> RADIUS = <span class="number">100</span>; <span class="comment">// 圆的半径</span></span><br><span class="line">    QPointF points[COUNT];  <span class="comment">// 顶点数组</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; COUNT; ++i) &#123;</span><br><span class="line">        <span class="keyword">float</span> radians = <span class="number">2</span> * M_PI / COUNT * i; <span class="comment">// M_PI 是 QtMath 里定义的，就是 PI</span></span><br><span class="line">        <span class="keyword">float</span> x = RADIUS * <span class="built_in">qCos</span>(radians);</span><br><span class="line">        <span class="keyword">float</span> y = RADIUS * <span class="built_in">qSin</span>(radians);</span><br><span class="line">        points[i] = <span class="built_in">QPointF</span>(x, y);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    painter.<span class="built_in">drawPolygon</span>(points, COUNT);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>为了介绍方便，数组 points 是在 paintEvent() 里创建的，每次调用 paintEvent() 时都会重新生成一次 points，实际项目里可不能这么做，因为 paintEvent() 会被多次的调用，每次调用都会生成 points。数组 points 只有在必要的时候才重新生成，否则就是浪费计算资源，所以可以放到构造函数里，或者点击按钮改变 COUNT 的值后在对应的槽函数里重新生成 points，然后调用 update() 函数刷新界面。</p>
+</blockquote>
+<h2 id="画矩形-drawRect"><a href="#画矩形-drawRect" class="headerlink" title="画矩形 - drawRect()"></a>画矩形 - drawRect()</h2><p>给定矩形左上角的坐标和矩形的长、宽就可以绘制矩形了。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MainWidget::paintEvent</span><span class="params">(QPaintEvent *)</span> </span>&#123;</span><br><span class="line">    <span class="function">QPainter <span class="title">painter</span><span class="params">(<span class="keyword">this</span>)</span></span>;</span><br><span class="line">    painter.<span class="built_in">setRenderHint</span>(QPainter::Antialiasing);</span><br><span class="line">    painter.<span class="built_in">translate</span>(<span class="number">30</span>, <span class="number">30</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> x = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> y = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> w = <span class="number">100</span>;</span><br><span class="line">    <span class="keyword">int</span> h = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line">    painter.<span class="built_in">drawRect</span>(x, y, w, h);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="画圆角矩形-drawRoundRect-amp-drawRoundedRect"><a href="#画圆角矩形-drawRoundRect-amp-drawRoundedRect" class="headerlink" title="画圆角矩形- drawRoundRect() &amp; drawRoundedRect()"></a>画圆角矩形- drawRoundRect() &amp; drawRoundedRect()</h2><p>绘制圆角矩形有 2 个方法：<code>drawRoundRect()</code> 和 <code>drawRoundedRect()</code>，需要给定圆角矩形左上角的坐标、长、宽、圆角的半径。</p>
+<p>当 drawRoundedRect() 中第 7 个参数 Qt::SizeMode 为 Qt::RelativeSize 时，表示圆角半径的单位是百分比，取值范围是 [0, 100]，此时 drawRoundedRect() 等价于 drawRoundRect()，其实底层是用这个百分比和对应边长的一半相乘得到圆角的半径（单位是像素）。Qt::SizeMode 为 Qt::AbsoluteSize 时，表示圆角半径的单位是像素。</p>
+<p>有意思的是，在 QSS 中圆角半径大于对应边长的一半，圆角效果就没了，但是使用 drawRoundedRect() 时，圆角的半径大于对应边长的一半时，圆角效果仍然有效，个人认为这个是 QSS 的 bug，但是已经存在很久了。</p>
+<p>下面使用不同的参数绘制了 3 个圆角矩形，便于比较他们之间的异同：<br><img src="../img/qtbook/paint/Paint-Base-RoundRect.png"></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">RoundRectWidget::paintEvent</span><span class="params">(QPaintEvent *)</span> </span>&#123;</span><br><span class="line">    <span class="function">QPainter <span class="title">painter</span><span class="params">(<span class="keyword">this</span>)</span></span>;</span><br><span class="line">    painter.<span class="built_in">setRenderHint</span>(QPainter::Antialiasing);</span><br><span class="line">    painter.<span class="built_in">setBrush</span>(Qt::lightGray);</span><br><span class="line">    painter.<span class="built_in">translate</span>(<span class="number">30</span>, <span class="number">30</span>);</span><br><span class="line"></span><br><span class="line">    painter.<span class="built_in">drawRoundRect</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>, <span class="number">50</span>, <span class="number">50</span>); <span class="comment">// 50%, 50%</span></span><br><span class="line">    painter.<span class="built_in">drawRoundedRect</span>(<span class="number">130</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>, <span class="number">50</span>, <span class="number">50</span>, Qt::AbsoluteSize); <span class="comment">// 50px, 50px</span></span><br><span class="line">    painter.<span class="built_in">drawRoundedRect</span>(<span class="number">260</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>, <span class="number">100</span>, <span class="number">100</span>, Qt::RelativeSize); <span class="comment">// 100%, 100%</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="画圆、椭圆-drawEllipse"><a href="#画圆、椭圆-drawEllipse" class="headerlink" title="画圆、椭圆 - drawEllipse()"></a>画圆、椭圆 - drawEllipse()</h2><p>给定椭圆的包围矩形（bounding rectangle），使用 <code>drawEllipse()</code> 绘制椭圆。圆是特殊的椭圆，椭圆有两个焦点，这两个焦点合为一个的时候就是一个正圆了，当包围矩形是正方形时，<code>drawEllipse()</code> 绘制的就是圆。</p>
+<p>当然，画圆的方法很多，上面我们就使用了 drawPolygon()，drawRounedRect() 的方法画圆，不过从语义上来说，用 drawEllipse() 来画圆显得更适合一些。</p>
+<p><img src="../img/qtbook/paint/Paint-Base-Ellipse.png"></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">EllipseWidget::paintEvent</span><span class="params">(QPaintEvent *)</span> </span>&#123;</span><br><span class="line">    <span class="function">QPainter <span class="title">painter</span><span class="params">(<span class="keyword">this</span>)</span></span>;</span><br><span class="line">    painter.<span class="built_in">setRenderHint</span>(QPainter::Antialiasing);</span><br><span class="line">    painter.<span class="built_in">translate</span>(<span class="number">30</span>, <span class="number">30</span>);</span><br><span class="line"></span><br><span class="line">    painter.<span class="built_in">drawRect</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">200</span>, <span class="number">100</span>);    <span class="comment">// 椭圆的包围矩形</span></span><br><span class="line">    painter.<span class="built_in">setBrush</span>(Qt::lightGray);</span><br><span class="line">    painter.<span class="built_in">drawEllipse</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">200</span>, <span class="number">100</span>); <span class="comment">// 椭圆</span></span><br><span class="line"></span><br><span class="line">    painter.<span class="built_in">drawEllipse</span>(<span class="number">230</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>); <span class="comment">// 圆</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="画弧、弦、饼图-drawArc-、drawChord-、drawPie"><a href="#画弧、弦、饼图-drawArc-、drawChord-、drawPie" class="headerlink" title="画弧、弦、饼图 - drawArc()、drawChord()、drawPie()"></a>画弧、弦、饼图 - drawArc()、drawChord()、drawPie()</h2><p>画弧使用 <code>drawArc()</code><br>画弦使用 <code>drawChord()</code><br>画饼图用 <code>drawPie()</code></p>
+<p>把这三个函数放在一起介绍，因为它们的参数都一样，而且 arc, chord, pie 外形也有很多相似之处：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">QPainter::drawArc</span><span class="params">(<span class="keyword">const</span> QRectF &amp; rectangle, <span class="keyword">int</span> startAngle, <span class="keyword">int</span> spanAngle)</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">QPainter::drawPie</span><span class="params">(<span class="keyword">const</span> QRectF &amp; rectangle, <span class="keyword">int</span> startAngle, <span class="keyword">int</span> spanAngle)</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">QPainter::drawChord</span><span class="params">(<span class="keyword">const</span> QRectF &amp; rectangle, <span class="keyword">int</span> startAngle, <span class="keyword">int</span> spanAngle)</span></span></span><br></pre></td></tr></table></figure>
+<p><img src="../img/qtbook/paint/Paint-Base-Arc-Chord-Pie.png"></p>
+<ul>
+<li>rectangle: 包围矩形</li>
+<li>startAngle: 开始的角度，单位是十六分之一度，如果要从 45 度开始画，则 startAngle 为 45 * 16</li>
+<li>spanAngle: 覆盖的角度，单位是十六分之一度</li>
+<li>绘制圆心为包围矩形的正中心，0 度在圆心的 X 轴正方向上</li>
+<li>角度的正方向为逆时针方向</li>
+</ul>
+<p>下面程序的结果如图：<br><img src="../img/qtbook/paint/Paint-Base-Arc-Chord-Pie-1.png"></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ArcChordPieWidget::paintEvent</span><span class="params">(QPaintEvent *)</span> </span>&#123;</span><br><span class="line">    <span class="function">QPainter <span class="title">painter</span><span class="params">(<span class="keyword">this</span>)</span></span>;</span><br><span class="line">    painter.<span class="built_in">setRenderHint</span>(QPainter::Antialiasing);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> startAngle = <span class="number">45</span> * <span class="number">16</span>; <span class="comment">// 开始角度是 45 度</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> spanAngle = <span class="number">130</span> * <span class="number">16</span>; <span class="comment">// 覆盖角度为 130 度</span></span><br><span class="line">    <span class="function"><span class="keyword">static</span> QRectF <span class="title">boundingRect</span><span class="params">(<span class="number">0</span>, <span class="number">0</span>, <span class="number">150</span>, <span class="number">150</span>)</span></span>; <span class="comment">// 包围矩形</span></span><br><span class="line"></span><br><span class="line">    painter.<span class="built_in">translate</span>(<span class="number">30</span>, <span class="number">30</span>);</span><br><span class="line">    painter.<span class="built_in">setBrush</span>(Qt::NoBrush);</span><br><span class="line">    painter.<span class="built_in">drawRect</span>(boundingRect); <span class="comment">// 绘制包围矩形</span></span><br><span class="line">    painter.<span class="built_in">setBrush</span>(Qt::lightGray);</span><br><span class="line">    painter.<span class="built_in">drawArc</span>(boundingRect, startAngle, spanAngle); <span class="comment">// 画弧</span></span><br><span class="line"></span><br><span class="line">    painter.<span class="built_in">translate</span>(<span class="number">180</span>, <span class="number">0</span>);</span><br><span class="line">    painter.<span class="built_in">setBrush</span>(Qt::NoBrush);</span><br><span class="line">    painter.<span class="built_in">drawRect</span>(boundingRect); <span class="comment">// 绘制包围矩形</span></span><br><span class="line">    painter.<span class="built_in">setBrush</span>(Qt::lightGray);</span><br><span class="line">    painter.<span class="built_in">drawChord</span>(boundingRect, startAngle, spanAngle); <span class="comment">// 画弦</span></span><br><span class="line"></span><br><span class="line">    painter.<span class="built_in">translate</span>(<span class="number">180</span>, <span class="number">0</span>);</span><br><span class="line">    painter.<span class="built_in">setBrush</span>(Qt::NoBrush);</span><br><span class="line">    painter.<span class="built_in">drawRect</span>(boundingRect); <span class="comment">// 绘制包围矩形</span></span><br><span class="line">    painter.<span class="built_in">setBrush</span>(Qt::lightGray);</span><br><span class="line">    painter.<span class="built_in">drawPie</span>(boundingRect, startAngle, spanAngle); <span class="comment">// 画饼图</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>修改 startAngle 和 spanAngle 为负值看看是什么效果。</p>
+</blockquote>
+<h2 id="绘制-QPixmap-drawPixmap"><a href="#绘制-QPixmap-drawPixmap" class="headerlink" title="绘制 QPixmap - drawPixmap()"></a>绘制 QPixmap - drawPixmap()</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MainWidget::paintEvent</span><span class="params">(QPaintEvent *)</span> </span>&#123;</span><br><span class="line">    <span class="function">QPainter <span class="title">painter</span><span class="params">(<span class="keyword">this</span>)</span></span>;</span><br><span class="line">    <span class="function">QPixmap <span class="title">pixmap</span><span class="params">(<span class="string">&quot;:/img/Butterfly.png&quot;</span>)</span></span>; <span class="comment">// 从资源文件读取 pixmap</span></span><br><span class="line"></span><br><span class="line">    painter.<span class="built_in">drawPixmap</span>(<span class="number">0</span>, <span class="number">0</span>, pixmap); <span class="comment">// 绘制 pixmap</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="绘制-QImage-drawImage"><a href="#绘制-QImage-drawImage" class="headerlink" title="绘制 QImage - drawImage()"></a>绘制 QImage - drawImage()</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MainWidget::paintEvent</span><span class="params">(QPaintEvent *)</span> </span>&#123;</span><br><span class="line">    <span class="function">QPainter <span class="title">painter</span><span class="params">(<span class="keyword">this</span>)</span></span>;</span><br><span class="line">    <span class="function">QImage <span class="title">image</span><span class="params">(<span class="string">&quot;:/img/Butterfly.png&quot;</span>)</span></span>; <span class="comment">// 从资源文件读取 image</span></span><br><span class="line"></span><br><span class="line">    painter.<span class="built_in">drawImage</span>(<span class="number">0</span>, <span class="number">0</span>, image); <span class="comment">// 绘制 image</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/qtbook-paint-text/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          绘制文本
+        
+      </div>
+    </a>
+  
+  
+    <a href="/qtbook-paint/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">绘图</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

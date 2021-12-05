@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>简单的 Mindmap | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="树形结构如果作为侧边栏, 使用 zTree 比较合适, 下图所示的平铺展开整棵树, 使用 zTree 估计就不适合了, 在此我们使用 jQuery 的另一个插件 Simple jQuery Mind Map Diagram Plugin - mindmap 来实现.  文档的例子使用静态的 HTML 标签准备 mindmap 需要的树形结构的数据, 实际中大多情况下树形结构的数据是存储在文件或者通">
+<meta property="og:type" content="article">
+<meta property="og:title" content="简单的 Mindmap">
+<meta property="og:url" content="http://xtuer.github.io/fe-simple-mindmap/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="树形结构如果作为侧边栏, 使用 zTree 比较合适, 下图所示的平铺展开整棵树, 使用 zTree 估计就不适合了, 在此我们使用 jQuery 的另一个插件 Simple jQuery Mind Map Diagram Plugin - mindmap 来实现.  文档的例子使用静态的 HTML 标签准备 mindmap 需要的树形结构的数据, 实际中大多情况下树形结构的数据是存储在文件或者通">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/fe/simple-mindmap.png">
+<meta property="article:published_time" content="2019-01-03T07:09:15.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.150Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="FE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/fe/simple-mindmap.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#chapter-json"><span class="toc-text">chapter.json</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-fe-simple-mindmap" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/fe-simple-mindmap/" class="article-date">
+  	<!-- <time datetime="2019-01-03T07:09:15.000Z" itemprop="datePublished">2019-01-03</time> -->
+    2019-01-03
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      简单的 Mindmap
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>树形结构如果作为侧边栏, 使用 <a target="_blank" rel="noopener" href="http://www.treejs.cn/">zTree</a> 比较合适, 下图所示的平铺展开整棵树, 使用 zTree 估计就不适合了, 在此我们使用 jQuery 的另一个插件 <a target="_blank" rel="noopener" href="https://www.jqueryscript.net/chart-graph/Simple-jQuery-Mind-Map-Diagram-Plugin-mindmap.html">Simple jQuery Mind Map Diagram Plugin - mindmap</a> 来实现.</p>
+<p><img src="../img/fe/simple-mindmap.png"></p>
+<p>文档的例子使用静态的 HTML 标签准备 mindmap 需要的树形结构的数据, 实际中大多情况下树形结构的数据是存储在文件或者通过接口返回, 我们这里展示递归的方式遍历树形结构的数据创建 mindmap 需要的 HTML 标签. 因为每个节点都是 HTML 的标签, 能很方便的使用 CSS 定制样式. <span id="more"></span></p>
+<p>仔细观察文档例子中的 HTML 结构, 其实只有 2 种类型的节点: 根节点和非根节点, 节点的子节点放在 <code>&lt;ol&gt;</code> 中, 每个子节点是一个 <code>&lt;li&gt;</code>, 节点的名字使用 <code>&lt;div class=&quot;node&quot;&gt;&lt;div class=&quot;node__text&quot;&gt;Name&lt;/div&gt;&lt;/div&gt;</code> 显示:</p>
+<ul>
+<li><p>根节点</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;mindmap&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;node node_root&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;node__text&quot;</span>&gt;</span>根节点名字<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ol</span> <span class="attr">class</span>=<span class="string">&quot;children children_rightbranch&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>非根节点</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;children__item&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;node&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;node__text&quot;</span>&gt;</span>非根节点名字 (包括叶子节点)<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ol</span> <span class="attr">class</span>=<span class="string">&quot;children&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>了解了 mindmap 的 HTML 标签结构和特点后, 下面就使用 mindmap 显示文章最后的 <code>chapter.json</code> (是一本教材的章节目录数据):</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span> <span class="attr">dir</span>=<span class="string">&quot;ltr&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>章节<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;dist/mindmap.css&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;libs/jquery/jquery.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;dist/mindmap.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">        $(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="comment">// 请求教材的 JSON 文件</span></span></span><br><span class="line"><span class="javascript">            $.get(<span class="string">&#x27;chapter.json&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">book</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                createBookChapter(book, $(<span class="string">&#x27;body&#x27;</span>));</span></span><br><span class="line"><span class="javascript">            &#125;);</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">/**</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         * 创建教材的章节</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         *</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         * <span class="doctag">@param  <span class="type">&#123;JSON&#125;</span> </span>book    教材的 JSON 文件</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         * <span class="doctag">@param  <span class="type">&#123;jDom&#125;</span> </span>$parent 章节的 Mindmap 所在的 element</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         * <span class="doctag">@return </span>无返回值</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         */</span></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">createBookChapter</span>(<span class="params">book, $parent</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> $mindmap = $(<span class="string">`&lt;div class=&quot;mindmap&quot;&gt;</span></span></span><br><span class="line"><span class="string"><span class="javascript">                &lt;div class=&quot;node node_root&quot;&gt;</span></span></span><br><span class="line"><span class="string"><span class="javascript">                    &lt;div class=&quot;node__text&quot;&gt;<span class="subst">$&#123;book.title&#125;</span>&lt;/div&gt;</span></span></span><br><span class="line"><span class="string"><span class="javascript">                &lt;/div&gt;</span></span></span><br><span class="line"><span class="string"><span class="javascript">                &lt;ol class=&quot;children children_rightbranch&quot;&gt;&lt;/ol&gt;</span></span></span><br><span class="line"><span class="string"><span class="javascript">            &lt;/div&gt;`</span>);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">            <span class="comment">// 创建第一层章节</span></span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> $chapters = $mindmap.children(<span class="string">&#x27;ol.children&#x27;</span>);</span></span><br><span class="line"><span class="javascript">            <span class="keyword">for</span> (<span class="keyword">var</span> chapter <span class="keyword">of</span> book.chapters) &#123;</span></span><br><span class="line"><span class="javascript">                createChapter(chapter, $chapters);</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">            <span class="comment">// 初始化 Mindmap, 添加到 Body</span></span></span><br><span class="line"><span class="javascript">            $mindmap.mindmap();</span></span><br><span class="line"><span class="javascript">            $parent.append($mindmap);</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">/**</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         * 创建章节的</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         *</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         * <span class="doctag">@param  <span class="type">&#123;JSON&#125;</span> </span>chapter 章节的 JSON 对象</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         * <span class="doctag">@param  <span class="type">&#123;jDom&#125;</span> </span>$parent 章节的父节点</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         * <span class="doctag">@return </span>无返回值</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         */</span></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">createChapter</span>(<span class="params">chapter, $parent</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> $chapter = $(<span class="string">`&lt;li class=&quot;children__item&quot;&gt;</span></span></span><br><span class="line"><span class="string"><span class="javascript">                &lt;div class=&quot;node&quot;&gt;</span></span></span><br><span class="line"><span class="string"><span class="javascript">                    &lt;div class=&quot;node__text&quot;&gt;<span class="subst">$&#123;chapter.title&#125;</span>&lt;/div&gt;</span></span></span><br><span class="line"><span class="string"><span class="javascript">                &lt;/div&gt;</span></span></span><br><span class="line"><span class="string"><span class="javascript">                &lt;ol class=&quot;children&quot;&gt;&lt;/ol&gt;</span></span></span><br><span class="line"><span class="string"><span class="javascript">            &lt;/li&gt;`</span>);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">            <span class="comment">// 如果有子章节, 继续创建子章节, 否则删除 $subChapters, 使得界面更简洁</span></span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> $subChapters = $chapter.children(<span class="string">&#x27;.children&#x27;</span>);</span></span><br><span class="line"><span class="javascript">            <span class="keyword">if</span> (chapter.children) &#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">for</span> (<span class="keyword">var</span> childChapter <span class="keyword">of</span> chapter.children) &#123;</span></span><br><span class="line"><span class="javascript">                    createChapter(childChapter, $subChapters);</span></span><br><span class="line"><span class="javascript">                &#125;</span></span><br><span class="line"><span class="javascript">            &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="javascript">                $subChapters.remove();</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">            $parent.append($chapter);</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="chapter-json"><a href="#chapter-json" class="headerlink" title="chapter.json"></a>chapter.json</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;chapters&quot;</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">&quot;children&quot;</span>: [</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="string">&quot;children&quot;</span>: [</span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="string">&quot;code&quot;</span>: <span class="string">&quot;01-01-01&quot;</span>,</span><br><span class="line">                            <span class="string">&quot;title&quot;</span>: <span class="string">&quot;1.1.1　构成空间几何体的基本元素&quot;</span></span><br><span class="line">                        &#125;,</span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="string">&quot;code&quot;</span>: <span class="string">&quot;01-01-02&quot;</span>,</span><br><span class="line">                            <span class="string">&quot;title&quot;</span>: <span class="string">&quot;1.1.2　棱柱、棱锥和棱台的结构特征&quot;</span></span><br><span class="line">                        &#125;,</span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="string">&quot;code&quot;</span>: <span class="string">&quot;01-01-03&quot;</span>,</span><br><span class="line">                            <span class="string">&quot;title&quot;</span>: <span class="string">&quot;1.1.3　圆柱、圆锥、圆台和球&quot;</span></span><br><span class="line">                        &#125;,</span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="string">&quot;code&quot;</span>: <span class="string">&quot;01-01-04&quot;</span>,</span><br><span class="line">                            <span class="string">&quot;title&quot;</span>: <span class="string">&quot;1.1.4　投影与直观图&quot;</span></span><br><span class="line">                        &#125;,</span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="string">&quot;code&quot;</span>: <span class="string">&quot;01-01-05&quot;</span>,</span><br><span class="line">                            <span class="string">&quot;title&quot;</span>: <span class="string">&quot;1.1.5　三视图&quot;</span></span><br><span class="line">                        &#125;,</span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="string">&quot;code&quot;</span>: <span class="string">&quot;01-01-06&quot;</span>,</span><br><span class="line">                            <span class="string">&quot;title&quot;</span>: <span class="string">&quot;1.1.6　棱柱、棱锥、棱台和球的表面积&quot;</span></span><br><span class="line">                        &#125;,</span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="string">&quot;code&quot;</span>: <span class="string">&quot;01-01-07&quot;</span>,</span><br><span class="line">                            <span class="string">&quot;title&quot;</span>: <span class="string">&quot;1.1.7　柱、锥、台和球的体积&quot;</span></span><br><span class="line">                        &#125;</span><br><span class="line">                    ],</span><br><span class="line">                    <span class="string">&quot;code&quot;</span>: <span class="string">&quot;01-01&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;title&quot;</span>: <span class="string">&quot;1.1　空间几何体&quot;</span></span><br><span class="line">                &#125;,</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="string">&quot;children&quot;</span>: [</span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="string">&quot;code&quot;</span>: <span class="string">&quot;01-02-01&quot;</span>,</span><br><span class="line">                            <span class="string">&quot;title&quot;</span>: <span class="string">&quot;1.2.1　平面的基本性质与推论&quot;</span></span><br><span class="line">                        &#125;,</span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="string">&quot;code&quot;</span>: <span class="string">&quot;01-02-02&quot;</span>,</span><br><span class="line">                            <span class="string">&quot;title&quot;</span>: <span class="string">&quot;1.2.2　空间中的平行关系&quot;</span></span><br><span class="line">                        &#125;,</span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="string">&quot;code&quot;</span>: <span class="string">&quot;01-02-03&quot;</span>,</span><br><span class="line">                            <span class="string">&quot;title&quot;</span>: <span class="string">&quot;1.2.3　空间中的垂直关系&quot;</span></span><br><span class="line">                        &#125;</span><br><span class="line">                    ],</span><br><span class="line">                    <span class="string">&quot;code&quot;</span>: <span class="string">&quot;01-02&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;title&quot;</span>: <span class="string">&quot;1.2　点、线、面之间的位置关系&quot;</span></span><br><span class="line">                &#125;</span><br><span class="line">            ],</span><br><span class="line">            <span class="string">&quot;code&quot;</span>: <span class="string">&quot;01&quot;</span>,</span><br><span class="line">            <span class="string">&quot;title&quot;</span>: <span class="string">&quot;第一章　立体几何初步&quot;</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">&quot;children&quot;</span>: [</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="string">&quot;children&quot;</span>: [</span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="string">&quot;code&quot;</span>: <span class="string">&quot;02-01-01&quot;</span>,</span><br><span class="line">                            <span class="string">&quot;title&quot;</span>: <span class="string">&quot;2.1.1　数轴上的基本公式&quot;</span></span><br><span class="line">                        &#125;,</span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="string">&quot;code&quot;</span>: <span class="string">&quot;02-01-02&quot;</span>,</span><br><span class="line">                            <span class="string">&quot;title&quot;</span>: <span class="string">&quot;2.1.2　平面直角坐标系中的基本公式&quot;</span></span><br><span class="line">                        &#125;</span><br><span class="line">                    ],</span><br><span class="line">                    <span class="string">&quot;code&quot;</span>: <span class="string">&quot;02-01&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;title&quot;</span>: <span class="string">&quot;2.1　平面直角坐标系中的基本公式&quot;</span></span><br><span class="line">                &#125;,</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="string">&quot;children&quot;</span>: [</span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="string">&quot;code&quot;</span>: <span class="string">&quot;02-02-01&quot;</span>,</span><br><span class="line">                            <span class="string">&quot;title&quot;</span>: <span class="string">&quot;2.2.1　直线方程的概念与直线的斜率&quot;</span></span><br><span class="line">                        &#125;,</span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="string">&quot;code&quot;</span>: <span class="string">&quot;02-02-02&quot;</span>,</span><br><span class="line">                            <span class="string">&quot;title&quot;</span>: <span class="string">&quot;2.2.2　直线方程的几种形式&quot;</span></span><br><span class="line">                        &#125;,</span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="string">&quot;code&quot;</span>: <span class="string">&quot;02-02-03&quot;</span>,</span><br><span class="line">                            <span class="string">&quot;title&quot;</span>: <span class="string">&quot;2.2.3　两条直线的位置关系&quot;</span></span><br><span class="line">                        &#125;,</span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="string">&quot;code&quot;</span>: <span class="string">&quot;02-02-04&quot;</span>,</span><br><span class="line">                            <span class="string">&quot;title&quot;</span>: <span class="string">&quot;2.2.4　点到直线的距离&quot;</span></span><br><span class="line">                        &#125;</span><br><span class="line">                    ],</span><br><span class="line">                    <span class="string">&quot;code&quot;</span>: <span class="string">&quot;02-02&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;title&quot;</span>: <span class="string">&quot;2.2　直线的方程&quot;</span></span><br><span class="line">                &#125;,</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="string">&quot;children&quot;</span>: [</span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="string">&quot;code&quot;</span>: <span class="string">&quot;02-03-01&quot;</span>,</span><br><span class="line">                            <span class="string">&quot;title&quot;</span>: <span class="string">&quot;2.3.1　圆的标准方程&quot;</span></span><br><span class="line">                        &#125;,</span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="string">&quot;code&quot;</span>: <span class="string">&quot;02-03-02&quot;</span>,</span><br><span class="line">                            <span class="string">&quot;title&quot;</span>: <span class="string">&quot;2.3.2　圆的一般方程&quot;</span></span><br><span class="line">                        &#125;,</span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="string">&quot;code&quot;</span>: <span class="string">&quot;02-03-03&quot;</span>,</span><br><span class="line">                            <span class="string">&quot;title&quot;</span>: <span class="string">&quot;2.3.3　直线与圆的位置关系&quot;</span></span><br><span class="line">                        &#125;,</span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="string">&quot;code&quot;</span>: <span class="string">&quot;02-03-04&quot;</span>,</span><br><span class="line">                            <span class="string">&quot;title&quot;</span>: <span class="string">&quot;2.3.4　圆与圆的位置关系&quot;</span></span><br><span class="line">                        &#125;</span><br><span class="line">                    ],</span><br><span class="line">                    <span class="string">&quot;code&quot;</span>: <span class="string">&quot;02-03&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;title&quot;</span>: <span class="string">&quot;2.3　圆的方程&quot;</span></span><br><span class="line">                &#125;,</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="string">&quot;children&quot;</span>: [</span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="string">&quot;code&quot;</span>: <span class="string">&quot;02-04-01&quot;</span>,</span><br><span class="line">                            <span class="string">&quot;title&quot;</span>: <span class="string">&quot;2.4.1　空间直角坐标系&quot;</span></span><br><span class="line">                        &#125;,</span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="string">&quot;code&quot;</span>: <span class="string">&quot;02-04-02&quot;</span>,</span><br><span class="line">                            <span class="string">&quot;title&quot;</span>: <span class="string">&quot;2.4.2　空间两点的距离公式&quot;</span></span><br><span class="line">                        &#125;</span><br><span class="line">                    ],</span><br><span class="line">                    <span class="string">&quot;code&quot;</span>: <span class="string">&quot;02-04&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;title&quot;</span>: <span class="string">&quot;2.4　空间直角坐标系&quot;</span></span><br><span class="line">                &#125;</span><br><span class="line">            ],</span><br><span class="line">            <span class="string">&quot;code&quot;</span>: <span class="string">&quot;02&quot;</span>,</span><br><span class="line">            <span class="string">&quot;title&quot;</span>: <span class="string">&quot;第二章　平面解析几何初步&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    <span class="string">&quot;title&quot;</span>: <span class="string">&quot;必修 2B&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后在附上代码: <a href="/download/chapter-mindmap.7z">chapter-mindmap.7z</a></p>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/misc-tio-websocket/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Tio WebSocket 经验
+        
+      </div>
+    </a>
+  
+  
+    <a href="/fe-ckeditor-5/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Ckeditor 5 简介</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

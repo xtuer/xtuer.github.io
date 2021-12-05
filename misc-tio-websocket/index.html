@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Tio WebSocket 经验 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="使用 Tio 实现 WebSocket, 可以在 tio-websocket-showcase 的基础上进行修改 (据说能够达到企业级性能, 单机支持 30 万连接). 利用 Tio 提供的绑定功能实现消息群发和给指定的用户发送消息, 并且把用户对象直接存储到 ChannelContext 上, 还能省去自己管理用户的麻烦, Tio 也提供了心跳检测功能, IP 黑名单, 流量监控等, 我们只需要">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tio WebSocket 经验">
+<meta property="og:url" content="http://xtuer.github.io/misc-tio-websocket/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="使用 Tio 实现 WebSocket, 可以在 tio-websocket-showcase 的基础上进行修改 (据说能够达到企业级性能, 单机支持 30 万连接). 利用 Tio 提供的绑定功能实现消息群发和给指定的用户发送消息, 并且把用户对象直接存储到 ChannelContext 上, 还能省去自己管理用户的麻烦, Tio 也提供了心跳检测功能, IP 黑名单, 流量监控等, 我们只需要">
+<meta property="og:locale">
+<meta property="article:published_time" content="2019-01-06T04:41:33.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.166Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="Misc">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-misc-tio-websocket" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/misc-tio-websocket/" class="article-date">
+  	<!-- <time datetime="2019-01-06T04:41:33.000Z" itemprop="datePublished">2019-01-06</time> -->
+    2019-01-06
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Tio WebSocket 经验
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/" rel="tag">Misc</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>使用 Tio 实现 WebSocket, 可以在 <a target="_blank" rel="noopener" href="https://gitee.com/tywo45/tio-websocket-showcase">tio-websocket-showcase</a> 的基础上进行修改 (据说能够达到企业级性能, 单机支持 30 万连接). 利用 Tio 提供的绑定功能实现消息群发和给指定的用户发送消息, 并且把用户对象直接存储到 ChannelContext 上, 还能省去自己管理用户的麻烦, Tio 也提供了心跳检测功能, IP 黑名单, 流量监控等, 我们只需要关注与业务层代码即可, 下面介绍一些相关的经验:</p>
+<ul>
+<li><p>应用中只有一个 GroupContext, 发送消息, 获取小组信息等</p>
+</li>
+<li><p>一个连接对应一个 ChannelContext (ip:port), 可以使用 <code>setAttribute()</code> 存储业务数据, <code>getAttribute()</code> 获取数据</p>
+</li>
+<li><p>绑定 (使用 Tio 进行绑定, <a target="_blank" rel="noopener" href="https://www.cnblogs.com/lr393993507/p/9834889.html">可参考让网络编程更轻松和有趣 t-io</a>):</p>
+<ul>
+<li><p>userid: 一个 userid 可以绑定多个 ChannelContext (实现同一个账号多个设备登录)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bindUser(ChannelContext channelContext, String userid)</span><br><span class="line"><span class="function">SetWithLock&lt;ChannelContext&gt; <span class="title">getChannelContextsByUserid</span><span class="params">(GroupContext groupContext, String userid)</span></span></span><br></pre></td></tr></table></figure></li>
+<li><p>token: 一个 token 可以绑定多个 ChannelContext (实现同一个账号多个设备登录)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bindToken(ChannelContext channelContext, String token)</span><br><span class="line"><span class="function">SetWithLock&lt;ChannelContext&gt; <span class="title">getChannelContextsByToken</span><span class="params">(GroupContext groupContext, String token)</span></span></span><br></pre></td></tr></table></figure></li>
+<li><p>bsId: 一个 bsId 只能绑定一个 ChannelContext (实现同一个账号只允许登录一个设备)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bindBsId(ChannelContext channelContext, String bsId)</span><br><span class="line"><span class="function">ChannelContext <span class="title">getChannelContextByBsId</span><span class="params">(GroupContext groupContext, String bsId)</span></span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>下面介绍的绑定以 bsId 为例, 其他的方式参考实现即可 <span id="more"></span></p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>与服务器建立连接</p>
+<ul>
+<li><p>连接的 URL</p>
+<p>传入参数 userId 和 username, 在握手的回调函数 <code>IWsMsgHandler.handshake()</code> 中绑定用户 user 和 ChannelContext:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// WebSocket 连接 URL</span></span><br><span class="line"><span class="attr">ws</span>:<span class="comment">//ip:port?userId=&#123;userId&#125;&amp;username=&#123;username&#125;</span></span><br><span class="line">ws:<span class="comment">//ebagtest.edu-edu.com:3721/?userId=10001&amp;username=小明</span></span><br></pre></td></tr></table></figure></li>
+<li><p>踢掉已登录设备</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果 userId 已经绑定过其他的 channelContext (即在其他设备登录), 则踢掉前一个, 一个 userId 只允许登录一台设备</span></span><br><span class="line">ChannelContext previousChannelContext = Tio.getChannelContextByBsId(channelContext.groupContext, userId);</span><br><span class="line"><span class="keyword">if</span> (!channelContext.equals(previousChannelContext) &amp;&amp; previousChannelContext != <span class="keyword">null</span>) &#123;</span><br><span class="line">    user = (User) previousChannelContext.getAttribute(<span class="string">&#x27;user&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    previousChannelContext.setAttribute(<span class="string">&#x27;kickOut&#x27;</span>, <span class="keyword">true</span>); <span class="comment">// 踢掉的标志</span></span><br><span class="line">    Tio.unbindBsId(previousChannelContext);</span><br><span class="line">    Tio.remove(previousChannelContext, <span class="string">&quot;服务器断开客户端连接&quot;</span>);</span><br><span class="line">    logger.info(<span class="string">&quot;踢掉 &#123;&#125; 已经登录的连接 &#123;&#125;&quot;</span>, userId, previousChannelContext.getClientNode());</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 绑定前一个连接的小组</span></span><br><span class="line">    user.getGroups().forEach(groupName -&gt; &#123;</span><br><span class="line">        Tio.bindGroup(channelContext, groupName);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>标记连接是被踢掉的, 在 <code>WsServerAioListener.onBeforeClose()</code> 可以根据连接是否被踢掉的进行特殊处理</p>
+</li>
+<li><p>绑定用户</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">channelContext.setAttribute(<span class="string">&#x27;user&#x27;</span>, user); <span class="comment">// ChannelContext 中存储用户, 就不需要使用其他数据结构来保存了</span></span><br><span class="line">Tio.bindBsId(channelContext, userId); <span class="comment">// BS ID 和 ChannelContext 是一对一的</span></span><br></pre></td></tr></table></figure></li>
+<li><p>发送私聊消息</p>
+<p>绑定了 bsId 和 ChannelContext, Tio 可以使用<code>字符串的 bsId</code> 给此用户发送信息, 不需要找到对应的 ChannelContext</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">WsResponse response = WsResponse.fromText(JSON.toJSONString(message), ServerConfig.CHARSET);</span><br><span class="line">Tio.sendToBsId(channelContext.groupContext, userId, response);</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>与服务器断开连接</p>
+<ul>
+<li><p>解绑用户</p>
+<p>在 <code>WsServerAioListener.onBeforeClose()</code> 中解绑用户和 ChannelContext</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Tio.unbindBsId(channelContext);</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>加入群组</p>
+<ul>
+<li><p>绑定群组</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Tio.bindGroup(channelContext, groupName);</span><br><span class="line">channelContext.getGroups(); <span class="comment">// 可以得到绑定的所有小组名字</span></span><br></pre></td></tr></table></figure></li>
+<li><p>群发消息</p>
+<p>绑定了 groupName 和 ChannelContext, Tio 可以使用<code>字符串的 groupName</code> 给此群组用户发送消息, 不需要找到此群组所有用户的 ChannelContext 一个一个的发送消息</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">WsResponse response = WsResponse.fromText(JSON.toJSONString(message), ServerConfig.CHARSET);</span><br><span class="line">Tio.sendToGroup(channelContext.groupContext, groupName, response);</span><br></pre></td></tr></table></figure></li>
+<li><p>群组成员</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;User&gt; <span class="title">groupUsers</span><span class="params">(String groupName, ChannelContext channelContext)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 1. 获取小组的所有 channelContext</span></span><br><span class="line">    <span class="comment">// 2. 得到每个 channelContext 的用户</span></span><br><span class="line">    <span class="comment">// 3. 返回小组的所有用户</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果小组中没有成员, 返回 null</span></span><br><span class="line">    SetWithLock&lt;ChannelContext&gt; temp = Tio.getChannelContextsByGroup(channelContext.groupContext, groupName);</span><br><span class="line">    <span class="keyword">if</span> (temp == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> Collections.emptyList();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Set&lt;ChannelContext&gt; channels = temp.getObj();</span><br><span class="line">    <span class="keyword">return</span> channels.stream().map(<span class="keyword">this</span>::getUser).collect(Collectors.toList());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>离开群组</p>
+<ul>
+<li><p>解绑群组</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Tio.unbindGroup(groupName, channelContext);</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>心跳检测</p>
+<p>心跳检测是指在设定时间内如果服务器没有收到客户端的<code>任何消息</code>, 则认为客户端已经不是活跃的了, 服务器端就会断开客户端的连接 (Tio.remove() or Tio.close()). 所以客户端为了告知服务器我还在, 只需要定时的给服务器发送一条消息即可 (Tio 框架中心跳消息的内容不限).</p>
+<p>启动心跳检测只需要在创建 WsServerStarter 时设置心跳的 timeout 大于 0 就可以了:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsServerStarter.getServerGroupContext().setHeartbeatTimeout(<span class="number">30000</span>); <span class="comment">// 30s 检测一次心跳</span></span><br></pre></td></tr></table></figure></li>
+<li><p>实现集群</p>
+<p>Tio 内置了集群功能 (使用 Redis), 请参考 <a target="_blank" rel="noopener" href="https://my.oschina.net/zyw205/blog/1827495">t-io 集群解决方案以及源码解析</a> 进行配置. 使用集群时需要注意一下几个方面:</p>
+<ul>
+<li><p>消息发送: 内置的集群实现了消息发送功能 (每个服务器只能给和自己直接连接的客户端发送消息)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Boolean <span class="title">sendToBsId</span><span class="params">(GroupContext groupContext, String bsId, Packet packet, <span class="keyword">boolean</span> isBlock)</span> </span>&#123;</span><br><span class="line">    ChannelContext channelContext = Tio.getChannelContextByBsId(groupContext, bsId);</span><br><span class="line">    <span class="keyword">if</span> (channelContext == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="comment">// 集群内广播的消息就不要再次广播了</span></span><br><span class="line">        <span class="keyword">if</span> (groupContext.isCluster() &amp;&amp; !packet.isFromCluster()) &#123;</span><br><span class="line">            TioClusterConfig tioClusterConfig = groupContext.getTioClusterConfig();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (tioClusterConfig.isCluster4bsId()) &#123;</span><br><span class="line">                notifyClusterForBsId(groupContext, bsId, packet);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (isBlock) &#123;</span><br><span class="line">        <span class="keyword">return</span> bSend(channelContext, packet);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> send(channelContext, packet);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>GroupConext.setTioClusterConfig()</code>, <code>TioClusterMessageListener.onMessage()</code>: 收到广播消息时, 会忽略掉自己广播的消息, 因为已经给直连的客户端发送过了, 其他服务器广播过来的消息会继续发送, 如果本服务器内此 bsId, group, token 等绑定的 ChannelContext 存在就给他们发送消息, 不存在就什么也不操作</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Boolean <span class="title">sendToBsId</span><span class="params">(GroupContext groupContext, String bsId, Packet packet, <span class="keyword">boolean</span> isBlock)</span> </span>&#123;</span><br><span class="line">    ChannelContext channelContext = Tio.getChannelContextByBsId(groupContext, bsId);</span><br><span class="line">    <span class="keyword">if</span> (channelContext == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (groupContext.isCluster() &amp;&amp; !packet.isFromCluster()) &#123;</span><br><span class="line">            TioClusterConfig tioClusterConfig = groupContext.getTioClusterConfig();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (tioClusterConfig.isCluster4bsId()) &#123;</span><br><span class="line">                notifyClusterForBsId(groupContext, bsId, packet);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (isBlock) &#123;</span><br><span class="line">        <span class="keyword">return</span> bSend(channelContext, packet);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> send(channelContext, packet);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>用户管理: 用 ChannelContext 的 attribute 来存储管理用户的方式只能管理直接和当前服务器连接的用户, 非集群环境中很方便. 由于集群环境中有多台服务器, 所有服务器的连接加在一起才是所有的用户连接, 不能使用这种方式管理用户. 既然内置的集群使用了 Redis, 为了不再引入第三方软件, 可以使用 Redis 来管理用户: 所有用户 (list), 小组用户 (hash)</p>
+</li>
+<li><p>重复登录: <code>Tio.getChannelContextByBsId()</code> 只能查找当前 JVM 中的连接, 同一个用户不同次的登录可能被负载均衡分配到不同的服务器, 所以踢掉前一个登录连接需要集群内广播踢掉用户的消息. 可惜 TioClusterMessageListener 没有提供注入处理自定义消息的功能, 目前只能用其他方式进行广播了, 值得一提的是实现广播消息的时候可以参考使用  <code>TioClusterVo.CLIENTID</code> 来判断是否自己广播的消息.</p>
+</li>
+</ul>
+</li>
+</ul>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/fe-vue-echarts/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Vue 中使用 Echarts
+        
+      </div>
+    </a>
+  
+  
+    <a href="/fe-simple-mindmap/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">简单的 Mindmap</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

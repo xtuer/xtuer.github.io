@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>贝塞尔曲线 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="QPainterPath 可以用来画贝塞尔曲线，什么是贝塞尔曲线呢？开始学的时候，经常听到贝塞尔曲线，但一直不知道是什么东西，很神秘的样子，据说很复杂，一直没敢学，人类对陌生的东西总是有恐惧感，这一部分就来揭开贝塞尔曲线神秘的面纱（大部分内容都来自于网络）。  贝塞尔曲线（The Bézier Curves），是一种在计算机图形学中相当重要的参数曲线（3D的称为曲面）。贝塞尔曲线于1962年，由法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="贝塞尔曲线">
+<meta property="og:url" content="http://xtuer.github.io/qtbook-paint-bezier/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="QPainterPath 可以用来画贝塞尔曲线，什么是贝塞尔曲线呢？开始学的时候，经常听到贝塞尔曲线，但一直不知道是什么东西，很神秘的样子，据说很复杂，一直没敢学，人类对陌生的东西总是有恐惧感，这一部分就来揭开贝塞尔曲线神秘的面纱（大部分内容都来自于网络）。  贝塞尔曲线（The Bézier Curves），是一种在计算机图形学中相当重要的参数曲线（3D的称为曲面）。贝塞尔曲线于1962年，由法">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Base-Bezier-NM.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Base-Bezier-1M.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Base-Bezier-1M.gif">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Base-Bezier-2M.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Base-Bezier-2M.gif">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Base-Bezier-Theory.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Base-Bezier-3M.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Base-Bezier-3M.gif">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Base-Bezier-Demo.png">
+<meta property="article:published_time" content="2016-12-08T14:30:20.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.175Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="QtBook">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Base-Bezier-NM.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-qtbook-paint-bezier" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-paint-bezier/" class="article-date">
+  	<!-- <time datetime="2016-12-08T14:30:20.000Z" itemprop="datePublished">2016-12-08</time> -->
+    2016-12-08
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      贝塞尔曲线
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>QPainterPath 可以用来画贝塞尔曲线，什么是贝塞尔曲线呢？开始学的时候，经常听到贝塞尔曲线，但一直不知道是什么东西，很神秘的样子，据说很复杂，一直没敢学，人类对陌生的东西总是有恐惧感，这一部分就来揭开贝塞尔曲线神秘的面纱（大部分内容都来自于网络）。</p>
+<blockquote>
+<p>贝塞尔曲线（The Bézier Curves），是一种在计算机图形学中相当重要的参数曲线（3D的称为曲面）。贝塞尔曲线于1962年，由法国工程师皮埃尔·贝塞尔（Pierre Bézier）所发表，他运用贝塞尔曲线来为汽车的主体进行设计。</p>
+<p>一般的矢量图形软件通过它来精确画出曲线，贝塞尔曲线由线段与节点组成，节点是可拖动的支点，线段像可伸缩的皮筋，我们在绘图工具上看到的钢笔工具就是来做这种矢量曲线的。贝塞尔曲线是计算机图形学中相当重要的参数曲线，在一些比较成熟的位图软件中也有贝塞尔曲线工具，如PhotoShop等。<span id="more"></span></p>
+</blockquote>
+<p>贝塞尔曲线还是很抽象的，如果不是看了下面的这些动态图，演示了贝塞尔曲线的生成过程，估计仍然很难明白贝塞尔曲线是什么样的，控制点是什么，有什么用。</p>
+<p>塞尔曲线的通用公式为：<br><img src="../img/qtbook/paint/Paint-Base-Bezier-NM.png"></p>
+<p>看上去是不是很复杂，难以理解？谁都一样，开始时看到这么复杂的公式，都会头大，但是看完下面的一阶，二阶，三阶贝塞尔曲线的方程和生成动画后就明白了，原来大名鼎鼎的贝塞尔曲线也不难嘛。</p>
+<p><code>一阶贝塞尔曲线</code> 就是线段，没有控制点，其参数方程为<br><img src="../img/qtbook/paint/Paint-Base-Bezier-1M.png"><br>下图是生成一阶贝塞尔曲线的动画：<br><img src="../img/qtbook/paint/Paint-Base-Bezier-1M.gif"></p>
+<p><code>二阶贝塞尔曲线</code> 只有一个控制点，为 P1，其参数方程为<br><img src="../img/qtbook/paint/Paint-Base-Bezier-2M.png"><br>下图是生成二阶贝塞尔曲线的动画：<br><img src="../img/qtbook/paint/Paint-Base-Bezier-2M.gif"></p>
+<p>把其中的任意一帧拿出来分析，可以看到 MP0/MP1，NP1/Np2，KM/KN 都为 t/(1-t)，是不是一下又明白了很多，其他阶的贝塞尔曲线也是这样的。<br><img src="../img/qtbook/paint/Paint-Base-Bezier-Theory.png"></p>
+<p><code>三阶贝塞尔曲线</code> 有两个控制点，为 P1, P2，其参数方程为<br><img src="../img/qtbook/paint/Paint-Base-Bezier-3M.png"><br>下图是生成三阶贝塞尔曲线的动画：<br><img src="../img/qtbook/paint/Paint-Base-Bezier-3M.gif"></p>
+<p>贝塞尔曲线的更多介绍和动画请参考 <a target="_blank" rel="noopener" href="http://bbs.csdn.net/topics/390358020">http://bbs.csdn.net/topics/390358020</a>。</p>
+<p>绘制二阶贝塞尔曲线使用 <code>quadTo()</code>，第一个参数是控制点，第二个参数是曲线的终点</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">QPainterPath::quadTo</span><span class="params">(<span class="keyword">const</span> QPointF &amp;c, <span class="keyword">const</span> QPointF &amp;endPoint)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>绘制三阶贝塞尔曲线使用 <code>cubicTo()</code>，第一个和第二个参数是控制点，第三个参数是曲线的终点</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">QPainterPath::cubicTo</span><span class="params">(<span class="keyword">const</span> QPointF &amp;c1, <span class="keyword">const</span> QPointF &amp;c2, <span class="keyword">const</span> QPointF &amp;endPoint)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>或许你会问：为什么只看到了控制点和终点，没有看到起点？这是因为 QPainterPath 默认的起点在 (0, 0)，可以使用 moveTo() 改变起点，前一条线的终点就是下一条线的起点，结束亦是开始，人生亦是如此，生活处处皆道理，留心处处是学问，一花一世界，一叶一菩提，编程亦能悟道。</p>
+<p>这里演示一个小程序，QPainterPath 添加了三条贝塞尔曲线，每条曲线有两个控制点，如图显示的 0 到 5 个共 6 个控制点，拖动控制点就会改变它的坐标，然后生成新的贝塞尔曲线并显示出来，实时的看到变化的结果。通过拖动控制点，可以生成各种不同的平滑曲线，这就是贝塞尔曲线的魅力所在。</p>
+<p><img src="../img/qtbook/paint/Paint-Base-Bezier-Demo.png"></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名：BezierCurveWidget.h</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> BEZIERCURVEWIDGET_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BEZIERCURVEWIDGET_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QWidget&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QPointF&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QList&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QPainterPath&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BezierCurveWidget</span> :</span> <span class="keyword">public</span> QWidget &#123;</span><br><span class="line">    Q_OBJECT</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">BezierCurveWidget</span><span class="params">(QWidget *parent = <span class="number">0</span>)</span></span>;</span><br><span class="line">    ~<span class="built_in">BezierCurveWidget</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">mousePressEvent</span><span class="params">(QMouseEvent *event)</span> Q_DECL_OVERRIDE</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">mouseMoveEvent</span><span class="params">(QMouseEvent *event)</span> Q_DECL_OVERRIDE</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">paintEvent</span><span class="params">(QPaintEvent *event)</span> Q_DECL_OVERRIDE</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 使用 breakPoints 和 controlPoints 创建贝塞尔曲线</span></span><br><span class="line"><span class="comment">     * 当控制点的坐标变化后都重新生成一次贝塞尔曲线</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">QPainterPath <span class="title">createBezierCurve</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 创建显示控制点的圆的 bounding rectangle</span></span><br><span class="line"><span class="comment">     * @param index 控制点在 controlPoints 中的下标</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">QRect <span class="title">createControlPointBundingRect</span><span class="params">(<span class="keyword">int</span> index)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 为了设置坐标方便，从 (0, 0) 开始设置而不是实际绘制的坐标，对绘制贝塞尔曲线和控制点的</span></span><br><span class="line"><span class="comment">     * 坐标系做了偏移，在计算的时候，坐标也要是相对于新坐标系的坐标才行，不能是原始的坐标，</span></span><br><span class="line"><span class="comment">     * 所以要对其也好做相应的偏移</span></span><br><span class="line"><span class="comment">     * @param point - 例如鼠标按下时在 widget 上的原始坐标</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">QPointF <span class="title">translatedPoint</span><span class="params">(<span class="keyword">const</span> QPointF &amp;point)</span> <span class="keyword">const</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    QPainterPath bezierCurve;       <span class="comment">// 贝塞尔曲线</span></span><br><span class="line">    QList&lt;QPointF *&gt; breakPoints;   <span class="comment">// 贝塞尔曲线端点的坐标</span></span><br><span class="line">    QList&lt;QPointF *&gt; controlPoints; <span class="comment">// 贝塞尔曲线控制点的坐标</span></span><br><span class="line">    <span class="keyword">int</span> pressedControlPointIndex;   <span class="comment">// 鼠标按住的控制点在 controlPoints 里的下标</span></span><br><span class="line">    <span class="keyword">int</span> controlPointRadius;         <span class="comment">// 显示控制点的圆的半径</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> translatedX; <span class="comment">// 坐标系 X 轴的偏移量</span></span><br><span class="line">    <span class="keyword">int</span> translatedY; <span class="comment">// 坐标系 Y 轴的偏移量</span></span><br><span class="line">    <span class="keyword">int</span> flags;       <span class="comment">// 文本显示的参数</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// BEZIERCURVEWIDGET_H</span></span></span><br></pre></td></tr></table></figure>
+<br>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名：BezierCurveWidget.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;BezierCurveWidget.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QPainter&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QMouseEvent&gt;</span></span></span><br><span class="line"></span><br><span class="line">BezierCurveWidget::<span class="built_in">BezierCurveWidget</span>(QWidget *parent) : <span class="built_in">QWidget</span>(parent) &#123;</span><br><span class="line">    <span class="comment">// 贝塞尔曲线的端点</span></span><br><span class="line">    breakPoints.<span class="built_in">append</span>(<span class="keyword">new</span> <span class="built_in">QPointF</span>(<span class="number">0</span>, <span class="number">0</span>));</span><br><span class="line">    breakPoints.<span class="built_in">append</span>(<span class="keyword">new</span> <span class="built_in">QPointF</span>(<span class="number">100</span>, <span class="number">100</span>));</span><br><span class="line">    breakPoints.<span class="built_in">append</span>(<span class="keyword">new</span> <span class="built_in">QPointF</span>(<span class="number">200</span>, <span class="number">0</span>));</span><br><span class="line">    breakPoints.<span class="built_in">append</span>(<span class="keyword">new</span> <span class="built_in">QPointF</span>(<span class="number">300</span>, <span class="number">100</span>));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 第一段贝塞尔曲线控制点</span></span><br><span class="line">    controlPoints.<span class="built_in">append</span>(<span class="keyword">new</span> <span class="built_in">QPointF</span>(<span class="number">50</span>, <span class="number">0</span>));</span><br><span class="line">    controlPoints.<span class="built_in">append</span>(<span class="keyword">new</span> <span class="built_in">QPointF</span>(<span class="number">50</span>, <span class="number">100</span>));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 第二段贝塞尔曲线控制点</span></span><br><span class="line">    controlPoints.<span class="built_in">append</span>(<span class="keyword">new</span> <span class="built_in">QPointF</span>(<span class="number">150</span>, <span class="number">100</span>));</span><br><span class="line">    controlPoints.<span class="built_in">append</span>(<span class="keyword">new</span> <span class="built_in">QPointF</span>(<span class="number">150</span>, <span class="number">0</span>));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 第三段贝塞尔曲线控制点</span></span><br><span class="line">    controlPoints.<span class="built_in">append</span>(<span class="keyword">new</span> <span class="built_in">QPointF</span>(<span class="number">250</span>, <span class="number">0</span>));</span><br><span class="line">    controlPoints.<span class="built_in">append</span>(<span class="keyword">new</span> <span class="built_in">QPointF</span>(<span class="number">250</span>, <span class="number">100</span>));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 坐标设置好后就可以生成贝塞尔曲线了</span></span><br><span class="line">    bezierCurve = <span class="built_in">createBezierCurve</span>();</span><br><span class="line"></span><br><span class="line">    controlPointRadius = <span class="number">8</span>;</span><br><span class="line">    translatedX = <span class="number">50</span>;</span><br><span class="line">    translatedY = <span class="number">50</span>;</span><br><span class="line">    flags = Qt::AlignHCenter | Qt::AlignVCenter; <span class="comment">// 水平和垂直居中</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">BezierCurveWidget::~<span class="built_in">BezierCurveWidget</span>() &#123;</span><br><span class="line">    <span class="built_in">qDeleteAll</span>(breakPoints);</span><br><span class="line">    <span class="built_in">qDeleteAll</span>(controlPoints);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BezierCurveWidget::mousePressEvent</span><span class="params">(QMouseEvent *event)</span> </span>&#123;</span><br><span class="line">    pressedControlPointIndex = <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 绘制贝塞尔曲线和控制点的坐标系做了偏移，鼠标按下的坐标也要相应的偏移</span></span><br><span class="line">    QPointF p = <span class="built_in">translatedPoint</span>(event-&gt;<span class="built_in">pos</span>());</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 鼠标按下时，选择被按住的控制点</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; controlPoints.<span class="built_in">size</span>(); ++i) &#123;</span><br><span class="line">        QPainterPath path;</span><br><span class="line">        path.<span class="built_in">addEllipse</span>(*controlPoints.<span class="built_in">at</span>(i), controlPointRadius, controlPointRadius);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (path.<span class="built_in">contains</span>(p)) &#123;</span><br><span class="line">            pressedControlPointIndex = i;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BezierCurveWidget::mouseMoveEvent</span><span class="params">(QMouseEvent *event)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 移动选中的控制点</span></span><br><span class="line">    <span class="keyword">if</span> (pressedControlPointIndex != <span class="number">-1</span>) &#123;</span><br><span class="line">        QPointF p = <span class="built_in">translatedPoint</span>(event-&gt;<span class="built_in">pos</span>());</span><br><span class="line">        controlPoints.<span class="built_in">at</span>(pressedControlPointIndex)-&gt;<span class="built_in">setX</span>(p.<span class="built_in">x</span>());</span><br><span class="line">        controlPoints.<span class="built_in">at</span>(pressedControlPointIndex)-&gt;<span class="built_in">setY</span>(p.<span class="built_in">y</span>());</span><br><span class="line">        bezierCurve = <span class="built_in">createBezierCurve</span>(); <span class="comment">// 坐标发生变化后重新生成贝塞尔曲线</span></span><br><span class="line">        <span class="built_in">update</span>(); <span class="comment">// 刷新界面</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">QPainterPath <span class="title">BezierCurveWidget::createBezierCurve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    QPainterPath curve;</span><br><span class="line">    curve.<span class="built_in">moveTo</span>(*breakPoints.<span class="built_in">at</span>(<span class="number">0</span>));</span><br><span class="line">    curve.<span class="built_in">cubicTo</span>(*controlPoints[<span class="number">0</span>], *controlPoints[<span class="number">1</span>], *breakPoints[<span class="number">1</span>]);</span><br><span class="line">    curve.<span class="built_in">cubicTo</span>(*controlPoints[<span class="number">2</span>], *controlPoints[<span class="number">3</span>], *breakPoints[<span class="number">2</span>]);</span><br><span class="line">    curve.<span class="built_in">cubicTo</span>(*controlPoints[<span class="number">4</span>], *controlPoints[<span class="number">5</span>], *breakPoints[<span class="number">3</span>]);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> curve;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">QRect <span class="title">BezierCurveWidget::createControlPointBundingRect</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> x = controlPoints.<span class="built_in">at</span>(index)-&gt;<span class="built_in">x</span>() - controlPointRadius;</span><br><span class="line">    <span class="keyword">int</span> y = controlPoints.<span class="built_in">at</span>(index)-&gt;<span class="built_in">y</span>() - controlPointRadius;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">QRect</span>(x, y, controlPointRadius * <span class="number">2</span>, controlPointRadius * <span class="number">2</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">QPointF <span class="title">BezierCurveWidget::translatedPoint</span><span class="params">(<span class="keyword">const</span> QPointF &amp;point)</span> <span class="keyword">const</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> point - <span class="built_in">QPointF</span>(translatedX, translatedY);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BezierCurveWidget::paintEvent</span><span class="params">(QPaintEvent *)</span> </span>&#123;</span><br><span class="line">    <span class="function">QPainter <span class="title">painter</span><span class="params">(<span class="keyword">this</span>)</span></span>;</span><br><span class="line">    painter.<span class="built_in">setRenderHint</span>(QPainter::Antialiasing);</span><br><span class="line">    painter.<span class="built_in">translate</span>(translatedX, translatedY);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 绘制贝塞尔曲线</span></span><br><span class="line">    painter.<span class="built_in">drawPath</span>(bezierCurve);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 绘制控制点和控制点的序号</span></span><br><span class="line">    painter.<span class="built_in">setBrush</span>(Qt::lightGray);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; controlPoints.<span class="built_in">size</span>(); ++i) &#123;</span><br><span class="line">        QRect rect = <span class="built_in">createControlPointBundingRect</span>(i);</span><br><span class="line">        painter.<span class="built_in">drawEllipse</span>(rect);</span><br><span class="line">        painter.<span class="built_in">drawText</span>(rect, flags, <span class="built_in">QString</span>(<span class="string">&quot;%1&quot;</span>).<span class="built_in">arg</span>(i));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名：main.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;BezierCurveWidget.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QApplication&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="function">QApplication <span class="title">a</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line">    BezierCurveWidget w;</span><br><span class="line">    w.<span class="built_in">show</span>();</span><br><span class="line">    <span class="keyword">return</span> a.<span class="built_in">exec</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个程序不能像拖动控制点那样拖动曲线的端点改变贝塞尔曲线，这就作为留给大家的作业吧。</p>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/qtbook-paint-pen/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          画笔
+        
+      </div>
+    </a>
+  
+  
+    <a href="/qtbook-paint-path/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">绘制路径</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Qt 程序简单打包 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="程序在开发工具例如 Qt Creator 中运行没有问题，不少同学开发好后就直接把 xxx.exe 给用户使用，用户双击 xxx.exe 后提示错误，打开程序失败。很是奇怪: 程序在我的电脑里打开好好的，为什么到其他电脑上就不行了呢，是不是他的电脑有问题？不知道此同学有没有在自己电脑上双击过这个程序！ 例如双击下面的 Gui.exe，提示找不到 libgcc_s_dw2-1.dll，那是因为 Qt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Qt 程序简单打包">
+<meta property="og:url" content="http://xtuer.github.io/qtbook-misc-deploy/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="程序在开发工具例如 Qt Creator 中运行没有问题，不少同学开发好后就直接把 xxx.exe 给用户使用，用户双击 xxx.exe 后提示错误，打开程序失败。很是奇怪: 程序在我的电脑里打开好好的，为什么到其他电脑上就不行了呢，是不是他的电脑有问题？不知道此同学有没有在自己电脑上双击过这个程序！ 例如双击下面的 Gui.exe，提示找不到 libgcc_s_dw2-1.dll，那是因为 Qt">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/misc/deploy-win-1.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/misc/deploy-win-2.png">
+<meta property="article:published_time" content="2017-08-21T02:52:06.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.174Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="QtBook">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/qtbook/misc/deploy-win-1.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%AF%E6%89%8B%E5%8A%A8%E6%89%93%E5%8C%85"><span class="toc-text">纯手动打包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%8A%E8%87%AA%E5%8A%A8%E6%89%93%E5%8C%85"><span class="toc-text">半自动打包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E6%96%87%E4%BB%B6"><span class="toc-text">程序文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mac-%E7%A8%8B%E5%BA%8F%E6%89%93%E5%8C%85"><span class="toc-text">Mac 程序打包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E7%9B%AE%E5%BD%95"><span class="toc-text">工作目录</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-qtbook-misc-deploy" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-misc-deploy/" class="article-date">
+  	<!-- <time datetime="2017-08-21T02:52:06.000Z" itemprop="datePublished">2017-08-21</time> -->
+    2017-08-21
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Qt 程序简单打包
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>程序在开发工具例如 Qt Creator 中运行没有问题，不少同学开发好后就直接把 xxx.exe 给用户使用，用户双击 xxx.exe 后提示错误，打开程序失败。很是奇怪: 程序在我的电脑里打开好好的，为什么到其他电脑上就不行了呢，是不是他的电脑有问题？不知道此同学有没有在自己电脑上双击过这个程序！</p>
+<p>例如双击下面的 Gui.exe，提示找不到 libgcc_s_dw2-1.dll，那是因为 Qt 的程序运行的时候除了需要可执行程序本身外，还需要依赖一些其他的 dll，需要把这些 dll 一起打包给用户才行:</p>
+<p><img src="../img/qtbook/misc/deploy-win-1.png"></p>
+<p>Qt 程序打包一般有 2 种方式，纯手动打包和半自动打包，下面以 Windows 中打包 Qt 程序 Gui.exe 为例进行介绍，环境如下:</p>
+<ul>
+<li>安装 MinGW 的 Qt 5.9.1 到 <strong>F</strong> 盘</li>
+<li>DLL 目录: <strong>F:\Qt\Qt5.9.1\5.9.1\mingw53_32\bin</strong></li>
+<li>Qt 的插件目录: <strong>F:\Qt\Qt5.9.1\5.9.1\mingw53_32\plugins</strong> <span id="more"></span></li>
+</ul>
+<h2 id="纯手动打包"><a href="#纯手动打包" class="headerlink" title="纯手动打包"></a>纯手动打包</h2><ol>
+<li><p>双击 Gui.exe</p>
+</li>
+<li><p>弹出错误对话框，提示缺少 dll 如 libgcc_s_dw2-1.dll</p>
+</li>
+<li><p>到上面说的 <strong>DLL 目录</strong> 中复制 libgcc_s_dw2-1.dll 到 Gui.exe 所在目录</p>
+</li>
+<li><p>重复步骤 1 到 4 直到不在提示缺少 dll</p>
+</li>
+<li><p>复制需要的插件到 Gui.exe 所在目录:</p>
+<p>没有插件时程序能运行起来了(在其他电脑还可能会提示缺少 paltforms 的 dll，但是安装了 Qt 的电脑里不会提示)，先不要开心，如果还使用了数据库，PNG 等，会发现访问不了数据库，PNG 显示有时候会有问题等，但是没有任何错误提示。这是因为程序很多时候还依赖 Qt 的插件，程序运行时缺少插件是不会提示的，这就需要我们凭经验去判断还需要哪些插件(看 pro 文件的 QT 配置了什么模块)</p>
+</li>
+<li><p>把 Gui.exe 和上面的这些 dll 一起给用户，到此程序打包完成了</p>
+</li>
+</ol>
+<h2 id="半自动打包"><a href="#半自动打包" class="headerlink" title="半自动打包"></a>半自动打包</h2><p>借助 Qt 提供的 <strong>windeployqt.exe</strong> 进行打包:</p>
+<ol>
+<li><p>命令行进入 Gui.exe 所在目录</p>
+</li>
+<li><p>执行命令 <code>F:\Qt\Qt5.9.1\5.9.1\mingw53_32\bin\windeployqt.exe Gui.exe</code></p>
+<blockquote>
+<p>windeployqt.exe 后的参数是可执行文件的名字</p>
+</blockquote>
+</li>
+<li><p>可以看到有很多 dll 和所有需要的 Qt 插件被复制到了 Gui.exe 所在目录</p>
+</li>
+<li><p>双击 Gui.exe，提示缺少 dll 如 libgcc_s_dw2-1.dll</p>
+</li>
+<li><p>到上面说的 <strong>DLL 目录</strong> 中复制 libgcc_s_dw2-1.dll 到 Gui.exe 所在目录</p>
+</li>
+<li><p>重复步骤 4 到 6直到不在提示缺少 dll</p>
+</li>
+<li><p>把 Gui.exe 和上面的这些 dll 一起给用户，到此程序打包完成了</p>
+</li>
+</ol>
+<blockquote>
+<p>半自动打包的方式比纯手动打包的方式方便了很多，能够自动为找到所有需要的 Qt 插件，但也有弊端，<strong>会复制一些不一定需要的 dll 和文件</strong>，例如 opengl32sw.dll，D3Dcompiler_43.dll，libGLESV2.dll，Qt5Svg.dll，translations，这些文件加起来有 +20M，如果对空间敏感，可以把他们删除，然后运行程序看看有没有问题(绝大多数时候没问题)，如果有问题，则把需要的再放回去即可。</p>
+</blockquote>
+<p>Windows  下 Qt 程序的打包完成了，Mac 和 Linux 下打包请参考 Windows 的方式进行研究，更完善的打包方式请在 Qt 的帮助文档中搜索 <strong>deployment</strong>，查看相关帮助文档:</p>
+<p><img src="../img/qtbook/misc/deploy-win-2.png"></p>
+<h2 id="程序文件"><a href="#程序文件" class="headerlink" title="程序文件"></a>程序文件</h2><p>附上程序打包后的文件列表作为参考:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">├── Gui.exe</span><br><span class="line">├── Qt5Core.dll</span><br><span class="line">├── Qt5Gui.dll</span><br><span class="line">├── Qt5Multimedia.dll</span><br><span class="line">├── Qt5MultimediaWidgets.dll</span><br><span class="line">├── Qt5Network.dll</span><br><span class="line">├── Qt5OpenGL.dll</span><br><span class="line">├── Qt5Widgets.dll</span><br><span class="line">├── libEGL.dll</span><br><span class="line">├── libgcc_s_dw2-1.dll</span><br><span class="line">├── libstdc++-6.dll</span><br><span class="line">├── libwinpthread-1.dll</span><br><span class="line">├── audio</span><br><span class="line">│   └── qtaudio_windows.dll</span><br><span class="line">├── bearer</span><br><span class="line">│   ├── qgenericbearer.dll</span><br><span class="line">│   └── qnativewifibearer.dll</span><br><span class="line">├── iconengines</span><br><span class="line">│   └── qsvgicon.dll</span><br><span class="line">├── imageformats</span><br><span class="line">│   ├── qgif.dll</span><br><span class="line">│   ├── qicns.dll</span><br><span class="line">│   ├── qico.dll</span><br><span class="line">│   ├── qjpeg.dll</span><br><span class="line">│   ├── qsvg.dll</span><br><span class="line">│   ├── qtga.dll</span><br><span class="line">│   ├── qtiff.dll</span><br><span class="line">│   ├── qwbmp.dll</span><br><span class="line">│   └── qwebp.dll</span><br><span class="line">├── mediaservice</span><br><span class="line">│   ├── dsengine.dll</span><br><span class="line">│   └── qtmedia_audioengine.dll</span><br><span class="line">├── platforms</span><br><span class="line">│   └── qwindows.dll</span><br><span class="line">└── playlistformats</span><br><span class="line">    └── qtmultimedia_m3u.dll</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>提示: audio, bearer, iconengines, imageformats, mediaservice, platforms, playlistformats 都是 Qt 的插件，他们和 Gui.exe 在同一级目录。如果感觉插件都放在 Gui.exe 的目录太乱，可以把它们放到 plugins 目录中，并在 main 函数中调用 <code>QApplication::addLibraryPath(&quot;plugins&quot;)</code> 即可。</p>
+</blockquote>
+<h2 id="Mac-程序打包"><a href="#Mac-程序打包" class="headerlink" title="Mac 程序打包"></a>Mac 程序打包</h2><p>上面介绍的是在 Windows 中打包 Qt 程序，在 Mac 上怎么打包 Qt 程序呢？</p>
+<ol>
+<li>命令行进入 macdeployqt 所在目录，例如 <code>cd /Users/Biao/Qt5.13.0/5.13.0/clang_64/bin</code></li>
+<li>执行命令 <code>./macdeployqt /Users/Biao/Temp/xxx.app</code></li>
+<li>结束了，不需要复制任何其他库文件了，可以直接把 xxx.app 发送给其他人使用了，如果想打包为 dmg 文件的话，在上面的命令后面加上参数 <code>-dmg</code> 即可</li>
+</ol>
+<p>不过需要注意的是，如果 pro 文件中设置了 <code>CONFIG -= app_bundle</code>，使用 macdeployqt 打包就会报错，这种情况不知道怎么打包了。</p>
+<h2 id="工作目录"><a href="#工作目录" class="headerlink" title="工作目录"></a>工作目录</h2><p>虽然我们会给 Qt 程序打包了，但是还有一个隐藏在 Mac 程序背后的坑，那就是工作目录。</p>
+<p>Qt 程序的默认工作目录有好几种情况:</p>
+<ul>
+<li>Mac:<ul>
+<li>如果设置 <code>CONFIG -= app_bundle</code>，工作目录默认是可执行文件所在目录 (生成 xxx.app 程序)</li>
+<li>没有设置 <code>CONFIG -= app_bundle</code>，工作目录默认是系统根目录 / (生成 xxx 可执行文件)</li>
+</ul>
+</li>
+<li>Windows: 工作目录默认就是可执行文件所在目录</li>
+<li>Linux: 抱歉，没在 Linux 下开发过 Qt 程序，大家可以参考上面的信息自己研究一下吧</li>
+</ul>
+<p>调用 <code>QCoreApplication::applicationDirPath()</code> 返回的是可执行文件所在的目录，并不是程序的工作目录。运行程序 <strong>xxx.app</strong>，程序的工作目录默认是相对于系统的根目录 **/**，此时如果访问相对路径的文件 <code>QFile file(&quot;data/config.json&quot;)</code>，它的绝对路径则为 <strong>/data/config.json</strong>，可以调用 <code>QDir::setCurrent(dirPath)</code> 来修改程序的工作目录:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">QApplication <span class="title">app</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line">QDir::<span class="built_in">setCurrent</span>(QCoreApplication::<span class="built_in">applicationDirPath</span>()); <span class="comment">// 今后访问相对路径的文件，则是相对于可执行文件所在目录了，而不是系统的根目录</span></span><br><span class="line"></span><br><span class="line"><span class="function">QFile <span class="title">file</span><span class="params">(<span class="string">&quot;data/config.json&quot;</span>)</span></span>; <span class="comment">// file 的绝对路径不是 /data/config.json，而是 $&#123;xxx.app&#125;/Contents/MacOS/data/config.json</span></span><br></pre></td></tr></table></figure>
+
+<p>为了统一起见，设置可执行文件所在目录为工作目录，这样同一套代码，不管是在 Windows 还是 Mac，直接编译就可以使用了。</p>
+<p>大家可以参考 Qt 的帮助文件，就知道为什么会这样了:</p>
+<blockquote>
+<p>QDir::currentPath() returns the absolute path of the application’s current directory. The current directory is the last directory set with QDir::setCurrent or, if that was never called, the directory at which this application was started at by the parent process.</p>
+<p>运行 xxx.app 后，使用命令 <code>ps -ef</code> 可以看到它的 PPID 为 1，所以此时它的工作目录为 / 就可以理解了。</p>
+<p>QDir::setCurrent(const <a href="qstring.html">QString</a> &amp;<em>path</em>) sets the application’s current working directory to <em>path</em>. Returns <code>true</code> if the directory was successfully changed; otherwise returns <code>false</code>.</p>
+</blockquote>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/spring-security-8-token/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Spring Security Session + Token 认证
+        
+      </div>
+    </a>
+  
+  
+    <a href="/gitbook/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">GitBook 入门</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

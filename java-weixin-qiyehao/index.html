@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>微信企业号开发 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="微信企业号主要是为了链接组织和内部员工的，通过提供通讯录、组织新闻公告、活动、投票、调研、论坛 BBS、意见建议墙、招聘、考勤、流程审批、任务管理等一系列功能和服务，提高组织运作效率。微信企业号是微信为企业客户提供的移动服务，旨在提供企业移动应用入口。 微信企业号，有以下一些特点：  关注更安全 只有企业通讯录的成员才能关注企业号，分级管理员、保密消息等各种特性确保企业内部信息的安全  应用可配置">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信企业号开发">
+<meta property="og:url" content="http://xtuer.github.io/java-weixin-qiyehao/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="微信企业号主要是为了链接组织和内部员工的，通过提供通讯录、组织新闻公告、活动、投票、调研、论坛 BBS、意见建议墙、招聘、考勤、流程审批、任务管理等一系列功能和服务，提高组织运作效率。微信企业号是微信为企业客户提供的移动服务，旨在提供企业移动应用入口。 微信企业号，有以下一些特点：  关注更安全 只有企业通讯录的成员才能关注企业号，分级管理员、保密消息等各种特性确保企业内部信息的安全  应用可配置">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/java/weixinqy.png">
+<meta property="article:published_time" content="2017-08-23T14:12:18.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.161Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/java/weixinqy.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%B3%E8%AF%B7%E4%BC%81%E4%B8%9A%E5%8F%B7"><span class="toc-text">申请企业号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E6%88%90%E5%91%98%E5%92%8C%E5%88%9B%E5%BB%BA%E5%BA%94%E7%94%A8"><span class="toc-text">添加成员和创建应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%8F%91%E5%87%86%E5%A4%87"><span class="toc-text">开发准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%E8%AF%B4%E6%98%8E"><span class="toc-text">接口说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E7%A8%8B%E6%A1%88%E4%BE%8B"><span class="toc-text">编程案例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-java-weixin-qiyehao" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/java-weixin-qiyehao/" class="article-date">
+  	<!-- <time datetime="2017-08-23T14:12:18.000Z" itemprop="datePublished">2017-08-23</time> -->
+    2017-08-23
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      微信企业号开发
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>微信企业号主要是为了链接组织和内部员工的，通过提供通讯录、组织新闻公告、活动、投票、调研、论坛 BBS、意见建议墙、招聘、考勤、流程审批、任务管理等一系列功能和服务，提高组织运作效率。微信企业号是微信为企业客户提供的移动服务，旨在提供企业移动应用入口。</p>
+<p>微信企业号，有以下一些特点：</p>
+<ul>
+<li><p>关注更安全</p>
+<p>只有企业通讯录的成员才能关注企业号，分级管理员、保密消息等各种特性确保企业内部信息的安全</p>
+</li>
+<li><p>应用可配置</p>
+<p>企业可自行在企业号中配置多个服务号，可以连接不同的企业应用系统，只有授权的企业成员才能使用相应的服务号</p>
+</li>
+<li><p>消息无限制</p>
+<p>发送消息无限制，并提供完善的管理接口及微信原生能力，以适应企业复杂、个性化的应用场景</p>
+</li>
+<li><p>使用更便捷</p>
+<p>企业号在微信中有统一的消息入口，用户可以更方便地管理企业号消息。微信通讯录也可以直接访问企业号中的应用</p>
+</li>
+</ul>
+<span id="more"></span>
+
+<p>既然要做微信企业号的开发，那么首先申请一个企业号。</p>
+<h2 id="申请企业号"><a href="#申请企业号" class="headerlink" title="申请企业号"></a>申请企业号</h2><ol>
+<li>访问 <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/">https://mp.weixin.qq.com</a></li>
+<li>点击 <strong>立即注册</strong></li>
+<li>点击 <strong>企业微信</strong>(企业号的升级版，企业号的功能都有)</li>
+<li>我们自己练习的话，没有公司的营业执照等，那么申请 <strong>组织</strong> 的企业号，点击 <strong>没有组织机构代码证，继续注册</strong></li>
+<li>接下来就简单了，跟着说明走</li>
+<li>最后登陆企业微信(以及没有企业号的独立登陆了):<ol>
+<li>访问 <a target="_blank" rel="noopener" href="http://work.weixin.qq.com/">http://work.weixin.qq.com</a></li>
+<li>点击 <strong>企业登陆</strong></li>
+</ol>
+</li>
+</ol>
+<h2 id="添加成员和创建应用"><a href="#添加成员和创建应用" class="headerlink" title="添加成员和创建应用"></a>添加成员和创建应用</h2><p>一个企业号可以有多个应用，每个应用可以添加成员(又叫可视范围)</p>
+<ol>
+<li>添加成员:<ol>
+<li>点击 <strong>通讯录</strong></li>
+<li>点击 <strong>添加成员</strong></li>
+<li>点击新添加成员右边的 <strong>邀请</strong></li>
+<li>成员通过邀请</li>
+</ol>
+</li>
+<li>创建应用<ol>
+<li>点击 <strong>企业应用</strong></li>
+<li>点击 <strong>创建应用</strong></li>
+</ol>
+</li>
+<li>给应用添加成员<ol>
+<li>进入应用</li>
+<li>点击 <strong>编辑</strong></li>
+<li>点击 <strong>可见范围</strong> 右边的 <strong>添加</strong></li>
+<li>选择要加入应用的成员</li>
+</ol>
+</li>
+</ol>
+<h2 id="开发准备"><a href="#开发准备" class="headerlink" title="开发准备"></a>开发准备</h2><p>网页中进入应用，设置</p>
+<ul>
+<li><p>网页授权及 JS-SDK 的域名</p>
+<p>开发没有外网可访问的域名怎么办呢？可以使用 Ngrok 等把内网映射为外网可访问的域名，可参考 <a target="_blank" rel="noopener" href="http://qtdebug.com/mac-local-to-web/">http://qtdebug.com/mac-local-to-web/</a></p>
+</li>
+<li><p>自定义菜单</p>
+<ul>
+<li><p>登陆: <a target="_blank" rel="noopener" href="http://buch.ngrok.cc/login/weixinqy">http://buch.ngrok.cc/login/weixinqy</a></p>
+</li>
+<li><p>用户概要: <a target="_blank" rel="noopener" href="http://buch.ngrok.cc/api/user-info">http://buch.ngrok.cc/api/user-info</a></p>
+</li>
+<li><p>用户详情: <a target="_blank" rel="noopener" href="http://buch.ngrok.cc/api/user-details">http://buch.ngrok.cc/api/user-details</a></p>
+</li>
+<li><p>微信中进入企业号应用，界面为:</p>
+<p><img src="../img/java/weixinqy.png"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="接口说明"><a href="#接口说明" class="headerlink" title="接口说明"></a>接口说明</h2><ul>
+<li><p>获取 access_token，有效期为 2 小时，后面提到的 access_token 都是它:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">URL: https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=CORPID&amp;corpsecret=APPSECRET</span><br><span class="line">Method: GET</span><br><span class="line">Params:</span><br><span class="line">    corpsecret: 应用中的 Secret</span><br><span class="line"></span><br><span class="line">参考: http://qydev.weixin.qq.com/wiki/index.php?title=主动调用</span><br></pre></td></tr></table></figure></li>
+<li><p>用户登陆获取 code，后面用来获取成员信息，有效期很短</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">URL: https://open.weixin.qq.com/connect/oauth2/authorize?appid=CORPID&amp;redirect_uri=REDIRECT_URI&amp;response_type=code&amp;scope=SCOPE&amp;agentid=AGENTID&amp;state=STATE#wechat_redirect</span><br><span class="line">Method: GET</span><br><span class="line">Params:</span><br><span class="line">    appid: 企业号的 CorpID</span><br><span class="line">    redirect_uri: 登陆成功后的回调 url，需要进行一次 url encode</span><br><span class="line">    response_type: 为 code</span><br><span class="line">    scope: snsapi_privateinfo 需要用成员击确认授权访问，可以访问成员的手机号码、邮箱等</span><br><span class="line">    agentid: 应用的 AgentId</span><br><span class="line"></span><br><span class="line">参考: https://work.weixin.qq.com/api/doc#10028</span><br></pre></td></tr></table></figure></li>
+<li><p>根据 code 获取成员基础信息，有 UserId，user_ticket(有效期为 30 分钟)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">URL: https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token=ACCESS_TOKEN&amp;code=CODE</span><br><span class="line">Methpd: GET</span><br><span class="line">Params:</span><br><span class="line">    access_token: 上面使用 corpsecret + appsecret 获取到的 access token</span><br><span class="line">    code: 上面用户登陆后得到的 code</span><br></pre></td></tr></table></figure></li>
+<li><p>根据 UserId 获取成员详细信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">URL: https://qyapi.weixin.qq.com/cgi-bin/user/get?access_token=ACCESS_TOKEN&amp;userid=USERID</span><br><span class="line">Method: GET</span><br><span class="line">Params:</span><br><span class="line">    access_token:</span><br><span class="line">    userid: 上面获取成员信息时候得到的</span><br><span class="line"></span><br><span class="line">参考: 文档是错的，按照上面的接口返回的数据是 &#123;&quot;errcode&quot;: -1, &quot;errmsg&quot;: &quot;system error&quot;&#125;</span><br><span class="line">这个接口是微信提供的接口调试工具得到的接口，访问 http://qydev.weixin.qq.com/debug</span><br></pre></td></tr></table></figure></li>
+<li><p>接口调试工具: <a target="_blank" rel="noopener" href="http://qydev.weixin.qq.com/debug">http://qydev.weixin.qq.com/debug</a></p>
+<blockquote>
+<p>文档中有些接口说明是错误的，例如访问成员的详细信息就不对，可以使用此接口调试工具进行访问，找出正确的接口。并且需要去企业号开发者中心才能找到，在企业微信的 API 文档中没有找到。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="编程案例"><a href="#编程案例" class="headerlink" title="编程案例"></a>编程案例</h2><p>HTTP 访问使用了 EasyOkHttp，Gradle 依赖为 <code>compile &#39;com.mzlion:easy-okhttp:1.1.2&#39;</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.alibaba.fastjson.JSONObject;</span><br><span class="line"><span class="keyword">import</span> com.mzlion.easyokhttp.HttpClient;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> java.net.URLEncoder;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WeiXinQY</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 保存以下变量是为了用微信测试时方便，不需要手动去输入</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String accessToken = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String code = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String userTicket = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String userId = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取 access token</span></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/login/token&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">token</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String url = <span class="string">&quot;https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=ww78b1ca2d41e767e3&amp;corpsecret=OPvGF7jESdwam00dMVlHXaxSMFt0_q_jI-Pl37GBXsQ&quot;</span>;</span><br><span class="line">        String responseData = HttpClient.get(url).execute().asString();</span><br><span class="line">        JSONObject obj = JSONObject.parseObject(responseData);</span><br><span class="line">        accessToken = obj.getString(<span class="string">&quot;access_token&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> accessToken;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 授权登陆页</span></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/login/weixinqy&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">loginQY</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String callback = URLEncoder.encode(<span class="string">&quot;http://buch.ngrok.cc/login/weixinqy/callback&quot;</span>);</span><br><span class="line">        String url = <span class="string">&quot;https://open.weixin.qq.com/connect/oauth2/authorize?appid=ww78b1ca2d41e767e3&amp;redirect_uri=&quot;</span> + callback + <span class="string">&quot;&amp;response_type=code&amp;scope=snsapi_privateinfo&amp;agentid=1000002#wechat_redirect&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;redirect:&quot;</span> + url;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 登陆成功后得到 code</span></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/login/weixinqy/callback&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">loginQYCallback</span><span class="params">(HttpServletRequest request)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;code: &quot;</span> + request.getParameter(<span class="string">&quot;code&quot;</span>));</span><br><span class="line">        code = request.getParameter(<span class="string">&quot;code&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> request.getParameterMap();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取成员基础信息</span></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/api/user-info&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">userInfo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String url = String.format(<span class="string">&quot;https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token=%s&amp;code=%s&quot;</span>, accessToken, code);</span><br><span class="line">        String responseData = HttpClient.get(url).execute().asString();</span><br><span class="line">        JSONObject obj = JSONObject.parseObject(responseData);</span><br><span class="line">        userTicket = obj.getString(<span class="string">&quot;user_ticket&quot;</span>);</span><br><span class="line">        userId = obj.getString(<span class="string">&quot;UserId&quot;</span>);</span><br><span class="line"></span><br><span class="line">        System.out.println(responseData);</span><br><span class="line">        <span class="keyword">return</span> responseData;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取成员详情</span></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/api/user-details&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">userDetails</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String url = String.format(<span class="string">&quot;https://qyapi.weixin.qq.com/cgi-bin/user/get?access_token=%s&amp;userid=%s&quot;</span>, accessToken, userId);</span><br><span class="line">        String responseData = HttpClient.get(url).execute().asString();</span><br><span class="line"></span><br><span class="line">        System.out.println(responseData);</span><br><span class="line">        <span class="keyword">return</span> responseData;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>测试步骤:</strong></p>
+<ol>
+<li>浏览器访问 <a target="_blank" rel="noopener" href="http://buch.ngrok.cc/login/token">http://buch.ngrok.cc/login/token</a></li>
+<li>微信中点击 <strong>登陆</strong> 获取 code</li>
+<li>点击 <strong>用户概要</strong> 获取 UserId</li>
+<li>点击 <strong>用户详情</strong> 使用 UserId 获取用户的手机号码、邮箱等</li>
+</ol>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://qydev.weixin.qq.com/wiki/index.php?title=%E9%A6%96%E9%A1%B5">微信企业号开发者中心</a></li>
+<li><a target="_blank" rel="noopener" href="http://qydev.weixin.qq.com/debug">微信企业号接口调试工具</a></li>
+<li><a target="_blank" rel="noopener" href="https://work.weixin.qq.com/api/doc">企业微信 API</a></li>
+</ul>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/spring-security-9-role-inheritance/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Spring Security 权限继承
+        
+      </div>
+    </a>
+  
+  
+    <a href="/spring-security-8-token/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spring Security Session + Token 认证</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

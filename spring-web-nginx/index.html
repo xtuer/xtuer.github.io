@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Nginx 负载均衡 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="通过简单的配置，Nginx 可以实现反向代理，负载均衡，动静分离，URL 重写等。 代理 正向代理：客户使用代理访问多个外部 Web 服务器，就是翻墙 反向代理：多个客户使用它访问内部 Web 服务器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx 负载均衡">
+<meta property="og:url" content="http://xtuer.github.io/spring-web-nginx/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="通过简单的配置，Nginx 可以实现反向代理，负载均衡，动静分离，URL 重写等。 代理 正向代理：客户使用代理访问多个外部 Web 服务器，就是翻墙 反向代理：多个客户使用它访问内部 Web 服务器">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/spring-web/Balance-Loader-1.jpg">
+<meta property="og:image" content="http://xtuer.github.io/img/spring-web/Balance-Loader-4.png">
+<meta property="og:image" content="http://xtuer.github.io/img/spring-web/Balance-Loader-3.jpg">
+<meta property="og:image" content="http://xtuer.github.io/img/spring-web/Balance-Loader-5.png">
+<meta property="article:published_time" content="2017-03-31T11:18:23.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.185Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="SpringWeb">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/spring-web/Balance-Loader-1.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%90%86"><span class="toc-text">代理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="toc-text">负载均衡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nginx-%E7%9A%84%E9%85%8D%E7%BD%AE-nginx-conf"><span class="toc-text">Nginx 的配置 nginx.conf</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8C%E4%B8%80%E5%8F%B0%E7%94%B5%E8%84%91%E5%90%AF%E5%8A%A8%E5%A4%9A%E4%B8%AA-AppServer-%E7%BB%84%E6%88%90%E9%9B%86%E7%BE%A4"><span class="toc-text">同一台电脑启动多个 AppServer 组成集群</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%A5-Maven-module-Xbox-%E4%B8%BA%E4%BE%8B%EF%BC%9A"><span class="toc-text">以 Maven module Xbox 为例：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mac-%E4%B8%8B%E7%94%A8-MAMP-%E5%AE%89%E8%A3%85%E7%9A%84-Nginx-%E7%9A%84%E5%91%BD%E4%BB%A4"><span class="toc-text">Mac 下用 MAMP 安装的 Nginx 的命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Web-Socket-%E7%9A%84%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="toc-text">Web Socket 的负载均衡</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-spring-web-nginx" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/spring-web-nginx/" class="article-date">
+  	<!-- <time datetime="2017-03-31T11:18:23.000Z" itemprop="datePublished">2017-03-31</time> -->
+    2017-03-31
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Nginx 负载均衡
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringWeb/" rel="tag">SpringWeb</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>通过简单的配置，Nginx 可以实现反向代理，负载均衡，动静分离，URL 重写等。</p>
+<h2 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h2><ul>
+<li>正向代理：客户使用代理访问多个外部 Web 服务器，就是翻墙</li>
+<li>反向代理：多个客户使用它访问内部 Web 服务器 <span id="more"></span></li>
+</ul>
+<h2 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h2><ul>
+<li><p>七层负载均衡: Nginx<br><img src="../img/spring-web/Balance-Loader-1.jpg"><br><img src="../img/spring-web/Balance-Loader-4.png"></p>
+</li>
+<li><p>四层负载均衡: F5<br><img src="../img/spring-web/Balance-Loader-3.jpg"></p>
+</li>
+<li><p>四层和七层负载均衡的区别</p>
+<p><img src="../img/spring-web/Balance-Loader-5.png"></p>
+<p>可参考 <a target="_blank" rel="noopener" href="http://kb.cnblogs.com/page/188170/">http://kb.cnblogs.com/page/188170/</a></p>
+</li>
+</ul>
+<h2 id="Nginx-的配置-nginx-conf"><a href="#Nginx-的配置-nginx-conf" class="headerlink" title="Nginx 的配置 nginx.conf"></a>Nginx 的配置 nginx.conf</h2><p>/etc/hosts 里把 <a target="_blank" rel="noopener" href="http://www.xtuer.com/">www.xtuer.com</a> 映射到 127.0.0.1，这样可以在本地浏览器访问 <a target="_blank" rel="noopener" href="http://www.xtuer.com/">http://www.xtuer.com</a></p>
+<blockquote>
+<p>Mac 下 MAMP 的 nginx 的配置文件路径为 /Applications/MAMP/conf/nginx/nginx.conf</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">user                        root admin;</span><br><span class="line">worker_processes            <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections      <span class="number">1024</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include                 mime.types;</span><br><span class="line">    default_type            text/html;</span><br><span class="line">    gzip                    on;</span><br><span class="line">    gzip_types              text/css text/x-component application/x-javascript application/javascript text/javascript text/x-js text/richtext image/svg+xml text/plain text/xsd text/xsl text/xml image/x-icon;</span><br><span class="line">    sendfile                on;</span><br><span class="line"></span><br><span class="line">    upstream app_server &#123;</span><br><span class="line">        server <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8080</span> weight=<span class="number">4</span>;</span><br><span class="line">        server <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8081</span> weight=<span class="number">2</span>;</span><br><span class="line">        server <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8082</span> weight=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen      <span class="number">80</span>;</span><br><span class="line">        charset     utf-<span class="number">8</span>;</span><br><span class="line">        server_name www.xtuer.com; # host_name <span class="keyword">of</span> URL</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">            proxy_redirect   off;</span><br><span class="line">            proxy_set_header Host $host;</span><br><span class="line">            proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">            proxy_pass http:<span class="comment">//app_server;</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        # <span class="keyword">static</span> resources: jpg, png, js, css, etc.</span><br><span class="line">        location ~ \.(gif|jpg|jpeg|png|bmp|swf|js|css|html)$ &#123;</span><br><span class="line">            root /Applications/MAMP/htdocs/www.xtuer.com;</span><br><span class="line">            expires 30d;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        # url rewrite, better to be included <span class="keyword">in</span> separated file</span><br><span class="line">        rewrite /image/cm.png /image/Countryman.png last;</span><br><span class="line">        rewrite /image/png/(.*) /image/$<span class="number">1.</span>png last;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>访问 <a target="_blank" rel="noopener" href="http://www.xtuer.com/**">http://www.xtuer.com/**</a> Nginx 会匹配 URL，如果是静态图片，js, css 等资源，则从 Nginx 所在电脑访问，其他的则根据 <code>weight</code> 值分发给 <code>upstream</code> 里面的 <code>AppServer</code> 处理，某个 AppServer 不能连接也不会影响系统的访问。</p>
+<h2 id="同一台电脑启动多个-AppServer-组成集群"><a href="#同一台电脑启动多个-AppServer-组成集群" class="headerlink" title="同一台电脑启动多个 AppServer 组成集群"></a>同一台电脑启动多个 AppServer 组成<code>集群</code></h2><h5 id="以-Maven-module-Xbox-为例："><a href="#以-Maven-module-Xbox-为例：" class="headerlink" title="以 Maven module Xbox 为例："></a>以 Maven module <code>Xbox</code> 为例：</h5><ol>
+<li><p>修改 pom.xml 里的 port 为不同的端口号</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugin&gt;</span><br><span class="line">    &lt;!--嵌入式的 Tomcat Web Server--&gt;</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.tomcat.maven<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>tomcat7-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;tomcat.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">port</span>&gt;</span>8081<span class="tag">&lt;/<span class="name">port</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">path</span>&gt;</span>/<span class="tag">&lt;/<span class="name">path</span>&gt;</span> <span class="comment">&lt;!--Content Path用 /，而不是项目名--&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">uriEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">uriEncoding</span>&gt;</span> <span class="comment">&lt;!--处理 GET 请求的编码--&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span></span><br><span class="line">&lt;/plugin&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>执行 <code>mvn tomcat7:run</code> 启动 Xbox</p>
+</li>
+<li><p>重复 1, 2 多次，启动多个 Xbox，但是监听不同的端口号</p>
+</li>
+<li><p>配置 nginx 的 upstream，让多个 Xbox 组成集群</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">upstream app_server &#123;</span><br><span class="line">    server <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8080</span> weight=<span class="number">4</span>;</span><br><span class="line">    server <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8081</span> weight=<span class="number">2</span>;</span><br><span class="line">    server <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8082</span> weight=<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>浏览器里多次访问如 <a target="_blank" rel="noopener" href="http://www.xtuer.com/error">http://www.xtuer.com/error</a>，就可以看到不同的 AppServer 处理请求的次数因为 weight 的不同而不同。</p>
+</li>
+</ol>
+<blockquote>
+<p>Gradle 的 gretty 插件目前还不支持多实例运行。</p>
+</blockquote>
+<h2 id="Mac-下用-MAMP-安装的-Nginx-的命令"><a href="#Mac-下用-MAMP-安装的-Nginx-的命令" class="headerlink" title="Mac 下用 MAMP 安装的 Nginx 的命令"></a>Mac 下用 MAMP 安装的 Nginx 的命令</h2><p><strong>重新加载配置前测试配置语法的合法性很重要:</strong></p>
+<ol>
+<li>测试配置文件语法：<code>sudo /Applications/MAMP/Library/bin/nginxctl -t</code></li>
+<li>重新加载配置文件：<code>sudo /Applications/MAMP/Library/bin/nginxctl -s reload</code></li>
+</ol>
+<h2 id="Web-Socket-的负载均衡"><a href="#Web-Socket-的负载均衡" class="headerlink" title="Web Socket 的负载均衡"></a>Web Socket 的负载均衡</h2><p>Nginx 还能够对 Web Socket 进行负载均衡，例如配置如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">    map $http_upgrade $connection_upgrade &#123;</span><br><span class="line">        default upgrade;</span><br><span class="line">        &#x27;&#x27; close;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    upstream websocket &#123;</span><br><span class="line">        server 127.0.0.1:3721;</span><br><span class="line">        server 127.0.0.1:3722;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen 8020;</span><br><span class="line">        proxy_connect_timeout 7d; # 连接的超时时间</span><br><span class="line">        proxy_send_timeout 7d;</span><br><span class="line">        proxy_read_timeout 7d;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">            proxy_pass http://websocket;</span><br><span class="line">            proxy_http_version 1.1;</span><br><span class="line">            proxy_set_header Upgrade $http_upgrade;</span><br><span class="line">            proxy_set_header Connection $connection_upgrade;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/spring-web-cors/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Ajax 跨域访问
+        
+      </div>
+    </a>
+  
+  
+    <a href="/spring-web-miscellaneous/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Miscellaneous</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

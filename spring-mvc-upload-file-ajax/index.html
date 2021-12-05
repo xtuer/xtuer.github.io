@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>SpringMVC Ajax 拖拽上传文件 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在 Spring 上传文件 介绍了在 SpringMVC 中怎么上传文件，这里将介绍 SpringMVC ＋ Ajax ＋ 拖拽进行文件的上传，使用的是 jQuery 的文件上传插件 jQuery File Upload，其主页为 http:&#x2F;&#x2F;plugins.jquery.com&#x2F;blueimp-file-upload&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringMVC Ajax 拖拽上传文件">
+<meta property="og:url" content="http://xtuer.github.io/spring-mvc-upload-file-ajax/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="在 Spring 上传文件 介绍了在 SpringMVC 中怎么上传文件，这里将介绍 SpringMVC ＋ Ajax ＋ 拖拽进行文件的上传，使用的是 jQuery 的文件上传插件 jQuery File Upload，其主页为 http:&#x2F;&#x2F;plugins.jquery.com&#x2F;blueimp-file-upload&#x2F;">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/spring/ajax-upload-file.png">
+<meta property="article:published_time" content="2016-05-01T09:02:34.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.182Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Util">
+<meta property="article:tag" content="SpringMVC">
+<meta property="article:tag" content="Ajax">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/spring/ajax-upload-file.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E5%AE%9E%E7%8E%B0"><span class="toc-text">服务器端实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E7%9A%84%E9%A1%B5%E9%9D%A2"><span class="toc-text">上传文件的页面</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9C%80%E8%A6%81%E7%9A%84-CSS"><span class="toc-text">需要的 CSS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9C%80%E8%A6%81%E7%9A%84-JS"><span class="toc-text">需要的 JS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E7%9A%84%E9%A1%B5%E9%9D%A2-ajax-file-upload-html"><span class="toc-text">上传文件的页面 ajax-file-upload.html</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FileMeta"><span class="toc-text">FileMeta</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-spring-mvc-upload-file-ajax" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/spring-mvc-upload-file-ajax/" class="article-date">
+  	<!-- <time datetime="2016-05-01T09:02:34.000Z" itemprop="datePublished">2016-05-01</time> -->
+    2016-05-01
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SpringMVC Ajax 拖拽上传文件
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ajax/" rel="tag">Ajax</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringMVC/" rel="tag">SpringMVC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Util/" rel="tag">Util</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>在 <a href="/spring-mvc-upload-file/">Spring 上传文件</a> 介绍了在 SpringMVC 中怎么上传文件，这里将介绍 SpringMVC ＋ Ajax ＋ 拖拽进行文件的上传，使用的是 jQuery 的文件上传插件 <code>jQuery File Upload</code>，其主页为 <a target="_blank" rel="noopener" href="http://plugins.jquery.com/blueimp-file-upload/">http://plugins.jquery.com/blueimp-file-upload/</a></p>
+<span id="more"></span>
+
+<p>实现的效果如图:</p>
+<p><img src="../img/spring/ajax-upload-file.png"></p>
+<ul>
+<li>可以点击 <code>Select files...</code> 弹出文件选择对话框选择文件上传，可以选择多个</li>
+<li>拖拽文件到 <code>Drop files here</code> 进行上传</li>
+<li>在 JS 中限制了文件最大为 1M，超出 1M 的不会被上传</li>
+<li>在 JS 中限制了文件的类型为 jpg, png, gif (大小写不敏感)，其他类型的文件不会被上传</li>
+<li>文件上传成功后会显示出其信息</li>
+</ul>
+<h2 id="服务器端实现"><a href="#服务器端实现" class="headerlink" title="服务器端实现"></a>服务器端实现</h2><p>服务器端的实现和 <a href="http://xtuer.github.io/spring-upload-file/">Spring 上传文件</a> 中的实现没有什么区别，只不过为了更友好的响应文件上传成功的信息给浏览器端，返回了更多的响应信息</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.xtuer.bean.FileMeta;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.util.FileCopyUtils;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMethod;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestParam;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.multipart.MultipartFile;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletContext;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UploadController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> ServletContext servletContext;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Ajax 上传文件的页面</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 页面的路径</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/ajax-upload-files&quot;, method = RequestMethod.GET)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">ajaxUploadFilesPage</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;ajax-upload-files.html&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> files 上传文件 MultipartFile 的对象数组</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 成功上传文件的信息, [&#123;&quot;fileName&quot;:&quot;app_engine-85x77.png&quot;,&quot;fileSize&quot;:&quot;8 Kb&quot;,&quot;fileType&quot;:&quot;image/png&quot;&#125;, ...]</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@RequestMapping(value=&quot;/ajax-upload-files&quot;, method = RequestMethod.POST)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> LinkedList&lt;FileMeta&gt; <span class="title">ajaxUploadFiles</span><span class="params">(<span class="meta">@RequestParam(&quot;files&quot;)</span> MultipartFile[] files)</span> </span>&#123;</span><br><span class="line">        LinkedList&lt;FileMeta&gt; uploadedFiles = <span class="keyword">new</span> LinkedList&lt;FileMeta&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (MultipartFile file : files) &#123;</span><br><span class="line">            <span class="keyword">if</span> (saveFile(file)) &#123;</span><br><span class="line">                FileMeta fileMeta = <span class="keyword">new</span> FileMeta();</span><br><span class="line">                fileMeta.setFileName(file.getOriginalFilename());</span><br><span class="line">                fileMeta.setFileSize(file.getSize()/<span class="number">1024</span> + <span class="string">&quot; Kb&quot;</span>);</span><br><span class="line">                fileMeta.setFileType(file.getContentType());</span><br><span class="line"></span><br><span class="line">                uploadedFiles.add(fileMeta);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> uploadedFiles;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 把 HTTP 请求中的文件流保存到本地</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> file MultipartFile 的对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">saveFile</span><span class="params">(MultipartFile file)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!file.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// getRealPath() 取得 WEB-INF 所在文件夹路径</span></span><br><span class="line">                <span class="comment">// 如果参数是 &quot;/temp&quot;, 当 temp 存在时返回 temp 的本地路径, 不存在时返回 null/temp (无效路径)</span></span><br><span class="line">                String path = servletContext.getRealPath(<span class="string">&quot;&quot;</span>) + File.separator + file.getOriginalFilename();</span><br><span class="line">                FileCopyUtils.copy(file.getInputStream(), <span class="keyword">new</span> FileOutputStream(path));</span><br><span class="line"></span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="上传文件的页面"><a href="#上传文件的页面" class="headerlink" title="上传文件的页面"></a>上传文件的页面</h2><h3 id="需要的-CSS"><a href="#需要的-CSS" class="headerlink" title="需要的 CSS"></a>需要的 CSS</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Bootstrap styles 可选 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;/js/bootstrap/css/bootstrap.min.css&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- CSS to style the file input field as button --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;/css/jquery.fileupload.css&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;/css/dropzone.css&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="需要的-JS"><a href="#需要的-JS" class="headerlink" title="需要的 JS"></a>需要的 JS</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;/js/jquery.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;/js/jquery.ui.widget.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- The Iframe Transport is required for browsers without support for XHR file uploads --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;/js/jquery.iframe-transport.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- The basic File Upload plugin --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;/js/jquery.fileupload.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 验证文件类型，大小等使用 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;/js/jquery.fileupload-process.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;/js/jquery.fileupload-validate.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果不需要验证文件大小和类型，则不需要引入这 2 个 JS</p>
+<blockquote>
+<p><code>&lt;script src=&quot;/js/jquery.fileupload-process.js&quot;&gt;&lt;/script&gt;</code><br><code>&lt;script src=&quot;/js/jquery.fileupload-validate.js&quot;&gt;&lt;/script&gt;</code><br>注意: 他们必须在 jquery.fileupload.js 后面引用</p>
+</blockquote>
+<h3 id="上传文件的页面-ajax-file-upload-html"><a href="#上传文件的页面-ajax-file-upload-html" class="headerlink" title="上传文件的页面 ajax-file-upload.html"></a>上传文件的页面 ajax-file-upload.html</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>jQuery File Upload Demo - Basic version<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- Bootstrap styles --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;/js/bootstrap/css/bootstrap.min.css&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- CSS to style the filesystem input field as button --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;/css/jquery.fileupload.css&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;/css/dropzone.css&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css">    <span class="selector-class">.fileinput-button</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="attribute">width</span>: <span class="number">150px</span>;</span></span><br><span class="line"><span class="css">    &#125;</span></span><br><span class="line"><span class="css">    <span class="selector-class">.template</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="attribute">display</span>: none;</span></span><br><span class="line"><span class="css">    &#125;</span></span><br><span class="line"><span class="css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">style</span>=<span class="string">&quot;padding: 50px&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- The fileinput-button span is used to style the filesystem input field as button --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;btn btn-success fileinput-button&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;glyphicon glyphicon-plus&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span>&gt;</span>Select files...<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- The filesystem input field used as target for the filesystem upload widget --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">&quot;fileupload&quot;</span> <span class="attr">type</span>=<span class="string">&quot;file&quot;</span> <span class="attr">name</span>=<span class="string">&quot;files&quot;</span> <span class="attr">multiple</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;dropzone&quot;</span>&gt;</span>Drop files here<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">h4</span>&gt;</span>上传进度<span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;progresses&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;progress template&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;progress-bar progress-bar-info progress-bar-striped&quot;</span> <span class="attr">style</span>=<span class="string">&quot;width: 0%&quot;</span>&gt;</span>0%<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-------------------------- JS --------------------------&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;/js/jquery.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- &lt;script src=&quot;/js/bootstrap/js/bootstrap.min.js&quot;&gt;&lt;/script&gt; --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;/js/jquery.ui.widget.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- The Iframe Transport is required for browsers without support for XHR filesystem uploads --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;/js/jquery.iframe-transport.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- The basic File Upload plugin --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;/js/jquery.fileupload.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 验证文件类型，大小等使用 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;/js/jquery.fileupload-process.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;/js/jquery.fileupload-validate.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> uploadUrl = <span class="string">&#x27;/ajax-upload-files&#x27;</span>;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        $(<span class="string">&#x27;#fileupload&#x27;</span>).fileupload(&#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">url</span>: uploadUrl,</span></span><br><span class="line"><span class="javascript">            <span class="attr">dataType</span>: <span class="string">&#x27;json&#x27;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="attr">maxFileSize</span>: <span class="number">1000000</span>, <span class="comment">// 允许上传的文件的最大大小 (1M, 和磁盘的算法一样，不是用 1024)</span></span></span><br><span class="line"><span class="javascript">            <span class="attr">acceptFileTypes</span>: <span class="regexp">/(\.|\/)(gif|jpe?g|png|rar|zip)$/i</span>, <span class="comment">// 允许上传的文件类型</span></span></span><br><span class="line"><span class="javascript">            dropZone: $(<span class="string">&#x27;#dropzone&#x27;</span>), <span class="comment">// 限制拖拽到 dropzone 里才能上传文件, 如果没有这个参数, 拖拽到浏览器里任何地方就上传了</span></span></span><br><span class="line"><span class="javascript">            <span class="attr">progressInterval</span>: <span class="number">10</span>,</span></span><br><span class="line"><span class="javascript">            <span class="attr">change</span>: <span class="function"><span class="keyword">function</span>(<span class="params">e, data</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">// 限制文件选择窗口中只能选择上传一个文件</span></span></span><br><span class="line"><span class="javascript">                <span class="keyword">if</span>(data.files.length &gt; <span class="number">1</span>)&#123;</span></span><br><span class="line"><span class="javascript">                    alert(<span class="string">&quot;Max 1 files are allowed&quot;</span>)</span></span><br><span class="line"><span class="javascript">                    <span class="keyword">return</span> <span class="literal">false</span>;</span></span><br><span class="line"><span class="javascript">                &#125;</span></span><br><span class="line"><span class="javascript">            &#125;,</span></span><br><span class="line"><span class="javascript">            <span class="attr">drop</span>: <span class="function"><span class="keyword">function</span>(<span class="params">e, data</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">// 限制只能拖拽上传一个文件</span></span></span><br><span class="line"><span class="javascript">                <span class="keyword">if</span>(data.files.length &gt; <span class="number">1</span>)&#123;</span></span><br><span class="line"><span class="javascript">                    alert(<span class="string">&quot;Max 1 files are allowed&quot;</span>)</span></span><br><span class="line"><span class="javascript">                    <span class="keyword">return</span> <span class="literal">false</span>;</span></span><br><span class="line"><span class="javascript">                &#125;</span></span><br><span class="line"><span class="javascript">            &#125;,</span></span><br><span class="line"><span class="javascript">            <span class="attr">progress</span>: <span class="function"><span class="keyword">function</span> (<span class="params">e, data</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                $.each(data.files, <span class="function"><span class="keyword">function</span>(<span class="params">index, file</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                    <span class="keyword">var</span> progress = <span class="built_in">parseInt</span>(data.loaded / data.total * <span class="number">100</span>, <span class="number">10</span>);</span></span><br><span class="line"><span class="javascript">                    updateProgressBar(file.name, progress);</span></span><br><span class="line"><span class="javascript">                &#125;);</span></span><br><span class="line"><span class="javascript">            &#125;,</span></span><br><span class="line"><span class="javascript">            <span class="attr">processfail</span>: <span class="function"><span class="keyword">function</span>(<span class="params">e, data</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                alert(data.files[<span class="number">0</span>].error); <span class="comment">// 上传的文件验证不通过, 显示错误信息</span></span></span><br><span class="line"><span class="javascript">            &#125;,</span></span><br><span class="line"><span class="javascript">            <span class="attr">processdone</span>: <span class="function"><span class="keyword">function</span> (<span class="params">e, data</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">// 验证通过，开始上传时创建一个进度条</span></span></span><br><span class="line"><span class="javascript">                $.each(data.files, <span class="function"><span class="keyword">function</span> (<span class="params">index, file</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                    createProgressBar(file.name);</span></span><br><span class="line"><span class="javascript">                &#125;);</span></span><br><span class="line"><span class="javascript">            &#125;,</span></span><br><span class="line"><span class="javascript">            <span class="attr">done</span>: <span class="function"><span class="keyword">function</span>(<span class="params">e, data</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">// 上传完成</span></span></span><br><span class="line"><span class="javascript">                $.each(data.result, <span class="function"><span class="keyword">function</span>(<span class="params">index, file</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                    <span class="comment">// $(&#x27;&lt;p/&gt;&#x27;).text(file.fileName).appendTo(&#x27;#uploaded-files&#x27;);</span></span></span><br><span class="line"><span class="javascript">                &#125;);</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        enableDragAndDropEffect(); <span class="comment">// 可选</span></span></span><br><span class="line"><span class="javascript">    &#125;);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="comment">// 添加文件时创建进度条</span></span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">createProgressBar</span>(<span class="params">fileName</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> $progress = $(<span class="string">&#x27;#progresses .template&#x27;</span>).clone().removeClass(<span class="string">&#x27;template&#x27;</span>);</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> $progressBar = $progress.find(<span class="string">&#x27;.progress-bar&#x27;</span>);</span></span><br><span class="line"><span class="javascript">        $progress.attr(<span class="string">&#x27;data-file-name&#x27;</span>, fileName);</span></span><br><span class="line"><span class="javascript">        $progressBar.text(fileName + <span class="string">&#x27; 0%&#x27;</span>);</span></span><br><span class="line"><span class="javascript">        $progress.appendTo($(<span class="string">&#x27;#progresses&#x27;</span>));</span></span><br><span class="line"><span class="javascript">    &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="comment">// 更新进度条</span></span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">updateProgressBar</span>(<span class="params">fileName, progress</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> $progress = $(<span class="string">&#x27;#progresses .progress[data-file-name=&quot;&#x27;</span> + fileName + <span class="string">&#x27;&quot;]&#x27;</span>);</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> $progressBar = $progress.find(<span class="string">&#x27;.progress-bar&#x27;</span>);</span></span><br><span class="line"><span class="javascript">        $progressBar.css(<span class="string">&#x27;width&#x27;</span>, progress + <span class="string">&#x27;%&#x27;</span>).text(fileName + <span class="string">&#x27; &#x27;</span> + progress + <span class="string">&#x27;%&#x27;</span>);</span></span><br><span class="line"><span class="javascript">    &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="comment">// 当拖拽文件到 dropzone 上时给其添加效果</span></span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">enableDragAndDropEffect</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        $(<span class="string">&#x27;#dropzone&#x27;</span>).on(<span class="string">&#x27;dragover&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">            $(<span class="string">&#x27;#dropzone&#x27;</span>).addClass(<span class="string">&#x27;hover&#x27;</span>);</span></span><br><span class="line"><span class="javascript">        &#125;).on(<span class="string">&#x27;dragleave&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            $(<span class="string">&#x27;#dropzone&#x27;</span>).removeClass(<span class="string">&#x27;hover&#x27;</span>);</span></span><br><span class="line"><span class="javascript">        &#125;).on(<span class="string">&#x27;drop&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            $(<span class="string">&#x27;#dropzone&#x27;</span>).removeClass(<span class="string">&#x27;hover&#x27;</span>);</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript">    &#125;</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="FileMeta"><a href="#FileMeta" class="headerlink" title="FileMeta"></a>FileMeta</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.bean;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileMeta</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String fileName;</span><br><span class="line">    <span class="keyword">private</span> String fileSize;</span><br><span class="line">    <span class="keyword">private</span> String fileType;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Setters and getters</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://plugins.jquery.com/blueimp-file-upload/">jQuery File Upload</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/blueimp/jQuery-File-Upload/wiki">jQuery File Upload Document</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/blueimp/jQuery-File-Upload/wiki/Options">jQuery File Upload Options</a></li>
+<li><a href="/download/file-upload.7z">源码</a></li>
+</ul>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/fe-string-format/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          JavaScript 里格式化字符串
+        
+      </div>
+    </a>
+  
+  
+    <a href="/spring-mvc-async/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spring 异步调用</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

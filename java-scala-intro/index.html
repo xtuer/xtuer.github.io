@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Scala 语法摘要 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Scala: Scalable language, 面向对象的函数式编程语言. 类型类型的首字母大写, 没有基本类型:   Boolean Byte Char Short Int Long Float Double String Unit (即是 void) Any AnyRef AnyValue  变量常量: val greeting: String &#x3D; &quot;Hello world&amp;qu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scala 语法摘要">
+<meta property="og:url" content="http://xtuer.github.io/java-scala-intro/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="Scala: Scalable language, 面向对象的函数式编程语言. 类型类型的首字母大写, 没有基本类型:   Boolean Byte Char Short Int Long Float Double String Unit (即是 void) Any AnyRef AnyValue  变量常量: val greeting: String &#x3D; &quot;Hello world&amp;qu">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-11-24T00:24:19.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.159Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B"><span class="toc-text">类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E9%87%8F"><span class="toc-text">变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">字符串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">正则表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD"><span class="toc-text">运算符重载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A0%E5%8F%82%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8"><span class="toc-text">无参函数调用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%83%E7%BB%84"><span class="toc-text">元组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#match-case"><span class="toc-text">match case</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#For-%E5%BE%AA%E7%8E%AF"><span class="toc-text">For 循环</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E5%90%88"><span class="toc-text">集合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%92%8C%E6%96%B9%E6%B3%95"><span class="toc-text">函数和方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E7%BB%84"><span class="toc-text">数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E5%8F%AF%E5%8F%98%E9%9B%86%E5%90%88"><span class="toc-text">不可变集合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E5%85%83%E7%B4%A0%E9%9B%86%E5%90%88"><span class="toc-text">单元素集合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB"><span class="toc-text">类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3-trait"><span class="toc-text">接口 trait</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%90%E5%BC%8F%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-text">隐式类型转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%9B%E5%9E%8B"><span class="toc-text">泛型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%9A%E4%B8%BE"><span class="toc-text">枚举</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Misc"><span class="toc-text">Misc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%B0%BE%E9%80%92%E5%BD%92"><span class="toc-text">什么是尾递归</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-java-scala-intro" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/java-scala-intro/" class="article-date">
+  	<!-- <time datetime="2018-11-24T00:24:19.000Z" itemprop="datePublished">2018-11-24</time> -->
+    2018-11-24
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Scala 语法摘要
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Scala: Scalable language, 面向对象的函数式编程语言.</p>
+<h2 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h2><p>类型的首字母大写, 没有基本类型: </p>
+<ul>
+<li>Boolean</li>
+<li>Byte</li>
+<li>Char</li>
+<li>Short</li>
+<li>Int</li>
+<li>Long</li>
+<li>Float</li>
+<li>Double</li>
+<li>String</li>
+<li>Unit (即是 void)</li>
+<li>Any</li>
+<li>AnyRef</li>
+<li>AnyValue</li>
+</ul>
+<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><p>常量: <code>val greeting: String = &quot;Hello world&quot; (value), val π = 3.1415926</code></p>
+<p>变量: <code>var greeting: String = &quot;Hello world&quot; (variable)</code></p>
+<p>名字: 字母, 数字, 特殊操作符如 +, -, *, /, π, θ 等, 不能以数字开头<span id="more"></span></p>
+<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><ul>
+<li><p><code>val greeting: String = &quot;Hello world&quot;</code></p>
+</li>
+<li><p>多行字符串使用 3 个双引号</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val text = <span class="string">&quot;&quot;</span><span class="string">&quot;He is</span></span><br><span class="line"><span class="string">   a good</span></span><br><span class="line"><span class="string">   man&quot;</span><span class="string">&quot;&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>字符串内插值 (s 开头): </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val text = s<span class="string">&quot;First Name $firstName, Last Name: $&#123;lastName&#125;&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>字符串格式化 (f 开头): </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// %s10 不足 10 个字符前面用空格补齐</span></span><br><span class="line"><span class="comment">// %-10s, 后面补齐</span></span><br><span class="line">val text = f<span class="string">&quot;First Name $firstName%3s, Last Name: $&#123;lastName&#125;%10s&quot;</span> </span><br></pre></td></tr></table></figure></li>
+<li><p>反斜杠不转义:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val text = raw<span class="string">&quot;Hello \n World&quot;</span> <span class="comment">// 也可以使用多行字符串的方式输出 \n, 而不是回车, 多行字符串中也不进行转义</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><p>字符串结尾用 <code>.r</code> (即调用字符串的 <code>r()</code> 函数) 构造 Regex 对象, 由于正则表达式中常有 <code>\</code>, 所以推荐用不需要转义的字符串来创建正则表达式的对象, 即使用 raw 字符串或者多行字符串的方式:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">val date = raw<span class="string">&quot;(\d&#123;4&#125;)-(\d&#123;2&#125;)-(\d&#123;2&#125;)&quot;</span>.r</span><br><span class="line">val date = <span class="string">&quot;&quot;</span><span class="string">&quot;(\d&#123;4&#125;)-(\d&#123;2&#125;)-(\d&#123;2&#125;)&quot;</span><span class="string">&quot;&quot;</span>.r</span><br><span class="line"></span><br><span class="line">val input = <span class="string">&quot;Enjoying this apple 3 times today&quot;</span></span><br><span class="line">val pattern = <span class="string">&quot;&quot;</span><span class="string">&quot;.* apple ([\d]+) times .*&quot;</span><span class="string">&quot;&quot;</span>.<span class="function">r</span></span><br><span class="line"><span class="function">val <span class="title">pattern</span><span class="params">(amountText)</span> </span>= input <span class="comment">// 捕获这里需要注意, 变量的定义比较奇怪</span></span><br><span class="line">val amount = amountText.toInt</span><br></pre></td></tr></table></figure>
+
+<h2 id="运算符重载"><a href="#运算符重载" class="headerlink" title="运算符重载"></a>运算符重载</h2><p>Scala 里的运算符例如 1 + 2 中的加其实是函数调用 <code>1.+(2)</code>, 再入 <code>1 to 10</code>, <code>1 until 10</code>, 这几个例子为一个参数的函数调用, 请和下面的无参函数调用进行对比.</p>
+<h2 id="无参函数调用"><a href="#无参函数调用" class="headerlink" title="无参函数调用"></a>无参函数调用</h2><p>没有参数的函数调用可以如下 3 中方式, 推荐第 1 种方式, 就显示直接访问属性一样:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">3.</span>getClass <span class="comment">// 定义时没加 ()</span></span><br><span class="line"><span class="number">3</span> getClass</span><br><span class="line"><span class="number">3.</span>getClass()</span><br><span class="line">    </span><br><span class="line"><span class="string">&quot;23.45&quot;</span>.toDouble</span><br></pre></td></tr></table></figure>
+
+<h2 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h2><p>元组是 <code>2 个或者多个</code>值的有序容器, 提供了一种建立数据结构的通用方法 (函数返回值)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">val info = (<span class="number">5</span>, <span class="string">&quot;Alice&quot;</span>, <span class="keyword">true</span>), info._1, info.<span class="function">_2</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">def <span class="title">tuple</span><span class="params">()</span>: <span class="params">(Int, String, Boolean)</span> </span>= &#123;</span><br><span class="line">    (<span class="number">1</span>, <span class="string">&quot;Alice&quot;</span>, <span class="keyword">true</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">val user = tuple()</span><br><span class="line">println(user._1 + <span class="string">&quot;, &quot;</span> + user._2)</span><br></pre></td></tr></table></figure>
+
+<h2 id="表达式"><a href="#表达式" class="headerlink" title="表达式"></a>表达式</h2><p>表达式是执行后会返回一个值的代码单元, 可以是单个语句, 也可以是代码块, 函数是命名的表达式, if else, for 循环都是表达式 (while 不是表达式):</p>
+<ul>
+<li>字面量是表达式, 例如 5, “Alice”, true</li>
+<li>if else 表达式 (没有三元运算符, 可以用 if else 实现): <code>val max = if (a &gt; b) a else b</code></li>
+<li>表达式块 {} 最后一个表达式的值为表达式块的返回值, 可以省略 return</li>
+</ul>
+<h2 id="match-case"><a href="#match-case" class="headerlink" title="match case"></a>match case</h2><p>Scala 里没有 switch case, 有与之相似的 match case:</p>
+<ul>
+<li>不需要 <code>break</code></li>
+<li>多个匹配可以使用 <code>|</code></li>
+<li>可匹配值, 类型, 正则, 数值范围等</li>
+<li>可以使用 if 进行条件判断: 模式哨位匹配 pattern guard</li>
+<li>没有 default, 取而代之的是 <code>other</code> 或者 <code>_</code></li>
+</ul>
+<p>单个匹配:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">val message = status match &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">200</span> =&gt; <span class="string">&quot;ok&quot;</span></span><br><span class="line">    <span class="keyword">case</span> <span class="number">400</span> =&gt; &#123;</span><br><span class="line">        println(<span class="string">&quot;ERROR - ...&quot;</span>)</span><br><span class="line">        <span class="string">&quot;error&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">case</span> other =&gt; <span class="string">&quot;unknown&quot;</span> <span class="comment">// 这里使用了值绑定, 也可以用通配符绑定 case _ =&gt;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>多个匹配:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">val kind = day match &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;MON&quot;</span> | <span class="string">&quot;TUE&quot;</span> | <span class="string">&quot;WEN&quot;</span> | <span class="string">&quot;THU&quot;</span> | <span class="string">&quot;FRI&quot;</span> =&gt; <span class="string">&quot;weekday&quot;</span></span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;SAT&quot;</span> | <span class="string">&quot;SUN&quot;</span> =&gt; <span class="string">&quot;weekend&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>模式哨位匹配 pattern guard:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">val result = response match &#123;</span><br><span class="line">    <span class="keyword">case</span> s <span class="keyword">if</span> s != <span class="keyword">null</span> =&gt; println(<span class="string">&quot;Not null&quot;</span>)</span><br><span class="line">    <span class="keyword">case</span> s =&gt; println(<span class="string">&quot;Is null&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="For-循环"><a href="#For-循环" class="headerlink" title="For 循环"></a>For 循环</h2><p>For 循环, 使用 <code>&lt;-, to util</code> 和 range, for 循环是表达式, 能用 yield 来产生值:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Java: for (String item : items)</span></span><br><span class="line"><span class="keyword">for</span> (x &lt;- <span class="number">1</span> to <span class="number">5</span>)    <span class="comment">// [1, 5]</span></span><br><span class="line"><span class="keyword">for</span> (x &lt;- <span class="number">1</span> until <span class="number">5</span>) <span class="comment">// [1, 5)</span></span><br><span class="line"><span class="keyword">for</span> (n &lt;- ns)        <span class="comment">// ns 是一个集合</span></span><br><span class="line">val ns = <span class="keyword">for</span> (n &lt;- <span class="number">1</span> to <span class="number">5</span>) yield &#123; n &#125; <span class="comment">// yield 返回不可修改的集合: 1 到 5 的集合</span></span><br><span class="line"><span class="keyword">for</span> (n &lt;- <span class="number">1</span> to <span class="number">20</span> <span class="keyword">if</span> n%<span class="number">3</span>==<span class="number">0</span>) yield n   <span class="comment">// 迭代器过滤器 (哨卫)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(result &lt;- Range(<span class="number">0</span>, <span class="number">20</span>, <span class="number">2</span>)) &#123; <span class="comment">// 步长为 2, 不包含 20</span></span><br><span class="line">    print(result + <span class="string">&quot; &quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>默认没有提供 break, 想使用 break 的话需要导入:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> util.control.Breaks.<span class="function"><span class="keyword">break</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">for</span> <span class="params">(n &lt;- <span class="number">0</span> to <span class="number">100</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &gt; <span class="number">5</span>) <span class="function"><span class="keyword">break</span></span></span><br><span class="line"><span class="function">    <span class="title">println</span><span class="params">(n)</span></span></span><br><span class="line"><span class="function">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val ns: Array[Int] = <span class="keyword">new</span> Array[Int](<span class="number">20</span>) <span class="comment">// 20 是大小</span></span><br><span class="line">val ns = <span class="keyword">new</span> Array[Int](<span class="number">20</span>) <span class="comment">// mutable</span></span><br><span class="line">val list: Lit[Int] = List(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>) <span class="comment">// immutable, Nil, 1 :: list</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="函数和方法"><a href="#函数和方法" class="headerlink" title="函数和方法"></a>函数和方法</h2><p>函数是命名表达式:</p>
+<ul>
+<li><p>函数定义形式:  <code>def main(args: Array[String]): Unit = &#123;&#125;</code> </p>
+</li>
+<li><p>使用表达式块调用函数: </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pow(<span class="number">4</span>)    <span class="comment">// 普通方法调用</span></span><br><span class="line">pow &#123;<span class="number">2</span>*<span class="number">2</span>&#125; <span class="comment">// 先计算 2*2 得到 4, 然后 4 作为函数 pow 的参数进行调用, 省去定义中间变量</span></span><br></pre></td></tr></table></figure></li>
+<li><p>使用命名参数调用函数:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">greet(name = <span class="string">&quot;Brown&quot;</span>, prefix = <span class="string">&quot;Mr&quot;</span>) <span class="comment">// 和 OC 的一样, 参数顺序可以和定义的顺序不一致</span></span><br></pre></td></tr></table></figure></li>
+<li><p>函数可以有默认参数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@annotation</span>.<span class="function">tailrec</span></span><br><span class="line"><span class="function">def <span class="title">fractional</span><span class="params">(n: Int, t: Int = <span class="number">1</span>)</span>: Int </span>= &#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">1</span>) <span class="function">t</span></span><br><span class="line"><span class="function">    <span class="keyword">else</span> <span class="title">fractional</span><span class="params">(n-<span class="number">1</span>, t*n)</span></span></span><br><span class="line"><span class="function">&#125;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>函数可以为可变参数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Scala: 类型后面跟上 *</span></span><br><span class="line"><span class="function">def <span class="title">sum</span><span class="params">(items: Int*)</span>: Int </span>= &#123;</span><br><span class="line">    <span class="keyword">var</span> total = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> (item &lt;- items) total += item</span><br><span class="line">    total</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Java: 类型后面跟上 ...</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span>... items)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> total = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> item : items) &#123;</span><br><span class="line">        total += item;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> total;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>函数柯里化 (Currying 咖喱): </p>
+<p>把一个参数列表里的参数拆分到多个括号中</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">def <span class="title">add</span><span class="params">(a: Int, b: Int)</span>: Int </span>= a + b <span class="comment">// add(2, 3)</span></span><br><span class="line"><span class="function">def <span class="title">add</span><span class="params">(a: Int)</span><span class="params">(b: Int)</span>: Int </span>= a + b <span class="comment">// add(2)(3)</span></span><br><span class="line"></span><br><span class="line"><span class="function">def <span class="title">add</span><span class="params">(a: Int)</span>: Int</span>=&gt;Int = (b: Int) =&gt; a + b <span class="comment">// 分析: 柯里化的函数相当于函数返回值为函数</span></span><br></pre></td></tr></table></figure></li>
+<li><p>尾递归函数 (最后一个语句是递归的函数调用), 使用注解 <code>@annotation.tailrec</code> 标记函数为尾递归函数, 不满足的函数会抛出编译错误:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 非尾递归函数</span></span><br><span class="line"><span class="function">def <span class="title">fractional</span><span class="params">(n: Int)</span>: Int </span>= &#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">1</span>) <span class="number">1</span>              <span class="comment">// 返回 1</span></span><br><span class="line">    <span class="keyword">else</span> n * fractional(n - <span class="number">1</span>) <span class="comment">// 对递归的结果还进行了计算</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 尾递归函数, 结果在结束递归处返回, 并且中间计算结果作为参数传给下一层调用</span></span><br><span class="line"><span class="meta">@annotation</span>.<span class="function">tailrec</span></span><br><span class="line"><span class="function">def <span class="title">fractional</span><span class="params">(n: Int, t: Int = <span class="number">1</span>)</span>: Int </span>= &#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">1</span>) t             <span class="comment">// 返回 t</span></span><br><span class="line">    <span class="keyword">else</span> fractional(n-<span class="number">1</span>, t*n) <span class="comment">// 最后一个语句是递归的函数调用</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>函数嵌套定义:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">def <span class="title">max</span><span class="params">(x: Int, y: Int, z: Int)</span>: Int </span>= &#123;</span><br><span class="line">    <span class="function">def <span class="title">max</span><span class="params">(a: Int, b: Int)</span>: Int </span>= <span class="keyword">if</span> (a &gt; b) a <span class="keyword">else</span> b <span class="comment">// 和外层的函数虽然同名, 但参数不同, 不会冲突</span></span><br><span class="line">    max(x, max(y, z))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>函数: 使用 val 和 var 定义, 可以简单的理解为 Lambda, 可以作为方法的参数, 有 2 中定义方式:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">val add: (Int, Int) =&gt; Int = (a, b) =&gt; a + b <span class="comment">// 函数形参常用的方式, 以及 Lambda 提供实现, 也叫 FunctionN(N 最大 22, 参数个数)</span></span><br><span class="line">val add = (a: Int, b: Int): Int =&gt; a + b     <span class="comment">// 和方法的定义有点像</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">// Lambda 的使用: 参数为函数</span></span><br><span class="line"><span class="function">def <span class="title">foo</span><span class="params">(f: (Int, Int)</span> </span>=&gt; Int, a: Int, b: Int): Int = f(a, b) <span class="comment">// 有 3 个参数: 第一个为函数, 第二三个为整数</span></span><br><span class="line">println(foo(_ + _, <span class="number">3</span>, <span class="number">4</span>))           <span class="comment">// 直接写函数体, 更简洁, 缓存函数的动画计算部分使用这种方式会非常舒服</span></span><br><span class="line">println(foo((a, b) =&gt; a + b, <span class="number">3</span>, <span class="number">4</span>)) <span class="comment">// 完整形式</span></span><br></pre></td></tr></table></figure>
+
+<p>Scala 函数作为参数比 Java 的 Lambda 直观 (@FunctionalInterface), Scala 直接写函数的签名, 一目了然的看到函数的参数和返回类型, 而 Java 的参数为接口类型, 需要先定义接口, 打开接口的源码或者文档才知道对应方法的签名.</p>
+<p>Scala 中函数和方法不完全一样, 很多时候可以混用, 因为编译器会把方法转换为函数 (方法执行 <code>_</code> 后变为函数, 例如 <code>add _</code>).</p>
+</li>
+<li><p>函数的类型: </p>
+<p>是输入类型和输出类型的一个简单组合, 由一个箭头从输入类型指向输出类型, 例如 <code>def double(x: Int): Int = x + 2</code> 的函数类型为 <code>Int=&gt;Int</code> 或 <code>(Int)=&gt;Int</code> (只有一个参数时可以省略括号), 函数作为参数时会用到函数类型定义形参.</p>
+</li>
+<li><p>Lambda 的占位符语法:</p>
+<p>是 Lambda 的一种缩写形式, 讲命名参数替换为通配符 <code>_</code>, 按顺序替换参数, 每个参数最多使用一次</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Lambda 的使用: 参数为函数</span></span><br><span class="line"><span class="function">def <span class="title">foo</span><span class="params">(f: (Int, Int)</span> </span>=&gt; Int, a: Int, b: Int): Int = f(a, b) <span class="comment">// 有 3 个参数: 第一个为函数, 第二三个为整数</span></span><br><span class="line">foo(_ + _, <span class="number">3</span>, <span class="number">4</span>)           <span class="comment">// 直接写函数体, 更简洁, 缓存函数的动画计算部分使用这种方式会非常舒服</span></span><br><span class="line">foo((a, b) =&gt; a + b, <span class="number">3</span>, <span class="number">4</span>) <span class="comment">// 完整形式</span></span><br></pre></td></tr></table></figure></li>
+<li><p>方法: 使用 def 定义:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">def <span class="title">add</span><span class="params">(a: Int, b: Int)</span>: Int </span>= a + b</span><br></pre></td></tr></table></figure></li>
+<li><p>函数使用 <code>=&gt;</code> 定义, 方法使用 <code>=</code></p>
+<p>Java 里 Lambda 使用 <code>-&gt;</code>, JS 里 Lambda 使用 <code>=&gt;</code>, Scala 里 Lambda 使用 <code>=&gt;</code></p>
+</li>
+<li><p>高阶函数: 将其他函数作为参数或者返回值为函数的函数</p>
+<p>使用表达式块调用高阶函数 (传名调用: The <code>=&gt; Type</code> notation stands for call-by-name), 柯里化的时候调用也更舒服 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">def <span class="title">main</span><span class="params">(args: Array[String])</span>: Unit </span>= &#123;</span><br><span class="line">    val result = timer &#123;</span><br><span class="line">        util.Random.setSeed(System.currentTimeMillis)</span><br><span class="line">        <span class="keyword">for</span> (i &lt;- <span class="number">1</span> to <span class="number">10000</span>) util.Random.nextDouble</span><br><span class="line">        util.Random.nextDouble</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    println(result)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 注意:</span></span><br><span class="line"><span class="comment">// 参数不是 f: ()=&gt; A, 这个是 Lambda</span></span><br><span class="line"><span class="comment">// 参数是 =&gt;A, 表示传名调用</span></span><br><span class="line"><span class="comment">// What&#x27;s the difference between =&gt; , ()=&gt;, and Unit=&gt;: https://stackoverflow.com/questions/4543228/whats-the-difference-between-and-unit</span></span><br><span class="line">def timer[A](f: =&gt; A): A = &#123; </span><br><span class="line">    val start = System.currentTimeMillis</span><br><span class="line">    val a = f <span class="comment">// 函数执行</span></span><br><span class="line">    val end = System.<span class="function">currentTimeMillis</span></span><br><span class="line"><span class="function">    <span class="title">println</span><span class="params">(s<span class="string">&quot;Executed in $&#123;end - start&#125;ms&quot;</span>)</span></span></span><br><span class="line"><span class="function">    a</span></span><br><span class="line"><span class="function">&#125;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>偏应用函数 (Partial Applied Function, 又叫部分应用函数)</p>
+<p>指一个函数有 n 个参数, 而我们为其提供少于 n 个参数, 那就得到了一个部分应用函数。</p>
+<p>如果函数传递所有预期的参数, 则表示完全应用它 (完全参数应用函数), 如果只是传递几个参数并不是全部参数, 那么将返回部分应用的函数, 这样可以方便的绑定一些参数, 其余的参数可稍后填写补上</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">def <span class="title">full</span><span class="params">(a: Int, b: Int)</span>: Int </span>= a + b</span><br><span class="line">val part1 = full(<span class="number">10</span>, _: Int)             <span class="comment">// 简写</span></span><br><span class="line">val part2 = (x: Int) =&gt; full(<span class="number">10</span>, x)      <span class="comment">// 函数调用</span></span><br><span class="line">val part3: Int =&gt; Int = full(<span class="number">10</span>, _: Int) <span class="comment">// 写上返回类型</span></span><br></pre></td></tr></table></figure></li>
+<li><p>偏函数, 参考 <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/0a8a15dbb348">https://www.jianshu.com/p/0a8a15dbb348</a>, <a target="_blank" rel="noopener" href="http://zhuanlan.51cto.com/art/201703/534053.htm">http://zhuanlan.51cto.com/art/201703/534053.htm</a></p>
+<p>Scala 中的 Partial Function 是一个 Trait，其类型为 PartialFunction[A, B]，其中接收一个类型为 A 的参数，返回一个类型为 B 的结果.</p>
+<p>如果一组 case 语句没有涵盖所有的情况，那么这组 case 语句就可以被看做是一个偏函数, case 语句从本质上讲就是 PartialFunction 的子类。偏函数中最常见的组合方法为 orElse、andThen 与 compose, orElse 相当于一个或运算，如果通过它将多个偏函数组合起来，就相当于形成了多个 case 合成的模式匹配。倘若所有偏函数满足了输入值的所有分支，组合起来就形成一个函数了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 求绝对值的运算</span></span><br><span class="line">val positiveNumber: PartialFunction[Int, Int] = &#123;  </span><br><span class="line">    <span class="keyword">case</span> x <span class="keyword">if</span> x &gt; <span class="number">0</span> =&gt; x  </span><br><span class="line">&#125; </span><br><span class="line">val zero: PartialFunction[Int, Int] = &#123;  </span><br><span class="line">    <span class="keyword">case</span> x <span class="keyword">if</span> x == <span class="number">0</span> =&gt; <span class="number">0</span>  </span><br><span class="line">&#125; </span><br><span class="line">val negativeNumber: PartialFunction[Int, Int] = &#123;  </span><br><span class="line">    <span class="keyword">case</span> x <span class="keyword">if</span> x &lt; <span class="number">0</span> =&gt; -x  </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="function">def <span class="title">abs</span><span class="params">(x: Int)</span>: Int </span>= (positiveNumber orElse zero orElse negativeNumber)(x)</span><br></pre></td></tr></table></figure></li>
+</ul>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; val pf:PartialFunction[Int,String] = &#123;</span><br><span class="line">     |   <span class="keyword">case</span> <span class="number">1</span>=&gt;<span class="string">&quot;One&quot;</span></span><br><span class="line">     |   <span class="keyword">case</span> <span class="number">2</span>=&gt;<span class="string">&quot;Two&quot;</span></span><br><span class="line">     |   <span class="keyword">case</span> <span class="number">3</span>=&gt;<span class="string">&quot;Three&quot;</span></span><br><span class="line">     |   <span class="keyword">case</span> _=&gt;<span class="string">&quot;Other&quot;</span></span><br><span class="line">     | &#125;</span><br><span class="line">pf: PartialFunction[Int,String] = &lt;function1&gt;</span><br><span class="line"></span><br><span class="line">scala&gt; pf(<span class="number">1</span>)</span><br><span class="line">res0: String = One</span><br><span class="line"></span><br><span class="line">scala&gt; pf(<span class="number">2</span>)</span><br><span class="line">res1: String = Two</span><br><span class="line"></span><br><span class="line">scala&gt; pf(<span class="number">3</span>)</span><br><span class="line">res2: String = Three</span><br><span class="line"></span><br><span class="line">scala&gt; pf(<span class="number">4</span>)</span><br><span class="line">res3: String = Other</span><br></pre></td></tr></table></figure>
+
+<p>  艺术地说，Scala 中的 Partial Function 就是一个“残缺”的函数，就像一个严重偏科的学生，只对某些科目感兴趣，而对没有兴趣的内容弃若蔽履。Partial Function 做不到以“偏”概全，因而需要将多个偏函数组合，最终才能达到全面覆盖的目的。</p>
+<p>  利用 andThen 组合偏函数，设计本质接近 Pipe-and-Filter 模式，每个偏函数都可以理解为是一个 Filter。因为要将这些偏函数组合起来形成一个管道，这就要求被组合的偏函数其输入值与输出值必须支持可串接，即上一个偏函数的输出值会作为下一个偏函数的输入值。</p>
+<ul>
+<li><p>泛型: 使用 <code>[T]</code> 定义泛型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def generic[A](a: A): Unit = &#123;</span><br><span class="line">    println(a)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 泛型函数调用</span></span><br><span class="line">generic(<span class="number">1</span>)</span><br><span class="line">generic(<span class="string">&quot;String&quot;</span>)</span><br><span class="line">generic[String](<span class="string">&quot;String&quot;</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>和 Java 一样, 数组 Array 的长度是不可变的:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">val arr: Array[Int] = <span class="keyword">new</span> Array[Int](<span class="number">3</span>)</span><br><span class="line">arr(<span class="number">0</span>) = <span class="number">100</span></span><br><span class="line">println(arr.toBuffer)</span><br><span class="line">    </span><br><span class="line">val arr = <span class="keyword">new</span> Array[Int](<span class="number">3</span>)</span><br><span class="line">val arr = Array(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Array 几个重要的方法有 foreach, map, filter, flatten, flatMap, groupBy, reduce, fold, mkString: </p>
+<ul>
+<li><p>foreach: 遍历数组的每一个元素</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">arr1.foreach(println)</span><br><span class="line">    </span><br><span class="line"><span class="keyword">for</span> (e &lt;- arr1) &#123;</span><br><span class="line">    println(e)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>map: 映射, 把一个元素映射为另外一个元素, 返回一个新的数组, 不影响原来的数组, 元素的类型可以改变</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 把每一个元素乘以 10</span></span><br><span class="line">val arr1 = Array(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>) <span class="comment">// 初始化</span></span><br><span class="line">val arr2 = arr1.map((e: Int) =&gt; e * <span class="number">10</span>)</span><br><span class="line">val arr3 = arr1.map(e =&gt; e * <span class="number">10</span>)</span><br><span class="line">val arr4 = arr1.map(_ * <span class="number">10</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>filter: 传入一个 predication Lambda, 过滤留下符合条件的元素</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val arr1 = Array(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line">val arr2 = arr1.filter(_ &gt; <span class="number">3</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>flatten (扁平化, 将<code>列表的列表</code>转换为<code>列表</code>): 数组的元素是数组, 使用 flatten 把元素给展开放在新数组里</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val arr1 = Array(Array(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>), Array(<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>))</span><br><span class="line"><span class="keyword">var</span> arr2 = arr1.<span class="function">flatten</span></span><br><span class="line"><span class="function"><span class="title">println</span><span class="params">(arr2.toBuffer)</span></span></span><br></pre></td></tr></table></figure></li>
+<li><p>flatMap: 先 map 再 flatten</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">val arr1 = Array(<span class="string">&quot;Alice Bob John&quot;</span>, <span class="string">&quot;One Two Three&quot;</span>)</span><br><span class="line">val arr2 = arr1.flatMap(_.split(<span class="string">&quot; &quot;</span>))     <span class="comment">// lambda 执行后的结果是一个数组，然后执行 flatten (作用于列表的列表)</span></span><br><span class="line">val arr3 = arr1.map(_.split(<span class="string">&quot; &quot;</span>)).flatten <span class="comment">// _.split(&quot; &quot;) 的结果是一个数组</span></span><br><span class="line"></span><br><span class="line">println(arr2.toBuffer)</span><br><span class="line">println(arr3.toBuffer)</span><br><span class="line"></span><br><span class="line">ArrayBuffer(Alice, Bob, John, One, Two, Three)</span><br><span class="line">ArrayBuffer(Alice, Bob, John, One, Two, Three)</span><br></pre></td></tr></table></figure></li>
+<li><p>groupBy: 把数组中的元素分组, 返回一个 Map, key 为元素传入 Lambda 计算后的结果, value 为有相同 key 的元素的 List</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val arr = Array(<span class="string">&quot;Five Four Three Two Two&quot;</span>, <span class="string">&quot;One Two Three&quot;</span>)</span><br><span class="line">val map = arr.flatMap(_.split(<span class="string">&quot; &quot;</span>)).groupBy(e =&gt; e) <span class="comment">// 函数对每个元素计算的结果作为 key, 元素作为此 key 对应数组的元素</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 统计单词的数量, 使用 mapValues: 对 Map 的 values 进行映射, key 不变, 值为 key 对应 values 计算的结果</span></span><br><span class="line">arr.flatMap(_.split(<span class="string">&quot; &quot;</span>)).groupBy(e =&gt; e).mapValues(e =&gt; e.length) <span class="comment">// 输出: Map(One -&gt; 1, Five -&gt; 1, Two -&gt; 3, Four -&gt; 1, Three -&gt; 2)</span></span><br></pre></td></tr></table></figure></li>
+<li><p>reduce: 讲数组折叠为单个元素</p>
+<p>第一个参数为累积结果, 第二个参数为数组的元素</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val ns = Array(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line">ns.reduce((accumulation, e) =&gt; &#123;</span><br><span class="line">    println(accumulation + <span class="string">&quot;, &quot;</span> + e)</span><br><span class="line">    accumulation + e</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="不可变集合"><a href="#不可变集合" class="headerlink" title="不可变集合"></a>不可变集合</h2><p>List, Set, Map, 下标从 0 开始:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">val list = List(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)  <span class="comment">// list(0), list(1), list.size, Nil</span></span><br><span class="line">val set = Set(<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">val map = Map(<span class="string">&quot;red&quot;</span> -&gt; <span class="number">0xFF0000</span>, <span class="string">&quot;green&quot;</span> -&gt; <span class="number">0x00FF00</span>, <span class="string">&quot;blue&quot;</span> -&gt; <span class="number">0x0000FF</span>)</span><br><span class="line">val red = map(<span class="string">&quot;red&quot;</span>) <span class="comment">// 获取 map 的 value</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义时指定类型</span></span><br><span class="line">val list: List[Int] = List(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>) </span><br><span class="line">val set: Set[Int] = Set(<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">val map: Map[String, Int] = Map(<span class="string">&quot;red&quot;</span> -&gt; <span class="number">0xFF0000</span>, <span class="string">&quot;green&quot;</span> -&gt; <span class="number">0x00FF00</span>, <span class="string">&quot;blue&quot;</span> -&gt; <span class="number">0x0000FF</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>list: <code>List()</code> 创建一个空 List, 等于 <code>Nil</code> (List[Nothing] 的单例对象), <code>val list2 = 2 :: list1</code> 在 list1 头部插入 2 创建新的 List</p>
+</li>
+<li><p><code>List(1, 2, 3)</code> 调用的是 <code>List.apply(1, 2, 3)</code> 返回一个 List 对象, 只是一个语法糖:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">object Hello &#123;</span><br><span class="line">    <span class="function">def <span class="title">apply</span><span class="params">()</span>: Unit </span>= &#123;</span><br><span class="line">        println(<span class="string">&quot;applied&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">def <span class="title">main</span><span class="params">(args: Array[String])</span>: Unit </span>= &#123;</span><br><span class="line">        Hello()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="单元素集合"><a href="#单元素集合" class="headerlink" title="单元素集合"></a>单元素集合</h2><ul>
+<li>Option</li>
+<li>Try</li>
+<li>Future</li>
+</ul>
+<h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><p>构造函数有 3 中: 默认构造函数, 主构造函数, 辅助构造函数, 伴生对象也是很重要的特性:</p>
+<ul>
+<li><p>默认构造函数:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Teacher</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name: String = _ <span class="comment">// _ 会为根据类型进行初始化, 字符串为 null, 整数为 0</span></span><br><span class="line">    <span class="keyword">var</span> age: Int = _     <span class="comment">// 属性也可以用 private 修饰</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>主构造函数: 主构造函数中 var | val 修饰的形参自动为类的成员变量</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 主构造函数中 var | val 修饰的形参自动为类的成员变量</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Teacher</span>(<span class="title">var</span> <span class="title">name</span>: <span class="title">String</span>, <span class="title">var</span> <span class="title">age</span>: <span class="title">Int</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建类的对象和访问成员变量</span></span><br><span class="line"><span class="keyword">var</span> teacher = <span class="keyword">new</span> Teacher(<span class="string">&quot;Alice&quot;</span>, <span class="number">22</span>)</span><br><span class="line">println(teacher.name)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在主构造函数前加 private 则外界不能访问, 只能辅助构造函数访问, 形参也可以用 private 修饰</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Teacher</span> <span class="title">private</span> (<span class="title">var</span> <span class="title">name</span>: <span class="title">String</span>, <span class="title">private</span> <span class="title">var</span> <span class="title">age</span>: <span class="title">Int</span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 限制类的访问范围</span></span><br><span class="line"><span class="keyword">private</span>[<span class="keyword">this</span>] <span class="class"><span class="keyword">class</span> <span class="title">Teacher</span> </span>&#123;&#125; <span class="comment">// 当前包下可访问</span></span><br></pre></td></tr></table></figure></li>
+<li><p>辅助构造函数: 可以有多个辅助构造函数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Teacher</span>(<span class="title">name</span>: <span class="title">String</span>, <span class="title">age</span>: <span class="title">Int</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> gender: Boolean = _</span><br><span class="line"></span><br><span class="line">    <span class="comment">// def this 定义辅助构造函数, 必须先调用主构造函数或者其他辅助构造函数</span></span><br><span class="line">    <span class="function">def <span class="title">this</span><span class="params">(name: String, age: Int, gender: Boolean)</span> </span>= &#123;</span><br><span class="line">        <span class="keyword">this</span>(name, age)</span><br><span class="line">        <span class="keyword">this</span>.gender = gender</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>伴生对象: 类的同名对象, 可以用伴生对象的 <code>apply()</code> 函数创建对象, 例如 <code>List(1, 2, 3)</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Teacher</span> (<span class="title">var</span> <span class="title">name</span>: <span class="title">String</span>, <span class="title">var</span> <span class="title">age</span>: <span class="title">Int</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 类 Teacher 的伴生对象</span></span><br><span class="line">object Teacher &#123;</span><br><span class="line">    <span class="function">def <span class="title">apply</span><span class="params">()</span>: Teacher </span>= &#123;</span><br><span class="line">        <span class="keyword">new</span> Teacher(<span class="string">&quot;Alice&quot;</span>, <span class="number">22</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">println(Teacher().name) <span class="comment">// 使用伴生对象调用 apply 创建 Teacher 的对象</span></span><br></pre></td></tr></table></figure></li>
+<li><p>对象变量名后跟上 <code>()</code> 即调用 <code>apply()</code> 函数, 例如 List 对象访问下标指定的元素 <code>list(3)</code>, <code>apply()</code> 方法实际是一个快捷方式, 可以使用小括号触发而不需要方法名:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// List 下标访问元素</span></span><br><span class="line">val list = List(<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">list(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 类定义</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Multiplier</span>(<span class="title">factor</span>: <span class="title">Int</span>) </span>&#123;</span><br><span class="line">    <span class="function">def <span class="title">apply</span><span class="params">(input: Int)</span> </span>= input * factor</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">val tripleMe = <span class="keyword">new</span> Multiplier(<span class="number">3</span>)</span><br><span class="line">tripleMe.apply(<span class="number">10</span>) <span class="comment">// 返回 30</span></span><br><span class="line">tripleMe(<span class="number">10</span>) <span class="comment">// 返回 30, 等于 tripleMe.apply(10)</span></span><br></pre></td></tr></table></figure></li>
+<li><p>抽象类: 使用 extends 实现继承 (trait 也是使用 extends 进行实现)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbsClass</span> </span>&#123;</span><br><span class="line">    <span class="function">def <span class="title">foo</span><span class="params">()</span>: Unit</span></span><br><span class="line"><span class="function">&#125;</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">class AbsClassImpl extends AbsClass </span>&#123;</span><br><span class="line">    <span class="function">override def <span class="title">foo</span><span class="params">()</span>: Unit </span>= println(<span class="string">&quot;AbsClassImpl&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>case class: 可以使用 match 模式匹配, 默认实现了 Serializable 接口 (case object 也一样, 不需要封装数据的就用 case object)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">case</span> class <span class="title">Bomb</span><span class="params">(name: String, sn: String)</span> <span class="comment">// 空的类体 &#123;&#125; 可要可不要</span></span></span><br><span class="line"><span class="function"><span class="keyword">case</span> object Manufacture</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">def <span class="title">matchTest</span><span class="params">(obj: Any)</span>: Unit </span>= &#123;</span><br><span class="line">    obj match &#123;</span><br><span class="line">        <span class="function"><span class="keyword">case</span> <span class="title">Bomb</span><span class="params">(<span class="string">&quot;2&quot;</span>, <span class="string">&quot;2&quot;</span>)</span> </span>=&gt; println(<span class="string">&quot;2-2&quot;</span>)</span><br><span class="line">        <span class="function"><span class="keyword">case</span> <span class="title">Bomb</span><span class="params">(x, y)</span> </span>=&gt; println(<span class="string">&quot;Bomb&quot;</span>)</span><br><span class="line">        <span class="keyword">case</span> Manufacture =&gt; println(<span class="string">&quot;Manufacture&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">def <span class="title">main</span><span class="params">(args: Array[String])</span>: Unit </span>= &#123;</span><br><span class="line">    matchTest(Bomb(<span class="string">&quot;One&quot;</span>, <span class="string">&quot;ONe&quot;</span>)) <span class="comment">// case class 类创建对象可以不需要 new</span></span><br><span class="line">    matchTest(<span class="keyword">new</span> Bomb(<span class="string">&quot;2&quot;</span>, <span class="string">&quot;2&quot;</span>))</span><br><span class="line">    matchTest(Manufacture)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="接口-trait"><a href="#接口-trait" class="headerlink" title="接口 trait"></a>接口 trait</h2><p>Scala 中把 <code>trait</code> 叫做特质, 其实就是接口, 相当于 Java 中的 <code>@FunctionalInterface</code>, 可以定义有实现和没有实现的方法, object 和 class 都能扩展 trait, 只有 extends, 没有 implements, 使用 override 避免重写错误:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">trait Flyable &#123;</span><br><span class="line">    <span class="function">def <span class="title">fly</span><span class="params">()</span>: Unit</span></span><br><span class="line"><span class="function">    def <span class="title">to</span><span class="params">()</span>: Unit </span>= &#123;</span><br><span class="line">        println(<span class="string">&quot;flyable.to()&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">def <span class="title">from</span><span class="params">()</span>: Unit </span>= &#123;</span><br><span class="line">        println(<span class="string">&quot;Flyable.from()&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">object Bird extends Flyable &#123;</span><br><span class="line">    <span class="function">override def <span class="title">fly</span><span class="params">()</span>: Unit </span>= &#123;</span><br><span class="line">        println(<span class="string">&quot;Bird.fly()&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">override def <span class="title">to</span><span class="params">()</span>: Unit </span>= &#123;</span><br><span class="line">        println(<span class="string">&quot;Bird.to()&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line">Bird.fly()  <span class="comment">// Bird.fly()</span></span><br><span class="line">Bird.to()   <span class="comment">// Bird.to()</span></span><br><span class="line">Bird.from() <span class="comment">// Flyable.from()</span></span><br></pre></td></tr></table></figure>
+
+<p>创建对象的时候可以动态的使用 <code>with</code> 混入 trait:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">def <span class="title">main</span><span class="params">(args: Array[String])</span>: Unit </span>= &#123;</span><br><span class="line">    <span class="keyword">var</span> teacher = <span class="keyword">new</span> Teacher(<span class="string">&quot;Alice&quot;</span>, <span class="number">22</span>) with Flyable &#123;</span><br><span class="line">        <span class="function">override def <span class="title">fly</span><span class="params">()</span>: Unit </span>= println(<span class="string">&quot;Trait mixed in Teacher&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    teacher.fly() <span class="comment">// Teacher 有了 Flyable 的功能</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 可以动态混入多个 trait</span></span><br><span class="line"><span class="keyword">new</span> Teacher(<span class="string">&quot;Alice&quot;</span>, <span class="number">22</span>) with Flyable with Foo &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>类定义的时候 extends traits:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Teacher</span> (<span class="title">var</span> <span class="title">name</span>: <span class="title">String</span>, <span class="title">var</span> <span class="title">age</span>: <span class="title">Int</span>) <span class="keyword">extends</span> <span class="title">Flyable</span> <span class="title">with</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">    <span class="function">override def <span class="title">fly</span><span class="params">()</span>: Unit </span>= println(<span class="string">&quot;Trait mixed in Teacher&quot;</span>)</span><br><span class="line">    <span class="function">override def <span class="title">foo</span><span class="params">()</span>: Unit </span>= println(<span class="string">&quot;Teacher foo&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="隐式类型转换"><a href="#隐式类型转换" class="headerlink" title="隐式类型转换"></a>隐式类型转换</h2><p>当编译器看到需要类型 X 却给了类型 Y, 它就在当前作用域查找是否定义了从类型 Y 到类型 X 的隐式定义, 如果有则转换类型 Y 为 X, 否则编译器报错:</p>
+<ol>
+<li><code>implicit def File2MagicFile(file: File): MagicFile = new MagicFile(file)</code></li>
+<li><code>val file: MagicFile = new File(&quot;data.txt&quot;)</code></li>
+<li>这时 file 就自动转换为 MagicFile 的对象了, 同时具有 File 和 MagicFile 的行为</li>
+</ol>
+<p>下面把 Double 隐式转换为 Int:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">implicit def <span class="title">double2Int</span><span class="params">(x: Double)</span>: Int </span>= x.toInt <span class="comment">// Double 转换为 Int</span></span><br><span class="line"><span class="keyword">var</span> n: Int = <span class="number">2.34</span> <span class="comment">// 如果没有上面的 double2Int 则编译时报错</span></span><br><span class="line">println(n)</span><br></pre></td></tr></table></figure>
+
+<p>隐式类型转换的代码可以放到一个 object 中 (不是 class 中), 然后在使用隐式转换的代码处导入这个 object 的文件, 这样可以统一的管理隐式转换:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Implicits.scala</span></span><br><span class="line">object Implicits &#123;</span><br><span class="line">    <span class="comment">// 1. 隐式转换的函数</span></span><br><span class="line">    <span class="function">implicit def <span class="title">double2Int</span><span class="params">(x: Double)</span>: Int </span>= x.toInt</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 2. 隐式转换的类 (这种类只能在 object 中定义)</span></span><br><span class="line">    <span class="function">implicit class <span class="title">FileReader</span><span class="params">(file: File)</span> </span>&#123;</span><br><span class="line">        def size: Long = file.length</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Hello.java</span></span><br><span class="line">object Hello &#123;</span><br><span class="line">    <span class="function">def <span class="title">main</span><span class="params">(args: Array[String])</span>: Unit </span>= &#123;</span><br><span class="line">        <span class="keyword">import</span> Implicits.double2Int <span class="comment">// 导入隐式转换的代码到上下文中</span></span><br><span class="line">        <span class="keyword">var</span> n: Int = <span class="number">2.34</span></span><br><span class="line">        println(n)</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">import</span> Implicits.FileReader</span><br><span class="line">        val file = <span class="keyword">new</span> java.io.File(<span class="string">&quot;/Users/Biao/Desktop/apple.png&quot;</span>)</span><br><span class="line">        println(file.size)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/4ddeb9dcfaf7">隐式转换有 3 种使用方式</a>:</p>
+<ul>
+<li>隐式参数: 当我们在定义方法时，可以把最后一个参数列表标记为implicit，表示该组参数是隐式参数。一个方法只会有一个隐式参数列表，置于方法的最后一个参数列表。如果方法有多个隐式参数，只需一个implicit修饰即可。 当调用包含隐式参数的方法是，如果当前上下文中有合适的隐式值，则编译器会自动为改组参数填充合适的值。如果没有编译器会抛出异常。当然，标记为隐式参数的我们也可以手动为该参数添加默认值</li>
+<li>隐式地转换类型: 使用隐含转换将变量转换成预期的类型是编译器最先使用 implicit 的地方。这个规则非常简单，当编译器看到类型X而却需要类型Y，它就在当前作用域查找是否定义了从类型X到类型Y的隐式定义</li>
+<li>隐式调用函数: 隐式调用函数可以转换调用方法的对象，比如但编译器看到X .method，而类型 X 没有定义 method（包括基类)方法，那么编译器就查找作用域内定义的从 X 到其它对象的类型转换，比如 Y，而类型Y定义了 method 方法，编译器就首先使用隐含类型转换把 X 转换成 Y，然后调用 Y 的 method</li>
+</ul>
+<h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Generic</span>[<span class="title">T</span>](<span class="title">vox</span>: <span class="title">T</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span>[<span class="title">B</span> &gt;: <span class="title">A</span>] // <span class="title">B</span> 是 <span class="title">A</span> 的祖先</span></span><br><span class="line"><span class="class"><span class="title">class</span> <span class="title">Foo</span>[<span class="title">B</span> &lt;: <span class="title">A</span>] // <span class="title">B</span> 是 <span class="title">A</span> 的后代</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h2><p>Scala 中没有枚举, 但可以继承 Enumeration 实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">object Colors extends Enumeration &#123;</span><br><span class="line">    type Colors = Value          <span class="comment">// [1] 声明枚举对外暴露的变量类型</span></span><br><span class="line">    val RED, GREEN, BLUE = Value <span class="comment">// [2.1] 存储的值为变量名</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// [2.2] 指定存储的值</span></span><br><span class="line">    <span class="comment">// val RED   = Value(&quot;red&quot;)</span></span><br><span class="line">    <span class="comment">// val GREEN = Value(&quot;green&quot;)</span></span><br><span class="line">    <span class="comment">// val BLUE  = Value(&quot;blue&quot;)</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">def <span class="title">main</span><span class="params">(args: Array[String])</span>: Unit </span>= &#123;</span><br><span class="line">    val color = Colors.GREEN</span><br><span class="line"></span><br><span class="line">    color match &#123;</span><br><span class="line">        <span class="keyword">case</span> Colors.RED   =&gt; println(color)</span><br><span class="line">        <span class="keyword">case</span> Colors.GREEN =&gt; println(color)</span><br><span class="line">        <span class="keyword">case</span> Colors.BLUE  =&gt; println(color)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h2><p>Scala 中没有 static, object 中定义的内容都可以直接调用 (object 是一个单例对象, 不能 new).</p>
+<p>为类型定义别名使用 <code>type</code> (和 C 中的 typedef 一个作用): <code>type M = collection.mutable.HashMap[Int, String]; val m: M = new M()</code>.</p>
+<p>导入时给类型重命名: </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.&#123;HashMap =&gt; JavaHashMap&#125;</span><br><span class="line">val m = <span class="keyword">new</span> JavaHashMap[Integer, String]()</span><br><span class="line">m.put(<span class="number">1</span>, <span class="string">&quot;One&quot;</span>)</span><br><span class="line">m.put(<span class="number">2</span>, <span class="string">&quot;Two&quot;</span>)</span><br><span class="line">m.get(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p>排序用的 Ordered 相当于 Java 的 Comparable, Ordering 相当于 Java 的 Comparator.</p>
+<p>根据 object 的 lazy 变量的表达式部分只执行一次的特点执行初始化工作:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">object Config &#123;</span><br><span class="line">    lazy val url: String = &#123;</span><br><span class="line">        <span class="comment">// 初始化工作</span></span><br><span class="line">        println(<span class="string">&quot;Loading config from file&quot;</span>);</span><br><span class="line">		</span><br><span class="line">        <span class="string">&quot;loaded-url&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">object Hello &#123;</span><br><span class="line">    <span class="function">def <span class="title">main</span><span class="params">(args: Array[String])</span>: Unit </span>= &#123;</span><br><span class="line">        println(Config.url) <span class="comment">// 执行初始化部分的代码</span></span><br><span class="line">        println(Config.url) <span class="comment">// 不会再执行初始化部分</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>函数 <code>apply()</code>, <code>unapply()</code>, <code>update()</code></p>
+<ul>
+<li>apply: 参数到对象, 例如 <code>List(1, 2, 3)</code> 创建对象</li>
+<li>unapply: 解构对象到变量, 按照主构造函数的参数顺序, match case 常用, 如 <code>case Currency(amount, &quot;USD&quot;) =&gt; println(&quot;USD: &quot; + amount)</code></li>
+<li>update: 更新操作, <code>map(1) = &quot;One&quot;</code> 等价于 <code>map.update(1, &quot;One&quot;)</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">object AppDemo &#123;</span><br><span class="line">    <span class="function">def <span class="title">main</span><span class="params">(args: Array[String])</span>: Unit </span>= &#123;</span><br><span class="line">        val car = Car(<span class="string">&quot;BZ&quot;</span>, <span class="number">123</span>)</span><br><span class="line">        <span class="function">val <span class="title">Car</span><span class="params">(brand, price)</span> </span>= car <span class="comment">// 解构时创建变量</span></span><br><span class="line">        println(s<span class="string">&quot;Brand: $brand, Price: $price&quot;</span>)</span><br><span class="line"></span><br><span class="line">        car match &#123;</span><br><span class="line">            <span class="function"><span class="keyword">case</span> <span class="title">Car</span><span class="params">(sbrand, <span class="number">1</span>)</span> </span>=&gt; println(sbrand)</span><br><span class="line">            <span class="function"><span class="keyword">case</span> <span class="title">Car</span><span class="params">(sbrand, <span class="number">2</span>)</span> </span>=&gt; println(sbrand)</span><br><span class="line">            <span class="function"><span class="keyword">case</span> <span class="title">Car</span><span class="params">(sbrand, sprice)</span> </span>=&gt; println(sprice)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 伴生类可用于 match case, 按照主构造函数的参数顺序创建变量</span></span><br><span class="line"><span class="function"><span class="keyword">case</span> class <span class="title">Car</span><span class="params">(<span class="keyword">var</span> brand: String, <span class="keyword">var</span> price: Int)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">// 如无特殊情况, 下面的代码可不用, 会自动生成: Scala 为每一个 case class 自动生成一个伴生对象, 其中自动生成 apply() 和 unapply() 方法</span></span></span><br><span class="line"><span class="function"><span class="keyword">case</span> object Car </span>&#123;</span><br><span class="line">    <span class="function">def <span class="title">apply</span><span class="params">(brand: String, price: Int)</span> </span>= <span class="keyword">new</span> Car(brand, price)</span><br><span class="line"></span><br><span class="line">    <span class="function">def <span class="title">unapply</span><span class="params">(car: Car)</span>: Option[<span class="params">(String, Int)</span>] </span>= Some(car.brand -&gt; car.price)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="什么是尾递归"><a href="#什么是尾递归" class="headerlink" title="什么是尾递归"></a>什么是尾递归</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">参考什么是尾递归 https:<span class="comment">//www.zhihu.com/question/20761771</span></span><br><span class="line"></span><br><span class="line">递归函数</span><br><span class="line"><span class="function">def <span class="title">recsum</span><span class="params">(x)</span>:</span></span><br><span class="line"><span class="function">  <span class="keyword">if</span> x </span>== <span class="number">1</span>:</span><br><span class="line">    <span class="keyword">return</span> x</span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">return</span> x + recsum(x - <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">当调用recsum(<span class="number">5</span>)，Python调试器中发生如下状况：</span><br><span class="line">recsum(<span class="number">5</span>)</span><br><span class="line"><span class="number">5</span> + recsum(<span class="number">4</span>)</span><br><span class="line"><span class="number">5</span> + (<span class="number">4</span> + recsum(<span class="number">3</span>))</span><br><span class="line"><span class="number">5</span> + (<span class="number">4</span> + (<span class="number">3</span> + recsum(<span class="number">2</span>)))</span><br><span class="line"><span class="number">5</span> + (<span class="number">4</span> + (<span class="number">3</span> + (<span class="number">2</span> + recsum(<span class="number">1</span>))))</span><br><span class="line"><span class="number">5</span> + (<span class="number">4</span> + (<span class="number">3</span> + (<span class="number">2</span> + <span class="number">1</span>)))</span><br><span class="line"><span class="number">5</span> + (<span class="number">4</span> + (<span class="number">3</span> + <span class="number">3</span>))</span><br><span class="line"><span class="number">5</span> + (<span class="number">4</span> + <span class="number">6</span>)</span><br><span class="line"><span class="number">5</span> + <span class="number">10</span></span><br><span class="line"><span class="number">15</span></span><br><span class="line"></span><br><span class="line">定义为尾递归</span><br><span class="line"><span class="function">def <span class="title">tailrecsum</span><span class="params">(x, running_total=<span class="number">0</span>)</span>:</span></span><br><span class="line"><span class="function">  <span class="keyword">if</span> x </span>== <span class="number">0</span>:</span><br><span class="line">    <span class="keyword">return</span> running_total</span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">return</span> tailrecsum(x - <span class="number">1</span>, running_total + x)</span><br><span class="line"></span><br><span class="line">当调用recsum(<span class="number">5</span>)，Python调试器中发生如下状况：</span><br><span class="line">tailrecsum(<span class="number">5</span>, <span class="number">0</span>)</span><br><span class="line">tailrecsum(<span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line">tailrecsum(<span class="number">3</span>, <span class="number">9</span>)</span><br><span class="line">tailrecsum(<span class="number">2</span>, <span class="number">12</span>)</span><br><span class="line">tailrecsum(<span class="number">1</span>, <span class="number">14</span>)</span><br><span class="line">tailrecsum(<span class="number">0</span>, <span class="number">15</span>)</span><br><span class="line"><span class="number">15</span></span><br></pre></td></tr></table></figure>
+
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/java-scala-app/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Gradle 管理 Scala 项目
+        
+      </div>
+    </a>
+  
+  
+    <a href="/mongo-auth/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MongoDB 账号密码登录</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

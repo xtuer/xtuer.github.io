@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>CKEditor 的使用 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="CKEditor 是一个非常优秀的 Web 服文本编辑器，提供了非常多的功能和丰富的文档  Constantly leading innovation in the field of rich text editing. Take full control of your content creation process with such unique features as Paste fro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CKEditor 的使用">
+<meta property="og:url" content="http://xtuer.github.io/fe-ckeditor/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="CKEditor 是一个非常优秀的 Web 服文本编辑器，提供了非常多的功能和丰富的文档  Constantly leading innovation in the field of rich text editing. Take full control of your content creation process with such unique features as Paste fro">
+<meta property="og:locale">
+<meta property="og:image" content="http://s1.ckeditor.com/sites/default/files/styles/large/public/moono-dark/ckeditor-moono-dark.png?itok=Xbpl_YQj">
+<meta property="og:image" content="http://xtuer.github.io/img/fe/ckeditor-1.png">
+<meta property="og:image" content="http://xtuer.github.io/img/fe/ckeditor-2.png">
+<meta property="og:image" content="http://xtuer.github.io/img/fe/ckeditor-3.png">
+<meta property="og:image" content="http://xtuer.github.io/img/fe/ckeditor-4.png">
+<meta property="article:published_time" content="2017-03-26T07:13:36.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.145Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="FE">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://s1.ckeditor.com/sites/default/files/styles/large/public/moono-dark/ckeditor-moono-dark.png?itok=Xbpl_YQj">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD-CKEditor"><span class="toc-text">下载 CKEditor</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E6%88%90-CKEditor"><span class="toc-text">集成 CKEditor</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE-CKEditor"><span class="toc-text">设置 CKEditor</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E8%AF%9D%E6%A1%86%E4%B8%AD%E4%BD%BF%E7%94%A8-CKEditor"><span class="toc-text">对话框中使用 CKEditor</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CKEditor-%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87"><span class="toc-text">CKEditor 上传图片</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CKEditor-%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6"><span class="toc-text">CKEditor 上传文件</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-fe-ckeditor" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/fe-ckeditor/" class="article-date">
+  	<!-- <time datetime="2017-03-26T07:13:36.000Z" itemprop="datePublished">2017-03-26</time> -->
+    2017-03-26
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      CKEditor 的使用
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p><a target="_blank" rel="noopener" href="http://ckeditor.com/">CKEditor</a> 是一个非常优秀的 Web 服文本编辑器，提供了非常多的功能和丰富的文档</p>
+<blockquote>
+<p>Constantly leading innovation in the field of rich text editing. Take full control of your content creation process with such unique features as Paste from Word, Advanced Content Filter, widgets, custom HTML formatting and many more.</p>
+</blockquote>
+<p>CKEditor 还有一个很大的优势是它有一个非常强大的插件商店，里面基本都是免费的，推荐 3 个基础，但是很实用的插件：</p>
+<ul>
+<li><p>修改表格的大小 <strong>Table Resize</strong>: <a target="_blank" rel="noopener" href="http://ckeditor.com/addon/tableresize">http://ckeditor.com/addon/tableresize</a></p>
+</li>
+<li><p>预览编辑结果 <strong>Preview</strong>: <a target="_blank" rel="noopener" href="http://ckeditor.com/addon/preview">http://ckeditor.com/addon/preview</a></p>
+</li>
+<li><p>文本的颜色 <strong>Color Button</strong>: <a target="_blank" rel="noopener" href="http://ckeditor.com/addon/colorbutton">http://ckeditor.com/addon/colorbutton</a></p>
+</li>
+<li><p>公式编辑器: <a target="_blank" rel="noopener" href="http://ckeditor.com/addon/ckeditorwiris">http://ckeditor.com/addon/ckeditorwiris</a></p>
+</li>
+<li><p>很酷的皮肤 Moon Dark: <a target="_blank" rel="noopener" href="http://ckeditor.com/addon/moono-dark">http://ckeditor.com/addon/moono-dark</a></p>
+<p><img src="http://s1.ckeditor.com/sites/default/files/styles/large/public/moono-dark/ckeditor-moono-dark.png?itok=Xbpl_YQj"></p>
+</li>
+</ul>
+<p>修改配置 config.js</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 使用上面的几个插件</span><br><span class="line">config.extraPlugins = &#x27;tableresize,preview,colorbutton&#x27;;</span><br><span class="line"></span><br><span class="line">// Simplify the dialog windows.</span><br><span class="line">config.removeDialogTabs = &#x27;image:advanced;image:Link;link:advanced;link:target&#x27;;</span><br><span class="line">config.removePlugins = &#x27;elementspath&#x27;;</span><br></pre></td></tr></table></figure>
+
+
+
+
+<p>下面将介绍:</p>
+<ul>
+<li>集成 CKEditor</li>
+<li>设置 CKEditor</li>
+<li>对话框中使用 CKEditor</li>
+<li>CKEditor 上传图片</li>
+<li>CKEditor 上传文件<span id="more"></span></li>
+</ul>
+<h2 id="下载-CKEditor"><a href="#下载-CKEditor" class="headerlink" title="下载 CKEditor"></a>下载 CKEditor</h2><p>访问 <a target="_blank" rel="noopener" href="http://ckeditor.com/">http://ckeditor.com</a>，点击 <a target="_blank" rel="noopener" href="http://ckeditor.com/download">Download</a>，然后下载，标准版就可以了，大多数时候 LGPL 的免费授权协议即可。</p>
+<h2 id="集成-CKEditor"><a href="#集成-CKEditor" class="headerlink" title="集成 CKEditor"></a>集成 CKEditor</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>CKEditor 的使用<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;/lib/ckeditor/ckeditor.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">textarea</span> <span class="attr">id</span>=<span class="string">&quot;editor1&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">&quot;setContent()&quot;</span>&gt;</span>Set Content<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">&quot;getContent()&quot;</span>&gt;</span>Get Content<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">        CKEDITOR.replace(<span class="string">&#x27;editor1&#x27;</span>); <span class="comment">// 这里的 &#x27;editor1&#x27; 等于 textarea 的 id &#x27;editor1&#x27;</span></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// 设置 CKEditor 中的内容</span></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">setContent</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="comment">// editor1 是上面的 id</span></span></span><br><span class="line"><span class="javascript">            CKEDITOR.instances.editor1.setData(<span class="string">&#x27;&lt;b&gt;This is for test&lt;/b&gt;&#x27;</span>);</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// 获取 CKEditor 中的内容</span></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">getContent</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> content = CKEDITOR.instances.editor1.getData();</span></span><br><span class="line"><span class="javascript">            alert(content);</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="../img/fe/ckeditor-1.png"></p>
+<h2 id="设置-CKEditor"><a href="#设置-CKEditor" class="headerlink" title="设置 CKEditor"></a>设置 CKEditor</h2><p>CKEditor 的设置有 2 种方式，全局设置和局部设置。</p>
+<p>上面的例子使用默认的配置使用 CKEditor，很多时候满足不了我们的需求，修改 CKEditor 的配置，去修改 <strong>ckeditor/config.js</strong> 即可，但是这种修改是全局的，所有地方都会受到影响，例如不同页面有可能上传图片的路径应该是不一样的，上传不同类型的文件时上传路径也可能不一样，使用全局的设置就不合适了，这时需要局部的设置 CKEditor，则可以在调用 <code>CKEDITOR.replace(&#39;editor&#39;)</code> 时传入需要的配置参数，例如:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CKEDITOR.replace(<span class="string">&#x27;editor&#x27;</span>, &#123;</span><br><span class="line">    <span class="attr">language</span>:       <span class="string">&#x27;zh-cn&#x27;</span>, <span class="comment">// 语言: 中文，默认是英文</span></span><br><span class="line">    <span class="attr">allowedContent</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">removePlugins</span>:  <span class="string">&#x27;elementspath&#x27;</span>, <span class="comment">// 编辑器下面不显示元素路径</span></span><br><span class="line">    <span class="attr">resize_enabled</span>: <span class="literal">false</span>, <span class="comment">// 是否允许拖动改变编辑器的大小</span></span><br><span class="line">    <span class="attr">height</span>:         <span class="string">&#x27;300px&#x27;</span> <span class="comment">// CKEditor 中编辑区的高度，不算工具栏的高度</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="对话框中使用-CKEditor"><a href="#对话框中使用-CKEditor" class="headerlink" title="对话框中使用 CKEditor"></a>对话框中使用 CKEditor</h2><p>某些场景下希望能够在弹出的对话框中进行编辑，例如课程列表中，点击课程后弹出一个对话框，在对话框的编辑器中编辑课程信息，而不是新打开一个页面，这里我们使用 Layer 作为弹出对话框。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>CKEditor 的使用<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;/lib/ckeditor/ckeditor.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--  --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;editor-box&quot;</span> <span class="attr">style</span>=<span class="string">&quot;display: none; padding: 5px;&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">textarea</span> <span class="attr">id</span>=<span class="string">&quot;editor&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">&quot;show-editor-button&quot;</span>&gt;</span>弹出编辑器<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://cdn.bootcss.com/jquery/1.9.1/jquery.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://cdn.staticfile.org/layer/2.3/layer.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">        CKEDITOR.replace(<span class="string">&#x27;editor&#x27;</span>);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        $(<span class="string">&#x27;#show-editor-button&#x27;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            showEditorDialog();</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">showEditorDialog</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            layer.open(&#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">type</span>: <span class="number">1</span>,</span></span><br><span class="line"><span class="javascript">                <span class="attr">title</span>: <span class="string">&#x27;魔法编辑器&#x27;</span>, <span class="comment">// [可选]</span></span></span><br><span class="line"><span class="javascript">                <span class="attr">closeBtn</span>: <span class="literal">false</span>,</span></span><br><span class="line"><span class="javascript">                <span class="attr">content</span>: $(<span class="string">&#x27;#editor-box&#x27;</span>), <span class="comment">// 对话框中的内容部分</span></span></span><br><span class="line"><span class="javascript">                <span class="attr">area</span>: [<span class="string">&#x27;700px&#x27;</span>, <span class="string">&#x27;400px&#x27;</span>], <span class="comment">// 对话框的大小, 可以同时指定高宽 [&#x27;700px&#x27;, &#x27;440px&#x27;]</span></span></span><br><span class="line"><span class="javascript">                <span class="attr">shadeClose</span>: <span class="literal">false</span>, <span class="comment">// 为 true 时点击遮罩关闭</span></span></span><br><span class="line"><span class="javascript">                <span class="attr">btn</span>: [<span class="string">&#x27;保存&#x27;</span>, <span class="string">&#x27;取消&#x27;</span>], <span class="comment">// 自定义按钮</span></span></span><br><span class="line"><span class="javascript">                <span class="attr">btn1</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                    layer.closeAll(); <span class="comment">// 关闭所有弹出窗口</span></span></span><br><span class="line"><span class="javascript">                &#125;,</span></span><br><span class="line"><span class="javascript">                <span class="attr">btn2</span>: <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                    <span class="comment">// return false; // 不关闭弹出窗口</span></span></span><br><span class="line"><span class="javascript">                &#125;</span></span><br><span class="line"><span class="javascript">            &#125;);</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="../img/fe/ckeditor-2.png"></p>
+<p>点击按钮 <strong>弹出编辑器</strong> 看到 CKEditor 显示在了 Layer 中，但是不能在里面编辑，点击全屏，Source 等按钮控制台报错:</p>
+<blockquote>
+<p>TypeError: undefined is not an object (evaluating ‘this.document.getWindow().$.getSelection’)</p>
+</blockquote>
+<p>但是，如果这个弹出层使用 Bootstrap 的 Dialog 的话，就没有任何问题，可能是和 Layer 的实现有关吧，不过没关系，Layer 中的问题我们也能搞定: <code>layer.open()</code> 的 success() 函数中创建 CKEditor 实例，如果已经存在，则先销毁然后再创建。</p>
+<blockquote>
+<p>layui.layer 的帮助文档: <a target="_blank" rel="noopener" href="http://www.layui.com/doc/modules/layer.html">http://www.layui.com/doc/modules/layer.html</a></p>
+<p>success() 是层弹出后的回调方法。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">createCkeditor(<span class="string">&#x27;editor&#x27;</span>); <span class="comment">// 先创建一个固定高度的 editor，弹出层的效果更好</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showEditorDialog</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    layer.open(&#123;</span><br><span class="line">        <span class="attr">type</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="attr">title</span>: <span class="string">&#x27;魔法编辑器&#x27;</span>, <span class="comment">// [可选]</span></span><br><span class="line">        <span class="attr">closeBtn</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">content</span>: $(<span class="string">&#x27;#editor-box&#x27;</span>), <span class="comment">// 对话框中的内容部分</span></span><br><span class="line">        <span class="attr">area</span>: [<span class="string">&#x27;700px&#x27;</span>], <span class="comment">// 对话框的大小, 可以同时指定高宽 [&#x27;700px&#x27;, &#x27;440px&#x27;]</span></span><br><span class="line">        <span class="attr">shadeClose</span>: <span class="literal">false</span>, <span class="comment">// 为 true 时点击遮罩关闭</span></span><br><span class="line">        <span class="attr">btn</span>: [<span class="string">&#x27;保存&#x27;</span>, <span class="string">&#x27;取消&#x27;</span>], <span class="comment">// 自定义按钮</span></span><br><span class="line">        <span class="attr">btn1</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> content = CKEDITOR.instances.editor.getData();</span><br><span class="line">            alert(content);</span><br><span class="line">            layer.closeAll(); <span class="comment">// 关闭所有弹出窗口</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">btn2</span>: <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">            <span class="comment">// return false; // 不关闭弹出窗口</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">success</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            createCkeditor(<span class="string">&#x27;editor&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建 CKEditor 编辑器，如果已经存在，则先销毁</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createCkeditor</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> editor = CKEDITOR.instances[name];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (editor) &#123;</span><br><span class="line">        editor.destroy(<span class="literal">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    CKEDITOR.replace(name, &#123;</span><br><span class="line">        <span class="attr">language</span>: <span class="string">&#x27;zh-cn&#x27;</span>,</span><br><span class="line">        <span class="attr">allowedContent</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">removePlugins</span>:  <span class="string">&#x27;elementspath&#x27;</span>,</span><br><span class="line">        <span class="attr">resize_enabled</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">height</span>: <span class="string">&#x27;300px&#x27;</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="CKEditor-上传图片"><a href="#CKEditor-上传图片" class="headerlink" title="CKEditor 上传图片"></a>CKEditor 上传图片</h2><p>在上面的基础上点击上传图片按钮，可以看到上传图片的对话框在 Layer 下面，这是因为 Layer 的 z-index 默认是 19891014，而上传图片层的 z-index 是 10000，所以只要修改 Layer 的 z-index 小于 10000 就能显示正常了，在 open() 函数传参数 <code>zIndex: 1000</code> 即可。</p>
+<p>图片上传的对话框没问题了，但是发现没有上传图片的选项，只有<strong>图像信息</strong>和<strong>链接</strong> 2 个标签页。要显示出上传图片的标签页也只是一个配置的问题，只要给 CKEditor 配置 <strong>filebrowserImageUploadUrl</strong> 为上传图片的地址即可：</p>
+<p><img src="../img/fe/ckeditor-3.png"></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showEditorDialog</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    layer.open(&#123;</span><br><span class="line">        <span class="attr">type</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="attr">title</span>: <span class="string">&#x27;魔法编辑器&#x27;</span>,[<span class="number">1</span>]</span><br><span class="line">        <span class="attr">closeBtn</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">content</span>: $(<span class="string">&#x27;#editor-box&#x27;</span>), <span class="comment">// 对话框中的内容部分</span></span><br><span class="line">        <span class="attr">area</span>: [<span class="string">&#x27;700px&#x27;</span>], <span class="comment">// 对话框的大小, 可以同时指定高宽 [&#x27;700px&#x27;, &#x27;440px&#x27;]</span></span><br><span class="line">        <span class="attr">shadeClose</span>: <span class="literal">false</span>, <span class="comment">// 为 true 时点击遮罩关闭</span></span><br><span class="line">        <span class="attr">zIndex</span>: <span class="number">1000</span>, <span class="comment">// *** [1] 重要 ***</span></span><br><span class="line">        <span class="attr">btn</span>: [<span class="string">&#x27;保存&#x27;</span>, <span class="string">&#x27;取消&#x27;</span>], <span class="comment">// 自定义按钮</span></span><br><span class="line">        <span class="attr">btn1</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> content = CKEDITOR.instances.editor.getData();</span><br><span class="line">            alert(content);</span><br><span class="line">            layer.closeAll(); <span class="comment">// 关闭所有弹出窗口</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">btn2</span>: <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">            <span class="comment">// return false; // 不关闭弹出窗口</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">success</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            createCkeditor(<span class="string">&#x27;editor&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建 CKEditor 编辑器，如果已经存在，则先销毁</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createCkeditor</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> editor = CKEDITOR.instances[name];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (editor) &#123;</span><br><span class="line">        editor.destroy(<span class="literal">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    CKEDITOR.replace(name, &#123;</span><br><span class="line">        <span class="attr">language</span>: <span class="string">&#x27;zh-cn&#x27;</span>,</span><br><span class="line">        <span class="attr">allowedContent</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">removePlugins</span>: <span class="string">&#x27;elementspath&#x27;</span>,</span><br><span class="line">        <span class="attr">resize_enabled</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">height</span>: <span class="string">&#x27;300px&#x27;</span>,</span><br><span class="line">        <span class="attr">filebrowserImageUploadUrl</span>: <span class="string">&#x27;/ckeditor-upload-image&#x27;</span> <span class="comment">// *** [2] 不同页面上传的地址有可能不一样哦 ***</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>服务器端接收图片使用参数 <strong>upload</strong>，并且还有一个回调的函数名的参数 <strong>CKEditorFuncNum</strong>，服务器端需要返回的是一段 <code>&lt;script&gt;</code>，上传完成后 CKEditor 会调用这一段 <code>&lt;script&gt;</code> 例如设置刚才上传的图片到设置框中，或则弹出上传错误信息。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * CKEditor 上传图片</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> file 上传的图片</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> funcNumber 图片上传成功后的回调标志</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> 返回一段 &lt;script&gt;&lt;/script&gt;，CKEditor 会调用这一段 script</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@PostMapping(&quot;/ckeditor-upload-image&quot;)</span></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">ckeditorUploadImage</span><span class="params">(<span class="meta">@RequestParam(&quot;upload&quot;)</span> MultipartFile file, <span class="meta">@RequestParam(&quot;CKEditorFuncNum&quot;)</span> String funcNumber)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// [1] 存储上传得到的图片网络地址</span></span><br><span class="line">    System.out.println(file.getOriginalFilename());</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [2] 检查图片的格式，如果有错返回错误的 script，如 : &lt;script&gt;alert(&#x27;图片格式不支持&#x27;);&lt;/script&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// [3] 上传成功，返回的 script 里带上图片的网络地址</span></span><br><span class="line">    String imageUrl = <span class="string">&quot;../img/x.png&quot;</span>; <span class="comment">// 为了简单测试，总返回同一个图片地址</span></span><br><span class="line">    <span class="keyword">return</span> String.format(<span class="string">&quot;&lt;script&gt;window.parent.CKEDITOR.tools.callFunction(%s, &#x27;%s&#x27;)&lt;/script&gt;&quot;</span>, funcNumber, imageUrl);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里浏览器端上传图片是不能够限制文件的格式和大小等，需要更好的效果，需要自己实现上传部分 <code>&lt;input&gt;</code> 那里的逻辑，例如替换为 webuploader，服务器端当然也得再判断一次。</p>
+<h2 id="CKEditor-上传文件"><a href="#CKEditor-上传文件" class="headerlink" title="CKEditor 上传文件"></a>CKEditor 上传文件</h2><p>上面配置 <strong>filebrowserImageUploadUrl</strong> 后实现了上传图片，如果需要上传普通文件，然后在 Editor 中呈现为一个链接，需要配置 <strong>filebrowserUploadUrl</strong>，这样就会在创建超链接的窗口中出现上传文件的标签页：</p>
+<p><img src="../img/fe/ckeditor-4.png"></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建 CKEditor 编辑器，如果已经存在，则先销毁</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createCkeditor</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> editor = CKEDITOR.instances[name];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (editor) &#123;</span><br><span class="line">        editor.destroy(<span class="literal">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    CKEDITOR.replace(name, &#123;</span><br><span class="line">        <span class="attr">language</span>: <span class="string">&#x27;zh-cn&#x27;</span>,</span><br><span class="line">        <span class="attr">allowedContent</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">removePlugins</span>: <span class="string">&#x27;elementspath&#x27;</span>,</span><br><span class="line">        <span class="attr">resize_enabled</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">height</span>: <span class="string">&#x27;300px&#x27;</span>,</span><br><span class="line">        <span class="attr">filebrowserUploadUrl</span>: <span class="string">&#x27;/ckeditor-upload-file&#x27;</span>, <span class="comment">// 上传文件，the Upload tab will appear in the Link, Image, and Flash dialog windows.</span></span><br><span class="line">        <span class="attr">filebrowserImageUploadUrl</span>: <span class="string">&#x27;/ckeditor-upload-image&#x27;</span> <span class="comment">// 上传图片，the location of the script that handles file uploads in the Image dialog window. If not set, CKEditor will use filebrowserUploadUrl.</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * CKEditor 上传文件</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> file 上传的文件</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> funcNumber 文件上传成功后的回调标志</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> 返回一段 &lt;script&gt;&lt;/script&gt;，CKEditor 会调用这一段 script</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@PostMapping(&quot;/ckeditor-upload-file&quot;)</span></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">ckeditorUploadFile</span><span class="params">(<span class="meta">@RequestParam(&quot;upload&quot;)</span> MultipartFile file, <span class="meta">@RequestParam(&quot;CKEditorFuncNum&quot;)</span> String funcNumber)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// [1] 存储上传得到的文件网络地址</span></span><br><span class="line">    System.out.println(file.getOriginalFilename());</span><br><span class="line">    System.out.println(<span class="string">&quot;FuncNumber: &quot;</span> + funcNumber);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [2] 检查文件的格式，如果有错返回错误的 script，如 : &lt;script&gt;alert(&#x27;文件格式不支持&#x27;);&lt;/script&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// [3] 上传成功，返回的 script 里带上图片的网络地址</span></span><br><span class="line">    String fileUrl = <span class="string">&quot;/files/x.rar&quot;</span>; <span class="comment">// 为了简单测试，总返回同一个文件的地址</span></span><br><span class="line">    <span class="keyword">return</span> String.format(<span class="string">&quot;&lt;script&gt;window.parent.CKEDITOR.tools.callFunction(%s, &#x27;%s&#x27;)&lt;/script&gt;&quot;</span>, funcNumber, fileUrl);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果仔细观察，会发现服务器端 <strong>ckeditorUploadFile()</strong> 和 <strong>ckeditorUploadImage()</strong> 的实现几乎完全一样，返回 <code>&lt;script&gt;</code> 也是一样的，可以把它们合成一个，通过参数区别是上传图片还是上传文件，例如 <strong>/ckeditor-upload?type=file</strong> 和 <strong>/ckeditor-upload?type=image</strong>。</p>
+<p><strong>filebrowserUploadUrl，filebrowserImageUploadUrl 和 filebrowserFlashUploadUrl 有什么区别？</strong></p>
+<p>可以参考一下帮助文档:</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="http://docs.ckeditor.com/#!/api/CKEDITOR.config-cfg-filebrowserFlashUploadUrl">filebrowserFlashUploadUrl</a></p>
+<p>The location of the script that handles file uploads in the Flash dialog window. …</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://docs.ckeditor.com/#!/api/CKEDITOR.config-cfg-filebrowserImageUploadUrl">filebrowserImageUploadUrl</a></p>
+<p>The location of the script that handles file uploads in the Image dialog window. …</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://docs.ckeditor.com/#!/api/CKEDITOR.config-cfg-filebrowserUploadUrl">filebrowserUploadUrl</a></p>
+<p>The location of the script that handles file uploads. If set, the <strong>Upload</strong> tab will appear in the <strong>Link</strong>, <strong>Image</strong>, and <strong>Flash</strong> dialog windows.</p>
+</li>
+</ul>
+<p>到此为止，CKEditor 的介绍应该能满足百分之八十的需求了，如果想更深度的使用 CKEditor，就需要仔细的阅读帮助文档了 <a target="_blank" rel="noopener" href="http://docs.cksource.com/Main_Page">http://docs.cksource.com/Main_Page</a>。</p>
+<p>也许有人要问我，你为啥这么崇洋媚外，不使用百度的 UEditor 或则 UMEditor？不更简单吗？帮助文档还是中文的呢！确实尝试过，但是它们的图片和文件上传弹出对话框在弹出层中显示不全（打开看看 Dom 结构就明白为啥了）和在弹出对话框中全屏编辑时有问题而放弃。</p>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/tomcat-multiple-domains/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Tomcat 多域名
+        
+      </div>
+    </a>
+  
+  
+    <a href="/java-doc-html/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Doc 转换为 HTML</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

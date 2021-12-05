@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Spring + Fastweixin 微信开发 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="微信有两种模式，编辑模式和开发者模式，有些功能是互斥的，不可以同时使用，微信开发需要在开发者模式下进行(开发者模式下仍然可以去微信的网页上群发消息)。下面介绍的功能能满足大部分的需求，响应文本消息，图文消息，创建菜单，响应菜单消息等。 我们给微信提供服务有两种消息模式，被动和主动  被动: 例如用户输入文本，点击菜单，微信服务器会访问我们的 Web 服务对应的 URL，我们返回对应的消息给微信服务">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring + Fastweixin 微信开发">
+<meta property="og:url" content="http://xtuer.github.io/spring-weixin/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="微信有两种模式，编辑模式和开发者模式，有些功能是互斥的，不可以同时使用，微信开发需要在开发者模式下进行(开发者模式下仍然可以去微信的网页上群发消息)。下面介绍的功能能满足大部分的需求，响应文本消息，图文消息，创建菜单，响应菜单消息等。 我们给微信提供服务有两种消息模式，被动和主动  被动: 例如用户输入文本，点击菜单，微信服务器会访问我们的 Web 服务对应的 URL，我们返回对应的消息给微信服务">
+<meta property="og:locale">
+<meta property="article:published_time" content="2016-06-22T01:01:24.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.186Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="Spring">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E5%A4%96%E7%BD%91%E8%83%BD%E8%AE%BF%E9%97%AE%E7%9A%84%E5%9F%9F%E5%90%8D"><span class="toc-text">准备外网能访问的域名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E5%85%AC%E4%BC%97%E5%8F%B7"><span class="toc-text">准备公众号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gradle-%E4%BE%9D%E8%B5%96"><span class="toc-text">Gradle 依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%99%E5%BE%AE%E4%BF%A1%E6%8F%90%E4%BE%9B%E6%9C%8D%E5%8A%A1%E7%9A%84-Controller"><span class="toc-text">给微信提供服务的 Controller</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E5%93%8D%E5%BA%94"><span class="toc-text">消息响应</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%B6%88%E6%81%AF"><span class="toc-text">创建消息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%8F%9C%E5%8D%95"><span class="toc-text">创建菜单</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Json-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%88%9B%E5%BB%BA%E8%8F%9C%E5%8D%95"><span class="toc-text">使用 Json 字符串创建菜单</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B%E7%A8%8B%E5%BA%8F"><span class="toc-text">示例程序</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-spring-weixin" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/spring-weixin/" class="article-date">
+  	<!-- <time datetime="2016-06-22T01:01:24.000Z" itemprop="datePublished">2016-06-22</time> -->
+    2016-06-22
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Spring + Fastweixin 微信开发
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>微信有两种模式，编辑模式和开发者模式，有些功能是互斥的，不可以同时使用，微信开发需要在开发者模式下进行(开发者模式下仍然可以去微信的网页上群发消息)。下面介绍的功能能满足大部分的需求，响应文本消息，图文消息，创建菜单，响应菜单消息等。</p>
+<p>我们给微信提供服务有两种消息模式，被动和主动</p>
+<ul>
+<li>被动: 例如用户输入文本，点击菜单，微信服务器会访问我们的 Web 服务对应的 URL，我们返回对应的消息给微信服务器</li>
+<li>主动: 例如创建菜单，群发消息，这种模式需要我们主动去触发，给微信服务器发送消息，可以是执行某个定时任务触发，或者我们访问某个 URL 然后在其响应的代码里触发</li>
+</ul>
+<span id="more"></span>
+
+<hr>
+<p>几个关键点</p>
+<ul>
+<li>微信服务器和我们的服务器绑定验证时使用 GET 发送一个带有 <code>echostr</code> 参数的请求</li>
+<li>其他消息使用的是 POST，常用的消息有<ol>
+<li>事件消息 event: subscribe, unsubscribe, location 等</li>
+<li>文本消息 text: 可以回复文本，链接，图文</li>
+<li>点击菜单回复的 click</li>
+<li>点击菜单跳转为 view</li>
+</ol>
+</li>
+<li>微信服务器访问我们的服务器的 URL 只有一个，就是在配置页中配置的 URL</li>
+<li>使用 app_id + app_secret 从微信服务器获取 access_token，有效时间是 7200 秒</li>
+<li>微信的接口：用于我们主动的从微信服务器获取信息或者主动的向微信服务器写入信息</li>
+</ul>
+<h2 id="准备外网能访问的域名"><a href="#准备外网能访问的域名" class="headerlink" title="准备外网能访问的域名"></a>准备外网能访问的域名</h2><ul>
+<li>使用 <a href="http://xtuer.github.io/mac-local-to-web/">ngrok.cc</a> 让本地服务能在外网访问，这样微信服务器才能访问到我们的 Web 服务器</li>
+</ul>
+<h2 id="准备公众号"><a href="#准备公众号" class="headerlink" title="准备公众号"></a>准备公众号</h2><ol>
+<li>访问 <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/">https://mp.weixin.qq.com</a> 注册开发者账号</li>
+<li>登陆后到最下面 <code>开发 &gt; 基本配置</code> 中启用开发者模式，并点击 <code>修改配置</code> 配置我们自己给微信提供服务的 Web 地址、Token 等，然后使用 <code>appID</code> 和 <code>appsecret</code> 就可以进行开发了<ul>
+<li>如果我们申请的是 <code>个人订阅号</code>，很多功能接口都没有，例如自定义菜单都没有，为了使用所有的功能进行开发练习，可以使用微信提供的 <code>公众平台测试帐号</code>：<code>开发 &gt; 开发者工具 &gt; 公众平台测试帐号 &gt; 进入</code>，就可以看到 <code>appID</code> 和 <code>appsecret</code>，也需要在这里配置给微信提供服务的 Web 地址，Token 等，然后在页面中部找到 <code>请用微信扫描关注测试公众号</code>，扫描关注即可</li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1433401084&token=&lang=zh_CN">查看公众号接口权限说明</a>: <code>开发 &gt; 开发者工具 &gt; 开发者文档 &gt; 进入 &gt; 公众号接口权限说明</code></li>
+<li><code>个人订阅号</code> 是不能进行认证的</li>
+</ul>
+</li>
+</ol>
+<h2 id="Gradle-依赖"><a href="#Gradle-依赖" class="headerlink" title="Gradle 依赖"></a>Gradle 依赖</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile(<span class="string">&quot;com.github.sd4324530:fastweixin:1.3.11&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Fastweixin 的 git: <a target="_blank" rel="noopener" href="https://git.oschina.net/pyinjava/fastweixin">https://git.oschina.net/pyinjava/fastweixin</a></p>
+</blockquote>
+<h2 id="给微信提供服务的-Controller"><a href="#给微信提供服务的-Controller" class="headerlink" title="给微信提供服务的 Controller"></a>给微信提供服务的 Controller</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WeixinController</span> <span class="keyword">extends</span> <span class="title">WeixinControllerSupport</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="消息响应"><a href="#消息响应" class="headerlink" title="消息响应"></a>消息响应</h2><blockquote>
+<p>在 WeixinController 中重载下面几个函数</p>
+</blockquote>
+<ul>
+<li><p>响应订阅消息</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> BaseMsg <span class="title">handleSubscribe</span><span class="params">(BaseEvent event)</span></span></span><br></pre></td></tr></table></figure></li>
+<li><p>响应文本消息</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> BaseMsg <span class="title">handleTextMsg</span><span class="params">(TextReqMsg msg)</span></span></span><br></pre></td></tr></table></figure></li>
+<li><p>响应点击菜单消息</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> BaseMsg <span class="title">handleMenuClickEvent</span><span class="params">(MenuEvent event)</span></span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="创建消息"><a href="#创建消息" class="headerlink" title="创建消息"></a>创建消息</h2><ul>
+<li><p>创建文本消息</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> TextMsg(<span class="string">&quot;你好: &lt;a href=\&quot;http://www.baidu.com\&quot;&gt;百度&lt;/a&gt;&quot;</span>);</span><br></pre></td></tr></table></figure></li>
+<li><p>创建图文消息(单图文，多图文都可以)</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String picUrl = <span class="string">&quot;http://image.17car.com.cn/image/20120810/20120810092133_13289.jpg&quot;</span>; <span class="comment">// 消息中显示的图片</span></span><br><span class="line">String url = <span class="string">&quot;http://news.17car.com.cn/saishi/20120810/336283.html&quot;</span>; <span class="comment">// 点击消息后跳转的网页的地址</span></span><br><span class="line">String description = <span class="string">&quot;700 马力道路赛车 DDMWorks 打造最强 Atom&quot;</span>;</span><br><span class="line">NewsMsg msg = <span class="keyword">new</span> NewsMsg(Arrays.asList(<span class="keyword">new</span> Article(<span class="string">&quot;Atom&quot;</span>, description, picUrl, url), <span class="keyword">new</span> Article(<span class="string">&quot;Atom&quot;</span>, description, picUrl, url)));</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="创建菜单"><a href="#创建菜单" class="headerlink" title="创建菜单"></a>创建菜单</h2><blockquote>
+<ul>
+<li>微信不会访问这个URL，需要我们自己访问创建菜单的 URL，然后才能向微信发送创建菜单信息。</li>
+<li>微信只能保证菜单 24 小时之类生效，想要马上看到菜单效果，先取消关注，然后再次关注就可以了</li>
+<li><code>CLICK</code> 类型的菜单会发送消息到我们的服务器，handleMenuClickEvent() 进行响应，根据 key 来判断是哪个菜单被点击</li>
+<li><code>VIEW</code> 类型的菜单不回发送消息到我们的服务器，而是直接跳转到对应的 URL</li>
+<li>菜单分一级菜单和二级菜单<ul>
+<li>最多有 3 个一级菜单，5 个二级菜单</li>
+<li>一级菜单最多 4 个汉字，二级菜单最多 7 个汉字</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/create-menu&quot;)</span></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">createMenu</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 准备一级主菜单</span></span><br><span class="line">    MenuButton main1 = <span class="keyword">new</span> MenuButton();</span><br><span class="line">    main1.setType(MenuType.CLICK); <span class="comment">// 可点击的菜单</span></span><br><span class="line">    main1.setKey(<span class="string">&quot;main1&quot;</span>);</span><br><span class="line">    main1.setName(<span class="string">&quot;主菜单一&quot;</span>);</span><br><span class="line"></span><br><span class="line">    MenuButton main2 = <span class="keyword">new</span> MenuButton();</span><br><span class="line">    main2.setType(MenuType.VIEW); <span class="comment">// 链接的菜单，点击后跳转到对应的 URL</span></span><br><span class="line">    main2.setName(<span class="string">&quot;主菜单二&quot;</span>);</span><br><span class="line">    main2.setUrl(<span class="string">&quot;http://www.baidu.com&quot;</span>);</span><br><span class="line"></span><br><span class="line">    MenuButton main3 = <span class="keyword">new</span> MenuButton();</span><br><span class="line">    main3.setType(MenuType.CLICK);</span><br><span class="line">    main3.setName(<span class="string">&quot;真题&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 带有子菜单</span></span><br><span class="line">    MenuButton sub1 = <span class="keyword">new</span> MenuButton();</span><br><span class="line">    sub1.setType(MenuType.CLICK); <span class="comment">// 带有子菜单</span></span><br><span class="line">    sub1.setName(<span class="string">&quot;2016 语文&quot;</span>);</span><br><span class="line">    sub1.setKey(<span class="string">&quot;sub1&quot;</span>);</span><br><span class="line"></span><br><span class="line">    MenuButton sub2 = <span class="keyword">new</span> MenuButton();</span><br><span class="line">    sub2.setType(MenuType.CLICK);</span><br><span class="line">    sub2.setName(<span class="string">&quot;2016 数学&quot;</span>);</span><br><span class="line">    sub2.setKey(<span class="string">&quot;sub2&quot;</span>);</span><br><span class="line">    main3.setSubButton(Arrays.asList(sub1, sub2));</span><br><span class="line"></span><br><span class="line">    Menu menu = <span class="keyword">new</span> Menu();</span><br><span class="line">    menu.setButton(Arrays.asList(main1, main2, main3));</span><br><span class="line"></span><br><span class="line">    <span class="comment">//创建菜单</span></span><br><span class="line">    ApiConfig config = <span class="keyword">new</span> ApiConfig(APP_ID, APP_SECRET);</span><br><span class="line">    MenuAPI menuAPI = <span class="keyword">new</span> MenuAPI(config);</span><br><span class="line">    ResultType resultType = menuAPI.createMenu(menu);</span><br><span class="line">    <span class="keyword">return</span> resultType.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用-Json-字符串创建菜单"><a href="#使用-Json-字符串创建菜单" class="headerlink" title="使用 Json 字符串创建菜单"></a>使用 Json 字符串创建菜单</h2><p>上面的程序创建菜单太麻烦了，可以使用 Json 字符串，然后反序列化为菜单对象，下面使用 Jackson 来实现。</p>
+<blockquote>
+<p>Jackson 依赖: <code>compile(&quot;com.fasterxml.jackson.core:jackson-databind:2.7.4&quot;)</code></p>
+</blockquote>
+<p>菜单的 Json 字符串可以放在文件，数据库中等，方便修改，而且比使用对象的方式更直观，例如下面这样:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;button&quot;</span>: [&#123;</span><br><span class="line">        <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;CLICK&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;主菜单一&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;key&quot;</span>: <span class="string">&quot;main1&quot;</span></span><br><span class="line">    &#125;, &#123;</span><br><span class="line">        <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;VIEW&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;主菜单二&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;url&quot;</span>: <span class="string">&quot;http://www.baidu.com&quot;</span></span><br><span class="line">    &#125;, &#123;</span><br><span class="line">        <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;CLICK&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;真题&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;subButton&quot;</span>: [&#123;</span><br><span class="line">            <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;CLICK&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;2016 语文&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;key&quot;</span>: <span class="string">&quot;sub1&quot;</span></span><br><span class="line">        &#125;, &#123;</span><br><span class="line">            <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;CLICK&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;2016 数学&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;key&quot;</span>: <span class="string">&quot;sub2&quot;</span></span><br><span class="line">        &#125;]</span><br><span class="line">    &#125;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/create-menu&quot;)</span></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">createMenu</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    String json = <span class="string">&quot;&#123;\n&quot;</span> +</span><br><span class="line">            <span class="string">&quot;    \&quot;button\&quot;: [&#123;\n&quot;</span> +</span><br><span class="line">            <span class="string">&quot;        \&quot;type\&quot;: \&quot;CLICK\&quot;,\n&quot;</span> +</span><br><span class="line">            <span class="string">&quot;        \&quot;name\&quot;: \&quot;今日歌曲\&quot;,\n&quot;</span> +</span><br><span class="line">            <span class="string">&quot;        \&quot;key\&quot;: \&quot;V1001_TODAY_MUSIC\&quot;\n&quot;</span> +</span><br><span class="line">            <span class="string">&quot;    &#125;, &#123;\n&quot;</span> +</span><br><span class="line">            <span class="string">&quot;        \&quot;name\&quot;: \&quot;菜单\&quot;,\n&quot;</span> +</span><br><span class="line">            <span class="string">&quot;        \&quot;subButton\&quot;: [&#123;\n&quot;</span> +</span><br><span class="line">            <span class="string">&quot;            \&quot;type\&quot;: \&quot;VIEW\&quot;,\n&quot;</span> +</span><br><span class="line">            <span class="string">&quot;            \&quot;name\&quot;: \&quot;搜索\&quot;,\n&quot;</span> +</span><br><span class="line">            <span class="string">&quot;            \&quot;url\&quot;: \&quot;http://www.soso.com/\&quot;\n&quot;</span> +</span><br><span class="line">            <span class="string">&quot;        &#125;, &#123;\n&quot;</span> +</span><br><span class="line">            <span class="string">&quot;            \&quot;type\&quot;: \&quot;VIEW\&quot;,\n&quot;</span> +</span><br><span class="line">            <span class="string">&quot;            \&quot;name\&quot;: \&quot;视频\&quot;,\n&quot;</span> +</span><br><span class="line">            <span class="string">&quot;            \&quot;url\&quot;: \&quot;http://v.qq.com/\&quot;\n&quot;</span> +</span><br><span class="line">            <span class="string">&quot;        &#125;, &#123;\n&quot;</span> +</span><br><span class="line">            <span class="string">&quot;            \&quot;type\&quot;: \&quot;CLICK\&quot;,\n&quot;</span> +</span><br><span class="line">            <span class="string">&quot;            \&quot;name\&quot;: \&quot;赞一下我们\&quot;,\n&quot;</span> +</span><br><span class="line">            <span class="string">&quot;            \&quot;key\&quot;: \&quot;V1001_GOOD\&quot;\n&quot;</span> +</span><br><span class="line">            <span class="string">&quot;        &#125;]\n&quot;</span> +</span><br><span class="line">            <span class="string">&quot;    &#125;]\n&quot;</span> +</span><br><span class="line">            <span class="string">&quot;&#125;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    ObjectMapper mapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line">    Menu menu = mapper.readValue(json, Menu.class);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//创建菜单</span></span><br><span class="line">    ApiConfig config = <span class="keyword">new</span> ApiConfig(APP_ID, APP_SECRET);</span><br><span class="line">    MenuAPI menuAPI = <span class="keyword">new</span> MenuAPI(config);</span><br><span class="line">    ResultType resultType = menuAPI.createMenu(menu);</span><br><span class="line">    <span class="keyword">return</span> resultType.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="示例程序"><a href="#示例程序" class="headerlink" title="示例程序"></a>示例程序</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.github.sd4324530.fastweixin.api.MenuAPI;</span><br><span class="line"><span class="keyword">import</span> com.github.sd4324530.fastweixin.api.config.ApiConfig;</span><br><span class="line"><span class="keyword">import</span> com.github.sd4324530.fastweixin.api.entity.Menu;</span><br><span class="line"><span class="keyword">import</span> com.github.sd4324530.fastweixin.api.entity.MenuButton;</span><br><span class="line"><span class="keyword">import</span> com.github.sd4324530.fastweixin.api.enums.MenuType;</span><br><span class="line"><span class="keyword">import</span> com.github.sd4324530.fastweixin.api.enums.ResultType;</span><br><span class="line"><span class="keyword">import</span> com.github.sd4324530.fastweixin.message.Article;</span><br><span class="line"><span class="keyword">import</span> com.github.sd4324530.fastweixin.message.BaseMsg;</span><br><span class="line"><span class="keyword">import</span> com.github.sd4324530.fastweixin.message.NewsMsg;</span><br><span class="line"><span class="keyword">import</span> com.github.sd4324530.fastweixin.message.TextMsg;</span><br><span class="line"><span class="keyword">import</span> com.github.sd4324530.fastweixin.message.req.MenuEvent;</span><br><span class="line"><span class="keyword">import</span> com.github.sd4324530.fastweixin.message.req.TextReqMsg;</span><br><span class="line"><span class="keyword">import</span> com.github.sd4324530.fastweixin.servlet.WeixinControllerSupport;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/weixin&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WeixinController</span> <span class="keyword">extends</span> <span class="title">WeixinControllerSupport</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger LOG = LoggerFactory.getLogger(WeixinController.class);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TOKEN      = <span class="string">&quot;xxxxxx&quot;</span>; <span class="comment">// 你的 token</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String APP_ID     = <span class="string">&quot;yyyyyy&quot;</span>; <span class="comment">// 你的 appID</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String APP_SECRET = <span class="string">&quot;zzzzzz&quot;</span>; <span class="comment">// 你的 appsecret</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 重写父类方法，处理对应的微信消息</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> BaseMsg <span class="title">handleTextMsg</span><span class="params">(TextReqMsg msg)</span> </span>&#123;</span><br><span class="line">        String content = msg.getContent(); <span class="comment">// content 是用户输入的信息</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">switch</span> (content.toUpperCase()) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;URL&quot;</span>:</span><br><span class="line">                <span class="comment">// 消息中有链接</span></span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> TextMsg(<span class="string">&quot;你好: &lt;a href=\&quot;http://www.baidu.com\&quot;&gt;百度&lt;/a&gt;&quot;</span>);</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;ATOM&quot;</span>:</span><br><span class="line">                <span class="comment">// 图文消息</span></span><br><span class="line">                String picUrl = <span class="string">&quot;http://image.17car.com.cn/image/20120810/20120810092133_13289.jpg&quot;</span>; <span class="comment">// 消息中显示的图片</span></span><br><span class="line">                String url = <span class="string">&quot;http://news.17car.com.cn/saishi/20120810/336283.html&quot;</span>; <span class="comment">// 点击消息后跳转的网页的地址</span></span><br><span class="line">                String description = <span class="string">&quot;700 马力道路赛车 DDMWorks 打造最强 Atom&quot;</span>;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> NewsMsg(Arrays.asList(<span class="keyword">new</span> Article(<span class="string">&quot;Atom&quot;</span>, description, picUrl, url), <span class="keyword">new</span> Article(<span class="string">&quot;Atom&quot;</span>, description, picUrl, url)));</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> TextMsg(<span class="string">&quot;不识别的命令, 您输入的内容是: &quot;</span> + content);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> BaseMsg <span class="title">handleMenuClickEvent</span><span class="params">(MenuEvent event)</span> </span>&#123;</span><br><span class="line">        String key = event.getEventKey();</span><br><span class="line">        <span class="keyword">switch</span> (key.toUpperCase()) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;MAIN1&quot;</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> TextMsg(<span class="string">&quot;点击按钮&quot;</span>);</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;SUB1&quot;</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> TextMsg(<span class="string">&quot;2016 语文&quot;</span>);</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;SUB2&quot;</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> TextMsg(<span class="string">&quot;2016 数学&quot;</span>);</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> TextMsg(<span class="string">&quot;不识别的菜单命令&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置 TOKEN，用于绑定微信服务器</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> String <span class="title">getToken</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> TOKEN;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取 access token: http://localhost:8080/weixin/access-token</span></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/access-token&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getAccessToken</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ApiConfig config = <span class="keyword">new</span> ApiConfig(APP_ID, APP_SECRET);</span><br><span class="line">        <span class="keyword">return</span> config.getAccessToken();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建菜单, 访问  http://localhost:8080/weixincreate-menu 就会把菜单信息发送给微信服务器</span></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/create-menu&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">createMenu</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 准备一级主菜单</span></span><br><span class="line">        MenuButton main1 = <span class="keyword">new</span> MenuButton();</span><br><span class="line">        main1.setType(MenuType.CLICK); <span class="comment">// 可点击的菜单</span></span><br><span class="line">        main1.setKey(<span class="string">&quot;main1&quot;</span>);</span><br><span class="line">        main1.setName(<span class="string">&quot;主菜单一&quot;</span>);</span><br><span class="line"></span><br><span class="line">        MenuButton main2 = <span class="keyword">new</span> MenuButton();</span><br><span class="line">        main2.setType(MenuType.VIEW); <span class="comment">// 链接的菜单，点击后跳转到对应的 URL</span></span><br><span class="line">        main2.setName(<span class="string">&quot;主菜单二&quot;</span>);</span><br><span class="line">        main2.setUrl(<span class="string">&quot;http://www.baidu.com&quot;</span>);</span><br><span class="line"></span><br><span class="line">        MenuButton main3 = <span class="keyword">new</span> MenuButton();</span><br><span class="line">        main3.setType(MenuType.CLICK); <span class="comment">// 带有子菜单</span></span><br><span class="line">        main3.setName(<span class="string">&quot;真题&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 带有子菜单</span></span><br><span class="line">        MenuButton sub1 = <span class="keyword">new</span> MenuButton();</span><br><span class="line">        sub1.setType(MenuType.CLICK);</span><br><span class="line">        sub1.setName(<span class="string">&quot;2016 语文&quot;</span>);</span><br><span class="line">        sub1.setKey(<span class="string">&quot;sub1&quot;</span>);</span><br><span class="line"></span><br><span class="line">        MenuButton sub2 = <span class="keyword">new</span> MenuButton();</span><br><span class="line">        sub2.setType(MenuType.CLICK);</span><br><span class="line">        sub2.setName(<span class="string">&quot;2016 数学&quot;</span>);</span><br><span class="line">        sub2.setKey(<span class="string">&quot;sub2&quot;</span>);</span><br><span class="line">        main3.setSubButton(Arrays.asList(sub1, sub2));</span><br><span class="line"></span><br><span class="line">        Menu menu = <span class="keyword">new</span> Menu();</span><br><span class="line">        menu.setButton(Arrays.asList(main1, main2, main3));</span><br><span class="line"></span><br><span class="line">        <span class="comment">//创建菜单</span></span><br><span class="line">        ApiConfig config = <span class="keyword">new</span> ApiConfig(APP_ID, APP_SECRET);</span><br><span class="line">        MenuAPI menuAPI = <span class="keyword">new</span> MenuAPI(config);</span><br><span class="line">        ResultType resultType = menuAPI.createMenu(menu);</span><br><span class="line">        <span class="keyword">return</span> resultType.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/fe-js-tips/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          JavaScript Tips
+        
+      </div>
+    </a>
+  
+  
+    <a href="/mac-atom/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Atom 常用插件和快捷键</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

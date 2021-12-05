@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>用画家的思维绘制图形 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="曾经遇到一个这样的需求：使用 代码 实现下面样式的按钮  观察按钮的样式，发现有多种渐变、有高光、有阴影、有不规则形状、有半透明效果，看到这么复杂的效果图，我的第一反应是用 Photoshop 做出效果图，使用 QSS 设置为按钮的背景图就可以了。但是，客户就是上帝，上帝说要用代码，那就用代码。有没有什么办法能直接绘制出这样的图形来呢？翻遍了 Qt 的帮助文档，没有，Qt 只提供了一些绘制简单图形">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用画家的思维绘制图形">
+<meta property="og:url" content="http://xtuer.github.io/qtbook-paint-artist/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="曾经遇到一个这样的需求：使用 代码 实现下面样式的按钮  观察按钮的样式，发现有多种渐变、有高光、有阴影、有不规则形状、有半透明效果，看到这么复杂的效果图，我的第一反应是用 Photoshop 做出效果图，使用 QSS 设置为按钮的背景图就可以了。但是，客户就是上帝，上帝说要用代码，那就用代码。有没有什么办法能直接绘制出这样的图形来呢？翻遍了 Qt 的帮助文档，没有，Qt 只提供了一些绘制简单图形">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Artist-Button.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Artist-Landscape.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Artist-Layer.png">
+<meta property="article:published_time" content="2016-12-11T02:25:50.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.175Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="QtBook">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Artist-Button.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-qtbook-paint-artist" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-paint-artist/" class="article-date">
+  	<!-- <time datetime="2016-12-11T02:25:50.000Z" itemprop="datePublished">2016-12-11</time> -->
+    2016-12-11
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      用画家的思维绘制图形
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>曾经遇到一个这样的需求：使用 <code>代码</code> 实现下面样式的按钮</p>
+<p><img src="../img/qtbook/paint/Paint-Artist-Button.png"></p>
+<p>观察按钮的样式，发现有多种渐变、有高光、有阴影、有不规则形状、有半透明效果，看到这么复杂的效果图，我的第一反应是用 Photoshop 做出效果图，使用 QSS 设置为按钮的背景图就可以了。但是，客户就是上帝，上帝说要用代码，那就用代码。有没有什么办法能直接绘制出这样的图形来呢？翻遍了 Qt 的帮助文档，没有，Qt 只提供了一些绘制简单图形的函数，如点、线、图片、填充、渐变、融合等，没有直接实现这种复杂需求的函数，那么，怎么用 QPainter 绘制出这样的图形呢？<span id="more"></span></p>
+<p>放下代码暂且不提，先来看看这幅画在山水画家施贞泉先生笔下诞生的大致步骤，详细内容请移步 <a target="_blank" rel="noopener" href="http://blog.sina.com.cn/s/blog_971cd89b010176vv.html">http://blog.sina.com.cn/s/blog_971cd89b010176vv.html</a></p>
+<p><img src="../img/qtbook/paint/Paint-Artist-Landscape.png"></p>
+<ol>
+<li>先用重墨画近景</li>
+<li>然后是中景<ul>
+<li>在先画出山石的一个“面”之后，再下笔画相邻的“面”</li>
+<li>画山石</li>
+<li>用更淡的墨在两个山头的空间位置画出远山</li>
+<li>穿插画些植被</li>
+<li>用极干的淡墨擦出山下部的云岚</li>
+<li>画流水</li>
+<li>着色时一定要把水和云留白，再分别小心渲染</li>
+</ul>
+</li>
+<li>通观全局，细心收拾，做一些修修补补</li>
+</ol>
+<p>分析上面的这些步骤，画家画画，不是从左到右或者从上到下 <code>一次性</code> 的把画的最终效果画出来，而是 <code>分层次</code> 一个部分一个部分的画出来，最后通观全局，细心收拾，做一些修修补补，如果看过周星驰的《唐伯虎点秋香》，想必对唐伯虎画<a target="_blank" rel="noopener" href="http://www.56.com/w12/play_album-aid-12922178_vid-MTIyODI3MTQ0.html">《雄鹰展翅气吞天下图》</a>的场景仍然历历在目吧，最后一幕唐伯虎使用 <code>喷水滚印</code> 往画上喷了一口水使得画活了起来，真是巧夺造化赛天工。</p>
+<p>说了这么多，核心思想是没有哪一个好的效果是一次性画出来的，都是使用 <code>分层绘制</code> 的思想局部绘制，所有的层组合起来才能达到最终效果，Photoshop 也是这么做的，图层是 Photoshop 必须要掌握的核心技术之一，有些复杂的图甚至用了上百个图层。分层绘制还有一个好处，可以单独修改某个层而不影响其他层。</p>
+<p>接下来就用分层的思想分析一下按钮可以分成哪些层吧，如图所示，可以分成 4 个层：<br><img src="../img/qtbook/paint/Paint-Artist-Layer.png"></p>
+<ol>
+<li>最外面的圈，使用线性渐变，上面比较亮，下面暗一些</li>
+<li>小一号的圈，使用线性渐变，上面比较暗，下面亮一些</li>
+<li>中心是一个圆，使用径向渐变</li>
+<li>高光部分的外形看上去像一个半月，可以用一个小圆扣掉一个大圆的部分实现，像这种复杂效果，可以用 QPainterPath 来实现，而且还有渐变和一点点透明的效果</li>
+</ol>
+<p>有了以上分析，用代码实现就有头绪了：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PaintButtonWidget::paintEvent</span><span class="params">(QPaintEvent *)</span> </span>&#123;</span><br><span class="line">    <span class="function">QPainter <span class="title">painter</span><span class="params">(<span class="keyword">this</span>)</span></span>;</span><br><span class="line">    painter.<span class="built_in">setRenderHint</span>(QPainter::Antialiasing);</span><br><span class="line">    painter.<span class="built_in">setPen</span>(Qt::transparent);</span><br><span class="line">    painter.<span class="built_in">fillRect</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="built_in">width</span>() &lt;&lt; <span class="number">1</span>, <span class="built_in">height</span>() &lt;&lt; <span class="number">1</span>, Qt::darkGray);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 移动坐标轴原点到窗口的中心，这样好计算一些</span></span><br><span class="line">    painter.<span class="built_in">translate</span>(<span class="built_in">width</span>() &gt;&gt; <span class="number">1</span>, <span class="built_in">height</span>() &gt;&gt; <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> radius = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 1. 外边框</span></span><br><span class="line">    <span class="function">QLinearGradient <span class="title">lg1</span><span class="params">(<span class="number">0</span>, -radius, <span class="number">0</span>, radius)</span></span>;</span><br><span class="line">    lg1.<span class="built_in">setColorAt</span>(<span class="number">0.0</span>, <span class="built_in">QColor</span>(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>));</span><br><span class="line">    lg1.<span class="built_in">setColorAt</span>(<span class="number">1.0</span>, <span class="built_in">QColor</span>(<span class="number">166</span>, <span class="number">166</span>, <span class="number">166</span>));</span><br><span class="line">    painter.<span class="built_in">setBrush</span>(lg1);</span><br><span class="line">    painter.<span class="built_in">drawEllipse</span>(-radius, -radius, radius &lt;&lt; <span class="number">1</span>, radius &lt;&lt; <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2. 内边框</span></span><br><span class="line">    radius -= <span class="number">13</span>;</span><br><span class="line">    <span class="function">QLinearGradient <span class="title">lg2</span><span class="params">(<span class="number">0</span>, -radius, <span class="number">0</span>, radius)</span></span>;</span><br><span class="line">    lg2.<span class="built_in">setColorAt</span>(<span class="number">0.0</span>, <span class="built_in">QColor</span>(<span class="number">155</span>, <span class="number">155</span>, <span class="number">155</span>));</span><br><span class="line">    lg2.<span class="built_in">setColorAt</span>(<span class="number">1.0</span>, <span class="built_in">QColor</span>(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>));</span><br><span class="line">    painter.<span class="built_in">setBrush</span>(lg2);</span><br><span class="line">    painter.<span class="built_in">drawEllipse</span>(-radius, -radius, radius &lt;&lt; <span class="number">1</span>, radius &lt;&lt; <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 3. 内部的圆</span></span><br><span class="line">    radius -= <span class="number">4</span>;</span><br><span class="line">    <span class="function">QRadialGradient <span class="title">rg</span><span class="params">(<span class="number">0</span>, <span class="number">0</span>, radius)</span></span>;</span><br><span class="line">    rg.<span class="built_in">setColorAt</span>(<span class="number">0.0</span>, <span class="built_in">QColor</span>(<span class="number">245</span>, <span class="number">0</span>, <span class="number">0</span>));</span><br><span class="line">    rg.<span class="built_in">setColorAt</span>(<span class="number">0.6</span>, <span class="built_in">QColor</span>(<span class="number">210</span>, <span class="number">0</span>, <span class="number">0</span>));</span><br><span class="line">    rg.<span class="built_in">setColorAt</span>(<span class="number">1.0</span>, <span class="built_in">QColor</span>(<span class="number">140</span>, <span class="number">0</span>, <span class="number">0</span>));</span><br><span class="line">    painter.<span class="built_in">setBrush</span>(rg);</span><br><span class="line">    painter.<span class="built_in">drawEllipse</span>(-radius, -radius, radius &lt;&lt; <span class="number">1</span>, radius &lt;&lt; <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 4. 高光</span></span><br><span class="line">    QPainterPath smallCircle;</span><br><span class="line">    QPainterPath bigCircle;</span><br><span class="line">    radius -= <span class="number">3</span>;</span><br><span class="line">    smallCircle.<span class="built_in">addEllipse</span>(-radius, -radius - <span class="number">2</span>, radius &lt;&lt; <span class="number">1</span>, radius &lt;&lt; <span class="number">1</span>);</span><br><span class="line">    radius *= <span class="number">2</span>;</span><br><span class="line">    bigCircle.<span class="built_in">addEllipse</span>(-radius, -radius + <span class="number">140</span>, radius &lt;&lt; <span class="number">1</span>, radius &lt;&lt; <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 高光的形状为小圆扣掉大圆的部分</span></span><br><span class="line">    QPainterPath highlight = smallCircle - bigCircle;</span><br><span class="line"></span><br><span class="line">    <span class="function">QLinearGradient <span class="title">lg3</span><span class="params">(<span class="number">0</span>, -radius / <span class="number">2</span>, <span class="number">0</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">    lg3.<span class="built_in">setColorAt</span>(<span class="number">0.0</span>, <span class="built_in">QColor</span>(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>, <span class="number">220</span>));</span><br><span class="line">    lg3.<span class="built_in">setColorAt</span>(<span class="number">1.0</span>, <span class="built_in">QColor</span>(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>, <span class="number">30</span>));</span><br><span class="line">    painter.<span class="built_in">setBrush</span>(lg3);</span><br><span class="line">    painter.<span class="built_in">rotate</span>(<span class="number">-20</span>);</span><br><span class="line">    painter.<span class="built_in">drawPath</span>(highlight);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>分层绘制的细想，和算法中的分治法是一个思想，把复杂问题分解为多个简单的小问题，解决所有的小问题后，将各小问题的解合并得到复杂问题的解决办法，以后遇到复杂的图形，想必对于大家来说，难度会大大降低了，分而治之，各个击破。</p>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/qtbook-paint-smooth-curve/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          绘制平滑曲线
+        
+      </div>
+    </a>
+  
+  
+    <a href="/qtbook-paint-pixmap/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Pixmap</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

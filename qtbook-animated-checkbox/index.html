@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>有动画效果的 CheckBox | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在 Android 或者 iOS 的界面中经常看到下图这样的 check box，并且选中状态 checked 变化时还有动画效果把白色的小圆球 indicator 从一边移动到另一边。Qt 提供了 QCheckBox，不过不能直接修改 QSS 实现这样的样式，而且也没有 indicator 移动的动画效果。  在这一篇文章中将介绍自定义一个 check box 的类 AnimatedCheckB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="有动画效果的 CheckBox">
+<meta property="og:url" content="http://xtuer.github.io/qtbook-animated-checkbox/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="在 Android 或者 iOS 的界面中经常看到下图这样的 check box，并且选中状态 checked 变化时还有动画效果把白色的小圆球 indicator 从一边移动到另一边。Qt 提供了 QCheckBox，不过不能直接修改 QSS 实现这样的样式，而且也没有 indicator 移动的动画效果。  在这一篇文章中将介绍自定义一个 check box 的类 AnimatedCheckB">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/custom-widget/checkbox-1.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/custom-widget/checkbox-2.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/custom-widget/checkbox-3.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/custom-widget/checkbox-4.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/custom-widget/checkbox-5.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/custom-widget/checkbox-animated.gif">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/custom-widget/checkbox-6.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/custom-widget/checkbox-7.png">
+<meta property="article:published_time" content="2019-06-29T11:42:41.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.171Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="QtBook">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/qtbook/custom-widget/checkbox-1.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#AnimatedCheckBox-%E9%AA%A8%E6%9E%B6"><span class="toc-text">AnimatedCheckBox 骨架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%8A%A8%E7%94%BB"><span class="toc-text">使用动画</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-qtbook-animated-checkbox" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-animated-checkbox/" class="article-date">
+  	<!-- <time datetime="2019-06-29T11:42:41.000Z" itemprop="datePublished">2019-06-29</time> -->
+    2019-06-29
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      有动画效果的 CheckBox
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>在 Android 或者 iOS 的界面中经常看到下图这样的 check box，并且选中状态 checked 变化时还有动画效果把白色的小圆球 indicator 从一边移动到另一边。Qt 提供了 QCheckBox，不过不能直接修改 QSS 实现这样的样式，而且也没有 indicator 移动的动画效果。</p>
+<div class="cimg"><img src="../img/qtbook/custom-widget/checkbox-1.png" width="280"></div>
+在这一篇文章中将介绍自定义一个 check box 的类 AnimatedCheckBox，实现上面样式的 check box，并且使用动画移动 indicator，实现时需要注意一下几点:
+
+<ul>
+<li>AnimatedCheckBox 继承了 QCheckBox，这样在使用 QCheckBox 的地方就能直接替换为 AnimatedCheckBox 了，并且不需要我们自己维护 check box 的各种状态，相关的信号槽直接使用 QCheckBox 的就可以了</li>
+<li>使用 QPropertyAnimation 实现动画效果</li>
+<li>虽然 QCheckBox 有一个 indicator 的 subcontrol，但是满足不了需求，所以我们使用了一个 QLabel 来代替默认的 indicator</li>
+<li>为了使用动画移动 indicator，不能使用布局管理器来布局 indicator，而是使用绝对坐标定位的方式来控制 indicator 的位置</li>
+<li>默认点击 QCheckBox 的 indicator 或者文字时才能切换选中状态，点击 QCheckBox 上其他空白的地方没有反应，我们希望点击 AnimatedCheckBox 上的任何地方都能够切换选中状态，需要重写 mousePressEvent</li>
+<li>为了不使用 QCheckBox 的默认样式，实现一个空的 paintEvent</li>
+<li>由于 AnimatedCheckBox 的大小是不固定的，所以 indicator 的大小和位置应该在 resizeEvent 中根据 AnimatedCheckBox 的大小和 checked 的值进行计算</li>
+<li>使用 QPainter 绘制的方式也能够实现这样的效果 (实现阴影就不那么容易了)，这里我们使用 QSS 的方式调整显示的效果，还可以把样式保存到文件中，修改样式不需要重新编译程序</li>
+</ul>
+<p>有了这些基础知识后， 逐步的来实现这样的 check box 就容易多了。<span id="more"></span></p>
+<h2 id="AnimatedCheckBox-骨架"><a href="#AnimatedCheckBox-骨架" class="headerlink" title="AnimatedCheckBox 骨架"></a>AnimatedCheckBox 骨架</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名: AnimatedCheckBox.h</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> ANIMATEDCHECKBOX_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ANIMATEDCHECKBOX_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QCheckBox&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">QLabel</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AnimatedCheckBox</span> :</span> <span class="keyword">public</span> QCheckBox &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">AnimatedCheckBox</span>(QWidget *parent = <span class="literal">nullptr</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">paintEvent</span><span class="params">(QPaintEvent *event)</span> <span class="keyword">override</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">resizeEvent</span><span class="params">(QResizeEvent *event)</span> <span class="keyword">override</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">mousePressEvent</span><span class="params">(QMouseEvent *event)</span> <span class="keyword">override</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">// AnimatedCheckBox 是否选中的指示器</span></span><br><span class="line">    <span class="comment">// checked 为 false 时 indicator 在最左边，为 true 时 indicator 在最右边</span></span><br><span class="line">    QLabel *indicator;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// ANIMATEDCHECKBOX_H</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名: AnimatedCheckBox.cpp</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;AnimatedCheckBox.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QStyle&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QLabel&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QMouseEvent&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QApplication&gt;</span></span></span><br><span class="line"></span><br><span class="line">AnimatedCheckBox::<span class="built_in">AnimatedCheckBox</span>(QWidget *parent) : <span class="built_in">QCheckBox</span> (parent) &#123;</span><br><span class="line">    indicator = <span class="keyword">new</span> <span class="built_in">QLabel</span>(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置样式</span></span><br><span class="line">    <span class="keyword">this</span>-&gt;<span class="built_in">setMinimumHeight</span>(<span class="number">40</span>);</span><br><span class="line">    <span class="keyword">this</span>-&gt;<span class="built_in">setAttribute</span>(Qt::WA_StyledBackground, <span class="literal">true</span>);</span><br><span class="line">    <span class="keyword">this</span>-&gt;<span class="built_in">setProperty</span>(<span class="string">&quot;class&quot;</span>, <span class="string">&quot;AnimatedCheckBox&quot;</span>);</span><br><span class="line">    indicator-&gt;<span class="built_in">setProperty</span>(<span class="string">&quot;class&quot;</span>, <span class="string">&quot;AnimatedCheckBoxIndicator&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 提示: 不需要在程序运行时动态改变的样式放到全局样式里通过 qApp 加载，下面的代码最好是放到 main 函数中</span></span><br><span class="line">    <span class="comment">// 优点: 这些样式可以保存在文件中，修改全局样式的时候不需要修改程序源码，使用 qApp 重新加载或者重启程序就能看到效果了</span></span><br><span class="line">    qApp-&gt;<span class="built_in">setStyleSheet</span>(<span class="string">R&quot;(</span></span><br><span class="line"><span class="string">                        .AnimatedCheckBox[checked=true ] &#123; background: #2d8cf0 &#125;</span></span><br><span class="line"><span class="string">                        .AnimatedCheckBox[checked=false] &#123; background: #c5c8ce &#125;</span></span><br><span class="line"><span class="string">                        .AnimatedCheckBoxIndicator &#123; background: white &#125;</span></span><br><span class="line"><span class="string">    )&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// AnimatedCheckBox 的选中状态变化时，修改 indicator 的位置</span></span><br><span class="line">    <span class="built_in">connect</span>(<span class="keyword">this</span>, &amp;QCheckBox::toggled, [=] &#123;</span><br><span class="line">        <span class="keyword">int</span> x = <span class="keyword">this</span>-&gt;<span class="built_in">isChecked</span>() ? <span class="keyword">this</span>-&gt;<span class="built_in">width</span>() - indicator-&gt;<span class="built_in">width</span>() : <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> y = <span class="number">0</span>;</span><br><span class="line">        indicator-&gt;<span class="built_in">move</span>(x, y);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>-&gt;<span class="built_in">style</span>()-&gt;<span class="built_in">polish</span>(<span class="keyword">this</span>); <span class="comment">// checked 属性变化了，更新样式</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 重写 paintEvent 方法，清除 QCheckBox 的默认样式</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">AnimatedCheckBox::paintEvent</span><span class="params">(QPaintEvent *)</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// AnimatedCheckBox 的大小改变时调整 indicator 的位置</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">AnimatedCheckBox::resizeEvent</span><span class="params">(QResizeEvent *)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> x = <span class="keyword">this</span>-&gt;<span class="built_in">isChecked</span>() ? <span class="keyword">this</span>-&gt;<span class="built_in">width</span>() - indicator-&gt;<span class="built_in">width</span>(): <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> y = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> w = <span class="built_in">height</span>();</span><br><span class="line">    <span class="keyword">int</span> h = w;</span><br><span class="line">    indicator-&gt;<span class="built_in">setGeometry</span>(x, y, w, h);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置 AnimatedCheckBox 的最小宽度，避免太窄的时候效果不好</span></span><br><span class="line">    <span class="keyword">this</span>-&gt;<span class="built_in">setMinimumWidth</span>(<span class="built_in">height</span>() * <span class="number">2</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 点击 AnimatedCheckBox 上的任何地方都切换选中状态，QCheckBox 默认只有点击它的 indicator 或者文字时才进行切换</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">AnimatedCheckBox::mousePressEvent</span><span class="params">(QMouseEvent *event)</span> </span>&#123;</span><br><span class="line">    event-&gt;<span class="built_in">accept</span>();</span><br><span class="line">    <span class="built_in">setChecked</span>(!<span class="built_in">isChecked</span>());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>得到的效果如下，checked 为 false 时 indicator 在最左边，为 true 时 indicator 在最右边:</p>
+<div class="cimg"><img src="../img/qtbook/custom-widget/checkbox-2.png" width="160"> <img src="../img/qtbook/custom-widget/checkbox-3.png" width="160"></div>
+## 实现圆角
+
+<p>QSS 中 border-radius 的值如果大于对应边的一半时就没有圆角效果了，由于 AnimatedCheckBox 和 indicator 的大小不是固定的，需要在它们的大小改变时动态的计算圆角的半径，在 resizeEvent 的最后面加上下面的代码实现圆角效果:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 更新 check box 和 indicator 的圆角大小</span></span><br><span class="line"><span class="keyword">this</span>-&gt;<span class="built_in">setStyleSheet</span>(<span class="built_in">QString</span>(<span class="string">&quot;.AnimatedCheckBox &#123; border-radius: %1px &#125; .AnimatedCheckBoxIndicator &#123; border-radius: %2px &#125;&quot;</span>)</span><br><span class="line">                    .<span class="built_in">arg</span>(<span class="keyword">this</span>-&gt;<span class="built_in">height</span>() / <span class="number">2</span>)</span><br><span class="line">                    .<span class="built_in">arg</span>(indicator-&gt;<span class="built_in">height</span>() / <span class="number">2</span>));</span><br></pre></td></tr></table></figure>
+
+<div class="cimg"><img src="../img/qtbook/custom-widget/checkbox-4.png" width="160"></div>
+## 增加边框
+
+<p>为了利用已有的相关 API，使用 AnimatedCheckBox 的 contents margins 的 left 来保存边框的宽度，计算 indicator 的位置和大小的方法修改为:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> b = <span class="keyword">this</span>-&gt;<span class="built_in">contentsMargins</span>().<span class="built_in">left</span>();</span><br><span class="line"><span class="keyword">int</span> x = <span class="keyword">this</span>-&gt;<span class="built_in">isChecked</span>() ? <span class="keyword">this</span>-&gt;<span class="built_in">width</span>() - indicator-&gt;<span class="built_in">width</span>() - b : b;</span><br><span class="line"><span class="keyword">int</span> y = b;</span><br><span class="line"><span class="keyword">int</span> w = <span class="built_in">height</span>() - b - b;</span><br><span class="line"><span class="keyword">int</span> h = w;</span><br></pre></td></tr></table></figure>
+
+<p>并在构造函数中调用  <code>this-&gt;setContentsMargins(2, 2, 2, 2)</code> 设置默认边框宽度为 2:</p>
+<div class="cimg"><img src="../img/qtbook/custom-widget/checkbox-5.png" width="160"></div>
+实际使用中，可根据具体的设计在 AnimatedCheckBox 外调用 setContentsMargins 来修改边框的宽度。
+
+<h2 id="使用动画"><a href="#使用动画" class="headerlink" title="使用动画"></a>使用动画</h2><p>使用 QPropertyAnimation 给 AnimatedCheckBox 加上动画效果吧，把构造函数中的 connect 部分修改为:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// AnimatedCheckBox 的选中状态变化时，修改 indicator 的位置</span></span><br><span class="line">QPropertyAnimation *animation = <span class="keyword">new</span> <span class="built_in">QPropertyAnimation</span>(indicator, <span class="string">&quot;pos&quot;</span>, <span class="keyword">this</span>);</span><br><span class="line"><span class="built_in">connect</span>(<span class="keyword">this</span>, &amp;QCheckBox::toggled, [=] &#123;</span><br><span class="line">    <span class="keyword">int</span> b = <span class="keyword">this</span>-&gt;<span class="built_in">contentsMargins</span>().<span class="built_in">left</span>();</span><br><span class="line">    <span class="keyword">int</span> x = <span class="keyword">this</span>-&gt;<span class="built_in">isChecked</span>() ? <span class="keyword">this</span>-&gt;<span class="built_in">width</span>() - indicator-&gt;<span class="built_in">width</span>() - b : b;</span><br><span class="line">    <span class="keyword">int</span> y = b;</span><br><span class="line"></span><br><span class="line">    animation-&gt;<span class="built_in">stop</span>();</span><br><span class="line">    animation-&gt;<span class="built_in">setDuration</span>(<span class="number">200</span>);</span><br><span class="line">    animation-&gt;<span class="built_in">setEndValue</span>(<span class="built_in">QPoint</span>(x, y));</span><br><span class="line">    animation-&gt;<span class="built_in">setEasingCurve</span>(QEasingCurve::InOutCubic);</span><br><span class="line">    animation-&gt;<span class="built_in">start</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>-&gt;<span class="built_in">style</span>()-&gt;<span class="built_in">polish</span>(<span class="keyword">this</span>); <span class="comment">// checked 属性变化了，更新样式</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>提示: </p>
+<ul>
+<li>在动画开始前调用了 <code>animation-&gt;stop()</code>，是为了避免快速点击多次时前次动画没有完成影响本次动画的效果</li>
+<li>QPropertyAnimation 缓冲动画的默认缓冲曲线是匀速的 linear easing curve，修改为 QEasingCurve::InOutCubic 后效果更好，了解更多的缓冲曲线请阅读 QEasingCurve 的帮助文档，大家可以自己修改为其他的效果试试看</li>
+</ul>
+<div class="cimg"><img src="../img/qtbook/custom-widget/checkbox-animated.gif"></div>
+## 增加阴影
+
+<p>更进一步，还可以使用 QGraphicsDropShadowEffect 给 indicator 增加阴影效果，在构造函数中增加:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">QGraphicsDropShadowEffect *effect = <span class="keyword">new</span> <span class="built_in">QGraphicsDropShadowEffect</span>(<span class="keyword">this</span>);</span><br><span class="line">effect-&gt;<span class="built_in">setBlurRadius</span>(<span class="number">10</span>);</span><br><span class="line">effect-&gt;<span class="built_in">setOffset</span>(<span class="number">0</span>, <span class="number">1</span>);</span><br><span class="line">indicator-&gt;<span class="built_in">setGraphicsEffect</span>(effect);</span><br></pre></td></tr></table></figure>
+<div class="cimg"><img src="../img/qtbook/custom-widget/checkbox-6.png" width="160"> <img src="../img/qtbook/custom-widget/checkbox-7.png" width="160"></div>
+到此，实现了一个和 Android 或者 iOS 中差不多的 check box 了，最后附上 AnimatedCheckBox.cpp 完整的代码:
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名: AnimatedCheckBox.cpp</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;AnimatedCheckBox.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QStyle&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QLabel&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QMouseEvent&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QApplication&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QPropertyAnimation&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QGraphicsDropShadowEffect&gt;</span></span></span><br><span class="line"></span><br><span class="line">AnimatedCheckBox::<span class="built_in">AnimatedCheckBox</span>(QWidget *parent) : <span class="built_in">QCheckBox</span> (parent) &#123;</span><br><span class="line">    indicator = <span class="keyword">new</span> <span class="built_in">QLabel</span>(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置样式</span></span><br><span class="line">    <span class="keyword">this</span>-&gt;<span class="built_in">setMinimumHeight</span>(<span class="number">40</span>);</span><br><span class="line">    <span class="keyword">this</span>-&gt;<span class="built_in">setContentsMargins</span>(<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">this</span>-&gt;<span class="built_in">setAttribute</span>(Qt::WA_StyledBackground, <span class="literal">true</span>);</span><br><span class="line">    <span class="keyword">this</span>-&gt;<span class="built_in">setProperty</span>(<span class="string">&quot;class&quot;</span>, <span class="string">&quot;AnimatedCheckBox&quot;</span>);</span><br><span class="line">    indicator-&gt;<span class="built_in">setProperty</span>(<span class="string">&quot;class&quot;</span>, <span class="string">&quot;AnimatedCheckBoxIndicator&quot;</span>);</span><br><span class="line"></span><br><span class="line">    QGraphicsDropShadowEffect *effect = <span class="keyword">new</span> <span class="built_in">QGraphicsDropShadowEffect</span>(<span class="keyword">this</span>);</span><br><span class="line">    effect-&gt;<span class="built_in">setBlurRadius</span>(<span class="number">10</span>);</span><br><span class="line">    effect-&gt;<span class="built_in">setOffset</span>(<span class="number">0</span>, <span class="number">1</span>);</span><br><span class="line">    indicator-&gt;<span class="built_in">setGraphicsEffect</span>(effect);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 提示: 不需要在程序运行时动态改变的样式放到全局样式里通过 qApp 加载，下面的代码最好是放到 main 函数中</span></span><br><span class="line">    <span class="comment">// 优点: 这些样式可以保存在文件中，修改全局样式的时候不需要修改程序源码，使用 qApp 重新加载或者重启程序就能看到效果了</span></span><br><span class="line">    qApp-&gt;<span class="built_in">setStyleSheet</span>(<span class="string">R&quot;(</span></span><br><span class="line"><span class="string">                        .AnimatedCheckBox[checked=true ] &#123; background: #2d8cf0 &#125;</span></span><br><span class="line"><span class="string">                        .AnimatedCheckBox[checked=false] &#123; background: #c5c8ce &#125;</span></span><br><span class="line"><span class="string">                        .AnimatedCheckBoxIndicator &#123; background: white &#125;</span></span><br><span class="line"><span class="string">    )&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// AnimatedCheckBox 的选中状态变化时，修改 indicator 的位置</span></span><br><span class="line">    QPropertyAnimation *animation = <span class="keyword">new</span> <span class="built_in">QPropertyAnimation</span>(indicator, <span class="string">&quot;pos&quot;</span>, <span class="keyword">this</span>);</span><br><span class="line">    <span class="built_in">connect</span>(<span class="keyword">this</span>, &amp;QCheckBox::toggled, [=] &#123;</span><br><span class="line">        <span class="keyword">int</span> b = <span class="keyword">this</span>-&gt;<span class="built_in">contentsMargins</span>().<span class="built_in">left</span>();</span><br><span class="line">        <span class="keyword">int</span> x = <span class="keyword">this</span>-&gt;<span class="built_in">isChecked</span>() ? <span class="keyword">this</span>-&gt;<span class="built_in">width</span>() - indicator-&gt;<span class="built_in">width</span>() - b : b;</span><br><span class="line">        <span class="keyword">int</span> y = b;</span><br><span class="line"></span><br><span class="line">        animation-&gt;<span class="built_in">stop</span>();</span><br><span class="line">        animation-&gt;<span class="built_in">setDuration</span>(<span class="number">200</span>);</span><br><span class="line">        animation-&gt;<span class="built_in">setEndValue</span>(<span class="built_in">QPoint</span>(x, y));</span><br><span class="line">        animation-&gt;<span class="built_in">setEasingCurve</span>(QEasingCurve::InOutCubic);</span><br><span class="line">        animation-&gt;<span class="built_in">start</span>();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>-&gt;<span class="built_in">style</span>()-&gt;<span class="built_in">polish</span>(<span class="keyword">this</span>); <span class="comment">// checked 属性变化了，更新样式</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 重写 paintEvent 方法，清除 QCheckBox 的默认样式</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">AnimatedCheckBox::paintEvent</span><span class="params">(QPaintEvent *)</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// AnimatedCheckBox 的大小改变时调整 indicator 的位置</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">AnimatedCheckBox::resizeEvent</span><span class="params">(QResizeEvent *)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> b = <span class="keyword">this</span>-&gt;<span class="built_in">contentsMargins</span>().<span class="built_in">left</span>();</span><br><span class="line">    <span class="keyword">int</span> x = <span class="keyword">this</span>-&gt;<span class="built_in">isChecked</span>() ? <span class="keyword">this</span>-&gt;<span class="built_in">width</span>() - indicator-&gt;<span class="built_in">width</span>() - b : b;</span><br><span class="line">    <span class="keyword">int</span> y = b;</span><br><span class="line">    <span class="keyword">int</span> w = <span class="built_in">height</span>() - b - b;</span><br><span class="line">    <span class="keyword">int</span> h = w;</span><br><span class="line">    indicator-&gt;<span class="built_in">setGeometry</span>(x, y, w, h);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置 AnimatedCheckBox 的最小宽度，避免太窄的时候效果不好</span></span><br><span class="line">    <span class="keyword">this</span>-&gt;<span class="built_in">setMinimumWidth</span>(<span class="built_in">height</span>() * <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 更新 check box 和 indicator 的圆角大小</span></span><br><span class="line">    <span class="keyword">this</span>-&gt;<span class="built_in">setStyleSheet</span>(<span class="built_in">QString</span>(<span class="string">&quot;.AnimatedCheckBox &#123; border-radius: %1px &#125; .AnimatedCheckBoxIndicator &#123; border-radius: %2px &#125;&quot;</span>)</span><br><span class="line">                        .<span class="built_in">arg</span>(<span class="keyword">this</span>-&gt;<span class="built_in">height</span>() / <span class="number">2</span>)</span><br><span class="line">                        .<span class="built_in">arg</span>(indicator-&gt;<span class="built_in">height</span>() / <span class="number">2</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 点击 AnimatedCheckBox 上的任何地方都切换选中状态，QCheckBox 默认只有点击它的 indicator 或者文字时才进行切换</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">AnimatedCheckBox::mousePressEvent</span><span class="params">(QMouseEvent *event)</span> </span>&#123;</span><br><span class="line">    event-&gt;<span class="built_in">accept</span>();</span><br><span class="line">    <span class="built_in">setChecked</span>(!<span class="built_in">isChecked</span>());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/spring-jetcache/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Spring MVC 中使用 JetCache
+        
+      </div>
+    </a>
+  
+  
+    <a href="/vue-recursive-component/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Vue 的递归组件</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

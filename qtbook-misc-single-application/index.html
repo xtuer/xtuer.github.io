@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Single Application | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="如果限制一个程序同时只能启动一个实例，有几个可以使用的库  QtSingleApplication  以前可以免费使用，后来只有商业版能里能用，在 Github 上也有一个 LGPL 协议的实现，地址为 https:&#x2F;&#x2F;github.com&#x2F;qtproject&#x2F;qt-solutions&#x2F;tree&#x2F;master&#x2F;qtsingleapplication   SingleApplication  Thi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Single Application">
+<meta property="og:url" content="http://xtuer.github.io/qtbook-misc-single-application/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="如果限制一个程序同时只能启动一个实例，有几个可以使用的库  QtSingleApplication  以前可以免费使用，后来只有商业版能里能用，在 Github 上也有一个 LGPL 协议的实现，地址为 https:&#x2F;&#x2F;github.com&#x2F;qtproject&#x2F;qt-solutions&#x2F;tree&#x2F;master&#x2F;qtsingleapplication   SingleApplication  Thi">
+<meta property="og:locale">
+<meta property="article:published_time" content="2016-11-15T06:44:01.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.174Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="QtBook">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#main-cpp"><span class="toc-text">main.cpp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RunGuard-h"><span class="toc-text">RunGuard.h</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RunGuard-cpp"><span class="toc-text">RunGuard.cpp</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-qtbook-misc-single-application" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-misc-single-application/" class="article-date">
+  	<!-- <time datetime="2016-11-15T06:44:01.000Z" itemprop="datePublished">2016-11-15</time> -->
+    2016-11-15
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Single Application
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>如果限制一个程序同时只能启动一个实例，有几个可以使用的库</p>
+<ul>
+<li><p>QtSingleApplication</p>
+<blockquote>
+<p>以前可以免费使用，后来只有商业版能里能用，在 Github 上也有一个 LGPL 协议的实现，地址为 <a target="_blank" rel="noopener" href="https://github.com/qtproject/qt-solutions/tree/master/qtsingleapplication">https://github.com/qtproject/qt-solutions/tree/master/qtsingleapplication</a></p>
+</blockquote>
+</li>
+<li><p>SingleApplication</p>
+<blockquote>
+<p>This is a replacement of the QSingleApplication for Qt5，地址为 <a target="_blank" rel="noopener" href="https://github.com/itay-grudev/SingleApplication">https://github.com/itay-grudev/SingleApplication</a></p>
+</blockquote>
+</li>
+<li><p>RunGuard</p>
+<blockquote>
+<p>使用共享内存、简单、轻量化的实现，缺点是程序间不能通信，双击程序图标的时候不会激活已运行的实例显示到最前面，下面介绍 RunGuard 的使用</p>
+</blockquote>
+</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="main-cpp"><a href="#main-cpp" class="headerlink" title="main.cpp"></a>main.cpp</h2><p>限制程序同时只能启动一个实例只需要在 <code>main()</code> 函数里调用 <code>if (!guard.tryToRun()) &#123; return 0; &#125;</code> 即可。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;RunGuard.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="function">RunGuard <span class="title">guard</span><span class="params">(<span class="string">&quot;9F0FFF1A-77A0-4EF0-87F4-5494CA8181C7&quot;</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!guard.<span class="built_in">tryToRun</span>()) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">QApplication <span class="title">a</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line">    a.<span class="built_in">exec</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="RunGuard-h"><a href="#RunGuard-h" class="headerlink" title="RunGuard.h"></a>RunGuard.h</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> RUNGUARD_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> RUNGUARD_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QObject&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QSharedMemory&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QSystemSemaphore&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RunGuard</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">RunGuard</span>(<span class="keyword">const</span> QString&amp; key);</span><br><span class="line">    ~<span class="built_in">RunGuard</span>();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isAnotherRunning</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">tryToRun</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">release</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">const</span> QString key;</span><br><span class="line">    <span class="keyword">const</span> QString memLockKey;</span><br><span class="line">    <span class="keyword">const</span> QString sharedmemKey;</span><br><span class="line"></span><br><span class="line">    QSharedMemory sharedMem;</span><br><span class="line">    QSystemSemaphore memLock;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">Q_DISABLE_COPY</span>(RunGuard)</span><br><span class="line">&#125;;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// RUNGUARD_H</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="RunGuard-cpp"><a href="#RunGuard-cpp" class="headerlink" title="RunGuard.cpp"></a>RunGuard.cpp</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;RunGuard.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QCryptographicHash&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> &#123;</span><br><span class="line"></span><br><span class="line"><span class="function">QString <span class="title">generateKeyHash</span><span class="params">(<span class="keyword">const</span> QString&amp; key, <span class="keyword">const</span> QString&amp; salt)</span> </span>&#123;</span><br><span class="line">    QByteArray data;</span><br><span class="line"></span><br><span class="line">    data.<span class="built_in">append</span>(key.<span class="built_in">toUtf8</span>());</span><br><span class="line">    data.<span class="built_in">append</span>(salt.<span class="built_in">toUtf8</span>());</span><br><span class="line">    data = QCryptographicHash::<span class="built_in">hash</span>(data, QCryptographicHash::Sha1).<span class="built_in">toHex</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> data;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">RunGuard::<span class="built_in">RunGuard</span>(<span class="keyword">const</span> QString &amp;key)</span><br><span class="line">    : <span class="built_in">key</span>(key)</span><br><span class="line">    , <span class="built_in">memLockKey</span>(<span class="built_in">generateKeyHash</span>(key, <span class="string">&quot;_memLockKey&quot;</span>))</span><br><span class="line">    , <span class="built_in">sharedmemKey</span>(<span class="built_in">generateKeyHash</span>(key, <span class="string">&quot;_sharedmemKey&quot;</span>))</span><br><span class="line">    , <span class="built_in">sharedMem</span>(sharedmemKey)</span><br><span class="line">    , <span class="built_in">memLock</span>(memLockKey, <span class="number">1</span>) &#123;</span><br><span class="line">    memLock.<span class="built_in">acquire</span>();</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function">QSharedMemory <span class="title">fix</span><span class="params">(sharedmemKey)</span></span>; <span class="comment">// Fix for *nix: http://habrahabr.ru/post/173281/</span></span><br><span class="line">        fix.<span class="built_in">attach</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    memLock.<span class="built_in">release</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">RunGuard::~<span class="built_in">RunGuard</span>() &#123;</span><br><span class="line">    <span class="built_in">release</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">RunGuard::isAnotherRunning</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (sharedMem.<span class="built_in">isAttached</span>()) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    memLock.<span class="built_in">acquire</span>();</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">bool</span> isRunning = sharedMem.<span class="built_in">attach</span>();</span><br><span class="line">    <span class="keyword">if</span> (isRunning) &#123;</span><br><span class="line">        sharedMem.<span class="built_in">detach</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    memLock.<span class="built_in">release</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> isRunning;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">RunGuard::tryToRun</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">isAnotherRunning</span>()) &#123; <span class="comment">// Extra check</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    memLock.<span class="built_in">acquire</span>();</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">bool</span> result = sharedMem.<span class="built_in">create</span>(<span class="built_in"><span class="keyword">sizeof</span></span>(quint64));</span><br><span class="line">    memLock.<span class="built_in">release</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!result) &#123;</span><br><span class="line">        <span class="built_in">release</span>();</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">RunGuard::release</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    memLock.<span class="built_in">acquire</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (sharedMem.<span class="built_in">isAttached</span>()) &#123;</span><br><span class="line">        sharedMem.<span class="built_in">detach</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    memLock.<span class="built_in">release</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/spring-mvc-to-date/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          SpringMVC 接收日期参数
+        
+      </div>
+    </a>
+  
+  
+    <a href="/qt-notification-center/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">观察者模式的 NotificationCenter</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

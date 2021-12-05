@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Velocity 语法 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Velocity 比较接近脚本语言，例如 JS 123456789#if ($foo &lt; 10)    ...#elseif ($foo &#x3D;&#x3D; 10)    ...#elseif ($foo &#x3D;&#x3D; 12)    ...#else    ...#end  比较一下 Freemarker 123456789&lt;#if foo &lt; 10&gt;     ... &lt;#elseif f">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Velocity 语法">
+<meta property="og:url" content="http://xtuer.github.io/spring-web-velocity-syntax/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="Velocity 比较接近脚本语言，例如 JS 123456789#if ($foo &lt; 10)    ...#elseif ($foo &#x3D;&#x3D; 10)    ...#elseif ($foo &#x3D;&#x3D; 12)    ...#else    ...#end  比较一下 Freemarker 123456789&lt;#if foo &lt; 10&gt;     ... &lt;#elseif f">
+<meta property="og:locale">
+<meta property="article:published_time" content="2017-07-01T02:47:01.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.186Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="SpringWeb">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E9%87%8A"><span class="toc-text">注释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E9%87%8F"><span class="toc-text">变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5"><span class="toc-text">条件语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5"><span class="toc-text">循环语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8F"><span class="toc-text">宏</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%85%E5%90%AB%E6%96%87%E4%BB%B6"><span class="toc-text">包含文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5%E6%96%87%E4%BB%B6"><span class="toc-text">导入文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E8%A7%A3%E6%9E%90"><span class="toc-text">不解析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#stop"><span class="toc-text">stop</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-spring-web-velocity-syntax" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/spring-web-velocity-syntax/" class="article-date">
+  	<!-- <time datetime="2017-07-01T02:47:01.000Z" itemprop="datePublished">2017-07-01</time> -->
+    2017-07-01
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Velocity 语法
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringWeb/" rel="tag">SpringWeb</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Velocity 比较接近脚本语言，例如 JS</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#if ($foo &lt; 10)</span><br><span class="line">    ...</span><br><span class="line">#elseif ($foo == 10)</span><br><span class="line">    ...</span><br><span class="line">#elseif ($foo == 12)</span><br><span class="line">    ...</span><br><span class="line">#else</span><br><span class="line">    ...</span><br><span class="line">#end</span><br></pre></td></tr></table></figure>
+
+<p>比较一下 Freemarker</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;#if foo &lt; 10&gt; </span><br><span class="line">    ... </span><br><span class="line">&lt;#elseif foo == 10&gt; </span><br><span class="line">    ... </span><br><span class="line">&lt;#elseif foo == 12&gt; </span><br><span class="line">    ... </span><br><span class="line">&lt;#else&gt;</span><br><span class="line">    ...</span><br><span class="line">&lt;/#if&gt;</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><ul>
+<li><p>单行注释: <code>##</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## comment</span><br></pre></td></tr></table></figure></li>
+<li><p>多行注释: <code>#* *#</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#* line1</span><br><span class="line">line2</span><br><span class="line">line3</span><br><span class="line">...</span><br><span class="line">lineN *#</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><ul>
+<li><p><strong>$</strong> 用来标识一个变量(或理解为对象)，如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$msg</span><br><span class="line">$msg.author</span><br><span class="line">$msg.toUpperCase()</span><br><span class="line"></span><br><span class="line">&lt;!-- Map 也可以使用 . 访问: users 是一个 Map, alice 是 key --&gt;</span><br><span class="line">$users.alice</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>可以级联调用对象属性，调用对象的函数</p>
+</blockquote>
+</li>
+<li><p><strong>{}</strong> 用来明确标识 Velocity 变量</p>
+<p>比如在页面中，页面中有一个 <code>$someonename</code>，此时，Velocity 将把someonename 作为变量名，若我们程序是想在 someone 这个变量的后面紧接着显示 name 字符，则上面的标签应该改成 <code>$&#123;someone&#125;name</code>。</p>
+</li>
+<li><p><strong>!</strong> 用来强制把不存在的变量显示为空白</p>
+<p>当页面中包含 $msg，如果 msg 对象有值，将显示 msg 的值，如果不存在 msg 对象同，则在页面中将显示$msg 字符，这是我们不希望的。为了把不存在的变量或变量值为 null 的对象显示为空白，则只需要在变量名前加一个 <strong>!</strong> 号即可，如：<code>$!msg</code></p>
+</li>
+</ul>
+<h2 id="条件语句"><a href="#条件语句" class="headerlink" title="条件语句"></a>条件语句</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- $foo 不为 null 或为 Boolean 对象的 false 值时执行. --&gt;</span></span><br><span class="line">#if ($foo) </span><br><span class="line"><span class="tag">&lt;<span class="name">strong</span>&gt;</span>Velocity!<span class="tag">&lt;/<span class="name">strong</span>&gt;</span></span><br><span class="line">#end</span><br><span class="line"></span><br><span class="line">#if ($bar)</span><br><span class="line">Buy bar</span><br><span class="line">#elseif ($car)</span><br><span class="line">Buy car</span><br><span class="line">#else</span><br><span class="line">Buy tar</span><br><span class="line">#end</span><br></pre></td></tr></table></figure>
+
+<h2 id="循环语句"><a href="#循环语句" class="headerlink" title="循环语句"></a>循环语句</h2><p>循环语句 <code>#foreach($var in $arrays) #end</code>，集合包含 Array, List, Set, Map</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 遍历 Array, List, Set --&gt;</span></span><br><span class="line">#foreach ($n in $ns)</span><br><span class="line">$n<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">#end</span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 遍历 map 的 value --&gt;</span></span><br><span class="line">#foreach ($value in $map)</span><br><span class="line">$value<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">#end</span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 遍历 map 的 entry set --&gt;</span></span><br><span class="line">#foreach ($entry in $map.entrySet())</span><br><span class="line">$entry.getKey() - $entry.getValue()<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">#end</span><br><span class="line"></span><br><span class="line">#foreach ($customer in $customerList)</span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>$velocityCount<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>$customer.Name<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">#end</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>$velocityCount</strong> 是循环的计数器，默认从 1 开始，也可以修改配置从 0 开始</p>
+<p>Default name of the loop counter variable reference.<br><code>directive.foreach.counter.name = velocityCount</code></p>
+<p>Default starting value of the loop counter variable reference.<br><code>directive.foreach.counter.initial.value = 1</code></p>
+</blockquote>
+<h2 id="宏"><a href="#宏" class="headerlink" title="宏"></a>宏</h2><p>宏的定义语法: <code>#macro(macroName [$param1 $param2 ...])</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 定义宏: 无参数 --&gt;</span></span><br><span class="line">#macro(d)</span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">#end</span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 调用宏 --&gt;</span></span><br><span class="line">#d()</span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 定义宏: 有参数 --&gt;</span></span><br><span class="line">#macro(tableRows $color $list)</span><br><span class="line">    #foreach ($item in $list)</span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span><span class="tag">&lt;<span class="name">td</span> <span class="attr">bgcolor</span>=<span class="string">$color</span>&gt;</span>$item<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    #end</span><br><span class="line">#end</span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 调用宏 --&gt;</span></span><br><span class="line">#tableRows($color $list)</span><br></pre></td></tr></table></figure>
+
+<h2 id="包含文件"><a href="#包含文件" class="headerlink" title="包含文件"></a>包含文件</h2><p>使用 <strong>#include</strong>  包含静态文件，不解析</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#include(&quot;one.gif&quot;, &quot;two.txt&quot;, &quot;three.htm&quot;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="导入文件"><a href="#导入文件" class="headerlink" title="导入文件"></a>导入文件</h2><p>使用 <strong>#include</strong> 导入 Velocity 模版文件，解析为 Velocity 脚本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#parse(&quot;products.vm&quot;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="不解析"><a href="#不解析" class="headerlink" title="不解析"></a>不解析</h2><p><code>#[[don&#39;t parse me]]#</code> 的语法，允许模板设计者，在模板中方便地使用大块的无需翻译或解析的内容。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#[[</span><br><span class="line">#foreach ($woogie in $boogie)</span><br><span class="line">  对于$woogie，什么也不会发生</span><br><span class="line">#end</span><br><span class="line">]]#</span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#foreach ($woogie in $boogie)  </span><br><span class="line">  对于$woogie，什么也不会发生</span><br><span class="line">#end</span><br></pre></td></tr></table></figure>
+
+<h1 id="stop"><a href="#stop" class="headerlink" title="stop"></a>stop</h1><p>stop 停止执行 Velocity 脚本并返回</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>更多详细的语法请参考 <a target="_blank" rel="noopener" href="http://blog.csdn.net/gaojinshan/article/details/23945879">Velocity User Guide 用户手册</a></p>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/fe-random/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          自定义随机函数
+        
+      </div>
+    </a>
+  
+  
+    <a href="/java-velocity/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">使用 Velocity 生成静态页面</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

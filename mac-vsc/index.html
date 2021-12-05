@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Visual Studio Code 使用 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Visual Studio Code 简称 VSC，配置后效果如下:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Visual Studio Code 使用">
+<meta property="og:url" content="http://xtuer.github.io/mac-vsc/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="Visual Studio Code 简称 VSC，配置后效果如下:">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/mac/vsc.png">
+<meta property="og:image" content="http://xtuer.github.io/img/mac/vsc-extensions-1.png">
+<meta property="og:image" content="http://xtuer.github.io/img/mac/vsc-extensions-2.png">
+<meta property="article:published_time" content="2019-01-23T12:47:10.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.164Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="Mac">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/mac/vsc.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%92%E4%BB%B6"><span class="toc-text">插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%E9%AB%98%E4%BA%AE"><span class="toc-text">语法高亮</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%85%8D%E7%BD%AE"><span class="toc-text">参考配置</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-mac-vsc" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/mac-vsc/" class="article-date">
+  	<!-- <time datetime="2019-01-23T12:47:10.000Z" itemprop="datePublished">2019-01-23</time> -->
+    2019-01-23
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Visual Studio Code 使用
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Visual Studio Code 简称 VSC，配置后效果如下:</p>
+<p><img src="../img/mac/vsc.png"></p>
+<span id="more"></span>
+
+<h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><p>VSC 自带的功能已经很丰富了，再安装下面几个插件，能够满足绝大多数时候前端开发 (Java，C++ 等非脚本语言开发推荐使用 IDE):</p>
+<center><img src="../img/mac/vsc-extensions-1.png" width=305><img src="../img/mac/vsc-extensions-2.png" width=305>
+
+
+
+<p>插件简要介绍:</p>
+<ul>
+<li>Alignment: 对齐代码</li>
+<li>ESLint: 代码检查，需要安装 eslint</li>
+<li>GitLens: Git 可视化工具，Diff 和 Blame 比较好用</li>
+<li>Git Graph: 查看 Git 的提交记录</li>
+<li>HTML Preview: 编辑时实时预览 HTML</li>
+<li>Live Server Preview: 启动本地 Web 服务</li>
+<li>Material Theme: 主题</li>
+<li>Material Icon Theme: 图标</li>
+<li>Polacode: 代码生成图片，便于分享</li>
+<li>REST Client: 管理和发送 HTTP | REST 请求，一个文件里可以管理多个请求，简单代替 Postman</li>
+<li>TODO Highlight: 高亮和搜索 <code>TODO:</code>, <code>FIXME:</code>，也可自定义高亮关键字</li>
+<li>Vetur: 开发 Vue 使用的插件</li>
+<li>Project Manager: 可以把不同的目录保存为不同的 Project，通过切换 Project 显示对应的目录，免得在同一个 Workspace 中显示太多目录显得太乱</li>
+<li>Settings Sync: 使用 Github Gist 保存配置，一个人配置好后，方便给其他人使用</li>
+<li>vscode-ssh: 使用 SSH 访问远程服务器，并且还提供了 SFTP 功能，能够在 VS Code 里编辑服务器上的文件，保存后自动上传</li>
+<li>Go To Method: 只列出 JS 文件中的函数，比默认的 outline 简洁很多</li>
+<li>Code Runner: 运行各种代码，方便测试各种小代码片段</li>
+<li>Draw.io Integration: 在 VSC 里使用 Draw.io 画流程图等</li>
+<li>Easy Snippet: 简化代码片段管理</li>
+<li>PlantUML: 代码画流程图、UML、时序图、泳道图等</li>
+<li>Remote FS: 远程访问 Linux 文件系统，本地编辑，自动保存到远程</li>
+</ul>
+<h2 id="语法高亮"><a href="#语法高亮" class="headerlink" title="语法高亮"></a>语法高亮</h2><p>You can add new file extensions to an existing language with the <code>files.associations</code> <a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/getstarted/settings">setting</a>. For example, the setting below adds the <code>.myphp</code> file extension to the <code>php</code> language identifier:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;files.associations&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;*.myphp&quot;</span>: <span class="string">&quot;php&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考配置"><a href="#参考配置" class="headerlink" title="参考配置"></a>参考配置</h2><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;workbench.colorTheme&quot;</span>: <span class="string">&quot;Material Theme&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;workbench.sideBar.location&quot;</span>: <span class="string">&quot;right&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;workbench.statusBar.visible&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;window.nativeTabs&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">&quot;window.openFoldersInNewWindow&quot;</span>: <span class="string">&quot;off&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;window.restoreFullscreen&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;breadcrumbs.enabled&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">&quot;workbench.colorCustomizations&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;editor.selectionHighlightBorder&quot;</span>: <span class="string">&quot;#00000000&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;activityBarBadge.background&quot;</span>: <span class="string">&quot;#64FFDA&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;activityBar.activeBorder&quot;</span>: <span class="string">&quot;#64FFDA&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;list.activeSelectionForeground&quot;</span>: <span class="string">&quot;#64FFDA&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;list.inactiveSelectionForeground&quot;</span>: <span class="string">&quot;#64FFDA&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;list.highlightForeground&quot;</span>: <span class="string">&quot;#64FFDA&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;scrollbarSlider.activeBackground&quot;</span>: <span class="string">&quot;#64FFDA50&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;editorSuggestWidget.highlightForeground&quot;</span>: <span class="string">&quot;#64FFDA&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;textLink.foreground&quot;</span>: <span class="string">&quot;#64FFDA&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;progressBar.background&quot;</span>: <span class="string">&quot;#64FFDA&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;pickerGroup.foreground&quot;</span>: <span class="string">&quot;#64FFDA&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;tab.activeBorder&quot;</span>: <span class="string">&quot;#64FFDA&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;notificationLink.foreground&quot;</span>: <span class="string">&quot;#64FFDA&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;editorWidget.resizeBorder&quot;</span>: <span class="string">&quot;#64FFDA&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;editorWidget.border&quot;</span>: <span class="string">&quot;#64FFDA&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;settings.modifiedItemIndicator&quot;</span>: <span class="string">&quot;#64FFDA&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;settings.headerForeground&quot;</span>: <span class="string">&quot;#64FFDA&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;panelTitle.activeBorder&quot;</span>: <span class="string">&quot;#64FFDA&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;breadcrumb.activeSelectionForeground&quot;</span>: <span class="string">&quot;#64FFDA&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;menu.selectionForeground&quot;</span>: <span class="string">&quot;#64FFDA&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;menubar.selectionForeground&quot;</span>: <span class="string">&quot;#64FFDA&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;editor.findMatchBorder&quot;</span>: <span class="string">&quot;#64FFDA&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;selection.background&quot;</span>: <span class="string">&quot;#64FFDA40&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;files.useExperimentalFileWatcher&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;editor.fontFamily&quot;</span>: <span class="string">&quot;Monaco, &#x27;Courier New&#x27;, monospace&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;editor.fontSize&quot;</span>: <span class="number">14</span>,</span><br><span class="line">    <span class="attr">&quot;editor.minimap.enabled&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">&quot;editor.overviewRulerBorder&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">&quot;editor.wordWrap&quot;</span>: <span class="string">&quot;off&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;editor.roundedSelection&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">&quot;editor.selectionHighlight&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;editor.occurrencesHighlight&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">&quot;editor.renderControlCharacters&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;editor.scrollBeyondLastLine&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">&quot;editor.renderLineHighlight&quot;</span>: <span class="string">&quot;all&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;editor.scrollbar.verticalScrollbarSize&quot;</span>: <span class="number">7</span>,</span><br><span class="line">    <span class="attr">&quot;editor.scrollbar.horizontalScrollbarSize&quot;</span>: <span class="number">7</span>,</span><br><span class="line">    <span class="attr">&quot;editor.hideCursorInOverviewRuler&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;editor.links&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;editor.tabSize&quot;</span>: <span class="number">4</span>,</span><br><span class="line">    <span class="attr">&quot;editor.insertSpaces&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;editor.detectIndentation&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">&quot;files.eol&quot;</span>: <span class="string">&quot;\n&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;files.trimTrailingWhitespace&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;files.insertFinalNewline&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;files.trimFinalNewlines&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;editor.matchBrackets&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">&quot;bracket-pair-colorizer-2.showBracketsInGutter&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;bracket-pair-colorizer-2.highlightActiveScope&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;bracket-pair-colorizer-2.activeScopeCSS&quot;</span>: [</span><br><span class="line">        <span class="string">&quot;backgroundColor: &#123;color&#125;; opacity: 0.3&quot;</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">&quot;javascript.preferences.quoteStyle&quot;</span>: <span class="string">&quot;single&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;vetur.format.options.tabSize&quot;</span>: <span class="number">4</span>,</span><br><span class="line">    <span class="attr">&quot;vetur.format.defaultFormatter.js&quot;</span>: <span class="string">&quot;vscode-typescript&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;vetur.validation.template&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">&quot;eslint.validate&quot;</span>: [</span><br><span class="line">        <span class="string">&quot;javascript&quot;</span>,</span><br><span class="line">        <span class="string">&quot;javascriptreact&quot;</span>,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">&quot;language&quot;</span>: <span class="string">&quot;vue&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;autoFix&quot;</span>: <span class="literal">true</span></span><br><span class="line">        &#125;,</span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">&quot;files.exclude&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;**/node_modules&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">&quot;**/dist&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">&quot;**/.*&quot;</span>: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;search.exclude&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;**/node_modules&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">&quot;**/bower_components&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">&quot;**/lib&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">&quot;**/dist&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;workbench.activityBar.visible&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">&quot;sync.gist&quot;</span>: <span class="string">&quot;6beffa6125f0a1d89fb9724e82d44d54&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;eslint.packageManager&quot;</span>: <span class="string">&quot;yarn&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;window.zoomLevel&quot;</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">&quot;gitlens.currentLine.enabled&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">&quot;extensions.ignoreRecommendations&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;todohighlight.isEnable&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;todohighlight.include&quot;</span>: [</span><br><span class="line">        <span class="string">&quot;**/*.http&quot;</span>,</span><br><span class="line">        <span class="string">&quot;**/*.vue&quot;</span>,</span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">&quot;todohighlight.defaultStyle&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;borderRadius&quot;</span>: <span class="string">&quot;2px&quot;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;todohighlight.keywords&quot;</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">&quot;text&quot;</span>: <span class="string">&quot;###&quot;</span>,</span><br><span class="line">            <span class="comment">// &quot;color&quot;: &quot;#666&quot;,</span></span><br><span class="line">            <span class="attr">&quot;color&quot;</span>: <span class="string">&quot;orangered&quot;</span>,</span><br><span class="line">            <span class="comment">// &quot;border&quot;: &quot;1px solid rgba(0,0,0,0.4)&quot;,</span></span><br><span class="line">            <span class="attr">&quot;borderRadius&quot;</span>: <span class="string">&quot;0px&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;backgroundColor&quot;</span>: <span class="string">&quot;rgba(0,0,0,0.4)&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;isWholeLine&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">&quot;rest-client.timeoutinmilliseconds&quot;</span>: <span class="number">10000</span>,</span><br><span class="line">    <span class="attr">&quot;materialTheme.accent&quot;</span>: <span class="string">&quot;Bright Teal&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;editor.wordWrapColumn&quot;</span>: <span class="number">180</span>,</span><br><span class="line">    <span class="attr">&quot;editor.renderWhitespace&quot;</span>: <span class="string">&quot;selection&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;editor.codeLens&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">&quot;workbench.tree.indent&quot;</span>: <span class="number">20</span>,</span><br><span class="line">    <span class="attr">&quot;workbench.tree.renderIndentGuides&quot;</span>: <span class="string">&quot;none&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;workbench.settings.editor&quot;</span>: <span class="string">&quot;json&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;workbench.settings.openDefaultSettings&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;workbench.settings.useSplitJSON&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;workbench.editor.enablePreviewFromQuickOpen&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">&quot;explorer.autoReveal&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">&quot;terminal.integrated.shell.osx&quot;</span>: <span class="string">&quot;/bin/zsh&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;terminal.integrated.fontFamily&quot;</span>: <span class="string">&quot;Hack Nerd Font&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;terminal.integrated.cursorStyle&quot;</span>: <span class="string">&quot;line&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;sequencediagrams.diagram.style&quot;</span>: <span class="string">&quot;simple&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;editor.snippetSuggestions&quot;</span>: <span class="string">&quot;top&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;editor.suggest.showIcons&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">&quot;code-runner.clearPreviousOutput&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;code-runner.saveAllFilesBeforeRun&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;code-runner.runInTerminal&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;terminal.integrated.fontSize&quot;</span>: <span class="number">16</span>,</span><br><span class="line">    <span class="attr">&quot;editor.cursorBlinking&quot;</span>: <span class="string">&quot;phase&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;workbench.statusBar.feedback.visible&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">&quot;telemetry.enableCrashReporter&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">&quot;telemetry.enableTelemetry&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">&quot;files.associations&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;*.tpl&quot;</span>: <span class="string">&quot;html&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;*.styl&quot;</span>: <span class="string">&quot;css&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;*.qss&quot;</span>: <span class="string">&quot;css&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;highlight-matching-tag.showRuler&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">&quot;highlight-matching-tag.highlightFromContent&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;highlight-matching-tag.highlightSelfClosing&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;highlight-matching-tag.styles&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;opening&quot;</span>: &#123;</span><br><span class="line">            <span class="attr">&quot;name&quot;</span>: &#123;</span><br><span class="line">                <span class="attr">&quot;highlight&quot;</span>: <span class="string">&quot;rgba(180, 20, 80, 0.3)&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">&quot;closing&quot;</span>: &#123;</span><br><span class="line">            <span class="attr">&quot;name&quot;</span>: &#123;</span><br><span class="line">                <span class="attr">&quot;highlight&quot;</span>: <span class="string">&quot;rgba(180, 20, 80, 0.3)&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;sync.forceUpload&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;workbench.startupEditor&quot;</span>: <span class="string">&quot;newUntitledFile&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;projectManager.sortList&quot;</span>: <span class="string">&quot;Saved&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;githd.blameView.enabled&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">&quot;githd.logView.commitsCount&quot;</span>: <span class="number">100</span>,</span><br><span class="line">    <span class="attr">&quot;git-graph.autoCenterCommitDetailsView&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">&quot;git-graph.commitDetailsViewLocation&quot;</span>: <span class="string">&quot;Docked to Bottom&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;git-graph.defaultFileViewType&quot;</span>: <span class="string">&quot;File List&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;git-graph.initialLoadCommits&quot;</span>: <span class="number">100</span>,</span><br><span class="line">    <span class="attr">&quot;gitlens.views.compare.files.layout&quot;</span>: <span class="string">&quot;list&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;gitlens.views.repositories.branches.layout&quot;</span>: <span class="string">&quot;list&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;git.confirmSync&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">&quot;scm.alwaysShowProviders&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;editor.scrollbar.vertical&quot;</span>: <span class="string">&quot;hidden&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;readOnlyModeSupport.ignore&quot;</span>: [</span><br><span class="line">        <span class="string">&quot;/Users/Biao/Temp/test.js&quot;</span></span><br><span class="line">    ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/fe-vue-tree/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          iView 使用 JSX render 树
+        
+      </div>
+    </a>
+  
+  
+    <a href="/java-mybatis-resultmap/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MyBatis 的 ResultMap 注意事项</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

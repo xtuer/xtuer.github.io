@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>你刚才在淘宝上买了一件东西 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="你发现快要过年了，于是想给你的女朋友买一件毛衣，你打开了 www.taobao.com。这时你的浏览器首先查询 DNS 服务器，将 www.taobao.com 转换成 IP 地址。不过首先你会发现，你在不同的地区或者不同的网络（电信、联通、移动）的情况下，转换后的 IP 地址很可能是 不一样的，这首先涉及到负载均衡的第一步，通过 DNS 解析域名时将你的访问分配到不同的入口，同时尽可能保证你所访">
+<meta property="og:type" content="article">
+<meta property="og:title" content="你刚才在淘宝上买了一件东西">
+<meta property="og:url" content="http://xtuer.github.io/java-route/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="你发现快要过年了，于是想给你的女朋友买一件毛衣，你打开了 www.taobao.com。这时你的浏览器首先查询 DNS 服务器，将 www.taobao.com 转换成 IP 地址。不过首先你会发现，你在不同的地区或者不同的网络（电信、联通、移动）的情况下，转换后的 IP 地址很可能是 不一样的，这首先涉及到负载均衡的第一步，通过 DNS 解析域名时将你的访问分配到不同的入口，同时尽可能保证你所访">
+<meta property="og:locale">
+<meta property="article:published_time" content="2017-04-12T11:58:18.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.159Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-java-route" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/java-route/" class="article-date">
+  	<!-- <time datetime="2017-04-12T11:58:18.000Z" itemprop="datePublished">2017-04-12</time> -->
+    2017-04-12
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      你刚才在淘宝上买了一件东西
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>你发现快要过年了，于是想给你的女朋友买一件毛衣，你打开了 <a target="_blank" rel="noopener" href="http://www.taobao.com.这时你的浏览器首先查询/">www.taobao.com。这时你的浏览器首先查询</a> DNS 服务器，将 <a target="_blank" rel="noopener" href="http://www.taobao.com/">www.taobao.com</a> 转换成 IP 地址。不过首先你会发现，你在不同的地区或者不同的网络（电信、联通、移动）的情况下，转换后的 IP 地址很可能是 不一样的，这首先涉及到负载均衡的第一步，通过 DNS 解析域名时将你的访问分配到不同的入口，同时尽可能保证你所访问的入口是所有入口中可能较快的一个 (这和后文的 CDN 不一样)。</p>
+<p>你通过这个入口成功的访问了 <a target="_blank" rel="noopener" href="http://www.taobao.com/">www.taobao.com</a> 的实际的入口IP地址。这时你产生了一个 PV，即 Page View，页面访问。每日每个网站的总 PV 量是形容一个网站规模的重要指标。淘宝网全网在平日（非促销期间）的PV大概是 16-25 亿之间。同时作为一个独立的用户，你这次访问淘宝网的所有页面，均算作一个 UV（Unique Visitor 用户访问）。12306.cn 的日PV量最高峰在 10 亿左右，而 UV 量却远小于淘宝网十余倍，这其中的原因我相信大家都会知道。<span id="more"></span></p>
+<p>因为同一时刻访问 <a target="_blank" rel="noopener" href="http://www.taobao.com/">www.taobao.com</a> 的人数过于巨大，所以即便是生成淘宝首页页面的服务器，也不可能仅有一台。仅用于生成 <a target="_blank" rel="noopener" href="http://www.taobao.com/">www.taobao.com</a> 首页的服务器就可能有成百上千台，那么你的一次访问时生成页面给你看的任务便会被分配给其中一台服务器完成。这个过程要保证公正、公平、平均（暨这成百上千台服务器每台负担的用户数要差不多），这一很复杂的过程是由几个系统配合完成，其中最关键的便是 LVS(Linux Virtual Server)，世界上最流行的负载均衡系统之一，正是由目前在淘宝网供职的章文嵩博士开发的。</p>
+<p>经过一系列复杂的逻辑运算和数据处理，用于这次给你看的淘宝网首页的 HTML 内容便生成成功了。对 web 前端稍微有点常识的童鞋都应该知道，下一步浏览器会去加载页面中用到的 css、js、图片、脚本和资源文件。但是可能相对较少的同学才会知道，你的浏览器在同一个域名下并发加载的资源数量是有限制的，例如 IE6-7 是两个，IE8 是 6 个，Chrome 各版本不大一样，一般是 4-6 个。我刚刚看了一下，我访问淘宝网首页需要加载 126 个资源，那么如此小的并发连接数自然会加载很久。所以前端开发人员往往会将上述这些资源文件分布在好多个域名下，变相的绕过浏览器的这个限制，同时也为下文的 CDN 工作做准备。</p>
+<p>据不可靠消息，在双十一当天高峰，淘宝的访问流量最巅峰达到 871GB/S。这个数字意味着需要 178 万个 4Mb 带宽的家庭宽带才能负担的起，也完全有能力拖垮一个中小城市的全部互联网带宽。那么显然，这些访问流量不可能集中在一起。并且大家都知道，不同地区不同网络（电信、联通等）之间互访会非常缓慢，但是你却发现很少发现淘宝网访问缓慢。这便是 CDN(Content Delivery Network)，即内容分发网络的作用。淘宝在全国各地建立了数十上百个 CDN 节点，利用一些手段保证你访问的（这里主要指 js、css、图片等）地方是离你最近的 CDN 节点，这样便保证了大流量分散在各地访问的加速节点上。</p>
+<p>这便出现了一个问题，那就是假若一个卖家发布了一个新的宝贝，上传了几张新的宝贝图片，那么淘宝网如何保证全国各地的 CDN 节点中都会同步的存在这几张图片供用户使用呢？这里边就涉及到了大量的内容分发与同步的相关技术。淘宝开发了分布式文件系统 TFS(Taobao File System) 来处理这类问题。</p>
+<p>好了，这时你终于加载完了淘宝首页，那么你习惯性的在首页搜索框中输入了’毛衣’二字并敲回车，这时你又产生了一个PV，然后，淘宝网的主搜索系统便开始为你服务了。它首先对你输入的内容基于一个分词库进行分词操作。众所周知，英文是以词为单位的，词和词之间是靠空格隔开，而中文是以字为单位，句子中所有的字连起来才能描述一个意思。例如，英文句子 I am a student，用中文则为：“我是一个学生”。计算机可以很简单通过空格知道 student 是一个单词，但是不能很容易明白“学”、“生”两个字合起来才表示一个词。把中文的汉字序列切分成有意义的词，就是中文分词，有些人也称为切词。我是一个学生，分词的结果是：我 是 一个 学生。</p>
+<p>进行分词之后，还需要根据你输入的搜索词进行你的购物意图分析。用户进行搜索时常常有如下几类意图：（1）浏览型：没有明确的购物对象和意图，边看边买，用户比较随意和感性。Query例如：”2010 年 10 大香水排行”，”2010 年流行毛衣”， “zippo 有多少种类？”；（2）查询型：有一定的购物意图，体现在对属性的要求上。Query 例如：”适合老人用的手机”，” 500 元 手表”；（3）对比型：已经缩小了购物意图，具体到了某几个产品。Query 例如：”诺基亚 E71 E63″，”akg k450 px200″；（4）确定型：已经做了基本决定，重点考察某个对象。Query 例如：”诺基亚 N97″，”IBM T60″。通过对你的购物意图的分析，主搜索会呈现出完全不同的结果来。</p>
+<p>之后的数个步骤后，主搜索系统便根据上述以及更多复杂的条件列出了搜索结果，这一切是由一千多台搜索服务器完成。然后你开始逐一点击浏览搜索出的宝贝。你开始查看宝贝详情页面。经常网购的亲们会发现，当你买过了一个宝贝之后，即便是商家多次修改了宝贝详情页，你仍然能够通过‘已买到的宝贝’查看当时的快照。这是为了防止商家对在商品详情中承诺过的东西赖账不认。那么显然，对于每年数十上百亿比交易的商品详情快照进行保存和快速调用不是一个简单的事情。这 其中又涉及到数套系统的共同协作，其中较为重要的是 Tair，淘宝自行研发的分布式 KV 存储方案。</p>
+<p>然后无论你是否真正进行了交易，你的这些访问行为便忠实的被系统记录下来，用于后续的业务逻辑和数据分析。这些记录中访问日志记录便是最重要的记录之一， 但是前边我们得知，这些访问是分布在各个地区很多不同的服务器上的，并且由于用户众多，这些日志记录都非常庞大，达到TB级别非常正常。那么为了快速及时 传输同步这些日志数据，淘宝研发了 TimeTunnel，用于进行实时的数据传输，交给后端系统进行计算报表等操作。</p>
+<p>你的浏览数据、交易数据以及其它很多很多的数据记录均会被保留下来。使得淘宝存储的历史数据轻而易举的便达到了十数甚至更多个 PB(1PB=1024TB=1048576GB)。如此巨大的数据量经过淘宝系统 1:120 的极限压缩存储在淘宝的数据仓库中。并且通过一个叫做云梯的，由  2000 多台服务器组成的超大规模数据系统不断的进行分析和挖掘。</p>
+<p>从这些数据中淘宝能够知道小到你是谁，你喜欢什么，你的孩子几岁了，你是否在谈恋爱，喜欢玩魔兽世界的人喜欢什么样的饮料等，大到各行各业的零售情况、各类商品的兴衰消亡等等海量的信息。</p>
+<p>说了这么多，其实也只是叙述了淘宝上正在运行的成千上万个系统中的寥寥几个。即便是你仅仅访问一次淘宝的首页，所涉及到的技术和系统规模都是你完全无法想 象的，是淘宝 2000 多名顶级的工程师们的心血结晶，其中甚至包括长江学者、国家科学技术最高奖得主等众多大牛。同样，百度、腾讯等的业务系统也绝不比淘宝简单。你需要知道的是，你每天使用的互联网产品，看似简单易用，背后却凝聚着难以想象的智慧与劳动。</p>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/fe-ztree/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          zTree
+        
+      </div>
+    </a>
+  
+  
+    <a href="/java-endian/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">字节序 Endian</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

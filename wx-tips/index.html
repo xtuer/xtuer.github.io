@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>小程序 Tips | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="开发环境腾讯官方提供的微信web开发者工具的编辑功能是至今见过最难用的编辑器之一，我们可以使用其他的编辑器例如 Atom，SublimeText 等编辑，保存后微信web开发者工具会自动的发现文件变化了，然后自动刷新小程序，看到修改后的效果。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小程序 Tips">
+<meta property="og:url" content="http://xtuer.github.io/wx-tips/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="开发环境腾讯官方提供的微信web开发者工具的编辑功能是至今见过最难用的编辑器之一，我们可以使用其他的编辑器例如 Atom，SublimeText 等编辑，保存后微信web开发者工具会自动的发现文件变化了，然后自动刷新小程序，看到修改后的效果。">
+<meta property="og:locale">
+<meta property="article:published_time" content="2017-03-09T08:40:46.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.189Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="FE">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="toc-text">开发环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E9%A1%B5%E9%9D%A2"><span class="toc-text">创建页面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#URL-%E7%AE%A1%E7%90%86"><span class="toc-text">URL 管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mock-%E6%95%B0%E6%8D%AE"><span class="toc-text">Mock 数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%85%E7%A9%BA-input"><span class="toc-text">清空 input</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%AF%E5%BE%84"><span class="toc-text">路径</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-wx-tips" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/wx-tips/" class="article-date">
+  	<!-- <time datetime="2017-03-09T08:40:46.000Z" itemprop="datePublished">2017-03-09</time> -->
+    2017-03-09
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      小程序 Tips
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <h2 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h2><p>腾讯官方提供的<strong>微信web开发者工具</strong>的编辑功能是至今见过最难用的编辑器之一，我们可以使用其他的编辑器例如 <strong>Atom</strong>，<strong>SublimeText</strong> 等编辑，保存后<strong>微信web开发者工具</strong>会自动的发现文件变化了，然后自动刷新小程序，看到修改后的效果。<span id="more"></span></p>
+<h2 id="创建页面"><a href="#创建页面" class="headerlink" title="创建页面"></a>创建页面</h2><p>例如要创建一个课程的页面 <strong>course</strong>，不需要在小程序开发工具中手动的一个一个的创建目录和文件（很多教学视频里就是这么做的），只需要在 <strong>app.json</strong> 中的 <strong>pages</strong> 下加上页面注册的路径 **”pages/course/course”**，保存，然后小程序开发工具就会自动的创建所有相关的目录和文件:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;pages&quot;</span>: [</span><br><span class="line">        <span class="string">&quot;pages/index/index&quot;</span>,</span><br><span class="line">      	</span><br><span class="line">        <span class="comment">// 添加下一行后，微信web开发者工具发现 app.json 变化了，会自动的创建</span></span><br><span class="line">        <span class="comment">//   course 目录</span></span><br><span class="line">        <span class="comment">//   course.wxml</span></span><br><span class="line">        <span class="comment">//   course.wxss</span></span><br><span class="line">        <span class="comment">//   course.js</span></span><br><span class="line">        <span class="comment">//   course.json </span></span><br><span class="line">        <span class="string">&quot;pages/course/course&quot;</span></span><br><span class="line">    ],</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="URL-管理"><a href="#URL-管理" class="headerlink" title="URL 管理"></a>URL 管理</h2><p>为了集中管理 URL，把所有和服务器相关的 URL 都放到 <strong>/util/urls.js</strong> 里集中管理，然后需要使用的页面使用 <code>require()</code> 进行加载。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名: /util/urls.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> HOST = <span class="string">&#x27;http://192.168.10.98:8080&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// [1] 集中定义 URL</span></span><br><span class="line"><span class="keyword">var</span> Urls = &#123;</span><br><span class="line">    <span class="attr">REST_HOME</span>:    HOST + <span class="string">&#x27;/rest/microapphome&#x27;</span>,</span><br><span class="line">    <span class="attr">REST_BANNERS</span>: HOST + <span class="string">&#x27;/rest/banners&#x27;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// [2] 导出 URL 模块</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="attr">Urls</span>: Urls</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>在 <strong>pages/course/course</strong> 中使用 URL:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Urls = <span class="built_in">require</span>(<span class="string">&#x27;../../utils/urls.js&#x27;</span>).Urls; <span class="comment">// [3] 引入 URL 模块</span></span><br><span class="line"></span><br><span class="line">Page(&#123;</span><br><span class="line">    <span class="attr">onLoad</span>: <span class="function"><span class="keyword">function</span>(<span class="params">options</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> self = <span class="built_in">this</span>;</span><br><span class="line">        wx.request(&#123;</span><br><span class="line">            <span class="attr">url</span>: Urls.REST_HOME, <span class="comment">// [4] 使用 URL</span></span><br><span class="line">            <span class="attr">success</span>: <span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">)&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Mock-数据"><a href="#Mock-数据" class="headerlink" title="Mock 数据"></a>Mock 数据</h2><p>开发中可能后端还没有准备好，或者为了开发方便查看效果，可以使用假数据，放在 <strong>/util/mock.js</strong>，初始化时使用 mock 数据初始化，<code>onLoad()</code> 时发现是开发就不从服务器加载数据，如果是线上环境就从服务器加载数据，记得上线前修改为不使用 mock 数据，给一个开关进行修改就可以了。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名: /util/mock.js</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 开发环境中的虚拟数据</span></span><br><span class="line"><span class="keyword">var</span> MOCK = &#123;</span><br><span class="line">    <span class="attr">yes</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">course</span>: &#123;<span class="attr">courseId</span>: <span class="number">1234</span>, <span class="attr">name</span>: <span class="string">&#x27;Hadoop 入门&#x27;</span>, <span class="attr">instructor</span>: <span class="string">&#x27;Clapton&#x27;</span>&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 和 MOCK 中的数据一一对应</span></span><br><span class="line"><span class="keyword">var</span> EMPTY_MOCK = &#123;</span><br><span class="line">    <span class="attr">yes</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">course</span>: &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="attr">Mock</span>: Config.mock ? MOCK : EMPTY_MOCK</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>页面中使用 <strong>mock</strong>:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Mock = <span class="built_in">require</span>(<span class="string">&#x27;../../utils/mock.js&#x27;</span>).Mock;</span><br><span class="line"><span class="keyword">var</span> Urls = <span class="built_in">require</span>(<span class="string">&#x27;../../utils/urls.js&#x27;</span>).Urls;</span><br><span class="line"></span><br><span class="line">Page(&#123;</span><br><span class="line">    <span class="attr">data</span>: &#123;</span><br><span class="line">        <span class="attr">course</span>: Mock.course <span class="comment">// 先初始化为 Mock 里的 course</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">onLoad</span>: <span class="function"><span class="keyword">function</span>(<span class="params">options</span>) </span>&#123;</span><br><span class="line">      	<span class="comment">// 如果是生产环境，则执行初始化请求 course，否则就使用 Mock 里的 course，</span></span><br><span class="line">        <span class="comment">// 这样不需要访问服务器也能看到页面的效果</span></span><br><span class="line">        <span class="keyword">var</span> x = Mock.yes ? <span class="string">&#x27;&#x27;</span> : <span class="built_in">this</span>.init(options);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">init</span>: <span class="function"><span class="keyword">function</span>(<span class="params">options</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> self = <span class="built_in">this</span>;</span><br><span class="line">      	<span class="keyword">var</span> courseId = options.courseId; <span class="comment">// 生产环境环境时的 courseId 是页面链接传过来的</span></span><br><span class="line"></span><br><span class="line">        wx.request(&#123;</span><br><span class="line">            <span class="attr">url</span>: Util.formatString(Urls.REST_COURSES, &#123;<span class="attr">courseId</span>: courseId&#125;),</span><br><span class="line">            <span class="attr">success</span>: <span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">var</span> result = response.data;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (result.success) &#123;</span><br><span class="line">                    self.setData(&#123;<span class="attr">course</span>: result.data&#125;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="清空-input"><a href="#清空-input" class="headerlink" title="清空 input"></a>清空 input</h2><p>给 <strong>input 的 value</strong> 绑定一个变量，设置这个变量的值为空就可以实现清空 <strong>input</strong> 了:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">&quot;input-box&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">value</span>=<span class="string">&quot;&#123;&#123;newComment&#125;&#125;&quot;</span> <span class="attr">bindinput</span>=<span class="string">&quot;bindNewComment&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;请输入评论……&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">bindtap</span>=<span class="string">&quot;submitComment&quot;</span> <span class="attr">type</span>=<span class="string">&quot;default&quot;</span> <span class="attr">plain</span>=<span class="string">&quot;&#123;&#123;true&#125;&#125;&quot;</span>&gt;</span>评论<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">App(&#123;</span><br><span class="line">    <span class="attr">data</span>: &#123;</span><br><span class="line">        <span class="attr">newComment</span>: <span class="string">&#x27;&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 把用户输入的评论保存到变量里</span></span><br><span class="line">    <span class="attr">bindNewComment</span>: <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.data.newComment = e.detail.value; <span class="comment">// 不更新 input，提高效率</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">submitComment</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 提交到服务器</span></span><br><span class="line">        wx.request(&#123;</span><br><span class="line">            <span class="attr">url</span>: Urls.REST_COMMENTS,</span><br><span class="line">            <span class="attr">success</span>: <span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line">                <span class="built_in">this</span>.setData(&#123;</span><br><span class="line">                    <span class="attr">newComment</span>: <span class="string">&#x27;&#x27;</span> <span class="comment">// 清空 input</span></span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);     </span><br><span class="line">    &#125;,</span><br><span class="line">&#125;);</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+
+<h2 id="路径"><a href="#路径" class="headerlink" title="路径"></a>路径</h2><p>使用工程中的文件时，文件的路径有相对路径和绝对路径:</p>
+<ul>
+<li>相对路径: <ul>
+<li>都可以使用相对路径，但是有时候当页面跳转了几次后，容易出错，所以尽量不要使用相对路径</li>
+<li><strong>wx.navigateTo()</strong>, <strong>wx.redirectTo()</strong>, <strong>wx.switchTab()</strong>, wxml 中的 <strong>url</strong>，CSS 中图片的路径，<strong>require()</strong> 等引用工程中文件的路径都可以使用相对路径</li>
+</ul>
+</li>
+<li>绝对路径:<ul>
+<li>大多数时候都可以使用绝对路径，只有 <strong>require()</strong> 引用 js 文件时例外</li>
+<li>可以使用：<strong>wx.navigateTo()</strong>, <strong>wx.redirectTo()</strong>, <strong>wx.switchTab()</strong>, wxml 中的 <strong>url</strong>，CSS 中图片引用工程中文件的路径都可以使用绝对路径，绝对路径以 <code>/</code> 开头，例如 <code>/image/dog.png</code></li>
+<li>不可使用：<strong>require()</strong> 引用工程中的文件时只能使用相对路径，不能使用绝对路径</li>
+</ul>
+</li>
+</ul>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/fe-semantic-ui-sidebar/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Semantic Ui 侧边栏
+        
+      </div>
+    </a>
+  
+  
+    <a href="/spring-security-8-auto-login/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spring Security 自动登录</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

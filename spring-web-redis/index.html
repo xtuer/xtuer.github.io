@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Redis 集成 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="如果数据每次都从数据库查询，当并发大的时候，性能就会急剧的下降，常用、很少变化的数据可以采用 Redis 作为缓存，数据首先从 Redis 里查询，如果 Redis 里没有，然后才从数据库查询，并把查询到的结果放入 Redis。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis 集成">
+<meta property="og:url" content="http://xtuer.github.io/spring-web-redis/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="如果数据每次都从数据库查询，当并发大的时候，性能就会急剧的下降，常用、很少变化的数据可以采用 Redis 作为缓存，数据首先从 Redis 里查询，如果 Redis 里没有，然后才从数据库查询，并把查询到的结果放入 Redis。">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/spring-web/mysql-connection-status.png">
+<meta property="article:published_time" content="2016-10-15T23:27:45.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.185Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="SpringWeb">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/spring-web/mysql-connection-status.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Gradle-%E4%BE%9D%E8%B5%96"><span class="toc-text">Gradle 依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#redis-xml"><span class="toc-text">redis.xml</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E5%85%A5-redis-xml"><span class="toc-text">引入 redis.xml</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-RedisTemplate-%E8%AE%BF%E9%97%AE-Redis"><span class="toc-text">使用 RedisTemplate 访问 Redis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%85%E7%A9%BA-Redis-%E9%87%8C%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="toc-text">清空 Redis 里的数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B-Redis-%E7%BC%93%E5%AD%98%E6%98%AF%E5%90%A6%E7%94%9F%E6%95%88"><span class="toc-text">查看 Redis 缓存是否生效</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E6%9E%84"><span class="toc-text">重构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-%E6%B3%A8%E8%A7%A3%E4%BD%BF%E7%94%A8-Redis"><span class="toc-text">Spring 注解使用 Redis</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Redis-%E9%85%8D%E7%BD%AE"><span class="toc-text">Redis 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE%E6%9C%8D%E5%8A%A1"><span class="toc-text">数据访问服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95"><span class="toc-text">测试</span></a></li></ol></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-spring-web-redis" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/spring-web-redis/" class="article-date">
+  	<!-- <time datetime="2016-10-15T23:27:45.000Z" itemprop="datePublished">2016-10-16</time> -->
+    2016-10-16
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Redis 集成
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringWeb/" rel="tag">SpringWeb</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>如果数据每次都从数据库查询，当并发大的时候，性能就会急剧的下降，常用、很少变化的数据可以采用 Redis 作为缓存，数据首先从 Redis 里查询，如果 Redis 里没有，然后才从数据库查询，并把查询到的结果放入 Redis。</p>
+<span id="more"></span>
+
+<h2 id="Gradle-依赖"><a href="#Gradle-依赖" class="headerlink" title="Gradle 依赖"></a>Gradle 依赖</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">&#x27;org.springframework.data:spring-data-redis:1.7.4.RELEASE&#x27;</span></span><br><span class="line">compile <span class="string">&#x27;org.springframework.session:spring-session-data-redis:1.2.2.RELEASE&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>为了方便且以后可能需要在集群里使用 Redis 存放 Session，故引入了 <code>spring-session-data-redis</code><br>同时也指定了使用更新的 <code>spring-data-redis</code></p>
+</blockquote>
+<h2 id="redis-xml"><a href="#redis-xml" class="headerlink" title="redis.xml"></a>redis.xml</h2><p>存放在 <code>resources/config/redis.xml</code></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;</span></span></span><br><span class="line"><span class="string"><span class="tag">       http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="string"><span class="tag">       http://www.springframework.org/schema/beans/spring-beans.xsd&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;jedisPoolConfig&quot;</span> <span class="attr">class</span>=<span class="string">&quot;redis.clients.jedis.JedisPoolConfig&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;jedisConnectionFactory&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.data.redis.connection.jedis.JedisConnectionFactory&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--&lt;property name=&quot;hostName&quot; value=&quot;$&#123;redis.host&#125;&quot; /&gt;--&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--&lt;property name=&quot;port&quot; value=&quot;$&#123;redis.port&#125;&quot; /&gt;--&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--&lt;property name=&quot;password&quot; value=&quot;$&#123;redis.password&#125;&quot; /&gt;--&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--&lt;property name=&quot;timeout&quot; value=&quot;$&#123;redis.timeout&#125;&quot; /&gt;--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;database&quot;</span> <span class="attr">value</span>=<span class="string">&quot;0&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;poolConfig&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;jedisPoolConfig&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;usePool&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;redisTemplate&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.data.redis.core.StringRedisTemplate&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;connectionFactory&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;jedisConnectionFactory&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>redisTemplate</code> 用来访问 Redis</p>
+</blockquote>
+<h2 id="引入-redis-xml"><a href="#引入-redis-xml" class="headerlink" title="引入 redis.xml"></a>引入 redis.xml</h2><p>在 web.xml 的 listener 中加载 redis.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 加载 MyBatis, Spring Security, Redis 配置等 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">context-param</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param-value</span>&gt;</span></span><br><span class="line">        classpath:config/redis.xml</span><br><span class="line">    <span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Listener --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">listener</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">listener-class</span>&gt;</span>org.springframework.web.context.ContextLoaderListener<span class="tag">&lt;/<span class="name">listener-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">listener</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="使用-RedisTemplate-访问-Redis"><a href="#使用-RedisTemplate-访问-Redis" class="headerlink" title="使用 RedisTemplate 访问 Redis"></a>使用 RedisTemplate 访问 Redis</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> DemoMapper demoMapper;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> StringRedisTemplate redisTemplate;</span><br><span class="line"></span><br><span class="line"><span class="meta">@GetMapping(&quot;/demos/&#123;id&#125;&quot;)</span></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Demo <span class="title">findDemoById</span><span class="params">(<span class="meta">@PathVariable</span> <span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// [1] 先从 Redis 查找</span></span><br><span class="line">    <span class="comment">// [2] 找到则返回</span></span><br><span class="line">    <span class="comment">// [3] 找不到则从数据库查询，查询结果放入 Redis</span></span><br><span class="line">    Demo d = <span class="keyword">null</span>;</span><br><span class="line">    String redisKey = <span class="string">&quot;demo_&quot;</span> + id;</span><br><span class="line">    String json = redisTemplate.opsForValue().get(redisKey);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (json != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="comment">// 如果解析发生异常，有可能是 Redis 里的数据无效，故把其从 Redis 删除</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            d = JSON.parseObject(json, Demo.class);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">            logger.warn(ex.getMessage());</span><br><span class="line">            redisTemplate.delete(redisKey);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (d == <span class="keyword">null</span>) &#123;</span><br><span class="line">        d = demoMapper.findDemoById(id);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (d != <span class="keyword">null</span>) &#123; <span class="comment">// 这里需要仔细考虑，null 对象如果不放缓存，如果这个对象被大量访问，会导致缓存穿透，增加数据库的压力</span></span><br><span class="line">            redisTemplate.opsForValue().set(redisKey, JSON.toJSONString(d));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> d;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="清空-Redis-里的数据"><a href="#清空-Redis-里的数据" class="headerlink" title="清空 Redis 里的数据"></a>清空 Redis 里的数据</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flushdb</span><br></pre></td></tr></table></figure>
+
+<h2 id="查看-Redis-缓存是否生效"><a href="#查看-Redis-缓存是否生效" class="headerlink" title="查看 Redis 缓存是否生效"></a>查看 Redis 缓存是否生效</h2><ul>
+<li>打印日志</li>
+<li>查看数据库链接的非活跃时间，查询到了数据，但是非活跃时间越来越长，说明缓存生效了<ul>
+<li><code>MySQL</code> 执行 <code>show full processlist</code><br><img src="../img/spring-web/mysql-connection-status.png"></li>
+</ul>
+</li>
+</ul>
+<h2 id="重构"><a href="#重构" class="headerlink" title="重构"></a>重构</h2><p>观察从 Redis 取数据，没有再从数据库取，然后放入 Redis 的代码，除了 <code>d = JSON.parseObject(json, Demo.class) 和 d = demoMapper.findDemoById(id)</code> 这二句会根据不同的业务逻辑不同外，其他的代码都是不变的，所以可以使用策略模式进行重构。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.alibaba.fastjson.JSON;</span><br><span class="line"><span class="keyword">import</span> com.alibaba.fastjson.TypeReference;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.redis.core.BoundSetOperations;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.redis.core.StringRedisTemplate;</span><br><span class="line"><span class="keyword">import</span> org.springframework.lang.Nullable;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Service;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Collections;</span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"><span class="keyword">import</span> java.util.function.Supplier;</span><br><span class="line"><span class="keyword">import</span> java.util.stream.Collectors;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 提供访问 Redis 缓存的功能，默认缓存时间为 1 个小时，也可以自己设置缓存时间</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisDao</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> StringRedisTemplate redisTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> DEFAULT_CACHE_DURATION_IN_SECONDS = <span class="number">3600</span>; <span class="comment">// 默认缓存时间为 1 小时 (3600 秒)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 缓存优先读取 JavaBean，如果缓存中没有，则从数据库查询并保存到缓存</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> redisKey Redis 中缓存的 key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> clazz    实体类型</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> supplier 缓存失败时的数据提供器， supplier == null 时 return null</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> &lt;T&gt;      类型约束</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 实体对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function">T <span class="title">get</span><span class="params">(String redisKey, Class&lt;T&gt; clazz, Supplier&lt;T&gt; supplier)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> get(redisKey, clazz, <span class="keyword">null</span>, supplier, DEFAULT_CACHE_DURATION_IN_SECONDS);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 缓存优先读取 JavaBean，如果缓存中没有，则从数据库查询并保存到缓存</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> redisKey       Redis 中缓存的 key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> clazz          实体类型</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> supplier       缓存失败时的数据提供器， supplier == null 时 return null</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> timeoutSeconds 缓存超时时间，单位为秒</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> &lt;T&gt;            类型约束</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 实体对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function">T <span class="title">get</span><span class="params">(String redisKey, Class&lt;T&gt; clazz, Supplier&lt;T&gt; supplier, <span class="keyword">long</span> timeoutSeconds)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> get(redisKey, clazz, <span class="keyword">null</span>, supplier, timeoutSeconds);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 缓存优先读取 Collections Or Map，如果缓存中没有，则从数据库查询并保存到缓存</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> redisKey      Redis 中缓存的 key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> typeReference 反序列化集合时 FastJson 需要用 TypeReference 来指定类型，例如类型为 List&lt;Demo&gt;</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> supplier      缓存失败时的数据提供器，supplier == null 时 return null</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> &lt;T&gt;           类型约束</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 实体对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function">T <span class="title">get</span><span class="params">(String redisKey, TypeReference&lt;T&gt; typeReference, Supplier&lt;T&gt; supplier)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> get(redisKey, <span class="keyword">null</span>, typeReference, supplier, DEFAULT_CACHE_DURATION_IN_SECONDS);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 缓存优先读取 Collections Or Map，如果缓存中没有，则从数据库查询并保存到缓存</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> redisKey       Redis 中缓存的 key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> typeReference  反序列化集合时 FastJson 需要用 TypeReference 来指定类型，例如类型为 List&lt;Demo&gt;</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> supplier       缓存失败时的数据提供器，supplier == null 时 return null</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> timeoutSeconds 缓存超时时间，单位为秒</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> &lt;T&gt;            类型约束</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 实体对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function">T <span class="title">get</span><span class="params">(String redisKey, TypeReference&lt;T&gt; typeReference, Supplier&lt;T&gt; supplier, <span class="keyword">long</span> timeoutSeconds)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> get(redisKey, <span class="keyword">null</span>, typeReference, supplier, timeoutSeconds);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 缓存优先读取缓存，如果缓存中没有，则从数据库查询并保存到缓存</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> redisKey       Redis 中缓存的 key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> clazz          对象的类型 (clazz 和 typeReference 互斥使用)</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> typeReference  反序列化集合时 FastJson 需要用 TypeReference 来指定类型，例如类型为 List&lt;Demo&gt;</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> supplier       缓存失败时的数据提供器，supplier == null 时 return null</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> timeoutSeconds 缓存超时时间，单位为秒</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> &lt;T&gt;            类型约束</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 实体对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> &lt;T&gt; <span class="function">T <span class="title">get</span><span class="params">(String redisKey, Class&lt;T&gt; clazz, TypeReference&lt;T&gt; typeReference, Supplier&lt;T&gt; supplier, <span class="keyword">long</span> timeoutSeconds)</span> </span>&#123;</span><br><span class="line">        T d = <span class="keyword">null</span>;</span><br><span class="line">        String json = redisTemplate.opsForValue().get(redisKey);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (json != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 如果解析发生异常，有可能是 Redis 里的数据无效，故把其从 Redis 删除</span></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (clazz != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    d = JSON.parseObject(json, clazz);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    d = JSON.parseObject(json, typeReference);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">                redisTemplate.delete(redisKey);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (d == <span class="keyword">null</span> &amp;&amp; supplier != <span class="keyword">null</span>) &#123;</span><br><span class="line">            d = supplier.get();</span><br><span class="line">            <span class="comment">// 这里需要考虑，null 对象如果不放缓存，如果这个对象被大量访问，会导致缓存穿透，增加数据库的压力</span></span><br><span class="line">            <span class="comment">// 综合考虑, null 时可缓存 2s, 这样可以防止短时间内的大量访问穿透缓存, 又能不被 null 占据缓存</span></span><br><span class="line">            <span class="keyword">if</span> (d != <span class="keyword">null</span>) &#123;</span><br><span class="line">                redisTemplate.opsForValue().set(redisKey, JSON.toJSONString(d), timeoutSeconds, TimeUnit.SECONDS);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> d;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 使用 Redis Set 缓存数据，如果缓存没有命中，则使用提供器的数据并保存到缓存</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> redisKey       Redis 中缓存的 key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> supplier       缓存失败时的数据提供器</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> timeoutSeconds 缓存超时时间，单位为秒</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> &lt;T&gt;            类型约束</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 对象集合</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function">Set&lt;T&gt; <span class="title">getFromSet</span><span class="params">(String redisKey, Class&lt;T&gt; clazz, <span class="meta">@Nullable</span> Supplier&lt;Set&lt;T&gt;&gt; supplier, <span class="keyword">long</span> timeoutSeconds)</span> </span>&#123;</span><br><span class="line">        BoundSetOperations&lt;String, String&gt; operations = redisTemplate.boundSetOps(redisKey);</span><br><span class="line">        Set&lt;String&gt; members = operations.members(); <span class="comment">// members 有可能返回 null</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (members != <span class="keyword">null</span> &amp;&amp; !members.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">return</span> members.stream().map(member -&gt; JSON.parseObject(member, clazz)).collect(Collectors.toSet());</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (supplier != <span class="keyword">null</span>) &#123;</span><br><span class="line">            Set&lt;T&gt; newSet = supplier.get();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (newSet != <span class="keyword">null</span> &amp;&amp; !newSet.isEmpty()) &#123;</span><br><span class="line">                String[] array = newSet.stream().map(JSON::toJSONString).toArray(String[]::<span class="keyword">new</span>);</span><br><span class="line">                operations.add(array);</span><br><span class="line">                operations.expire(timeoutSeconds, TimeUnit.SECONDS);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">return</span> newSet;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Collections.emptySet();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 指定的 value 是否在 Set values 中。</span></span><br><span class="line"><span class="comment">     * &lt;p&gt;</span></span><br><span class="line"><span class="comment">     * 如果未命中缓存，可能key对应的values未放入缓存或数据过期，考虑把数据放入缓存后再检索</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> redisKey key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> value    value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 是否命中缓存</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isMember</span><span class="params">(String redisKey, String value)</span> </span>&#123;</span><br><span class="line">        Boolean is = redisTemplate.boundSetOps(redisKey).isMember(value); <span class="comment">// isMember 有可能返回 null</span></span><br><span class="line">        <span class="keyword">return</span> is == <span class="keyword">null</span> ? <span class="keyword">false</span> : is;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 删除 key 的缓存</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key 缓存的 key</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteCache</span><span class="params">(String key)</span> </span>&#123;</span><br><span class="line">        redisTemplate.delete(key);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/demos/&#123;id&#125;&quot;)</span></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Demo <span class="title">findDemoById</span><span class="params">(<span class="meta">@PathVariable</span> <span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">    String redisKey = <span class="string">&quot;demo_&quot;</span> + id;</span><br><span class="line">    Demo d = redisDao.get(redisKey, Demo.class, () -&gt; demoMapper.findDemoById(id));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> d;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不同业务场景可以使用 Lambda 表达式实现 RedisDao.get() 的最后一个参数 Supplier，不需要再关心从 Redis 取数据和存储数据到 Redis 的代码了。</p>
+<h2 id="Spring-注解使用-Redis"><a href="#Spring-注解使用-Redis" class="headerlink" title="Spring 注解使用 Redis"></a>Spring 注解使用 Redis</h2><p>还可以使用 spring-data-redis 的注解 <code>@Cacheable</code>, <code>@CacheEvict</code> 实现缓存 (<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_39494923/article/details/78868096">使用注解操作 Redis 中的缓存</a>), 但也有缺点, 例如缓存时间只能统一配置, 不能为特定的 key 设置缓存时间, 是否缓存 null 值也不能自定义, 怎么解决缓存穿透是个问题.</p>
+<h3 id="Redis-配置"><a href="#Redis-配置" class="headerlink" title="Redis 配置"></a>Redis 配置</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:cache</span>=<span class="string">&quot;http://www.springframework.org/schema/cache&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;</span></span></span><br><span class="line"><span class="string"><span class="tag">       http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="string"><span class="tag">       http://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span><br><span class="line"><span class="string"><span class="tag">       http://www.springframework.org/schema/cache</span></span></span><br><span class="line"><span class="string"><span class="tag">       http://www.springframework.org/schema/cache/spring-cache.xsd&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;jedisPoolConfig&quot;</span> <span class="attr">class</span>=<span class="string">&quot;redis.clients.jedis.JedisPoolConfig&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;jedisConnectionFactory&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.data.redis.connection.jedis.JedisConnectionFactory&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;poolConfig&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;jedisPoolConfig&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;usePool&quot;</span>    <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;database&quot;</span>   <span class="attr">value</span>=<span class="string">&quot;0&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;redisTemplate&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.data.redis.core.StringRedisTemplate&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;connectionFactory&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;jedisConnectionFactory&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;cacheManager&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.data.redis.cache.RedisCacheManager&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">ref</span>=<span class="string">&quot;redisTemplate&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;defaultExpiration&quot;</span> <span class="attr">value</span>=<span class="string">&quot;3000&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;transactionAware&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;usePrefix&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 启用缓存注解功能，这个是必须的，否则注解不会生效: 使用 cacheManager --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">cache:annotation-driven</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;redisUserService&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.xtuer.RedisUserService&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="数据访问服务"><a href="#数据访问服务" class="headerlink" title="数据访问服务"></a>数据访问服务</h3><p>使用缓存注解 <code>@Cacheable</code> 和 <code>@CacheEvict</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.cache.annotation.CacheEvict;</span><br><span class="line"><span class="keyword">import</span> org.springframework.cache.annotation.Cacheable;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Service;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisUserService</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 第一次查询时从数据库读取, 并保存到 Redis.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * value 为 Redis 键的前缀, 不能为空</span></span><br><span class="line"><span class="comment">     * key   为 Redis 键的动态部分, 由传入的参数确定, 使用</span></span><br><span class="line"><span class="comment">     *       Spring Expression Language (SpEL) expression for computing the key dynamically.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * 调用函数 findUserById(123) Redis 中生成缓存的 key 为: user:id_123</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Cacheable(value=&quot;user&quot;, key=&quot;&#x27;id_&#x27; + #id&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">findUserById</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Find user: &quot;</span> + id);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;User_&quot;</span> + id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 删除用户, 并删除 Redis 中的的缓存</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@CacheEvict(value=&quot;user&quot;, key=&quot;&#x27;id_&#x27; + #id&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteUser</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Delete user: &quot;</span> + id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.xtuer.RedisUserService;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ApplicationContext context = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">&quot;redis-cache.xml&quot;</span>);</span><br><span class="line">        RedisUserService service = context.getBean(<span class="string">&quot;redisUserService&quot;</span>, RedisUserService.class);</span><br><span class="line"></span><br><span class="line">        System.out.println(service.findUserById(<span class="number">123</span>)); <span class="comment">// 创建对象, 生成缓存</span></span><br><span class="line">        System.out.println(service.findUserById(<span class="number">123</span>)); <span class="comment">// 直接从缓存读取</span></span><br><span class="line">        service.deleteUser(<span class="number">123</span>); <span class="comment">// 删除缓存</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/spring-web-fastjson/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Fastjson 简单使用
+        
+      </div>
+    </a>
+  
+  
+    <a href="/spring-web-messy-code/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">乱码处理</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

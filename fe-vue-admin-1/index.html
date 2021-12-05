@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Vue 后台管理简单框架（一）- 单页 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="vue-cli 简单搭建项目框架 后我们知道了怎么使用 vue-cli 创建一个项目，但是页面比较简单，一般后台管理功能的界面会像下面这样子:  下面介绍怎么实现一个这样的界面，UI 的框架使用 iView。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue 后台管理简单框架（一）- 单页">
+<meta property="og:url" content="http://xtuer.github.io/fe-vue-admin-1/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="vue-cli 简单搭建项目框架 后我们知道了怎么使用 vue-cli 创建一个项目，但是页面比较简单，一般后台管理功能的界面会像下面这样子:  下面介绍怎么实现一个这样的界面，UI 的框架使用 iView。">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/fe/vue-admin-ui.png">
+<meta property="article:published_time" content="2017-05-30T08:03:34.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.150Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="FE">
+<meta property="article:tag" content="Vue">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/fe/vue-admin-ui.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-iView"><span class="toc-text">安装 iView</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E5%85%A5-iView"><span class="toc-text">引入 iView</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%A1%E7%90%86%E9%A1%B5%E9%9D%A2%E6%A1%86%E6%9E%B6"><span class="toc-text">管理页面框架</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-fe-vue-admin-1" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/fe-vue-admin-1/" class="article-date">
+  	<!-- <time datetime="2017-05-30T08:03:34.000Z" itemprop="datePublished">2017-05-30</time> -->
+    2017-05-30
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Vue 后台管理简单框架（一）- 单页
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p><a href="/fe-vue-skeleton/">vue-cli 简单搭建项目框架</a> 后我们知道了怎么使用 <strong>vue-cli</strong> 创建一个项目，但是页面比较简单，一般后台管理功能的界面会像下面这样子:</p>
+<p><img src="../img/fe/vue-admin-ui.png"></p>
+<p>下面介绍怎么实现一个这样的界面，UI 的框架使用 <a target="_blank" rel="noopener" href="https://www.iviewui.com/docs/guide/start-en">iView</a>。<span id="more"></span></p>
+<h2 id="安装-iView"><a href="#安装-iView" class="headerlink" title="安装 iView"></a>安装 iView</h2><p>命令行进入前面创建的项目目录，安装 iView:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install iview --save</span><br><span class="line">npm install iview-loader --save-dev</span><br></pre></td></tr></table></figure>
+
+<h2 id="引入-iView"><a href="#引入-iView" class="headerlink" title="引入 iView"></a>引入 iView</h2><ul>
+<li><p>main.js: 在 main.js 中引入 iView</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> iView <span class="keyword">from</span> <span class="string">&#x27;iview&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;iview/dist/styles/iview.css&#x27;</span>;</span><br><span class="line">Vue.use(iView);</span><br></pre></td></tr></table></figure>
+
+<p>请参考下面的 main.js:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> iView <span class="keyword">from</span> <span class="string">&#x27;iview&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;iview/dist/styles/iview.css&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">&#x27;./App&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> router <span class="keyword">from</span> <span class="string">&#x27;./router&#x27;</span>;</span><br><span class="line"></span><br><span class="line">Vue.use(iView);</span><br><span class="line">Vue.config.productionTip = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    <span class="attr">el</span>: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">    <span class="attr">router</span>: router,</span><br><span class="line">    <span class="attr">template</span>: <span class="string">&#x27;&lt;App/&gt;&#x27;</span>,</span><br><span class="line">    <span class="attr">components</span>: &#123; App &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
+<li><p>App.vue</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">router-view</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">export</span> <span class="keyword">default</span> &#123;&#125;;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">&quot;scss&quot;</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css">    <span class="selector-id">#app</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="attribute">font-family</span>: <span class="string">&#x27;微软雅黑&#x27;</span>, Helvetica, Arial, sans-serif;</span></span><br><span class="line"><span class="css">        -webkit-<span class="attribute">font-smoothing</span>: antialiased;</span></span><br><span class="line"><span class="css">        -moz-osx-<span class="attribute">font-smoothing</span>: grayscale;</span></span><br><span class="line"><span class="css">    &#125;</span></span><br><span class="line"><span class="css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>Home.vue</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;main&quot;</span>&gt;</span></span><br><span class="line">        &#123;&#123;msg&#125;&#125;</span><br><span class="line">        <span class="tag">&lt;<span class="name">Button</span> <span class="attr">type</span>=<span class="string">&quot;primary&quot;</span> <span class="attr">shape</span>=<span class="string">&quot;circle&quot;</span> <span class="attr">icon</span>=<span class="string">&quot;ios-search&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;click&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="title">data</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">msg</span>: <span class="string">&#x27;Search&#x27;</span></span></span><br><span class="line"><span class="javascript">            &#125;;</span></span><br><span class="line"><span class="javascript">        &#125;,</span></span><br><span class="line"><span class="javascript">        <span class="attr">methods</span>: &#123;</span></span><br><span class="line"><span class="javascript">            <span class="function"><span class="title">click</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">                alert(<span class="number">1</span>);</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript">    &#125;;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">&quot;sass&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>router/index.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> Router <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> Home <span class="keyword">from</span> <span class="string">&#x27;@/components/Home&#x27;</span>;</span><br><span class="line"></span><br><span class="line">Vue.use(Router);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> Router(&#123;</span><br><span class="line">    <span class="attr">routes</span>: [&#123;</span><br><span class="line">        <span class="attr">path</span>: <span class="string">&#x27;/&#x27;</span>,</span><br><span class="line">        <span class="attr">name</span>: <span class="string">&#x27;Home&#x27;</span>,</span><br><span class="line">        <span class="attr">component</span>: Home</span><br><span class="line">    &#125;, ],</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>执行 <code>npm run dev</code> 启动项目，可以看到 iView 的按钮，点击也能够响应点击事件，iView 引入成功。</p>
+<h2 id="管理页面框架"><a href="#管理页面框架" class="headerlink" title="管理页面框架"></a>管理页面框架</h2><p>到此能够使用 iView 了，开始截图的那个样子，可以自己单独写，也可以使用 <a target="_blank" rel="noopener" href="https://www.iviewui.com/components/layout">iView 的 Layout</a> 中提供的代码，修改 Home.vue 为下面的代码</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;layout&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Sider</span> <span class="attr">:style</span>=<span class="string">&quot;&#123;position: &#x27;fixed&#x27;, height: &#x27;100vh&#x27;, left: 0, overflow: &#x27;auto&#x27;&#125;&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Menu</span> <span class="attr">active-name</span>=<span class="string">&quot;1-2&quot;</span> <span class="attr">theme</span>=<span class="string">&quot;dark&quot;</span> <span class="attr">width</span>=<span class="string">&quot;auto&quot;</span> <span class="attr">:open-names</span>=<span class="string">&quot;[&#x27;1&#x27;, &#x27;2&#x27;]&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">Submenu</span> <span class="attr">name</span>=<span class="string">&quot;1&quot;</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">template</span> <span class="attr">slot</span>=<span class="string">&quot;title&quot;</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">Icon</span> <span class="attr">type</span>=<span class="string">&quot;ios-navigate&quot;</span>/&gt;</span>订单中心</span><br><span class="line">                    <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">MenuItem</span> <span class="attr">name</span>=<span class="string">&quot;1-1&quot;</span>&gt;</span>我的订单<span class="tag">&lt;/<span class="name">MenuItem</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">MenuItem</span> <span class="attr">name</span>=<span class="string">&quot;1-2&quot;</span>&gt;</span>我的活动<span class="tag">&lt;/<span class="name">MenuItem</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">MenuItem</span> <span class="attr">name</span>=<span class="string">&quot;1-3&quot;</span>&gt;</span>订单晒价<span class="tag">&lt;/<span class="name">MenuItem</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">Submenu</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">Submenu</span> <span class="attr">name</span>=<span class="string">&quot;2&quot;</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">template</span> <span class="attr">slot</span>=<span class="string">&quot;title&quot;</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">Icon</span> <span class="attr">type</span>=<span class="string">&quot;ios-keypad&quot;</span>/&gt;</span>关注中心</span><br><span class="line">                    <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">MenuItem</span> <span class="attr">name</span>=<span class="string">&quot;2-1&quot;</span>&gt;</span>关注商品<span class="tag">&lt;/<span class="name">MenuItem</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">MenuItem</span> <span class="attr">name</span>=<span class="string">&quot;2-2&quot;</span>&gt;</span>关注店铺<span class="tag">&lt;/<span class="name">MenuItem</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">Submenu</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">Submenu</span> <span class="attr">name</span>=<span class="string">&quot;3&quot;</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">template</span> <span class="attr">slot</span>=<span class="string">&quot;title&quot;</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">Icon</span> <span class="attr">type</span>=<span class="string">&quot;ios-analytics&quot;</span>/&gt;</span>资产中心</span><br><span class="line">                    <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">MenuItem</span> <span class="attr">name</span>=<span class="string">&quot;3-1&quot;</span>&gt;</span>我的余额<span class="tag">&lt;/<span class="name">MenuItem</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">MenuItem</span> <span class="attr">name</span>=<span class="string">&quot;3-2&quot;</span>&gt;</span>我的积分<span class="tag">&lt;/<span class="name">MenuItem</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">Submenu</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">Menu</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">Sider</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">Layout</span> <span class="attr">:style</span>=<span class="string">&quot;&#123;marginLeft: &#x27;200px&#x27;&#125;&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Header</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;user&quot;</span>&gt;</span></span><br><span class="line">                    公孙二狗</span><br><span class="line">                    <span class="tag">&lt;<span class="name">Avatar</span> <span class="attr">src</span>=<span class="string">&quot;https://i.loli.net/2017/08/21/599a521472424.jpg&quot;</span> <span class="attr">size</span>=<span class="string">&quot;large&quot;</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">Header</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Content</span> <span class="attr">:style</span>=<span class="string">&quot;&#123;padding: &#x27;0 16px 16px&#x27;&#125;&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">Breadcrumb</span> <span class="attr">:style</span>=<span class="string">&quot;&#123;margin: &#x27;16px 0&#x27;&#125;&quot;</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">BreadcrumbItem</span>&gt;</span>Home<span class="tag">&lt;/<span class="name">BreadcrumbItem</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">BreadcrumbItem</span>&gt;</span>Components<span class="tag">&lt;/<span class="name">BreadcrumbItem</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">BreadcrumbItem</span>&gt;</span>Layout<span class="tag">&lt;/<span class="name">BreadcrumbItem</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">Breadcrumb</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">Card</span> <span class="attr">dis-hover</span> <span class="attr">style</span>=<span class="string">&quot;height: 600px&quot;</span>&gt;</span></span><br><span class="line">                    Content</span><br><span class="line">                <span class="tag">&lt;/<span class="name">Card</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">Content</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">Layout</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    &#125;;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">scoped</span> <span class="attr">lang</span>=<span class="string">&quot;scss&quot;</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css">    <span class="selector-class">.layout</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="attribute">background</span>: <span class="number">#f5f7f9</span>;</span></span><br><span class="line"><span class="css">        <span class="attribute">position</span>: relative;</span></span><br><span class="line"><span class="css">        <span class="attribute">overflow</span>: hidden;</span></span><br><span class="line"><span class="css">    &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">    <span class="selector-class">.ivu-layout-header</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="attribute">padding</span>: <span class="number">0</span> <span class="number">16px</span>;</span></span><br><span class="line"><span class="css">        <span class="attribute">background</span>: <span class="number">#fff</span>;</span></span><br><span class="line"><span class="css">        <span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">2px</span> <span class="number">3px</span> <span class="number">2px</span> <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, .<span class="number">02</span>);</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.user</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">float</span>: right;</span></span><br><span class="line"><span class="css">            <span class="attribute">font-weight</span>: bold;</span></span><br><span class="line"><span class="css">            <span class="attribute">font-size</span>: <span class="number">14px</span>;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css">    &#125;</span></span><br><span class="line"><span class="css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>active-name: 页面加载时高亮侧边栏中的 MenuItem 的 name</p>
+<p>open-names: 页面加载时要展开的 Submenu 的 name</p>
+</blockquote>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/fe-vue-admin-2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Vue 后台管理简单框架（二）- 多页
+        
+      </div>
+    </a>
+  
+  
+    <a href="/java-task-queue/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">任务队列</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

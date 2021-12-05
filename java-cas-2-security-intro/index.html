@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Spring Security 入门 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="目录结构1234567891011121314151617181920├── main│   ├── java│   │   └── com│   │       └── xtuer│   │           └── controller│   │               └── HelloController.java│   ├── resources│   │   └── config">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Security 入门">
+<meta property="og:url" content="http://xtuer.github.io/java-cas-2-security-intro/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="目录结构1234567891011121314151617181920├── main│   ├── java│   │   └── com│   │       └── xtuer│   │           └── controller│   │               └── HelloController.java│   ├── resources│   │   └── config">
+<meta property="og:locale">
+<meta property="article:published_time" content="2016-04-09T14:34:34.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.156Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Cas">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-text">目录结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gradle-%E4%BE%9D%E8%B5%96"><span class="toc-text">Gradle 依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#build-gradle"><span class="toc-text">build.gradle</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#spring-security-xml"><span class="toc-text">spring-security.xml</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web-xml"><span class="toc-text">web.xml</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HelloController"><span class="toc-text">HelloController</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hello-htm"><span class="toc-text">hello.htm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#admin-htm"><span class="toc-text">admin.htm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95"><span class="toc-text">测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-java-cas-2-security-intro" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/java-cas-2-security-intro/" class="article-date">
+  	<!-- <time datetime="2016-04-09T14:34:34.000Z" itemprop="datePublished">2016-04-09</time> -->
+    2016-04-09
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Spring Security 入门
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cas/" rel="tag">Cas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">├── main</span><br><span class="line">│   ├── java</span><br><span class="line">│   │   └── com</span><br><span class="line">│   │       └── xtuer</span><br><span class="line">│   │           └── controller</span><br><span class="line">│   │               └── HelloController.java</span><br><span class="line">│   ├── resources</span><br><span class="line">│   │   └── config</span><br><span class="line">│   │       ├── spring-mvc.xml</span><br><span class="line">│   │       └── spring-security.xml</span><br><span class="line">│   └── webapp</span><br><span class="line">│       └── WEB-INF</span><br><span class="line">│           ├── view</span><br><span class="line">│           │   └── fm</span><br><span class="line">│           │       ├── admin.htm</span><br><span class="line">│           │       └── hello.htm</span><br><span class="line">│           └── web.xml</span><br><span class="line">└── test</span><br><span class="line">    ├── java</span><br><span class="line">    └── resources</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h2 id="Gradle-依赖"><a href="#Gradle-依赖" class="headerlink" title="Gradle 依赖"></a>Gradle 依赖</h2><p>Spring Security + CAS 的依赖有:</p>
+<ul>
+<li>spring-security-web</li>
+<li>spring-security-config</li>
+<li>spring-security-cas</li>
+</ul>
+<blockquote>
+<p>注意: Spring Security 的版本和 Spring 的版本不是一样的</p>
+</blockquote>
+<h2 id="build-gradle"><a href="#build-gradle" class="headerlink" title="build.gradle"></a>build.gradle</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">group &#x27;com.xtuer&#x27;</span><br><span class="line">version &#x27;1.0&#x27;</span><br><span class="line"></span><br><span class="line">apply plugin: &#x27;java&#x27;</span><br><span class="line">apply plugin: &#x27;maven&#x27;</span><br><span class="line">apply plugin: &#x27;war&#x27;</span><br><span class="line">apply plugin: &#x27;org.akhikhl.gretty&#x27;</span><br><span class="line"></span><br><span class="line">buildscript &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        jcenter()</span><br><span class="line">    &#125;</span><br><span class="line">    dependencies &#123;</span><br><span class="line">        classpath &#x27;org.akhikhl.gretty:gretty:1.4.0&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">gretty &#123;</span><br><span class="line">    port = 8081</span><br><span class="line">    contextPath = &#x27;&#x27;</span><br><span class="line">    servletContainer = &#x27;tomcat7&#x27;</span><br><span class="line"></span><br><span class="line">    inplaceMode  = &#x27;hard&#x27;</span><br><span class="line">    debugSuspend = false</span><br><span class="line">    managedClassReload      = true</span><br><span class="line">    recompileOnSourceChange = false</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">tasks.withType(JavaCompile) &#123;</span><br><span class="line">    sourceCompatibility = JavaVersion.VERSION_1_8</span><br><span class="line">    targetCompatibility = JavaVersion.VERSION_1_8</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[compileJava, compileTestJava, javadoc]*.options*.encoding = &#x27;UTF-8&#x27;</span><br><span class="line"></span><br><span class="line">////////////////////////////////////////////////////////////////////////////////</span><br><span class="line">//                                   Maven 依赖                               //</span><br><span class="line">////////////////////////////////////////////////////////////////////////////////</span><br><span class="line">repositories &#123;</span><br><span class="line">    mavenLocal()</span><br><span class="line">    mavenCentral()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ext.versions = [</span><br><span class="line">    spring:     &#x27;4.3.0.RELEASE&#x27;,</span><br><span class="line">    springSecurity: &#x27;4.0.4.RELEASE&#x27;,</span><br><span class="line">    servlet:    &#x27;3.1.0&#x27;,</span><br><span class="line">    fastjson:   &#x27;1.2.17&#x27;,</span><br><span class="line">    freemarker: &#x27;2.3.23&#x27;,</span><br><span class="line">    junit:      &#x27;4.12&#x27;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">dependencies &#123;</span><br><span class="line">    compile(</span><br><span class="line">            &quot;org.springframework:spring-webmvc:$versions.spring&quot;,             // Spring MVC</span><br><span class="line">            &quot;org.springframework:spring-context-support:$versions.spring&quot;,</span><br><span class="line">            &quot;org.springframework.security:spring-security-web:$versions.springSecurity&quot;, // Spring Security</span><br><span class="line">            &quot;org.springframework.security:spring-security-config:$versions.springSecurity&quot;,</span><br><span class="line">            &quot;org.springframework.security:spring-security-cas:$versions.springSecurity&quot;,</span><br><span class="line">            &quot;com.alibaba:fastjson:$versions.fastjson&quot;,  // JSON</span><br><span class="line">            &quot;org.freemarker:freemarker:$versions.freemarker&quot; // Freemarker</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    compileOnly(&quot;javax.servlet:javax.servlet-api:$versions.servlet&quot;)</span><br><span class="line">    testCompile(&quot;org.springframework:spring-test:$versions.spring&quot;)</span><br><span class="line">    testCompile(&quot;junit:junit:$versions.junit&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="spring-security-xml"><a href="#spring-security-xml" class="headerlink" title="spring-security.xml"></a>spring-security.xml</h2><blockquote>
+<p>权限定义时为 <code>ROLE_ADMIN</code>，判断是否有权限时使用 <code>hasRole(&#39;ADMIN&#39;)</code><br>需要多个权限: <code>hasRole(&#39;ADMIN&#39;) and hasRole(&#39;DBA&#39;)</code></p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans:beans</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/security&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xmlns:beans</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="string"><span class="tag">            http://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span><br><span class="line"><span class="string"><span class="tag">            http://www.springframework.org/schema/security</span></span></span><br><span class="line"><span class="string"><span class="tag">            http://www.springframework.org/schema/security/spring-security.xsd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">http</span> <span class="attr">auto-config</span>=<span class="string">&quot;true&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">intercept-url</span> <span class="attr">pattern</span>=<span class="string">&quot;/admin&quot;</span> <span class="attr">access</span>=<span class="string">&quot;hasRole(&#x27;ADMIN&#x27;)&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">http</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">authentication-manager</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">authentication-provider</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">user-service</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">user</span> <span class="attr">name</span>=<span class="string">&quot;admin&quot;</span> <span class="attr">password</span>=<span class="string">&quot;Passw0rd&quot;</span> <span class="attr">authorities</span>=<span class="string">&quot;ROLE_ADMIN&quot;</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">user</span> <span class="attr">name</span>=<span class="string">&quot;alice&quot;</span> <span class="attr">password</span>=<span class="string">&quot;Passw0rd&quot;</span> <span class="attr">authorities</span>=<span class="string">&quot;ROLE_USER&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">user-service</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">authentication-provider</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">authentication-manager</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans:beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果使用的是 Spring Security 5，则 password 加上前缀 <code>&#123;noop&#125;</code>，为 <code>password=&quot;&#123;noop&#125;Passw0rd&quot;</code>，可参考 <a target="_blank" rel="noopener" href="https://qtdebug.com/spring-security-4-encrypt">https://qtdebug.com/spring-security-4-encrypt</a></p>
+</blockquote>
+<h2 id="web-xml"><a href="#web-xml" class="headerlink" title="web.xml"></a>web.xml</h2><blockquote>
+<p>Spring Security 是使用 Servlet Filter 来实现的，filter-name 必须为 <code>springSecurityFilterChain</code></p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">web-app</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xmlns</span>=<span class="string">&quot;http://java.sun.com/xml/ns/javaee&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://java.sun.com/xml/ns/javaee</span></span></span><br><span class="line"><span class="string"><span class="tag">            http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">version</span>=<span class="string">&quot;3.0&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">metadata-complete</span>=<span class="string">&quot;false&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">listener</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">listener-class</span>&gt;</span>org.springframework.web.context.ContextLoaderListener<span class="tag">&lt;/<span class="name">listener-class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">listener</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context-param</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">param-value</span>&gt;</span></span><br><span class="line">            classpath:config/spring-security.xml</span><br><span class="line">        <span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- Spring Security Filter --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>springSecurityFilterChain<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">filter-class</span>&gt;</span>org.springframework.web.filter.DelegatingFilterProxy</span><br><span class="line">        <span class="tag">&lt;/<span class="name">filter-class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>springSecurityFilterChain<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">filter-mapping</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- Spring MVC Servlet --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>springmvc<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.springframework.web.servlet.DispatcherServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>classpath:config/spring-mvc.xml<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span>1<span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>springmvc<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="HelloController"><a href="#HelloController" class="headerlink" title="HelloController"></a>HelloController</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.security.core.context.SecurityContextHolder;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.core.userdetails.UserDetails;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.ui.ModelMap;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMethod;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">index</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;index page&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value = &#123;&quot;/hello&quot;&#125;, method = RequestMethod.GET)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">welcomePage</span><span class="params">(ModelMap model)</span> </span>&#123;</span><br><span class="line">        model.addAttribute(<span class="string">&quot;title&quot;</span>, <span class="string">&quot;Spring Security Hello World&quot;</span>);</span><br><span class="line">        model.addAttribute(<span class="string">&quot;message&quot;</span>, <span class="string">&quot;This is welcome page!&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;hello.htm&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/admin&quot;, method = RequestMethod.GET)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">adminPage</span><span class="params">(ModelMap model)</span> </span>&#123;</span><br><span class="line">        model.addAttribute(<span class="string">&quot;title&quot;</span>, <span class="string">&quot;Spring Security Hello World&quot;</span>);</span><br><span class="line">        model.addAttribute(<span class="string">&quot;message&quot;</span>, <span class="string">&quot;This is protected page!&quot;</span>);</span><br><span class="line"></span><br><span class="line">        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();</span><br><span class="line">        model.addAttribute(<span class="string">&quot;username&quot;</span>, userDetails.getUsername());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;admin.htm&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="hello-htm"><a href="#hello-htm" class="headerlink" title="hello.htm"></a>hello.htm</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Title : $&#123;title&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Message : $&#123;message&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="admin-htm"><a href="#admin-htm" class="headerlink" title="admin.htm"></a>admin.htm</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;h1&gt;Title : $&#123;title&#125;&lt;/h1&gt;</span><br><span class="line">    &lt;h1&gt;Message : $&#123;message&#125;&lt;/h1&gt;</span><br><span class="line"></span><br><span class="line">    &lt;#if username??&gt;</span><br><span class="line">        &lt;h2&gt;Welcome : $&#123;username&#125;&lt;/h2&gt;</span><br><span class="line">    &lt;/#if&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><ul>
+<li>访问 <a target="_blank" rel="noopener" href="http://www.xtuer.com:8081/hello">http://www.xtuer.com:8081/hello</a>，因为没有权限要求，正常访问页面</li>
+<li>访问 <a target="_blank" rel="noopener" href="http://www.xtuer.com:8081/admin">http://www.xtuer.com:8081/admin</a>，因为需要 admin 的权限，所以会自动 redirect 到 <a target="_blank" rel="noopener" href="http://www.xtuer.com:8081/login">http://www.xtuer.com:8081/login</a> 进行登录<ul>
+<li>用户名输入 <code>admin</code>，密码输入 <code>Passw0rd</code>，点击 Login，登录成功，自动 redirect 到登陆前先前的页面 <a target="_blank" rel="noopener" href="http://www.xtuer.com:8081/admin">http://www.xtuer.com:8081/admin</a></li>
+<li>用户名输入 <code>alice</code>，密码输入 <code>Passw0rd</code>，点击 Login，登录成功，提示无权限访问</li>
+</ul>
+</li>
+<li>切换用户: 删除登录的 cookie，然后登录</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://websystique.com/spring-security-tutorial/">Spring Security 4 Tutorial</a></li>
+<li><a target="_blank" rel="noopener" href="http://websystique.com/spring-security/spring-security-4-hello-world-annotation-xml-example/">Spring Security 4 Hello World Annotation+XML </a></li>
+</ul>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/spring-security-2-loginform/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Spring Security 自定义登陆表单
+        
+      </div>
+    </a>
+  
+  
+    <a href="/spring-security-1-hello/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spring Security 入门</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

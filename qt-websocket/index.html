@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Qt WebSocket | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Qt 自带了 WebSocket 的客户端，使用起来也很方便，我们在其基础上进行了简单的封装，支持自动重连以及定时心跳发送。WebSocket 客户端的调用者只需要关注下面代码中的几个方法和信号就可以了。 123456789101112131415161718192021222324MainWidget::MainWidget(QWidget *parent) : QWidget(parent),">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Qt WebSocket">
+<meta property="og:url" content="http://xtuer.github.io/qt-websocket/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="Qt 自带了 WebSocket 的客户端，使用起来也很方便，我们在其基础上进行了简单的封装，支持自动重连以及定时心跳发送。WebSocket 客户端的调用者只需要关注下面代码中的几个方法和信号就可以了。 123456789101112131415161718192021222324MainWidget::MainWidget(QWidget *parent) : QWidget(parent),">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-11-05T12:49:27.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.171Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="Qt">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#WsClient-h"><span class="toc-text">WsClient.h</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WsClient-cpp"><span class="toc-text">WsClient.cpp</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-qt-websocket" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/qt-websocket/" class="article-date">
+  	<!-- <time datetime="2021-11-05T12:49:27.000Z" itemprop="datePublished">2021-11-05</time> -->
+    2021-11-05
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Qt WebSocket
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/" rel="tag">Qt</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Qt 自带了 WebSocket 的客户端，使用起来也很方便，我们在其基础上进行了简单的封装，支持自动重连以及定时心跳发送。WebSocket 客户端的调用者只需要关注下面代码中的几个方法和信号就可以了。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">MainWidget::<span class="built_in">MainWidget</span>(QWidget *parent) : <span class="built_in">QWidget</span>(parent), <span class="built_in">ui</span>(<span class="keyword">new</span> Ui::MainWidget) &#123;</span><br><span class="line">    ui-&gt;<span class="built_in">setupUi</span>(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 提示: 创建 Websocket 连接，服务器的 IP 根据实际情况填写，端口为 9321</span></span><br><span class="line">    wsClient = <span class="keyword">new</span> <span class="built_in">WsClient</span>(<span class="string">&quot;127.0.0.1:9321&quot;</span>, <span class="string">&quot;gw-1&quot;</span>, <span class="string">&quot;gw-1&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 连接成功或者连接断开</span></span><br><span class="line">    <span class="built_in">connect</span>(wsClient, &amp;WsClient::connected, [<span class="keyword">this</span>](<span class="keyword">bool</span> yes) &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;ui-&gt;stateLabel-&gt;<span class="built_in">setText</span>(yes ? <span class="string">&quot;连接成功&quot;</span> : <span class="string">&quot;连接断开&quot;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 收到服务器发来的消息</span></span><br><span class="line">    <span class="built_in">connect</span>(wsClient, &amp;WsClient::messageReceived, [<span class="keyword">this</span>](<span class="keyword">const</span> QString &amp;message) &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;ui-&gt;responseLabel-&gt;<span class="built_in">setText</span>(message);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 点击按钮发送消息</span></span><br><span class="line">    <span class="built_in">connect</span>(ui-&gt;pushButton, &amp;QPushButton::clicked, [<span class="keyword">this</span>] &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;wsClient-&gt;<span class="built_in">sendMessage</span>(<span class="string">&quot;ECHO&quot;</span>, <span class="keyword">this</span>-&gt;ui-&gt;lineEdit-&gt;<span class="built_in">text</span>());</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 连接到服务器</span></span><br><span class="line">    wsClient-&gt;<span class="built_in">connectToServer</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<p>我们封装的 WebSocket 代码包含下面 2 个文件: WsClient.h 和 WsClient.cpp。在实际使用的时候，根据 WebSocket 服务器端设计稍微修改以下几个地方:</p>
+<ul>
+<li>URL 参数稍微修改一下: <code>WsClientPrivate::connectUrl()</code> </li>
+<li>心跳消息</li>
+<li>消息格式: <code>WsClient::sendMessage</code> 中的消息格式</li>
+</ul>
+<h2 id="WsClient-h"><a href="#WsClient-h" class="headerlink" title="WsClient.h"></a>WsClient.h</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">#ifndef WSCLIENT_H</span><br><span class="line">#define WSCLIENT_H</span><br><span class="line"></span><br><span class="line">#include &lt;QString&gt;</span><br><span class="line">#include &lt;QObject&gt;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WsClientPrivate</span></span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">QWebSocket</span></span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">QTimer</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@brief</span> Websocket 客户端，实现了自动重连，发送心跳</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WsClient</span> : <span class="title">public</span> <span class="title">QObject</span> </span>&#123;</span><br><span class="line">    Q_OBJECT</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@brief</span> 创建 Websocket 客户端</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> serverIpPort 服务器的 Ip 和端口，如: 127.0.0.1:9321</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> gatewayId    设备网关的 ID，每个设备网关都有唯一的 ID</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> gatewayName  设备网关的名字，不需要唯一</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    WsClient(<span class="keyword">const</span> QString &amp;serverIpPort, <span class="keyword">const</span> QString &amp;gatewayId, <span class="keyword">const</span> QString &amp;gatewayName);</span><br><span class="line"></span><br><span class="line">    ~WsClient();</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@brief</span> 连接到服务器</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">connectToServer</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@brief</span> 发送消息到服务器</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> type    消息类型，如 METRICS, ECHO 等</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> message 消息</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sendMessage</span><span class="params">(<span class="keyword">const</span> QString &amp;type, <span class="keyword">const</span> QString &amp;message)</span></span>;</span><br><span class="line"></span><br><span class="line">signals:</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@brief</span> 与服务器连接成功或者连接断开的信号</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> yes 连接成功时 yes 为 true, 连接断开时 yes 为 false</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">connected</span><span class="params">(bool yes)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@brief</span> 收到消息</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> message 消息</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">messageReceived</span><span class="params">(<span class="keyword">const</span> QString &amp;message)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    WsClientPrivate *d;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">#endif <span class="comment">// WSCLIENT_H</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="WsClient-cpp"><a href="#WsClient-cpp" class="headerlink" title="WsClient.cpp"></a>WsClient.cpp</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;WsClient.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QWebSocket&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QTimer&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QDebug&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*-----------------------------------------------------------------------------|</span></span><br><span class="line"><span class="comment"> |                         WsClientPrivate implementation                      |</span></span><br><span class="line"><span class="comment"> |----------------------------------------------------------------------------*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WsClientPrivate</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">WsClientPrivate</span>(<span class="keyword">const</span> QString &amp;serverIpPort, <span class="keyword">const</span> QString &amp;gatewayId, <span class="keyword">const</span> QString &amp;gatewayName);</span><br><span class="line">    ~<span class="built_in">WsClientPrivate</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 连接到服务器的 Websocket 连接字符串，例如 ws://127.0.0.1:9321?gatewayId=1&amp;gatewayName=bob</span></span><br><span class="line">    <span class="function">QString <span class="title">connectUrl</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line"></span><br><span class="line">    QString serverIpPort;   <span class="comment">// 服务器的 IP Port</span></span><br><span class="line">    QString gatewayId;      <span class="comment">// 设备网关 Id</span></span><br><span class="line">    QString gatewayName;    <span class="comment">// 设备网关名字</span></span><br><span class="line">    QWebSocket *socket;     <span class="comment">// Websocket 对象</span></span><br><span class="line">    <span class="keyword">bool</span> connected;         <span class="comment">// 是否已经和服务器连接上</span></span><br><span class="line">    QTimer *heartbeatTimer; <span class="comment">// 心跳定时器</span></span><br><span class="line">    QTimer *reconnectTimer; <span class="comment">// 重连定时器</span></span><br><span class="line">    <span class="keyword">int</span> heartbeatInterval = <span class="number">10000</span>; <span class="comment">// 心跳间隔</span></span><br><span class="line">    <span class="keyword">int</span> reconnectInterval = <span class="number">5000</span>;  <span class="comment">// 重连间隔</span></span><br><span class="line">    <span class="keyword">int</span> reconnectCount    = <span class="number">0</span>;     <span class="comment">// 重连次数</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">WsClientPrivate::<span class="built_in">WsClientPrivate</span>(<span class="keyword">const</span> QString &amp;serverIpPort, <span class="keyword">const</span> QString &amp;gatewayId, <span class="keyword">const</span> QString &amp;gatewayName) &#123;</span><br><span class="line">    <span class="keyword">this</span>-&gt;serverIpPort   = serverIpPort;</span><br><span class="line">    <span class="keyword">this</span>-&gt;gatewayId      = gatewayId;</span><br><span class="line">    <span class="keyword">this</span>-&gt;gatewayName    = gatewayName;</span><br><span class="line">    <span class="keyword">this</span>-&gt;connected      = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">this</span>-&gt;socket         = <span class="keyword">new</span> <span class="built_in">QWebSocket</span>();</span><br><span class="line">    <span class="keyword">this</span>-&gt;heartbeatTimer = <span class="keyword">new</span> <span class="built_in">QTimer</span>();</span><br><span class="line">    <span class="keyword">this</span>-&gt;reconnectTimer = <span class="keyword">new</span> <span class="built_in">QTimer</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 启动心跳定时器，定时给服务器发送心跳消息</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">WsClientPrivate::~<span class="built_in">WsClientPrivate</span>() &#123;</span><br><span class="line">    heartbeatTimer-&gt;<span class="built_in">stop</span>();</span><br><span class="line">    heartbeatTimer-&gt;<span class="built_in">deleteLater</span>();</span><br><span class="line">    reconnectTimer-&gt;<span class="built_in">stop</span>();</span><br><span class="line">    reconnectTimer-&gt;<span class="built_in">deleteLater</span>();</span><br><span class="line">    socket-&gt;<span class="built_in">close</span>();</span><br><span class="line">    socket-&gt;<span class="built_in">deleteLater</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">QString <span class="title">WsClientPrivate::connectUrl</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">QString</span>(<span class="string">&quot;ws://%1?gatewayId=%2&amp;gatewayName=%3&quot;</span>)</span><br><span class="line">                .<span class="built_in">arg</span>(serverIpPort)</span><br><span class="line">                .<span class="built_in">arg</span>(gatewayId)</span><br><span class="line">                .<span class="built_in">arg</span>(gatewayName);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*-----------------------------------------------------------------------------|</span></span><br><span class="line"><span class="comment"> |                            WsClient implementation                          |</span></span><br><span class="line"><span class="comment"> |----------------------------------------------------------------------------*/</span></span><br><span class="line">WsClient::<span class="built_in">WsClient</span>(<span class="keyword">const</span> QString &amp;serverIpPort, <span class="keyword">const</span> QString &amp;gatewayId, <span class="keyword">const</span> QString &amp;gatewayName) : <span class="built_in">QObject</span>() &#123;</span><br><span class="line">    d = <span class="keyword">new</span> <span class="built_in">WsClientPrivate</span>(serverIpPort, gatewayId, gatewayName);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 连接成功</span></span><br><span class="line">    QObject::<span class="built_in">connect</span>(d-&gt;socket, &amp;QWebSocket::connected, [<span class="keyword">this</span>] &#123;</span><br><span class="line">        d-&gt;connected = <span class="literal">true</span>;</span><br><span class="line">        d-&gt;heartbeatTimer-&gt;<span class="built_in">start</span>(d-&gt;heartbeatInterval); <span class="comment">// 连接成功时启动心跳计时器</span></span><br><span class="line">        d-&gt;reconnectTimer-&gt;<span class="built_in">stop</span>();                      <span class="comment">// 连接成功时关闭重连计时器</span></span><br><span class="line"></span><br><span class="line">        emit <span class="keyword">this</span>-&gt;<span class="built_in">connected</span>(<span class="literal">true</span>);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 连接断开</span></span><br><span class="line">    QObject::<span class="built_in">connect</span>(d-&gt;socket, &amp;QWebSocket::disconnected, [<span class="keyword">this</span>] &#123;</span><br><span class="line">        d-&gt;connected = <span class="literal">false</span>;</span><br><span class="line">        d-&gt;heartbeatTimer-&gt;<span class="built_in">stop</span>();                      <span class="comment">// 连接断开时关闭心跳计时器</span></span><br><span class="line">        d-&gt;reconnectTimer-&gt;<span class="built_in">start</span>(d-&gt;reconnectInterval); <span class="comment">// 连接断开时启动重连计时器</span></span><br><span class="line"></span><br><span class="line">        emit <span class="keyword">this</span>-&gt;<span class="built_in">connected</span>(<span class="literal">false</span>);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 收到消息</span></span><br><span class="line">    QObject::<span class="built_in">connect</span>(d-&gt;socket, &amp;QWebSocket::textMessageReceived, [<span class="keyword">this</span>](<span class="keyword">const</span> QString &amp;message) &#123;</span><br><span class="line">        emit <span class="keyword">this</span>-&gt;<span class="built_in">messageReceived</span>(message);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 定时发送心跳，当服务器端在指定时间内没有收到客户端的心跳消息，服务器会主动断开对应的连接</span></span><br><span class="line">    QObject::<span class="built_in">connect</span>(d-&gt;heartbeatTimer, &amp;QTimer::timeout, [<span class="keyword">this</span>] &#123;</span><br><span class="line">        <span class="keyword">if</span> (d-&gt;connected) &#123;</span><br><span class="line">            d-&gt;socket-&gt;<span class="built_in">sendTextMessage</span>(<span class="string">R&quot;(&#123;&quot;type&quot;: &quot;HEARTBEAT&quot;&#125;)&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 连接断开后定时尝试重连</span></span><br><span class="line">    <span class="comment">// 定时 5 秒尝试连接到服务器，如果连接断开了，测试方法: 连接上服务器，然后把服务器关闭，再打开服务器，查看连接状态。</span></span><br><span class="line">    <span class="comment">// 如果不这么做，服务器重启后，设备网关连接断开不主动自动重连，那么只有重启设备网关的程序才会再次连接。</span></span><br><span class="line">    QObject::<span class="built_in">connect</span>(d-&gt;reconnectTimer, &amp;QTimer::timeout, [<span class="keyword">this</span>] &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;<span class="built_in">connectToServer</span>(); <span class="comment">// 如果已经是连接成功状态，不会重复连接</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">WsClient::~<span class="built_in">WsClient</span>() &#123;</span><br><span class="line">    <span class="keyword">delete</span> d;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">WsClient::connectToServer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 1. 如果已经连接，直接返回，不要重复连接</span></span><br><span class="line">    <span class="comment">// 2. 如果重连计时器没有启动，则启动他，当没有连接到服务器的时候，自动尝试重连</span></span><br><span class="line">    <span class="comment">// 3. 连接到服务器</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// [1] 如果已经连接，直接返回，不要重复连接</span></span><br><span class="line">    <span class="keyword">if</span> (d-&gt;connected) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [2] 如果重连计时器没有启动，则启动他，当没有连接到服务器的时候，自动尝试重连</span></span><br><span class="line">    <span class="keyword">if</span> (!d-&gt;reconnectTimer-&gt;<span class="built_in">isActive</span>()) &#123;</span><br><span class="line">        d-&gt;reconnectTimer-&gt;<span class="built_in">start</span>(d-&gt;reconnectInterval);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [3] 连接到服务器</span></span><br><span class="line">    QString url = d-&gt;<span class="built_in">connectUrl</span>();</span><br><span class="line">    d-&gt;socket-&gt;<span class="built_in">open</span>(<span class="built_in">QUrl</span>(url));</span><br><span class="line"></span><br><span class="line">    d-&gt;reconnectCount++;</span><br><span class="line">    <span class="built_in">qDebug</span>().<span class="built_in">noquote</span>() &lt;&lt; <span class="built_in">QString</span>(<span class="string">&quot;第 %1 次尝试连接到服务器 %2 ...&quot;</span>).<span class="built_in">arg</span>(d-&gt;reconnectCount).<span class="built_in">arg</span>(url);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">WsClient::sendMessage</span><span class="params">(<span class="keyword">const</span> QString &amp;type, <span class="keyword">const</span> QString &amp;message)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 未连接，不发送消息</span></span><br><span class="line">    <span class="keyword">if</span> (!d-&gt;connected) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 消息使用 JSON 格式，如 &#123;&quot;type&quot;: &quot;ECHO&quot;, &quot;content&quot;: &quot;Hello&quot;&#125;</span></span><br><span class="line">    QString msg = <span class="built_in">QString</span>(<span class="string">R&quot;(&#123;&quot;type&quot;: &quot;%1&quot;, &quot;content&quot;: &quot;%2&quot;&#125;)&quot;</span>).<span class="built_in">arg</span>(type).<span class="built_in">arg</span>(message);</span><br><span class="line">    d-&gt;socket-&gt;<span class="built_in">sendTextMessage</span>(msg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/ajax-upload-file/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Ajax 异步上传文件</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

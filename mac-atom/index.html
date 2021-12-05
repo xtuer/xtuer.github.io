@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Atom 常用插件和快捷键 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Atom 以前很慢，所以一直不想用，在 1.0 版本后启动差不多需要 1.5 秒，已经快了很多，尝试了下，感觉很好，插件更好用，例如格式化插件 atom-beautify，jshint 等、界面更舒服，现在已经从 SublimeText 替换到 Atom 了，以下为常用的几个插件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Atom 常用插件和快捷键">
+<meta property="og:url" content="http://xtuer.github.io/mac-atom/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="Atom 以前很慢，所以一直不想用，在 1.0 版本后启动差不多需要 1.5 秒，已经快了很多，尝试了下，感觉很好，插件更好用，例如格式化插件 atom-beautify，jshint 等、界面更舒服，现在已经从 SublimeText 替换到 Atom 了，以下为常用的几个插件">
+<meta property="og:locale">
+<meta property="article:published_time" content="2016-06-18T01:43:00.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.161Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="FE">
+<meta property="article:tag" content="Mac">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6"><span class="toc-text">常用插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E7%9A%84%E6%8F%92%E4%BB%B6%E4%BB%93%E5%BA%93"><span class="toc-text">使用阿里的插件仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-text">快捷键</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-text">自定义快捷键</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%96%87%E4%BB%B6%E8%AF%AD%E6%B3%95%E9%AB%98%E4%BA%AE%E8%A7%84%E5%88%99"><span class="toc-text">自定义文件语法高亮规则</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%8E%E4%B9%88%E6%9F%A5%E6%89%BE-key%EF%BC%8C%E4%BE%8B%E5%A6%82-text-html-basic-%E5%91%A2%EF%BC%9F"><span class="toc-text">怎么查找 key，例如 text.html.basic 呢？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tree-View-%E9%9A%90%E8%97%8F%E6%96%87%E4%BB%B6"><span class="toc-text">Tree View 隐藏文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F"><span class="toc-text">自定义样式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%BB%E6%8E%89-ES6-%E7%9A%84%E8%AD%A6%E5%91%8A%E6%8F%90%E7%A4%BA"><span class="toc-text">去掉 ES6 的警告提示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%A6%E7%AD%BE"><span class="toc-text">书签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linter-Eslint"><span class="toc-text">Linter Eslint</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-mac-atom" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/mac-atom/" class="article-date">
+  	<!-- <time datetime="2016-06-18T01:43:00.000Z" itemprop="datePublished">2016-06-18</time> -->
+    2016-06-18
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Atom 常用插件和快捷键
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Atom 以前很慢，所以一直不想用，在 1.0 版本后启动差不多需要 1.5 秒，已经快了很多，尝试了下，感觉很好，插件更好用，例如格式化插件 atom-beautify，jshint 等、界面更舒服，现在已经从 SublimeText 替换到 Atom 了，以下为常用的几个插件</p>
+<span id="more"></span>
+
+<h2 id="常用插件"><a href="#常用插件" class="headerlink" title="常用插件"></a>常用插件</h2><table>
+<thead>
+<tr>
+<th>插件</th>
+<th align="center">推荐</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>atom-ternjs</td>
+<td align="center"></td>
+<td>这是 Tern 项目的 Atom 插件，提供了了比较精确的代码补全功能，不止是匹配输入过的关键字，还可以提示 ECMAScript、DOM/BOM、NodeJS 的方法和属性，也能自动分析依赖的模块，给出补全提示，这样Atom 用起来就有点 IDE 的感觉了。</td>
+</tr>
+<tr>
+<td>linter-eslint</td>
+<td align="center">Y</td>
+<td>JavaScript 代码实时错误提示，把提示依赖的几个插件也都安装上，后面有说明进行安装配置</td>
+</tr>
+<tr>
+<td>highlight-selected</td>
+<td align="center"></td>
+<td>高亮所有和当前选中单词一样的单词，IDE 标配</td>
+</tr>
+<tr>
+<td>quick-highlight</td>
+<td align="center">Y</td>
+<td>和 <code>highlight-selected</code> 相似</td>
+</tr>
+<tr>
+<td>pigments</td>
+<td align="center">Y</td>
+<td>CSS 颜色可视化，例如显示 rgba(0,0,0,0.8) 对应的颜色</td>
+</tr>
+<tr>
+<td>atom-beautify</td>
+<td align="center">Y</td>
+<td>格式化插件, 支持很多语言，HTML，JS，CSS 等等<br>如果从包管理器里安装不了，就试试从命令行里 <code>apm install atom-beautify</code><br>使用: <code>cmd + shift + p</code>, 输入 <code>beatify</code>，或者使用快捷键 <code>ctrl + alt + b</code><br>可以手动在项目根目录下创建文件 <code>.editorconfig</code>, 修改格式化配置, 如使用 4 个空格缩进 <code>indent_size = 4</code></td>
+</tr>
+<tr>
+<td>file-icons</td>
+<td align="center">Y</td>
+<td>给文件加上图标</td>
+</tr>
+<tr>
+<td>jquery-snippets</td>
+<td align="center"></td>
+<td>jQuery API 代码片段</td>
+</tr>
+<tr>
+<td>set-syntax</td>
+<td align="center"></td>
+<td>方便的使用 <code>Command Palette</code> (cmd + shift + p 打开) 修改当前文件的语法</td>
+</tr>
+<tr>
+<td>atom-html-preview</td>
+<td align="center"></td>
+<td>在 Atom 里实时的预览 HTML 的内容，<code>Command Palette</code> 搜索 <code>preview</code>，或者使用快捷键 <code>ctrl + shift + h</code></td>
+</tr>
+<tr>
+<td>regex-railroad-diagram</td>
+<td align="center">Y</td>
+<td>正则表达式可视化: 鼠标放到正则表达式上面自动可视化，例如在 JS 文件里 <code>/\d+/g</code></td>
+</tr>
+<tr>
+<td>atom-no-tab-close-button</td>
+<td align="center"></td>
+<td>隐藏关闭按钮，避免误操作关闭 tab，使用 <code>cmd + w</code> 来关闭 tab</td>
+</tr>
+<tr>
+<td>docblockr</td>
+<td align="center">Y</td>
+<td>函数名前输入 <code>/**</code> 按下回车生成文档的模版</td>
+</tr>
+<tr>
+<td>less-autocompile</td>
+<td align="center"></td>
+<td>保存的时候把 Less 自动编译为 CSS</td>
+</tr>
+<tr>
+<td>sublime-style-column-selection</td>
+<td align="center">Y</td>
+<td>列编辑</td>
+</tr>
+<tr>
+<td>symbols-view-plus</td>
+<td align="center"></td>
+<td>Atom 自带的 symbols-view 的增强版</td>
+</tr>
+<tr>
+<td>symbols-navigator</td>
+<td align="center">Y</td>
+<td>函数显示上比 symbols-view-plus 更清晰</td>
+</tr>
+<tr>
+<td>structure-view</td>
+<td align="center"></td>
+<td>像 Eclipse 那样显示 Outline，为了 vue 能像 html 那样显示 outline，按照下面的设置把 vue 的语法高亮设置为 html 的</td>
+</tr>
+<tr>
+<td>atom-history</td>
+<td align="center"></td>
+<td>打开文件的记录</td>
+</tr>
+<tr>
+<td>atom-ide-ui</td>
+<td align="center">Y</td>
+<td>这将在你的 Atom 中呈现 IDE 界面，但是要成为一个完全可工作的 IDE ，你还需要安装你的语言服务器支持。可以选择：ide-html、ide-typescript(TypeScript &amp; JavaScript)、 ide-php、 ide-java、 ide-csharp。<br><br>推荐使用 <code>ide-html</code> 的插件，ide-typescript 在最新版的 Atom 中不能使用，但是 ide-html 还是很不错的。</td>
+</tr>
+<tr>
+<td>split-diff</td>
+<td align="center"></td>
+<td>文件比较工具、合并工具</td>
+</tr>
+<tr>
+<td>git-time-machine</td>
+<td align="center"></td>
+<td>可以和 Git 仓库里任意版本进行比较，快捷键为 <code>Alt+T</code></td>
+</tr>
+<tr>
+<td>git-log</td>
+<td align="center"></td>
+<td>显示提交记录</td>
+</tr>
+<tr>
+<td>hey-pane</td>
+<td align="center">Y</td>
+<td>Split 后可以按下 <code>CMD + Shift + K</code> 使得放大当前的 pane</td>
+</tr>
+<tr>
+<td>bracket-colorizer</td>
+<td align="center"></td>
+<td>匹配的括号使用不同的颜色高亮</td>
+</tr>
+<tr>
+<td>nyan-indent</td>
+<td align="center"></td>
+<td>使用不同的颜色高亮不同的缩进</td>
+</tr>
+<tr>
+<td>sync-settings</td>
+<td align="center"></td>
+<td>备份和恢复配置和插件 (安装后 Atom 很卡，使用后卸载，需要时再安装)</td>
+</tr>
+<tr>
+<td>better-git-blame</td>
+<td align="center">Y</td>
+<td>Git Blame: 显示每一行代码都是谁写的</td>
+</tr>
+<tr>
+<td>goto-definition</td>
+<td align="center">Y</td>
+<td>函数跳转 (如在 HTML 里跳转到 JS 的函数定义)</td>
+</tr>
+<tr>
+<td>indent-guide-improved</td>
+<td align="center">Y</td>
+<td>更好的缩进显示，下面有自定义样式</td>
+</tr>
+<tr>
+<td>atom-ctags</td>
+<td align="center">Y</td>
+<td>生成 ctags 文件用于自动补全</td>
+</tr>
+<tr>
+<td>autocomplete-ctags</td>
+<td align="center">Y</td>
+<td>使用 ctags 文件进行补全，使用 atom-ctags 生成 tags 文件，并禁用 atom-ctags 的自动补全功能</td>
+</tr>
+<tr>
+<td>language-vue</td>
+<td align="center">Y</td>
+<td>Vue 语法高亮</td>
+</tr>
+<tr>
+<td>atom-alignment</td>
+<td align="center">Y</td>
+<td>变量对齐</td>
+</tr>
+<tr>
+<td>todo</td>
+<td align="center">Y</td>
+<td>显示工程中的所有 TODO，可以搜索，还有一个不错的相似插件是 todo-show，只是显示更复杂</td>
+</tr>
+<tr>
+<td>project-manager</td>
+<td align="center">Y</td>
+<td>管理多个不同的工程，方便切换</td>
+</tr>
+<tr>
+<td>atom-text-manipulation</td>
+<td align="center"></td>
+<td>文本处理，例如 Encode/Decode Base64, MD5, SHA, Un/Escape XML 等</td>
+</tr>
+<tr>
+<td>OOOOOOOOOOOOOOOO</td>
+<td align="center">OOOOOO</td>
+<td>OOO</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>提示：如果插件因为墙的原因从 Atom 里安装失败，还可以下载源码，然后本地安装:</p>
+<ol>
+<li>打开 CMD</li>
+<li><code>cd /Users/$&#123;UserName&#125;/.atom/packages</code></li>
+<li><code>git clone &lt;源地址&gt;</code></li>
+<li><code>cd 插件的目录</code></li>
+<li><code>apm install</code></li>
+</ol>
+</blockquote>
+<h2 id="使用阿里的插件仓库"><a href="#使用阿里的插件仓库" class="headerlink" title="使用阿里的插件仓库"></a>使用阿里的插件仓库</h2><p>Atom 默认的插件仓库国内访问比较慢，可以使用阿里的:</p>
+<ol>
+<li><p>代开文件 <code>$&#123;UserHome&#125;/.atom/.apmrc</code></p>
+<p>如果没有这个文件，新创建一个</p>
+</li>
+<li><p>修改内容为 <code>registry=https://registry.npm.taobao.org/</code></p>
+</li>
+</ol>
+<h2 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h2><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>快捷键</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>显示所有函数</td>
+<td><code>cmd + r</code></td>
+</tr>
+<tr>
+<td>显示隐藏 tree-view</td>
+<td><code>cmd + \</code></td>
+</tr>
+<tr>
+<td>拆分窗口</td>
+<td>先按下 <code>cmd + k</code>，然后按下方向键</td>
+</tr>
+</tbody></table>
+<h2 id="自定义快捷键"><a href="#自定义快捷键" class="headerlink" title="自定义快捷键"></a>自定义快捷键</h2><p>如果已经被使用了，先解绑，例如 <code>cmd + l</code>，然后再绑定新的快捷键</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;atom-text-editor&#x27;</span>:</span><br><span class="line">    <span class="string">&#x27;cmd-d&#x27;</span>    : <span class="string">&#x27;unset!&#x27;</span></span><br><span class="line">    <span class="string">&#x27;cmd-l&#x27;</span>    : <span class="string">&#x27;go-to-line:toggle&#x27;</span></span><br><span class="line">    <span class="string">&#x27;f3&#x27;</span>       : <span class="string">&#x27;goto-definition:go&#x27;</span>                # 跳转到定义</span><br><span class="line">    <span class="string">&#x27;cmd-;&#x27;</span>    : <span class="string">&#x27;autocomplete-plus:activate&#x27;</span>        # 自动补全</span><br><span class="line">    <span class="string">&#x27;cmd-e&#x27;</span>    : <span class="string">&#x27;fuzzy-finder:toggle-buffer-finder&#x27;</span> # 显示打开的文件</span><br><span class="line">    <span class="string">&#x27;alt-cmd-]&#x27;</span>: <span class="string">&#x27;atom-alignment:alignMultiple&#x27;</span>      # 对齐</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;atom-text-editor:not([mini])&#x27;</span>:</span><br><span class="line">    <span class="string">&#x27;cmd-d&#x27;</span>: <span class="string">&#x27;editor:delete-line&#x27;</span> # 删除当前行</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;atom-workspace&#x27;</span>:</span><br><span class="line">    <span class="string">&#x27;cmd-o&#x27;</span>: <span class="string">&#x27;symbols-navigator:toggle&#x27;</span> # 显示 outline</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;.platform-darwin&#x27;</span>:</span><br><span class="line">    <span class="string">&#x27;alt-cmd-g&#x27;</span>: <span class="string">&#x27;fuzzy-finder:toggle-git-status-finder&#x27;</span> # 显示 git repo 中修改的文件</span><br></pre></td></tr></table></figure>
+
+<h2 id="自定义文件语法高亮规则"><a href="#自定义文件语法高亮规则" class="headerlink" title="自定义文件语法高亮规则"></a>自定义文件语法高亮规则</h2><p>比如微信小程序的样式文件扩展名是 wxss，在 Atom 中打开默认是纯文本的样式，没有使用 CSS 的语法高亮，可以渲染它的修改语法规则为 CSS，但是只是一次生效的，下次打开工程又无效了。</p>
+<p>可以手动的修改 config.cson(Atom -&gt; Config)，在 core 下面创建 customFileTypes 来配置文件的打开类型:</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">core</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">customFileTypes</span>:<span class="string"></span></span><br><span class="line">    <span class="meta">&quot;source.css&quot;</span>: <span class="string">[</span></span><br><span class="line">      <span class="attr">&quot;wxss&quot;</span></span><br><span class="line">    <span class="attr">]</span></span><br><span class="line">    <span class="meta">&quot;text.html.basic&quot;</span>: <span class="string">[</span></span><br><span class="line">      <span class="attr">&quot;wxml&quot;</span></span><br><span class="line">      <span class="attr">&quot;vue&quot;</span></span><br><span class="line">    <span class="attr">]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="怎么查找-key，例如-text-html-basic-呢？"><a href="#怎么查找-key，例如-text-html-basic-呢？" class="headerlink" title="怎么查找 key，例如 text.html.basic 呢？"></a>怎么查找 key，例如 text.html.basic 呢？</h3><p>在 Packages 里搜索 <strong>language-html</strong>，点击打开，可以看到 <code>Scope: text.html.basic</code>，也即是在 Package 里搜索 <strong>language- + 文件类型</strong>，然后找到 <strong>Scope</strong> 即可。</p>
+<h2 id="Tree-View-隐藏文件"><a href="#Tree-View-隐藏文件" class="headerlink" title="Tree View 隐藏文件"></a>Tree View 隐藏文件</h2><p>tree-view 插件的配置中设置隐藏忽略的文件，然后 <strong>config.cson</strong>(Atom -&gt; Config) 中编辑 <strong>core -&gt; ignoredNames</strong>，添加需要隐藏的文件类型，**.*** 表示以点开头的所有文件:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">core:</span><br><span class="line">  ignoredNames: [</span><br><span class="line">    <span class="string">&quot;.git&quot;</span></span><br><span class="line">    <span class="string">&quot;.hg&quot;</span></span><br><span class="line">    <span class="string">&quot;.svn&quot;</span></span><br><span class="line">    <span class="string">&quot;.DS_Store&quot;</span></span><br><span class="line">    <span class="string">&quot;._*&quot;</span></span><br><span class="line">    <span class="string">&quot;Thumbs.db&quot;</span></span><br><span class="line">    <span class="string">&quot;.dll&quot;</span></span><br><span class="line">    <span class="string">&quot;.vcxproj&quot;</span></span><br><span class="line">    <span class="string">&quot;.suo&quot;</span></span><br><span class="line">    <span class="string">&quot;.filters&quot;</span></span><br><span class="line">    <span class="string">&quot;.user&quot;</span></span><br><span class="line">    <span class="string">&quot;.sdf&quot;</span></span><br><span class="line">    <span class="string">&quot;.*&quot;</span></span><br><span class="line">  ]</span><br></pre></td></tr></table></figure>
+
+<h2 id="自定义样式"><a href="#自定义样式" class="headerlink" title="自定义样式"></a>自定义样式</h2><p><strong>Atom &gt; Stylesheets…</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">// indent-guide-improved 的样式</span><br><span class="line"><span class="selector-class">.indent-guide-improved</span> &#123;</span><br><span class="line">    <span class="attribute">border-width</span>: <span class="number">1px</span>;</span><br><span class="line">    <span class="attribute">border-left-width</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">margin-left</span>: <span class="number">3px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="built_in">rgb</span>(<span class="number">60</span>, <span class="number">65</span>, <span class="number">72</span>);</span><br><span class="line"></span><br><span class="line">    &amp;<span class="selector-class">.indent-guide-stack</span> &#123;</span><br><span class="line">        <span class="attribute">background-color</span>: <span class="built_in">rgb</span>(<span class="number">60</span>, <span class="number">65</span>, <span class="number">72</span>);</span><br><span class="line"></span><br><span class="line">        &amp;<span class="selector-class">.indent-guide-active</span> &#123;</span><br><span class="line">            <span class="attribute">background-color</span>: transparent;</span><br><span class="line">            // <span class="attribute">border-style</span>: dashed;</span><br><span class="line">            // <span class="attribute">border-color</span>: <span class="built_in">rgb</span>(<span class="number">205</span>, <span class="number">116</span>, <span class="number">232</span>);</span><br><span class="line"></span><br><span class="line">            // <span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(<span class="number">0deg</span>, <span class="number">#cd74e8</span>, <span class="number">#cd74e8</span> <span class="number">75%</span>, <span class="number">#292d34</span> <span class="number">75%</span>, <span class="number">#292d34</span> <span class="number">90%</span>, <span class="number">#cd74e8</span> <span class="number">90%</span>, <span class="number">#cd74e8</span> <span class="number">100%</span>);</span><br><span class="line">            <span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(<span class="number">180deg</span>, <span class="number">#292d34</span>, <span class="number">#292d34</span> <span class="number">10%</span>, <span class="number">#cd74e8</span> <span class="number">10%</span>, <span class="number">#cd74e8</span> <span class="number">90%</span>, <span class="number">#292d34</span> <span class="number">90%</span>, <span class="number">#292d34</span> <span class="number">100%</span>);</span><br><span class="line">            <span class="attribute">background-size</span>: <span class="number">1px</span> <span class="number">22px</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// structure-view 的样式</span><br><span class="line"><span class="selector-class">.structure-view</span> <span class="selector-tag">div</span><span class="selector-class">.sv-toolbox</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.structure-view</span> <span class="selector-tag">div</span><span class="selector-class">.icon-F</span>, <span class="selector-class">.structure-view</span> <span class="selector-tag">div</span><span class="selector-class">.icon-M</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: transparent;</span><br><span class="line">    // <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#444</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.structure-view</span> <span class="selector-tag">div</span><span class="selector-class">.icon-F</span> &gt; <span class="selector-tag">span</span>, <span class="selector-class">.structure-view</span> <span class="selector-tag">div</span><span class="selector-class">.icon-M</span> &gt; <span class="selector-tag">span</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#5cadff</span>;</span><br><span class="line">    <span class="attribute">font-weight</span>: <span class="number">100</span>;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">12px</span>;</span><br><span class="line">    <span class="attribute">font-family</span>: <span class="string">&quot;Snell Roundhand&quot;</span>;</span><br><span class="line">    <span class="attribute">margin-top</span>: <span class="number">3px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="去掉-ES6-的警告提示"><a href="#去掉-ES6-的警告提示" class="headerlink" title="去掉 ES6 的警告提示"></a>去掉 ES6 的警告提示</h2><p>I am using Atom’s <code>linter</code>, <code>react</code>, and <code>linter-jshint</code>/<code>linter-jsxhint</code>. In my js files, I keep getting the warning</p>
+<blockquote>
+<p>Warning: ‘import’ is only available in ES6 (use ‘esvertion: 6’). (W119)</p>
+</blockquote>
+<p>First possibility, <strong>recommended</strong> : you can create a <code>.jshintrc</code> in you home directory and jshint will read it in case there is none in the project directory. You might need to restart Atom after.</p>
+<p><code>.jshintrc</code> 的内容:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;esversion&quot;</span> : <span class="number">6</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="书签"><a href="#书签" class="headerlink" title="书签"></a>书签</h2><p>当文档比较大时，跳转不方便，可以使用书签来进行跳转：</p>
+<ul>
+<li>按下 <code>CMD + F2</code> 给当前行添加书签</li>
+<li>按下 <code>CTL + F2</code> 显示所有书签，点击书签就会跳转到书签所在行</li>
+</ul>
+<h2 id="Linter-Eslint"><a href="#Linter-Eslint" class="headerlink" title="Linter Eslint"></a>Linter Eslint</h2><p>下面的配置可以支持 JS 和 HTML 中使用 eslint，安装上 language-vue 后支持 vue:</p>
+<ol>
+<li><p>安装 eslint: npm <code>install -g eslint</code></p>
+</li>
+<li><p>安装 eslint-plugin-html: <code>npm install -g eslint-plugin-html</code></p>
+</li>
+<li><p>安装其他插件 [有需要的时候看再安装，例如 eslint-config-airbnb-base]</p>
+</li>
+<li><p>保存下面的内容到 <code>.eslintrc.json</code></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;extends&quot;</span>: [<span class="string">&quot;eslint:recommended&quot;</span>],</span><br><span class="line">    <span class="attr">&quot;env&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;browser&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">&quot;es6&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">&quot;node&quot;</span>: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;plugins&quot;</span>: [<span class="string">&quot;eslint-plugin-html&quot;</span>],</span><br><span class="line">    <span class="attr">&quot;settings&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;eslint-plugin-html/eslint-plugin-html-extensions&quot;</span>: [<span class="string">&quot;.html&quot;</span>, <span class="string">&quot;.vue&quot;</span>]</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;rules&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;object-curly-spacing&quot;</span>: [<span class="number">2</span>, <span class="string">&quot;always&quot;</span>],</span><br><span class="line">        <span class="attr">&quot;strict&quot;</span>: <span class="number">0</span>,</span><br><span class="line">        <span class="attr">&quot;quotes&quot;</span>: [<span class="number">2</span>, <span class="string">&quot;single&quot;</span>, <span class="string">&quot;avoid-escape&quot;</span>],</span><br><span class="line">        <span class="attr">&quot;semi&quot;</span>: [<span class="number">2</span>, <span class="string">&quot;always&quot;</span>],</span><br><span class="line">        <span class="attr">&quot;indent&quot;</span>: <span class="number">2</span>,</span><br><span class="line">        <span class="attr">&quot;keyword-spacing&quot;</span>: [<span class="number">2</span>, &#123;</span><br><span class="line">            <span class="attr">&quot;before&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">            <span class="attr">&quot;after&quot;</span>: <span class="literal">true</span></span><br><span class="line">        &#125;],</span><br><span class="line">        <span class="attr">&quot;space-infix-ops&quot;</span>: <span class="number">2</span>,</span><br><span class="line">        <span class="attr">&quot;spaced-comment&quot;</span>: [<span class="number">2</span>, <span class="string">&quot;always&quot;</span>],</span><br><span class="line">        <span class="attr">&quot;arrow-spacing&quot;</span>: <span class="number">2</span>,</span><br><span class="line">        <span class="attr">&quot;no-console&quot;</span>: <span class="number">0</span>,</span><br><span class="line">        <span class="attr">&quot;no-unused-vars&quot;</span>: <span class="number">0</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;globals&quot;</span>: &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>Atom 中安装插件 linter-eslint</p>
+</li>
+<li><p>Atom 中配置插件 linter-eslint</p>
+<ul>
+<li>.eslintrc path: 也就是上面的 <code>.eslintrc.json</code> 的路径</li>
+<li>选中 Lint HTML Files</li>
+<li>选中 Use global ESLint installation</li>
+</ul>
+</li>
+<li><p>如果要支持 Vue，Atom 安装插件 language-vue</p>
+</li>
+</ol>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/spring-weixin/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Spring + Fastweixin 微信开发
+        
+      </div>
+    </a>
+  
+  
+    <a href="/mac-local-to-web/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">本地服务映射为外网可访问-Ngrok</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

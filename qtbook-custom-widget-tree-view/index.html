@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>QTreeView 小集 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="树形控件是非常常用的，例如组织结构、目录树、省市县的地区结构等都是典型的树形结构，Qt 里可以使用 QTreeView 和 QTreeWidget 来展示树形结构，这里我们只介绍 QTreeView 的使用，QTreeView 本身只用于树的显示，树的数据由 QStandardItemModel 来存储。 创建单列树创建单列树的节点分两种情况：  创建第一级节点调用函数 QStandardItem">
+<meta property="og:type" content="article">
+<meta property="og:title" content="QTreeView 小集">
+<meta property="og:url" content="http://xtuer.github.io/qtbook-custom-widget-tree-view/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="树形控件是非常常用的，例如组织结构、目录树、省市县的地区结构等都是典型的树形结构，Qt 里可以使用 QTreeView 和 QTreeWidget 来展示树形结构，这里我们只介绍 QTreeView 的使用，QTreeView 本身只用于树的显示，树的数据由 QStandardItemModel 来存储。 创建单列树创建单列树的节点分两种情况：  创建第一级节点调用函数 QStandardItem">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/custom-widget/region-1.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/custom-widget/region-2.png">
+<meta property="article:published_time" content="2018-04-24T13:41:39.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.173Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="QtBook">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/qtbook/custom-widget/region-1.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%8D%95%E5%88%97%E6%A0%91"><span class="toc-text">创建单列树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%A4%9A%E5%88%97%E6%A0%91"><span class="toc-text">创建多列树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%BC%E5%87%BA%E6%A0%91%E4%B8%BA-JSON"><span class="toc-text">导出树为 JSON</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5-JSON-%E5%88%9B%E5%BB%BA%E6%A0%91"><span class="toc-text">导入 JSON 创建树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86"><span class="toc-text">事件处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95"><span class="toc-text">右键菜单</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E8%8A%82%E7%82%B9"><span class="toc-text">插入节点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%AF%E7%94%A8%E6%8B%96%E6%8B%BD"><span class="toc-text">启用拖拽</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%96%E6%8B%BD%E6%8E%A7%E5%88%B6"><span class="toc-text">拖拽控制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%96%E6%8B%BD%E5%AE%8C%E5%85%A8%E6%8E%A7%E5%88%B6"><span class="toc-text">拖拽完全控制</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-qtbook-custom-widget-tree-view" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-custom-widget-tree-view/" class="article-date">
+  	<!-- <time datetime="2018-04-24T13:41:39.000Z" itemprop="datePublished">2018-04-24</time> -->
+    2018-04-24
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      QTreeView 小集
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>树形控件是非常常用的，例如组织结构、目录树、省市县的地区结构等都是典型的树形结构，Qt 里可以使用 QTreeView 和 QTreeWidget 来展示树形结构，这里我们只介绍 QTreeView 的使用，QTreeView 本身只用于树的显示，树的数据由 QStandardItemModel 来存储。</p>
+<h2 id="创建单列树"><a href="#创建单列树" class="headerlink" title="创建单列树"></a>创建单列树</h2><p>创建单列树的节点分两种情况：</p>
+<ul>
+<li>创建第一级节点调用函数 <code>QStandardItemModel::appendRow(QStandardItem *item)</code></li>
+<li>创建第二级、第三级等非第一级节点调用函数 <code>QStandardItem::(QStandardItem *item)</code></li>
+</ul>
+<p>下面的例子创建省市县的树形结构展示如何创建只有一列的树，为了更好的从变量名上看出地区的关系，使用数字和层级的方式进行命名，程序运行结果如下：</p>
+<p><img src="../img/qtbook/custom-widget/region-1.png"><span id="more"></span></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QApplication&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QTreeView&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QStandardItem&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QStandardItemModel&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="function">QApplication <span class="title">a</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line"></span><br><span class="line">    QStandardItemModel *model = <span class="keyword">new</span> <span class="built_in">QStandardItemModel</span>();</span><br><span class="line">    model-&gt;<span class="built_in">setHorizontalHeaderLabels</span>(<span class="built_in">QStringList</span>() &lt;&lt; <span class="string">&quot;省市县&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 省</span></span><br><span class="line">    QStandardItem *provinceItem_1   = <span class="keyword">new</span> <span class="built_in">QStandardItem</span>(<span class="string">&quot;山东省&quot;</span>);</span><br><span class="line">    QStandardItem *provinceItem_2   = <span class="keyword">new</span> <span class="built_in">QStandardItem</span>(<span class="string">&quot;江苏省&quot;</span>);</span><br><span class="line">    <span class="comment">// 市</span></span><br><span class="line">    QStandardItem *cityItem_1_1     = <span class="keyword">new</span> <span class="built_in">QStandardItem</span>(<span class="string">&quot;济南市&quot;</span>);</span><br><span class="line">    QStandardItem *cityItem_1_2     = <span class="keyword">new</span> <span class="built_in">QStandardItem</span>(<span class="string">&quot;青岛市&quot;</span>);</span><br><span class="line">    QStandardItem *cityItem_1_3     = <span class="keyword">new</span> <span class="built_in">QStandardItem</span>(<span class="string">&quot;淄博市&quot;</span>);</span><br><span class="line">    QStandardItem *cityItem_2_1     = <span class="keyword">new</span> <span class="built_in">QStandardItem</span>(<span class="string">&quot;南京市&quot;</span>);</span><br><span class="line">    QStandardItem *cityItem_2_2     = <span class="keyword">new</span> <span class="built_in">QStandardItem</span>(<span class="string">&quot;无锡市&quot;</span>);</span><br><span class="line">    QStandardItem *cityItem_2_3     = <span class="keyword">new</span> <span class="built_in">QStandardItem</span>(<span class="string">&quot;徐州市&quot;</span>);</span><br><span class="line">    <span class="comment">// 县</span></span><br><span class="line">    QStandardItem *countyItem_1_3_1 = <span class="keyword">new</span> <span class="built_in">QStandardItem</span>(<span class="string">&quot;即墨市&quot;</span>);</span><br><span class="line">    QStandardItem *countyItem_1_3_2 = <span class="keyword">new</span> <span class="built_in">QStandardItem</span>(<span class="string">&quot;城阳区&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [1] 创建一级节点：model 下创建省节点</span></span><br><span class="line">    model-&gt;<span class="built_in">appendRow</span>(provinceItem_1);</span><br><span class="line">    model-&gt;<span class="built_in">appendRow</span>(provinceItem_2);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [2] 创建二级节点：provinceItem 下创建市节点</span></span><br><span class="line">    provinceItem_1-&gt;<span class="built_in">appendRow</span>(cityItem_1_1);</span><br><span class="line">    provinceItem_1-&gt;<span class="built_in">appendRow</span>(cityItem_1_2);</span><br><span class="line">    provinceItem_1-&gt;<span class="built_in">appendRow</span>(cityItem_1_3);</span><br><span class="line"></span><br><span class="line">    provinceItem_2-&gt;<span class="built_in">appendRow</span>(cityItem_2_1);</span><br><span class="line">    provinceItem_2-&gt;<span class="built_in">appendRow</span>(cityItem_2_2);</span><br><span class="line">    provinceItem_2-&gt;<span class="built_in">appendRow</span>(cityItem_2_3);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [3] 创建三级节点：cityItem 下县节点</span></span><br><span class="line">    cityItem_1_3-&gt;<span class="built_in">appendRow</span>(countyItem_1_3_1);</span><br><span class="line">    cityItem_1_3-&gt;<span class="built_in">appendRow</span>(countyItem_1_3_2);</span><br><span class="line"></span><br><span class="line">    QTreeView *view = <span class="keyword">new</span> <span class="built_in">QTreeView</span>();</span><br><span class="line">    view-&gt;<span class="built_in">setModel</span>(model);</span><br><span class="line">    view-&gt;<span class="built_in">resize</span>(<span class="number">500</span>, <span class="number">500</span>);</span><br><span class="line">    view-&gt;<span class="built_in">show</span>();</span><br><span class="line">    view-&gt;<span class="built_in">expandAll</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> a.<span class="built_in">exec</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建多列树"><a href="#创建多列树" class="headerlink" title="创建多列树"></a>创建多列树</h2><p>创建多列树的节点也分两种情况：</p>
+<ul>
+<li>创建第一级节点调用函数 <code>QStandardItemModel::appendRow(const QList&lt;QStandardItem *&gt; &amp;items)</code></li>
+<li>创建第二级、第三级等非第一级节点调用函数 <code>QStandardItem::(const QList&lt;QStandardItem *&gt; &amp;items)</code></li>
+</ul>
+<p>和创建单列树时 appendRow 的区别只是参数不同，多列时为 QStandardItem 的 list，每列一个 QStandardItem，下面还是以上面创建省市县的树为例进行介绍创建多列的树，不过为了更好的展示创建多列部分，把数据的存储方式改变为 QMap，程序运行结果如下：</p>
+<p><img src="../img/qtbook/custom-widget/region-2.png"></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QApplication&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QTreeView&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QStandardItem&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QStandardItemModel&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QMap&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QList&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="function">QApplication <span class="title">a</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// key 为地区的名字 (第一级例外)，value 为此地区的下级地区名字的 list</span></span><br><span class="line">    QMap&lt;QString, QList&lt;QString&gt; &gt; regions;</span><br><span class="line">    regions[<span class="string">&quot;所有省&quot;</span>] = QList&lt;QString&gt;() &lt;&lt; <span class="string">&quot;山东省&quot;</span> &lt;&lt; <span class="string">&quot;江苏省&quot;</span>;</span><br><span class="line">    regions[<span class="string">&quot;山东省&quot;</span>] = QList&lt;QString&gt;() &lt;&lt; <span class="string">&quot;济南市&quot;</span> &lt;&lt; <span class="string">&quot;青岛市&quot;</span> &lt;&lt; <span class="string">&quot;淄博市&quot;</span>;</span><br><span class="line">    regions[<span class="string">&quot;江苏省&quot;</span>] = QList&lt;QString&gt;() &lt;&lt; <span class="string">&quot;南京市&quot;</span> &lt;&lt; <span class="string">&quot;无锡市&quot;</span> &lt;&lt; <span class="string">&quot;徐州市&quot;</span>;</span><br><span class="line">    regions[<span class="string">&quot;淄博市&quot;</span>] = QList&lt;QString&gt;() &lt;&lt; <span class="string">&quot;即墨市&quot;</span> &lt;&lt; <span class="string">&quot;城阳区&quot;</span>;</span><br><span class="line"></span><br><span class="line">    QStandardItemModel *model = <span class="keyword">new</span> <span class="built_in">QStandardItemModel</span>();</span><br><span class="line">    model-&gt;<span class="built_in">setHorizontalHeaderLabels</span>(<span class="built_in">QStringList</span>() &lt;&lt; <span class="string">&quot;省市县&quot;</span> &lt;&lt; <span class="string">&quot;序号&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 遍历所有的省，创建省的节点</span></span><br><span class="line">    <span class="keyword">int</span> n = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (QString province : regions.<span class="built_in">value</span>(<span class="string">&quot;所有省&quot;</span>)) &#123;</span><br><span class="line">        QStandardItem *provinceItem = <span class="keyword">new</span> <span class="built_in">QStandardItem</span>(province);</span><br><span class="line">        model-&gt;<span class="built_in">appendRow</span>(QList&lt;QStandardItem*&gt;() &lt;&lt; provinceItem &lt;&lt; <span class="keyword">new</span> <span class="built_in">QStandardItem</span>(QString::<span class="built_in">number</span>(++n))); <span class="comment">// [*] 创建了多列</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 遍历当前省下的市，创建市的节点</span></span><br><span class="line">        <span class="keyword">for</span> (QString city : regions.<span class="built_in">value</span>(province)) &#123;</span><br><span class="line">            QStandardItem *cityItem = <span class="keyword">new</span> <span class="built_in">QStandardItem</span>(city);</span><br><span class="line">            provinceItem-&gt;<span class="built_in">appendRow</span>(cityItem); <span class="comment">// [*] 只创建了一列</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">// 遍历当前市下的县，创建县的节点</span></span><br><span class="line">            <span class="keyword">for</span> (QString county : regions.<span class="built_in">value</span>(city)) &#123;</span><br><span class="line">                QStandardItem *countyItem = <span class="keyword">new</span> <span class="built_in">QStandardItem</span>(county);</span><br><span class="line">                cityItem-&gt;<span class="built_in">appendRow</span>(QList&lt;QStandardItem*&gt;() &lt;&lt; countyItem &lt;&lt; <span class="keyword">new</span> <span class="built_in">QStandardItem</span>(QString::<span class="built_in">number</span>(++n))); <span class="comment">// [*] 创建了多列</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    QTreeView *view = <span class="keyword">new</span> <span class="built_in">QTreeView</span>();</span><br><span class="line">    view-&gt;<span class="built_in">setModel</span>(model);</span><br><span class="line">    view-&gt;<span class="built_in">resize</span>(<span class="number">500</span>, <span class="number">500</span>);</span><br><span class="line">    view-&gt;<span class="built_in">setColumnWidth</span>(<span class="number">0</span>, <span class="number">150</span>);</span><br><span class="line">    view-&gt;<span class="built_in">show</span>();</span><br><span class="line">    view-&gt;<span class="built_in">expandAll</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> a.<span class="built_in">exec</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>提示：不需要每一行都同时创建同样的多列，单列和多列可以混用。</p>
+<p>有意思的是：</p>
+<ul>
+<li><p>如果 header 只有一个，并且第一级节点只创建了单列，即使非一级节点创建了多列，显示的结果仍然只有单列，修改相应的代码为：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">model-&gt;<span class="built_in">setHorizontalHeaderLabels</span>(<span class="built_in">QStringList</span>() &lt;&lt; <span class="string">&quot;省市县&quot;</span>);</span><br><span class="line">model-&gt;<span class="built_in">appendRow</span>(QList&lt;QStandardItem*&gt;() &lt;&lt; provinceItem);</span><br></pre></td></tr></table></figure></li>
+<li><p>如果 header 只有一个，即使第一级节点只创建了单列，但是非一级节点创建了多列，显示的结果会有多列，修改相应的代码为：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">model-&gt;<span class="built_in">setHorizontalHeaderLabels</span>(<span class="built_in">QStringList</span>() &lt;&lt; <span class="string">&quot;省市县&quot;</span>);</span><br><span class="line">model-&gt;<span class="built_in">appendRow</span>(QList&lt;QStandardItem*&gt;() &lt;&lt; provinceItem &lt;&lt; <span class="keyword">new</span> <span class="built_in">QStandardItem</span>(QString::<span class="built_in">number</span>(++n)));</span><br></pre></td></tr></table></figure></li>
+<li><p>如果 header 有多个，即使第一级节点只创建了单列，但是非一级节点创建了多列，显示的结果会有多列，修改相应的代码为：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">model-&gt;<span class="built_in">setHorizontalHeaderLabels</span>(<span class="built_in">QStringList</span>() &lt;&lt; <span class="string">&quot;省市县&quot;</span> &lt;&lt; <span class="string">&quot;序号&quot;</span>);</span><br><span class="line">model-&gt;<span class="built_in">appendRow</span>(QList&lt;QStandardItem*&gt;() &lt;&lt; provinceItem);</span><br></pre></td></tr></table></figure></li>
+</ul>
+</blockquote>
+<h2 id="导出树为-JSON"><a href="#导出树为-JSON" class="headerlink" title="导出树为 JSON"></a>导出树为 JSON</h2><p>基于上面创建单列树的代码 (创建树)，函数 <code>QString exportTreeToJson(QStandardItemModel *model)</code> 把树导出为 JSON 字符串 (因为 JSON 也是树的一种表现形式)：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QJsonObject&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QJsonArray&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QJsonDocument&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 导出树为 JSON 字符串</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @param model 树的 model</span></span><br><span class="line"><span class="comment"> * @return 返回树的 JSON 字符串表示</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">QString <span class="title">exportTreeToJson</span><span class="params">(QStandardItemModel *model)</span> </span>&#123;</span><br><span class="line">    QJsonArray provinces;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> row = <span class="number">0</span>; row &lt; model-&gt;<span class="built_in">rowCount</span>(); ++row) &#123;</span><br><span class="line">        provinces.<span class="built_in">append</span>(<span class="built_in">exportTreeNodeToJson</span>(model-&gt;<span class="built_in">item</span>(row)));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    QJsonObject root;</span><br><span class="line">    root.<span class="built_in">insert</span>(<span class="string">&quot;provinces&quot;</span>, provinces);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">QJsonDocument</span>(root).<span class="built_in">toJson</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 使用递归导出树的节点为 JSON 字符串</span></span><br><span class="line"><span class="comment"> * @param item 树的节点</span></span><br><span class="line"><span class="comment"> * @return 返回树的节点为 JSON 字符串</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">QJsonObject <span class="title">exportTreeNodeToJson</span><span class="params">(QStandardItem *item)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">NULL</span> == item) &#123; <span class="keyword">return</span> <span class="built_in">QJsonObject</span>(); &#125;</span><br><span class="line"></span><br><span class="line">    QJsonArray children; <span class="comment">// 子节点的 JSON 对象数组</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> row = <span class="number">0</span>; row &lt; item-&gt;<span class="built_in">rowCount</span>(); ++row) &#123;</span><br><span class="line"></span><br><span class="line">        children.<span class="built_in">append</span>(<span class="built_in">exportTreeNodeToJson</span>(item-&gt;<span class="built_in">child</span>(row))); <span class="comment">// 递归导出子节点</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    QJsonObject region;</span><br><span class="line">    region.<span class="built_in">insert</span>(<span class="string">&quot;name&quot;</span>, item-&gt;<span class="built_in">data</span>(Qt::DisplayRole).<span class="built_in">toString</span>());</span><br><span class="line">    region.<span class="built_in">insert</span>(<span class="string">&quot;children&quot;</span>, children);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> region;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>提示：</p>
+<ul>
+<li>这里只是展示了单列的导出，对于多列导出，就是获取对应列的 item 和 QJsonObject 再加一个属性的事情</li>
+<li>如果 item 使用 <code>setData</code> 设置了其他数据，也应该使用函数 <code>QStandardItem::data</code> 取出数据并添加到 QJsonObject 的属性中</li>
+</ul>
+</blockquote>
+<h2 id="导入-JSON-创建树"><a href="#导入-JSON-创建树" class="headerlink" title="导入 JSON 创建树"></a>导入 JSON 创建树</h2><p>函数 <code>void importTreeFromJson(QStandardItemModel *model, const QString &amp;json)</code> 导入 JSON 字符串创建树，也是需要注意创建一级节点和非一级节点的不同：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 导入 JOSN 字符串创建树</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @param model 树的 model</span></span><br><span class="line"><span class="comment"> * @param json  树的 JSON 字符串</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">importTreeFromJson</span><span class="params">(QStandardItemModel *model, <span class="keyword">const</span> QString &amp;json)</span> </span>&#123;</span><br><span class="line">    QJsonObject root = QJsonDocument::<span class="built_in">fromJson</span>(json.<span class="built_in">toUtf8</span>()).<span class="built_in">object</span>();</span><br><span class="line">    QJsonArray provinces = root.<span class="built_in">value</span>(<span class="string">&quot;provinces&quot;</span>).<span class="built_in">toArray</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (QJsonArray::const_iterator iter = provinces.<span class="built_in">begin</span>(); iter != provinces.<span class="built_in">end</span>(); ++iter) &#123;</span><br><span class="line">        QJsonObject province = iter-&gt;<span class="built_in">toObject</span>();</span><br><span class="line">        <span class="built_in">createTreeNode</span>(model, province, <span class="literal">NULL</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 递归创建树的节点</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @param model 树的 model</span></span><br><span class="line"><span class="comment"> * @param node  树的 QJsonObject 节点对象</span></span><br><span class="line"><span class="comment"> * @param parentItem 要在此 item 下创建 node 表示的子节点</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">createTreeNode</span><span class="params">(QStandardItemModel *model, <span class="keyword">const</span> QJsonObject &amp;node, QStandardItem *parentItem)</span> </span>&#123;</span><br><span class="line">    QString name = node.<span class="built_in">value</span>(<span class="string">&quot;name&quot;</span>).<span class="built_in">toString</span>();</span><br><span class="line">    QStandardItem *item = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">NULL</span> == parentItem) &#123;</span><br><span class="line">        <span class="comment">// parentItem 为 NULL 时表示创建树的一级节点，需要使用 model 创建不</span></span><br><span class="line">        parentItem = <span class="keyword">new</span> <span class="built_in">QStandardItem</span>(name);</span><br><span class="line">        model-&gt;<span class="built_in">appendRow</span>(parentItem);</span><br><span class="line">        item = parentItem;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// parentItem 不为 NULL 时表示创建树的非一级节点，直接用 parentItem 创建</span></span><br><span class="line">        item = <span class="keyword">new</span> <span class="built_in">QStandardItem</span>(name);</span><br><span class="line">        parentItem-&gt;<span class="built_in">appendRow</span>(item);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    QJsonArray children = node.<span class="built_in">value</span>(<span class="string">&quot;children&quot;</span>).<span class="built_in">toArray</span>();</span><br><span class="line">    <span class="keyword">for</span> (QJsonArray::const_iterator iter = children.<span class="built_in">begin</span>(); iter != children.<span class="built_in">end</span>(); ++iter) &#123;</span><br><span class="line">        QJsonObject child = iter-&gt;<span class="built_in">toObject</span>();</span><br><span class="line">        <span class="built_in">createTreeNode</span>(model, child, item);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>借助上面已经提供的创建树和导出树为 JSON 的功能，演示导入 JSON 创建树的使用方法：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">QString json = <span class="built_in">exportTreeToJson</span>(model); <span class="comment">// 导出树为 JSON 字符串，model 不在 view 中显示，只是用于创建树的数据</span></span><br><span class="line">QStandardItemModel *model2 = <span class="keyword">new</span> <span class="built_in">QStandardItemModel</span>(); <span class="comment">// 新建 model2，在 view 中显示</span></span><br><span class="line">model2-&gt;<span class="built_in">setHorizontalHeaderLabels</span>(<span class="built_in">QStringList</span>() &lt;&lt; <span class="string">&quot;省市县&quot;</span>);</span><br><span class="line"><span class="built_in">importTreeFromJson</span>(model2, json); <span class="comment">// 导入 JOSN 字符串创建树的 model2</span></span><br><span class="line"></span><br><span class="line">QTreeView *view = <span class="keyword">new</span> <span class="built_in">QTreeView</span>();</span><br><span class="line">view-&gt;<span class="built_in">setModel</span>(model2);</span><br></pre></td></tr></table></figure>
+
+<h2 id="事件处理"><a href="#事件处理" class="headerlink" title="事件处理"></a>事件处理</h2><p>树的常用信号有 2 个：<code>clicked</code> 和 <code>itemChanged</code>：</p>
+<ul>
+<li><p>点击树的节点，view 发射信号 <code>void QAbstractItemView::clicked(const QModelIndex &amp;index)</code> (还有 pressed，但有区别)：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">QObject::<span class="built_in">connect</span>(view, &amp;QTreeView::clicked, [=] (<span class="keyword">const</span> QModelIndex &amp;index) &#123;</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; index.<span class="built_in">data</span>().<span class="built_in">toString</span>();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
+<li><p>被选中节点变化后，view 的 selectionModel 发射信号 <code>void currentChanged(const QModelIndex &amp;current, const QModelIndex &amp;previous)</code>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">connect</span>(view-&gt;<span class="built_in">selectionModel</span>(), &amp;QItemSelectionModel::currentChanged,</span><br><span class="line">            [<span class="keyword">this</span>](<span class="keyword">const</span> QModelIndex &amp;index) &#123;</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; index.<span class="built_in">data</span>().<span class="built_in">toString</span>();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>此信号是非常有用的，例如要显示选中节点的信息，如果使用 clicked 来实现，则点击节点的时候能够正确的显示出选中节点的信息，但是当删除被选中的节点时，其他节点自动变为被选中状态，但这时被选中节点的信息并没有显示出来，因为这时没有发射信号 clicked，而使用 selectionModel 的 currentChanged 的话就能正确处理这种情况。此外和节点选中状态变化还有相关的信号还有 <strong>currentRowChanged</strong>、<strong>currentColumnChanged</strong>、<strong>selectionChanged</strong> 等，更详细的信息请阅读帮助文档。</p>
+</blockquote>
+</li>
+<li><p>编辑树的节点，model 发射信号 <code>void QStandardItemModel::itemChanged(QStandardItem *item)</code> ：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">QObject::<span class="built_in">connect</span>(model, &amp;QStandardItemModel::itemChanged, [=] (QStandardItem *item) &#123;</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; item-&gt;<span class="built_in">data</span>(Qt::DisplayRole).<span class="built_in">toString</span>();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="右键菜单"><a href="#右键菜单" class="headerlink" title="右键菜单"></a>右键菜单</h2><p>QTreeView 上增加右键菜单很简单，有点困难的可能就是要得到右键点击处的节点，动态显示菜单项：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// [1] 菜单项的 Action</span></span><br><span class="line">QAction *createAction = <span class="keyword">new</span> <span class="built_in">QAction</span>(<span class="string">&quot;创建&quot;</span>, view);</span><br><span class="line">QAction *deleteAction = <span class="keyword">new</span> <span class="built_in">QAction</span>(<span class="string">&quot;删除&quot;</span>, view);</span><br><span class="line"></span><br><span class="line"><span class="comment">// [2] 设置右键菜单的策略</span></span><br><span class="line">view-&gt;<span class="built_in">setContextMenuPolicy</span>(Qt::CustomContextMenu);</span><br><span class="line"></span><br><span class="line"><span class="comment">// [3] 显示右键菜单的信号槽</span></span><br><span class="line">QObject::<span class="built_in">connect</span>(view, &amp;QTreeView::customContextMenuRequested, [=] &#123;</span><br><span class="line">    QMenu menu;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [4] 获取右键菜单点击的树的节点 (QTableView, QListView 里也可以这么用)</span></span><br><span class="line">    QPoint posAtViewport = view-&gt;<span class="built_in">viewport</span>()-&gt;<span class="built_in">mapFromGlobal</span>(QCursor::<span class="built_in">pos</span>());</span><br><span class="line">    QModelIndex index = view-&gt;<span class="built_in">indexAt</span>(posAtViewport);</span><br><span class="line"></span><br><span class="line">    menu.<span class="built_in">addAction</span>(createAction);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [5] 根据节点的特点动态显示菜单项，点击到树的节点时才显示删除菜单项</span></span><br><span class="line">    <span class="keyword">if</span> (index.<span class="built_in">isValid</span>()) &#123;</span><br><span class="line">        menu.<span class="built_in">addAction</span>(deleteAction);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    menu.<span class="built_in">exec</span>(QCursor::<span class="built_in">pos</span>());</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Context menu 中文翻译成了右键菜单其实是不准确的，context menu 的意思很明确，根据右键点击处的环境信息显示相关的菜单，就像我们的这个例子，点击节点的时候显示创建和删除 2 个菜单项，点击非节点时只显示创建的菜单项，而不是一成不变的显示同样的菜单项，context menu 能表达出这个意思，而中文的右键菜单丢失了这个信息。</p>
+<p>需要注意的是，获取鼠标点击处的 index 参考的坐标是 viewport 的，而不是 tree view 的。</p>
+</blockquote>
+<h2 id="插入节点"><a href="#插入节点" class="headerlink" title="插入节点"></a>插入节点</h2><p>在选中的节点位置前插入一个节点，关键是找到这个节点的父节点和它在父节点中的位置，如果父节点有效则插入到父节点下，否则就插入到 model 中 (即成为第一级节点)：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">QModelIndex current = view-&gt;<span class="built_in">selectionModel</span>()-&gt;<span class="built_in">currentIndex</span>(); <span class="comment">// 当前选中的节点</span></span><br><span class="line">QModelIndex parent  = current.<span class="built_in">parent</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (current.<span class="built_in">isValid</span>() &amp;&amp; parent.<span class="built_in">isValid</span>()) &#123;</span><br><span class="line">    model-&gt;<span class="built_in">itemFromIndex</span>(parent)-&gt;<span class="built_in">insertRow</span>(current.<span class="built_in">row</span>(), <span class="keyword">new</span> <span class="built_in">QStandardItem</span>(<span class="string">&quot;new node&quot;</span>));</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (current.<span class="built_in">isValid</span>()) &#123;</span><br><span class="line">    model-&gt;<span class="built_in">insertRow</span>(current.<span class="built_in">row</span>(), <span class="keyword">new</span> <span class="built_in">QStandardItem</span>(<span class="string">&quot;new node&quot;</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>提示：如果一行中有多列，即同一行中有多个 item，所有 item 的 parent 都是同一个，即为 column 为 0 的 item。</p>
+</blockquote>
+<h2 id="启用拖拽"><a href="#启用拖拽" class="headerlink" title="启用拖拽"></a>启用拖拽</h2><p>QTreeView 已经提供了拖拽的功能，但默认没有启用，启用拖拽如下调用几行代码即可：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">view-&gt;<span class="built_in">setDragEnabled</span>(<span class="literal">true</span>);</span><br><span class="line">view-&gt;<span class="built_in">setAcceptDrops</span>(<span class="literal">true</span>);</span><br><span class="line">view-&gt;<span class="built_in">setDropIndicatorShown</span>(<span class="literal">true</span>);</span><br><span class="line">view-&gt;<span class="built_in">setDragDropMode</span>(QAbstractItemView::InternalMove);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：这里的拖拽只能是在同一棵树内部进行拖拽，如果要实现不同的树或者树和其他 Widget 之间的通讯需要默认的拖拽功能满足不了，需要做更多的工作。</p>
+</blockquote>
+<h2 id="拖拽控制"><a href="#拖拽控制" class="headerlink" title="拖拽控制"></a>拖拽控制</h2><p>我们已经知道怎么启用树的拖拽功能，对于单列的树上面的代码没有任何问题，但是对于多列的树，拖到第一列上放下没问题，但是拖放到非第一列上会发现被拖拽的行消失了，为了解决这个问题，需要自定义 model，重写 <code>canDropMimeData</code> 来控制拖放的功能，参考下面的 RegionModel 实现：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> REGIONMODEL_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> REGIONMODEL_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QStandardItemModel&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RegionModel</span> :</span> <span class="keyword">public</span> QStandardItemModel &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">RegionModel</span>(QObject *parent = <span class="number">0</span>);</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">canDropMimeData</span><span class="params">(<span class="keyword">const</span> QMimeData *data, Qt::DropAction action,</span></span></span><br><span class="line"><span class="params"><span class="function">                         <span class="keyword">int</span> row, <span class="keyword">int</span> column,</span></span></span><br><span class="line"><span class="params"><span class="function">                         <span class="keyword">const</span> QModelIndex &amp;parent)</span> <span class="keyword">const</span> <span class="keyword">override</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// REGIONMODEL_H</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;RegionModel.h&quot;</span></span></span><br><span class="line"></span><br><span class="line">RegionModel::<span class="built_in">RegionModel</span>(QObject *parent) : <span class="built_in">QStandardItemModel</span>(parent) &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 返回 true 允许拖放，返回 false 禁止拖放</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">RegionModel::canDropMimeData</span><span class="params">(<span class="keyword">const</span> QMimeData *data,</span></span></span><br><span class="line"><span class="params"><span class="function">                                  Qt::DropAction action,</span></span></span><br><span class="line"><span class="params"><span class="function">                                  <span class="keyword">int</span> row, <span class="keyword">int</span> column,</span></span></span><br><span class="line"><span class="params"><span class="function">                                  <span class="keyword">const</span> QModelIndex &amp;parent)</span> <span class="keyword">const</span> </span>&#123;</span><br><span class="line">    <span class="built_in">Q_UNUSED</span>(data);</span><br><span class="line">    <span class="built_in">Q_UNUSED</span>(action);</span><br><span class="line">    <span class="built_in">Q_UNUSED</span>(row);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 只允许拖放到第 0 列</span></span><br><span class="line">    <span class="keyword">if</span> (column &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (parent.<span class="built_in">isValid</span>() &amp;&amp; parent.<span class="built_in">column</span>() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>canDropMimeData 的参数中需要作一些说明的是 parent，parent 有 3 中情况：</p>
+<ul>
+<li><code>parent.isValid()</code> 返回 false：拖放到任意 2 个一级节点中间，或者在 QTreeView 上但不在任何一个节点上</li>
+<li><code>parent.isValid()</code> 返回 true：拖放到 2 个非一级节点 A, B 中间，则 parent 为节点 A, B 的父节点</li>
+<li><code>parent.isValid()</code> 返回 true：拖放到节点 A 上，则 parent 为节点 A</li>
+</ul>
+<p>当 canDropMimeData 返回 true，松开鼠标后，把被拖拽的节点插入到 parent 下面 (<code>parent.isValid()</code> 返回 false 时创建的是第一级节点)。</p>
+<p>在 canDropMimeData 中可以做很多的控制，例如类型一的节点只能拖放到类型二的节点上，不允许拖放到类型三的节点上。为了实现这个功能需要对每个 item 设置类型的数据，如 <code>item-&gt;setData(&quot;二&quot;，Qt::UserRole+2)</code>，还要获取被拖拽的节点，可以在 <code>QMimeData* QStandardItemModel::mimeData(const QModelIndexList &amp;indexes) const</code> 中获取并保存起来 (indexes 就是被拖拽的节点)，下面是实际项目中的代码片段：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">QMimeData *<span class="title">BooksModel::mimeData</span><span class="params">(<span class="keyword">const</span> QModelIndexList &amp;indexes)</span> <span class="keyword">const</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 记住被拖拽的 index</span></span><br><span class="line">    BooksModel *self = <span class="keyword">const_cast</span>&lt;BooksModel*&gt;(<span class="keyword">this</span>);</span><br><span class="line">    self-&gt;draggedIndex = indexes.<span class="built_in">size</span>() &gt; <span class="number">0</span> ? indexes[<span class="number">0</span>] : <span class="built_in">QModelIndex</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> QStandardItemModel::<span class="built_in">mimeData</span>(indexes);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来在 canDropMimeData 中获取类型进行判断即可：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">BooksModel::canDropMimeData</span><span class="params">(<span class="keyword">const</span> QMimeData *data, Qt::DropAction action,</span></span></span><br><span class="line"><span class="params"><span class="function">                                 <span class="keyword">int</span> row, <span class="keyword">int</span> column,</span></span></span><br><span class="line"><span class="params"><span class="function">                                 <span class="keyword">const</span> QModelIndex &amp;parent)</span> <span class="keyword">const</span> </span>&#123;</span><br><span class="line">    <span class="built_in">Q_UNUSED</span>(data);</span><br><span class="line">    <span class="built_in">Q_UNUSED</span>(action);</span><br><span class="line">    <span class="built_in">Q_UNUSED</span>(row);</span><br><span class="line">    <span class="built_in">Q_UNUSED</span>(column);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">false</span>) &#123; <span class="comment">// 输出用于调试观察不同状态时的值</span></span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; <span class="built_in">QString</span>(<span class="string">&quot;Current: [%1, %2], Parent: [%3, %4]-%5 - %6&quot;</span>)</span><br><span class="line">                    .<span class="built_in">arg</span>(row).<span class="built_in">arg</span>(column)</span><br><span class="line">                    .<span class="built_in">arg</span>(parent.<span class="built_in">row</span>()).<span class="built_in">arg</span>(parent.<span class="built_in">column</span>())</span><br><span class="line">                    .<span class="built_in">arg</span>(parent.<span class="built_in">data</span>().<span class="built_in">toString</span>()).<span class="built_in">arg</span>(parent.<span class="built_in">isValid</span>() ? <span class="string">&quot;true&quot;</span> : <span class="string">&quot;false&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    QString parentType  = parent.<span class="built_in">data</span>(ROLE_TYPE).<span class="built_in">toString</span>();</span><br><span class="line">    QString currentType = draggedIndex.<span class="built_in">data</span>(ROLE_TYPE).<span class="built_in">toString</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 1. 阶段只允许拖拽到根节点上</span></span><br><span class="line">    <span class="comment">// 2. 学科只允许拖拽到阶段上</span></span><br><span class="line">    <span class="comment">// 3. 教材只允许拖拽到学科上</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (TYPE_PHASE == currentType &amp;&amp; !parent.<span class="built_in">isValid</span>()) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (TYPE_SUBJECT == currentType &amp;&amp; TYPE_PHASE == parentType) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (TYPE_BOOK == currentType &amp;&amp; TYPE_SUBJECT == parentType) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="拖拽完全控制"><a href="#拖拽完全控制" class="headerlink" title="拖拽完全控制"></a>拖拽完全控制</h2><p>可以实现不同的 widget 拖拽到 QTreeView, QTableView, QListView 上，对拖拽进行复杂的控制，一般需要重写 QStandardItemModel 的以下几个方法：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Qt::ItemFlags <span class="title">QAbstractItemModel::flags</span><span class="params">(<span class="keyword">const</span> QModelIndex &amp;index)</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function">Qt::DropActions <span class="title">QAbstractItemModel::supportedDragActions</span><span class="params">()</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function">QStringList <span class="title">QAbstractItemModel::mimeTypes</span><span class="params">()</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">QAbstractItemModel::canDropMimeData</span><span class="params">(<span class="keyword">const</span> QMimeData *data, Qt::DropAction action, <span class="keyword">int</span> row, <span class="keyword">int</span> column, <span class="keyword">const</span> QModelIndex &amp;parent)</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">DragDropListModel::canDropMimeData</span><span class="params">(<span class="keyword">const</span> QMimeData *data, Qt::DropAction action, <span class="keyword">int</span> row, <span class="keyword">int</span> column, <span class="keyword">const</span> QModelIndex &amp;parent)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">DragDropListModel::dropMimeData</span><span class="params">(<span class="keyword">const</span> QMimeData *data, Qt::DropAction action, <span class="keyword">int</span> row, <span class="keyword">int</span> column, <span class="keyword">const</span> QModelIndex &amp;parent)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>Qt Creator 中搜索帮助文档 <strong>Model/View Programming</strong>，找到 <strong>Using Drag and Drop with Item Views</strong> 一节，里面有示例对这几个函数的使用进行了简要的介绍，对于理解它们非常有帮助。此外，看懂了这一篇文章和 <strong>Model/View Tutorial</strong>，对 Qt 的 Model/View 编程几乎就能完全掌握了。</p>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/spring-mvc-path-with-dot/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          SpringMVC 使用 @PathVariable 获取有 . 的 URL 中的变量
+        
+      </div>
+    </a>
+  
+  
+    <a href="/qt-png-iccp-warning/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">去掉 png 图片的 iCCP 警告</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

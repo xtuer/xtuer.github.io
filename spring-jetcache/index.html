@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Spring MVC 中使用 JetCache | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="JetCache 是一个基于 Java 的缓存系统封装，提供统一的API和注解来简化缓存的使用。 JetCache 提供了比 SpringCache 更加强大的注解，可以原生的支持 TTL、两级缓存、分布式自动刷新，还提供了 Cache 接口用于手工缓存操作。 当前有四个实现，RedisCache、TairCache (此部分未在 github 开源)、CaffeineCache (in memo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring MVC 中使用 JetCache">
+<meta property="og:url" content="http://xtuer.github.io/spring-jetcache/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="JetCache 是一个基于 Java 的缓存系统封装，提供统一的API和注解来简化缓存的使用。 JetCache 提供了比 SpringCache 更加强大的注解，可以原生的支持 TTL、两级缓存、分布式自动刷新，还提供了 Cache 接口用于手工缓存操作。 当前有四个实现，RedisCache、TairCache (此部分未在 github 开源)、CaffeineCache (in memo">
+<meta property="og:locale">
+<meta property="article:published_time" content="2019-07-17T13:49:33.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.181Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="SpringMVC">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81Gradle-%E4%BE%9D%E8%B5%96"><span class="toc-text">一、Gradle 依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81JVM-%E8%AE%BE%E7%BD%AE"><span class="toc-text">二、JVM 设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81JetCache-%E9%85%8D%E7%BD%AE"><span class="toc-text">三、JetCache 配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%8A%A0%E8%BD%BD-JetCache-%E9%85%8D%E7%BD%AE"><span class="toc-text">四、加载 JetCache 配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81Service-%E5%92%8C-Controller"><span class="toc-text">五、Service 和 Controller</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E7%BC%93%E5%AD%98%E6%B5%8B%E8%AF%95"><span class="toc-text">六、缓存测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E8%A1%A5%E5%85%85%E8%AF%B4%E6%98%8E"><span class="toc-text">七、补充说明</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-spring-jetcache" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/spring-jetcache/" class="article-date">
+  	<!-- <time datetime="2019-07-17T13:49:33.000Z" itemprop="datePublished">2019-07-17</time> -->
+    2019-07-17
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Spring MVC 中使用 JetCache
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringMVC/" rel="tag">SpringMVC</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p><a target="_blank" rel="noopener" href="https://github.com/alibaba/jetcache/wiki">JetCache</a> 是一个基于 Java 的缓存系统封装，提供统一的API和注解来简化缓存的使用。 JetCache 提供了比 SpringCache 更加强大的注解，可以原生的支持 TTL、两级缓存、分布式自动刷新，还提供了 <code>Cache</code> 接口用于手工缓存操作。 当前有四个实现，<code>RedisCache</code>、<code>TairCache</code> (此部分未在 github 开源)、<code>CaffeineCache</code> (in memory) 和一个简易的<code>LinkedHashMapCache</code> (in memory)，要添加新的实现也是非常简单的。</p>
+<p>网上很多文章介绍 JetCache 的文章包括官方文档主要是基于 Spring Boot 的，也介绍了<a target="_blank" rel="noopener" href="https://github.com/alibaba/jetcache/wiki/GettingStarted_CN#%E6%9C%AA%E4%BD%BF%E7%94%A8springboot%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%B9%E5%BC%8F">未使用 SpringBoot 的配置方式</a>，但是估计很多同学还是不明白怎么在传统的 Spring MVC 的 Web 项目里使用 JetCache 吧，毕竟不是所有 Web 项目都使用 Spring Boot，接下来就一步一步的介绍使用的方法。<span id="more"></span></p>
+<blockquote>
+<p>提示: </p>
+<ul>
+<li>JetCache 需要 Java 8，并且指定 javac 的 -parameters 参数</li>
+<li>JetCache 有 3 个重要的注解: <code>@Cached</code>, <code>@CacheUpdate</code>, <code>@CacheInvalidate</code>，详细文档请参考 <a target="_blank" rel="noopener" href="https://github.com/alibaba/jetcache/wiki/MethodCache_CN">MethodCache_CN</a></li>
+<li>JetCache 不支持 Redis 的 Hash, List, Set 等，如果需要的话，使用 client 进行访问吧</li>
+</ul>
+</blockquote>
+<h2 id="一、Gradle-依赖"><a href="#一、Gradle-依赖" class="headerlink" title="一、Gradle 依赖"></a>一、Gradle 依赖</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    compile <span class="attr">group:</span> <span class="string">&#x27;com.alicp.jetcache&#x27;</span>, <span class="attr">name:</span> <span class="string">&#x27;jetcache-anno&#x27;</span>, <span class="attr">version:</span> <span class="string">&#x27;2.5.13&#x27;</span></span><br><span class="line">    compile <span class="attr">group:</span> <span class="string">&#x27;com.alicp.jetcache&#x27;</span>, <span class="attr">name:</span> <span class="string">&#x27;jetcache-redis&#x27;</span>, <span class="attr">version:</span> <span class="string">&#x27;2.5.13&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="二、JVM-设置"><a href="#二、JVM-设置" class="headerlink" title="二、JVM 设置"></a>二、JVM 设置</h2><p>JetCache 需要 Java 8，并且指定 javac 的 -parameters 参数，在 build.gradle 中设置 JVM 相关信息如下:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sourceCompatibility = JavaVersion.VERSION_1_8</span><br><span class="line">targetCompatibility = JavaVersion.VERSION_1_8</span><br><span class="line">[compileJava, compileTestJava, javadoc]*.options*.encoding = <span class="string">&#x27;UTF-8&#x27;</span></span><br><span class="line"></span><br><span class="line">compileJava &#123;</span><br><span class="line">    options.compilerArgs &lt;&lt; <span class="string">&#x27;-Xlint:unchecked&#x27;</span> &lt;&lt; <span class="string">&#x27;-Xlint:deprecation&#x27;</span> &lt;&lt; <span class="string">&#x27;-parameters&#x27;</span></span><br><span class="line">    options.forkOptions.jvmArgs &lt;&lt; <span class="string">&#x27;-parameters&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="三、JetCache-配置"><a href="#三、JetCache-配置" class="headerlink" title="三、JetCache 配置"></a>三、JetCache 配置</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.alicp.jetcache.CacheBuilder;</span><br><span class="line"><span class="keyword">import</span> com.alicp.jetcache.anno.CacheConsts;</span><br><span class="line"><span class="keyword">import</span> com.alicp.jetcache.anno.config.EnableCreateCacheAnnotation;</span><br><span class="line"><span class="keyword">import</span> com.alicp.jetcache.anno.config.EnableMethodCache;</span><br><span class="line"><span class="keyword">import</span> com.alicp.jetcache.anno.support.GlobalCacheConfig;</span><br><span class="line"><span class="keyword">import</span> com.alicp.jetcache.anno.support.SpringConfigProvider;</span><br><span class="line"><span class="keyword">import</span> com.alicp.jetcache.embedded.EmbeddedCacheBuilder;</span><br><span class="line"><span class="keyword">import</span> com.alicp.jetcache.embedded.LinkedHashMapCacheBuilder;</span><br><span class="line"><span class="keyword">import</span> com.alicp.jetcache.redis.RedisCacheBuilder;</span><br><span class="line"><span class="keyword">import</span> com.alicp.jetcache.support.FastjsonKeyConvertor;</span><br><span class="line"><span class="keyword">import</span> com.alicp.jetcache.support.JavaValueDecoder;</span><br><span class="line"><span class="keyword">import</span> com.alicp.jetcache.support.JavaValueEncoder;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.pool2.impl.GenericObjectPoolConfig;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> redis.clients.jedis.Jedis;</span><br><span class="line"><span class="keyword">import</span> redis.clients.jedis.JedisPool;</span><br><span class="line"><span class="keyword">import</span> redis.clients.util.Pool;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * JetCache 的配置</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableMethodCache(basePackages = &quot;com.xtuer.service&quot;)</span></span><br><span class="line"><span class="meta">@EnableCreateCacheAnnotation</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JetCacheConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Pool&lt;Jedis&gt; <span class="title">pool</span><span class="params">()</span></span>&#123;</span><br><span class="line">        GenericObjectPoolConfig pc = <span class="keyword">new</span> GenericObjectPoolConfig();</span><br><span class="line">        pc.setMinIdle(<span class="number">2</span>);</span><br><span class="line">        pc.setMaxIdle(<span class="number">10</span>);</span><br><span class="line">        pc.setMaxTotal(<span class="number">10</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> JedisPool(pc, <span class="string">&quot;localhost&quot;</span>, <span class="number">6379</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> SpringConfigProvider <span class="title">springConfigProvider</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> SpringConfigProvider();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> GlobalCacheConfig <span class="title">config</span><span class="params">(SpringConfigProvider configProvider, Pool&lt;Jedis&gt; pool)</span></span>&#123;</span><br><span class="line">        Map&lt;String, CacheBuilder&gt; localBuilders = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        EmbeddedCacheBuilder localBuilder = LinkedHashMapCacheBuilder</span><br><span class="line">                .createLinkedHashMapCacheBuilder()</span><br><span class="line">                .keyConvertor(FastjsonKeyConvertor.INSTANCE);</span><br><span class="line">        localBuilders.put(CacheConsts.DEFAULT_AREA, localBuilder);</span><br><span class="line"></span><br><span class="line">        Map&lt;String, CacheBuilder&gt; remoteBuilders = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        RedisCacheBuilder remoteCacheBuilder = RedisCacheBuilder.createRedisCacheBuilder()</span><br><span class="line">                .keyConvertor(FastjsonKeyConvertor.INSTANCE)</span><br><span class="line">                .valueEncoder(JavaValueEncoder.INSTANCE)  <span class="comment">// 可替换为 KryoValueEncoder.INSTANCE</span></span><br><span class="line">                .valueDecoder(JavaValueDecoder.INSTANCE)  <span class="comment">// 可替换为 KryoValueDecoder.INSTANCE</span></span><br><span class="line">                .expireAfterWrite(<span class="number">3600</span>, TimeUnit.SECONDS) <span class="comment">// 全局 expire，@Cached 能够指定自己的 expire</span></span><br><span class="line">                .jedisPool(pool);</span><br><span class="line">        remoteBuilders.put(CacheConsts.DEFAULT_AREA, remoteCacheBuilder);</span><br><span class="line"></span><br><span class="line">        GlobalCacheConfig globalCacheConfig = <span class="keyword">new</span> GlobalCacheConfig();</span><br><span class="line">        globalCacheConfig.setConfigProvider(configProvider);</span><br><span class="line">        globalCacheConfig.setLocalCacheBuilders(localBuilders);</span><br><span class="line">        globalCacheConfig.setRemoteCacheBuilders(remoteBuilders);</span><br><span class="line">        globalCacheConfig.setStatIntervalMinutes(<span class="number">15</span>);</span><br><span class="line">        globalCacheConfig.setAreaInCacheName(<span class="keyword">false</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> globalCacheConfig;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>提示: 使用 JavaValueEncoder 进行缓存的 Bean 需要实现 Serializable 接口，使用 KryoValueEncoder 进行缓存的 Bean 不需要实现 Serializable 接口，并且性能更好。</p>
+</blockquote>
+<h2 id="四、加载-JetCache-配置"><a href="#四、加载-JetCache-配置" class="headerlink" title="四、加载 JetCache 配置"></a>四、加载 JetCache 配置</h2><p>在 Spring MVC 项目的 xml 配置文件中使用自动扫描包创建 JetCacheConfig 的对象或者手动创建，下面使用自动扫描的方式:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">&quot;com.xtuer.config&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="五、Service-和-Controller"><a href="#五、Service-和-Controller" class="headerlink" title="五、Service 和 Controller"></a>五、Service 和 Controller</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.service;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.alicp.jetcache.anno.CacheInvalidate;</span><br><span class="line"><span class="keyword">import</span> com.alicp.jetcache.anno.Cached;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Service;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloService</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Cached(name = &quot;user.&quot;, key = &quot;#userId&quot;, expire = 600)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getUsernameById</span><span class="params">(<span class="keyword">long</span> userId)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Fetch username from DB&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Bob&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@CacheInvalidate(name = &quot;user.&quot;, key = &quot;#userId&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">removeUsername</span><span class="params">(<span class="keyword">long</span> userId)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Remove user from Redis&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.xtuer.service.HelloService;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> HelloService helloService;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 网址: http://localhost:8080/api/cache</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/api/cache&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">cache</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> helloService.getUsernameById(<span class="number">10</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 网址: http://localhost:8080/api/cache-invalidate</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/api/cache-invalidate&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">cacheInvalidate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        helloService.removeUsername(<span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;OK&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="六、缓存测试"><a href="#六、缓存测试" class="headerlink" title="六、缓存测试"></a>六、缓存测试</h2><p>上面就是所有需要的代码和设置，然后启动项目进行测试:</p>
+<ol>
+<li>启动 Redis</li>
+<li>启动 Web 项目</li>
+<li>浏览器中输入 <a target="_blank" rel="noopener" href="http://localhost:8080/api/cache">http://localhost:8080/api/cache</a>，可以看到控制台输出 <code>Get from db</code>，Redis 中创建了缓存</li>
+<li>再次刷新缓存，控制台不再输出，直接从 Redis 中读取</li>
+<li>浏览器输入 <a target="_blank" rel="noopener" href="http://localhost:8080/api/cache-invalidate">http://localhost:8080/api/cache-invalidate</a>，发现 Redis 中的缓存被删除了</li>
+</ol>
+<h2 id="七、补充说明"><a href="#七、补充说明" class="headerlink" title="七、补充说明"></a>七、补充说明</h2><p>以下几点需要注意一下:</p>
+<ul>
+<li><p><code>@Cached</code> </p>
+<ul>
+<li>cacheType： 默认为 <code>CacheType.REMOTE</code>，使用 Redis 作为缓存</li>
+<li>name: 为缓存对象的名字，一个 name 对应一个 cache 对象，使用 Redis 缓存时 name 作为 Redis Key 的前缀，同一个 area 中不同作用的 <code>@Cached</code> 的 name 最好设置为不同的值，例如用户的缓存，试卷的缓存使用不同的名字，这样有利于查看不同缓存的统计信息，参考最后的缓存信息统计</li>
+<li>key: 使用 <strong>SpEL</strong> 表达式，可以使用字符串连接构建复杂的 key，例如 <code>@Cached(name = &quot;user.&quot;, key = &quot;#userId + &#39;.name&#39;&quot;, expire = 600)</code> 生成的 key 如 user.10000.name，user.20002.name，如果不指定 name，则自动生成一个，如 **c.x.s.HelloService.getUsernameById(J)**，这样在 <code>@CacheInvalidate</code> 的时候就不知道缓存对象的名字而无法删除缓存了，所以如果需要删除缓存时一定要手动指定缓存的名字</li>
+</ul>
+</li>
+<li><p>null: 默认 null 值是不会被缓存</p>
+</li>
+<li><p>被缓存的对象需要实现 <code>Serializable</code> 接口</p>
+</li>
+<li><p>在同一个类中调用本类的另一个方法没有触发 AOP 的问题，也即 <code>@Cached</code> 注解不生效，这是常见的 Spring AOP 嵌套调用时内部 AOP 失效的问题，例如</p>
+<p>service.funcB() 使用 @Cached 标记，service.funcA() 中调用 this.funcB()，此时 funcB() 的 @Cached 不会生效，因为调用 funcA() 的对象 service 是 AOP 生成的代理对象，funcA() 内的 this 是被代理对象而不是代理对象，此时的 funcB() 是我们定义类时写的方法，不是 AOP 后生成的方法。<br>解决的办法也可以很简单，在 bean 中通过 Autowired 注解注入自己 self，this.funcB() 换为 self.funcB()，可以参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/c764193441/article/details/79143522">这篇文章</a>和<a target="_blank" rel="noopener" href="https://github.com/alibaba/jetcache/issues/78">这篇文章</a></p>
+</li>
+<li><p>禁用 JetCache 缓存: 只需要把类 JetCacheConfig 上的注解 <code>@Configuration</code> 去掉即可，在测试开发阶段需要不停的从数据库读取数据进行校验时就方便多了，不需要总是去删除缓存数据</p>
+</li>
+</ul>
+<p>缓存信息统计:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[StatInfoLogger.java-accept:46] - jetcache stat from 2019-07-18 06:29:00,014 to 2019-07-18 06:30:00,003</span><br><span class="line">cache|       qps|   rate|           get|           hit|          fail|        expire|avgLoadTime|maxLoadTime</span><br><span class="line">-----+----------+-------+--------------+--------------+--------------+--------------+-----------+-----------</span><br><span class="line">user.|      0.07| 75.00%|             4|             3|             0|             0|        1.0|          1</span><br><span class="line">-----+----------+-------+--------------+--------------+--------------+--------------+-----------+-----------</span><br></pre></td></tr></table></figure>
+
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/qt-mysql-driver/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Qt 编译 MySQL 驱动
+        
+      </div>
+    </a>
+  
+  
+    <a href="/qtbook-animated-checkbox/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">有动画效果的 CheckBox</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

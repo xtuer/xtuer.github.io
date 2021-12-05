@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>模型视图编程 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="模型视图控制器 (MVC) 编程哪家讲的好，莫非是 Qt 帮助文档里的 Model&#x2F;View Programming 了，可惜没有中文的，看过不少书里这方面的内容都是从这篇文档里抄的，我们就不要再花心思去创新了，直接翻译吧。 模型视图编程简介Qt contains a set of item view classes that use a model&#x2F;view architecture to ma">
+<meta property="og:type" content="article">
+<meta property="og:title" content="模型视图编程">
+<meta property="og:url" content="http://xtuer.github.io/qtbook-custom-widget-model-view-programming/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="模型视图控制器 (MVC) 编程哪家讲的好，莫非是 Qt 帮助文档里的 Model&#x2F;View Programming 了，可惜没有中文的，看过不少书里这方面的内容都是从这篇文档里抄的，我们就不要再花心思去创新了，直接翻译吧。 模型视图编程简介Qt contains a set of item view classes that use a model&#x2F;view architecture to ma">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/custom-widget/mvc/modelview-overview.png">
+<meta property="article:published_time" content="2018-07-09T12:06:48.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.172Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="Qt">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/qtbook/custom-widget/mvc/modelview-overview.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E8%A7%86%E5%9B%BE%E7%BC%96%E7%A8%8B%E7%AE%80%E4%BB%8B"><span class="toc-text">模型视图编程简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E8%A7%86%E5%9B%BE%E6%9E%B6%E6%9E%84"><span class="toc-text">模型视图架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B"><span class="toc-text">模型</span></a></li></ol></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-qtbook-custom-widget-model-view-programming" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-custom-widget-model-view-programming/" class="article-date">
+  	<!-- <time datetime="2018-07-09T12:06:48.000Z" itemprop="datePublished">2018-07-09</time> -->
+    2018-07-09
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      模型视图编程
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/" rel="tag">Qt</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>模型视图控制器 (MVC) 编程哪家讲的好，莫非是 Qt 帮助文档里的 Model/View Programming 了，可惜没有中文的，看过不少书里这方面的内容都是从这篇文档里抄的，我们就不要再花心思去创新了，直接翻译吧。</p>
+<h2 id="模型视图编程简介"><a href="#模型视图编程简介" class="headerlink" title="模型视图编程简介"></a>模型视图编程简介</h2><p>Qt contains a set of item view classes that use a model/view architecture to manage the relationship between data and the way it is presented to the user. The separation of functionality introduced by this architecture gives developers greater flexibility to customize the presentation of items, and provides a standard model interface to allow a wide range of data sources to be used with existing item views. In this document, we give a brief introduction to the model/view paradigm, outline the concepts involved, and describe the architecture of the item view system. Each of the components in the architecture is explained, and examples are given that show how to use the classes provided.</p>
+<p>Qt 中有几个 item view 的类 (视图)，使用<code>模型/视图</code>架构来管理和显示数据。这种分离的设计给开发者很高的灵活性，可以自定义数据的显示方式，视图通过模型提供的<code>标准接口</code>可以支持各种各样的数据源。本文涉及到模型/视图编程范例、简要的概念介绍以及描述视图系统的架构。每一个部分都会进行解释以及给出相关代码展示怎么使用。</p>
+<h3 id="模型视图架构"><a href="#模型视图架构" class="headerlink" title="模型视图架构"></a>模型视图架构</h3><p>Model-View-Controller (MVC) is a design pattern originating from Smalltalk that is often used when building user interfaces. In Design Patterns, Gamma et al. write:</p>
+<blockquote>
+<p>MVC consists of three kinds of objects. The Model is the application object, the View is its screen presentation, and the Controller defines the way the user interface reacts to user input. Before MVC, user interface designs tended to lump these objects together. MVC decouples them to increase flexibility and reuse.</p>
+</blockquote>
+<p>Smalltalk 经常用来构建用户界面，模型-视图-控制器 (MVC) 这种设计模式就是从 Smalltalk 借鉴而来的。Gamma et al. 在设计模式中写到:</p>
+<blockquote>
+<p>MVC 由 3 种对象组成：Model 是应用的数据，View 显示数据，Controller 定义了用户界面对用户输入的响应。在使用 MVC 之前，用户界面的设计常常把这些对象耦合在一起。MVC 能够解耦它们从而提供更高的灵活性和重用性。</p>
+</blockquote>
+<div style="float: left"><img src="../img/qtbook/custom-widget/mvc/modelview-overview.png"></div>The model/view architecture
+The model communicates with a source of data, providing an interface for the other components in the architecture. The nature of the communication depends on the type of data source, and the way the model is implemented.
+
+<p>The view obtains model indexes from the model; these are references to items of data. By supplying model indexes to the model, the view can retrieve items of data from the data source.<br>In standard views, a delegate renders the items of data. When an item is edited, the delegate communicates with the model directly using model indexes.</p>
+<div style="clear: both;">在模型/视图架构中，模型访问数据源中的数据，视图等控件通过模型提供的接口访问数据。通信的方式取决于数据源的类型和模型实现的方式。
+数据由`数据项`组成，index 是数据项的引用，视图从模型中获得 index。视图通过访问模型中的 index 就能够访问数据源中的数据了。
+在标准的视图中，`代理`用来渲染数据项。当数据项被编辑时，代理使用模型的 index 和模型交互。
+
+<p>Generally, the model/view classes can be separated into the three groups described above: models, views, and delegates. Each of these components is defined by abstract classes that provide common interfaces and, in some cases, default implementations of features. Abstract classes are meant to be subclassed in order to provide the full set of functionality expected by other components; this also allows specialized components to be written.</p>
+<p>Models, views, and delegates communicate with each other using signals and slots:</p>
+<ul>
+<li>Signals from the model inform the view about changes to the data held by the data source.</li>
+<li>Signals from the view provide information about the user’s interaction with the items being displayed.</li>
+<li>Signals from the delegate are used during editing to tell the model and view about the state of the editor.</li>
+</ul>
+<p>根据上面的介绍，模型/视图的类可以分为三类：模型、视图和代理，它们都有相应的抽象类提供通用的接口和某些功能的默认实现。抽象类就意味着要被其他类继承，根据需求提供对应的实现。</p>
+<p>模型、视图和代理之间使用信号槽进行通信:</p>
+<ul>
+<li>数据源中的数据发生变化时，模型发射信号通知视图</li>
+<li>用户和视图交互时视图会发射信号，例如点击 view item，信号的参数包含了被交互的 view item 的信息</li>
+<li>编辑数据项的时候代理会把编辑器的状态通过信号通知模型和视图</li>
+</ul>
+<h3 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h3><p>All item models are based on the QAbstractItemModel class. This class defines an interface that is used by views and delegates to access data. The data itself does not have to be stored in the model; it can be held in a data structure or repository provided by a separate class, a file, a database, or some other application component.</p>
+<p>The basic concepts surrounding models are presented in the section on Model Classes.</p>
+<p>QAbstractItemModel provides an interface to data that is flexible enough to handle views that represent data in the form of tables, lists, and trees. However, when implementing new models for list and table-like data structures, the QAbstractListModel and QAbstractTableModel classes are better starting points because they provide appropriate default implementations of common functions. Each of these classes can be subclassed to provide models that support specialized kinds of lists and tables.</p>
+<p>The process of subclassing models is discussed in the section on Creating New Models.</p>
+<p>所有的 item 模型都是基于类 QAbstractItemModel 实现的。视图和代理使用 QAbstractItemModel 定义的接口访问数据。数据不一定是保存在模型中，也可以保存在其他类、文件、数据库或者其他应用中。</p>
+<p>模型相关的概念在模型的类一节中进行介绍。</p>
+<p>模型类 QAbstractItemModel 定义的访问数据接口 (函数) 是很灵活的，能够满足表格、列表和树用来显示模型的数据。然而，当给列表和表格自定义新的模型时，继承 QAbstractListModel 或者 QAbstractTableModel 是个很好的选择，因为他们提供了很多通用操作的默认实现，就不需要我们再重复实现。</p>
+<p>实现自定义模型在创建新的模型类一节中进行介绍。</p>
+<p>Qt provides some ready-made models that can be used to handle items of data:</p>
+<ul>
+<li>QStringListModel is used to store a simple list of QString items.</li>
+<li>QStandardItemModel manages more complex tree structures of items, each of which can contain arbitrary data.</li>
+<li>QFileSystemModel provides information about files and directories in the local filing system.</li>
+<li>QSqlQueryModel, QSqlTableModel, and QSqlRelationalTableModel are used to access databases using model/view conventions.</li>
+</ul>
+<p>If these standard models do not meet your requirements, you can subclass QAbstractItemModel, QAbstractListModel, or QAbstractTableModel to create your own custom models.</p>
+<p>Qt 已经提供了一些可用于处理数据项的模型:</p>
+<ul>
+<li>QStringListModel 用于存储简单的列表数据，数据项为 QString</li>
+<li>QStandardItemModel 用于管理有树结构关系的数据项，每个数据项可以包含任意的数据</li>
+<li>QFileSystemModel 访问本地文件系统的文件和文件夹</li>
+<li>QSqlQueryModel, QSqlTableModel 和 QSqlRelationalTableModel 使用模型视图的方式访问数据库</li>
+</ul>
+<p>如果这些标准的模型还不能满足我们的需求，可以继承 QAbstractItemModel, QAbstractListModel, or QAbstractTableModel 实现自定义的模型类。</p>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/qtbook-custom-widget-lineedit-with-button/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          QLineEdit 中增加按钮
+        
+      </div>
+    </a>
+  
+  
+    <a href="/qtbook-custom-widget-group/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">分组布局</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

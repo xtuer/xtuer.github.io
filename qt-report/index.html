@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Qt 生成报表 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="开发中经常会需要输出报表，方法很多，这里就不一一去列举对比各种方法的优缺点，只介绍使用字符串模板输出 PDF 报表的方式，能够满足绝大多数时候的需求:  字符串模板 + 数据输出 HTML HTML 输出 PDF  输出 HTML为了生成 HTML，可以在程序中使用字符串拼接的方式，但这种方式对于复杂点的 HTML 就会非常麻烦，不推荐使用，我们这里将使用字符串模板引擎 Inja 来生成 HTML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Qt 生成报表">
+<meta property="og:url" content="http://xtuer.github.io/qt-report/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="开发中经常会需要输出报表，方法很多，这里就不一一去列举对比各种方法的优缺点，只介绍使用字符串模板输出 PDF 报表的方式，能够满足绝大多数时候的需求:  字符串模板 + 数据输出 HTML HTML 输出 PDF  输出 HTML为了生成 HTML，可以在程序中使用字符串拼接的方式，但这种方式对于复杂点的 HTML 就会非常麻烦，不推荐使用，我们这里将使用字符串模板引擎 Inja 来生成 HTML">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/qt/qt-report-1.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qt/qt-report-2.png">
+<meta property="article:published_time" content="2019-03-17T02:40:27.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.171Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="Qt">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/qt/qt-report-1.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%93%E5%87%BA-HTML"><span class="toc-text">输出 HTML</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%93%E5%87%BA-PDF"><span class="toc-text">输出 PDF</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-qt-report" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/qt-report/" class="article-date">
+  	<!-- <time datetime="2019-03-17T02:40:27.000Z" itemprop="datePublished">2019-03-17</time> -->
+    2019-03-17
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Qt 生成报表
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/" rel="tag">Qt</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>开发中经常会需要输出报表，方法很多，这里就不一一去列举对比各种方法的优缺点，只介绍使用字符串模板输出 PDF 报表的方式，能够满足绝大多数时候的需求:</p>
+<ol>
+<li><code>字符串模板 + 数据</code>输出 HTML</li>
+<li>HTML 输出 PDF</li>
+</ol>
+<h2 id="输出-HTML"><a href="#输出-HTML" class="headerlink" title="输出 HTML"></a>输出 HTML</h2><p>为了生成 HTML，可以在程序中使用字符串拼接的方式，但这种方式对于复杂点的 HTML 就会非常麻烦，不推荐使用，我们这里将使用字符串模板引擎 <a target="_blank" rel="noopener" href="https://github.com/pantor/inja">Inja</a> 来生成 HTML，使用步骤如下:</p>
+<ol>
+<li><p>下载 <a target="_blank" rel="noopener" href="https://github.com/pantor/inja/releases">Inja</a></p>
+</li>
+<li><p>解压，得到的目录结构如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">inja-2.1.0</span><br><span class="line">  ...</span><br><span class="line">  ├── single_include</span><br><span class="line">  │   └── inja</span><br><span class="line">  │       └── inja.hpp</span><br><span class="line">  └── third_party</span><br><span class="line">      └── include</span><br><span class="line">          └── nlohmann</span><br><span class="line">              ├── LICENSE.MIT</span><br><span class="line">              └── json.hpp</span><br></pre></td></tr></table></figure></li>
+<li><p>复制 single_include 下的 <code>inja</code> 目录和 third_party/include 下的 <code>nlohmann</code> 目录到项目的 <code>lib</code> 目录下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">lib</span><br><span class="line">  ├── inja</span><br><span class="line">  │   └── inja.hpp</span><br><span class="line">  └── nlohmann</span><br><span class="line">      ├── LICENSE.MIT</span><br><span class="line">      └── json.hpp</span><br></pre></td></tr></table></figure></li>
+<li><p>Qt 工程的 pro 文件中添加包含路径: <code>INCLUDEPATH += lib</code></p>
+</li>
+<li><p>最简单的<a target="_blank" rel="noopener" href="https://github.com/pantor/inja#tutorial">例子</a>:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;inja/inja.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> inja;</span><br><span class="line"><span class="keyword">using</span> json = nlohmann::json;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    json data;</span><br><span class="line">    data[<span class="string">&quot;name&quot;</span>] = <span class="string">&quot;world&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">render</span>(<span class="string">&quot;Hello &#123;&#123; name &#125;&#125;&quot;</span>, data); <span class="comment">// Returns std::string &quot;Hello world&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Inja 的模板使用了 Mustache 风格的语法，上面例子中 <code>&#123; &#123; name &#125; &#125;</code> 被 <code>data[&quot;name&quot;]</code> 的值 <code>world</code> 替换掉，生成字符串 <code>Hello world</code>，其中 Inja 使用 JSON 库 <a target="_blank" rel="noopener" href="https://nlohmann.github.io/json/index.html">nlohmann json</a> 传递数据给模板。<span id="more"></span></p>
+</li>
+</ol>
+<p>到这里我们能够使用 Inja 把字符串模板+数据生成最终的字符串了，实际项目中的报表一般都比较大，还有复杂的样式，如果直接在程序里使用字符串拼接模板，如要生成下面这样的报表想想会有多不容易：</p>
+<center><img src="../img/qt/qt-report-1.png" width=560></center>
+我们推荐使用下面的方式来完成:
+
+<ol>
+<li>使用 HTML 进行设计，调整效果直到满意</li>
+<li>把变化的部分按照 Inja 的语法替换为 <code>&#123; &#123; variable &#125; &#125;</code>，得到模板，保存到可执行文件 (exe) 所在目录的 template 目录下的 <code>report.html</code></li>
+<li>程序中准备模板需要的数据</li>
+<li>使用 Inja 生成最终的 HTML</li>
+</ol>
+<p>模板文件 <code>template/report.html</code>:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>检测报告<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-tag">body</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">color</span>: <span class="number">#333</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">background-color</span>: white;</span></span><br><span class="line"><span class="css">            <span class="attribute">padding</span>: <span class="number">20px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">font-size</span>: <span class="number">12px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">font-family</span>: Tahoma, 微软雅黑;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-tag">h3</span> &#123;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">            <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="css">            <span class="attribute">margin</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">padding</span>: <span class="number">5px</span>;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-tag">table</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">width</span>: <span class="number">100%</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">border-collapse</span>: collapse;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-tag">td</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">padding</span>: <span class="number">8px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">vertical-align</span>: top;</span></span><br><span class="line"><span class="css">            <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-tag">td</span><span class="selector-class">.text-left</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">text-align</span>: left;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.fitb1</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">padding</span>: <span class="number">0</span> <span class="number">5px</span>;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.fitb2</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">min-width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">display</span>: inline-block;</span></span><br><span class="line"><span class="css">            <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.gap</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">display</span>: inline-block;</span></span><br><span class="line"><span class="css">            <span class="attribute">width</span>: <span class="number">60px</span>;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-tag">table</span>, <span class="selector-tag">th</span>, <span class="selector-tag">td</span>, <span class="selector-class">.wrapper</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#AAA</span>;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-tag">h3</span>, <span class="selector-class">.fitb1</span>, <span class="selector-class">.fitb2</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">border-bottom</span>: <span class="number">1px</span> solid <span class="number">#AAA</span>;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;wrapper&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h3</span>&gt;</span>检测原始数据<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;margin-left: 10px; padding: 10px;&quot;</span>&gt;</span>（3）检测数据<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;padding: 10px; padding-top: 0&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">table</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span> <span class="attr">colspan</span>=<span class="string">&quot;11&quot;</span>&gt;</span></span><br><span class="line">                        设定温度: <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;fitb1&quot;</span>&gt;</span>aaa.aa<span class="tag">&lt;/<span class="name">span</span>&gt;</span> °C，</span><br><span class="line">                        设定压力: <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;fitb1&quot;</span>&gt;</span>bbb.bb<span class="tag">&lt;/<span class="name">span</span>&gt;</span> kPa，</span><br><span class="line">                        设定时间: <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;fitb1&quot;</span>&gt;</span>ccc<span class="tag">&lt;/<span class="name">span</span>&gt;</span> s，</span><br><span class="line">                        设定间隔: <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;fitb1&quot;</span>&gt;</span>dd<span class="tag">&lt;/<span class="name">span</span>&gt;</span> s</span><br><span class="line">                    <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>号<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>时刻<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>温度点<span class="tag">&lt;<span class="name">br</span>&gt;</span>1 测量<span class="tag">&lt;<span class="name">br</span>&gt;</span>值/°C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>温度点<span class="tag">&lt;<span class="name">br</span>&gt;</span>2 测量<span class="tag">&lt;<span class="name">br</span>&gt;</span>值/°C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>温度点<span class="tag">&lt;<span class="name">br</span>&gt;</span>3 测量<span class="tag">&lt;<span class="name">br</span>&gt;</span>值/°C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>温度点<span class="tag">&lt;<span class="name">br</span>&gt;</span>4 测量<span class="tag">&lt;<span class="name">br</span>&gt;</span>值/°C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>温度点<span class="tag">&lt;<span class="name">br</span>&gt;</span>5 测量<span class="tag">&lt;<span class="name">br</span>&gt;</span>值/°C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>温度点<span class="tag">&lt;<span class="name">br</span>&gt;</span>6 测量<span class="tag">&lt;<span class="name">br</span>&gt;</span>值/°C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>压力测<span class="tag">&lt;<span class="name">br</span>&gt;</span>量值<span class="tag">&lt;<span class="name">br</span>&gt;</span>/kPa<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>最大<span class="tag">&lt;<span class="name">br</span>&gt;</span>值<span class="tag">&lt;<span class="name">br</span>&gt;</span>/°C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>最小<span class="tag">&lt;<span class="name">br</span>&gt;</span>值<span class="tag">&lt;<span class="name">br</span>&gt;</span>/°C<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"></span><br><span class="line">                <span class="comment">&lt;!-- 下面注释掉的代码在设计时用来看效果，不需要后注释掉即可 --&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">                &lt;tr&gt;</span></span><br><span class="line"><span class="comment">                    &lt;td&gt;1&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;</span></span><br><span class="line"><span class="comment">                &lt;/tr&gt;</span></span><br><span class="line"><span class="comment">                &lt;tr&gt;</span></span><br><span class="line"><span class="comment">                    &lt;td&gt;2&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;</span></span><br><span class="line"><span class="comment">                &lt;/tr&gt;</span></span><br><span class="line"><span class="comment">                &lt;tr&gt;</span></span><br><span class="line"><span class="comment">                    &lt;td&gt;3&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;</span></span><br><span class="line"><span class="comment">                &lt;/tr&gt;</span></span><br><span class="line"><span class="comment">                &lt;tr&gt;</span></span><br><span class="line"><span class="comment">                    &lt;td&gt;4&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;</span></span><br><span class="line"><span class="comment">                &lt;/tr&gt;</span></span><br><span class="line"><span class="comment">                --&gt;</span></span><br><span class="line"></span><br><span class="line">                <span class="comment">&lt;!-- 模板语法 --&gt;</span></span><br><span class="line">                &#123;% for row in rows %&#125;</span><br><span class="line">                <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">                    &#123;% for col in row %&#125;</span><br><span class="line">                        <span class="tag">&lt;<span class="name">td</span>&gt;</span>&#123;&#123; col &#125;&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    &#123;% endfor %&#125;</span><br><span class="line">                <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">                &#123;% endfor %&#125;</span><br><span class="line"></span><br><span class="line">                <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span> <span class="attr">colspan</span>=<span class="string">&quot;11&quot;</span> <span class="attr">class</span>=<span class="string">&quot;text-left&quot;</span>&gt;</span></span><br><span class="line">                        实测灭菌温度平均值<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;fitb2&quot;</span>&gt;</span>&#123;&#123; value1 &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span>°C</span><br><span class="line">                    <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span> <span class="attr">colspan</span>=<span class="string">&quot;11&quot;</span> <span class="attr">class</span>=<span class="string">&quot;text-left&quot;</span>&gt;</span></span><br><span class="line">                        温度均匀性<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;fitb2&quot;</span>&gt;</span>&#123;&#123; value2 &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span>°C</span><br><span class="line">                    <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">td</span> <span class="attr">colspan</span>=<span class="string">&quot;11&quot;</span> <span class="attr">class</span>=<span class="string">&quot;text-left&quot;</span>&gt;</span></span><br><span class="line">                            灭菌温度带<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;fitb2&quot;</span>&gt;</span>&#123;&#123; value3 &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span>°C</span><br><span class="line">                        <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span> <span class="attr">colspan</span>=<span class="string">&quot;11&quot;</span> <span class="attr">class</span>=<span class="string">&quot;text-left&quot;</span>&gt;</span></span><br><span class="line">                        实测灭菌压力平均值<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;fitb2&quot;</span>&gt;</span>&#123;&#123; value4 &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span>kPa</span><br><span class="line">                    <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span> <span class="attr">colspan</span>=<span class="string">&quot;11&quot;</span> <span class="attr">class</span>=<span class="string">&quot;text-left&quot;</span>&gt;</span></span><br><span class="line">                        实测灭菌时间<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;fitb2&quot;</span>&gt;</span>&#123;&#123; value5 &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span>s</span><br><span class="line">                    <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>map.cpp</code>:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QTextCodec&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QFile&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QTextStream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;inja/inja.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> inja;</span><br><span class="line"><span class="keyword">using</span> json = nlohmann::json;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="built_in">Q_UNUSED</span>(argc)</span><br><span class="line">    <span class="built_in">Q_UNUSED</span>(argv)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [1] 准备模板需要的数据</span></span><br><span class="line">    json rows = json::<span class="built_in">array</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 表格中需要 10 行 11 列的数据</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">10</span>; i++) &#123;</span><br><span class="line">        json row = json::<span class="built_in">array</span>();</span><br><span class="line"></span><br><span class="line">        row.<span class="built_in">push_back</span>(i);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= <span class="number">10</span>; j++) &#123;</span><br><span class="line">            QString col = <span class="string">&quot;列 - &quot;</span> + QString::<span class="built_in">number</span>(j);</span><br><span class="line">            row.<span class="built_in">push_back</span>(col.<span class="built_in">toStdString</span>());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        rows.<span class="built_in">push_back</span>(row);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    json data;</span><br><span class="line">    data[<span class="string">&quot;rows&quot;</span>] = rows;</span><br><span class="line">    data[<span class="string">&quot;value1&quot;</span>] = <span class="number">10</span>;</span><br><span class="line">    data[<span class="string">&quot;value2&quot;</span>] = <span class="number">20</span>;</span><br><span class="line">    data[<span class="string">&quot;value3&quot;</span>] = <span class="number">30</span>;</span><br><span class="line">    data[<span class="string">&quot;value4&quot;</span>] = <span class="number">40</span>;</span><br><span class="line">    data[<span class="string">&quot;value5&quot;</span>] = <span class="number">50</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [2] 模板 + 数据生成 HTML</span></span><br><span class="line">    inja::Environment env;</span><br><span class="line">    Template temp = env.<span class="built_in">parse_template</span>(<span class="string">&quot;./template/report.html&quot;</span>);</span><br><span class="line">    std::string result = env.<span class="built_in">render</span>(temp, data);</span><br><span class="line">    QString html = QString::<span class="built_in">fromStdString</span>(result);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [3] 输出到文件，浏览器打开查看效果</span></span><br><span class="line">    <span class="function">QFile <span class="title">file</span><span class="params">(<span class="string">&quot;/Users/Biao/Desktop/output.html&quot;</span>)</span></span>;</span><br><span class="line">    file.<span class="built_in">open</span>(QIODevice::WriteOnly | QIODevice::Text);</span><br><span class="line">    <span class="function">QTextStream <span class="title">out</span><span class="params">(&amp;file)</span></span>;</span><br><span class="line">    out.<span class="built_in">setCodec</span>(QTextCodec::<span class="built_in">codecForName</span>(<span class="string">&quot;UTF-8&quot;</span>));</span><br><span class="line">    out &lt;&lt; html;</span><br><span class="line">    file.<span class="built_in">close</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="输出-PDF"><a href="#输出-PDF" class="headerlink" title="输出 PDF"></a>输出 PDF</h2><p>Qt 里输出 HTML 为 PDF 可以借助 <a target="_blank" rel="noopener" href="http://doc.qt.io/qt-5/qwebengineview.html">QWebEngineView</a> &amp; <a target="_blank" rel="noopener" href="http://doc.qt.io/qt-5/qwebenginepage.html">QWebEnginePage</a>:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ui-&gt;webView-&gt;<span class="built_in">page</span>()-&gt;<span class="built_in">printToPdf</span>(filePath);</span><br></pre></td></tr></table></figure>
+
+<p>但是 Windows 中只有 VS 的 Qt 支持 Qt Web Engine，MinGW 的 Qt 不支持，甚至 Qt 5.5 后 Qt Web Kit 模块也被删除了，再加上 QTextDocument 输出 PDF 不支持 class 样式，只支持内联的 style 样式，导致开发 HTML 模板困难，鉴于这些原因，我们这里使用开源库 <a target="_blank" rel="noopener" href="https://wkhtmltopdf.org/index.html">wkhtmltopdf</a> 来把 HTML 转为 PDF:</p>
+<ol>
+<li><p><a target="_blank" rel="noopener" href="https://wkhtmltopdf.org/downloads.html">下载</a> 7z 压缩版，选择 win32 的，因为 MinGW 目前只有 32 位的:</p>
+<center><img src="../img/qt/qt-report-2.png"></center></li>
+<li><p>解压，得到的目录结构如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">wkhtmltox</span><br><span class="line">  ├── bin</span><br><span class="line">  │   ├── libwkhtmltox.a</span><br><span class="line">  │   ├── wkhtmltoimage.exe</span><br><span class="line">  │   ├── wkhtmltopdf.exe</span><br><span class="line">  │   └── wkhtmltox.dll</span><br><span class="line">  └── include</span><br><span class="line">      └── wkhtmltox</span><br><span class="line">          ├── dllbegin.inc</span><br><span class="line">          ├── dllend.inc</span><br><span class="line">          ├── image.h</span><br><span class="line">          └── pdf.h</span><br></pre></td></tr></table></figure></li>
+<li><p>复制 include 下的 <code>wkhtmltox</code> 目录到项目的 <code>lib</code> 目录下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lib</span><br><span class="line">  ├── wkhtmltox</span><br><span class="line">  │   └── pdf.h</span><br><span class="line">  │   ├── ...</span><br></pre></td></tr></table></figure></li>
+<li><p>复制 <code>wkhtmltox.dll</code> 到可执行文件 (exe) 目录</p>
+</li>
+<li><p>Qt 工程的 pro 文件中添加包含路径: <code>INCLUDEPATH += lib</code></p>
+</li>
+<li><p>Qt 工程的 pro 文件中添加 DLL 路径: <code>LIBS += -L$$OUT_PWD/debug -lwkhtmltox</code> (根据具体的情况而定)</p>
+</li>
+<li><p>使用下面的代码把 HMTL 内容转为 PDF:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QApplication&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QTextCodec&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QDebug&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QString&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;wkhtmltox/pdf.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="function">QApplication <span class="title">app</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line">    QTextCodec::<span class="built_in">setCodecForLocale</span>(QTextCodec::<span class="built_in">codecForName</span>(<span class="string">&quot;UTF-8&quot;</span>));</span><br><span class="line"></span><br><span class="line">    wkhtmltopdf_global_settings * gs;</span><br><span class="line">    wkhtmltopdf_object_settings * os;</span><br><span class="line">    wkhtmltopdf_converter * c;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">wkhtmltopdf_init</span>(<span class="literal">false</span>);</span><br><span class="line">    gs = <span class="built_in">wkhtmltopdf_create_global_settings</span>();</span><br><span class="line">    os = <span class="built_in">wkhtmltopdf_create_object_settings</span>();</span><br><span class="line">    c  = <span class="built_in">wkhtmltopdf_create_converter</span>(gs);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置输入输出</span></span><br><span class="line">    <span class="built_in">wkhtmltopdf_set_object_setting</span>(os, <span class="string">&quot;page&quot;</span>, <span class="string">&quot;input.html&quot;</span>);</span><br><span class="line">    <span class="built_in">wkhtmltopdf_set_global_setting</span>(gs, <span class="string">&quot;out&quot;</span>, <span class="string">&quot;output.pdf&quot;</span>);</span><br><span class="line">    <span class="built_in">wkhtmltopdf_add_object</span>(c, os, <span class="literal">nullptr</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Perform the actual conversion */</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">wkhtmltopdf_convert</span>(c)) &#123;</span><br><span class="line">        <span class="built_in">fprintf</span>(stderr, <span class="string">&quot;Conversion failed!&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">fprintf</span>(stdout, <span class="string">&quot;Conversion finished!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">wkhtmltopdf_destroy_converter</span>(c);</span><br><span class="line">    <span class="built_in">wkhtmltopdf_deinit</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第 22 行设置 HTML 的文件路径，第 23 行设置输出的 PDF 路径。如果想直接把 HTML 的字符串转为 PDF，把第 22 行 HTML 文件路径换为前缀 <code>data:text/html,</code> + <code>html content</code>:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">QString html = <span class="string">&quot;data:text/html,&lt;html&gt;&lt;head&gt;&lt;meta charset=\&quot;UTF-8\&quot;&gt;&lt;/head&gt;&lt;body&gt;Hello&lt;/body&gt;&lt;html&gt;&quot;</span>;</span><br><span class="line"><span class="built_in">wkhtmltopdf_set_object_setting</span>(os, <span class="string">&quot;page&quot;</span>, html.<span class="built_in">toUtf8</span>().<span class="built_in">constData</span>());</span><br></pre></td></tr></table></figure>
+
+<p>关于上面代码详细的注释请阅读 <a target="_blank" rel="noopener" href="https://github.com/wkhtmltopdf/wkhtmltopdf/blob/master/examples/pdf_c_api.c">examples/pdf_c_api.c</a>。</p>
+</li>
+</ol>
+<blockquote>
+<p>提示: </p>
+<ul>
+<li>默认输出 PDF 为竖版的 (即 Portrail)，如果要输出为横版的 (Landscape)，需要设置 <code>wkhtmltopdf_set_global_setting(gs, &quot;orientation&quot;, &quot;Landscape&quot;);</code></li>
+<li>要支持 CSS3 的 transition 如 rotate 的话，需要 <code>webkit</code> 前缀: <code>-webkit-transform: rotate(30deg);</code></li>
+<li>本地图片可以使用 Base64 格式，或者本地图片的绝对路径</li>
+<li>更多配置请参考 <ul>
+<li><a target="_blank" rel="noopener" href="https://wkhtmltopdf.org/libwkhtmltox/pagesettings.html">https://wkhtmltopdf.org/libwkhtmltox/pagesettings.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://web_jsx.safeonline.world/pdf__generator_8cpp_source.wjsx">https://web_jsx.safeonline.world/pdf__generator_8cpp_source.wjsx</a></li>
+</ul>
+</li>
+<li>生成的 PDF 中可以使用 CSS 强制插入页:<ul>
+<li><code>.pdf-new-page &#123; page-break-before: always !important; &#125;</code></li>
+<li><code>&lt;h2 class=&quot;pdf-new-page&quot;&gt;灭菌图像&lt;/h2&gt;</code></li>
+<li>这样 <strong>灭菌图像</strong> 就会从新的一页开始</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p>本文介绍了使用 Inja + wkhtmltopdf，使用模板 + 数据的方式生成 PDF 报表，只要提高一下我们写 HTML 的技术，就能够很容易的生成漂亮的报表了。</p>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/upload-blob/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          上传 Blob URL 指向的文件
+        
+      </div>
+    </a>
+  
+  
+    <a href="/fe-load-js-css/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">动态加载 JS 和 CSS</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

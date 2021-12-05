@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Vue 后台管理简单框架（二）- 多页 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Vue 后台管理简单框架（一）中介绍了单页 SPA 的实现，但是实际系统中后台管理的功能很可能是需要多页的，例如要开发一个学习系统，学生和老师的管理功能完全不一样，如果非要把它们放在一起使用 SPA 的方式也可以，左边菜单栏根据角色是老师或则学生来动态显示也是可以的，但是这样会导致管理页的代码很多，功能都放在一起，开发的时候可能不够清晰，增加开发难度，如果把它们分开，使用多页的方式来实现，功能模块">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue 后台管理简单框架（二）- 多页">
+<meta property="og:url" content="http://xtuer.github.io/fe-vue-admin-2/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="Vue 后台管理简单框架（一）中介绍了单页 SPA 的实现，但是实际系统中后台管理的功能很可能是需要多页的，例如要开发一个学习系统，学生和老师的管理功能完全不一样，如果非要把它们放在一起使用 SPA 的方式也可以，左边菜单栏根据角色是老师或则学生来动态显示也是可以的，但是这样会导致管理页的代码很多，功能都放在一起，开发的时候可能不够清晰，增加开发难度，如果把它们分开，使用多页的方式来实现，功能模块">
+<meta property="og:locale">
+<meta property="article:published_time" content="2017-06-01T10:38:44.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.151Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="FE">
+<meta property="article:tag" content="Vue">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="toc-text">文件结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E8%A7%84%E5%88%99"><span class="toc-text">修改规则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#webpack-base-conf-js"><span class="toc-text">webpack.base.conf.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#webpack-dev-conf-js"><span class="toc-text">webpack.dev.conf.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#webpack-prod-conf-js"><span class="toc-text">webpack.prod.conf.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%B9%E8%BF%9B"><span class="toc-text">改进</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95"><span class="toc-text">测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%93%E5%8C%85"><span class="toc-text">打包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%93%E5%8C%85%E7%9B%AE%E5%BD%95"><span class="toc-text">打包目录</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-fe-vue-admin-2" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/fe-vue-admin-2/" class="article-date">
+  	<!-- <time datetime="2017-06-01T10:38:44.000Z" itemprop="datePublished">2017-06-01</time> -->
+    2017-06-01
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Vue 后台管理简单框架（二）- 多页
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p><a href="/fe-vue-admin-1">Vue 后台管理简单框架（一）</a>中介绍了单页 SPA 的实现，但是实际系统中后台管理的功能很可能是需要多页的，例如要开发一个学习系统，学生和老师的管理功能完全不一样，如果非要把它们放在一起使用 SPA 的方式也可以，左边菜单栏根据角色是老师或则学生来动态显示也是可以的，但是这样会导致管理页的代码很多，功能都放在一起，开发的时候可能不够清晰，增加开发难度，如果把它们分开，使用多页的方式来实现，功能模块就很清晰了，不失为一个好办法。还有例如 PC 的网页和移动设备的网页实现不同，如果放在同一个页面就需要做各种判断来确定对应设备显示的内容也会把很简单的逻辑搞的很复杂，使用不同的页面的话就会很清晰了。</p>
+<p>下面就来介绍把 vue-cli 创建的工程改造为支持多页：</p>
+<ul>
+<li><p>不同页面的文件放在不同的文件夹下</p>
+<blockquote>
+<p>每个页面都有自己的 router.js, index.js, index.vue, index.html</p>
+</blockquote>
+</li>
+<li><p>修改 4 个配置文件：</p>
+<ul>
+<li>webpack.base.conf.js: 修改入口文件 entry</li>
+<li>webpack.dev.conf.js: 修改 HtmlWebpackPlugin</li>
+<li>webpack.prod.conf.js: 修改 HtmlWebpackPlugin，删除 CommonsChunkPlugin</li>
+<li>.eslintrc.js <span id="more"></span></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>方法来源于 <a target="_blank" rel="noopener" href="http://www.cnblogs.com/zqzjs/p/6834843.html">基于 webpack2.x 的 vue2.x 的多页面站点</a></p>
+</blockquote>
+<h2 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">├── build</span><br><span class="line">│   ├── ...</span><br><span class="line">│   ├── webpack.base.conf.js</span><br><span class="line">│   ├── webpack.dev.conf.js</span><br><span class="line">│   └── webpack.prod.conf.js</span><br><span class="line">├── src</span><br><span class="line">│   ├── assets</span><br><span class="line">│   ├── components</span><br><span class="line">│   └── page</span><br><span class="line">│       ├── student</span><br><span class="line">│       │   ├── index.html</span><br><span class="line">│       │   ├── index.js</span><br><span class="line">│       │   ├── index.vue</span><br><span class="line">│       │   ├── main.vue</span><br><span class="line">│       │   └── router.js</span><br><span class="line">│       └── teacher</span><br><span class="line">│           ├── index.html</span><br><span class="line">│           ├── index.js</span><br><span class="line">│           ├── index.vue</span><br><span class="line">│           ├── main.vue</span><br><span class="line">│           └── router.js</span><br><span class="line">├── static</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li>页面的文件放在 page 目录下，每个单页占用一个目录</li>
+<li>文件名字也修改下，这样看上去比较统一<ul>
+<li>App.vue &gt; index.vue</li>
+<li>Home.vue &gt; main.vue</li>
+<li>main.js &gt; index.js</li>
+<li>router/index.js &gt; router.js</li>
+<li>复制 index.html 到此目录下</li>
+</ul>
+</li>
+<li>index.js 中 <code>import App from &#39;./App&#39;</code> 要修改为 <code>import App from &#39;./index.vue&#39;</code>，注意 <code>.vue</code> 后缀</li>
+</ul>
+</blockquote>
+<h2 id="修改规则"><a href="#修改规则" class="headerlink" title="修改规则"></a>修改规则</h2><ul>
+<li><p>执行 <code>npm install --save-dev eslint eslint-plugin-vue</code></p>
+</li>
+<li><p>修改 <strong>.eslintrc.js</strong> 中的 extends 为</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extends</span>: [<span class="string">&#x27;plugin:vue/essential&#x27;</span>, <span class="string">&#x27;airbnb-base&#x27;</span>, <span class="string">&#x27;eslint:recommended&#x27;</span>, <span class="string">&#x27;plugin:vue/recommended&#x27;</span>]</span><br></pre></td></tr></table></figure></li>
+<li><p>修改 <strong>.eslintrc.js</strong>，修改 rules，增加新的规则</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;vue/html-self-closing&#x27;</span>: <span class="number">0</span>,</span><br><span class="line"><span class="string">&#x27;vue/html-indent&#x27;</span>: <span class="number">0</span>,</span><br><span class="line"><span class="string">&#x27;vue/max-attributes-per-line&#x27;</span>: <span class="number">0</span>,</span><br><span class="line"><span class="string">&#x27;vue/order-in-components&#x27;</span>: <span class="number">0</span>,</span><br><span class="line"><span class="string">&#x27;vue/html-end-tags&#x27;</span>: <span class="number">0</span>,</span><br><span class="line"><span class="string">&#x27;vue/no-parsing-error&#x27;</span>: <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>详细信息请参考 <a target="_blank" rel="noopener" href="https://github.com/vuejs/eslint-plugin-vue">https://github.com/vuejs/eslint-plugin-vue</a></p>
+</li>
+</ul>
+<h2 id="webpack-base-conf-js"><a href="#webpack-base-conf-js" class="headerlink" title="webpack.base.conf.js"></a>webpack.base.conf.js</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="comment">// 多页面的入口文件</span></span><br><span class="line">    <span class="attr">entry</span>: &#123;</span><br><span class="line">        <span class="string">&#x27;page/student/index&#x27;</span>: <span class="string">&#x27;./src/page/student/index.js&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;page/teacher/index&#x27;</span>: <span class="string">&#x27;./src/page/teacher/index.js&#x27;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="webpack-dev-conf-js"><a href="#webpack-dev-conf-js" class="headerlink" title="webpack.dev.conf.js"></a>webpack.dev.conf.js</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">    <span class="attr">filename</span>: <span class="string">&#x27;./page/student/index.html&#x27;</span>,</span><br><span class="line">    <span class="attr">template</span>: <span class="string">&#x27;./src/page/student/index.html&#x27;</span>,</span><br><span class="line">    <span class="attr">chunks</span>: [<span class="string">&#x27;page/student/index&#x27;</span>],</span><br><span class="line">    <span class="attr">inject</span>: <span class="literal">true</span></span><br><span class="line">&#125;),</span><br><span class="line"><span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">    <span class="attr">filename</span>: <span class="string">&#x27;./page/teacher/index.html&#x27;</span>,</span><br><span class="line">    <span class="attr">template</span>: <span class="string">&#x27;./src/page/teacher/index.html&#x27;</span>,</span><br><span class="line">    <span class="attr">chunks</span>: [<span class="string">&#x27;page/teacher/index&#x27;</span>],</span><br><span class="line">    <span class="attr">inject</span>: <span class="literal">true</span></span><br><span class="line">&#125;),</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>删除已有的 HtmlWebpackPlugin</p>
+</blockquote>
+<h2 id="webpack-prod-conf-js"><a href="#webpack-prod-conf-js" class="headerlink" title="webpack.prod.conf.js"></a>webpack.prod.conf.js</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">    <span class="attr">filename</span>:<span class="string">&#x27;./page/student/index.html&#x27;</span>,</span><br><span class="line">    <span class="attr">template</span>:<span class="string">&#x27;./src/page/student/index.html&#x27;</span>,</span><br><span class="line">    <span class="attr">chunks</span>:[<span class="string">&#x27;page/student/index&#x27;</span>],</span><br><span class="line">    <span class="attr">inject</span>: <span class="literal">true</span></span><br><span class="line">&#125;),</span><br><span class="line"><span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">    <span class="attr">filename</span>:<span class="string">&#x27;./page/teacher/index.html&#x27;</span>,</span><br><span class="line">    <span class="attr">template</span>:<span class="string">&#x27;./src/page/teacher/index.html&#x27;</span>,</span><br><span class="line">    <span class="attr">chunks</span>:[<span class="string">&#x27;page/teacher/index&#x27;</span>],</span><br><span class="line">    <span class="attr">inject</span>: <span class="literal">true</span></span><br><span class="line">&#125;),</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>删除已有的 HtmlWebpackPlugin 和 CommonsChunkPlugin</p>
+</blockquote>
+<h2 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h2><p>上面实现多页的方式很直观、简洁，如果只有 4 个，5 个页面时这样修改配置没啥问题，但是有 20 个，30 个页面呢，配置就会写的很长，这个时候就可以使用函数来代替写硬代码的方式了。</p>
+<p>webpack.base.conf.js:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> glob = <span class="built_in">require</span>(<span class="string">&#x27;glob&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> entryJS = glob.sync(<span class="string">&#x27;./src/page/**/*.js&#x27;</span>).reduce(<span class="function"><span class="keyword">function</span> (<span class="params">prev, curr</span>) </span>&#123;</span><br><span class="line">    prev[curr.slice(<span class="number">6</span>, -<span class="number">3</span>)] = curr;</span><br><span class="line">    <span class="keyword">return</span> prev;</span><br><span class="line">&#125;, &#123;&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="attr">entry</span>: entryJS,</span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>webpack.dev.conf.js 和 webpack.prod.conf.js:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> glob = <span class="built_in">require</span>(<span class="string">&#x27;glob&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// item 为 ./src/page/student/index.html 和 ./src/page/teacher/index.html</span></span><br><span class="line"><span class="keyword">var</span> htmls = glob.sync(<span class="string">&#x27;./src/page/**/*.html&#x27;</span>).map(<span class="function"><span class="keyword">function</span> (<span class="params">item</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(item);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">        <span class="attr">filename</span>: <span class="string">&#x27;./&#x27;</span> + item.slice(<span class="number">6</span>),</span><br><span class="line">        <span class="attr">template</span>: item,</span><br><span class="line">        <span class="attr">inject</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">chunks</span>: [item.slice(<span class="number">6</span>, -<span class="number">5</span>)]</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = merge(baseWebpackConfig, &#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="attr">plugins</span>: [</span><br><span class="line">        ...</span><br><span class="line">    ].concat(htmls)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><ul>
+<li>访问 <a target="_blank" rel="noopener" href="http://localhost:8888/page/student/index.html">http://localhost:8888/page/student/index.html</a></li>
+<li>访问 <a target="_blank" rel="noopener" href="http://localhost:8888/page/teacher/index.html">http://localhost:8888/page/teacher/index.html</a></li>
+</ul>
+<h2 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h2><p><code>npm run build</code> 后生成的文件如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">├── page</span><br><span class="line">│   ├── student</span><br><span class="line">│   │   └── index.html</span><br><span class="line">│   └── teacher</span><br><span class="line">│       └── index.html</span><br><span class="line">└── static</span><br><span class="line">    ├── css</span><br><span class="line">    │   └── page</span><br><span class="line">    │       ├── student</span><br><span class="line">    │       │   ├── index.f9157a04ff70a02261a18caad5dc4058.css</span><br><span class="line">    │       │   └── index.f9157a04ff70a02261a18caad5dc4058.css.map</span><br><span class="line">    │       └── teacher</span><br><span class="line">    │           ├── index.f9157a04ff70a02261a18caad5dc4058.css</span><br><span class="line">    │           └── index.f9157a04ff70a02261a18caad5dc4058.css.map</span><br><span class="line">    ├── fonts</span><br><span class="line">    │   └── element-icons.b02bdc1.ttf</span><br><span class="line">    ├── img</span><br><span class="line">    │   └── avatar.jpg</span><br><span class="line">    └── js</span><br><span class="line">        ├── 0.74aa4aa0b2dfab165015.js</span><br><span class="line">        ├── 0.74aa4aa0b2dfab165015.js.map</span><br><span class="line">        ├── 1.3abf64768fdb6f210810.js</span><br><span class="line">        ├── 1.3abf64768fdb6f210810.js.map</span><br><span class="line">        ├── 2.150b5d962f5f32239c9c.js</span><br><span class="line">        ├── 2.150b5d962f5f32239c9c.js.map</span><br><span class="line">        ├── 3.4e5f52a424da88d1ad75.js</span><br><span class="line">        ├── 3.4e5f52a424da88d1ad75.js.map</span><br><span class="line">        ├── 4.a935cb93fcb87309c85e.js</span><br><span class="line">        ├── 4.a935cb93fcb87309c85e.js.map</span><br><span class="line">        ├── 5.a990e96495e161f6eaac.js</span><br><span class="line">        ├── 5.a990e96495e161f6eaac.js.map</span><br><span class="line">        ├── 6.88ce696032dd62445c9f.js</span><br><span class="line">        ├── 6.88ce696032dd62445c9f.js.map</span><br><span class="line">        ├── 7.b9b86098d990f9c09cf8.js</span><br><span class="line">        ├── 7.b9b86098d990f9c09cf8.js.map</span><br><span class="line">        └── page</span><br><span class="line">            ├── student</span><br><span class="line">            │   ├── index.4842fafe9a6a5f49d2d5.js</span><br><span class="line">            │   ├── index.4842fafe9a6a5f49d2d5.js.map</span><br><span class="line">            │   └── router</span><br><span class="line">            │       ├── index.c5324c1ebb3b8cd6232d.js</span><br><span class="line">            │       └── index.c5324c1ebb3b8cd6232d.js.map</span><br><span class="line">            └── teacher</span><br><span class="line">                ├── index.e1657eb4c71610d67cf4.js</span><br><span class="line">                ├── index.e1657eb4c71610d67cf4.js.map</span><br><span class="line">                └── router</span><br><span class="line">                    ├── index.bd229432d6c462860b3e.js</span><br><span class="line">                    └── index.bd229432d6c462860b3e.js.map</span><br></pre></td></tr></table></figure>
+
+<h2 id="打包目录"><a href="#打包目录" class="headerlink" title="打包目录"></a>打包目录</h2><p><code>npm run build</code> 后生成的文件默认在 dist 目录中，在 Java Web 系统里很多时候是不行的，可以定制 build 的输出目录: 修改 <strong>webpack.prod.conf.js</strong> 中的 <code>output.path</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">output: &#123;</span><br><span class="line">    <span class="comment">// path: config.build.assetsRoot,</span></span><br><span class="line">    <span class="attr">path</span>: path.resolve(__dirname, <span class="string">&#x27;../../WEB-INF&#x27;</span>),</span><br><span class="line">    <span class="attr">filename</span>: utils.assetsPath(<span class="string">&#x27;js/[name].[chunkhash].js&#x27;</span>),</span><br><span class="line">    <span class="attr">chunkFilename</span>: utils.assetsPath(<span class="string">&#x27;js/[id].[chunkhash].js&#x27;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/fe-vue-admin-3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Vue 后台管理简单框架（三）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/fe-vue-admin-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Vue 后台管理简单框架（一）- 单页</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

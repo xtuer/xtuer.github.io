@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>数据库连接池 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在前面的章节里，我们使用了下面的函数创建和取得数据库连接： 12345678910111213141516void createConnectionByName(const QString &amp;connectionName) &amp;#123;    QSqlDatabase db &#x3D; QSqlDatabase::addDatabase(&quot;QMYSQL&quot;, connection">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库连接池">
+<meta property="og:url" content="http://xtuer.github.io/qtbook-db-connection-pool/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="在前面的章节里，我们使用了下面的函数创建和取得数据库连接： 12345678910111213141516void createConnectionByName(const QString &amp;connectionName) &amp;#123;    QSqlDatabase db &#x3D; QSqlDatabase::addDatabase(&quot;QMYSQL&quot;, connection">
+<meta property="og:locale">
+<meta property="article:published_time" content="2016-12-22T05:13:16.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.173Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="QtBook">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-text">数据库连接池的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-text">数据库连接池的特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-text">数据库连接池的实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%B5%8B%E8%AF%95"><span class="toc-text">多线程测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%80%83"><span class="toc-text">思考</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-qtbook-db-connection-pool" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-db-connection-pool/" class="article-date">
+  	<!-- <time datetime="2016-12-22T05:13:16.000Z" itemprop="datePublished">2016-12-22</time> -->
+    2016-12-22
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据库连接池
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>在前面的章节里，我们使用了下面的函数创建和取得数据库连接：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">createConnectionByName</span><span class="params">(<span class="keyword">const</span> QString &amp;connectionName)</span> </span>&#123;</span><br><span class="line">    QSqlDatabase db = QSqlDatabase::<span class="built_in">addDatabase</span>(<span class="string">&quot;QMYSQL&quot;</span>, connectionName);</span><br><span class="line">    db.<span class="built_in">setHostName</span>(<span class="string">&quot;127.0.0.1&quot;</span>);</span><br><span class="line">    db.<span class="built_in">setDatabaseName</span>(<span class="string">&quot;qt&quot;</span>); <span class="comment">// 如果是 SQLite 则为数据库文件路径</span></span><br><span class="line">    db.<span class="built_in">setUserName</span>(<span class="string">&quot;root&quot;</span>);   <span class="comment">// 如果是 SQLite 不需要</span></span><br><span class="line">    db.<span class="built_in">setPassword</span>(<span class="string">&quot;root&quot;</span>);   <span class="comment">// 如果是 SQLite 不需要</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!db.<span class="built_in">open</span>()) &#123;</span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;Connect to MySql error: &quot;</span> &lt;&lt; db.<span class="built_in">lastError</span>().<span class="built_in">text</span>();</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">QSqlDatabase <span class="title">getConnectionByName</span><span class="params">(<span class="keyword">const</span> QString &amp;connectionName)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> QSqlDatabase::<span class="built_in">database</span>(connectionName);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>虽然抽象出了连接的创建和获取，但是有几个弊端：</strong></p>
+<ul>
+<li>需要我们维护连接的名字，不小心就重名了</li>
+<li>获取连接的时候需要传入连接的名字</li>
+<li>获取连接的时候不知道连接是否正在被使用，很容易一个线程中获取另外一个线程创建的数据库连接</li>
+<li>每次调用 createConnectionByName() 都会创建一个新的连接</li>
+<li>连接断开后不会自动重连</li>
+<li>需要手动释放连接 <span id="more"></span></li>
+</ul>
+<p>为了解决上面的几个问题，这一节我们将实现一个简易的数据库连接池。使用数据库连接池后，连接的创建、获取、释放自动释放等只需要使用下面 2 个函数，刚刚提到的那些弊端都通过连接池解决了。</p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>代码</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>获取连接</td>
+<td>QSqlDatabase db = ConnectionPool::openConnection();</td>
+</tr>
+<tr>
+<td>释放连接</td>
+<td>使用连接的线程结束后自动释放连接</td>
+</tr>
+</tbody></table>
+<h2 id="数据库连接池的使用"><a href="#数据库连接池的使用" class="headerlink" title="数据库连接池的使用"></a>数据库连接池的使用</h2><p>在具体介绍数据库连接池的实现之前，先来看看怎么使用。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QDebug&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QApplication&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;ConnectionPool.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// [1] 从数据库连接池里取得连接</span></span><br><span class="line">    QSqlDatabase db = ConnectionPool::<span class="built_in">openConnection</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [2] 使用连接查询数据库</span></span><br><span class="line">    <span class="function">QSqlQuery <span class="title">query</span><span class="params">(db)</span></span>;</span><br><span class="line">    query.<span class="built_in">exec</span>(<span class="string">&quot;SELECT * FROM user where id=1&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (query.<span class="built_in">next</span>()) &#123;</span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; query.<span class="built_in">value</span>(<span class="string">&quot;username&quot;</span>).<span class="built_in">toString</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [3] 不用管连接的释放</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="function">QApplication <span class="title">app</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line">    <span class="built_in">foo</span>();</span><br><span class="line">    <span class="keyword">return</span> app.<span class="built_in">exec</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>就像上面程序所示，使用数据库连接池时不需要关系连接的创建、关闭等，只管用。</p>
+<h2 id="数据库连接池的特点"><a href="#数据库连接池的特点" class="headerlink" title="数据库连接池的特点"></a>数据库连接池的特点</h2><ul>
+<li>获取连接时不需要了解连接的名字，连接池内部维护连接的名字</li>
+<li>支持多线程，保证获取到的连接一定是没有被其他线程正在使用</li>
+<li>按需创建连接</li>
+<li>可以创建多个连接</li>
+<li>可以控制连接的数量</li>
+<li>连接被复用，不是每次都重新创建一个新的连接（连接的创建是一个很消耗资源的过程）</li>
+<li>连接断开了后会自动重连</li>
+<li>当无可用连接时，获取连接的线程会等待一定时间尝试继续获取，直到取到有效连接或者超时返回一个无效的连接</li>
+<li>关闭连接很简单</li>
+</ul>
+<h2 id="数据库连接池的实现"><a href="#数据库连接池的实现" class="headerlink" title="数据库连接池的实现"></a>数据库连接池的实现</h2><p>数据库连接池的实现只需要 2 个文件：<code>ConnectionPool.h</code> 和 <code>ConnectionPool.cpp</code>，下面列出程序的内容加以介绍。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> CONNECTIONPOOL_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CONNECTIONPOOL_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QString&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QSqlDatabase&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QSqlQuery&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConnectionPool</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * @brief 获取数据库连接，连接使用完后不需要手动关闭，数据库连接池会在使用此连接的线程结束后自动关闭连接。</span></span><br><span class="line"><span class="comment">     * 传入的连接名 connectionName 默认为空 (内部会为连接名基于线程的信息创建一个唯一的前缀)，</span></span><br><span class="line"><span class="comment">     * 如果同一个线程需要使用多个不同的数据库连接，可以传入不同的 connectionName</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * @param connectionName 连接的名字</span></span><br><span class="line"><span class="comment">     * @return 返回数据库连接</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">static</span> QSqlDatabase <span class="title">openConnection</span><span class="params">(<span class="keyword">const</span> QString &amp;connectionName = QString())</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> QSqlDatabase <span class="title">createConnection</span><span class="params">(<span class="keyword">const</span> QString &amp;connectionName)</span></span>; <span class="comment">// 创建数据库连接</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// CONNECTIONPOOL_H</span></span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>openConnection()</code> 用于从连接池里获取连接</li>
+<li><code>createConnection()</code> 连接池内部用来创建连接</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;ConnectionPool.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QDebug&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QtSql&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QString&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QThread&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QCoreApplication&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取数据库连接</span></span><br><span class="line"><span class="function">QSqlDatabase <span class="title">ConnectionPool::openConnection</span><span class="params">(<span class="keyword">const</span> QString &amp;connectionName)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 1. 创建连接的全名: 基于线程的地址和传入进来的 connectionName，因为同一个线程可能申请创建多个数据库连接</span></span><br><span class="line">    <span class="comment">// 2. 如果连接已经存在，复用它，而不是重新创建</span></span><br><span class="line">    <span class="comment">//    2.1 返回连接前访问数据库，如果连接断开，可以重新建立连接 (测试: 关闭数据库几分钟后再启动，再次访问数据库)</span></span><br><span class="line">    <span class="comment">// 3. 如果连接不存在，则创建连接</span></span><br><span class="line">    <span class="comment">// 4. 线程结束时，释放在此线程中创建的数据库连接</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// [1] 创建连接的全名: 基于线程的地址和传入进来的 connectionName，因为同一个线程可能申请创建多个数据库连接</span></span><br><span class="line">    QString baseConnectionName = <span class="string">&quot;conn_&quot;</span> + QString::<span class="built_in">number</span>(<span class="built_in">quint64</span>(QThread::<span class="built_in">currentThread</span>()), <span class="number">16</span>);</span><br><span class="line">    QString fullConnectionName = baseConnectionName + connectionName;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (QSqlDatabase::<span class="built_in">contains</span>(fullConnectionName)) &#123;</span><br><span class="line">        <span class="comment">// [2] 如果连接已经存在，复用它，而不是重新创建</span></span><br><span class="line">        QSqlDatabase existingDb = QSqlDatabase::<span class="built_in">database</span>(fullConnectionName);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// [2.1] 返回连接前访问数据库，如果连接断开，可以重新建立连接 (测试: 关闭数据库几分钟后再启动，再次访问数据库)</span></span><br><span class="line">        <span class="function">QSqlQuery <span class="title">query</span><span class="params">(<span class="string">&quot;SELECT 1&quot;</span>, existingDb)</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (query.<span class="built_in">lastError</span>().<span class="built_in">type</span>() != QSqlError::NoError &amp;&amp; !existingDb.<span class="built_in">open</span>()) &#123;</span><br><span class="line">            <span class="built_in">qDebug</span>().<span class="built_in">noquote</span>() &lt;&lt; <span class="string">&quot;Open datatabase error:&quot;</span> &lt;&lt; existingDb.<span class="built_in">lastError</span>().<span class="built_in">text</span>();</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">QSqlDatabase</span>();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> existingDb;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// [3] 如果连接不存在，则创建连接</span></span><br><span class="line">        <span class="keyword">if</span> (qApp != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            <span class="comment">// [4] 线程结束时，释放在此线程中创建的数据库连接</span></span><br><span class="line">            QObject::<span class="built_in">connect</span>(QThread::<span class="built_in">currentThread</span>(), &amp;QThread::finished, qApp, [fullConnectionName] &#123;</span><br><span class="line">                <span class="keyword">if</span> (QSqlDatabase::<span class="built_in">contains</span>(fullConnectionName)) &#123;</span><br><span class="line">                    QSqlDatabase::<span class="built_in">removeDatabase</span>(fullConnectionName);</span><br><span class="line">                    <span class="built_in">qDebug</span>().<span class="built_in">noquote</span>() &lt;&lt; <span class="built_in">QString</span>(<span class="string">&quot;Connection deleted: %1&quot;</span>).<span class="built_in">arg</span>(fullConnectionName);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">createConnection</span>(fullConnectionName);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建数据库连接</span></span><br><span class="line"><span class="function">QSqlDatabase <span class="title">ConnectionPool::createConnection</span><span class="params">(<span class="keyword">const</span> QString &amp;connectionName)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> sn = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建一个新的数据库连接</span></span><br><span class="line">    QSqlDatabase db = QSqlDatabase::<span class="built_in">addDatabase</span>(<span class="string">&quot;QMYSQL&quot;</span>, connectionName);</span><br><span class="line">    db.<span class="built_in">setHostName</span>(<span class="string">&quot;localhost&quot;</span>);</span><br><span class="line">    db.<span class="built_in">setDatabaseName</span>(<span class="string">&quot;qt&quot;</span>);</span><br><span class="line">    db.<span class="built_in">setUserName</span>(<span class="string">&quot;root&quot;</span>);</span><br><span class="line">    db.<span class="built_in">setPassword</span>(<span class="string">&quot;root&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (db.<span class="built_in">open</span>()) &#123;</span><br><span class="line">        <span class="built_in">qDebug</span>().<span class="built_in">noquote</span>() &lt;&lt; <span class="built_in">QString</span>(<span class="string">&quot;Connection created: %1, sn: %2&quot;</span>).<span class="built_in">arg</span>(connectionName).<span class="built_in">arg</span>(++sn);</span><br><span class="line">        <span class="keyword">return</span> db;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">qDebug</span>().<span class="built_in">noquote</span>() &lt;&lt; <span class="string">&quot;Create connection error:&quot;</span> &lt;&lt; db.<span class="built_in">lastError</span>().<span class="built_in">text</span>();</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">QSqlDatabase</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>基于线程构建连接的名字，这样就能保证不同的线程中连接的名字不会重复</p>
+<p>由于安全的原因，大概是 Qt 5.4 以后一个线程创建的连接不允许在其他线程中使用 (早一些的版本可以)。一个线程内的函数执行总是串行的，绝大多数时候一个线程内使用一个数据库连接就可以了，特殊情况下需要同时维护多个连接各自独立的状态时传入不同的连接名可以获取到不同的数据库连接。</p>
+</li>
+<li><p>获取连接时，先判断此线程中是否有可用连接，如果有则重用，没有则创建</p>
+</li>
+<li><p>连接不需要归还给连接池，因为连接与线程相关，同一个线程里代码是串行执行的</p>
+</li>
+<li><p>连接不需要手动关闭，程序结束时会自动关闭</p>
+</li>
+</ul>
+<h2 id="多线程测试"><a href="#多线程测试" class="headerlink" title="多线程测试"></a>多线程测试</h2><p>由于 Qt 5.12 中不允许数据库连接跨线程使用，测试一下多线程的情况。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名: Thread.h</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> THREAD_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> THREAD_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QThread&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Thread</span> :</span> <span class="keyword">public</span> QThread &#123;</span><br><span class="line">    Q_OBJECT</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Thread</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> <span class="keyword">override</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// THREAD_H</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;Thread.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;ConnectionPool.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QDebug&gt;</span></span></span><br><span class="line"></span><br><span class="line">Thread::<span class="built_in">Thread</span>() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// [1] 从数据库连接池里取得连接</span></span><br><span class="line">    QSqlDatabase db = ConnectionPool::<span class="built_in">openConnection</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [2] 使用连接查询数据库</span></span><br><span class="line">    <span class="function">QSqlQuery <span class="title">query</span><span class="params">(db)</span></span>;</span><br><span class="line">    query.<span class="built_in">exec</span>(<span class="string">&quot;SELECT * FROM user where id=1&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (query.<span class="built_in">next</span>()) &#123;</span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; query.<span class="built_in">value</span>(<span class="string">&quot;username&quot;</span>).<span class="built_in">toString</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Thread::run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">foo</span>();</span><br><span class="line">    QThread::<span class="built_in">sleep</span>(<span class="number">1</span>);</span><br><span class="line">    <span class="built_in">foo</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QDebug&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QApplication&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;Thread.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="function">QApplication <span class="title">app</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; ++i) &#123;</span><br><span class="line">        Thread *t = <span class="keyword">new</span> <span class="built_in">Thread</span>();</span><br><span class="line">        t-&gt;<span class="built_in">start</span>();</span><br><span class="line">       </span><br><span class="line">        <span class="comment">// 如果瞬间启动多个线程建立 MySQL 数据库连接，很可能会报异常 unable to allocate a MYSQL object</span></span><br><span class="line">        <span class="comment">// 导致部分连接建立失败，于是等待 100 毫秒才启动下一个线程</span></span><br><span class="line">        QThread::<span class="built_in">msleep</span>(<span class="number">100</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">return</span> app.<span class="built_in">exec</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">Connection created: conn_7fe983d5f790, sn: 1</span><br><span class="line">&quot;Alice&quot;</span><br><span class="line">Connection created: conn_7fe983d47590, sn: 2</span><br><span class="line">Connection created: conn_7fe983d517b0, sn: 3</span><br><span class="line">&quot;Alice&quot;</span><br><span class="line">Connection created: conn_7fe983d40c60, sn: 4</span><br><span class="line">&quot;Alice&quot;</span><br><span class="line">&quot;Alice&quot;</span><br><span class="line">Connection created: conn_7fe983d25710, sn: 5</span><br><span class="line">Connection created: conn_7fe983d5b8e0, sn: 6</span><br><span class="line">Connection created: conn_7fe983d3be90, sn: 7</span><br><span class="line">&quot;Alice&quot;</span><br><span class="line">&quot;Alice&quot;</span><br><span class="line">&quot;Alice&quot;</span><br><span class="line">Connection created: conn_7fe983d25200, sn: 8</span><br><span class="line">Connection created: conn_7fe983d3d590, sn: 9</span><br><span class="line">&quot;Alice&quot;</span><br><span class="line">&quot;Alice&quot;</span><br><span class="line">Connection created: conn_7fe983d41df0, sn: 10</span><br><span class="line">&quot;Alice&quot;</span><br><span class="line">&quot;Alice&quot;</span><br><span class="line">Connection deleted: conn_7fe983d5f790</span><br><span class="line">&quot;Alice&quot;</span><br><span class="line">Connection deleted: conn_7fe983d47590</span><br><span class="line">&quot;Alice&quot;</span><br><span class="line">Connection deleted: conn_7fe983d517b0</span><br><span class="line">&quot;Alice&quot;</span><br><span class="line">Connection deleted: conn_7fe983d40c60</span><br><span class="line">&quot;Alice&quot;</span><br><span class="line">&quot;Alice&quot;</span><br><span class="line">&quot;Alice&quot;</span><br><span class="line">&quot;Alice&quot;</span><br><span class="line">&quot;Alice&quot;</span><br><span class="line">Connection deleted: conn_7fe983d25710</span><br><span class="line">Connection deleted: conn_7fe983d5b8e0</span><br><span class="line">Connection deleted: conn_7fe983d3d590</span><br><span class="line">Connection deleted: conn_7fe983d25200</span><br><span class="line">Connection deleted: conn_7fe983d3be90</span><br><span class="line">&quot;Alice&quot;</span><br><span class="line">Connection deleted: conn_7fe983d41df0</span><br></pre></td></tr></table></figure>
+
+<p>可以看到每个线程都创建了不同的连接，同一个线程里的连接进行了复用，线程结束后连接都自动释放掉了。</p>
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>一个简单数据库连接池的功能基本已经完成，但还有很多地方不完善，例如没有考虑限制连接的最大数量，而 MySQL 等数据库有连接数量的限制，没有对连接数进行控制，是因为我们觉得 Qt 程序一般不需要去控制连接数，有以下理由:</p>
+<ul>
+<li>Qt 程序一般都是客户端的桌面程序，同一个程序中不太可能同时创建很多数据库连接，例如 100 个，如果真有，那么就可以考虑下设计是否合理</li>
+<li>Qt 很少用来开发服务器端程序，访问数据库向前端提供服务，这时优先可以考虑使用 Java 等服务器端更成熟的方案</li>
+<li>Qt 程序可能访问本地的 Sqlite 数据库的情况更多一些，作为客户端时直接访问远程的 MySQL 等安全上是不允许的，数据库一般都不允许外网访问</li>
+</ul>
+<p>当然需要考虑高并发时，就需要实现更复杂的连接池，控制连接数、自动释放长时间不活跃的连接，需要使用计时器扫描连接状态，连接按照线程分组管理，归还连接到连接池等，早期 Qt 中允许数据库连接跨线程使用，实现过一个连接池，可以作为参考学习一下 <a href="../download/ConnectionPool.h">ConnectionPool.h</a> 和 <a href="../download/ConnectionPool.cpp">ConnectionPool.cpp</a>。</p>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/qtbook-db-util/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          数据库访问工具 DBUtl
+        
+      </div>
+    </a>
+  
+  
+    <a href="/qtbook-db-common/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">数据库常用操作</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>数据库常用基础 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="创建数据库1CREATE DATABASE ebag DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci  增加新列1ALTER TABLE table_name ADD COLUMN column_name varchar(64)  分页查询MySQL 中使用 LIMIT 进行分页，第一个参数是起始位置 offset，从 0 开始，第二个参数是要">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库常用基础">
+<meta property="og:url" content="http://xtuer.github.io/db-tips/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="创建数据库1CREATE DATABASE ebag DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci  增加新列1ALTER TABLE table_name ADD COLUMN column_name varchar(64)  分页查询MySQL 中使用 LIMIT 进行分页，第一个参数是起始位置 offset，从 0 开始，第二个参数是要">
+<meta property="og:locale">
+<meta property="article:published_time" content="2017-05-21T03:45:06.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.143Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="DB">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">创建数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A2%9E%E5%8A%A0%E6%96%B0%E5%88%97"><span class="toc-text">增加新列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2"><span class="toc-text">分页查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E6%9B%B4%E6%96%B0"><span class="toc-text">插入更新</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E6%9B%B4%E6%96%B0"><span class="toc-text">查询更新</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A6%E8%BF%9E%E6%8E%A5"><span class="toc-text">左连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E8%BF%9E%E6%8E%A5"><span class="toc-text">内连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E7%BB%84"><span class="toc-text">分组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-text">类型转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%87%E6%8D%A2-0-%E5%92%8C-1"><span class="toc-text">切换 0 和 1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%9E%E6%8E%A5"><span class="toc-text">字符串连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%94%E5%9B%9E%E5%B8%83%E5%B0%94%E5%80%BC"><span class="toc-text">返回布尔值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BB%BA%E8%A1%A8%E8%AF%AD%E5%8F%A5"><span class="toc-text">建表语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%94%AF%E4%B8%80%E7%BA%A6%E6%9D%9F"><span class="toc-text">唯一约束</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E7%B4%A2%E5%BC%95"><span class="toc-text">添加索引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E7%B4%A2%E5%BC%95"><span class="toc-text">删除索引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%A7%86%E5%9B%BE"><span class="toc-text">创建视图</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-db-tips" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/db-tips/" class="article-date">
+  	<!-- <time datetime="2017-05-21T03:45:06.000Z" itemprop="datePublished">2017-05-21</time> -->
+    2017-05-21
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据库常用基础
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DB/" rel="tag">DB</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <h2 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> DATABASE ebag <span class="keyword">DEFAULT</span> <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci</span><br></pre></td></tr></table></figure>
+
+<h2 id="增加新列"><a href="#增加新列" class="headerlink" title="增加新列"></a>增加新列</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name <span class="keyword">ADD</span> <span class="keyword">COLUMN</span> column_name <span class="type">varchar</span>(<span class="number">64</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="分页查询"><a href="#分页查询" class="headerlink" title="分页查询"></a>分页查询</h2><p>MySQL 中使用 LIMIT 进行分页，第一个参数是起始位置 offset，从 0 开始，第二个参数是要取多少条记录</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> question <span class="keyword">WHERE</span> subject_code<span class="operator">=</span><span class="string">&#x27;XXX&#x27;</span> LIMIT <span class="number">0</span>, <span class="number">30</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="插入更新"><a href="#插入更新" class="headerlink" title="插入更新"></a>插入更新</h2><p>查看 UNIQUE 索引或 PRIMARY KEY 对应的行是否存在，存在则更新 (执行 ON DUPLICATE KEY UPDATE 后面的语句)，不存在则插入新行</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># id 是唯一主键</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> question (id, type, content) <span class="keyword">VALUES</span> (#&#123;id&#125;, #&#123;type&#125;, #&#123;content&#125;)</span><br><span class="line"><span class="keyword">ON</span> DUPLICATE KEY UPDATE content<span class="operator">=</span>#&#123;content&#125;</span><br></pre></td></tr></table></figure>
+
+<p>插入时先使用条件查询，满足条件时才插入，不满足条件就不进行插入</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 根据条件查询，满足条件时才插入</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> paper_knowledge_point_relation(paper_id, knowledge_point_id, tenant_code)</span><br><span class="line"><span class="keyword">SELECT</span> #&#123;paperId&#125;, #&#123;knowledgePointId&#125;, #&#123;tenantCode&#125;</span><br><span class="line"><span class="keyword">FROM</span>   dual</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span>(</span><br><span class="line">    <span class="keyword">SELECT</span> <span class="number">1</span> <span class="keyword">FROM</span> paper_knowledge_point_relation</span><br><span class="line">    <span class="keyword">WHERE</span> paper_id<span class="operator">=</span>#&#123;paperId&#125; <span class="keyword">AND</span> knowledge_point_id<span class="operator">=</span>#&#123;knowledgePointId&#125; <span class="keyword">AND</span> tenant_code<span class="operator">=</span>#&#123;tenantCode&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h2 id="查询更新"><a href="#查询更新" class="headerlink" title="查询更新"></a>查询更新</h2><p>查询的结果作为临时表，更新知识点下的题目数量</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">UPDATE question_knowledge_point qkp</span><br><span class="line"><span class="keyword">JOIN</span>   (<span class="keyword">SELECT</span> knowledge_point_id <span class="keyword">AS</span> id, <span class="built_in">COUNT</span>(id) <span class="keyword">AS</span> count <span class="keyword">FROM</span> question <span class="keyword">GROUP</span> <span class="keyword">BY</span> knowledge_point_id) <span class="keyword">AS</span> t <span class="keyword">ON</span> qkp.id<span class="operator">=</span>t.id</span><br><span class="line"><span class="keyword">SET</span>    qkp.count<span class="operator">=</span>t.count</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>使用了子查询</p>
+</blockquote>
+<h2 id="左连接"><a href="#左连接" class="headerlink" title="左连接"></a>左连接</h2><p>查询所有题目及它的选项</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> q.id, q.content, qo.id, qo.content</span><br><span class="line"><span class="keyword">FROM</span>   question q</span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> question_option qo <span class="keyword">ON</span> q.id<span class="operator">=</span>qo.question_id</span><br></pre></td></tr></table></figure>
+
+<h2 id="内连接"><a href="#内连接" class="headerlink" title="内连接"></a>内连接</h2><p>内连接 JOIN 和 WHERE 等价，查询所有有选项的题目</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> q.id, q.content, qo.id, qo.content</span><br><span class="line"><span class="keyword">FROM</span>   question q</span><br><span class="line"><span class="keyword">JOIN</span>   question_option qo <span class="keyword">ON</span> q.id<span class="operator">=</span>qo.question_id</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> q.id, q.content, qo.id, qo.content</span><br><span class="line"><span class="keyword">FROM</span>   question q, question_option qo</span><br><span class="line"><span class="keyword">WHERE</span>  q.id<span class="operator">=</span>qo.question_id</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>可参考 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/eflylab/archive/2007/06/25/794278.html">https://www.cnblogs.com/eflylab/archive/2007/06/25/794278.html</a></p>
+</blockquote>
+<h2 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h2><p>统计有选项的题目的选项个数</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> q.id, <span class="built_in">count</span>(<span class="number">1</span>), qo.id, qo.content</span><br><span class="line"><span class="keyword">FROM</span>   question q</span><br><span class="line"><span class="keyword">JOIN</span>   question_option qo <span class="keyword">ON</span> q.id<span class="operator">=</span>qo.question_id</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> q.id</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>数据量大时 JOIN 比 LEFT JOIN 快很多</p>
+</blockquote>
+<h2 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h2><p>使用 <code>CAST</code> 转换类型</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">CAST</span>(id <span class="keyword">AS</span> <span class="type">CHAR</span>) <span class="keyword">AS</span> id <span class="keyword">FROM</span> question</span><br></pre></td></tr></table></figure>
+
+<h2 id="切换-0-和-1"><a href="#切换-0-和-1" class="headerlink" title="切换 0 和 1"></a>切换 0 和 1</h2><p>如果是 0 则设置为 1，否则设置为 0，对于切换 true 和 false 很有用，很像三元运算符</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UPDATE demo <span class="keyword">SET</span> is_marked<span class="operator">=</span>IF(is_marked<span class="operator">=</span><span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="字符串连接"><a href="#字符串连接" class="headerlink" title="字符串连接"></a>字符串连接</h2><p>使用 <code>CONCAT(p1, p2, p3)</code> 连接字符串</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> CONCAT(subject_code, <span class="string">&#x27;-&#x27;</span>, original_id) <span class="keyword">FROM</span> question <span class="keyword">WHERE</span> is_marked<span class="operator">=</span><span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="返回布尔值"><a href="#返回布尔值" class="headerlink" title="返回布尔值"></a>返回布尔值</h2><p>JDBC 标准中，<code>0 表示 false，1 表示 true</code>，大于 1 和小于 0 的数没有定义，MySQL 的 JDBC Driver 中 &lt;=0 表示 false，&gt;=1 表示 true，为了保险起见，使用 EXISTS 来查询返回布尔值</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">EXISTS</span> (</span><br><span class="line">    <span class="keyword">SELECT</span> <span class="number">1</span> <span class="keyword">FROM</span> paper <span class="keyword">WHERE</span> paper_id<span class="operator">=</span>#&#123;paperId&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h2 id="建表语句"><a href="#建表语句" class="headerlink" title="建表语句"></a>建表语句</h2><p>建表语句中需要有足够的注释描述每一列的作用，便于维护</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#<span class="comment">-------------------------------------------</span></span><br><span class="line"># 表名：question</span><br><span class="line"># 作者：公孙二狗</span><br><span class="line"># 日期：<span class="number">2018</span><span class="number">-04</span><span class="number">-01</span></span><br><span class="line"># 版本：<span class="number">1.0</span></span><br><span class="line"># 描述：保存题目</span><br><span class="line">#<span class="comment">------------------------------------------</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> IF <span class="keyword">EXISTS</span> question;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> question (</span><br><span class="line">    id <span class="type">bigint</span>(<span class="number">20</span>) unsigned <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;题目 ID&#x27;</span>,</span><br><span class="line">    type <span class="type">varchar</span>(<span class="number">8</span>) <span class="keyword">DEFAULT</span> <span class="string">&#x27;&#x27;</span>      COMMENT <span class="string">&#x27;题目类型&#x27;</span>,</span><br><span class="line">    content mediumtext              COMMENT <span class="string">&#x27;题目内容：题干+选项&#x27;</span>,</span><br><span class="line">    analysis mediumtext             COMMENT <span class="string">&#x27;题目解析&#x27;</span>,</span><br><span class="line">    answer text                     COMMENT <span class="string">&#x27;题目答案&#x27;</span>,</span><br><span class="line">    demand <span class="type">varchar</span>(<span class="number">32</span>) <span class="keyword">DEFAULT</span> <span class="string">&#x27;&#x27;</span>   COMMENT <span class="string">&#x27;教学要求&#x27;</span>,</span><br><span class="line">    score <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">DEFAULT</span> <span class="number">0</span>         COMMENT <span class="string">&#x27;题目分值&#x27;</span>,</span><br><span class="line">    difficulty <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">DEFAULT</span> <span class="number">0</span>    COMMENT <span class="string">&#x27;题目难度&#x27;</span>,</span><br><span class="line">    original_id <span class="type">varchar</span>(<span class="number">64</span>) <span class="keyword">DEFAULT</span>  <span class="string">&#x27;&#x27;</span>        COMMENT <span class="string">&#x27;题目在乐教乐学数据库中的 ID&#x27;</span>,</span><br><span class="line">    subject_code <span class="type">varchar</span>(<span class="number">64</span>) <span class="keyword">DEFAULT</span> <span class="string">&#x27;&#x27;</span>        COMMENT <span class="string">&#x27;题目的科目编码&#x27;</span>,</span><br><span class="line">    knowledge_point_code <span class="type">varchar</span>(<span class="number">8</span>) <span class="keyword">DEFAULT</span> <span class="string">&#x27;&#x27;</span> COMMENT <span class="string">&#x27;题目的知识点编码&#x27;</span>,</span><br><span class="line">    knowledge_point_id <span class="type">bigint</span>(<span class="number">20</span>) <span class="keyword">DEFAULT</span> <span class="number">0</span>    COMMENT <span class="string">&#x27;题目的知识点 ID&#x27;</span>,</span><br><span class="line">    is_marked tinyint(<span class="number">4</span>) <span class="keyword">DEFAULT</span> <span class="number">0</span>             COMMENT <span class="string">&#x27;是否被标记过，0 为未标记，1 为已标记&#x27;</span>,</span><br><span class="line">    created_time datetime <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>         COMMENT <span class="string">&#x27;创建时间&#x27;</span>,</span><br><span class="line">    updated_time <span class="type">timestamp</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="built_in">CURRENT_TIMESTAMP</span> <span class="keyword">ON</span> UPDATE <span class="built_in">CURRENT_TIMESTAMP</span>,</span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (id)</span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB COMMENT <span class="string">&#x27;存储题目的表&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>复合主键: <code>PRIMARY KEY (code, type)</code>，因为用 id 作为主键，所以不推荐使用复合主键，可以使用多列建立唯一约束。</p>
+</blockquote>
+<h2 id="唯一约束"><a href="#唯一约束" class="headerlink" title="唯一约束"></a>唯一约束</h2><p>UNIQUE 约束唯一标识数据库表中的每条记录。</p>
+<p>UNIQUE 和 PRIMARY KEY 约束均为列或列集合提供了唯一性的保证。</p>
+<p>PRIMARY KEY 拥有自动定义的 UNIQUE 约束。</p>
+<p>每个表可以有多个 UNIQUE 约束，但是每个表只能有一个 PRIMARY KEY 约束。</p>
+<ul>
+<li><p>唯一约束</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name <span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> dict_identifier <span class="keyword">UNIQUE</span>(code, type)</span><br></pre></td></tr></table></figure></li>
+<li><p>删除约束</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name <span class="keyword">DROP</span> <span class="keyword">CONSTRAINT</span> dict_identifier</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="添加索引"><a href="#添加索引" class="headerlink" title="添加索引"></a>添加索引</h2><ul>
+<li><p>唯一索引</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name <span class="keyword">ADD</span> <span class="keyword">UNIQUE</span> (`<span class="keyword">column</span>`)</span><br></pre></td></tr></table></figure></li>
+<li><p>普通索引</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name <span class="keyword">ADD</span> INDEX index_name (`<span class="keyword">column</span>`)</span><br></pre></td></tr></table></figure></li>
+<li><p>多列索引</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name <span class="keyword">ADD</span> INDEX index_name (`column1`, `column2`, `column3`)</span><br></pre></td></tr></table></figure></li>
+<li><p>建表时用 <code>KEY</code> 创建索引</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#<span class="comment">-------------------------------------------</span></span><br><span class="line"># 表名：dict</span><br><span class="line"># 作者：二狗</span><br><span class="line"># 日期：<span class="number">2018</span><span class="number">-03</span><span class="number">-07</span></span><br><span class="line"># 版本：<span class="number">1.0</span></span><br><span class="line"># 描述：保存字典数据</span><br><span class="line">#<span class="comment">------------------------------------------</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> dict (</span><br><span class="line">    id    <span class="type">bigint</span>(<span class="number">20</span>) unsigned <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;字典的 ID&#x27;</span>,</span><br><span class="line">    code  <span class="type">varchar</span>(<span class="number">128</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>        COMMENT <span class="string">&#x27;字典的编码&#x27;</span>,</span><br><span class="line">    <span class="keyword">value</span> <span class="type">varchar</span>(<span class="number">256</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>        COMMENT <span class="string">&#x27;字典的值&#x27;</span>,</span><br><span class="line">    type  <span class="type">varchar</span>(<span class="number">128</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>        COMMENT <span class="string">&#x27;字典的类型&#x27;</span>,</span><br><span class="line">    description text                   COMMENT <span class="string">&#x27;字典的描述&#x27;</span>,</span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (id),</span><br><span class="line">    <span class="keyword">UNIQUE</span> KEY dict_identifier (code, type) COMMENT <span class="string">&#x27;code + type 唯一标记一个字典数据&#x27;</span>,</span><br><span class="line">    KEY idx_type (type) COMMENT <span class="string">&#x27;类型建立索引&#x27;</span></span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="删除索引"><a href="#删除索引" class="headerlink" title="删除索引"></a>删除索引</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name <span class="keyword">DROP</span> INDEX index_name</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建视图"><a href="#创建视图" class="headerlink" title="创建视图"></a>创建视图</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">VIEW</span> IF <span class="keyword">EXISTS</span> view_paper_knowledge_point;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">VIEW</span> view_paper_knowledge_point</span><br><span class="line"><span class="keyword">AS</span> <span class="keyword">SELECT</span></span><br><span class="line">    pkpr.paper_id <span class="keyword">AS</span> paper_id,</span><br><span class="line">    kp.knowledge_point_id <span class="keyword">AS</span> knowledge_point_id,</span><br><span class="line">    kp.name <span class="keyword">AS</span> name,</span><br><span class="line">    kp.tenant_code <span class="keyword">AS</span> tenant_code</span><br><span class="line"><span class="keyword">FROM</span> paper_knowledge_point_relation pkpr</span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> knowledge_point kp <span class="keyword">ON</span> pkpr.knowledge_point_id <span class="operator">=</span> kp.knowledge_point_id</span><br><span class="line"><span class="keyword">WHERE</span> kp.is_deleted<span class="operator">=</span><span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/java-response-file/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          HttpServletResponse 下载文件
+        
+      </div>
+    </a>
+  
+  
+    <a href="/fe-vue-skeleton/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">vue-cli 简单搭建项目框架</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

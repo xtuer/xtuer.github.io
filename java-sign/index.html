@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>签名验证 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="签名验证签名验证涉及到客户端（比如一个 Web 应用）和服务器端，每个客户端在服务器上有一个对应的 app_id 和 app_key，大致步骤如下：  客户端使用 app_id + app_key + 其他参数 生成签名字符串 sign1  把 app_id、其他参数 和 sign1 一起发送给服务器 (app_key 不发送)  服务器接收到请求后，根据参数中的 app_id 查找到对应的 ap">
+<meta property="og:type" content="article">
+<meta property="og:title" content="签名验证">
+<meta property="og:url" content="http://xtuer.github.io/java-sign/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="签名验证签名验证涉及到客户端（比如一个 Web 应用）和服务器端，每个客户端在服务器上有一个对应的 app_id 和 app_key，大致步骤如下：  客户端使用 app_id + app_key + 其他参数 生成签名字符串 sign1  把 app_id、其他参数 和 sign1 一起发送给服务器 (app_key 不发送)  服务器接收到请求后，根据参数中的 app_id 查找到对应的 ap">
+<meta property="og:locale">
+<meta property="article:published_time" content="2017-07-13T03:22:33.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.159Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Util">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AD%BE%E5%90%8D%E9%AA%8C%E8%AF%81"><span class="toc-text">签名验证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AD%BE%E5%90%8D%E7%AE%97%E6%B3%95"><span class="toc-text">签名算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90"><span class="toc-text">例子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java-%E5%AE%9E%E7%8E%B0"><span class="toc-text">Java 实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AD%BE%E5%90%8D%E6%9C%89%E6%95%88%E6%9C%9F"><span class="toc-text">签名有效期</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-java-sign" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/java-sign/" class="article-date">
+  	<!-- <time datetime="2017-07-13T03:22:33.000Z" itemprop="datePublished">2017-07-13</time> -->
+    2017-07-13
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      签名验证
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Util/" rel="tag">Util</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <h2 id="签名验证"><a href="#签名验证" class="headerlink" title="签名验证"></a>签名验证</h2><p>签名验证涉及到客户端（比如一个 Web 应用）和服务器端，每个客户端在服务器上有一个对应的 <strong>app_id</strong> 和 <strong>app_key</strong>，大致步骤如下：</p>
+<ol>
+<li><p>客户端使用 app_id + app_key + <code>其他参数</code> 生成签名字符串 <code>sign1</code></p>
+</li>
+<li><p>把 app_id、<code>其他参数</code> 和 <code>sign1</code> 一起发送给服务器 (app_key 不发送)</p>
+</li>
+<li><p>服务器接收到请求后，根据参数中的 app_id 查找到对应的 app_key，然后根据签名算法生成签名字符串 sign2</p>
+<blockquote>
+<p>客户端和服务器端使用同样的签名算法生成签名字符串: <code>app_id + app_key + 其他参数</code></p>
+</blockquote>
+</li>
+<li><p>服务器端比较参数中的 sign1 和服务器生成的 sign2，如果相等则签名没问题，放行访问，否则签名无效，拒绝访问<span id="more"></span></p>
+</li>
+</ol>
+<h2 id="签名算法"><a href="#签名算法" class="headerlink" title="签名算法"></a>签名算法</h2><ol>
+<li><p>设要参与计算签名的数据为集合 M，将集合 M 内非空参数值的参数按照参数名 ASCII 码从小到大排序（字典序），使用 URL 键值对的格式（即key1=value1&amp;key2=value2…）拼接成字符串 signTemp。</p>
+<blockquote>
+<p>特别注意以下重要规则：</p>
+<ul>
+<li>参数名 ASCII 码从小到大排序（字典序）</li>
+<li>如果参数的值为空不参与签名</li>
+<li>参数名区分大小写</li>
+<li>验证调用返回或主动通知签名时，传送的 sign 参数不参与签名，将生成的签名与该 sign 值作校验</li>
+<li>接口可能增加字段，验证签名时必须支持增加的扩展字段</li>
+</ul>
+</blockquote>
+</li>
+<li><p>对 signTemp 进行 MD5 运算，再将得到的字符串所有字符转换为大写，得到 sign 值 signValue。</p>
+</li>
+</ol>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>假设传送的参数如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">app_id: 015B512C873648578FB2C32BD5677BD4</span><br><span class="line"><span class="attr">username</span>: alice</span><br><span class="line"><span class="attr">productId</span>: <span class="number">1001</span></span><br><span class="line"><span class="attr">signedTime</span>: <span class="number">1499914521231</span></span><br><span class="line"></span><br><span class="line">并且 app_key 为 927170905ECA42FC9813DD7EED21A5AF</span><br></pre></td></tr></table></figure>
+
+<p>第一步：对参数按照 key=value 的格式，并按照参数名 ASCII 字典序排序：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">signTemp = <span class="string">&quot;app_id=015B512C873648578FB2C32BD5677BD4&amp;app_key=927170905ECA42FC9813DD7EED21A5AF&amp;productId=1001&amp;signedTime=1499914521231&amp;username=alice&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>第二步：计算 signTemp 的签名字符串：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sign = md5(signTemp).toUpperCase(); <span class="comment">// 281879C9007C3698D1106F9CF6A097A3</span></span><br></pre></td></tr></table></figure>
+
+<p>第三步：发送参数（没有 app_key）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app_id=015B512C873648578FB2C32BD5677BD4&amp;productId=1001&amp;signedTime=1499914521231&amp;username=alice&amp;sign=33A62BBCEF9D4AF675ADC6BAEA468B99</span><br></pre></td></tr></table></figure>
+
+<h2 id="Java-实现"><a href="#Java-实现" class="headerlink" title="Java 实现"></a>Java 实现</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.util.DigestUtils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.TreeMap;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Sign</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        String appId = <span class="string">&quot;015B512C873648578FB2C32BD5677BD4&quot;</span>;</span><br><span class="line">        String appKey = <span class="string">&quot;927170905ECA42FC9813DD7EED21A5AF&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 参与签名的参数</span></span><br><span class="line">        Map&lt;String, String&gt; params = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        params.put(<span class="string">&quot;app_id&quot;</span>, appId);</span><br><span class="line">        params.put(<span class="string">&quot;app_key&quot;</span>, appKey);</span><br><span class="line">        params.put(<span class="string">&quot;username&quot;</span>, <span class="string">&quot;alice&quot;</span>);</span><br><span class="line">        params.put(<span class="string">&quot;productId&quot;</span>, <span class="string">&quot;1001&quot;</span>);</span><br><span class="line">        params.put(<span class="string">&quot;signedTime&quot;</span>, <span class="string">&quot;1499914521231&quot;</span>);</span><br><span class="line"></span><br><span class="line">        String signValue = sign(params);</span><br><span class="line">        System.out.println(signValue); <span class="comment">// 281879C9007C3698D1106F9CF6A097A3</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">sign</span><span class="params">(Map&lt;String, String&gt; params)</span> </span>&#123;</span><br><span class="line">        Map&lt;String, String&gt; temp = <span class="keyword">new</span> TreeMap&lt;&gt;(params); <span class="comment">// 对参数进行排序</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 拼接参数</span></span><br><span class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">for</span> (String key : temp.keySet()) &#123;</span><br><span class="line">            sb.append(key).append(<span class="string">&quot;=&quot;</span>).append(temp.get(key)).append(<span class="string">&quot;&amp;&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        String signTemp = sb.deleteCharAt(sb.length() - <span class="number">1</span>).toString(); <span class="comment">// 去掉最后一个 &amp;</span></span><br><span class="line">        String signValue = DigestUtils.md5DigestAsHex(signTemp.getBytes()).toUpperCase(); <span class="comment">// 使用 MD5 计算签名字符串</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> signValue;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="签名有效期"><a href="#签名有效期" class="headerlink" title="签名有效期"></a>签名有效期</h2><p>如果不限制签名的使用时间，则生成的签名永远有效，如果别人拿到生成的链接后就能一直使用了，这是比较危险的，所以限制签名时长很有必要，有 2 种方式可以限制签名的有效时间：</p>
+<ol>
+<li><p>客户端加签名生成时间：</p>
+<ol>
+<li><p>生成签名时的时间加入计算签名</p>
+</li>
+<li><p>服务器收到请求后：<code>签名有效</code> 并且 <code>服务器当前时间 &lt;= 参数中的时间 + 过期时长</code> 则放行访问，否则拒绝访问</p>
+<blockquote>
+<ul>
+<li>如果客户端的时间或则服务器端的时间不准，就有可能签名会无效，例如客户端的时间是 2016 年的，而服务器端的是 2017 年的，签名的过期时长为 5 分钟，则计算的签名就会是无效的。反过来签名的有效时间就变长了。</li>
+</ul>
+<ul>
+<li>还有个办法，使用服务器时间进行签名：在计算签名前先向服务器请求一下服务器的时间，然后用此时间进行签名即可。服务器接收到请求时判断一下这个时间一定要比服务器当前时间早才行。</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><p>服务器记录签名时间：</p>
+<ol>
+<li><p>客户端计算签名（不使用时间）</p>
+</li>
+<li><p>服务器收到请求后：</p>
+<ul>
+<li>如果签名有效且是第一次使用，则保存签名和时间 <strong>T1</strong> 到数据库或则 Redis 等，放行访问</li>
+<li>如果签名不是第一次访问（能从数据库或则 Redis 中查找到），并且 <code>服务器当前时间 &lt;= T1 + 过期时长</code> 则放行访问，否则拒绝访问</li>
+</ul>
+<blockquote>
+<p>优点：此种方式是最安全的。</p>
+<p>缺点：服务器端需要一直保存签名，否则删除后再次使用时就变成第一次使用了，不过 Redis 之类的存储几亿条记录访问还是很快的。</p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ol>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/qt-refactor/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          QtCreator 中重构 Widget 的名字
+        
+      </div>
+    </a>
+  
+  
+    <a href="/fe-random/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">自定义随机函数</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

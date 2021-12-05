@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>HTML5 播放器 Video.js | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Video.js 是一个简洁、漂亮的 HTML5 播放器，支持字幕，还可支持 Flash(不支持 HTML5 时自动切换到 Flash)，使用很简单，也能自定义插件:  Video.js is a JavaScript and CSS library that makes it easier to work with and build on HTML5 video. This is also k">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML5 播放器 Video.js">
+<meta property="og:url" content="http://xtuer.github.io/fe-player/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="Video.js 是一个简洁、漂亮的 HTML5 播放器，支持字幕，还可支持 Flash(不支持 HTML5 时自动切换到 Flash)，使用很简单，也能自定义插件:  Video.js is a JavaScript and CSS library that makes it easier to work with and build on HTML5 video. This is also k">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/fe/video.js.png">
+<meta property="og:image" content="http://xtuer.github.io/img/fe/video.js-point.png">
+<meta property="article:published_time" content="2017-08-19T10:52:07.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.148Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="FE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/fe/video.js.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A5%E9%97%A8%E7%A4%BA%E4%BE%8B"><span class="toc-text">入门示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%85%B3%E9%94%AE%E7%82%B9"><span class="toc-text">自定义关键点</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-fe-player" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/fe-player/" class="article-date">
+  	<!-- <time datetime="2017-08-19T10:52:07.000Z" itemprop="datePublished">2017-08-19</time> -->
+    2017-08-19
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      HTML5 播放器 Video.js
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p><a target="_blank" rel="noopener" href="http://www.videojs.com/">Video.js</a> 是一个简洁、漂亮的 HTML5 播放器，支持字幕，还可支持 Flash(不支持 HTML5 时自动切换到 Flash)，使用很简单，也能自定义插件:</p>
+<blockquote>
+<p>Video.js is a JavaScript and CSS library that makes it easier to work with and build on HTML5 video. This is also known as an HTML5 Video Player. Video.js provides a common controls skin built in HTML/CSS, fixes cross-browser inconsistencies, adds additional features like fullscreen and subtitles, manages the fallback to Flash or other playback technologies when HTML5 video isn’t supported, and also provides a consistent JavaScript API for interacting with the video.</p>
+</blockquote>
+<p><img src="../img/fe/video.js.png"></p>
+<span id="more"></span>
+
+<h2 id="入门示例"><a href="#入门示例" class="headerlink" title="入门示例"></a>入门示例</h2><p>下面是 Video.js 最简单的例子(<a href="/download/video-js.7z">源码</a>):</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Video.js | HTML5 Video Player<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">&quot;video-js.min.css&quot;</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;video-js.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">video</span> <span class="attr">id</span>=<span class="string">&quot;video-id&quot;</span> <span class="attr">class</span>=<span class="string">&quot;video-js&quot;</span> <span class="attr">controls</span> <span class="attr">autoplay</span> <span class="attr">preload</span>=<span class="string">&quot;auto&quot;</span> <span class="attr">width</span>=<span class="string">&quot;640&quot;</span> <span class="attr">height</span>=<span class="string">&quot;360&quot;</span> <span class="attr">data-setup</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">&quot;x.mp4&quot;</span> <span class="attr">type</span>=<span class="string">&quot;video/mp4&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">source</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">video</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>提示:</p>
+<ul>
+<li>给 <strong>video</strong> 一个 <strong>id</strong> 属性很有必要，因为 video#video-id 会被包裹在 div#video-div 中，方便以后操作，例如要修改 video 的大小: <code>$(&#39;#video-id&#39;).width(320).height(180)</code></li>
+</ul>
+<ul>
+<li>不能删除 <strong>data-setup</strong> 这个属性，删除了 Video.js 就不会生效了</li>
+<li>为了效果更好，video 的宽高设置为视频的宽高，或者是等比缩放的大小，一般 <strong>16:9</strong> 的比较多</li>
+</ul>
+</blockquote>
+<p>更详细的文档请阅读 <a target="_blank" rel="noopener" href="http://docs.videojs.com/index.html">Video.js Documentation</a></p>
+<h2 id="自定义关键点"><a href="#自定义关键点" class="headerlink" title="自定义关键点"></a>自定义关键点</h2><p>有时候需要在播放器的进度条上显示一些关键点的信息，例如电视剧里主角被坑、跳崖时放一个关键点，主角光环，落魄只是暂时的，然后剧情大反转时都是放置关键点的理想地方:</p>
+<p><img src="../img/fe/video.js-point.png"></p>
+<p>只要在播放器的 DOM 创建好后，在进度条上用 JS 插入一些 DOM Element 就可以了，请参考:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://cdn.bootcss.com/jquery/1.9.1/jquery.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">&quot;video-js.min.css&quot;</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;video-js.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">media</span>=<span class="string">&quot;screen&quot;</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.video-js</span> <span class="selector-class">.vjs-slider</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">margin-left</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">margin-right</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.video-js</span><span class="selector-pseudo">:focus</span>&#123;</span></span><br><span class="line"><span class="css">           <span class="attribute">outline</span>: none; <span class="comment">/* 去掉点击时的蓝色边框 */</span></span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.point</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">position</span>: absolute;</span></span><br><span class="line"><span class="css">            <span class="attribute">top</span>: <span class="number">50%</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">margin-top</span>: -<span class="number">2px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">width</span>: <span class="number">4px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">height</span>: <span class="number">4px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">border-radius</span>: <span class="number">10px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">background</span>: <span class="number">#DDD</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">transition-duration</span>: <span class="number">0.2s</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">z-index</span>: <span class="number">10</span>;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.point</span><span class="selector-pseudo">:hover</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">background</span>: white;</span></span><br><span class="line"><span class="css">            <span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">5px</span> <span class="number">2px</span> white;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">video</span> <span class="attr">id</span>=<span class="string">&quot;video-id&quot;</span> <span class="attr">class</span>=<span class="string">&quot;video-js&quot;</span> <span class="attr">controls</span> <span class="attr">autoplay</span> <span class="attr">preload</span>=<span class="string">&quot;auto&quot;</span> <span class="attr">width</span>=<span class="string">&quot;640&quot;</span> <span class="attr">height</span>=<span class="string">&quot;360&quot;</span> <span class="attr">data-setup</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">&quot;x.mp4&quot;</span> <span class="attr">type</span>=<span class="string">&quot;video/mp4&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">source</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">video</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// 播放器创建好后，会把 video#video-id 包裹在 div#video-div 中，这时就可以向 div#video-div 中插入新的 DOM element</span></span></span><br><span class="line"><span class="javascript">        videojs(<span class="string">&quot;video-id&quot;</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> $progressBar = $(<span class="string">&#x27;.vjs-progress-control&#x27;</span>, <span class="string">&quot;#video-id&quot;</span>);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">            <span class="comment">// 向播放器的进度条中插入一些关键点，位置使用百分比计算</span></span></span><br><span class="line"><span class="javascript">            $progressBar.append(<span class="string">&#x27;&lt;a href=&quot;javascript: void(0);&quot; name=&quot;1&quot; class=&quot;point&quot; style=&quot;left: 10%&quot;&gt;&lt;/a&gt;&#x27;</span>);</span></span><br><span class="line"><span class="javascript">            $progressBar.append(<span class="string">&#x27;&lt;a href=&quot;javascript: void(0);&quot; name=&quot;2&quot; class=&quot;point&quot; style=&quot;left: 30%&quot;&gt;&lt;/a&gt;&#x27;</span>);</span></span><br><span class="line"><span class="javascript">            $progressBar.append(<span class="string">&#x27;&lt;a href=&quot;javascript: void(0);&quot; name=&quot;3&quot; class=&quot;point&quot; style=&quot;left: 60%&quot;&gt;&lt;/a&gt;&#x27;</span>);</span></span><br><span class="line"><span class="javascript">            $progressBar.append(<span class="string">&#x27;&lt;a href=&quot;javascript: void(0);&quot; name=&quot;4&quot; class=&quot;point&quot; style=&quot;left: 80%&quot;&gt;&lt;/a&gt;&#x27;</span>);</span></span><br><span class="line"><span class="javascript">            $progressBar.append(<span class="string">&#x27;&lt;a href=&quot;javascript: void(0);&quot; name=&quot;5&quot; class=&quot;point&quot; style=&quot;left: 90%&quot;&gt;&lt;/a&gt;&#x27;</span>);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">            <span class="comment">// 定义关键点的点击事件</span></span></span><br><span class="line"><span class="javascript">            $(<span class="string">&#x27;#video-id&#x27;</span>).on(<span class="string">&#x27;click&#x27;</span>, <span class="string">&#x27;.point&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(<span class="string">&#x27;point&#x27;</span>, $(<span class="built_in">this</span>).attr(<span class="string">&#x27;name&#x27;</span>));</span></span><br><span class="line"><span class="javascript">            &#125;);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">            <span class="comment">// 鼠标进入和离开播放器时进度条的大小都会变化，所以关键点的大小也要进行响应的变化</span></span></span><br><span class="line"><span class="javascript">            $(<span class="string">&#x27;#video-id .vjs-progress-control&#x27;</span>).on(<span class="string">&#x27;mouseenter&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                $(<span class="string">&#x27;.point&#x27;</span>).css(<span class="string">&#x27;margin-top&#x27;</span>, <span class="string">&#x27;-6px&#x27;</span>).width(<span class="number">12</span>).height(<span class="number">12</span>);</span></span><br><span class="line"><span class="javascript">            &#125;).on(<span class="string">&#x27;mouseleave&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                $(<span class="string">&#x27;.point&#x27;</span>).css(<span class="string">&#x27;margin-top&#x27;</span>, <span class="string">&#x27;-2px&#x27;</span>).width(<span class="number">4</span>).height(<span class="number">4</span>);</span></span><br><span class="line"><span class="javascript">            &#125;);</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/gitbook/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          GitBook 入门
+        
+      </div>
+    </a>
+  
+  
+    <a href="/fe-event-coordinate/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">事件的坐标</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

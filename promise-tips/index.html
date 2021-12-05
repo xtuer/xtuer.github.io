@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Promise 知识点 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="可以访问 Promise 对象基础 对 Promise 进行了解，这里就不再赘述了。 Promises 承诺，你将会得到延期或长期运行任务的未来结果。承诺有两个渠道：第一个为结果，第二个为潜在的错误。要获取结果，您将回调函数作为 then 函数参数，要处理错误，您将回调函数提供为 catch 函数参数。Promise 的状态的改变是单向的，一次性的，一旦改变，状态就会凝固了。 1234567891">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Promise 知识点">
+<meta property="og:url" content="http://xtuer.github.io/promise-tips/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="可以访问 Promise 对象基础 对 Promise 进行了解，这里就不再赘述了。 Promises 承诺，你将会得到延期或长期运行任务的未来结果。承诺有两个渠道：第一个为结果，第二个为潜在的错误。要获取结果，您将回调函数作为 then 函数参数，要处理错误，您将回调函数提供为 catch 函数参数。Promise 的状态的改变是单向的，一次性的，一旦改变，状态就会凝固了。 1234567891">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-05-02T01:16:24.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.168Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="FE">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Promise-all"><span class="toc-text">Promise.all</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Promise-race"><span class="toc-text">Promise.race</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Promise-%E7%9A%84%E5%A4%84%E7%90%86%E9%80%BB%E8%BE%91"><span class="toc-text">Promise 的处理逻辑</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#async-and-await"><span class="toc-text">async and await</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%B2%E6%AD%A2%E5%9B%9E%E8%B0%83%E5%9C%B0%E7%8B%B1"><span class="toc-text">防止回调地狱</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-promise-tips" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/promise-tips/" class="article-date">
+  	<!-- <time datetime="2020-05-02T01:16:24.000Z" itemprop="datePublished">2020-05-02</time> -->
+    2020-05-02
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Promise 知识点
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>可以访问 <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/82237a7ca6e5">Promise 对象基础</a> 对 Promise 进行了解，这里就不再赘述了。</p>
+<p><strong>Promises</strong> 承诺，你将会得到延期或长期运行任务的未来结果。承诺有两个渠道：第一个为结果，第二个为潜在的错误。要获取结果，您将回调函数作为 then 函数参数，要处理错误，您将回调函数提供为 catch 函数参数。Promise 的状态的改变是单向的，一次性的，一旦改变，状态就会凝固了。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="javascript"></span></span></span><br><span class="line"><span class="javascript"><span class="xml">        <span class="keyword">let</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">            <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">                <span class="keyword">const</span> result = <span class="built_in">Math</span>.random();</span></span></span><br><span class="line"><span class="javascript"><span class="xml">                result &gt; <span class="number">0.5</span> ? resolve(result) : reject(<span class="string">&#x27;Lower than 0.5&#x27;</span>);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">            &#125;, <span class="number">2000</span>);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">        &#125;);</span></span></span><br><span class="line"><span class="javascript"><span class="xml"></span></span></span><br><span class="line"><span class="javascript"><span class="xml">        p.then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">            <span class="built_in">console</span>.log(<span class="string">&#x27;success&#x27;</span>, result);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">        &#125;).catch(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">            <span class="built_in">console</span>.log(<span class="string">&#x27;fail&#x27;</span>, result);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">        &#125;);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h2 id="Promise-all"><a href="#Promise-all" class="headerlink" title="Promise.all"></a>Promise.all</h2><p><code>Promise.all()</code> 返回一个 promise 对象，接收一个 Promise 对象的数组作为参数，当这个数组里的所有 Promise 对象全部变为 resolved 的时候该 promise 对象的状态才为 resolved，如果其中一个 Promise 对象为 rejected 的话则该 promise 的状态为 rejected。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">timerPromisefy</span>(<span class="params">delay</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            resolve(delay);</span><br><span class="line">        &#125;, delay);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.all([</span><br><span class="line">    timerPromisefy(<span class="number">32</span>),</span><br><span class="line">    timerPromisefy(<span class="number">1</span>),</span><br><span class="line">    timerPromisefy(<span class="number">64</span>),</span><br><span class="line">    timerPromisefy(<span class="number">2</span>),</span><br><span class="line">    timerPromisefy(<span class="number">256</span>),</span><br><span class="line">]).then(<span class="function"><span class="params">results</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(results); <span class="comment">// 输出: [ 32, 1, 64, 2, 256 ]</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Promise-race"><a href="#Promise-race" class="headerlink" title="Promise.race"></a>Promise.race</h2><p><code>Promise.race()</code> 使用方法和 <code>Promise.all()</code> 一样，接收一个 Promise 对象数组为参数，只要其中一个 Promise 对象变为 resolved 或 rejected 状态，执行后面的 then 或者 catch 回调函数。</p>
+<h2 id="Promise-的处理逻辑"><a href="#Promise-的处理逻辑" class="headerlink" title="Promise 的处理逻辑"></a>Promise 的处理逻辑</h2><p>Promise 的调用链有很多种情况，但总结起来就一句话: then 和 catch 都会返回一个 promise 对象，如果我们没有手动的返回 promise 对象，那么就会自动地把返回值封装为一个 resolved promise 对象返回。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// then 的第一个参数是正确的回调函数，第二个参数是错误的回调函数</span></span><br><span class="line"><span class="built_in">Promise</span>.resolve()</span><br><span class="line">    .then(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// [1]: 如果没有返回 Promise 对象，内部会自动返回一个 Promise.resolve()，马上执行下一个 then</span></span><br><span class="line">        <span class="comment">// [1.1] 没有返回语句，Promise.resolve() 的参数为 undefined</span></span><br><span class="line">        <span class="comment">// [1.2] 当有返回语句，Promise.resolve() 的参数为 return 的值</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">        <span class="comment">// return 111; // 去掉注释查看结果</span></span><br><span class="line">    &#125;)</span><br><span class="line">    .then(<span class="function">(<span class="params">x</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// [2] 明确返回 resolved promise，与 [1.1] 效果一样</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="number">2</span>, x); <span class="comment">// undefined 或者 111</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve();</span><br><span class="line">    &#125;)</span><br><span class="line">    .then(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// [3] 明确返回 Promise 对象，当执行 resolve 或者 reject 后才执行下一个 then 或者 catch</span></span><br><span class="line">        <span class="comment">//     等待 1 秒后执行 resolve，然后马上下一个 then</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                resolve();</span><br><span class="line">            &#125;, <span class="number">1000</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;)</span><br><span class="line">    .then(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// [4] 返回 rejected promise，则执行离他最近的一个错误处理回调函数</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="number">4</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Promise</span>.reject();</span><br><span class="line">    &#125;)</span><br><span class="line">    .then(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="number">5</span>); <span class="comment">// 注意: 跳过</span></span><br><span class="line">    &#125;, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// [5] 处理 [4] 中的错误，内部返回 resolved promise，然后继续执行下一个 then</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;Error 1&#x27;</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">    .then(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// [6] 抛出异常时，则执行离他最近的一个错误处理回调函数 (此处为最后的 catch)</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="number">6</span>);</span><br><span class="line">        <span class="keyword">throw</span> <span class="string">&#x27;thrown&#x27;</span>;</span><br><span class="line">    &#125;)</span><br><span class="line">    .then(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="number">7</span>); <span class="comment">// 注意: 跳过</span></span><br><span class="line">    &#125;)</span><br><span class="line">    .catch(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;Error final&#x27;</span>, error);</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+<p>输出:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">2 undefined</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">Error 1</span><br><span class="line">6</span><br><span class="line">Error final thrown</span><br></pre></td></tr></table></figure>
+
+<h2 id="async-and-await"><a href="#async-and-await" class="headerlink" title="async and await"></a>async and await</h2><p>Async 和 await 的作用是简化 promise then 的链式调用，相当于语法糖，缺点是中间不能处理异常:</p>
+<ul>
+<li>await 必须在 async 函数中</li>
+<li>async 函数会被异步执行，但是 aync 函数内的代码阻塞执行</li>
+<li>async 函数返回 promise，如果返回的不是 promise 对象，则会自动把返回结果封装为 promise 返回</li>
+<li>await 只是 promise then 的简写，得到的结果为 then 的参数，即 promise resolve 的实参</li>
+<li>await 如果出错，可以使用 try catch 进行处理，也可以在 promise 的 catch 中处理</li>
+</ul>
+<p>视频 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1xW411J7K6">https://www.bilibili.com/video/BV1xW411J7K6</a> 对 async and await 介绍的不错，有兴趣的话可以看看。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">get</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">Date</span>.now() % <span class="number">2</span> === <span class="number">0</span>) &#123;</span><br><span class="line">                resolve(<span class="string">&#x27;---get&#x27;</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                reject(<span class="built_in">Error</span>(<span class="string">&#x27;--get fail&#x27;</span>));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="number">1000</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">post</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            resolve(<span class="string">&#x27;---post&#x27;</span>);</span><br><span class="line">        &#125;, <span class="number">500</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">handle</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> result1 = <span class="keyword">await</span> get();</span><br><span class="line">    <span class="built_in">console</span>.log(result1);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> result2 = <span class="keyword">await</span> post();</span><br><span class="line">    <span class="built_in">console</span>.log(result2);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">4</span>; <span class="comment">// 非 promise 返回值为会被封装为 promise 对象</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;from&#x27;</span>);</span><br><span class="line"></span><br><span class="line">handle()</span><br><span class="line">    .then(<span class="function">(<span class="params">x</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;after handle&#x27;</span>, x);</span><br><span class="line">    &#125;)</span><br><span class="line">    .catch(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(error);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;to&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Vue 的 methods 中定义的函数也支持 async await，需要注意的是 created 和 mounted 不支持。</p>
+</blockquote>
+<p>也可以使用自执行函数调用:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> r1 = <span class="keyword">await</span> funP1();</span><br><span class="line">    <span class="keyword">const</span> r2 = <span class="keyword">await</span> funP2(r1);</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line">(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> r1 = <span class="keyword">await</span> funP1();</span><br><span class="line">        <span class="keyword">const</span> r2 = <span class="keyword">await</span> funP2(r1);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">        <span class="comment">// handle error</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<h2 id="防止回调地狱"><a href="#防止回调地狱" class="headerlink" title="防止回调地狱"></a>防止回调地狱</h2><p>当一个请求结束后再执行下一个请求，如果用 callback，层次会很深，用 Promise 只需要在链式的 then 中处理上一个 then 中返回的 promise 的结果，防止回调地狱，最后的 catch 处理所有 promise 的 reject，中间任何一个 promise 执行了 reject 就会中断后续操作，async and await 能够使得 promise then 的调用链更简洁。</p>
+<p>例如修改用户头像的操作:</p>
+<ol>
+<li>拍照: capture</li>
+<li>裁剪图片: crop</li>
+<li>压缩图片: compress</li>
+<li>上传图片到服务器: upload</li>
+<li>检测图片中是否有人脸: detectFace</li>
+<li>有人脸则更新头像: updateAvatar</li>
+</ol>
+<p>如果用回调的方式实现上面的代码，则结构可能为 (当对回调的结果要进行 if else 多种判断时，情况会更复杂):</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 拍照</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">capture</span>(<span class="params">callback</span>) </span>&#123;</span><br><span class="line">    Camera.capture(<span class="function">(<span class="params">blobImage</span>) =&gt;</span> &#123;</span><br><span class="line">        callback(blobImage);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 裁剪图片</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">crop</span>(<span class="params">blobImage, callback</span>) </span>&#123;</span><br><span class="line">    Cropper.crop(blobImage, <span class="function">(<span class="params">croppedBlobImage</span>) =&gt;</span> &#123;</span><br><span class="line">        callback(croppedBlobImage);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 压缩图片</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compress</span>(<span class="params">blobImage, callback</span>) </span>&#123;</span><br><span class="line">    Compressor.compress(blobImage, <span class="string">&#x27;200px&#x27;</span>, <span class="string">&#x27;200px&#x27;</span>, <span class="function">(<span class="params">compressedBlobImage</span>) =&gt;</span> &#123;</span><br><span class="line">        callback(compressedBlobImage);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 上传图片到服务器</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">upload</span>(<span class="params">blobImage, callback</span>) </span>&#123;</span><br><span class="line">    ajax.post(blobImage).success(<span class="function">(<span class="params">response</span>) =&gt;</span> &#123;</span><br><span class="line">        callback(response.imageUrl);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 检测图片中是否有人脸</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">detectFace</span>(<span class="params">imageUrl, callback</span>) </span>&#123;</span><br><span class="line">    ajax.get(imageUrl).success(<span class="function">(<span class="params">response</span>) =&gt;</span> &#123;</span><br><span class="line">        callback(response.result); <span class="comment">// true or false</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 更新头像</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">updateAvatar</span>(<span class="params">userId, imageUrl</span>) </span>&#123;</span><br><span class="line">    ajax.post(userId, imageUrl);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 更新头像，多级回调</span></span><br><span class="line">capture(<span class="function">(<span class="params">image</span>) =&gt;</span> &#123;</span><br><span class="line">    crop(image, <span class="function">(<span class="params">croppedBlobImage</span>) =&gt;</span> &#123;</span><br><span class="line">        compress(croppedBlobImage, <span class="function">(<span class="params">compressedBlobImage</span>) =&gt;</span> &#123;</span><br><span class="line">            upload(compressedBlobImage, <span class="function">(<span class="params">imageUrl</span>) =&gt;</span> &#123;</span><br><span class="line">                detectFace(imageUrl, <span class="function">(<span class="params">success</span>) =&gt;</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span> (success) &#123;</span><br><span class="line">                        updateAvatar(userId, imageUrl);</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        alert(<span class="string">&#x27;没有检测到人脸&#x27;</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>使用 promise 的结构可以为:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 拍照</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">capture</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        Camera.capture(<span class="function">(<span class="params">blobImage</span>) =&gt;</span> &#123;</span><br><span class="line">            resolve(blobImage);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 裁剪图片</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">crop</span>(<span class="params">blobImage</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        Cropper.crop(blobImage, <span class="function">(<span class="params">croppedBlobImage</span>) =&gt;</span> &#123;</span><br><span class="line">            resolve(croppedBlobImage);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 压缩图片</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compress</span>(<span class="params">blobImage</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        Compressor.compress(blobImage, <span class="string">&#x27;200px&#x27;</span>, <span class="string">&#x27;200px&#x27;</span>, <span class="function">(<span class="params">compressedBlobImage</span>) =&gt;</span> &#123;</span><br><span class="line">            resolve(compressedBlobImage);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 上传图片到服务器</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">upload</span>(<span class="params">blobImage</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        ajax.post(blobImage).success(<span class="function">(<span class="params">response</span>) =&gt;</span> &#123;</span><br><span class="line">            resolve(response.imageUrl);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 检测图片中是否有人脸</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">detectFace</span>(<span class="params">imageUrl</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        ajax.get(imageUrl).success(<span class="function">(<span class="params">response</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (response.result) &#123;</span><br><span class="line">                resolve();</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                reject();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 更新头像</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">updateAvatar</span>(<span class="params">userId, imageUrl</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        ajax.post(userId, imageUrl).success(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            resolve();</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 更新头像，promise 解决回调地狱</span></span><br><span class="line">capture()</span><br><span class="line">    .then(<span class="function"><span class="params">blobImage</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> crop(blobImage);</span><br><span class="line">    &#125;)</span><br><span class="line">    .then(<span class="function"><span class="params">croppedBlobImage</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> compress(croppedBlobImage);</span><br><span class="line">    &#125;)</span><br><span class="line">    .then(<span class="function"><span class="params">compressedBlobImage</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> upload(compressedBlobImage);</span><br><span class="line">    &#125;)</span><br><span class="line">    .then(<span class="function"><span class="params">imageUrl</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> detectFace(imageUrl);</span><br><span class="line">    &#125;)</span><br><span class="line">    .then(<span class="function"><span class="params">imageUrl</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> updateAvatar(userId, imageUrl);</span><br><span class="line">    &#125;)</span><br><span class="line">    .catch(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(error);</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>使用 async and await 简化上面 promise 的代码，看上去更简洁、逻辑更清晰:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">handle</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> image = <span class="keyword">await</span> capture();</span><br><span class="line">        <span class="keyword">const</span> croppedImage = <span class="keyword">await</span> crop(image);</span><br><span class="line">        <span class="keyword">const</span> compressedImage = <span class="keyword">await</span> compress(croppedImage);</span><br><span class="line">        <span class="keyword">const</span> imageUrl = <span class="keyword">await</span> upload(compressedImage);</span><br><span class="line">        <span class="keyword">await</span> detectFace(imageUrl); <span class="comment">// 检测到人脸才执行 updateAvatar 更新头像</span></span><br><span class="line">        <span class="keyword">await</span> updateAvatar(imageUrl);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(error);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用 handle 后继续执行下面的函数，而不会阻塞到 handle 执行完成才继续往下执行</span></span><br><span class="line"><span class="comment">// 而 handle 内部阻塞按顺序执行</span></span><br><span class="line">handle();</span><br></pre></td></tr></table></figure>
+
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/java-dynamic-datasource/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          动态切换数据源
+        
+      </div>
+    </a>
+  
+  
+    <a href="/html2pdf/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Html 转为 Pdf</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

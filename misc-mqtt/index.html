@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>ActiveMQ 的 MQTT | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="MQTT 有很多开源的实现，org.fusesource.mqtt-client 是其中之一，使用起来也比较简单，Github 地址为 https:&#x2F;&#x2F;github.com&#x2F;fusesource&#x2F;mqtt-client，而且其实现了连接断开后自动重连的机制 下面的程序使用 MQTT-Client 实现:  Publisher Subscriber PublisherAndSubscriber Fu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ActiveMQ 的 MQTT">
+<meta property="og:url" content="http://xtuer.github.io/misc-mqtt/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="MQTT 有很多开源的实现，org.fusesource.mqtt-client 是其中之一，使用起来也比较简单，Github 地址为 https:&#x2F;&#x2F;github.com&#x2F;fusesource&#x2F;mqtt-client，而且其实现了连接断开后自动重连的机制 下面的程序使用 MQTT-Client 实现:  Publisher Subscriber PublisherAndSubscriber Fu">
+<meta property="og:locale">
+<meta property="article:published_time" content="2016-11-28T05:58:53.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.166Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="Misc">
+<meta property="article:tag" content="Util">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Gradle-%E4%BE%9D%E8%B5%96"><span class="toc-text">Gradle 依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mqtt-%E7%9A%84-Publisher"><span class="toc-text">Mqtt 的 Publisher</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mqtt-%E7%9A%84-Subscriber"><span class="toc-text">Mqtt 的 Subscriber</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MqttPublisherAndSubscriber"><span class="toc-text">MqttPublisherAndSubscriber</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4"><span class="toc-text">命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E4%B8%80"><span class="toc-text">测试一</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E4%BA%8C"><span class="toc-text">测试二</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E4%B8%89"><span class="toc-text">测试三</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Future-%E7%9A%84%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0-Publisher"><span class="toc-text">使用 Future 的方式实现 Publisher</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E5%9B%9B"><span class="toc-text">测试四</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E5%92%8C%E6%8F%90%E7%A4%BA"><span class="toc-text">问题和提示</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-misc-mqtt" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/misc-mqtt/" class="article-date">
+  	<!-- <time datetime="2016-11-28T05:58:53.000Z" itemprop="datePublished">2016-11-28</time> -->
+    2016-11-28
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ActiveMQ 的 MQTT
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/" rel="tag">Misc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Util/" rel="tag">Util</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>MQTT 有很多开源的实现，<code>org.fusesource.mqtt-client</code> 是其中之一，使用起来也比较简单，Github 地址为 <a target="_blank" rel="noopener" href="https://github.com/fusesource/mqtt-client">https://github.com/fusesource/mqtt-client</a>，而且其实现了连接断开后自动重连的机制</p>
+<p>下面的程序使用 MQTT-Client 实现:</p>
+<ul>
+<li>Publisher</li>
+<li>Subscriber</li>
+<li>PublisherAndSubscriber</li>
+<li>FutureMqttPublisher</li>
+</ul>
+<p>实际使用中，即要向 ActiveMQ 发送消息，同时也要从 ActiveMQ 订阅消息，所以参考下面的 Demo PublisherAndSubscriber 更为实用.</p>
+<span id="more"></span>
+
+<h2 id="Gradle-依赖"><a href="#Gradle-依赖" class="headerlink" title="Gradle 依赖"></a>Gradle 依赖</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">&quot;org.fusesource.mqtt-client:mqtt-client:1.11&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Mqtt-的-Publisher"><a href="#Mqtt-的-Publisher" class="headerlink" title="Mqtt 的 Publisher"></a>Mqtt 的 Publisher</h2><p>MqttPublisher 只用于向 ActiveMQ 发送消息.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.mqtt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.fusesource.hawtbuf.Buffer;</span><br><span class="line"><span class="keyword">import</span> org.fusesource.hawtbuf.UTF8Buffer;</span><br><span class="line"><span class="keyword">import</span> org.fusesource.mqtt.client.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.net.URISyntaxException;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.Executors;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Mqtt 的 publisher, 发送消息到 ActiveMQ</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MqttPublisher</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TOPIC_NAME = <span class="string">&quot;foo&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String WILL_TOPIC_NAME = <span class="string">&quot;foo-will&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String HOST = <span class="string">&quot;tcp://localhost:1883&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> connectedToServer = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> messageNumber = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> URISyntaxException </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> Promise&lt;Buffer&gt; result = <span class="keyword">new</span> Promise&lt;Buffer&gt;();</span><br><span class="line">        MQTT mqtt = <span class="keyword">new</span> MQTT();</span><br><span class="line">        mqtt.setHost(HOST);</span><br><span class="line">        mqtt.setKeepAlive((<span class="keyword">short</span>)<span class="number">3</span>); <span class="comment">// 默认是 30 秒</span></span><br><span class="line">        mqtt.setReconnectDelay(<span class="number">500</span>); <span class="comment">// 500 毫秒重连一次, 默认是 10 毫秒</span></span><br><span class="line">        mqtt.setReconnectDelayMax(<span class="number">500</span>);</span><br><span class="line">        mqtt.setWillTopic(WILL_TOPIC_NAME);</span><br><span class="line">        mqtt.setWillQos(QoS.AT_LEAST_ONCE);</span><br><span class="line">        mqtt.setWillMessage(<span class="string">&quot;Will message: My ID is A, I have left.&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> CallbackConnection connection = mqtt.callbackConnection();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 给 connection 添加事件监听器</span></span><br><span class="line">        <span class="comment">// 1. 当有消息到达时会调用 onPublish() 方法</span></span><br><span class="line">        <span class="comment">// 2. 连上服务器时调用 onConnected() 方法</span></span><br><span class="line">        <span class="comment">// 3. 和服务器的连接断开时调用 onDisconnected() 方法</span></span><br><span class="line">        connection.listener(<span class="keyword">new</span> Listener() &#123;</span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * 成功连接上服务器</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onConnected</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                connectedToServer = <span class="keyword">true</span>;</span><br><span class="line">                System.out.println(<span class="string">&quot;Connected to server&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * 从服务器断开连接</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDisconnected</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                connectedToServer = <span class="keyword">false</span>;</span><br><span class="line">                System.out.println(<span class="string">&quot;Disconnected from server&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFailure</span><span class="params">(Throwable value)</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;Failure: &quot;</span> + value);</span><br><span class="line">                result.onFailure(value);</span><br><span class="line">                connection.disconnect(<span class="keyword">null</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 连接服务器</span></span><br><span class="line">        connection.connect(<span class="keyword">null</span>); <span class="comment">// Callback 为 null 会抛出一个异常, 不过不影响</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 不停的发消息</span></span><br><span class="line">        Executors.newScheduledThreadPool(<span class="number">1</span>).scheduleAtFixedRate(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (connectedToServer) &#123;</span><br><span class="line">                    String message = (++messageNumber) + <span class="string">&quot; - A - 时间: &quot;</span> + System.currentTimeMillis();</span><br><span class="line">                    connection.publish(TOPIC_NAME, message.getBytes(), QoS.AT_LEAST_ONCE, <span class="keyword">false</span>, <span class="keyword">null</span>);</span><br><span class="line">                    System.out.println(<span class="string">&quot;Send: &quot;</span> + message);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="number">100</span>, <span class="number">300</span>, TimeUnit.MILLISECONDS);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Mqtt-的-Subscriber"><a href="#Mqtt-的-Subscriber" class="headerlink" title="Mqtt 的 Subscriber"></a>Mqtt 的 Subscriber</h2><p>MqttSubscriber 只用于从 ActiveMQ 订阅消息.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.mqtt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.fusesource.hawtbuf.Buffer;</span><br><span class="line"><span class="keyword">import</span> org.fusesource.hawtbuf.UTF8Buffer;</span><br><span class="line"><span class="keyword">import</span> org.fusesource.mqtt.client.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.net.URISyntaxException;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.Executors;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Mqtt 的 subscriber, 订阅消息</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MqttSubscriber</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TOPIC_NAME = <span class="string">&quot;foo&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String WILL_TOPIC_NAME = <span class="string">&quot;foo-will&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String HOST = <span class="string">&quot;tcp://localhost:1883&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> URISyntaxException </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> Promise&lt;Buffer&gt; result = <span class="keyword">new</span> Promise&lt;Buffer&gt;();</span><br><span class="line">        MQTT mqtt = <span class="keyword">new</span> MQTT();</span><br><span class="line">        mqtt.setHost(HOST);</span><br><span class="line">        mqtt.setWillQos(QoS.AT_LEAST_ONCE);</span><br><span class="line">        mqtt.setKeepAlive((<span class="keyword">short</span>)<span class="number">3</span>); <span class="comment">// 默认是 30 秒</span></span><br><span class="line">        mqtt.setReconnectDelay(<span class="number">500</span>); <span class="comment">// 500 毫秒重连一次, 默认是 10 毫秒</span></span><br><span class="line">        mqtt.setReconnectDelayMax(<span class="number">500</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> CallbackConnection connection = mqtt.callbackConnection();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 给 connection 添加事件监听器</span></span><br><span class="line">        <span class="comment">// 1. 当有消息到达时会调用 onPublish() 方法</span></span><br><span class="line">        <span class="comment">// 2. 连上服务器时调用 onConnected() 方法</span></span><br><span class="line">        <span class="comment">// 3. 和服务器的连接断开时调用 onDisconnected() 方法</span></span><br><span class="line">        connection.listener(<span class="keyword">new</span> Listener() &#123;</span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * 收到订阅的消息</span></span><br><span class="line"><span class="comment">             * <span class="doctag">@param</span> topic 订阅队列的名字</span></span><br><span class="line"><span class="comment">             * <span class="doctag">@param</span> payload 消息的内容</span></span><br><span class="line"><span class="comment">             * <span class="doctag">@param</span> onComplete</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPublish</span><span class="params">(UTF8Buffer topic, Buffer payload, Runnable onComplete)</span> </span>&#123;</span><br><span class="line">                result.onSuccess(payload);</span><br><span class="line">                onComplete.run();</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 消息处理逻辑</span></span><br><span class="line">                System.out.println(<span class="string">&quot;Receive: &quot;</span> + <span class="keyword">new</span> String(payload.toByteArray()));</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * 成功连上服务器</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onConnected</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;Connected to server&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * 从服务器断开连接</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDisconnected</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;Disconnected from server&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFailure</span><span class="params">(Throwable value)</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;Failure: &quot;</span> + value);</span><br><span class="line">                result.onFailure(value);</span><br><span class="line">                connection.disconnect(<span class="keyword">null</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 连接服务器，订阅 Topic，这里和 Publisher 有区别</span></span><br><span class="line">        connection.connect(<span class="keyword">new</span> Callback&lt;Void&gt;() &#123;</span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * 第一次连接上服务器后订阅 topic. 没有放到 listener 的 onConnected() 方法,</span></span><br><span class="line"><span class="comment">             * 是因为重连后 onConnected() 会被再次调用, 订阅会被执行多次, 而 onSuccess()</span></span><br><span class="line"><span class="comment">             * 只有第一次连接上时会被执行, 这样订阅就只执行了一次.</span></span><br><span class="line"><span class="comment">             *</span></span><br><span class="line"><span class="comment">             * <span class="doctag">@param</span> v Unknown parameter</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(Void v)</span> </span>&#123;</span><br><span class="line">                <span class="comment">// 可以同时订阅几个 topic</span></span><br><span class="line">                Topic[] topics = &#123;<span class="keyword">new</span> Topic(TOPIC_NAME, QoS.AT_LEAST_ONCE), <span class="keyword">new</span> Topic(WILL_TOPIC_NAME, QoS.AT_LEAST_ONCE)&#125;;</span><br><span class="line"></span><br><span class="line">                connection.subscribe(topics, <span class="keyword">new</span> Callback&lt;<span class="keyword">byte</span>[]&gt;() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(<span class="keyword">byte</span>[] value)</span> </span>&#123;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFailure</span><span class="params">(Throwable value)</span> </span>&#123;</span><br><span class="line">                        result.onFailure(value);</span><br><span class="line">                        connection.disconnect(<span class="keyword">null</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFailure</span><span class="params">(Throwable value)</span> </span>&#123;</span><br><span class="line">                result.onFailure(value);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 不让程序结束</span></span><br><span class="line">        Executors.newScheduledThreadPool(<span class="number">1</span>).scheduleAtFixedRate(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">        &#125;, <span class="number">1</span>, <span class="number">1</span>, TimeUnit.SECONDS);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="MqttPublisherAndSubscriber"><a href="#MqttPublisherAndSubscriber" class="headerlink" title="MqttPublisherAndSubscriber"></a>MqttPublisherAndSubscriber</h2><p>MqttPublisherAndSubscriber 既是 Mqtt publisher 也是 subscriber.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.mqtt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.fusesource.hawtbuf.Buffer;</span><br><span class="line"><span class="keyword">import</span> org.fusesource.hawtbuf.UTF8Buffer;</span><br><span class="line"><span class="keyword">import</span> org.fusesource.mqtt.client.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.net.URISyntaxException;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.Executors;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 同一个类既是 Mqtt publisher 也是 subscriber</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MqttPublisherAndSubscriber</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TOPIC_NAME = <span class="string">&quot;foo&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String WILL_TOPIC_NAME = <span class="string">&quot;foo-will&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String HOST = <span class="string">&quot;tcp://localhost:1883&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> connectedToServer = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> messageNumber = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> URISyntaxException </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> Promise&lt;Buffer&gt; result = <span class="keyword">new</span> Promise&lt;Buffer&gt;();</span><br><span class="line">        MQTT mqtt = <span class="keyword">new</span> MQTT();</span><br><span class="line">        mqtt.setHost(HOST);</span><br><span class="line">        mqtt.setKeepAlive((<span class="keyword">short</span>)<span class="number">3</span>); <span class="comment">// 默认是 30 秒</span></span><br><span class="line">        mqtt.setReconnectDelay(<span class="number">500</span>); <span class="comment">// 500 毫秒重连一次, 默认是 10 毫秒</span></span><br><span class="line">        mqtt.setReconnectDelayMax(<span class="number">500</span>);</span><br><span class="line">        mqtt.setWillTopic(WILL_TOPIC_NAME);</span><br><span class="line">        mqtt.setWillQos(QoS.AT_LEAST_ONCE);</span><br><span class="line">        mqtt.setWillMessage(<span class="string">&quot;Will message: My ID is 0000, I have left.&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> CallbackConnection connection = mqtt.callbackConnection();</span><br><span class="line">        <span class="comment">// 给 connection 添加事件监听器</span></span><br><span class="line">        <span class="comment">// 1. 当有消息到达时会调用 onPublish() 方法</span></span><br><span class="line">        <span class="comment">// 2. 连上服务器时调用 onConnected() 方法</span></span><br><span class="line">        <span class="comment">// 3. 和服务器的连接断开时调用 onDisconnected() 方法</span></span><br><span class="line">        connection.listener(<span class="keyword">new</span> Listener() &#123;</span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * 收到订阅的消息</span></span><br><span class="line"><span class="comment">             * <span class="doctag">@param</span> topic 订阅队列的名字</span></span><br><span class="line"><span class="comment">             * <span class="doctag">@param</span> payload 消息的内容</span></span><br><span class="line"><span class="comment">             * <span class="doctag">@param</span> onComplete</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPublish</span><span class="params">(UTF8Buffer topic, Buffer payload, Runnable onComplete)</span> </span>&#123;</span><br><span class="line">                result.onSuccess(payload);</span><br><span class="line">                onComplete.run();</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 消息处理逻辑</span></span><br><span class="line">                System.out.println(<span class="string">&quot;Receive: &quot;</span> + <span class="keyword">new</span> String(payload.toByteArray()));</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * 成功连接上服务器</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onConnected</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                connectedToServer = <span class="keyword">true</span>;</span><br><span class="line">                System.out.println(<span class="string">&quot;Connected to server&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * 从服务器断开连接</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDisconnected</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                connectedToServer = <span class="keyword">false</span>;</span><br><span class="line">                System.out.println(<span class="string">&quot;Disconnected from server&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFailure</span><span class="params">(Throwable value)</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;Failure: &quot;</span> + value);</span><br><span class="line">                result.onFailure(value);</span><br><span class="line">                connection.disconnect(<span class="keyword">null</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 连接服务器</span></span><br><span class="line">        connection.connect(<span class="keyword">new</span> Callback&lt;Void&gt;() &#123;</span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * 第一次连接上服务器后订阅 topic. 没有放到 listener 的 onConnected() 方法,</span></span><br><span class="line"><span class="comment">             * 是因为重连后 onConnected() 会被再次调用, 订阅会被执行多次, 而 onSuccess()</span></span><br><span class="line"><span class="comment">             * 只有第一次连接上时会被执行, 这样订阅就只执行了一次.</span></span><br><span class="line"><span class="comment">             *</span></span><br><span class="line"><span class="comment">             * <span class="doctag">@param</span> v Unknown parameter</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(Void v)</span> </span>&#123;</span><br><span class="line">                <span class="comment">// 可以同时订阅几个 topic</span></span><br><span class="line">                Topic[] topics = &#123;<span class="keyword">new</span> Topic(TOPIC_NAME, QoS.AT_LEAST_ONCE), <span class="keyword">new</span> Topic(WILL_TOPIC_NAME, QoS.AT_LEAST_ONCE)&#125;;</span><br><span class="line"></span><br><span class="line">                connection.subscribe(topics, <span class="keyword">new</span> Callback&lt;<span class="keyword">byte</span>[]&gt;() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(<span class="keyword">byte</span>[] value)</span> </span>&#123;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFailure</span><span class="params">(Throwable value)</span> </span>&#123;</span><br><span class="line">                        result.onFailure(value);</span><br><span class="line">                        connection.disconnect(<span class="keyword">null</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFailure</span><span class="params">(Throwable value)</span> </span>&#123;</span><br><span class="line">                result.onFailure(value);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 不停的发消息</span></span><br><span class="line">        Executors.newScheduledThreadPool(<span class="number">1</span>).scheduleAtFixedRate(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (connectedToServer) &#123;</span><br><span class="line">                    String message = (++messageNumber) + <span class="string">&quot; - B - 时间: &quot;</span> + System.currentTimeMillis();</span><br><span class="line">                    connection.publish(TOPIC_NAME, message.getBytes(), QoS.AT_LEAST_ONCE, <span class="keyword">false</span>, <span class="keyword">null</span>);</span><br><span class="line">                    System.out.println(<span class="string">&quot;Send: &quot;</span> + message);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="number">100</span>, <span class="number">300</span>, TimeUnit.MILLISECONDS);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><ul>
+<li>启动 ActimeMQ: activemq start</li>
+<li>关闭 ActimeMQ: activemq stop</li>
+</ul>
+<h2 id="测试一"><a href="#测试一" class="headerlink" title="测试一"></a>测试一</h2><ol>
+<li><p>启动 ActiveMQ</p>
+</li>
+<li><p>运行 MqttPublisherAndSubscriber</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Connected to server</span><br><span class="line">Send: 1 - B - 时间: 1457234699726</span><br><span class="line">Receive: 1 - B - 时间: 1457234699726</span><br><span class="line">Send: 2 - B - 时间: 1457234700026</span><br><span class="line">Receive: 2 - B - 时间: 1457234700026</span><br><span class="line">Send: 3 - B - 时间: 1457234700325</span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
+<li><p>关闭 ActiveMQ</p>
+</li>
+<li><p>控制台输出 Disconnected from server 后一直等待</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">Receive: 19 - B - 时间: 1457234796472</span><br><span class="line">Send: 20 - B - 时间: 1457234796745</span><br><span class="line">Receive: 20 - B - 时间: 1457234796745</span><br><span class="line">Disconnected from server</span><br></pre></td></tr></table></figure></li>
+<li><p>启动 ActiveMQ</p>
+</li>
+<li><p>过几秒，控制台输出 Connected to server，程序自动的重新连接上服务器了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Disconnected from server</span><br><span class="line">Connected to server</span><br><span class="line">Send: 21 - B - 时间: 1457234862175</span><br><span class="line">Receive: 21 - B - 时间: 1457234862175</span><br><span class="line">Send: 22 - B - 时间: 1457234862477</span><br><span class="line">Receive: 22 - B - 时间: 1457234862477</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="测试二"><a href="#测试二" class="headerlink" title="测试二"></a>测试二</h2><ol>
+<li><p>启动 ActiveMQ</p>
+</li>
+<li><p>运行 MqttPublisherAndSubscriber（和 ActiveMQ 不在同一台机器上，注意修改程序里连接的地址）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Connected to server</span><br><span class="line">Send: 1 - B - 时间: 1457234699726</span><br><span class="line">Receive: 1 - B - 时间: 1457234699726</span><br><span class="line">Send: 2 - B - 时间: 1457234700026</span><br><span class="line">Receive: 2 - B - 时间: 1457234700026</span><br><span class="line">Send: 3 - B - 时间: 1457234700325</span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
+<li><p>关闭无线网或者拔掉网线断开网络 (不是 关闭 ActiveMQ)</p>
+</li>
+<li><p>订阅的数据是没了，但是还会不停的发送数据，并没有发现连接已经断开了</p>
+</li>
+<li><p>过了很久，才会输出 Disconnected from server，也就是说，这种情况下不能及时的发现网络已经断开了</p>
+</li>
+</ol>
+<h2 id="测试三"><a href="#测试三" class="headerlink" title="测试三"></a>测试三</h2><ol>
+<li>启动 ActiveMQ</li>
+<li>运行 MqttPublisher 和 MqttSubscriber，数据的订阅和发布都是正常的</li>
+<li>关闭无线网或者拔掉网线断开网络</li>
+<li>MqttSubscriber 很快就发现网络断开了，输出 Disconnected from server</li>
+<li>MqttPublisher 和测试二一样，仍然不停的发送数据，过了很久才会发现网络断开了</li>
+</ol>
+<blockquote>
+<p>推论: 在 callback 实现的代码里，如果只有 subscriber，不同什么情况下都能很快的发现网络断开的问题，但是只要有 publisher，断开网络的情况下需要很久才能发现网络异常</p>
+</blockquote>
+<h2 id="使用-Future-的方式实现-Publisher"><a href="#使用-Future-的方式实现-Publisher" class="headerlink" title="使用 Future 的方式实现 Publisher"></a>使用 Future 的方式实现 Publisher</h2><p>Callback 方式实现的 Publisher 在特殊情况下不能及时的发现网络问题，使用 Future 实现的 Publisher 可以克服这个问题。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.mqtt.future;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.fusesource.mqtt.client.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.net.URISyntaxException;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.Executors;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FutureMqttPublisher</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TOPIC_NAME = <span class="string">&quot;foo&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String WILL_TOPIC_NAME = <span class="string">&quot;foo-will&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String HOST = <span class="string">&quot;tcp://localhost:1883&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> messageNumber = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> URISyntaxException </span>&#123;</span><br><span class="line">        MQTT mqtt = <span class="keyword">new</span> MQTT();</span><br><span class="line">        mqtt.setHost(HOST);</span><br><span class="line">        mqtt.setKeepAlive((<span class="keyword">short</span>)<span class="number">3</span>); <span class="comment">// 默认是 30 秒</span></span><br><span class="line">        mqtt.setReconnectDelay(<span class="number">500</span>); <span class="comment">// 500 毫秒重连一次, 默认是 10 毫秒</span></span><br><span class="line">        mqtt.setReconnectDelayMax(<span class="number">500</span>);</span><br><span class="line">        mqtt.setWillTopic(WILL_TOPIC_NAME);</span><br><span class="line">        mqtt.setWillQos(QoS.AT_LEAST_ONCE);</span><br><span class="line">        mqtt.setWillMessage(<span class="string">&quot;Will message: My ID is A, I have left.&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> FutureConnection connection = mqtt.futureConnection();</span><br><span class="line"></span><br><span class="line">        connection.connect().then(<span class="keyword">new</span> Callback&lt;Void&gt;()&#123;</span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(Void value)</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;Connected&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFailure</span><span class="params">(Throwable e)</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;Failed&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 不停的发消息</span></span><br><span class="line">        Executors.newScheduledThreadPool(<span class="number">1</span>).scheduleAtFixedRate(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (connection != <span class="keyword">null</span> &amp;&amp; connection.isConnected()) &#123;</span><br><span class="line">                    String message = (++messageNumber) + <span class="string">&quot; - A - 时间: &quot;</span> + System.currentTimeMillis();</span><br><span class="line">                    Future&lt;Void&gt; future = connection.publish(TOPIC_NAME, message.getBytes(), QoS.AT_LEAST_ONCE, <span class="keyword">false</span>);</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        future.await(<span class="number">2</span>, TimeUnit.SECONDS); <span class="comment">// 等待消息发送完成, 如果发送失败就会抛出异常, 例如网络断开的情况下</span></span><br><span class="line">                        System.out.println(<span class="string">&quot;Send: &quot;</span> + message);</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    System.out.println(<span class="string">&quot;Non-connected&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="number">100</span>, <span class="number">300</span>, TimeUnit.MILLISECONDS);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试四"><a href="#测试四" class="headerlink" title="测试四"></a>测试四</h2><p>和测试三的步骤一样，可以看到 Publisher 能及时的发现网络异常</p>
+<h2 id="问题和提示"><a href="#问题和提示" class="headerlink" title="问题和提示"></a>问题和提示</h2><p><strong>可以用同一个 MQTT 对象来创建 2 个不同的连接么？</strong></p>
+<p>可以，例如用同一个 MQTT 对象来创建 CallbackConnection 用于接收消息，创建 FutureConnection 用于发送消息。</p>
+<p><strong>KeepAlive 有什么作用?</strong></p>
+<p>使用 mqtt.setKeepAlive((short)3) 设置连接的 KeepAlive 时间。每个连接都有自己的 KeepAlive，不同的连接的 KeepAlive 可以不同，如果服务器在连接的 KeepAlive 时间内没有收到消息，就会把这个连接断开。</p>
+<p><strong>网络断开后重连会使用新的连接吗？</strong></p>
+<p>在 KeepAlive 时间内仍然会重用原来的连接。超过 KeepAlive 则关闭原来的连接，重新创建一个。</p>
+<p>网络断开（拔网线）后，客户端发现网络断开了，在 KeepAlive 时间内重新插上网线（服务器还没有把连接断开）并且客户端自动重连成功，会发现服务器端这个客户端的 Socket 被重用（IP 和 端口没变），而不是重新创建一个新的 Socket 连接，如果时间过长（大于 KeepAlive），那么就会重新创建一个连接，原来的连接被关掉。</p>
+<blockquote>
+<p>Socket 连接创建是需要三次握手的</p>
+</blockquote>
+<p><strong>Socket 编程中怎么及时发现 Socket 断开?</strong></p>
+<p>Socket 编程里，Socket.sendUrgentData() 成功就表示连接是好的，否则远程的连接就断开了，用来判断连接的有效性效果不错</p>
+<blockquote>
+<p>public void sendUrgentData(int data) throws IOException</p>
+<p>Send one byte of urgent data on the socket. The byte to be sent is the lowest eight bits of the data parameter(参数的第八位). The urgent byte is sent after any preceding writes to the socket OutputStream and before any future writes to the OutputStream.</p>
+<p>Parameters:</p>
+<p>data - The byte of data to send</p>
+<p>Throws:</p>
+<p>IOException - if there is an error sending the data.</p>
+</blockquote>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/qt-custom-type-metatype/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          集成自定义类型到 MetaType 系统
+        
+      </div>
+    </a>
+  
+  
+    <a href="/java-okhttp/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">OkHttp</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

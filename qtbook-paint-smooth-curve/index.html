@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>绘制平滑曲线 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="得到曲线上的点，画出曲线，这是一个很常见的需求。画曲线嘛，当然难不住我们，用 QPainter::drawLine() 把曲线上的点连起来不就好了？So easy，轻轻松松搞定，开开心心的交任务去了。  正在聚精会神炒股的老板一瞅，气不打一处来：“你这画的是什么鬼，这个线直来直去的，太不专业了”，抬头指着屏幕上的炒股软件，瞅着迷离的眼神：“看看人家的这个曲线，就像少女的皮肤般那么的柔顺、平滑”，口">
+<meta property="og:type" content="article">
+<meta property="og:title" content="绘制平滑曲线">
+<meta property="og:url" content="http://xtuer.github.io/qtbook-paint-smooth-curve/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="得到曲线上的点，画出曲线，这是一个很常见的需求。画曲线嘛，当然难不住我们，用 QPainter::drawLine() 把曲线上的点连起来不就好了？So easy，轻轻松松搞定，开开心心的交任务去了。  正在聚精会神炒股的老板一瞅，气不打一处来：“你这画的是什么鬼，这个线直来直去的，太不专业了”，抬头指着屏幕上的炒股软件，瞅着迷离的眼神：“看看人家的这个曲线，就像少女的皮肤般那么的柔顺、平滑”，口">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-SmoothCurve-Non.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-SmoothCurve-1.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-SmoothCurve-2.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-SmoothCurve-Theory.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-SmoothCurve-Ui.png">
+<meta property="article:published_time" content="2016-12-11T02:33:47.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.176Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="QtBook">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-SmoothCurve-Non.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-qtbook-paint-smooth-curve" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-paint-smooth-curve/" class="article-date">
+  	<!-- <time datetime="2016-12-11T02:33:47.000Z" itemprop="datePublished">2016-12-11</time> -->
+    2016-12-11
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      绘制平滑曲线
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>得到曲线上的点，画出曲线，这是一个很常见的需求。画曲线嘛，当然难不住我们，用 QPainter::drawLine() 把曲线上的点连起来不就好了？So easy，轻轻松松搞定，开开心心的交任务去了。</p>
+<p><img src="../img/qtbook/paint/Paint-SmoothCurve-Non.png"></p>
+<p>正在聚精会神炒股的老板一瞅，气不打一处来：“你这画的是什么鬼，这个线直来直去的，太不专业了”，抬头指着屏幕上的炒股软件，瞅着迷离的眼神：“看看人家的这个曲线，就像少女的皮肤般那么的柔顺、平滑”，口气马上一百八十度大转弯：“在看看你的，像八十岁老头的那样全是褶皱！” 擦完脸上的口水，赶快想办法去吧。<span id="more"></span></p>
+<p>创建平滑曲线，有很多种方式，可以使用现成的库，例如 QWT，QCustomPlot 等，也可以研究平滑曲线的理论，实现平滑曲线的插值函数。这里我们提供二个实现，利用 QPainterPath，根据曲线上的点创建平滑曲线，他们各有利弊，使用分三步：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// [1] 把曲线上的点放到 QList 里</span></span><br><span class="line">QList&lt;QPointF&gt; knots;</span><br><span class="line">knots &lt;&lt; <span class="built_in">QPointF</span>(x1, y1);</span><br><span class="line">...</span><br><span class="line">knots &lt;&lt; <span class="built_in">QPointF</span>(xn, yn);</span><br><span class="line"></span><br><span class="line"><span class="comment">// [2] 创建平滑曲线</span></span><br><span class="line">QPainterPath smoothCurve1 = SmoothCurveGenerator1::<span class="built_in">generateSmoothCurve</span>(knots);</span><br><span class="line">QPainterPath smoothCurve2 = SmoothCurveGenerator2::<span class="built_in">generateSmoothCurve</span>(knots);</span><br><span class="line"></span><br><span class="line"><span class="comment">// [3] 绘制曲线</span></span><br><span class="line">painter.<span class="built_in">drawPath</span>(smoothCurve1);</span><br><span class="line">painter.<span class="built_in">drawPath</span>(smoothCurve2);</span><br></pre></td></tr></table></figure>
+
+<p>最后画出来的曲线效果如下，这次应该不会被喷了吧：</p>
+<p><img src="../img/qtbook/paint/Paint-SmoothCurve-1.png"><br><img src="../img/qtbook/paint/Paint-SmoothCurve-2.png"></p>
+<p>Qt 中可以使用 <code>QPainterPath::cubicTo()</code> 函数实现绘制平滑曲线，绘制平滑曲线的关键是控制点的计算，sp 为线段的起始点，ep 为线段的终点，c1，c2 为贝塞尔曲线的控制点，其坐标计算如下</p>
+<p><img src="../img/qtbook/paint/Paint-SmoothCurve-Theory.png"></p>
+<p>类 SmoothCurveGenerator1 使用上面的原理生成平滑曲线</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> SMOOTHCURVEGENERATOR1_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SMOOTHCURVEGENERATOR1_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QList&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QPointF&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QPainterPath&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SmoothCurveGenerator1</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 传入曲线上的点的 list，创建平滑曲线</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * @param points - 曲线上的点</span></span><br><span class="line"><span class="comment">     * @return - 返回使用给定的点创建的 QPainterPath 表示的平滑曲线</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">static</span> QPainterPath <span class="title">generateSmoothCurve</span><span class="params">(<span class="keyword">const</span> QList&lt;QPointF&gt; &amp;points)</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// SMOOTHCURVEGENERATOR1_H</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;SmoothCurveGenerator1.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">QPainterPath <span class="title">SmoothCurveGenerator1::generateSmoothCurve</span><span class="params">(<span class="keyword">const</span> QList&lt;QPointF&gt; &amp;points)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (points.<span class="built_in">size</span>() == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">QPainterPath</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">QPainterPath <span class="title">path</span><span class="params">(points[<span class="number">0</span>])</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; points.<span class="built_in">size</span>() - <span class="number">1</span>; ++i) &#123;</span><br><span class="line">        <span class="comment">// 控制点的 x 坐标为 sp 与 ep 的 x 坐标和的一半</span></span><br><span class="line">        <span class="comment">// 第一个控制点 c1 的 y 坐标为起始点 sp 的 y 坐标</span></span><br><span class="line">        <span class="comment">// 第二个控制点 c2 的 y 坐标为结束点 ep 的 y 坐标</span></span><br><span class="line">        QPointF sp = points[i];</span><br><span class="line">        QPointF ep = points[i+<span class="number">1</span>];</span><br><span class="line">        QPointF c1 = <span class="built_in">QPointF</span>((sp.<span class="built_in">x</span>() + ep.<span class="built_in">x</span>()) / <span class="number">2</span>, sp.<span class="built_in">y</span>());</span><br><span class="line">        QPointF c2 = <span class="built_in">QPointF</span>((sp.<span class="built_in">x</span>() + ep.<span class="built_in">x</span>()) / <span class="number">2</span>, ep.<span class="built_in">y</span>());</span><br><span class="line">        path.<span class="built_in">cubicTo</span>(c1, c2, ep);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> path;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来就介绍一下生成平滑曲线的具体使用方法，就是开头被喷的那个曲线图的平滑实现。</p>
+<p>在 SmoothCurveWidget.ui 上如图放两个 QCheckBox，命名为 showKnotsCheckBox 和 showSmoothCurveCheckBox，QPushButton 用于点击重新生成曲线，ComboBox 用于选择生成曲线的算法：</p>
+<p><img src="../img/qtbook/paint/Paint-SmoothCurve-Ui.png"></p>
+<p>下面是 SmoothCurveWidget.h, SmoothCurveWidget.cpp 和 main.cpp</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> SMOOTHCURVEWIDGET_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SMOOTHCURVEWIDGET_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QWidget&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QList&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QPointF&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QPainterPath&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> Ui &#123;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SmoothCurveWidget</span>;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SmoothCurveWidget</span> :</span> <span class="keyword">public</span> QWidget &#123;</span><br><span class="line">    Q_OBJECT</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">SmoothCurveWidget</span><span class="params">(QWidget *parent = <span class="number">0</span>)</span></span>;</span><br><span class="line">    ~<span class="built_in">SmoothCurveWidget</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">paintEvent</span><span class="params">(QPaintEvent *event)</span> Q_DECL_OVERRIDE</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> slots:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">generateCurves</span><span class="params">()</span></span>; <span class="comment">// 生成平滑曲线和非平滑曲线</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    Ui::SmoothCurveWidget *ui;</span><br><span class="line">    QList&lt;QPointF&gt; knots;        <span class="comment">// 曲线上的点</span></span><br><span class="line">    QPainterPath smoothCurve1;   <span class="comment">// 平滑曲线</span></span><br><span class="line">    QPainterPath smoothCurve2;   <span class="comment">// 平滑曲线</span></span><br><span class="line">    QPainterPath nonSmoothCurve; <span class="comment">// 直接连接点的非平滑曲线</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// SMOOTHCURVEWIDGET_H</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;SmoothCurveWidget.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;ui_SmoothCurveWidget.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;SmoothCurveGenerator1.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;SmoothCurveGenerator2.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QPainter&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QtGlobal&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QDateTime&gt;</span></span></span><br><span class="line"></span><br><span class="line">SmoothCurveWidget::<span class="built_in">SmoothCurveWidget</span>(QWidget *parent) :</span><br><span class="line">    <span class="built_in">QWidget</span>(parent), <span class="built_in">ui</span>(<span class="keyword">new</span> Ui::SmoothCurveWidget) &#123;</span><br><span class="line">    ui-&gt;<span class="built_in">setupUi</span>(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">connect</span>(ui-&gt;generateCurveButton, <span class="built_in">SIGNAL</span>(<span class="built_in">clicked</span>(<span class="keyword">bool</span>)), <span class="keyword">this</span>, <span class="built_in">SLOT</span>(<span class="built_in">generateCurves</span>()));</span><br><span class="line">    <span class="built_in">connect</span>(ui-&gt;showKnotsCheckBox, <span class="built_in">SIGNAL</span>(<span class="built_in">clicked</span>(<span class="keyword">bool</span>)), <span class="keyword">this</span>, <span class="built_in">SLOT</span>(<span class="built_in">update</span>()));</span><br><span class="line">    <span class="built_in">connect</span>(ui-&gt;showSmoothCurveCheckBox, <span class="built_in">SIGNAL</span>(<span class="built_in">clicked</span>(<span class="keyword">bool</span>)), <span class="keyword">this</span>, <span class="built_in">SLOT</span>(<span class="built_in">update</span>()));</span><br><span class="line">    <span class="built_in">connect</span>(ui-&gt;smoothCurveGeneratorComboBox, <span class="built_in">SIGNAL</span>(<span class="built_in">currentIndexChanged</span>(<span class="keyword">int</span>)), <span class="keyword">this</span>, <span class="built_in">SLOT</span>(<span class="built_in">update</span>()));</span><br><span class="line"></span><br><span class="line">    ui-&gt;generateCurveButton-&gt;<span class="built_in">click</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">SmoothCurveWidget::~<span class="built_in">SmoothCurveWidget</span>() &#123;</span><br><span class="line">    <span class="keyword">delete</span> ui;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SmoothCurveWidget::paintEvent</span><span class="params">(QPaintEvent *)</span> </span>&#123;</span><br><span class="line">    <span class="function">QPainter <span class="title">painter</span><span class="params">(<span class="keyword">this</span>)</span></span>;</span><br><span class="line">    painter.<span class="built_in">setRenderHint</span>(QPainter::Antialiasing);</span><br><span class="line">    painter.<span class="built_in">translate</span>(<span class="built_in">width</span>() / <span class="number">2</span> , <span class="built_in">height</span>() / <span class="number">2</span>);</span><br><span class="line">    painter.<span class="built_in">scale</span>(<span class="number">1</span>, <span class="number">-1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 画坐标轴</span></span><br><span class="line">    painter.<span class="built_in">setPen</span>(<span class="built_in">QColor</span>(<span class="number">180</span>, <span class="number">180</span>, <span class="number">180</span>));</span><br><span class="line">    painter.<span class="built_in">drawLine</span>(<span class="number">-500</span>, <span class="number">0</span>, <span class="number">500</span>, <span class="number">0</span>);</span><br><span class="line">    painter.<span class="built_in">drawLine</span>(<span class="number">0</span>, <span class="number">500</span>, <span class="number">0</span>, <span class="number">-500</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// showSmoothCurveCheckBox 被选中时显示平滑曲线，否则显示非平滑曲线</span></span><br><span class="line">    painter.<span class="built_in">setPen</span>(<span class="built_in">QPen</span>(<span class="built_in">QColor</span>(<span class="number">80</span>, <span class="number">80</span>, <span class="number">80</span>), <span class="number">2</span>));</span><br><span class="line">    <span class="keyword">if</span> (ui-&gt;showSmoothCurveCheckBox-&gt;<span class="built_in">isChecked</span>() &amp;&amp; ui-&gt;smoothCurveGeneratorComboBox-&gt;<span class="built_in">currentIndex</span>() == <span class="number">0</span>) &#123;</span><br><span class="line">        painter.<span class="built_in">drawPath</span>(smoothCurve1);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (ui-&gt;showSmoothCurveCheckBox-&gt;<span class="built_in">isChecked</span>() &amp;&amp; ui-&gt;smoothCurveGeneratorComboBox-&gt;<span class="built_in">currentIndex</span>() == <span class="number">1</span>) &#123;</span><br><span class="line">        painter.<span class="built_in">drawPath</span>(smoothCurve2);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        painter.<span class="built_in">drawPath</span>(nonSmoothCurve);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果曲线上的点可见，则显示出来</span></span><br><span class="line">    <span class="keyword">if</span> (ui-&gt;showKnotsCheckBox-&gt;<span class="built_in">isChecked</span>()) &#123;</span><br><span class="line">        painter.<span class="built_in">setPen</span>(Qt::black);</span><br><span class="line">        painter.<span class="built_in">setBrush</span>(Qt::gray);</span><br><span class="line">        foreach(QPointF p, knots) &#123;</span><br><span class="line">            painter.<span class="built_in">drawEllipse</span>(p, <span class="number">3</span>, <span class="number">3</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SmoothCurveWidget::generateCurves</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">qsrand</span>(QDateTime::<span class="built_in">currentDateTime</span>().<span class="built_in">toMSecsSinceEpoch</span>());</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 随机生成曲线上的点: 横坐标为 [-200, 200]，纵坐标为 [-100, 100]</span></span><br><span class="line">    <span class="keyword">int</span> x = <span class="number">-200</span>;</span><br><span class="line">    knots.<span class="built_in">clear</span>();</span><br><span class="line">    <span class="keyword">while</span> (x &lt; <span class="number">200</span>) &#123;</span><br><span class="line">        knots &lt;&lt; <span class="built_in">QPointF</span>(x, <span class="built_in">qrand</span>() % <span class="number">200</span> - <span class="number">100</span>);</span><br><span class="line">        x += <span class="built_in">qMin</span>(<span class="built_in">qrand</span>() % <span class="number">30</span> + <span class="number">5</span>, <span class="number">200</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 根据曲线上的点创建平滑曲线</span></span><br><span class="line">    smoothCurve1 = SmoothCurveGenerator1::<span class="built_in">generateSmoothCurve</span>(knots);</span><br><span class="line">    smoothCurve2 = SmoothCurveGenerator2::<span class="built_in">generateSmoothCurve</span>(knots);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 连接点创建非平滑曲线曲线</span></span><br><span class="line">    nonSmoothCurve = <span class="built_in">QPainterPath</span>();</span><br><span class="line">    nonSmoothCurve.<span class="built_in">moveTo</span>(knots[<span class="number">0</span>]);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; knots.<span class="built_in">size</span>(); ++i) &#123;</span><br><span class="line">        nonSmoothCurve.<span class="built_in">lineTo</span>(knots[i]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">update</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;SmoothCurveWidget.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QApplication&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="function">QApplication <span class="title">a</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line"></span><br><span class="line">    SmoothCurveWidget w;</span><br><span class="line">    w.<span class="built_in">show</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> a.<span class="built_in">exec</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>为了让程序更具有普谝性，曲线上的点采用随机生成，所以每次生成的曲线是不一样的，选中 “Smooth Curve” 时显示为平滑曲线，没有选中则显示为非平滑的曲线。选中 “Show knots” 显示曲线上的点，反之则不显示。</p>
+<p>如果仔细观察 SmoothCurveGenerator1 生成的平滑曲线，会发现平滑曲线段之间会有很多小段的抖动，下面提供另一个也是使用 QPainterPath 实现平滑曲线的方法，可以解决平滑曲线段之间的抖动问题，但是曲线段在比较陡时，曲线上的值可能会超出曲线原来值的范围，但是总体上看效果更好，改编自 <a target="_blank" rel="noopener" href="http://www.codeproject.com/Articles/31859/Draw-a-Smooth-Curve-through-a-Set-of-D-Points-wit%EF%BC%8C%E6%A0%B8%E5%BF%83%E6%98%AF%E4%BD%BF%E7%94%A8%E6%9B%B2%E7%BA%BF%E4%B8%8A%E7%9A%84%E7%82%B9%E8%AE%A1%E7%AE%97%E5%87%BA%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF%E7%9A%84%E4%B8%A4%E4%B8%AA%E6%8E%A7%E5%88%B6%E7%82%B9%EF%BC%8C%E7%84%B6%E5%90%8E%E4%BD%BF%E7%94%A8%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF%E7%94%9F%E6%88%90%E5%B9%B3%E6%BB%91%E6%9B%B2%E7%BA%BF%EF%BC%8C%E5%BE%88%E6%83%AD%E6%84%A7%E7%9A%84%E6%98%AF%E7%94%9F%E6%88%90%E6%8E%A7%E5%88%B6%E7%82%B9%E7%9A%84%E7%AE%97%E6%B3%95%E7%BB%86%E8%8A%82%E6%88%91%E6%B2%A1%E7%9C%8B%E6%87%82%EF%BC%8C%E5%8F%AA%E4%B8%8D%E8%BF%87%E6%98%AF%E4%BD%9C%E4%BA%86%E4%B8%80%E6%AC%A1%E6%90%AC%E8%BF%90%E5%B7%A5%EF%BC%8C%E6%8A%8A%E7%A8%8B%E5%BA%8F%E7%A7%BB%E6%A4%8D%E5%88%B0%E4%BA%86">http://www.codeproject.com/Articles/31859/Draw-a-Smooth-Curve-through-a-Set-of-D-Points-wit，核心是使用曲线上的点计算出贝塞尔曲线的两个控制点，然后使用贝塞尔曲线生成平滑曲线，很惭愧的是生成控制点的算法细节我没看懂，只不过是作了一次搬运工，把程序移植到了</a> Qt 上，有兴趣的话，请自行参考吧，不过即使没有理解控制点的生成算法也不影响使用。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> SMOOTHCURVEGENERATOR2_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SMOOTHCURVEGENERATOR2_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QList&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QPointF&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QPainterPath&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SmoothCurveGenerator2</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 传入曲线上的点的 list，创建平滑曲线</span></span><br><span class="line"><span class="comment">     * @param points - 曲线上的点</span></span><br><span class="line"><span class="comment">     * @return - 返回使用给定的点创建的 QPainterPath 表示的平滑曲线</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">static</span> QPainterPath <span class="title">generateSmoothCurve</span><span class="params">(<span class="keyword">const</span> QList&lt;QPointF&gt; &amp;points)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Solves a tridiagonal system for one of coordinates (x or y)</span></span><br><span class="line"><span class="comment">     * of first Bezier control points.</span></span><br><span class="line"><span class="comment">     * @param result - Solution vector.</span></span><br><span class="line"><span class="comment">     * @param rhs - Right hand side vector.</span></span><br><span class="line"><span class="comment">     * @param n - Size of rhs.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">calculateFirstControlPoints</span><span class="params">(<span class="keyword">double</span> * &amp;result, <span class="keyword">const</span> <span class="keyword">double</span> *rhs, <span class="keyword">int</span> n)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Calculate control points of the smooth curve using the given knots.</span></span><br><span class="line"><span class="comment">     * @param knots - Points of the given curve.</span></span><br><span class="line"><span class="comment">     * @param firstControlPoints - Store the generated first control points.</span></span><br><span class="line"><span class="comment">     * @param secondControlPoints - Store the generated second control points.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">calculateControlPoints</span><span class="params">(<span class="keyword">const</span> QList&lt;QPointF&gt; &amp;knots,</span></span></span><br><span class="line"><span class="params"><span class="function">                                       QList&lt;QPointF&gt; *firstControlPoints,</span></span></span><br><span class="line"><span class="params"><span class="function">                                       QList&lt;QPointF&gt; *secondControlPoints)</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// SMOOTHCURVEGENERATOR2_H</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;SmoothCurveGenerator2.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">QPainterPath <span class="title">SmoothCurveGenerator2::generateSmoothCurve</span><span class="params">(<span class="keyword">const</span> QList&lt;QPointF&gt; &amp;points)</span> </span>&#123;</span><br><span class="line">    QPainterPath path;</span><br><span class="line">    <span class="keyword">int</span> len = points.<span class="built_in">size</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (len &lt; <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> path;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    QList&lt;QPointF&gt; firstControlPoints;</span><br><span class="line">    QList&lt;QPointF&gt; secondControlPoints;</span><br><span class="line">    <span class="built_in">calculateControlPoints</span>(points, &amp;firstControlPoints, &amp;secondControlPoints);</span><br><span class="line"></span><br><span class="line">    path.<span class="built_in">moveTo</span>(points[<span class="number">0</span>].<span class="built_in">x</span>(), points[<span class="number">0</span>].<span class="built_in">y</span>());</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Using bezier curve to generate a smooth curve.</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len - <span class="number">1</span>; ++i) &#123;</span><br><span class="line">        path.<span class="built_in">cubicTo</span>(firstControlPoints[i], secondControlPoints[i], points[i+<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> path;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SmoothCurveGenerator2::calculateFirstControlPoints</span><span class="params">(<span class="keyword">double</span> *&amp;result, <span class="keyword">const</span> <span class="keyword">double</span> *rhs, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    result = <span class="keyword">new</span> <span class="keyword">double</span>[n];</span><br><span class="line">    <span class="keyword">double</span> *tmp = <span class="keyword">new</span> <span class="keyword">double</span>[n];</span><br><span class="line">    <span class="keyword">double</span> b = <span class="number">2.0</span>;</span><br><span class="line">    result[<span class="number">0</span>] = rhs[<span class="number">0</span>] / b;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Decomposition and forward substitution.</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">        tmp[i] = <span class="number">1</span> / b;</span><br><span class="line">        b = (i &lt; n - <span class="number">1</span> ? <span class="number">4.0</span> : <span class="number">3.5</span>) - tmp[i];</span><br><span class="line">        result[i] = (rhs[i] - result[i - <span class="number">1</span>]) / b;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">        result[n - i - <span class="number">1</span>] -= tmp[n - i] * result[n - i]; <span class="comment">// Backsubstitution.</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">delete</span>[] tmp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SmoothCurveGenerator2::calculateControlPoints</span><span class="params">(<span class="keyword">const</span> QList&lt;QPointF&gt; &amp;knots,</span></span></span><br><span class="line"><span class="params"><span class="function">                                                   QList&lt;QPointF&gt; *firstControlPoints,</span></span></span><br><span class="line"><span class="params"><span class="function">                                                   QList&lt;QPointF&gt; *secondControlPoints)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = knots.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        firstControlPoints-&gt;<span class="built_in">append</span>(<span class="built_in">QPointF</span>());</span><br><span class="line">        secondControlPoints-&gt;<span class="built_in">append</span>(<span class="built_in">QPointF</span>());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">// Special case: Bezier curve should be a straight line.</span></span><br><span class="line">        <span class="comment">// P1 = (2P0 + P3) / 3</span></span><br><span class="line">        (*firstControlPoints)[<span class="number">0</span>].<span class="built_in">rx</span>() = (<span class="number">2</span> * knots[<span class="number">0</span>].<span class="built_in">x</span>() + knots[<span class="number">1</span>].<span class="built_in">x</span>()) / <span class="number">3</span>;</span><br><span class="line">        (*firstControlPoints)[<span class="number">0</span>].<span class="built_in">ry</span>() = (<span class="number">2</span> * knots[<span class="number">0</span>].<span class="built_in">y</span>() + knots[<span class="number">1</span>].<span class="built_in">y</span>()) / <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// P2 = 2P1 – P0</span></span><br><span class="line">        (*secondControlPoints)[<span class="number">0</span>].<span class="built_in">rx</span>() = <span class="number">2</span> * (*firstControlPoints)[<span class="number">0</span>].<span class="built_in">x</span>() - knots[<span class="number">0</span>].<span class="built_in">x</span>();</span><br><span class="line">        (*secondControlPoints)[<span class="number">0</span>].<span class="built_in">ry</span>() = <span class="number">2</span> * (*firstControlPoints)[<span class="number">0</span>].<span class="built_in">y</span>() - knots[<span class="number">0</span>].<span class="built_in">y</span>();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Calculate first Bezier control points</span></span><br><span class="line">    <span class="keyword">double</span> *xs = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">double</span> *ys = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">double</span> *rhsx = <span class="keyword">new</span> <span class="keyword">double</span>[n]; <span class="comment">// Right hand side vector</span></span><br><span class="line">    <span class="keyword">double</span> *rhsy = <span class="keyword">new</span> <span class="keyword">double</span>[n]; <span class="comment">// Right hand side vector</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Set right hand side values</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n - <span class="number">1</span>; ++i) &#123;</span><br><span class="line">        rhsx[i] = <span class="number">4</span> * knots[i].<span class="built_in">x</span>() + <span class="number">2</span> * knots[i + <span class="number">1</span>].<span class="built_in">x</span>();</span><br><span class="line">        rhsy[i] = <span class="number">4</span> * knots[i].<span class="built_in">y</span>() + <span class="number">2</span> * knots[i + <span class="number">1</span>].<span class="built_in">y</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    rhsx[<span class="number">0</span>] = knots[<span class="number">0</span>].<span class="built_in">x</span>() + <span class="number">2</span> * knots[<span class="number">1</span>].<span class="built_in">x</span>();</span><br><span class="line">    rhsx[n - <span class="number">1</span>] = (<span class="number">8</span> * knots[n - <span class="number">1</span>].<span class="built_in">x</span>() + knots[n].<span class="built_in">x</span>()) / <span class="number">2.0</span>;</span><br><span class="line">    rhsy[<span class="number">0</span>] = knots[<span class="number">0</span>].<span class="built_in">y</span>() + <span class="number">2</span> * knots[<span class="number">1</span>].<span class="built_in">y</span>();</span><br><span class="line">    rhsy[n - <span class="number">1</span>] = (<span class="number">8</span> * knots[n - <span class="number">1</span>].<span class="built_in">y</span>() + knots[n].<span class="built_in">y</span>()) / <span class="number">2.0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Calculate first control points coordinates</span></span><br><span class="line">    <span class="built_in">calculateFirstControlPoints</span>(xs, rhsx, n);</span><br><span class="line">    <span class="built_in">calculateFirstControlPoints</span>(ys, rhsy, n);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Fill output control points.</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        (*firstControlPoints)[i].<span class="built_in">rx</span>() = xs[i];</span><br><span class="line">        (*firstControlPoints)[i].<span class="built_in">ry</span>() = ys[i];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (i &lt; n - <span class="number">1</span>) &#123;</span><br><span class="line">            (*secondControlPoints)[i].<span class="built_in">rx</span>() = <span class="number">2</span> * knots[i + <span class="number">1</span>].<span class="built_in">x</span>() - xs[i + <span class="number">1</span>];</span><br><span class="line">            (*secondControlPoints)[i].<span class="built_in">ry</span>() = <span class="number">2</span> * knots[i + <span class="number">1</span>].<span class="built_in">y</span>() - ys[i + <span class="number">1</span>];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            (*secondControlPoints)[i].<span class="built_in">rx</span>() = (knots[n].<span class="built_in">x</span>() + xs[n - <span class="number">1</span>]) / <span class="number">2</span>;</span><br><span class="line">            (*secondControlPoints)[i].<span class="built_in">ry</span>() = (knots[n].<span class="built_in">y</span>() + ys[n - <span class="number">1</span>]) / <span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">delete</span> xs;</span><br><span class="line">    <span class="keyword">delete</span> ys;</span><br><span class="line">    <span class="keyword">delete</span>[] rhsx;</span><br><span class="line">    <span class="keyword">delete</span>[] rhsy;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>相信还有其他用于生成平滑曲线的方法，甚至可以同时解决 SmoothCurveGenerator1 和 SmoothCurveGenerator2 的问题，这个需要大家继续深入的研究了。</p>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/qtbook-paint-realtime-curve/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          实时动态曲线
+        
+      </div>
+    </a>
+  
+  
+    <a href="/qtbook-paint-artist/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">用画家的思维绘制图形</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

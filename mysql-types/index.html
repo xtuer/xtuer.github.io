@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>MySQL 数据类型 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="MySQL 中定义数据字段的类型对你数据库的优化是非常重要的，支持多种类型，大致可以分为三类：数值、日期&#x2F;时间和字符串(字符)类型。 数值类型MySQL支持所有标准 SQL 数值数据类型，这些类型包括严格数值数据类型(INTEGER、SMALLINT、DECIMAL 和 NUMERIC)，以及近似数值数据类型(FLOAT、REAL 和 DOUBLE)。  关键字 INT 是 INTEGER 的同义">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL 数据类型">
+<meta property="og:url" content="http://xtuer.github.io/mysql-types/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="MySQL 中定义数据字段的类型对你数据库的优化是非常重要的，支持多种类型，大致可以分为三类：数值、日期&#x2F;时间和字符串(字符)类型。 数值类型MySQL支持所有标准 SQL 数值数据类型，这些类型包括严格数值数据类型(INTEGER、SMALLINT、DECIMAL 和 NUMERIC)，以及近似数值数据类型(FLOAT、REAL 和 DOUBLE)。  关键字 INT 是 INTEGER 的同义">
+<meta property="og:locale">
+<meta property="article:published_time" content="2017-12-31T02:51:22.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.167Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="DB">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E5%80%BC%E7%B1%BB%E5%9E%8B"><span class="toc-text">数值类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4%E7%B1%BB%E5%9E%8B"><span class="toc-text">日期和时间类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB%E5%9E%8B"><span class="toc-text">字符串类型</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-mysql-types" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/mysql-types/" class="article-date">
+  	<!-- <time datetime="2017-12-31T02:51:22.000Z" itemprop="datePublished">2017-12-31</time> -->
+    2017-12-31
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      MySQL 数据类型
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DB/" rel="tag">DB</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>MySQL 中定义数据字段的类型对你数据库的优化是非常重要的，支持多种类型，大致可以分为三类：数值、日期/时间和字符串(字符)类型。</p>
+<h2 id="数值类型"><a href="#数值类型" class="headerlink" title="数值类型"></a>数值类型</h2><p>MySQL支持所有标准 SQL 数值数据类型，这些类型包括严格数值数据类型(INTEGER、SMALLINT、DECIMAL 和 NUMERIC)，以及近似数值数据类型(FLOAT、REAL 和 DOUBLE)。</p>
+<blockquote>
+<p>关键字 INT 是 INTEGER 的同义词，关键字 DEC 是 DECIMAL 的同义词。<br>BIT 数据类型保存位字段值，并且支持 MyISAM、MEMORY、InnoDB 和 BDB 表。<br>作为 SQL 标准的扩展，MySQL 也支持整数类型 TINYINT、MEDIUMINT 和 BIGINT。</p>
+</blockquote>
+<span id="more"></span>
+
+<p>下面的表显示了需要的每个整数类型的存储和范围:</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>大小</th>
+<th>范围（有符号）</th>
+<th>范围（无符号）</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>TINYINT</td>
+<td>1 字节</td>
+<td>(-128，127)</td>
+<td>(0，255)</td>
+<td>小整数值</td>
+</tr>
+<tr>
+<td>SMALLINT</td>
+<td>2 字节</td>
+<td>(-32 768，32 767)</td>
+<td>(0，65 535)</td>
+<td>大整数值</td>
+</tr>
+<tr>
+<td>MEDIUMINT</td>
+<td>3 字节</td>
+<td>(-8 388 608，8 388 607)</td>
+<td>(0，16 777 215)</td>
+<td>大整数值</td>
+</tr>
+<tr>
+<td>INT 或 INTEGER</td>
+<td>4 字节</td>
+<td>(-2 147 483 648，2 147 483 647)</td>
+<td>(0，4 294 967 295)</td>
+<td>大整数值</td>
+</tr>
+<tr>
+<td>BIGINT</td>
+<td>8 字节</td>
+<td>(-9 233 372 036 854 775 808，9 223 372 036 854 775 807)</td>
+<td>(0，18 446 744 073 709 551 615)</td>
+<td>极大整数值</td>
+</tr>
+<tr>
+<td>FLOAT</td>
+<td>4 字节</td>
+<td>(-3.402 823 466 E+38，-1.175 494 351 E-38)，0，(1.175 494 351 E-38，3.402 823 466 351 E+38)</td>
+<td>0，(1.175 494 351 E-38，3.402 823 466 E+38)</td>
+<td>单精度浮点数值</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td>8 字节</td>
+<td>(-1.797 693 134 862 315 7 E+308，-2.225 073 858 507 201 4 E-308)，0，(2.225 073 858 507 201 4 E-308，1.797 693 134 862 315 7 E+308)</td>
+<td>0，(2.225 073 858 507 201 4 E-308，1.797 693 134 862 315 7 E+308)</td>
+<td>双精度浮点数值</td>
+</tr>
+<tr>
+<td>DECIMAL</td>
+<td>对 DECIMAL(M,D) ，如果 M&gt;D，为M+2 否则为 D+2</td>
+<td>依赖于 M 和 D 的值</td>
+<td>依赖于 M 和 D 的值</td>
+<td>小数值</td>
+</tr>
+<tr>
+<td>oooooooooooooo</td>
+<td></td>
+<td></td>
+<td></td>
+<td>oooooooooooooo</td>
+</tr>
+</tbody></table>
+<h2 id="日期和时间类型"><a href="#日期和时间类型" class="headerlink" title="日期和时间类型"></a>日期和时间类型</h2><p>表示时间值的日期和时间类型为 DATETIME、DATE、TIMESTAMP、TIME 和 YEAR。每个时间类型有一个有效值范围和一个”零”值，当指定不合法的MySQL不能表示的值时使用”零”值。</p>
+<blockquote>
+<p>TIMESTAMP 类型有专有的自动更新特性。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>大小</th>
+<th>范围</th>
+<th>格式</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DATE</td>
+<td>3 字节</td>
+<td>1000-01-01/9999-12-31</td>
+<td>YYYY-MM-DD</td>
+<td>日期值</td>
+</tr>
+<tr>
+<td>TIME</td>
+<td>3 字节</td>
+<td>‘-838:59:59’/‘838:59:59’</td>
+<td>HH:MM:SS</td>
+<td>时间值或持续时间</td>
+</tr>
+<tr>
+<td>YEAR</td>
+<td>1 字节</td>
+<td>1901/2155</td>
+<td>YYYY</td>
+<td>年份值</td>
+</tr>
+<tr>
+<td>DATETIME</td>
+<td>8 字节</td>
+<td>1000-01-01 00:00:00/9999-12-31 23:59:59</td>
+<td>YYYY-MM-DD HH:MM:SS</td>
+<td>混合日期和时间值</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>4 字节</td>
+<td>1970-01-01 00:00:00/2038 结束时间是第 <strong>2147483647</strong> 秒，北京时间 <strong>2038-1-19 11:14:07</strong>，格林尼治时间 2038年1月19日 凌晨 03:14:07</td>
+<td>YYYYMMDD HHMMSS</td>
+<td>混合日期和时间值，时间戳</td>
+</tr>
+<tr>
+<td>oooooooooooooo</td>
+<td>oooooooo</td>
+<td></td>
+<td></td>
+<td>oooooooooooooo</td>
+</tr>
+</tbody></table>
+<h2 id="字符串类型"><a href="#字符串类型" class="headerlink" title="字符串类型"></a>字符串类型</h2><p>字符串类型指 CHAR、VARCHAR、BINARY、VARBINARY、BLOB、TEXT、ENUM 和 SET。该节描述了这些类型如何工作以及如何在查询中使用这些类型。</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>大小</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CHAR</td>
+<td>0-255 字节</td>
+<td>定长字符串</td>
+</tr>
+<tr>
+<td>VARCHAR</td>
+<td>0-65535 字节</td>
+<td>变长字符串</td>
+</tr>
+<tr>
+<td>TINYBLOB</td>
+<td>0-255 字节</td>
+<td>不超过 255 个字符的二进制字符串</td>
+</tr>
+<tr>
+<td>TINYTEXT</td>
+<td>0-255 字节</td>
+<td>短文本字符串</td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td>0-65 535 字节</td>
+<td>二进制形式的长文本数据</td>
+</tr>
+<tr>
+<td>TEXT</td>
+<td>0-65 535 字节</td>
+<td>长文本数据</td>
+</tr>
+<tr>
+<td>MEDIUMBLOB</td>
+<td>0-16 777 215 字节</td>
+<td>二进制形式的中等长度文本数据</td>
+</tr>
+<tr>
+<td>MEDIUMTEXT</td>
+<td>0-16 777 215 字节</td>
+<td>中等长度文本数据</td>
+</tr>
+<tr>
+<td>LONGBLOB</td>
+<td>0-4 294 967 295 字节</td>
+<td>二进制形式的极大文本数据</td>
+</tr>
+<tr>
+<td>LONGTEXT</td>
+<td>0-4 294 967 295 字节</td>
+<td>极大文本数据</td>
+</tr>
+</tbody></table>
+<p>Copy from <a target="_blank" rel="noopener" href="http://www.runoob.com/mysql/mysql-data-types.html">http://www.runoob.com/mysql/mysql-data-types.html</a></p>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/java-sort-pinyin/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Java 按照拼音排序
+        
+      </div>
+    </a>
+  
+  
+    <a href="/mac-windows-jdk-encoding/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Windows 设置 JDK 的默认编码</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>蚂蚁线 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="蚂蚁线是一个典型的 QPen 自定义 style 的应用，这里将介绍怎么使用 Qt 实现蚂蚁线。 QPen 已经提供了一些默认的 style，如 SolidLine, DashLine 等，但是满足不了所有的需求，所以还提供了自定义 style 的接口 QPen::setDashPattern()，其参数是一个 QVector，vector 中下标为偶数的位置存储 dash 的长度，奇数位置存储空">
+<meta property="og:type" content="article">
+<meta property="og:title" content="蚂蚁线">
+<meta property="og:url" content="http://xtuer.github.io/qtbook-paint-ant/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="蚂蚁线是一个典型的 QPen 自定义 style 的应用，这里将介绍怎么使用 Qt 实现蚂蚁线。 QPen 已经提供了一些默认的 style，如 SolidLine, DashLine 等，但是满足不了所有的需求，所以还提供了自定义 style 的接口 QPen::setDashPattern()，其参数是一个 QVector，vector 中下标为偶数的位置存储 dash 的长度，奇数位置存储空">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Base-Pen-PSSelection.png">
+<meta property="og:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Base-PenAnimationDashPattern.png">
+<meta property="article:published_time" content="2016-12-08T14:58:10.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.175Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="QtBook">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/qtbook/paint/Paint-Base-Pen-PSSelection.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-qtbook-paint-ant" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-paint-ant/" class="article-date">
+  	<!-- <time datetime="2016-12-08T14:58:10.000Z" itemprop="datePublished">2016-12-08</time> -->
+    2016-12-08
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      蚂蚁线
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>蚂蚁线是一个典型的 QPen 自定义 style 的应用，这里将介绍怎么使用 Qt 实现蚂蚁线。</p>
+<p>QPen 已经提供了一些默认的 style，如 SolidLine, DashLine 等，但是满足不了所有的需求，所以还提供了自定义 style 的接口 <code>QPen::setDashPattern()</code>，其参数是一个 QVector，vector 中下标为偶数的位置存储 dash 的长度，奇数位置存储空白的长度，如 vector 的数据为 [3, 4, 9, 4]（偶数个元素）表示：画线时以 3 个 dash 开始，接着是4 个空白，接下来是 9 个 dash，4 个空白，此时 vector 的元素已经用完，则从头开始使用 vector 的元素，接着画 3 个 dash，4 个空白，9 个 dash，4 个空白，依此类推。<span id="more"></span></p>
+<p>动物的一种本能现象，领头的蚂蚁以随机的路线走向食物或洞穴，第二只蚂蚁紧跟其后以相同的路线行走，每一个后来的蚂蚁紧跟前面蚂蚁行走，排成一条线的现象。在图像影像软件中表示选区的动态虚线，因为虚线闪烁的样子像是一群蚂蚁在跑，所以俗称蚂蚁线。在 Photoshop 中建立选区后，选区的边线就叫蚂蚁线：</p>
+<p><img src="../img/qtbook/paint/Paint-Base-Pen-PSSelection.png"></p>
+<p>前面的例子中也使用了自定义 style，但有点简单，有没有复杂点的应用呢？下面我们就用自定义 style 实现蚂蚁线。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名：AntLineWidget.h</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> ANTLINEWIDGET_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ANTLINEWIDGET_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QWidget&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QVector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AntLineWidget</span> :</span> <span class="keyword">public</span> QWidget &#123;</span><br><span class="line">    Q_OBJECT</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">AntLineWidget</span><span class="params">(QWidget *parent = <span class="number">0</span>)</span></span>;</span><br><span class="line">    ~<span class="built_in">AntLineWidget</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">timerEvent</span><span class="params">(QTimerEvent *event)</span> Q_DECL_OVERRIDE</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">paintEvent</span><span class="params">(QPaintEvent *event)</span> Q_DECL_OVERRIDE</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">advanceDashes</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> timerId;</span><br><span class="line">    <span class="keyword">int</span> dashes;</span><br><span class="line">    <span class="keyword">int</span> spaces;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> PATTERN_LENGTH;</span><br><span class="line">    QVector&lt;qreal&gt; dashPattern;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// ANTLINEWIDGET_H</span></span></span><br></pre></td></tr></table></figure>
+<br>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名：AntLineWidget.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;AntLineWidget.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QTimerEvent&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QPainter&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QPen&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QPainterPath&gt;</span></span></span><br><span class="line"></span><br><span class="line">AntLineWidget::<span class="built_in">AntLineWidget</span>(QWidget *parent) : <span class="built_in">QWidget</span>(parent), <span class="built_in">PATTERN_LENGTH</span>(<span class="number">4</span>) &#123;</span><br><span class="line">    dashes = PATTERN_LENGTH;</span><br><span class="line">    spaces = PATTERN_LENGTH;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">400</span>; ++i) &#123;</span><br><span class="line">        dashPattern &lt;&lt; PATTERN_LENGTH;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    timerId = <span class="built_in">startTimer</span>(<span class="number">150</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">AntLineWidget::~<span class="built_in">AntLineWidget</span>() &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">AntLineWidget::timerEvent</span><span class="params">(QTimerEvent *event)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (event-&gt;<span class="built_in">timerId</span>() == timerId) &#123;</span><br><span class="line">        <span class="built_in">advanceDashes</span>();</span><br><span class="line">        <span class="built_in">update</span>(); <span class="comment">// 更好的方式是更新蚂蚁线的所在的范围，而不是整个界面都刷新，用 update(rect)</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">AntLineWidget::advanceDashes</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (PATTERN_LENGTH == dashes &amp;&amp; PATTERN_LENGTH == spaces) &#123;</span><br><span class="line">        dashes = <span class="number">0</span>;</span><br><span class="line">        spaces = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="number">0</span> == dashes &amp;&amp; spaces &lt; PATTERN_LENGTH) &#123;</span><br><span class="line">        ++spaces;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (PATTERN_LENGTH == spaces &amp;&amp; dashes &lt; PATTERN_LENGTH) &#123;</span><br><span class="line">        ++dashes;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    dashPattern[<span class="number">0</span>] = dashes;</span><br><span class="line">    dashPattern[<span class="number">1</span>] = spaces;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">AntLineWidget::paintEvent</span><span class="params">(QPaintEvent *)</span> </span>&#123;</span><br><span class="line">    <span class="function">QPainter <span class="title">painter</span><span class="params">(<span class="keyword">this</span>)</span></span>;</span><br><span class="line">    painter.<span class="built_in">setRenderHint</span>(QPainter::Antialiasing);</span><br><span class="line"></span><br><span class="line">    QPen pen;</span><br><span class="line">    pen.<span class="built_in">setDashPattern</span>(dashPattern); <span class="comment">// 蚂蚁线的 style</span></span><br><span class="line"></span><br><span class="line">    painter.<span class="built_in">translate</span>(<span class="number">20</span>, <span class="number">20</span>);</span><br><span class="line">    painter.<span class="built_in">setPen</span>(Qt::white);</span><br><span class="line">    painter.<span class="built_in">drawRect</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line">    painter.<span class="built_in">setPen</span>(pen);</span><br><span class="line">    painter.<span class="built_in">drawRect</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line"></span><br><span class="line">    QPainterPath path;</span><br><span class="line">    path.<span class="built_in">cubicTo</span>(<span class="number">50</span>, <span class="number">0</span>, <span class="number">50</span>, <span class="number">100</span>, <span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line">    path.<span class="built_in">cubicTo</span>(<span class="number">150</span>, <span class="number">0</span>, <span class="number">150</span>, <span class="number">100</span>, <span class="number">200</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    painter.<span class="built_in">translate</span>(<span class="number">120</span>, <span class="number">0</span>);</span><br><span class="line">    painter.<span class="built_in">setPen</span>(Qt::white);</span><br><span class="line">    painter.<span class="built_in">drawPath</span>(path);</span><br><span class="line"></span><br><span class="line">    painter.<span class="built_in">setPen</span>(pen);</span><br><span class="line">    painter.<span class="built_in">drawPath</span>(path);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>比较难以理解的就是 <code>advanceDashes()</code> 的算法，观察蚂蚁线的运动，发现如下规律：</p>
+<ul>
+<li>第一个数字是开始的 dash 长度</li>
+<li>第二个数字是 dash 后面跟着的 space 的长度</li>
+<li>第三个数是 dash 的长度，总是 4</li>
+<li>第四个数是 space 的长度，总是 4</li>
+<li>第五个数是 dash 的长度，总是 4</li>
+<li>第六个数是 space 的长度，总是 4</li>
+<li>……</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">...............</span><br><span class="line">0 4 4 4 ... 4 4</span><br><span class="line">1 4 4 4 ... 4 4</span><br><span class="line">2 4 4 4 ... 4 4</span><br><span class="line">3 4 4 4 ... 4 4</span><br><span class="line">4 4 4 4 ... 4 4</span><br><span class="line">0 1 4 4 ... 4 4</span><br><span class="line">0 2 4 4 ... 4 4</span><br><span class="line">0 3 4 4 ... 4 4</span><br><span class="line">0 4 4 4 ... 4 4</span><br><span class="line">1 4 4 4 ... 4 4</span><br><span class="line">...............</span><br></pre></td></tr></table></figure>
+
+<p>只有第一个和第二个数字是变化的：</p>
+<ul>
+<li>当第一个数字是 0 时，第二个数字从 0 递增到 4</li>
+<li>当第二个数字是 4 时，第一个数字从 0 递增到 4</li>
+<li>当第一个和第二个数字都是 4 时，设置它们为 0，然后就会重复上面的步骤，实现了动画效果</li>
+</ul>
+<p>程序运行后就像下图这样，蚂蚁线会不停的运动：</p>
+<p><img src="../img/qtbook/paint/Paint-Base-PenAnimationDashPattern.png"></p>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/qtbook-paint-brush/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          画刷
+        
+      </div>
+    </a>
+  
+  
+    <a href="/qtbook-paint-pen/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">画笔</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

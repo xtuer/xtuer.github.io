@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Lambda 在 Qt 中的运用 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="传统的信号槽绑定时，需要先声明槽函数，然后实现槽函数(槽函数的声明和实现需要分别在 .h 和 .cpp 文件中)，最后使用 connect() 绑定起来，而且在 connect() 的时候如果槽函数写错了编译时不会报错，只有在 Debug 模式下运行时才会提示槽函数不存在，Release 模式下运行时不会给予任何错误提示。Qt 5 使用 C++11 支持 Lambda 表达式，connect()">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lambda 在 Qt 中的运用">
+<meta property="og:url" content="http://xtuer.github.io/qt-lambda/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="传统的信号槽绑定时，需要先声明槽函数，然后实现槽函数(槽函数的声明和实现需要分别在 .h 和 .cpp 文件中)，最后使用 connect() 绑定起来，而且在 connect() 的时候如果槽函数写错了编译时不会报错，只有在 Debug 模式下运行时才会提示槽函数不存在，Release 模式下运行时不会给予任何错误提示。Qt 5 使用 C++11 支持 Lambda 表达式，connect()">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/qt/cpp-lambda.png">
+<meta property="article:published_time" content="2016-09-04T12:05:05.000Z">
+<meta property="article:modified_time" content="2021-12-02T22:29:07.170Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="Qt">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/qt/cpp-lambda.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/"></a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.56px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.22px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 16.67px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.11px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.11px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.67px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.78px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.78px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.67px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Lambda-%E8%AF%AD%E6%B3%95%E7%AE%80%E4%BB%8B"><span class="toc-text">Lambda 语法简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E6%A7%BD"><span class="toc-text">信号槽</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E6%A7%BD-%E9%87%8D%E8%BD%BD"><span class="toc-text">信号槽(重载)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F"><span class="toc-text">排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E4%B8%BA-Lambda-%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">自定义函数参数为 Lambda 表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-qt-lambda" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/qt-lambda/" class="article-date">
+  	<!-- <time datetime="2016-09-04T12:05:05.000Z" itemprop="datePublished">2016-09-04</time> -->
+    2016-09-04
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Lambda 在 Qt 中的运用
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/" rel="tag">Qt</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>传统的信号槽绑定时，需要先声明槽函数，然后实现槽函数(槽函数的声明和实现需要分别在 .h 和 .cpp 文件中)，最后使用 connect() 绑定起来，而且在 connect() 的时候如果槽函数写错了编译时不会报错，只有在 Debug 模式下运行时才会提示槽函数不存在，Release 模式下运行时不会给予任何错误提示。Qt 5 使用 C++11 支持 Lambda 表达式，connect() 的时候如果函数名写错了就会在编译时报错，还有一点是 Lambda 表达式在需要的时候才定义，不需要声明，写起来比较简单。</p>
+<p>Lambda 表达式可以理解为匿名函数，比如代码里有一些小函数，而这些函数一般只被调用一次（比如函数指针），这时就可以用 Lambda 表达式替代他们，这样代码看起来更简洁些，用起来也方便。</p>
+<span id="more"></span>
+
+<h2 id="Lambda-语法简介"><a href="#Lambda-语法简介" class="headerlink" title="Lambda 语法简介"></a>Lambda 语法简介</h2><p><img src="../img/qt/cpp-lambda.png"></p>
+<ol>
+<li>Capture clause: 捕获子句</li>
+<li>Parameter list: 参数列表 <code>可选</code></li>
+<li>Mutable specification <code>可选</code></li>
+<li>Exception specification <code>可选</code></li>
+<li>Return type: 返回类型 <code>可选</code></li>
+<li>Lambda Body</li>
+</ol>
+<p>捕获子句的使用说明:</p>
+<table>
+<thead>
+<tr>
+<th>用法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>[]</td>
+<td>表明 Lambda body 不访问 <code>闭包</code> 前面已声明的任何变量</td>
+</tr>
+<tr>
+<td>[=]</td>
+<td>以值的方式访问 <code>闭包</code> 前面已声明的变量</td>
+</tr>
+<tr>
+<td>[&amp;]</td>
+<td>以引用的方式访问 <code>闭包</code> 前面已声明变量</td>
+</tr>
+<tr>
+<td>[this]</td>
+<td>访问类实例的 this 指针</td>
+</tr>
+<tr>
+<td>[x, &amp;y]</td>
+<td>x 以传值形式捕获，y 以引用形式捕获</td>
+</tr>
+<tr>
+<td>[=, &amp;z]</td>
+<td>z 以引用形式捕获，其余变量以传值形式捕获</td>
+</tr>
+</tbody></table>
+<blockquote>
+<ul>
+<li>对于 [=] 或 [&amp;] 的形式，lambda 表达式可以直接使用 this 指针</li>
+<li>闭包指的是一个拥有许多变量和绑定了这些变量的环境的表达式(通常是一个函数，Lambda 表达式就是一个闭包)，因而这些变量也是该表达式的一部分</li>
+</ul>
+</blockquote>
+<p>下面列举一些 Lambda 表达式在 Qt 中的运用。</p>
+<h2 id="信号槽"><a href="#信号槽" class="headerlink" title="信号槽"></a>信号槽</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QApplication&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QDebug&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QPushButton&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="function">QApplication <span class="title">app</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line"></span><br><span class="line">    QPushButton *button = <span class="keyword">new</span> <span class="built_in">QPushButton</span>(<span class="string">&quot;点击&quot;</span>);</span><br><span class="line">    button-&gt;<span class="built_in">show</span>();</span><br><span class="line"></span><br><span class="line">    QObject::<span class="built_in">connect</span>(button, &amp;QPushButton::clicked, []() &#123;</span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;点击&quot;</span>;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> app.<span class="built_in">exec</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="信号槽-重载"><a href="#信号槽-重载" class="headerlink" title="信号槽(重载)"></a>信号槽(重载)</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QApplication&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QDebug&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QComboBox&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="function">QApplication <span class="title">app</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line"></span><br><span class="line">    QComboBox *comboBox = <span class="keyword">new</span> <span class="built_in">QComboBox</span>();</span><br><span class="line">    comboBox-&gt;<span class="built_in">addItem</span>(<span class="string">&quot;林冲&quot;</span>);</span><br><span class="line">    comboBox-&gt;<span class="built_in">addItem</span>(<span class="string">&quot;鲁达&quot;</span>);</span><br><span class="line">    comboBox-&gt;<span class="built_in">addItem</span>(<span class="string">&quot;武松&quot;</span>);</span><br><span class="line">    comboBox-&gt;<span class="built_in">show</span>();</span><br><span class="line"></span><br><span class="line">    QObject::<span class="built_in">connect</span>(comboBox, &amp;QComboBox::activated, []() &#123;</span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> app.<span class="built_in">exec</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编译报错: <code>No matching function for call to &#39;connect&#39;</code>，原因是信号 QComboBox::activated() 有重载函数:</p>
+<ul>
+<li>void QComboBox::activated(int index)</li>
+<li>void QComboBox::activated(const QString &amp;text)</li>
+</ul>
+<p>在进行信号槽绑定时，如果有重载，需要对成员函数进行类型转换，可以使用 C++ 的 <code>static_cast</code> 类型转换(编译时进行语法检查)，也可以使用传统的 C 语言的强制类型转换(编译时不进行语法检查，运行时才检查)，或者 C++11 的 QOverload::of，C++14 的 qOverload:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QApplication&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QDebug&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QComboBox&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QtGlobal&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="function">QApplication <span class="title">app</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line"></span><br><span class="line">    QComboBox *comboBox = <span class="keyword">new</span> <span class="built_in">QComboBox</span>();</span><br><span class="line">    comboBox-&gt;<span class="built_in">addItem</span>(<span class="string">&quot;林冲&quot;</span>);</span><br><span class="line">    comboBox-&gt;<span class="built_in">addItem</span>(<span class="string">&quot;鲁达&quot;</span>);</span><br><span class="line">    comboBox-&gt;<span class="built_in">addItem</span>(<span class="string">&quot;武松&quot;</span>);</span><br><span class="line">    comboBox-&gt;<span class="built_in">show</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [1]</span></span><br><span class="line">    QObject::<span class="built_in">connect</span>(comboBox, <span class="keyword">static_cast</span>&lt;<span class="built_in"><span class="keyword">void</span></span> (QComboBox::*)(<span class="keyword">int</span>)&gt;(&amp;QComboBox::activated), [](<span class="keyword">int</span> index) &#123;</span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; index;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [2]</span></span><br><span class="line">    QObject::<span class="built_in">connect</span>(comboBox, <span class="keyword">static_cast</span>&lt;<span class="built_in"><span class="keyword">void</span></span> (QComboBox::*)(<span class="keyword">const</span> QString &amp;)&gt;(&amp;QComboBox::activated), [](<span class="keyword">const</span> QString &amp;text) &#123;</span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; text;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [3]: QOverload&lt;&gt; 里面是参数列表，of() 里面是成员函数地址</span></span><br><span class="line">    QObject::<span class="built_in">connect</span>(comboBox, QOverload&lt;<span class="keyword">const</span> QString &amp;&gt;::<span class="built_in">of</span>(&amp;QComboBox::activated), [](<span class="keyword">const</span> QString &amp;text) &#123;</span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; text;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> app.<span class="built_in">exec</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>Qt 文档: Selecting Overloaded Signals and Slots:</strong></p>
+<p>With the string-based syntax, parameter types are explicitly specified. As a result, the desired instance of an overloaded signal or slot is unambiguous.<br>In contrast, with the functor-based syntax, an overloaded signal or slot must be casted to tell the compiler which instance to use.<br>For example, QLCDNumber has three versions of the display() slot:</p>
+<ol>
+<li>QLCDNumber::display(int)</li>
+<li>QLCDNumber::display(double)</li>
+<li>QLCDNumber::display(QString)</li>
+</ol>
+<p>To connect the int version to QSlider::valueChanged(), the two syntaxes are:</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> slider = <span class="keyword">new</span> <span class="built_in">QSlider</span>(<span class="keyword">this</span>);</span><br><span class="line"><span class="keyword">auto</span> lcd    = <span class="keyword">new</span> <span class="built_in">QLCDNumber</span>(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// String-based syntax</span></span><br><span class="line"><span class="built_in">connect</span>(slider, <span class="built_in">SIGNAL</span>(<span class="built_in">valueChanged</span>(<span class="keyword">int</span>)), lcd, <span class="built_in">SLOT</span>(<span class="built_in">display</span>(<span class="keyword">int</span>)));</span><br><span class="line"></span><br><span class="line"><span class="comment">// Functor-based syntax, first alternative</span></span><br><span class="line"><span class="built_in">connect</span>(slider, &amp;QSlider::valueChanged, lcd, <span class="keyword">static_cast</span>&lt;<span class="built_in"><span class="keyword">void</span></span> (QLCDNumber::*)(<span class="keyword">int</span>)&gt;(&amp;QLCDNumber::display));</span><br><span class="line"></span><br><span class="line"><span class="comment">// Functor-based syntax, second alternative</span></span><br><span class="line"><span class="built_in"><span class="keyword">void</span></span> (QLCDNumber::*mySlot)(<span class="keyword">int</span>) = &amp;QLCDNumber::display;</span><br><span class="line"><span class="built_in">connect</span>(slider, &amp;QSlider::valueChanged, lcd, mySlot);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Functor-based syntax, third alternative</span></span><br><span class="line"><span class="built_in">connect</span>(slider, &amp;QSlider::valueChanged, lcd, QOverload&lt;<span class="keyword">int</span>&gt;::<span class="built_in">of</span>(&amp;QLCDNumber::display));</span><br><span class="line"></span><br><span class="line"><span class="comment">// Functor-based syntax, fourth alternative (requires C++14)</span></span><br><span class="line"><span class="built_in">connect</span>(slider, &amp;QSlider::valueChanged, lcd, qOverload&lt;<span class="keyword">int</span>&gt;(&amp;QLCDNumber::display));</span><br></pre></td></tr></table></figure>
+
+<h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QDebug&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QList&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    QList&lt;<span class="keyword">int</span>&gt; ns = QList&lt;<span class="keyword">int</span>&gt;() &lt;&lt; <span class="number">1</span> &lt;&lt; <span class="number">3</span> &lt;&lt; <span class="number">5</span> &lt;&lt; <span class="number">4</span> &lt;&lt; <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 传入 sort 需要的比较函数，进行降序排序</span></span><br><span class="line">    std::<span class="built_in">sort</span>(ns.<span class="built_in">begin</span>(), ns.<span class="built_in">end</span>(), [](<span class="keyword">int</span> a, <span class="keyword">int</span> b) -&gt; <span class="keyword">bool</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> a &gt; b;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; ns;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="自定义函数参数为-Lambda-表达式"><a href="#自定义函数参数为-Lambda-表达式" class="headerlink" title="自定义函数参数为 Lambda 表达式"></a>自定义函数参数为 Lambda 表达式</h2><p>使用 <code>std::function&lt;&gt;</code> 声明 Lambda 表达式</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QDebug&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二个参数为一个 Lambda 表达式，其参数是 int，返回值为 int</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span> n, std::function&lt;<span class="keyword">int</span> (<span class="keyword">int</span>)&gt; process)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;Input is: &quot;</span> &lt;&lt; n;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">process</span>(n);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 传入的 Lambda 为求阶乘</span></span><br><span class="line">    <span class="keyword">int</span> result = <span class="built_in">foo</span>(<span class="number">5</span>, [](<span class="keyword">int</span> n) -&gt; <span class="keyword">int</span> &#123;</span><br><span class="line">        <span class="keyword">int</span> factorial = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">            factorial *= i;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> factorial;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; result;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input is:  5</span><br><span class="line">120</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.devbean.net/2012/05/cpp11-lambda/">C++11 新特性: Lambda 表达式</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.cnblogs.com/zhuyp1015/archive/2012/04/08/2438176.html">C++11 Lambda 表达式</a></li>
+</ul>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/spring-test/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          JUnit + Spring Test
+        
+      </div>
+    </a>
+  
+  
+    <a href="/mac-mysql-nginx/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Mac 安装 Mysql 和 Nginx</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>
