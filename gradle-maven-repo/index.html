@@ -14,7 +14,7 @@
 <meta property="og:description" content="Gradle 的默认仓库在国内下载太慢了，可以切换到国内的 Maven 镜像仓库，如阿里的 Maven 库，又或者是换成自建的 Maven 私服。 一个简单的办法，修改项目的 build.gradle，将 jcenter() 或者 mavenCentral() 替换掉即可: 12345allprojects &amp;#123;    repositories &amp;#123;        maven &amp;#">
 <meta property="og:locale">
 <meta property="article:published_time" content="2016-11-22T11:32:51.000Z">
-<meta property="article:modified_time" content="2021-12-02T22:29:07.154Z">
+<meta property="article:modified_time" content="2021-12-08T14:29:31.271Z">
 <meta property="article:author" content="公孙二狗">
 <meta property="article:tag" content="Gradle">
 <meta name="twitter:card" content="summary">
@@ -61,12 +61,14 @@
 		</a>
 
 		<hgroup>
-		  <h1 class="header-author"><a href="/all/"></a></h1>
+		  <h1 class="header-author"><a href="/all/">公孙二狗</a></h1>
 		</hgroup>
 		<p style=" margin-bottom: 10px;margin-top: -5px;">
 			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
 		</p>
 
+		
+		<p class="header-subtitle">大圣，此去欲何？踏南天，碎凌霄。若一去不回……？便一去不回！</p>
 		
 		
 			<div class="switch-btn">
@@ -298,12 +300,12 @@
         
             <p>Gradle 的默认仓库在国内下载太慢了，可以切换到国内的 Maven 镜像仓库，如阿里的 Maven 库，又或者是换成自建的 Maven 私服。</p>
 <p>一个简单的办法，修改项目的 build.gradle，将 jcenter() 或者 mavenCentral() 替换掉即可:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">allprojects &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        maven &#123; url &#x27;http://maven.aliyun.com/nexus/content/groups/public/&#x27; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">allprojects &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        maven &#123; url &#x27;https://maven.aliyun.com/nexus/content/groups/public/&#x27; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <span id="more"></span>
 
 <p>但是如果项目太多，一个一个的修改工作量就太大了，可以通过修改 Gradle 使用的默认 Maven 仓库，这样就不需要单独的修改每个项目了，将下面这段配置复制到 <code>&lt;USER_HOME&gt;/.gradle/init.gradle</code> 即可:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">allprojects &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        def REPOSITORY_URL = &#x27;http://maven.aliyun.com/nexus/content/groups/public/&#x27;</span><br><span class="line">        all &#123; ArtifactRepository repo -&gt;</span><br><span class="line">            if(repo instanceof MavenArtifactRepository) &#123;</span><br><span class="line">                def url = repo.url.toString()</span><br><span class="line">                if (url.startsWith(&#x27;https://repo1.maven.org/maven2&#x27;) || url.startsWith(&#x27;https://jcenter.bintray.com/&#x27;)) &#123;</span><br><span class="line">                    project.logger.lifecycle &quot;Repository $&#123;repo.url&#125; replaced by $REPOSITORY_URL.&quot;</span><br><span class="line">                    remove repo</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        maven &#123;</span><br><span class="line">            url REPOSITORY_URL</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">allprojects &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        def REPOSITORY_URL = &#x27;https://maven.aliyun.com/nexus/content/groups/public/&#x27;</span><br><span class="line">        all &#123; ArtifactRepository repo -&gt;</span><br><span class="line">            if(repo instanceof MavenArtifactRepository) &#123;</span><br><span class="line">                def url = repo.url.toString()</span><br><span class="line">                if (url.startsWith(&#x27;https://repo1.maven.org/maven2&#x27;) || url.startsWith(&#x27;https://jcenter.bintray.com/&#x27;)) &#123;</span><br><span class="line">                    project.logger.lifecycle &quot;Repository $&#123;repo.url&#125; replaced by $REPOSITORY_URL.&quot;</span><br><span class="line">                    remove repo</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        maven &#123;</span><br><span class="line">            url REPOSITORY_URL</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>来源于 <a target="_blank" rel="noopener" href="https://yrom.net/blog/2015/02/07/change-gradle-maven-repo-url/">https://yrom.net/blog/2015/02/07/change-gradle-maven-repo-url/</a></p>
 
