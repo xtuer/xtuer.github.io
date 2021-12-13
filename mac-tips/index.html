@@ -16,7 +16,7 @@
 <meta property="og:image" content="https://camo.githubusercontent.com/9d3d89364f2cc83ace8f29646a6236bc15ea1da0/68747470733a2f2f696d6775722e636f6d2f724773646e44652e706e67">
 <meta property="og:image" content="http://xtuer.github.io/img/mac/software/go2shell.png">
 <meta property="article:published_time" content="2016-04-07T16:16:18.000Z">
-<meta property="article:modified_time" content="2021-12-02T22:29:07.163Z">
+<meta property="article:modified_time" content="2021-12-12T15:05:51.201Z">
 <meta property="article:author" content="公孙二狗">
 <meta property="article:tag" content="Mac">
 <meta name="twitter:card" content="summary">
@@ -413,8 +413,16 @@
 <h2 id="mv-移动目录"><a href="#mv-移动目录" class="headerlink" title="mv 移动目录"></a>mv 移动目录</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 移动目录和重命名都是使用命令 mv，区别就是后面的 /</span><br><span class="line">mv srcDir destDir/</span><br></pre></td></tr></table></figure>
 
 <h2 id="Quick-Look-plugins"><a href="#Quick-Look-plugins" class="headerlink" title="Quick Look plugins"></a>Quick Look plugins</h2><p>可以使用 <strong>brew cask</strong> 安装 Quick Look 插件，具体请参考 <a target="_blank" rel="noopener" href="https://github.com/sindresorhus/quick-look-plugins">https://github.com/sindresorhus/quick-look-plugins</a>。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlimagesize webpquicklook suspicious-package quicklookase qlvideo</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install --cask qlcolorcode qlstephen qlmarkdown quicklook-json qlimagesize webpquicklook suspicious-package quicklookase qlvideo</span><br></pre></td></tr></table></figure>
 
+<blockquote>
+<p>目前 Monterey 中不能使用 brew 安装 qlcolorcode，使用下面的步骤进行安装:</p>
+<ol>
+<li>下载 <a target="_blank" rel="noopener" href="https://github.com/jpc/QLColorCode">QLColorCode 4.1.2</a> 解压到目录 <strong>~/Library/QuickLook</strong></li>
+<li>赋予磁盘访问权限: 在系统设置 -&gt; 安全 -&gt; 隐私 -&gt; Full Disk Access 中添加 QLColorCode 中的 <strong>Contents/MacOS/QLColorCode</strong> 和 <strong>/Contents/Resources/highlight</strong></li>
+<li>执行 <code>qlmanage -r</code>，<code>qlmanage -r cache</code>，<code>killall Finder</code></li>
+</ol>
+</blockquote>
 <p>使用 <strong>QLColorCode</strong> 预览指定格式的文件，如 .sh, .bat, .properties:</p>
 <ol>
 <li>安装 QLColorCode: <code>brew cask install qlcolorcode</code></li>
