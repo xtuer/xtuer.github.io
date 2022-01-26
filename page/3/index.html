@@ -244,6 +244,77 @@
     <!-- 生成目录 -->
 
 
+<article id="post-stream" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/stream/" class="article-date">
+  	<!-- <time datetime="2020-05-24T01:08:08.000Z" itemprop="datePublished">2020-05-24</time> -->
+    2020-05-24
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/stream/">Stream 笔记</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Stream 是 Java8 中处理集合的关键抽象概念，它可以指定你希望对集合进行的操作，可以执行非常复杂的查找、过滤和映射数据等操作。</p>
+<img src="../img/java/stream.jpg">
+
+<p>Stream 中的方法单独拿出来使用的话体现不出其优点，在复杂的操作情况下，Stream 的优势才明显，例如下面这样生成不重复有序随机数的例子，如果用传统的写法代码会很长，还需要 if else 判断，使用临时集合等截断，去重等复杂操作，使用 Stream 的方式的话，逻辑看上去就清晰很多:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;Double&gt; stream = Stream.generate(Math::random) <span class="comment">// double 无限流</span></span><br><span class="line">    .limit(<span class="number">20</span>)                                        <span class="comment">// 截断，取前 20 个</span></span><br><span class="line">    .filter(x -&gt; x &gt; <span class="number">0.3</span>)                             <span class="comment">// 过滤，取大于 0.3 的元素</span></span><br><span class="line">    .skip(<span class="number">1</span>)                                          <span class="comment">// 忽略，丢弃第一个元素</span></span><br><span class="line">    .distinct()                                       <span class="comment">// 去重</span></span><br><span class="line">    .map(x -&gt; x * <span class="number">10</span>)                                 <span class="comment">// 映射，将每个元素扩大 10 倍</span></span><br><span class="line">    .sorted();                                        <span class="comment">// 对 double 流进行排序</span></span><br></pre></td></tr></table></figure>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/stream/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-lambda" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -900,100 +971,6 @@
       
         <p class="article-more-link">
           <a  href="/graph-kruskal/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-graph-prim" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/graph-prim/" class="article-date">
-  	<!-- <time datetime="2020-02-23T03:46:01.000Z" itemprop="datePublished">2020-02-23</time> -->
-    2020-02-23
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/graph-prim/">图-最小生成树-Prim</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av54029771?p=168">最小生成树</a> (Minumum Cost Spanning Tree，简称 MST) 的 2 个经典算法: </p>
-<ul>
-<li>Prim (普里姆算法): 从顶点出发</li>
-<li>Kruskal (克鲁斯卡尔算法): 从边出发</li>
-</ul>
-<blockquote>
-<p>网: 带权无向图<br>最小生成树: 在包含 n 个顶点的连通图中，找出只有 (n-1) 条边，包含所有 n 个顶点的连通子图，也就是所谓的极小连通子图</p>
-</blockquote>
-<p>普里姆 (Prim) 算法求最小生成树算法如如下:</p>
-<ol>
-<li>设 G = (V, E) 是联通网，T = (U, D) 是最小生成树，V, U 是顶点集合，E, D 是边的集合</li>
-<li>若从顶点 u 开始构造最小生成树，则从集合 V 中取出顶点 u 放入集合 U 中，标记顶点 u 被访问过了: visited[u] = 1</li>
-<li>若集合 U 中顶点 ui 与集合 V-U 中的顶点 vj 之间存在边，则寻找这些边中权值最小的边，但不能构成回路，将顶点 vj 加入集合 U 中，将边  (ui, vj) 加入集合 D 中，标记 visited[vj] = 1</li>
-<li>重复步骤 3，直到 U 与 V 相等，即所有顶点都被标记为访问过，此时 D 中有 n-1 条边</li>
-</ol>
-<blockquote>
-<p>不管从哪一个顶点开始构建最小生成树，最后得到的最小生成树的边的权值加起来都相等。</p>
-</blockquote>
-<p>下面图解 Prim 算法生成最小生成树的过程，其中:</p>
-<ul>
-<li>黑色节点表示未访问过节点</li>
-<li>黄色节点表示已访问过节点</li>
-<li>红色节点表示未访问过，但是将选择为访问的节点</li>
-<li>红色的边为最小生成树中的边</li>
-<li>灰色的边为不需要在判断的边，因为它的 2 个顶点都访问过了</li>
-<li>黄色的边，其有 1 个顶点被访问过了，另一个顶点未被访问</li>
-</ul>
-<img src="../img/java/graph-prim.png" style="zoom:50%">
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/graph-prim/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

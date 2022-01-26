@@ -244,6 +244,80 @@
     <!-- 生成目录 -->
 
 
+<article id="post-vb-centos" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/vb-centos/" class="article-date">
+  	<!-- <time datetime="2021-01-26T03:07:49.000Z" itemprop="datePublished">2021-01-26</time> -->
+    2021-01-26
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/vb-centos/">VirtualBox 中安装 Centos</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>在虚拟机中安装 CentOS，主要有以下步骤:</p>
+<ul>
+<li>安装 VirtualBox (简称 VB)</li>
+<li>安装 CentOS</li>
+<li>配置 CentOS</li>
+<li>固定 IP</li>
+</ul>
+<h2 id="安装-VirtualBox"><a href="#安装-VirtualBox" class="headerlink" title="安装 VirtualBox"></a>安装 VirtualBox</h2><p>访问 <a target="_blank" rel="noopener" href="https://www.virtualbox.org/">https://www.virtualbox.org/</a> 下载安装即可。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/" rel="tag">Misc</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/vb-centos/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-axure-dialog" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -901,77 +975,6 @@
       
         <p class="article-more-link">
           <a  href="/topology/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-stream" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/stream/" class="article-date">
-  	<!-- <time datetime="2020-05-24T01:08:08.000Z" itemprop="datePublished">2020-05-24</time> -->
-    2020-05-24
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/stream/">Stream 笔记</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>Stream 是 Java8 中处理集合的关键抽象概念，它可以指定你希望对集合进行的操作，可以执行非常复杂的查找、过滤和映射数据等操作。</p>
-<img src="../img/java/stream.jpg">
-
-<p>Stream 中的方法单独拿出来使用的话体现不出其优点，在复杂的操作情况下，Stream 的优势才明显，例如下面这样生成不重复有序随机数的例子，如果用传统的写法代码会很长，还需要 if else 判断，使用临时集合等截断，去重等复杂操作，使用 Stream 的方式的话，逻辑看上去就清晰很多:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;Double&gt; stream = Stream.generate(Math::random) <span class="comment">// double 无限流</span></span><br><span class="line">    .limit(<span class="number">20</span>)                                        <span class="comment">// 截断，取前 20 个</span></span><br><span class="line">    .filter(x -&gt; x &gt; <span class="number">0.3</span>)                             <span class="comment">// 过滤，取大于 0.3 的元素</span></span><br><span class="line">    .skip(<span class="number">1</span>)                                          <span class="comment">// 忽略，丢弃第一个元素</span></span><br><span class="line">    .distinct()                                       <span class="comment">// 去重</span></span><br><span class="line">    .map(x -&gt; x * <span class="number">10</span>)                                 <span class="comment">// 映射，将每个元素扩大 10 倍</span></span><br><span class="line">    .sorted();                                        <span class="comment">// 对 double 流进行排序</span></span><br></pre></td></tr></table></figure>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/stream/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

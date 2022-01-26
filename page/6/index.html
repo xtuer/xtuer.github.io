@@ -244,6 +244,74 @@
     <!-- 生成目录 -->
 
 
+<article id="post-fe-vue-address-picker" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/fe-vue-address-picker/" class="article-date">
+  	<!-- <time datetime="2019-06-08T12:41:01.000Z" itemprop="datePublished">2019-06-08</time> -->
+    2019-06-08
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/fe-vue-address-picker/">Vue 的地址选择器组件</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>有时候会用到地址选择的功能，已经有了很多使用 Vue 实现的地址选择组件，下面使用 Vue + iView 的 Cascader 来介绍怎么使用一个简单的地址选择组件 AddressPicker</p>
+<center><img src="../img/fe/address-picker.png" width="372"></center>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/fe-vue-address-picker/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-fe-vue-sync-init" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -906,82 +974,6 @@
         <p class="article-more-link">
           <a  href="/fe-load-js-css/#more">阅读全文</a>
         </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-hanoi" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/hanoi/" class="article-date">
-  	<!-- <time datetime="2019-02-02T04:04:19.000Z" itemprop="datePublished">2019-02-02</time> -->
-    2019-02-02
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/hanoi/">汉若塔</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>传说越南河内某间寺院有三根银棒，上串 64 个金盘，金盘尺寸由下到上依次变小。寺院里的僧侣依照一个古老的预言，以下述规则把这些盘子从第一根银棒移至第三根银棒上 (可以借助第二根银棒):</p>
-<ul>
-<li>每次只能移动一个圆盘</li>
-<li>大盘不能迭在小盘上面</li>
-</ul>
-<p>预言说当这些盘子移动完毕，世界就会灭亡。这个传说叫做梵天寺之塔问题，即汉若塔问题。</p>
-<center><img src="../img/misc/hanoi.jpg"></center>
-
-<p>用递归实现的代码很简洁:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        hanoi(<span class="number">3</span>, <span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;C&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 把 n 个盘子从 a 柱移动到 c 柱，可以借助 b 柱</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> n: 盘子的数量</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">hanoi</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">char</span> a, <span class="keyword">char</span> b, <span class="keyword">char</span> c)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n == <span class="number">1</span>) &#123;</span><br><span class="line">            move(<span class="number">1</span>, a, c);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        hanoi(n-<span class="number">1</span>, a, c, b); <span class="comment">// 小和尚借助 c 柱把 a 柱最上面的 n-1 个盘子移动到 b 柱</span></span><br><span class="line">        move(n, a, c);       <span class="comment">// 老和尚把最下面的一个盘子从 a 柱移动到 c 柱</span></span><br><span class="line">        hanoi(n-<span class="number">1</span>, b, a, c); <span class="comment">// 小和尚再借助 a 柱把 b 柱上的 n-1 个盘子移动到 c 柱</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// sn 是盘子的序号: 开始时 a 柱上的盘子序号从上到下依次为 1, 2, 3, ..., n</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">move</span><span class="params">(<span class="keyword">int</span> sn, <span class="keyword">char</span> from, <span class="keyword">char</span> to)</span> </span>&#123;</span><br><span class="line">        System.out.printf(<span class="string">&quot;%d: %c -&gt; %c\n&quot;</span>, sn, from, to);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>代码不多，但是一直理解不了这个递归为什么要这么写，直到大学时人工智能的老师给了个记忆的办法，从此就理解了:</p>
-<p>老和尚比较懒 (有点大不敬，忽略之)，于是就叫小和尚把第一根柱子最上面的 n-1 个盘子借助第三根柱子先搬到第二根柱子上，然后老和尚自己把第一根柱子最下面的那个大盘子搬到第三根柱子上，再叫小和尚把第二根柱子上的 n-1 个盘子借助第一根柱子搬到第三根柱子上。</p>
-
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/" rel="tag">Misc</a></li></ul>
-	</div>
-
-
-      
-
       
       <div class="clearfix"></div>
     </div>

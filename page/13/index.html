@@ -244,6 +244,77 @@
     <!-- 生成目录 -->
 
 
+<article id="post-qtbook-thread-inheritance" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-thread-inheritance/" class="article-date">
+  	<!-- <time datetime="2017-10-29T04:09:15.000Z" itemprop="datePublished">2017-10-29</time> -->
+    2017-10-29
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qtbook-thread-inheritance/">继承 QThread 实现多线程</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Qt 中使用多线程，最简单直观的方法就是继承 <code>QThread</code>，重写 <code>run()</code> 方法，需要使用多线程执行的代码放在 <code>run()</code> 函数中，调用 <code>start()</code> 函数启动线程，线程正在运行时 <code>isRunning()</code> 返回 true，结束运行后发出信号 <code>finished()</code>。</p>
+<h2 id="实现线程"><a href="#实现线程" class="headerlink" title="实现线程"></a>实现线程</h2><p>仍以读取文本显示到 QTextEdit 为例，类 ReadingThread 继承 QThread，在 <code>run()</code> 方法中读取文件并添加到 QTextEdit。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名: ReadingThread.h</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> READINGTHREAD_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> READINGTHREAD_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QThread&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">QTextEdit</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ReadingThread</span> :</span> <span class="keyword">public</span> QThread &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">ReadingThread</span>(QTextEdit *textEdit, QObject *parent = <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> Q_DECL_OVERRIDE</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    QTextEdit *textEdit;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// READINGTHREAD_H</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名: ReadingThread.cpp</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;ReadingThread.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QFile&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QTextStream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QTextEdit&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QMetaObject&gt;</span></span></span><br><span class="line"></span><br><span class="line">ReadingThread::<span class="built_in">ReadingThread</span>(QTextEdit *textEdit, QObject *parent) : <span class="built_in">QThread</span>(parent), <span class="built_in">textEdit</span>(textEdit) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ReadingThread::run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="function">QFile <span class="title">file</span><span class="params">(<span class="string">&quot;/Users/Biao/Desktop/data.txt&quot;</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!file.<span class="built_in">open</span>(QIODevice::Text | QIODevice::ReadOnly)) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">QTextStream <span class="title">in</span><span class="params">(&amp;file)</span></span>;</span><br><span class="line">    <span class="keyword">while</span> (!in.<span class="built_in">atEnd</span>()) &#123;</span><br><span class="line">        QString line = in.<span class="built_in">readLine</span>();</span><br><span class="line">        textEdit-&gt;<span class="built_in">append</span>(line);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/qtbook-thread-inheritance/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-qtbook-thread" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -891,77 +962,6 @@
 
       
 
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-fe-mock" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/fe-mock/" class="article-date">
-  	<!-- <time datetime="2017-09-27T05:55:19.000Z" itemprop="datePublished">2017-09-27</time> -->
-    2017-09-27
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/fe-mock/">简单的 Mock 工具 RestServerMock</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>前后端分离，如果前端需要等到服务器端接口开发完成后才能继续的话，效率太低，使用 Mock 工具能够更好的使得前后端分离各自开发，<code>RestServerMock</code> 一个是简单的静态 Web 服务器的 Mock 工具:</p>
-<blockquote>
-<p>A Simple REST HTTP server that serves the configured JSON responses rest-server-mock.</p>
-<p>Currently it servers JSON responses with status code 200. Future versions will support more options including : status codes, headers, encodings, etc.</p>
-</blockquote>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/fe-mock/#more">阅读全文</a>
-        </p>
       
       <div class="clearfix"></div>
     </div>

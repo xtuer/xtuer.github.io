@@ -244,6 +244,81 @@
     <!-- 生成目录 -->
 
 
+<article id="post-spring-web-benchmark" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/spring-web-benchmark/" class="article-date">
+  	<!-- <time datetime="2017-03-31T11:39:05.000Z" itemprop="datePublished">2017-03-31</time> -->
+    2017-03-31
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/spring-web-benchmark/">压力测试</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>下面介绍使用 Apache 的 <code>ab</code> (Apache Benchmark) 简单的进行压力测试</p>
+<p><strong>主要参数:</strong></p>
+<ul>
+<li>-n: 总请求数</li>
+<li>-c: 并发用户数</li>
+<li>-C: cookie</li>
+</ul>
+<p><strong>测试:</strong> </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ab -n1000 -c30 http://localhost:8080/demo</span><br></pre></td></tr></table></figure>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringWeb/" rel="tag">SpringWeb</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/spring-web-benchmark/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-spring-web-cors" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -888,103 +963,6 @@
       
         <p class="article-more-link">
           <a  href="/tomcat-multiple-domains/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-fe-ckeditor" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/fe-ckeditor/" class="article-date">
-  	<!-- <time datetime="2017-03-26T07:13:36.000Z" itemprop="datePublished">2017-03-26</time> -->
-    2017-03-26
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/fe-ckeditor/">CKEditor 的使用</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p><a target="_blank" rel="noopener" href="http://ckeditor.com/">CKEditor</a> 是一个非常优秀的 Web 服文本编辑器，提供了非常多的功能和丰富的文档</p>
-<blockquote>
-<p>Constantly leading innovation in the field of rich text editing. Take full control of your content creation process with such unique features as Paste from Word, Advanced Content Filter, widgets, custom HTML formatting and many more.</p>
-</blockquote>
-<p>CKEditor 还有一个很大的优势是它有一个非常强大的插件商店，里面基本都是免费的，推荐 3 个基础，但是很实用的插件：</p>
-<ul>
-<li><p>修改表格的大小 <strong>Table Resize</strong>: <a target="_blank" rel="noopener" href="http://ckeditor.com/addon/tableresize">http://ckeditor.com/addon/tableresize</a></p>
-</li>
-<li><p>预览编辑结果 <strong>Preview</strong>: <a target="_blank" rel="noopener" href="http://ckeditor.com/addon/preview">http://ckeditor.com/addon/preview</a></p>
-</li>
-<li><p>文本的颜色 <strong>Color Button</strong>: <a target="_blank" rel="noopener" href="http://ckeditor.com/addon/colorbutton">http://ckeditor.com/addon/colorbutton</a></p>
-</li>
-<li><p>公式编辑器: <a target="_blank" rel="noopener" href="http://ckeditor.com/addon/ckeditorwiris">http://ckeditor.com/addon/ckeditorwiris</a></p>
-</li>
-<li><p>很酷的皮肤 Moon Dark: <a target="_blank" rel="noopener" href="http://ckeditor.com/addon/moono-dark">http://ckeditor.com/addon/moono-dark</a></p>
-<p><img src="http://s1.ckeditor.com/sites/default/files/styles/large/public/moono-dark/ckeditor-moono-dark.png?itok=Xbpl_YQj"></p>
-</li>
-</ul>
-<p>修改配置 config.js</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 使用上面的几个插件</span><br><span class="line">config.extraPlugins = &#x27;tableresize,preview,colorbutton&#x27;;</span><br><span class="line"></span><br><span class="line">// Simplify the dialog windows.</span><br><span class="line">config.removeDialogTabs = &#x27;image:advanced;image:Link;link:advanced;link:target&#x27;;</span><br><span class="line">config.removePlugins = &#x27;elementspath&#x27;;</span><br></pre></td></tr></table></figure>
-
-
-
-
-<p>下面将介绍:</p>
-<ul>
-<li>集成 CKEditor</li>
-<li>设置 CKEditor</li>
-<li>对话框中使用 CKEditor</li>
-<li>CKEditor 上传图片</li>
-<li>CKEditor 上传文件
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/fe-ckeditor/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

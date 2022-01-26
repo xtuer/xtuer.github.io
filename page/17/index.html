@@ -244,6 +244,89 @@
     <!-- 生成目录 -->
 
 
+<article id="post-qt-refactor" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qt-refactor/" class="article-date">
+  	<!-- <time datetime="2017-07-16T03:04:34.000Z" itemprop="datePublished">2017-07-16</time> -->
+    2017-07-16
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qt-refactor/">QtCreator 中重构 Widget 的名字</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>QtCreator 中创建的 Qt Designer Form Class 包含三个文件: <strong>.h</strong>, <strong>.cpp</strong>, <strong>.ui</strong>，例如我们创建了一个 Form Class <strong>Widget</strong>，则包含下面三个文件：Widget.h, Widget.cpp, Widget.ui，其中的类名为 Widget，如果想要把其重命名为 <strong>MyWidget</strong>，则可以按照下面几步进行：</p>
+<ul>
+<li>文件重命名：<ul>
+<li>Widget.h -&gt; MyWidget.h</li>
+<li>Widget.cpp -&gt; MyWidget.cpp</li>
+<li>Widget.ui -&gt; MyWidget.ui</li>
+</ul>
+</li>
+<li>修改 MyWidget.ui 中的 objectName 为 MyWidget</li>
+<li>重构 MyWidget.h 中的类名:<ul>
+<li>Ui::MyWidget -&gt; Ui::Widget</li>
+<li>MyWidget -&gt; Widget</li>
+</ul>
+</li>
+<li>修改 MyWidget.h 中 #ifndef 的名字: WIDGET_H -&gt; MYWIDGET_H</li>
+<li>修改 MyWidget.cpp 中的 <code>#include &quot;ui_Widget.h&quot;</code> -&gt; <code>#include &quot;ui_MyWidget.h&quot;</code></li>
+</ul>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/" rel="tag">Qt</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/qt-refactor/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-java-sign" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -874,84 +957,6 @@
       
         <p class="article-more-link">
           <a  href="/fe-canvas-pixels/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-java-duplicate-uuid" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/java-duplicate-uuid/" class="article-date">
-  	<!-- <time datetime="2017-06-15T19:22:51.000Z" itemprop="datePublished">2017-06-16</time> -->
-    2017-06-16
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/java-duplicate-uuid/">测试 Java 生成 UUID 是否重复</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>本文的目的是为了测试 Java 的 UUID.randomUUID() 生成 UUID 是否重复，使用了 2 种方式:</p>
-<ol>
-<li>多线程加 ConcurrentSkipListSet</li>
-<li>多线程加 MySQL<ol>
-<li>多线程生成 UUID</li>
-<li>保存 UUID 到文件</li>
-<li>导入文件中的 UUID 到 MySQL</li>
-<li>使用 GROUP BY 和 HAVING 查找重复的 UUID</li>
-</ol>
-</li>
-</ol>
-<p>结果：尝试了多次，生成 1 万个，10 万，100 万个 UUID 都没有发现重复的情况。
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/java-duplicate-uuid/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

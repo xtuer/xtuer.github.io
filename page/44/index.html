@@ -244,6 +244,79 @@
     <!-- 生成目录 -->
 
 
+<article id="post-mysql-datetime-timestamp" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/mysql-datetime-timestamp/" class="article-date">
+  	<!-- <time datetime="2016-05-04T01:34:46.000Z" itemprop="datePublished">2016-05-04</time> -->
+    2016-05-04
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/mysql-datetime-timestamp/">MySQL 中 datetime 和 timestamp 的区别</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>最佳实践：每个表都应该有一列使用 <code>timestamp</code> 用于自动记录更新时间，这一列不需要在 Java 类中出现，如果需要记录创建时间，则使用 <code>datetime</code>。</p>
+<p>MySQL 把 timestamp 值从当前的时区转换到 UTC 再存储，获取时再从 UTC 转回当前的时区，而 datetime 存储和显示都是一样的，不能区分时区，就像一个静态的字符串一样。</p>
+<p>MySQL 时间和 Java 的时间类对应关系:</p>
+<ul>
+<li>datetime: LocalDateTime</li>
+<li>timestamp: Instant</li>
+</ul>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DB/" rel="tag">DB</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/mysql-datetime-timestamp/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-java-future" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -849,73 +922,6 @@
       
         <p class="article-more-link">
           <a  href="/util-json/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-solr-chinese-analyzer" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/solr-chinese-analyzer/" class="article-date">
-  	<!-- <time datetime="2016-04-22T05:02:00.000Z" itemprop="datePublished">2016-04-22</time> -->
-    2016-04-22
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/solr-chinese-analyzer/">Solr 中文分词插件 SmartCN</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <h2 id="为什么要使用中文分词呢？"><a href="#为什么要使用中文分词呢？" class="headerlink" title="为什么要使用中文分词呢？"></a>为什么要使用中文分词呢？</h2><p>Solr 使用的是内置的一元分词 StandardAnalyzer，像 “诺基亚N95” 这样的词都能搜索到，我觉得它已经很不错了啊，为什么还要别的中文分词呢？</p>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/solr-chinese-analyzer/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

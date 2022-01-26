@@ -244,6 +244,79 @@
     <!-- 生成目录 -->
 
 
+<article id="post-qt-json" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qt-json/" class="article-date">
+  	<!-- <time datetime="2016-11-10T11:42:17.000Z" itemprop="datePublished">2016-11-10</time> -->
+    2016-11-10
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qt-json/">Qt 的 Json 读写工具类 Json</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>读取下面 Json 文件 x.json 中 admin 属性下的 roles 属性，使用工具类 Json，支持带 “.” 的路径格式，代码如下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Json <span class="title">json</span><span class="params">(<span class="string">&quot;x.json&quot;</span>, <span class="literal">true</span>)</span></span>;</span><br><span class="line"><span class="built_in">qDebug</span>() &lt;&lt; json.<span class="built_in">getStringList</span>(<span class="string">&quot;admin.roles&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>如果使用原生的 QJsonDocument 来读的话，则代码如下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">QByteArray json; <span class="comment">// json 的内容</span></span><br><span class="line"><span class="function">QFile <span class="title">file</span><span class="params">(<span class="string">&quot;x.json&quot;</span>)</span></span>; <span class="comment">// Json 的文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// [1] 读取 Json 文件内容</span></span><br><span class="line"><span class="keyword">if</span> (file.<span class="built_in">open</span>(QIODevice::ReadOnly | QIODevice::Text)) &#123;</span><br><span class="line">    json = file.<span class="built_in">readAll</span>();</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// [2] 解析 Json 得到根节点的 QJsonObject</span></span><br><span class="line">QJsonParseError error;</span><br><span class="line">QJsonDocument jsonDocument = QJsonDocument::<span class="built_in">fromJson</span>(json, &amp;error);</span><br><span class="line">QJsonObject root = jsonDocument.<span class="built_in">object</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (QJsonParseError::NoError != error.error) &#123;</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; error.<span class="built_in">errorString</span>() &lt;&lt; <span class="string">&quot;, Offset: &quot;</span> &lt;&lt; error.offset;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// [3] 按路径访问得到 roles 的数组</span></span><br><span class="line">QJsonArray roles = root.<span class="built_in">value</span>(<span class="string">&quot;admin&quot;</span>).<span class="built_in">toObject</span>().<span class="built_in">value</span>(<span class="string">&quot;roles&quot;</span>).<span class="built_in">toArray</span>();</span><br><span class="line"></span><br><span class="line">QStringList result;</span><br><span class="line"></span><br><span class="line"><span class="comment">// [4] 遍历 roles 数组得到数组中的所有字符串</span></span><br><span class="line"><span class="keyword">for</span> (QJsonArray::const_iterator iter = roles.<span class="built_in">begin</span>(); iter != roles.<span class="built_in">end</span>(); ++iter) &#123;</span><br><span class="line">    QJsonValue value = *iter;</span><br><span class="line">    result &lt;&lt; value.<span class="built_in">toString</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">qDebug</span>() &lt;&lt; result;</span><br></pre></td></tr></table></figure>
+
+<p>相比之下，类 Json 简单很多，省去了很多繁杂的步骤。</p>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/" rel="tag">Qt</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/qt-json/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-absolute-layout" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -872,79 +945,6 @@
       
         <p class="article-more-link">
           <a  href="/qt-listview/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-qt-flat-scrollbar" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/qt-flat-scrollbar/" class="article-date">
-  	<!-- <time datetime="2016-11-05T04:02:21.000Z" itemprop="datePublished">2016-11-05</time> -->
-    2016-11-05
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/qt-flat-scrollbar/">QSS 实现的扁平滚动条</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>使用 QSS 实现扁平滚动条，只有几个简单的颜色，并且去掉了箭头，圆角等，尽量的简约，简约而不简单</p>
-<ul>
-<li>滚动条的背景色</li>
-<li>handle 的背景色</li>
-<li>鼠标放到 handle 上的背景色</li>
-</ul>
-<p><img src="../img/qt/flat-scrollbar.png"></p>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/" rel="tag">Qt</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/qt-flat-scrollbar/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>
