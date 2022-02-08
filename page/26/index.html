@@ -244,6 +244,80 @@
     <!-- 生成目录 -->
 
 
+<article id="post-qtbook-misc-qvariant" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-misc-qvariant/" class="article-date">
+  	<!-- <time datetime="2017-03-18T03:18:33.000Z" itemprop="datePublished">2017-03-18</time> -->
+    2017-03-18
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qtbook-misc-qvariant/">自定义类型与 QVariant</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p><strong>QVariant</strong> 非常重要，可以存储很多种不同的类型，例如 <strong>int, QString, QRect, QPoint</strong> 等，其构造函数有很多个，参数是很多种不同的常用类型，还内置了可以直接转换 QVaraint 到某些类型的函数，如 <strong>toInt(), toString(), toPoint(), toSize()</strong> 等，还是 QObject 动态 property 机制的关键，除了支持内置的类型外，QVariant 还被设计成可以存储我们自己定义的类型。</p>
+<p><strong>关键术语:</strong></p>
+<ul>
+<li>Q_DECLARE_METATYPE</li>
+<li>qRegisterMetaType</li>
+<li>qRegisterMetaTypeStreamOperators</li>
+<li>operator QVariant()</li>
+</ul>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/qtbook-misc-qvariant/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-fe-less" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -874,71 +948,6 @@
         <p class="article-more-link">
           <a  href="/qtbook-misc-regex/#more">阅读全文</a>
         </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-cpp-macro" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/cpp-macro/" class="article-date">
-  	<!-- <time datetime="2017-02-24T03:54:54.000Z" itemprop="datePublished">2017-02-24</time> -->
-    2017-02-24
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/cpp-macro/">C++ 查看预处理后的源文件</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p><code>gcc -E filename.cpp</code> 会生成 filename.cpp 的预处理文件，这样就能看到宏展开后的代码，用于理解和调试宏非常有帮助。</p>
-<p><img src="../img/qt/macro-1.png"><br><img src="../img/qt/macro-2.png"></p>
-
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/" rel="tag">Qt</a></li></ul>
-	</div>
-
-
-      
-
       
       <div class="clearfix"></div>
     </div>

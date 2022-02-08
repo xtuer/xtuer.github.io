@@ -244,6 +244,85 @@
     <!-- 生成目录 -->
 
 
+<article id="post-qt-png-iccp-warning" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qt-png-iccp-warning/" class="article-date">
+  	<!-- <time datetime="2018-04-22T15:07:55.000Z" itemprop="datePublished">2018-04-22</time> -->
+    2018-04-22
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qt-png-iccp-warning/">去掉 png 图片的 iCCP 警告</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Qt 中使用 png 图片有时候会给出警告 <code>libpng warning: iCCP: known incorrect sRGB profile</code>:</p>
+<blockquote>
+<p>Libpng-1.6 is more stringent about checking ICC profiles than previous versions. You can ignore the warning. To get rid of it, remove the iCCP chunk from the PNG image.</p>
+<p>Some applications treat warnings as errors; if you are using such an application you do have to remove the chunk. </p>
+</blockquote>
+<p>解决办法：</p>
+<ol>
+<li>安装 <a target="_blank" rel="noopener" href="http://www.imagemagick.org/script/download.php">ImageMagick</a> (Mac: <code>brew install ImageMagick</code>)</li>
+<li>到图片文件夹，执行命令 <code>mogrify *.png</code> 去掉此文件夹下 png 图片的 iCCP 警告</li>
+</ol>
+<p>要想找出有 iCCP 问题的 png 图片，可以使用工具 <a target="_blank" rel="noopener" href="https://pmt.sourceforge.io/pngcrush/">pngcrush</a>:</p>
+<ol>
+<li>安装 <a target="_blank" rel="noopener" href="https://pmt.sourceforge.io/pngcrush/">pngcrush</a> (Mac: <code>brew install pngcrush</code>)</li>
+<li>到图片文件夹，执行命令 <code>pngcrush -n -q *.png</code> 找出有 iCCP 警告的图片</li>
+</ol>
+<p>更多细节请参考 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/22745076/libpng-warning-iccp-known-incorrect-srgb-profile">libpng warning: iCCP: known incorrect sRGB profile</a>。</p>
+
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/" rel="tag">Qt</a></li></ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-mac-http-injected" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -881,88 +960,6 @@
       
         <p class="article-more-link">
           <a  href="/qtbook-custom-widget-top-window/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-qtbook-custom-widget-shadow-round-label" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/qtbook-custom-widget-shadow-round-label/" class="article-date">
-  	<!-- <time datetime="2018-02-16T07:33:15.000Z" itemprop="datePublished">2018-02-16</time> -->
-    2018-02-16
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/qtbook-custom-widget-shadow-round-label/">带阴影的圆形 Label</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>圆形头像大家应该都见过不少软件里用过吧，例如 QQ 的好友列表，网页里的人物头像，有没有想过在 Qt 里怎么做到呢？</p>
-<p>这一节中就来介绍怎么实现下图中的圆形 QLabel，然后扩展到给 QLabel 添加阴影效果、模糊效果以及加上边框:</p>
-<p><img src="../img/qtbook/custom-widget/shadow-round-label.png"></p>
-<h2 id="圆形-Label"><a href="#圆形-Label" class="headerlink" title="圆形 Label"></a>圆形 Label</h2><p>最核心的就是圆形 QLabel 的实现，有很多种方法能够做到，这里使用 QSS 来实现: <code>Border Image + Border Radius</code>，也就是几行代码的事:</p>
-<ul>
-<li>圆形: 先设置 QLabel 的大小为固定大小，这样当窗口大小变化时不会影响 QLabel 的大小，并且设置 border-radius 为 QLabel 高度的一半<ul>
-<li>必须正好是一半出来的效果才能是正圆</li>
-<li>大于一半 border-radius 就失去了效果，出来的是矩形，这应该是 QSS 的 Bug，CSS 里就不这样</li>
-<li>小于一半的效果是圆角矩形</li>
-</ul>
-</li>
-<li>背景: 为了让背景图缩放填满 QLabel，需要使用 border-image 并且设置 QLabel 边框的宽度为 0</li>
-</ul>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">QQLabel &#123;</span><br><span class="line">    <span class="attribute">min-width</span>:  <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">max-width</span>:  <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">min-height</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">max-height</span>: <span class="number">100px</span>;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">50px</span>;</span><br><span class="line">    <span class="attribute">border-width</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">border-image</span>: <span class="built_in">url</span>(<span class="string">/Users/Biao/Desktop/estas.jpg</span>) <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> stretch strectch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>上面的 QSS 就能得到左边第一个圆形 QLabel 的效果。
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/qtbook-custom-widget-shadow-round-label/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

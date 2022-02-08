@@ -244,6 +244,73 @@
     <!-- 生成目录 -->
 
 
+<article id="post-util-json" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/util-json/" class="article-date">
+  	<!-- <time datetime="2016-04-24T06:10:49.000Z" itemprop="datePublished">2016-04-24</time> -->
+    2016-04-24
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/util-json/">Jackson 处理 Json</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>使用 Jackson 序列化和反序列化对象，主要使用 <code>ObjectMapper</code> 的 2 个方法: <code>writeValueAsString()</code> 和 <code>readValue()</code>。</p>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Util/" rel="tag">Util</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/util-json/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-solr-chinese-analyzer" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -849,85 +916,6 @@
         <p class="article-more-link">
           <a  href="/gradle-remove-module-from-idea/#more">阅读全文</a>
         </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-java-change-version" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/java-change-version/" class="article-date">
-  	<!-- <time datetime="2016-04-16T02:36:12.000Z" itemprop="datePublished">2016-04-16</time> -->
-    2016-04-16
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/java-change-version/">How to change default Java version</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>1: First run /usr/libexec/java_home -V which will output something like the following:</p>
-<pre><code>Matching Java Virtual Machines (2):
-    1.8.0_25, x86_64:   &quot;Java SE 8&quot; /Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home
-    1.7.0_75, x86_64:   &quot;Java SE 7&quot; /Library/Java/JavaVirtualMachines/jdk1.7.0_75.jdk/Contents/Home
-
-/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home
-</code></pre>
-<p>2: Pick the version you want to be the default (1.7.0_75 for arguments sake) then:</p>
-<pre><code>export JAVA_HOME=`/usr/libexec/java_home -v 1.7.0_75`
-</code></pre>
-<p>3: Now when you run java -version you will see:</p>
-<pre><code>java version &quot;1.7.0_75&quot;
-Java(TM) SE Runtime Environment (build 1.7.0_75-b13)
-Java HotSpot(TM) 64-Bit Server VM (build 24.75-b04, mixed mode)
-</code></pre>
-<p>4: Just add the above export JAVA_HOME … line to your shell’s init file(<user-home>/.bash_profile).</p>
-
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
-	</div>
-
-
-      
-
       
       <div class="clearfix"></div>
     </div>

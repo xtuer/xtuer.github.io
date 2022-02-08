@@ -244,6 +244,86 @@
     <!-- 生成目录 -->
 
 
+<article id="post-spring-boot-start" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/spring-boot-start/" class="article-date">
+  	<!-- <time datetime="2017-09-05T05:51:36.000Z" itemprop="datePublished">2017-09-05</time> -->
+    2017-09-05
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/spring-boot-start/">Spring Boot Start</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Spring Boot 创建入门级 RESTful Web 项目简单到令人发指，下面就来看看怎么用吧(如果想知道 Spring Boot 是啥，搜索即可):</p>
+<ol>
+<li>创建项目的骨架</li>
+<li>添加 RestController</li>
+<li>启动项目: gradle bootRun </li>
+<li>打包项目: gradle build </li>
+</ol>
+<h2 id="创建项目的骨架"><a href="#创建项目的骨架" class="headerlink" title="创建项目的骨架"></a>创建项目的骨架</h2><ol>
+<li>访问 <a target="_blank" rel="noopener" href="http://start.spring.io/">http://start.spring.io</a></li>
+<li>选择 Gradle 项目，Spring Boot 2.x</li>
+<li>填写 Group (项目的包名，例如 com.xtuer) 和 Artifact (可不填)</li>
+<li>Search for dependencies 输入 <strong>web</strong></li>
+<li>点击 Generate Project，会自动下载项目骨架 demo.zip</li>
+<li>解压，如果不需要里面的 gradlew，删除即可
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/spring-boot-start/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-spring-security-10-jwt" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -918,77 +998,6 @@
       
 	<div class="article-tag tagcloud">
 		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringSecurity/" rel="tag">SpringSecurity</a></li></ul>
-	</div>
-
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-java-thread-local" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/java-thread-local/" class="article-date">
-  	<!-- <time datetime="2017-08-16T15:46:01.000Z" itemprop="datePublished">2017-08-16</time> -->
-    2017-08-16
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/java-thread-local/">测试 ThreadLocal</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>每个 Thread 都有一个 ThreadLocalMap 的对象，存储时以 ThreadLocal 变量为 key，<code>set()</code> 的参数作为 value，这样同一个 ThreadLocal 变量在不同的线程中就可以存储不同的数据。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadLocalTest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ThreadLocal&lt;String&gt; foo = <span class="keyword">new</span> ThreadLocal&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            await(<span class="number">300</span>);</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">&quot;: &quot;</span> + foo.get()); <span class="comment">// [2] 输出: Thread-1: null</span></span><br><span class="line">            foo.set(<span class="string">&quot;1&quot;</span>); <span class="comment">// [3]</span></span><br><span class="line"></span><br><span class="line">            await(<span class="number">1000</span>);</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">&quot;: &quot;</span> + foo.get()); <span class="comment">// [5] 输出: Thread-1: 1</span></span><br><span class="line">        &#125;, <span class="string">&quot;Thread-1&quot;</span>).start();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            foo.set(<span class="string">&quot;2&quot;</span>); <span class="comment">// [1]</span></span><br><span class="line"></span><br><span class="line">            await(<span class="number">600</span>);</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">&quot;: &quot;</span> + foo.get()); <span class="comment">//[4] 输出: Thread-2: 2</span></span><br><span class="line">        &#125;, <span class="string">&quot;Thread-2&quot;</span>).start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">await</span><span class="params">(<span class="keyword">long</span> timeout)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123; Thread.sleep(timeout); &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Thread-1: null</span><br><span class="line">Thread-2: 2</span><br><span class="line">Thread-1: 1</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>ThreadLocal 的变量一般定义为 private static 的。</p>
-</blockquote>
-
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
 	</div>
 
 

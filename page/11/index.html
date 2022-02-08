@@ -244,6 +244,88 @@
     <!-- 生成目录 -->
 
 
+<article id="post-qtbook-custom-widget-shadow-round-label" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-custom-widget-shadow-round-label/" class="article-date">
+  	<!-- <time datetime="2018-02-16T07:33:15.000Z" itemprop="datePublished">2018-02-16</time> -->
+    2018-02-16
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qtbook-custom-widget-shadow-round-label/">带阴影的圆形 Label</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>圆形头像大家应该都见过不少软件里用过吧，例如 QQ 的好友列表，网页里的人物头像，有没有想过在 Qt 里怎么做到呢？</p>
+<p>这一节中就来介绍怎么实现下图中的圆形 QLabel，然后扩展到给 QLabel 添加阴影效果、模糊效果以及加上边框:</p>
+<p><img src="../img/qtbook/custom-widget/shadow-round-label.png"></p>
+<h2 id="圆形-Label"><a href="#圆形-Label" class="headerlink" title="圆形 Label"></a>圆形 Label</h2><p>最核心的就是圆形 QLabel 的实现，有很多种方法能够做到，这里使用 QSS 来实现: <code>Border Image + Border Radius</code>，也就是几行代码的事:</p>
+<ul>
+<li>圆形: 先设置 QLabel 的大小为固定大小，这样当窗口大小变化时不会影响 QLabel 的大小，并且设置 border-radius 为 QLabel 高度的一半<ul>
+<li>必须正好是一半出来的效果才能是正圆</li>
+<li>大于一半 border-radius 就失去了效果，出来的是矩形，这应该是 QSS 的 Bug，CSS 里就不这样</li>
+<li>小于一半的效果是圆角矩形</li>
+</ul>
+</li>
+<li>背景: 为了让背景图缩放填满 QLabel，需要使用 border-image 并且设置 QLabel 边框的宽度为 0</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">QQLabel &#123;</span><br><span class="line">    <span class="attribute">min-width</span>:  <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">max-width</span>:  <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">min-height</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">max-height</span>: <span class="number">100px</span>;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">50px</span>;</span><br><span class="line">    <span class="attribute">border-width</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">border-image</span>: <span class="built_in">url</span>(<span class="string">/Users/Biao/Desktop/estas.jpg</span>) <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> stretch strectch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的 QSS 就能得到左边第一个圆形 QLabel 的效果。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/qtbook-custom-widget-shadow-round-label/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-mac-mongodb" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -656,21 +738,21 @@
 </thead>
 <tbody><tr>
 <td>Biao</td>
-<td><a href="mailto:&#x62;&#x69;&#97;&#x6f;&#64;&#103;&#109;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#109;">&#x62;&#x69;&#97;&#x6f;&#64;&#103;&#109;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#109;</a></td>
+<td><a href="mailto:&#98;&#105;&#x61;&#111;&#64;&#103;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#x6d;">&#98;&#105;&#x61;&#111;&#64;&#103;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#x6d;</a></td>
 <td>china</td>
 <td>北京</td>
 <td>天河街</td>
 </tr>
 <tr>
 <td>Biao</td>
-<td><a href="mailto:&#x62;&#105;&#x61;&#111;&#64;&#105;&#99;&#108;&#111;&#x75;&#100;&#46;&#x63;&#x6f;&#109;">&#x62;&#105;&#x61;&#111;&#64;&#105;&#99;&#108;&#111;&#x75;&#100;&#46;&#x63;&#x6f;&#109;</a></td>
+<td><a href="mailto:&#98;&#105;&#97;&#111;&#x40;&#105;&#99;&#108;&#x6f;&#x75;&#100;&#x2e;&#x63;&#x6f;&#x6d;">&#98;&#105;&#97;&#111;&#x40;&#105;&#99;&#108;&#x6f;&#x75;&#100;&#x2e;&#x63;&#x6f;&#x6d;</a></td>
 <td>Deutschland</td>
 <td>Braunschweig</td>
 <td>Wiesenstrasse</td>
 </tr>
 <tr>
 <td>Alice</td>
-<td><a href="mailto:&#x61;&#108;&#x69;&#99;&#101;&#64;&#103;&#x6d;&#x61;&#105;&#108;&#x2e;&#99;&#x6f;&#x6d;">&#x61;&#108;&#x69;&#99;&#101;&#64;&#103;&#x6d;&#x61;&#105;&#108;&#x2e;&#99;&#x6f;&#x6d;</a></td>
+<td><a href="mailto:&#x61;&#108;&#105;&#99;&#101;&#x40;&#103;&#109;&#x61;&#105;&#x6c;&#46;&#99;&#111;&#x6d;">&#x61;&#108;&#105;&#99;&#101;&#x40;&#103;&#109;&#x61;&#105;&#x6c;&#46;&#99;&#111;&#x6d;</a></td>
 <td>china</td>
 <td>河北</td>
 <td>鼓楼大街</td>
@@ -996,83 +1078,6 @@
 
       
 
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-mac-iterm-ssh" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/mac-iterm-ssh/" class="article-date">
-  	<!-- <time datetime="2017-12-13T14:07:40.000Z" itemprop="datePublished">2017-12-13</time> -->
-    2017-12-13
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/mac-iterm-ssh/">iTerm ssh 自动登录</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>使用 ssh 远程登录时:</p>
-<ol>
-<li>输入 <code>ssh root@host-ip</code></li>
-<li>输入密码</li>
-</ol>
-<p>每次都重复这样的操作，不仅麻烦，还要记忆好多东西，为了解决这个问题，借助 iTerm2 Profile 可以实现 ssh 自动登录:</p>
-<ol>
-<li>编写 expect 脚本</li>
-<li>使用此脚本创建 Profile</li>
-<li>使用此 Profile 打开新标签页</li>
-</ol>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/mac-iterm-ssh/#more">阅读全文</a>
-        </p>
       
       <div class="clearfix"></div>
     </div>

@@ -244,6 +244,78 @@
     <!-- 生成目录 -->
 
 
+<article id="post-fe-vue-customize-component" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/fe-vue-customize-component/" class="article-date">
+  	<!-- <time datetime="2017-07-24T09:31:52.000Z" itemprop="datePublished">2017-07-24</time> -->
+    2017-07-24
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/fe-vue-customize-component/">Vue 自定义组件</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Vue 提供了自定义组件的功能，可以定义全局组件，也可以定义局部组件：</p>
+<ul>
+<li>全局组件: 使用 <strong>Vue.component()</strong> 来注册</li>
+<li>局部组件: 使用 Vue 对象的 <strong>components</strong> 属性来注册</li>
+</ul>
+<p>下面先介绍全局组件的自定义，然后再简要的介绍局部组件的自定义。</p>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/fe-vue-customize-component/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-qt-refactor" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -889,74 +961,6 @@
       
         <p class="article-more-link">
           <a  href="/fe-smooth-curve/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-fe-canvas-pixels" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/fe-canvas-pixels/" class="article-date">
-  	<!-- <time datetime="2017-06-22T07:18:52.000Z" itemprop="datePublished">2017-06-22</time> -->
-    2017-06-22
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/fe-canvas-pixels/">Canvas 像素数据处理</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>Canvas 的 context 调用 getImageData() 获取 canvas 中图片的像素数据，处理好后再调用 putImageData() 设置回 canvas。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> canvas = $(<span class="string">&#x27;#canvas&#x27;</span>).get(<span class="number">0</span>);</span><br><span class="line">canvas.width = <span class="number">500</span>; <span class="comment">// canvas 的实际宽度，默认是 300</span></span><br><span class="line">canvas.height = <span class="number">300</span>;</span><br><span class="line"><span class="keyword">var</span> ctx = canvas.getContext(<span class="string">&#x27;2d&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> imageData = ctx.getImageData(<span class="number">0</span>, <span class="number">0</span>, canvas.width, canvas.height); <span class="comment">// 获取像素数据</span></span><br><span class="line">grayscale(imageData); <span class="comment">// 处理像素数据</span></span><br><span class="line">ctx.putImageData(imageData, <span class="number">0</span>, <span class="number">0</span>); <span class="comment">// 设置回 canvas</span></span><br></pre></td></tr></table></figure>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/fe-canvas-pixels/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

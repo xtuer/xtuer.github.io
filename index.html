@@ -244,6 +244,95 @@
     <!-- 生成目录 -->
 
 
+<article id="post-mac-vpn" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/mac-vpn/" class="article-date">
+  	<!-- <time datetime="2022-02-08T12:44:03.000Z" itemprop="datePublished">2022-02-08</time> -->
+    2022-02-08
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/mac-vpn/">OSX Monterey 使用 VPN</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>在 Monterey 系统中，<strong>L2TP/IPSec 的 VPN 能够连接上 VPN 服务器，但连接上后却不能访问网络</strong>，据说是苹果修改了 VPN 的加密方式导致的，可参考 <a target="_blank" rel="noopener" href="https://www.reddit.com/r/MacOSBeta/comments/ih22h9/vpn_l2tp_over_ipsec_stopped_working_after/">VPN (L2TP over IPSec) stopped working after updating to Mac OS BigSur, does anyone have the same problem?</a> 的讨论，在 <a target="_blank" rel="noopener" href="https://serverfault.com/questions/1045012/configuring-l2tp-vpn-to-use-with-ios-14-and-macos-big-sur">Configuring L2TP VPN to use with iOS 14 and macOS Big Sur</a> 中似乎给出了解决办法，但是需要修改 VPN 服务器端的配置，具体没有测试过，不知道行不行。</p>
+<p>在 Monterey 中使用 L2TP/IPSec 的 VPN 的办法可以使用下面的这些方式:</p>
+<ul>
+<li>尝试使用上面的解决办法:<ul>
+<li>需要修改 VPN 服务器 (得求人)</li>
+<li>没测试过，不一定能行</li>
+</ul>
+</li>
+<li>服务器端开通 OpenVPN，Monterey 中使用 OpenVPN 进行连接<ul>
+<li>需要修改 VPN 服务器 (得求人)</li>
+</ul>
+</li>
+<li>安装虚拟机 + Windows，在其中使用 VPN<ul>
+<li>费钱</li>
+<li>消耗系统资源</li>
+</ul>
+</li>
+<li>购买一个便宜的 Windows Server 云主机，在其中使用 VPN <ul>
+<li>费钱，但可以不多</li>
+</ul>
+</li>
+</ul>
+<p>由于现在不少云服务器商提供了很多便宜的云主机活动，例如某云的 <strong>2 核 4G 8M 网络</strong>的云主机 3 年才 222 块 (双 11 的时候更便宜)，于是买了一个安装了 Windows Server 2016，下面介绍在 Windows Server 里面使用 VPN 遇到的问题解决办法。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/mac-vpn/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-mac-safari-remove-google-rediect" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -936,83 +1025,6 @@
       
         <p class="article-more-link">
           <a  href="/spring-thread/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-go-yaml" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/go-yaml/" class="article-date">
-  	<!-- <time datetime="2021-03-15T03:40:13.000Z" itemprop="datePublished">2021-03-15</time> -->
-    2021-03-15
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/go-yaml/">Go 使用 Yaml</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>使用 <a target="_blank" rel="noopener" href="https://github.com/kubernetes-sigs/yaml">kubernetes-sigs/yaml</a> 来把对象序列化为 yaml 字符串，把 yaml 字符串反序列化为 go 对象。</p>
-<h2 id="简单对象"><a href="#简单对象" class="headerlink" title="简单对象"></a>简单对象</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;sigs.k8s.io/yaml&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Student <span class="keyword">struct</span> &#123;</span><br><span class="line">    Id   <span class="keyword">int</span>    <span class="string">`json:&quot;id&quot;`</span> <span class="comment">// 可以是 `yaml:&quot;id&quot;`，但大多数第三方 struct 使用 json，所以这里就不使用 yaml 了</span></span><br><span class="line">    Name <span class="keyword">string</span> <span class="string">`json:&quot;name`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// [1] 对象序列化为 yaml 字符串</span></span><br><span class="line">    student1 := Student&#123;<span class="number">1</span>, <span class="string">&quot;Alice&quot;</span>&#125;</span><br><span class="line">    yamlBytes, _ := yaml.Marshal(student1)</span><br><span class="line">    yamlString := <span class="keyword">string</span>(yamlBytes)</span><br><span class="line">    fmt.Println(yamlString)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [2] yaml 字符串反序列化为对象</span></span><br><span class="line">    student2 := Student&#123;&#125;</span><br><span class="line">    err := yaml.Unmarshal([]<span class="keyword">byte</span>(yamlString), &amp;student2)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// yaml 有错误时报错</span></span><br><span class="line">    <span class="keyword">if</span> (err != <span class="literal">nil</span>) &#123;</span><br><span class="line">        fmt.Println(err)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    fmt.Println(student2)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>下载 yaml:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">go mod init</span><br><span class="line">go mod download</span><br></pre></td></tr></table></figure>
-
-<p>编译执行:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go run test.go</span><br></pre></td></tr></table></figure>
-
-<p>运行输出:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">id: 1</span><br><span class="line">name: Alice</span><br><span class="line"></span><br><span class="line">&#123;1 Alice&#125;</span><br></pre></td></tr></table></figure>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Go/" rel="tag">Go</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/go-yaml/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

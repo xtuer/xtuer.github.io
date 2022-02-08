@@ -4,21 +4,22 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Miscellaneous | 公孙二狗</title>
+  <title>OSX Monterey 使用 VPN | 公孙二狗</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="环境搭建 IDEA 中创建 Gradle Module Gradle build 脚本 Gradle 创建 Web Module Gradle 创建 App Module Gradle 文件动态内容替换">
+  <meta name="description" content="在 Monterey 系统中，L2TP&#x2F;IPSec 的 VPN 能够连接上 VPN 服务器，但连接上后却不能访问网络，据说是苹果修改了 VPN 的加密方式导致的，可参考 VPN (L2TP over IPSec) stopped working after updating to Mac OS BigSur, does anyone have the same problem? 的讨论，在 Con">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Miscellaneous">
-<meta property="og:url" content="http://xtuer.github.io/misc-index/index.html">
+<meta property="og:title" content="OSX Monterey 使用 VPN">
+<meta property="og:url" content="http://xtuer.github.io/mac-vpn/index.html">
 <meta property="og:site_name" content="公孙二狗">
-<meta property="og:description" content="环境搭建 IDEA 中创建 Gradle Module Gradle build 脚本 Gradle 创建 Web Module Gradle 创建 App Module Gradle 文件动态内容替换">
+<meta property="og:description" content="在 Monterey 系统中，L2TP&#x2F;IPSec 的 VPN 能够连接上 VPN 服务器，但连接上后却不能访问网络，据说是苹果修改了 VPN 的加密方式导致的，可参考 VPN (L2TP over IPSec) stopped working after updating to Mac OS BigSur, does anyone have the same problem? 的讨论，在 Con">
 <meta property="og:locale">
-<meta property="article:published_time" content="2016-06-29T02:06:53.000Z">
-<meta property="article:modified_time" content="2021-12-02T22:29:07.165Z">
+<meta property="og:image" content="http://xtuer.github.io/img/mac/mac-vpn-1.png">
+<meta property="article:published_time" content="2022-02-08T12:44:03.000Z">
+<meta property="article:modified_time" content="2022-02-08T13:47:20.399Z">
 <meta property="article:author" content="公孙二狗">
-<meta property="article:tag" content="Misc">
-<meta property="article:tag" content="Index">
+<meta property="article:tag" content="Mac">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/mac/mac-vpn-1.png">
   
     <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
   
@@ -248,22 +249,22 @@
     <div id="toc-mask" style="display: none;">
         <div class="toc-container">
             <div class="article-toc">
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-text">环境搭建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E5%85%B7%E8%BD%AF%E4%BB%B6"><span class="toc-text">工具软件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E6%A6%82%E8%A6%81"><span class="toc-text">知识概要</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5-VPN"><span class="toc-text">连接 VPN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5-VPN-%E7%9A%84%E6%97%B6%E5%80%99%E6%8A%A5%E9%94%99%EF%BC%8C%E9%9C%80%E8%A6%81%E8%B0%83%E6%95%B4%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%B3%A8%E5%86%8C%E8%A1%A8"><span class="toc-text">连接 VPN 的时候报错，需要调整客户端注册表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VPN-%E8%BF%9E%E4%B8%8A%E4%BA%86%EF%BC%8C%E4%BD%86%E6%98%AF%E4%B8%8A%E4%B8%8D%E4%BA%86%E5%A4%96%E7%BD%91%E4%BA%86"><span class="toc-text">VPN 连上了，但是上不了外网了</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VPN-%E8%BF%9E%E4%B8%8A%E4%BA%86%EF%BC%8C%E4%BD%86-VPN-%E7%BD%91%E6%AE%B5%E4%B8%8D%E8%83%BD%E8%AE%BF%E9%97%AE"><span class="toc-text">VPN 连上了，但 VPN 网段不能访问</span></a></li></ol>
             </div>
         </div>
     </div>
 
 
-<article id="post-misc-index" class="article article-type-post" itemscope itemprop="blogPost">
+<article id="post-mac-vpn" class="article article-type-post" itemscope itemprop="blogPost">
     <!-- 
         <div class="content-table">Content Table</div>
      -->
 
     
         <div class="article-meta">
-            <a href="/misc-index/" class="article-date">
-  	<!-- <time datetime="2016-06-29T02:06:53.000Z" itemprop="datePublished">2016-06-29</time> -->
-    2016-06-29
+            <a href="/mac-vpn/" class="article-date">
+  	<!-- <time datetime="2022-02-08T12:44:03.000Z" itemprop="datePublished">2022-02-08</time> -->
+    2022-02-08
 </a>
 
         </div>
@@ -278,7 +279,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Miscellaneous
+      OSX Monterey 使用 VPN
     </h1>
   
 
@@ -287,7 +288,7 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Index/" rel="tag">Index</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/" rel="tag">Misc</a></li></ul>
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li></ul>
 	</div>
 
 
@@ -299,31 +300,55 @@
     
     <div class="article-entry" itemprop="articleBody">
         
-            <h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><ul>
-<li><a href="/misc-gradle-idea">IDEA 中创建 Gradle Module</a></li>
-<li><a href="/misc-gradle-build">Gradle build 脚本</a></li>
-<li><a href="/misc-gradle-web">Gradle 创建 Web Module</a></li>
-<li><a href="/misc-gradle-app">Gradle 创建 App Module</a></li>
-<li><a href="/misc-gradle-resource">Gradle 文件动态内容替换</a></li>
+            <p>在 Monterey 系统中，<strong>L2TP/IPSec 的 VPN 能够连接上 VPN 服务器，但连接上后却不能访问网络</strong>，据说是苹果修改了 VPN 的加密方式导致的，可参考 <a target="_blank" rel="noopener" href="https://www.reddit.com/r/MacOSBeta/comments/ih22h9/vpn_l2tp_over_ipsec_stopped_working_after/">VPN (L2TP over IPSec) stopped working after updating to Mac OS BigSur, does anyone have the same problem?</a> 的讨论，在 <a target="_blank" rel="noopener" href="https://serverfault.com/questions/1045012/configuring-l2tp-vpn-to-use-with-ios-14-and-macos-big-sur">Configuring L2TP VPN to use with iOS 14 and macOS Big Sur</a> 中似乎给出了解决办法，但是需要修改 VPN 服务器端的配置，具体没有测试过，不知道行不行。</p>
+<p>在 Monterey 中使用 L2TP/IPSec 的 VPN 的办法可以使用下面的这些方式:</p>
+<ul>
+<li>尝试使用上面的解决办法:<ul>
+<li>需要修改 VPN 服务器 (得求人)</li>
+<li>没测试过，不一定能行</li>
 </ul>
-<span id="more"></span>
+</li>
+<li>服务器端开通 OpenVPN，Monterey 中使用 OpenVPN 进行连接<ul>
+<li>需要修改 VPN 服务器 (得求人)</li>
+</ul>
+</li>
+<li>安装虚拟机 + Windows，在其中使用 VPN<ul>
+<li>费钱</li>
+<li>消耗系统资源</li>
+</ul>
+</li>
+<li>购买一个便宜的 Windows Server 云主机，在其中使用 VPN <ul>
+<li>费钱，但可以不多</li>
+</ul>
+</li>
+</ul>
+<p>由于现在不少云服务器商提供了很多便宜的云主机活动，例如某云的 <strong>2 核 4G 8M 网络</strong>的云主机 3 年才 222 块 (双 11 的时候更便宜)，于是买了一个安装了 Windows Server 2016，下面介绍在 Windows Server 里面使用 VPN 遇到的问题解决办法。<span id="more"></span></p>
+<blockquote>
+<p>由于我的 Mac 是 ARM 的，有时候需要编译 X86 的程序，也正好用上。</p>
+</blockquote>
+<h2 id="连接-VPN"><a href="#连接-VPN" class="headerlink" title="连接 VPN"></a>连接 VPN</h2><p>使用系统提供的 VPN 客户端，填写相关信息即可，然后点击连接。</p>
+<p>例如填写:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Server Address: 111.108.30.232</span><br><span class="line">Account Name: huangbiao</span><br><span class="line">Password: ****</span><br><span class="line">Shared Secret: ****</span><br><span class="line">DNS: 223.5.5.5, 223.6.6.6</span><br></pre></td></tr></table></figure>
 
-<h2 id="工具软件"><a href="#工具软件" class="headerlink" title="工具软件"></a>工具软件</h2><ul>
-<li><a href="/misc-commands">常用命令</a></li>
-<li><a href="/misc-activemq">ActiveMQ</a></li>
-<li><a href="/misc-shuttle">Shuttle</a></li>
-</ul>
-<h2 id="知识概要"><a href="#知识概要" class="headerlink" title="知识概要"></a>知识概要</h2><ul>
-<li><a href="/misc-annotation">Annotation</a></li>
-<li><a href="/misc-jndi-datasource">JNDI 数据源</a></li>
-<li><a href="/misc-jms-activemq">JMS + ActiveMQ</a></li>
-<li><a href="/misc-spring-event">Spring Event</a></li>
-<li><a href="/misc-spring-oxm">Spring O/X Mapping</a></li>
-<li><a href="/misc-ehcache">Ehcache</a></li>
-<li><a href="/misc-spring-groovy">Spring 集成 Groovy</a></li>
-<li><a href="/misc-mqtt">ActiveMQ + MQTT</a></li>
-<li><a href="/misc-zookeeper">本机安装 ZooKeeper 集群</a></li>
-<li><a href="/misc-dubbo-hello-world">Dubbo Hello World</a></li>
+<h2 id="连接-VPN-的时候报错，需要调整客户端注册表"><a href="#连接-VPN-的时候报错，需要调整客户端注册表" class="headerlink" title="连接 VPN 的时候报错，需要调整客户端注册表"></a>连接 VPN 的时候报错，需要调整客户端注册表</h2><p>错误如图:</p>
+<p><img src="../img/mac/mac-vpn-1.png"></p>
+<p>需要调整客户端注册表:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">REG ADD HKLM\SYSTEM\CurrentControlSet\Services\RasMan\Parameters /v ProhibitIpSec /t REG_DWORD /d 0x1 /f</span><br><span class="line"></span><br><span class="line">REG ADD HKLM\SYSTEM\CurrentControlSet\Services\Rasman\Parameters /v AllowL2TPWeakCrypto /t REG_DWORD /d 0x1 /f</span><br><span class="line"></span><br><span class="line">REG ADD HKLM\SYSTEM\CurrentControlSet\Services\PolicyAgent /v AssumeUDPEncapsulationContextOnSendRule /t REG_DWORD /d 0x2 /f</span><br></pre></td></tr></table></figure>
+
+<p>参考 <a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1893670">腾讯云上 VPN 客户端注意事项</a> 的<strong>【问题二】连 VPN 的时候报错，需要调整客户端注册表</strong>。</p>
+<h2 id="VPN-连上了，但是上不了外网了"><a href="#VPN-连上了，但是上不了外网了" class="headerlink" title="VPN 连上了，但是上不了外网了"></a>VPN 连上了，但是上不了外网了</h2><p>参考 <a target="_blank" rel="noopener" href="https://www.muzijie.com/a2/43wnzwd32.html">挂了 VPN 软件后本地网络变成受限</a>，把 VPN 连接属性中的<strong>在远程网络上使用默认网关</strong>前面的勾取消。</p>
+<h2 id="VPN-连上了，但-VPN-网段不能访问"><a href="#VPN-连上了，但-VPN-网段不能访问" class="headerlink" title="VPN 连上了，但 VPN 网段不能访问"></a>VPN 连上了，但 VPN 网段不能访问</h2><p>一般云主机的 Windows Server 中，不论你机器的 VPC 网段是啥，永久路由似乎是固定的，我们需要把 VPN 内网的 IP 添加到系统的路由中 (例如要使用 VPN 访问的内网 IP 有 192.168.1.73，一般其网段为 <strong>192.168.1.0</strong>):</p>
+<ol>
+<li>在 VPN 连接的属性里找到 <strong>VPN Server</strong> 的 IP 如 <strong>192.168.3.10</strong></li>
+<li>删除路由信息: <code>route delete 192.168.1.0/24</code></li>
+<li>添加路由信息: <code>route -p add 192.168.1.0 mask 255.255.255.0 192.168.3.10</code><br>所有发往 <strong>192.168.1.0/24</strong> 地址段的 IP 数据包，全部由 <strong>192.168.3.10</strong> 转发。</li>
+</ol>
+<p>提示:</p>
+<ul>
+<li>查看路由信息: <code>route print -4</code></li>
+<li>不知道为啥，Windows Server 系统重启后即使路由表里有相关记录，但是需要删除路由信息，然后再添加一次才会生效</li>
+<li>参考 <a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1893670">腾讯云上 VPN 客户端注意事项</a> 的<strong>【问题三】VPN 连上了、虚拟段设备也能访问了，但是上不了外网了，可参考下面文档解决</strong></li>
+<li>参考 <a target="_blank" rel="noopener" href="https://blog.51cto.com/13001500368/1836753">route add 命令的主要作用是添加静态路由</a></li>
 </ul>
 
         
@@ -335,18 +360,9 @@
     
 <nav id="article-nav">
   
-    <a href="/misc-gradle-idea/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          IDEA 创建 Gradle Module
-        
-      </div>
-    </a>
   
-  
-    <a href="/fe-js-tips/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">JavaScript Tips</div>
+    <a href="/mac-safari-remove-google-rediect/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Safari 中去除 Google 搜索结果的重定向</div>
       <strong class="article-nav-caption">></strong>
     </a>
   

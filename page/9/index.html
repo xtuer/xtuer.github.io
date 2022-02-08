@@ -244,6 +244,99 @@
     <!-- 生成目录 -->
 
 
+<article id="post-misc-distributed-lock" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/misc-distributed-lock/" class="article-date">
+  	<!-- <time datetime="2018-10-16T09:26:54.000Z" itemprop="datePublished">2018-10-16</time> -->
+    2018-10-16
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/misc-distributed-lock/">ZooKeeper 实现分布式锁</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>在 Java 中使用 ZooKeeper 实现分布式锁可按以下几步进行:</p>
+<ol>
+<li>下载安装 <a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/apache/zookeeper/zookeeper-3.4.13/">ZooKeeper 3.4.13</a>，参考 <a target="_blank" rel="noopener" href="https://qtdebug.com/misc-zookeeper/">本机安装 ZooKeeper 集群</a> 进行安装单机版 ZooKeeper，有必要的时候再安装集群</li>
+<li>引入 Curator 的依赖，它实现了 ZooKeeper 的分布式锁</li>
+<li>Java 测试程序</li>
+</ol>
+<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><p>参考 <a target="_blank" rel="noopener" href="https://qtdebug.com/misc-zookeeper/">本机安装 ZooKeeper 集群</a></p>
+<h2 id="引入-Curator-的依赖"><a href="#引入-Curator-的依赖" class="headerlink" title="引入 Curator 的依赖"></a>引入 Curator 的依赖</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="attr">group:</span> <span class="string">&#x27;org.apache.curator&#x27;</span>, <span class="attr">name:</span> <span class="string">&#x27;curator-recipes&#x27;</span>, <span class="attr">version:</span> <span class="string">&#x27;2.12.0&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意: Curator 和 ZooKeeper 的版本需要对应，否则会报错</p>
+<p><code>Curator 2.x.x</code>: compatible with both ZooKeeper 3.4.x and ZooKeeper 3.5.x</p>
+<p><code>Curator 3.x.x</code>: compatible only with ZooKeeper 3.5.x and includes support for new features such as dynamic reconfiguration, etc.</p>
+</blockquote>
+<h2 id="Java-测试程序"><a href="#Java-测试程序" class="headerlink" title="Java 测试程序"></a>Java 测试程序</h2><p>官方文档: <a target="_blank" rel="noopener" href="http://curator.apache.org/getting-started.html%EF%BC%8C%E5%85%88%E6%BC%94%E7%A4%BA">http://curator.apache.org/getting-started.html，先演示</a> Curator 连接 ZooKeeper 并使用分布式锁 InterProcessMutex:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testDistributedLock</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    <span class="comment">// [1] This will create a connection to a ZooKeeper cluster using default values.</span></span><br><span class="line">    <span class="comment">// The only thing that you need to specify is the retry policy. For most cases, you should use:</span></span><br><span class="line">    CuratorFramework client = CuratorFrameworkFactory.newClient(<span class="string">&quot;127.0.0.1:2181&quot;</span>, <span class="keyword">new</span> ExponentialBackoffRetry(<span class="number">10000</span>, <span class="number">3</span>));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [2] The client must be started (and closed when no longer needed).</span></span><br><span class="line">    client.start();</span><br><span class="line"></span><br><span class="line">    InterProcessMutex lock = <span class="keyword">new</span> InterProcessMutex(client, <span class="string">&quot;/ebag/lock&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [3] 获取全局锁</span></span><br><span class="line">    <span class="keyword">if</span> (lock.acquire(<span class="number">10</span>, TimeUnit.SECONDS)) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// [4] 业务代码</span></span><br><span class="line">            System.out.println(<span class="string">&quot;Do something&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="comment">// [5] 释放全局锁</span></span><br><span class="line">            lock.release();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [6] Close the client</span></span><br><span class="line">    client.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>多线程测试分布式锁，结果 sn 是按顺序输出的，说明锁生效了:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testZooKeeperThread</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    CuratorFramework client = CuratorFrameworkFactory.newClient(<span class="string">&quot;127.0.0.1:2181&quot;</span>, <span class="keyword">new</span> ExponentialBackoffRetry(<span class="number">10000</span>, <span class="number">3</span>));</span><br><span class="line">    client.start();</span><br><span class="line">    List&lt;Thread&gt; threads = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; ++i) &#123;</span><br><span class="line">        threads.add(<span class="keyword">new</span> Thread(<span class="keyword">new</span> ZooKeeperRunnable(client, <span class="string">&quot;/ebag/lock&quot;</span>)));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (Thread thread : threads) &#123;</span><br><span class="line">        thread.start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// client.close();</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ZooKeeperRunnable</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> sn = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> InterProcessMutex lock;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ZooKeeperRunnable</span><span class="params">(CuratorFramework client, String path)</span> </span>&#123;</span><br><span class="line">        lock = <span class="keyword">new</span> InterProcessMutex(client, path);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 获取全局锁</span></span><br><span class="line">            <span class="keyword">if</span> (lock.acquire(<span class="number">10</span>, TimeUnit.SECONDS)) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="comment">// Thread.sleep(100);</span></span><br><span class="line">                    sn++;</span><br><span class="line">                    System.out.println(sn);</span><br><span class="line">                &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                    <span class="comment">// 释放全局锁</span></span><br><span class="line">                    lock.release();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>提示: 上面的多线程是同一个 JVM 中的，可以很简单的修改为在多个 JVM 中运行，演示真正的分布式锁的效果，共享资源 sn 可以保存到 Redis，数据库等中。</p>
+</blockquote>
+<h2 id="ZooKeeper-常用命令"><a href="#ZooKeeper-常用命令" class="headerlink" title="ZooKeeper 常用命令"></a>ZooKeeper 常用命令</h2><ul>
+<li>创建: create path data: <code>create /foo &quot;Hello&quot;</code></li>
+<li>修改: set path data: <code>set /foo &quot;Vox&quot;</code></li>
+<li>获取: get path: <code>get /foo</code></li>
+<li>删除: delete path: <code>delete /foo</code></li>
+<li>查看: ls path: <code>ls /foo</code></li>
+</ul>
+
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/" rel="tag">Misc</a></li></ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-mac-centos7-libreoffice" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -968,85 +1061,6 @@ The model communicates with a source of data, providing an interface for the oth
         <p class="article-more-link">
           <a  href="/qtbook-custom-widget-tree-view/#more">阅读全文</a>
         </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-qt-png-iccp-warning" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/qt-png-iccp-warning/" class="article-date">
-  	<!-- <time datetime="2018-04-22T15:07:55.000Z" itemprop="datePublished">2018-04-22</time> -->
-    2018-04-22
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/qt-png-iccp-warning/">去掉 png 图片的 iCCP 警告</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>Qt 中使用 png 图片有时候会给出警告 <code>libpng warning: iCCP: known incorrect sRGB profile</code>:</p>
-<blockquote>
-<p>Libpng-1.6 is more stringent about checking ICC profiles than previous versions. You can ignore the warning. To get rid of it, remove the iCCP chunk from the PNG image.</p>
-<p>Some applications treat warnings as errors; if you are using such an application you do have to remove the chunk. </p>
-</blockquote>
-<p>解决办法：</p>
-<ol>
-<li>安装 <a target="_blank" rel="noopener" href="http://www.imagemagick.org/script/download.php">ImageMagick</a> (Mac: <code>brew install ImageMagick</code>)</li>
-<li>到图片文件夹，执行命令 <code>mogrify *.png</code> 去掉此文件夹下 png 图片的 iCCP 警告</li>
-</ol>
-<p>要想找出有 iCCP 问题的 png 图片，可以使用工具 <a target="_blank" rel="noopener" href="https://pmt.sourceforge.io/pngcrush/">pngcrush</a>:</p>
-<ol>
-<li>安装 <a target="_blank" rel="noopener" href="https://pmt.sourceforge.io/pngcrush/">pngcrush</a> (Mac: <code>brew install pngcrush</code>)</li>
-<li>到图片文件夹，执行命令 <code>pngcrush -n -q *.png</code> 找出有 iCCP 警告的图片</li>
-</ol>
-<p>更多细节请参考 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/22745076/libpng-warning-iccp-known-incorrect-srgb-profile">libpng warning: iCCP: known incorrect sRGB profile</a>。</p>
-
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/" rel="tag">Qt</a></li></ul>
-	</div>
-
-
-      
-
       
       <div class="clearfix"></div>
     </div>

@@ -244,6 +244,74 @@
     <!-- 生成目录 -->
 
 
+<article id="post-fe-load-js-css" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/fe-load-js-css/" class="article-date">
+  	<!-- <time datetime="2019-02-26T12:46:08.000Z" itemprop="datePublished">2019-02-26</time> -->
+    2019-02-26
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/fe-load-js-css/">动态加载 JS 和 CSS</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p><a target="_blank" rel="noopener" href="https://github.com/letiantian/how-to-load-dynamic-script#%E6%96%B9%E5%BC%8F6-promise%E4%B8%B2%E8%A1%8C">动态加载 JS 文件的正确姿势</a>中列举了多种加载 JS 的方式，下面摘出个人最喜欢的方式，用于动态加载 JS 和 CSS。</p>
+<h2 id="动态加载-JS"><a href="#动态加载-JS" class="headerlink" title="动态加载 JS"></a>动态加载 JS</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Load JS<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">/**</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         * 使用 Promise 异步加载 JS</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         *</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         * <span class="doctag">@param <span class="type">&#123;String&#125;</span> </span>url JS 的路径</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         * <span class="doctag">@param <span class="type">&#123;String&#125;</span> </span>id  JS 的 &lt;style&gt; 的 ID，如果已经存在则不再重复加载，默认为时间戳+随机数</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         * <span class="doctag">@return </span>返回 Promise 对象, then 的参数为加载成功的信息，无多大意义</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         */</span></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">loadJs</span>(<span class="params">url, id = <span class="built_in">Date</span>.now() + <span class="string">&#x27;-&#x27;</span> + <span class="built_in">Math</span>.random()</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">// 避免重复加载</span></span></span><br><span class="line"><span class="javascript">                <span class="keyword">if</span> (<span class="built_in">document</span>.getElementById(id)) &#123;</span></span><br><span class="line"><span class="javascript">                    resolve(<span class="string">&#x27;success: &#x27;</span> + url);</span></span><br><span class="line"><span class="javascript">                    <span class="keyword">return</span>;</span></span><br><span class="line"><span class="javascript">                &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">                <span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">&#x27;script&#x27;</span>);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">                <span class="keyword">if</span> (script.readyState) &#123;  <span class="comment">// IE</span></span></span><br><span class="line"><span class="javascript">                    script.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                        <span class="keyword">if</span> (script.readyState == <span class="string">&#x27;loaded&#x27;</span> || script.readyState == <span class="string">&#x27;complete&#x27;</span>) &#123;</span></span><br><span class="line"><span class="javascript">                            script.onreadystatechange = <span class="literal">null</span>;</span></span><br><span class="line"><span class="javascript">                            resolve(<span class="string">&#x27;success: &#x27;</span> + url);</span></span><br><span class="line"><span class="javascript">                        &#125;</span></span><br><span class="line"><span class="javascript">                    &#125;;</span></span><br><span class="line"><span class="javascript">                &#125; <span class="keyword">else</span> &#123;  <span class="comment">// Other Browsers</span></span></span><br><span class="line"><span class="javascript">                    script.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                        resolve(<span class="string">&#x27;success: &#x27;</span> + url);</span></span><br><span class="line"><span class="javascript">                    &#125;;</span></span><br><span class="line"><span class="javascript">                &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">                script.onerror = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                    reject(<span class="built_in">Error</span>(url + <span class="string">&#x27; load error!&#x27;</span>));</span></span><br><span class="line"><span class="javascript">                &#125;;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">                script.type = <span class="string">&#x27;text/javascript&#x27;</span>;</span></span><br><span class="line"><span class="javascript">                script.id   = id;</span></span><br><span class="line"><span class="javascript">                script.src  = <span class="string">`<span class="subst">$&#123;url&#125;</span>?hash=<span class="subst">$&#123;id&#125;</span>`</span>;</span></span><br><span class="line"><span class="javascript">                <span class="built_in">document</span>.getElementsByTagName(<span class="string">&#x27;head&#x27;</span>).item(<span class="number">0</span>).appendChild(script);</span></span><br><span class="line"><span class="javascript">            &#125;);</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// 加载 JS 后执行 then 的回调函数</span></span></span><br><span class="line"><span class="javascript">        loadJs(<span class="string">&#x27;http://cdn.bootcss.com/jquery/1.9.1/jquery.min.js&#x27;</span>, <span class="string">&#x27;jq&#x27;</span>).then(<span class="function"><span class="params">msg</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(msg);</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// 加载完所有 JS 后执行 then 的回调函数</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> one = <span class="string">&#x27;http://cdn.bootcss.com/jquery/1.9.1/jquery.min.js&#x27;</span>;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> two = <span class="string">&#x27;https://github.githubassets.com/assets/frameworks-5c304257.js&#x27;</span>;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">Promise</span>.all([loadJs(one, <span class="string">&#x27;jq&#x27;</span>), loadJs(two)]).then(<span class="function"><span class="params">results</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(results);</span></span><br><span class="line"><span class="javascript">        &#125;)</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/fe-load-js-css/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-hanoi" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -1000,90 +1068,6 @@
       
         <p class="article-more-link">
           <a  href="/fe-vue-tinymce/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-fe-vue-echarts" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/fe-vue-echarts/" class="article-date">
-  	<!-- <time datetime="2019-01-09T13:19:10.000Z" itemprop="datePublished">2019-01-09</time> -->
-    2019-01-09
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/fe-vue-echarts/">Vue 中使用 Echarts</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p><a target="_blank" rel="noopener" href="https://echarts.baidu.com/tutorial.html">Echarts</a>, 一个使用 JavaScript 实现的开源可视化库，可以流畅的运行在 PC 和移动设备上，兼容当前绝大部分浏览器（IE8/9/10/11，Chrome，Firefox，Safari等），底层依赖轻量级的矢量图形库 <a target="_blank" rel="noopener" href="https://github.com/ecomfe/zrender">ZRender</a>，提供直观，交互丰富，可高度个性化定制的数据可视化图表。</p>
-<p>Vue 项目中使用 yarn 安装 Echarts:  <code>yarn add echarts</code>, 然后在页面中使用 Echarts 步骤如下:</p>
-<ol>
-<li><p>为 ECharts 准备一个具备大小 (宽高) 的 DOM</p>
-</li>
-<li><p>引入 echarts:</p>
-<ul>
-<li>全部引入:<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> echarts <span class="keyword">from</span> <span class="string">&#x27;echarts&#x27;</span>; <span class="comment">// 方便, 但是也同时引入了很多不需要的组件</span></span><br></pre></td></tr></table></figure></li>
-<li>按需引入:<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> echarts <span class="keyword">from</span> <span class="string">&#x27;echarts/lib/echarts&#x27;</span>; <span class="comment">// 引入基本模板</span></span><br><span class="line"><span class="keyword">import</span> bar <span class="keyword">from</span> <span class="string">&#x27;echarts/lib/chart/bar&#x27;</span>;   <span class="comment">// 引入柱状图组件</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>基于准备好的 DOM，初始化 Echarts 实例</p>
-</li>
-<li><p>设置 Echarts 图表数据</p>
-</li>
-</ol>
-<h2 id="入门示例"><a href="#入门示例" class="headerlink" title="入门示例"></a>入门示例</h2><p>使用 Echarts 实现的柱状图:</p>
-<center><img src="../img/fe/echarts-bar.png" width="300">
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/fe-vue-echarts/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

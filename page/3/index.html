@@ -244,6 +244,82 @@
     <!-- 生成目录 -->
 
 
+<article id="post-topology" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/topology/" class="article-date">
+  	<!-- <time datetime="2020-08-29T09:15:44.000Z" itemprop="datePublished">2020-08-29</time> -->
+    2020-08-29
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/topology/">拓扑排序在并行任务调度中的运用</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>如下图所示的一个任务设计:</p>
+<ul>
+<li>任务 1 和任务 2 可以同时执行，等他们都结束后才能执行任务 3</li>
+<li>任务 4 执行结束后可以同时执行任务 5 和任务 6</li>
+<li>任务 8 执行结束后则任务执行完成</li>
+</ul>
+<img src="../img/misc/topology.png" width="700">
+
+<p>如果用程序来实现这个任务的调度，触发任务的执行，应该怎么做呢？</p>
+<p>通过观察，这是一个有向无环图，要访问某个节点 (执行任务)，需要先访问它的所有前驱节点，而且每个节点只能访问一次，这是一个典型的可以使用图的拓扑排序解决的问题。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/" rel="tag">Misc</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/topology/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-stream" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -895,82 +971,6 @@
       
         <p class="article-more-link">
           <a  href="/graph-dijkstra/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-graph-kruskal" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/graph-kruskal/" class="article-date">
-  	<!-- <time datetime="2020-02-23T03:49:35.000Z" itemprop="datePublished">2020-02-23</time> -->
-    2020-02-23
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/graph-kruskal/">图-最小生成树-Kruskal</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av54029771?p=168">最小生成树</a> (Minumum Cost Spanning Tree，简称 MST) 的 2 个经典算法: </p>
-<ul>
-<li>Prim (普里姆算法): 从顶点出发</li>
-<li>Kruskal (克鲁斯卡尔算法): 从边出发</li>
-</ul>
-<blockquote>
-<p>网: 带权无向图<br>最小生成树: 在包含 n 个顶点的连通图中，找出只有 (n-1) 条边，包含所有 n 个顶点的连通子图，也就是所谓的极小连通子图</p>
-</blockquote>
-<p>下面图解 Prim 算法生成最小生成树的过程:</p>
-<img src="../img/java/graph-kruskal.png" style="zoom:50%">
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/graph-kruskal/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

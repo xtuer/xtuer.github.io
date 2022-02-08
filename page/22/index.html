@@ -244,6 +244,74 @@
     <!-- 生成目录 -->
 
 
+<article id="post-fe-requirejs" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/fe-requirejs/" class="article-date">
+  	<!-- <time datetime="2017-04-06T09:52:23.000Z" itemprop="datePublished">2017-04-06</time> -->
+    2017-04-06
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/fe-requirejs/">用 RequireJS 统一管理 JS 和 CSS</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>如果页面很多，每个页面里都使用 <code>&lt;script&gt; &lt;link&gt;</code> 来加载 JS, CSS，就会显得很分散，开发环境和生产环境中想要修改多处 JS, CSS 的路径时不够方便，例如生产环境使用七牛等 CDN 加载 jQuery，而测试环境不能访问外网，这时 CDN 就玩了（不要问我为什么，就是有人这么干，我被坑的不要不要的），只能把 jQuery 放到本地了，为此需要到所有页面里修改代码然后测试，很不方便。使用 RequireJS 后就可以集中的管理 JS, CSS，修改起来比较方便，也可以使用 Build 工具根据不同的环境进行修改。</p>
+<p>下面介绍使用 RequireJS 加载 jQuery, Layer, Vue, SemanticUi。</p>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/fe-requirejs/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-php-introduction" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -873,83 +941,6 @@
       
         <p class="article-more-link">
           <a  href="/spring-core-multi-config/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-spring-core-property-editor" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/spring-core-property-editor/" class="article-date">
-  	<!-- <time datetime="2017-04-02T03:13:52.000Z" itemprop="datePublished">2017-04-02</time> -->
-    2017-04-02
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/spring-core-property-editor/">Property Editor</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p><strong>在设置一个对象类型的属性时：</strong></p>
-<ol>
-<li>使用 <code>ref</code> 引用已经存在的对象</li>
-<li>使用 <code>bean</code> 标签创建一个匿名对象</li>
-<li>还有一种方式是给 <code>value</code> 赋值一个字符串，Spring 自动的把这个字符串转换为对象</li>
-</ol>
-<p><strong>第三种方式的实现需要以下几步：</strong></p>
-<ol>
-<li>需要提供一个把 String 转换为对象的类，称之为自定义编辑器（CustomEditor）</li>
-<li>然后把这个自定义编辑器注册到 Spring Container</li>
-<li>使用字符串配置对象属性
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringCore/" rel="tag">SpringCore</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/spring-core-property-editor/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

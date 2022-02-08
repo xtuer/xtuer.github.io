@@ -244,6 +244,79 @@
     <!-- 生成目录 -->
 
 
+<article id="post-java-yaml-properties" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/java-yaml-properties/" class="article-date">
+  	<!-- <time datetime="2016-07-03T12:04:12.000Z" itemprop="datePublished">2016-07-03</time> -->
+    2016-07-03
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java-yaml-properties/">Java 读取 Properties 和 Yaml Properties</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Java 可以使用 <code>PropertiesConfiguration</code> 来读取 properties 属性文件，Spring 4.3 后还支持了 <code>Yaml 格式的属性文件</code></p>
+<ul>
+<li><p>PropertiesConfiguration: 读取时可以自动进行类型转换，可以给定默认值</p>
+</li>
+<li><p>Yaml 格式的属性文件: 可以使用树形结构，方便分组，支持中文，比 <code>.properties</code> 属性文件更灵活，但是以普通的 <code>java.util.Properties</code> 来读取:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 1. 配置分组</span><br><span class="line">jdbc:</span><br><span class="line">    driverClassName:        com.mysql.jdbc.Driver    a     # 2. 前后空格会被自动去掉，注释不会被读取</span><br><span class="line">    url: jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=UTF-8</span><br><span class="line">    username: root</span><br><span class="line">    password: 密码 # 3. 支持中文</span><br><span class="line">urls:</span><br><span class="line">    - http://127.0.0.1 # 4. 定义数组</span><br><span class="line">    - http://localhost</span><br></pre></td></tr></table></figure></li>
+</ul>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Util/" rel="tag">Util</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/java-yaml-properties/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-fe-custom-html5-player" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -846,79 +919,6 @@
       
         <p class="article-more-link">
           <a  href="/misc-gradle-idea/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-misc-index" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/misc-index/" class="article-date">
-  	<!-- <time datetime="2016-06-29T02:06:53.000Z" itemprop="datePublished">2016-06-29</time> -->
-    2016-06-29
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/misc-index/">Miscellaneous</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><ul>
-<li><a href="/misc-gradle-idea">IDEA 中创建 Gradle Module</a></li>
-<li><a href="/misc-gradle-build">Gradle build 脚本</a></li>
-<li><a href="/misc-gradle-web">Gradle 创建 Web Module</a></li>
-<li><a href="/misc-gradle-app">Gradle 创建 App Module</a></li>
-<li><a href="/misc-gradle-resource">Gradle 文件动态内容替换</a></li>
-</ul>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Index/" rel="tag">Index</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/" rel="tag">Misc</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/misc-index/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>
