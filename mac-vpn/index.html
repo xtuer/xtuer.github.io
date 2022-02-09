@@ -15,7 +15,7 @@
 <meta property="og:locale">
 <meta property="og:image" content="http://xtuer.github.io/img/mac/mac-vpn-1.png">
 <meta property="article:published_time" content="2022-02-08T12:44:03.000Z">
-<meta property="article:modified_time" content="2022-02-09T09:11:12.063Z">
+<meta property="article:modified_time" content="2022-02-09T12:50:08.291Z">
 <meta property="article:author" content="公孙二狗">
 <meta property="article:tag" content="Mac">
 <meta name="twitter:card" content="summary">
@@ -249,7 +249,7 @@
     <div id="toc-mask" style="display: none;">
         <div class="toc-container">
             <div class="article-toc">
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5-VPN"><span class="toc-text">连接 VPN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5-VPN-%E7%9A%84%E6%97%B6%E5%80%99%E6%8A%A5%E9%94%99%EF%BC%8C%E9%9C%80%E8%A6%81%E8%B0%83%E6%95%B4%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%B3%A8%E5%86%8C%E8%A1%A8"><span class="toc-text">连接 VPN 的时候报错，需要调整客户端注册表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VPN-%E8%BF%9E%E4%B8%8A%E4%BA%86%EF%BC%8C%E4%BD%86%E6%98%AF%E4%B8%8A%E4%B8%8D%E4%BA%86%E5%A4%96%E7%BD%91%E4%BA%86"><span class="toc-text">VPN 连上了，但是上不了外网了</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VPN-%E8%BF%9E%E4%B8%8A%E4%BA%86%EF%BC%8C%E4%BD%86-VPN-%E7%BD%91%E6%AE%B5%E4%B8%8D%E8%83%BD%E8%AE%BF%E9%97%AE"><span class="toc-text">VPN 连上了，但 VPN 网段不能访问</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5-VPN"><span class="toc-text">连接 VPN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5-VPN-%E7%9A%84%E6%97%B6%E5%80%99%E6%8A%A5%E9%94%99%EF%BC%8C%E9%9C%80%E8%A6%81%E8%B0%83%E6%95%B4%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%B3%A8%E5%86%8C%E8%A1%A8"><span class="toc-text">连接 VPN 的时候报错，需要调整客户端注册表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VPN-%E8%BF%9E%E4%B8%8A%E4%BA%86%EF%BC%8C%E4%BD%86%E6%98%AF%E4%B8%8A%E4%B8%8D%E4%BA%86%E5%A4%96%E7%BD%91%E4%BA%86"><span class="toc-text">VPN 连上了，但是上不了外网了</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VPN-%E8%BF%9E%E4%B8%8A%E4%BA%86%EF%BC%8C%E4%BD%86-VPN-%E7%BD%91%E6%AE%B5%E4%B8%8D%E8%83%BD%E8%AE%BF%E9%97%AE"><span class="toc-text">VPN 连上了，但 VPN 网段不能访问</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-ssh-%E9%80%9A%E8%BF%87-VPN-%E8%AE%BF%E9%97%AE%E5%85%AC%E5%8F%B8%E5%86%85%E7%BD%91"><span class="toc-text">使用 ssh 通过 VPN 访问公司内网</span></a></li></ol>
             </div>
         </div>
     </div>
@@ -350,6 +350,17 @@
 <li>参考 <a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1893670">腾讯云上 VPN 客户端注意事项</a> 的<strong>【问题三】VPN 连上了、虚拟段设备也能访问了，但是上不了外网了，可参考下面文档解决</strong></li>
 <li>参考 <a target="_blank" rel="noopener" href="https://blog.51cto.com/13001500368/1836753">route add 命令的主要作用是添加静态路由</a></li>
 </ul>
+<h2 id="使用-ssh-通过-VPN-访问公司内网"><a href="#使用-ssh-通过-VPN-访问公司内网" class="headerlink" title="使用 ssh 通过 VPN 访问公司内网"></a>使用 ssh 通过 VPN 访问公司内网</h2><p>通过上面的步骤，VPN 生效后，Mac 可以使用 RDP (Microsoft Remote Desktop) 远程登录 Windows，然后再 Windows 的命令行使用 ssh 访问公司内网。</p>
+<p>如果在 Windows 上运行 ssh 服务器，Mac 本地 ssh 连上 Windows 的 ssh 服务器，然后再继续 ssh 连到公司内网 (此时会使用 VPN 进行连接)，就能够在 Mac 终端里访问公司内网了，这种方式操作会更方便且更快速 (减少了图形界面的网络开销):</p>
+<ol>
+<li>RDP 登录 Windows</li>
+<li>安装 git，为了使用其 ssh 和 sshd，并且把 git 下的 usr/bin 目录配置到系统的环境变量 PATH 里</li>
+<li>管理员身份运行 Powershell</li>
+<li>生成秘钥: <code>ssh-keygen -A</code>，否则 sshd 启动时会报 <strong>no hostkeys available</strong></li>
+<li>启动 ssh 服务器: <code>sshd</code></li>
+<li>执行 <code>tasklist | find &quot;sshd&quot;</code> 查看 sshd.exe 是否存在，存在则表明 sshd 启动成功</li>
+<li>在 Mac 的终端执行 <code>ssh Administrator@&lt;Win_IP&gt;</code>，输入管理员的密码进行登录 (每一个 ssh 连接都会启动一个 sshd 进程)</li>
+</ol>
 
         
     </div>
