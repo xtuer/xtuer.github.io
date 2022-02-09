@@ -15,7 +15,7 @@
 <meta property="og:locale">
 <meta property="og:image" content="http://xtuer.github.io/img/mac/mac-vpn-1.png">
 <meta property="article:published_time" content="2022-02-08T12:44:03.000Z">
-<meta property="article:modified_time" content="2022-02-09T12:50:08.291Z">
+<meta property="article:modified_time" content="2022-02-09T22:14:59.953Z">
 <meta property="article:author" content="公孙二狗">
 <meta property="article:tag" content="Mac">
 <meta name="twitter:card" content="summary">
@@ -333,7 +333,7 @@
 <h2 id="连接-VPN-的时候报错，需要调整客户端注册表"><a href="#连接-VPN-的时候报错，需要调整客户端注册表" class="headerlink" title="连接 VPN 的时候报错，需要调整客户端注册表"></a>连接 VPN 的时候报错，需要调整客户端注册表</h2><p>错误如图:</p>
 <p><img src="../img/mac/mac-vpn-1.png"></p>
 <p>需要调整客户端注册表:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">REG ADD HKLM\SYSTEM\CurrentControlSet\Services\RasMan\Parameters /v ProhibitIpSec /t REG_DWORD /d 0x1 /f</span><br><span class="line"></span><br><span class="line">REG ADD HKLM\SYSTEM\CurrentControlSet\Services\Rasman\Parameters /v AllowL2TPWeakCrypto /t REG_DWORD /d 0x1 /f</span><br><span class="line"></span><br><span class="line">REG ADD HKLM\SYSTEM\CurrentControlSet\Services\PolicyAgent /v AssumeUDPEncapsulationContextOnSendRule /t REG_DWORD /d 0x2 /f</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">REG ADD HKLM\SYSTEM\CurrentControlSet\Services\RasMan\Parameters /v ProhibitIpSec /t REG_DWORD /d 0x1 /f</span><br><span class="line">REG ADD HKLM\SYSTEM\CurrentControlSet\Services\Rasman\Parameters /v AllowL2TPWeakCrypto /t REG_DWORD /d 0x1 /f</span><br></pre></td></tr></table></figure>
 
 <p>参考 <a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1893670">腾讯云上 VPN 客户端注意事项</a> 的<strong>【问题二】连 VPN 的时候报错，需要调整客户端注册表</strong>。</p>
 <h2 id="VPN-连上了，但是上不了外网了"><a href="#VPN-连上了，但是上不了外网了" class="headerlink" title="VPN 连上了，但是上不了外网了"></a>VPN 连上了，但是上不了外网了</h2><p>参考 <a target="_blank" rel="noopener" href="https://www.muzijie.com/a2/43wnzwd32.html">挂了 VPN 软件后本地网络变成受限</a>，把 VPN 连接属性中的<strong>在远程网络上使用默认网关</strong>前面的勾取消。</p>
