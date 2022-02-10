@@ -6,16 +6,16 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>OSX Monterey 使用 VPN | 公孙二狗</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在 Monterey 系统中，L2TP&#x2F;IPSec 的 VPN 能够连接上 VPN 服务器，但连接上后却不能访问网络，据说是苹果修改了 VPN 的加密方式导致的，可参考 VPN (L2TP over IPSec) stopped working after updating to Mac OS BigSur, does anyone have the same problem? 的讨论，在 Con">
+  <meta name="description" content="在 Monterey 系统中，L2TP&#x2F;IPSec 的 VPN 能够连接上 VPN 服务器，也能 ping 通内网 IP，但却不能访问网络，据说是苹果修改了 VPN 的加密方式导致的，可参考 VPN (L2TP over IPSec) stopped working after updating to Mac OS BigSur, does anyone have the same problem">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OSX Monterey 使用 VPN">
 <meta property="og:url" content="http://xtuer.github.io/mac-vpn/index.html">
 <meta property="og:site_name" content="公孙二狗">
-<meta property="og:description" content="在 Monterey 系统中，L2TP&#x2F;IPSec 的 VPN 能够连接上 VPN 服务器，但连接上后却不能访问网络，据说是苹果修改了 VPN 的加密方式导致的，可参考 VPN (L2TP over IPSec) stopped working after updating to Mac OS BigSur, does anyone have the same problem? 的讨论，在 Con">
+<meta property="og:description" content="在 Monterey 系统中，L2TP&#x2F;IPSec 的 VPN 能够连接上 VPN 服务器，也能 ping 通内网 IP，但却不能访问网络，据说是苹果修改了 VPN 的加密方式导致的，可参考 VPN (L2TP over IPSec) stopped working after updating to Mac OS BigSur, does anyone have the same problem">
 <meta property="og:locale">
 <meta property="og:image" content="http://xtuer.github.io/img/mac/mac-vpn-1.png">
 <meta property="article:published_time" content="2022-02-08T12:44:03.000Z">
-<meta property="article:modified_time" content="2022-02-09T22:14:59.953Z">
+<meta property="article:modified_time" content="2022-02-10T10:28:32.064Z">
 <meta property="article:author" content="公孙二狗">
 <meta property="article:tag" content="Mac">
 <meta name="twitter:card" content="summary">
@@ -300,20 +300,20 @@
     
     <div class="article-entry" itemprop="articleBody">
         
-            <p>在 Monterey 系统中，<strong>L2TP/IPSec 的 VPN 能够连接上 VPN 服务器，但连接上后却不能访问网络</strong>，据说是苹果修改了 VPN 的加密方式导致的，可参考 <a target="_blank" rel="noopener" href="https://www.reddit.com/r/MacOSBeta/comments/ih22h9/vpn_l2tp_over_ipsec_stopped_working_after/">VPN (L2TP over IPSec) stopped working after updating to Mac OS BigSur, does anyone have the same problem?</a> 的讨论，在 <a target="_blank" rel="noopener" href="https://serverfault.com/questions/1045012/configuring-l2tp-vpn-to-use-with-ios-14-and-macos-big-sur">Configuring L2TP VPN to use with iOS 14 and macOS Big Sur</a> 中似乎给出了解决办法，但是需要修改 VPN 服务器端的配置，具体没有测试过，不知道行不行。</p>
+            <p>在 Monterey 系统中，<strong>L2TP/IPSec 的 VPN 能够连接上 VPN 服务器，也能 ping 通内网 IP，但却不能访问网络</strong>，据说是苹果修改了 VPN 的加密方式导致的，可参考 <a target="_blank" rel="noopener" href="https://www.reddit.com/r/MacOSBeta/comments/ih22h9/vpn_l2tp_over_ipsec_stopped_working_after/">VPN (L2TP over IPSec) stopped working after updating to Mac OS BigSur, does anyone have the same problem?</a> 的讨论，在 <a target="_blank" rel="noopener" href="https://serverfault.com/questions/1045012/configuring-l2tp-vpn-to-use-with-ios-14-and-macos-big-sur">Configuring L2TP VPN to use with iOS 14 and macOS Big Sur</a> 中似乎给出了解决办法，但是需要修改 VPN 服务器端的配置，具体没有测试过，不知道行不行。</p>
 <p>在 Monterey 中使用 L2TP/IPSec 的 VPN 的办法可以使用下面的这些方式:</p>
 <ul>
 <li>尝试使用上面的解决办法:<ul>
-<li>需要修改 VPN 服务器 (得求人)</li>
+<li>需要修改 VPN 服务器 (人家未必会同意)</li>
 <li>没测试过，不一定能行</li>
 </ul>
 </li>
 <li>服务器端开通 OpenVPN，Monterey 中使用 OpenVPN 进行连接<ul>
-<li>需要修改 VPN 服务器 (得求人)</li>
+<li>需要修改 VPN 服务器 (人家未必会同意)</li>
 </ul>
 </li>
 <li>安装虚拟机 + Windows，在其中使用 VPN<ul>
-<li>费钱</li>
+<li>费钱 (虚拟机要钱，Windows 系统要钱)</li>
 <li>消耗系统资源</li>
 </ul>
 </li>
@@ -322,11 +322,11 @@
 </ul>
 </li>
 </ul>
-<p>由于现在不少云服务器商提供了很多便宜的云主机活动，例如某云的 <strong>2 核 4G 8M 网络</strong>的云主机 3 年才 222 块 (双 11 的时候更便宜)，于是买了一个安装了 Windows Server 2016，下面介绍在 Windows Server 里面使用 VPN 遇到的问题解决办法。<span id="more"></span></p>
+<p>现在不少云服务器商提供了很多便宜的云主机活动，例如良心云目前的 <strong>2 核 4G 8M 网络</strong>的云主机 3 年才 222 块，于是买了一个安装 Windows Server 2016，下面介绍在 Windows Server 里面使用 VPN 遇到的问题解决办法 (定位到路由问题花了好几天)。<span id="more"></span></p>
 <blockquote>
 <p>由于我的 Mac 是 ARM 的，有时候需要编译 X86 的程序，也正好用上。</p>
 </blockquote>
-<h2 id="连接-VPN"><a href="#连接-VPN" class="headerlink" title="连接 VPN"></a>连接 VPN</h2><p>使用系统提供的 VPN 客户端，填写相关信息即可，然后点击连接。</p>
+<h2 id="连接-VPN"><a href="#连接-VPN" class="headerlink" title="连接 VPN"></a>连接 VPN</h2><p>使用 Windows Server 2016 系统内置的 VPN 客户端，填写相关信息即可，然后点击连接。</p>
 <p>例如填写:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Server Address: 111.108.30.232</span><br><span class="line">Account Name: huangbiao</span><br><span class="line">Password: ****</span><br><span class="line">Shared Secret: ****</span><br><span class="line">DNS: 223.5.5.5, 223.6.6.6</span><br></pre></td></tr></table></figure>
 
@@ -336,12 +336,12 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">REG ADD HKLM\SYSTEM\CurrentControlSet\Services\RasMan\Parameters /v ProhibitIpSec /t REG_DWORD /d 0x1 /f</span><br><span class="line">REG ADD HKLM\SYSTEM\CurrentControlSet\Services\Rasman\Parameters /v AllowL2TPWeakCrypto /t REG_DWORD /d 0x1 /f</span><br></pre></td></tr></table></figure>
 
 <p>参考 <a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1893670">腾讯云上 VPN 客户端注意事项</a> 的<strong>【问题二】连 VPN 的时候报错，需要调整客户端注册表</strong>。</p>
-<h2 id="VPN-连上了，但是上不了外网了"><a href="#VPN-连上了，但是上不了外网了" class="headerlink" title="VPN 连上了，但是上不了外网了"></a>VPN 连上了，但是上不了外网了</h2><p>参考 <a target="_blank" rel="noopener" href="https://www.muzijie.com/a2/43wnzwd32.html">挂了 VPN 软件后本地网络变成受限</a>，把 VPN 连接属性中的<strong>在远程网络上使用默认网关</strong>前面的勾取消。</p>
-<h2 id="VPN-连上了，但-VPN-网段不能访问"><a href="#VPN-连上了，但-VPN-网段不能访问" class="headerlink" title="VPN 连上了，但 VPN 网段不能访问"></a>VPN 连上了，但 VPN 网段不能访问</h2><p>一般云主机的 Windows Server 中，不论你机器的 VPC 网段是啥，永久路由似乎是固定的，我们需要把 VPN 内网的 IP 添加到系统的路由中 (例如要使用 VPN 访问的内网 IP 有 192.168.1.73，一般其网段为 <strong>192.168.1.0</strong>):</p>
+<h2 id="VPN-连上了，但是上不了外网了"><a href="#VPN-连上了，但是上不了外网了" class="headerlink" title="VPN 连上了，但是上不了外网了"></a>VPN 连上了，但是上不了外网了</h2><p>参考 <a target="_blank" rel="noopener" href="https://www.muzijie.com/a2/43wnzwd32.html">挂了 VPN 软件后本地网络变成受限</a>，把 VPN 连接的 IPv4 属性中 &gt; 高级 &gt; <strong>在远程网络上使用默认网关</strong>前面的勾取消。</p>
+<h2 id="VPN-连上了，但-VPN-网段不能访问"><a href="#VPN-连上了，但-VPN-网段不能访问" class="headerlink" title="VPN 连上了，但 VPN 网段不能访问"></a>VPN 连上了，但 VPN 网段不能访问</h2><p>一般云主机的 Windows Server 中，不论你机器的 VPC 网段是啥，永久路由似乎是固定的，我们需要把 VPN 内网的 IP 添加到系统的路由中 (例如要使用 VPN 访问的内网 IP 192.168.1.73，其网段为 <strong>192.168.1.0</strong>):</p>
 <ol>
-<li>在 VPN 连接的属性里找到 <strong>VPN Server</strong> 的 IP 如 <strong>192.168.3.10</strong></li>
-<li>删除路由信息: <code>route delete 192.168.1.0/24</code> (如果有)</li>
-<li>添加路由信息: <code>route -p add 192.168.1.0 mask 255.255.255.0 192.168.3.10</code><br>所有发往 <strong>192.168.1.0/24</strong> 地址段的 IP 数据包，全部由 <strong>192.168.3.10</strong> 转发。</li>
+<li>在 VPN 连接的属性里找到 <strong>VPN Server</strong> 的 IP 如 <strong>192.168.3.10</strong> (网关)</li>
+<li>删除路由信息: <code>route delete 192.168.1.0</code> (如果有)</li>
+<li>添加路由信息: <code>route -p add 192.168.1.0 mask 255.255.255.0 192.168.3.10</code><br>所有发往 <strong>192.168.1.0/24</strong> 地址段的 IP 数据包，全部由网关 <strong>192.168.3.10</strong> 转发。</li>
 </ol>
 <p>提示:</p>
 <ul>
@@ -351,7 +351,7 @@
 <li>参考 <a target="_blank" rel="noopener" href="https://blog.51cto.com/13001500368/1836753">route add 命令的主要作用是添加静态路由</a></li>
 </ul>
 <h2 id="使用-ssh-通过-VPN-访问公司内网"><a href="#使用-ssh-通过-VPN-访问公司内网" class="headerlink" title="使用 ssh 通过 VPN 访问公司内网"></a>使用 ssh 通过 VPN 访问公司内网</h2><p>通过上面的步骤，VPN 生效后，Mac 可以使用 RDP (Microsoft Remote Desktop) 远程登录 Windows，然后再 Windows 的命令行使用 ssh 访问公司内网。</p>
-<p>如果在 Windows 上运行 ssh 服务器，Mac 本地 ssh 连上 Windows 的 ssh 服务器，然后再继续 ssh 连到公司内网 (此时会使用 VPN 进行连接)，就能够在 Mac 终端里访问公司内网了，这种方式操作会更方便且更快速 (减少了图形界面的网络开销):</p>
+<p>如果都是终端里的操作，可以在 Windows 上运行 ssh 服务器，Mac 本地 ssh 连上 Windows 的 ssh 服务器，然后再继续 ssh 连到公司内网 (此时会使用 VPN 网络进行连接)，就能够在 Mac 终端里访问公司内网了，这种方式操作会更方便且更快速 (减少了图形界面的网络传输开销):</p>
 <ol>
 <li>RDP 登录 Windows</li>
 <li>安装 git，为了使用其 ssh 和 sshd，并且把 git 下的 usr/bin 目录配置到系统的环境变量 PATH 里</li>
@@ -359,7 +359,7 @@
 <li>生成秘钥: <code>ssh-keygen -A</code>，否则 sshd 启动时会报 <strong>no hostkeys available</strong></li>
 <li>启动 ssh 服务器: <code>sshd</code></li>
 <li>执行 <code>tasklist | find &quot;sshd&quot;</code> 查看 sshd.exe 是否存在，存在则表明 sshd 启动成功</li>
-<li>在 Mac 的终端执行 <code>ssh Administrator@&lt;Win_IP&gt;</code>，输入管理员的密码进行登录 (每一个 ssh 连接都会启动一个 sshd 进程)</li>
+<li>在 Mac 的终端执行 <code>ssh Administrator@&lt;Win_IP&gt;</code>，输入管理员的密码进行连接 (每一个 ssh 连接都会启动一个 sshd 进程)</li>
 </ol>
 
         

@@ -356,20 +356,20 @@
     
     <div class="article-entry" itemprop="articleBody">
         
-            <p>在 Monterey 系统中，<strong>L2TP/IPSec 的 VPN 能够连接上 VPN 服务器，但连接上后却不能访问网络</strong>，据说是苹果修改了 VPN 的加密方式导致的，可参考 <a target="_blank" rel="noopener" href="https://www.reddit.com/r/MacOSBeta/comments/ih22h9/vpn_l2tp_over_ipsec_stopped_working_after/">VPN (L2TP over IPSec) stopped working after updating to Mac OS BigSur, does anyone have the same problem?</a> 的讨论，在 <a target="_blank" rel="noopener" href="https://serverfault.com/questions/1045012/configuring-l2tp-vpn-to-use-with-ios-14-and-macos-big-sur">Configuring L2TP VPN to use with iOS 14 and macOS Big Sur</a> 中似乎给出了解决办法，但是需要修改 VPN 服务器端的配置，具体没有测试过，不知道行不行。</p>
+            <p>在 Monterey 系统中，<strong>L2TP/IPSec 的 VPN 能够连接上 VPN 服务器，也能 ping 通内网 IP，但却不能访问网络</strong>，据说是苹果修改了 VPN 的加密方式导致的，可参考 <a target="_blank" rel="noopener" href="https://www.reddit.com/r/MacOSBeta/comments/ih22h9/vpn_l2tp_over_ipsec_stopped_working_after/">VPN (L2TP over IPSec) stopped working after updating to Mac OS BigSur, does anyone have the same problem?</a> 的讨论，在 <a target="_blank" rel="noopener" href="https://serverfault.com/questions/1045012/configuring-l2tp-vpn-to-use-with-ios-14-and-macos-big-sur">Configuring L2TP VPN to use with iOS 14 and macOS Big Sur</a> 中似乎给出了解决办法，但是需要修改 VPN 服务器端的配置，具体没有测试过，不知道行不行。</p>
 <p>在 Monterey 中使用 L2TP/IPSec 的 VPN 的办法可以使用下面的这些方式:</p>
 <ul>
 <li>尝试使用上面的解决办法:<ul>
-<li>需要修改 VPN 服务器 (得求人)</li>
+<li>需要修改 VPN 服务器 (人家未必会同意)</li>
 <li>没测试过，不一定能行</li>
 </ul>
 </li>
 <li>服务器端开通 OpenVPN，Monterey 中使用 OpenVPN 进行连接<ul>
-<li>需要修改 VPN 服务器 (得求人)</li>
+<li>需要修改 VPN 服务器 (人家未必会同意)</li>
 </ul>
 </li>
 <li>安装虚拟机 + Windows，在其中使用 VPN<ul>
-<li>费钱</li>
+<li>费钱 (虚拟机要钱，Windows 系统要钱)</li>
 <li>消耗系统资源</li>
 </ul>
 </li>
@@ -378,7 +378,7 @@
 </ul>
 </li>
 </ul>
-<p>由于现在不少云服务器商提供了很多便宜的云主机活动，例如某云的 <strong>2 核 4G 8M 网络</strong>的云主机 3 年才 222 块 (双 11 的时候更便宜)，于是买了一个安装了 Windows Server 2016，下面介绍在 Windows Server 里面使用 VPN 遇到的问题解决办法。
+<p>现在不少云服务器商提供了很多便宜的云主机活动，例如良心云目前的 <strong>2 核 4G 8M 网络</strong>的云主机 3 年才 222 块，于是买了一个安装 Windows Server 2016，下面介绍在 Windows Server 里面使用 VPN 遇到的问题解决办法 (定位到路由问题花了好几天)。
         
     </div>
     
