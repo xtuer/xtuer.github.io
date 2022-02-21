@@ -14,7 +14,7 @@
 <meta property="og:description" content="依赖的 Scope compile (使用 implementation 替代，提高编译速度) runtime compileOnly (新版才支持，就是 provided) testCompile (使用 testImplementation 替代) testRuntime">
 <meta property="og:locale">
 <meta property="article:published_time" content="2016-04-05T09:30:45.000Z">
-<meta property="article:modified_time" content="2021-12-02T22:29:07.154Z">
+<meta property="article:modified_time" content="2022-02-21T06:06:53.253Z">
 <meta property="article:author" content="公孙二狗">
 <meta property="article:tag" content="Gradle">
 <meta name="twitter:card" content="summary">
@@ -318,7 +318,11 @@
 </blockquote>
 <h2 id="依赖本地-jar-包"><a href="#依赖本地-jar-包" class="headerlink" title="依赖本地 jar 包"></a>依赖本地 jar 包</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">compile files(&#x27;spring-core.jar&#x27;, &#x27;spring-aop.jar&#x27;)</span><br><span class="line">compile fileTree(dir: &#x27;src/main/webapp/WEB-INF/lib&#x27;, include: &#x27;*.jar&#x27;)</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>dir 可以是绝对路径，也可以是相对于工程目录的项目路径</p>
+<p>提示:</p>
+<ul>
+<li>dir 可以是绝对路径，也可以是相对于工程目录的项目路径</li>
+<li>不能使用 <code>implementation files(&#39;src/main/lib/*.jar&#39;)</code></li>
+</ul>
 </blockquote>
 <h2 id="打包工程"><a href="#打包工程" class="headerlink" title="打包工程"></a>打包工程</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gradle assemble // 编译，打包</span><br><span class="line">gradle build    // 编译，执行测试，打包</span><br></pre></td></tr></table></figure>
 
