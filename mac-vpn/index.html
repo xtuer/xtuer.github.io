@@ -15,7 +15,7 @@
 <meta property="og:locale">
 <meta property="og:image" content="http://xtuer.github.io/img/mac/mac-vpn-1.png">
 <meta property="article:published_time" content="2022-02-08T12:44:03.000Z">
-<meta property="article:modified_time" content="2022-02-10T10:28:32.064Z">
+<meta property="article:modified_time" content="2022-02-25T06:39:37.294Z">
 <meta property="article:author" content="公孙二狗">
 <meta property="article:tag" content="Mac">
 <meta name="twitter:card" content="summary">
@@ -249,7 +249,7 @@
     <div id="toc-mask" style="display: none;">
         <div class="toc-container">
             <div class="article-toc">
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5-VPN"><span class="toc-text">连接 VPN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5-VPN-%E7%9A%84%E6%97%B6%E5%80%99%E6%8A%A5%E9%94%99%EF%BC%8C%E9%9C%80%E8%A6%81%E8%B0%83%E6%95%B4%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%B3%A8%E5%86%8C%E8%A1%A8"><span class="toc-text">连接 VPN 的时候报错，需要调整客户端注册表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VPN-%E8%BF%9E%E4%B8%8A%E4%BA%86%EF%BC%8C%E4%BD%86%E6%98%AF%E4%B8%8A%E4%B8%8D%E4%BA%86%E5%A4%96%E7%BD%91%E4%BA%86"><span class="toc-text">VPN 连上了，但是上不了外网了</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VPN-%E8%BF%9E%E4%B8%8A%E4%BA%86%EF%BC%8C%E4%BD%86-VPN-%E7%BD%91%E6%AE%B5%E4%B8%8D%E8%83%BD%E8%AE%BF%E9%97%AE"><span class="toc-text">VPN 连上了，但 VPN 网段不能访问</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-ssh-%E9%80%9A%E8%BF%87-VPN-%E8%AE%BF%E9%97%AE%E5%85%AC%E5%8F%B8%E5%86%85%E7%BD%91"><span class="toc-text">使用 ssh 通过 VPN 访问公司内网</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5-VPN"><span class="toc-text">连接 VPN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5-VPN-%E7%9A%84%E6%97%B6%E5%80%99%E6%8A%A5%E9%94%99%EF%BC%8C%E9%9C%80%E8%A6%81%E8%B0%83%E6%95%B4%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%B3%A8%E5%86%8C%E8%A1%A8"><span class="toc-text">连接 VPN 的时候报错，需要调整客户端注册表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VPN-%E8%BF%9E%E4%B8%8A%E4%BA%86%EF%BC%8C%E4%BD%86%E6%98%AF%E4%B8%8A%E4%B8%8D%E4%BA%86%E5%A4%96%E7%BD%91%E4%BA%86"><span class="toc-text">VPN 连上了，但是上不了外网了</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VPN-%E8%BF%9E%E4%B8%8A%E4%BA%86%EF%BC%8C%E4%BD%86-VPN-%E7%BD%91%E6%AE%B5%E4%B8%8D%E8%83%BD%E8%AE%BF%E9%97%AE"><span class="toc-text">VPN 连上了，但 VPN 网段不能访问</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-ssh-%E9%80%9A%E8%BF%87-VPN-%E8%AE%BF%E9%97%AE%E5%85%AC%E5%8F%B8%E5%86%85%E7%BD%91"><span class="toc-text">使用 ssh 通过 VPN 访问公司内网</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-ssh-%E9%9A%A7%E9%81%93%E8%AE%BF%E9%97%AE%E5%85%AC%E5%8F%B8%E5%86%85%E7%BD%91"><span class="toc-text">使用 ssh 隧道访问公司内网</span></a></li></ol>
             </div>
         </div>
     </div>
@@ -361,6 +361,21 @@
 <li>执行 <code>tasklist | find &quot;sshd&quot;</code> 查看 sshd.exe 是否存在，存在则表明 sshd 启动成功</li>
 <li>在 Mac 的终端执行 <code>ssh Administrator@&lt;Win_IP&gt;</code>，输入管理员的密码进行连接 (每一个 ssh 连接都会启动一个 sshd 进程)</li>
 </ol>
+<h2 id="使用-ssh-隧道访问公司内网"><a href="#使用-ssh-隧道访问公司内网" class="headerlink" title="使用 ssh 隧道访问公司内网"></a>使用 ssh 隧道访问公司内网</h2><p>使用 RDP 远程登录 Windows Server，在里面可以使用浏览器访问公司内网的网页，但是稍显麻烦。通过上面的步骤我们已经能够本地使用 ssh 访问公司内网，可以再进一步，使用 ssh 隧道的本地端口转发功能，<strong>在本地浏览器里就能访问公司内网的网页了</strong>（数据库等同理），就不必先用 RDP 远程登录 Windows Server 桌面了。</p>
+<p>本地端口转发的命令语法:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -L LOCAL_PORT:DESTINATION_IP:DESTINATION_PORT [USER@]SSH_SERVER</span><br></pre></td></tr></table></figure>
+
+<p>使用的选项如下:</p>
+<ul>
+<li><code>LOCAL_PORT</code>: 本地计算机的IP和端口号。如果监听的是<a target="_blank" rel="noopener" href="https://www.myfreax.com/what-is-localhost/">回环地址</a>127.0.01 LOCAL_IP可省略。</li>
+<li><code>DESTINATION_IP:DESTINATION_PORT</code>: 目标机器的IP或主机名和端口。</li>
+<li><code>[USER@]SERVER_IP</code>: 远程SSH用户和服务器IP地址。</li>
+</ul>
+<p>假设您有一个 Web 服务器在内部网络上的计算机 <code>web001.host</code> 上运行，并且可从计算机 <code>win_server.host</code> 访问的到 <code>web001.host</code> 计算机端口 8960 上，并且您想使用本地计算机浏览器访问 web001.host:8960 的网页，您可以使用以下命令转发连接:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -L 28960:web001.host:8960 Administrator@win_server.host</span><br></pre></td></tr></table></figure>
+
+<p>运行命令后，系统会提示您输入远程 ssh 用户密码。输入后，您将与远程服务器建立 ssh 隧道，然后浏览器里输入 <a target="_blank" rel="noopener" href="http://127.0.0.1:8960/">http://127.0.0.1:8960</a> 就能访问公司内网的 <a target="_blank" rel="noopener" href="http://web001.host:8960/">http://web001.host:8960</a> 网页了。</p>
+<p>想进一步了解 ssh 隧道的端口转发，详情请访问 <a target="_blank" rel="noopener" href="https://www.myfreax.com/how-to-setup-ssh-tunneling/">如何配置 ssh 隧道以及端口转发</a>。</p>
 
         
     </div>
