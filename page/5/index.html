@@ -114,7 +114,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10.59px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.35px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.29px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.12px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.35px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.94px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.06px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.65px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.18px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.18px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.12px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.76px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.53px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.88px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.71px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.29px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.65px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.65px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.47px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.76px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10.63px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.5px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.63px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.38px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="/tags/Index/" style="font-size: 13.13px;">Index</a> <a href="/tags/Java/" style="font-size: 19.38px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.5px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.5px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.25px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.13px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.75px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.25px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.38px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.88px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.75px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 16.25px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 15px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.63px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.5px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.5px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.88px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.88px;">zTree</a>
                     </div>
                     <script>
 
@@ -240,6 +240,83 @@
 </nav>
 
             <div class="body-wrap">
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-vue-iview-theme" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/vue-iview-theme/" class="article-date">
+  	<!-- <time datetime="2019-09-28T01:57:20.000Z" itemprop="datePublished">2019-09-28</time> -->
+    2019-09-28
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/vue-iview-theme/">iView 自定义主题</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>项目使用 Vue Cli 3 创建，SCSS 作为 Css Pre-processors，按照 iView 自定义主题文档 <a target="_blank" rel="noopener" href="https://www.iviewui.com/docs/guide/theme">https://www.iviewui.com/docs/guide/theme</a> 的步骤进行操作时报错了，下面是解决自定义主题的方法:</p>
+<ol>
+<li><p>安装 Less: <code>yarn add less less-loader --dev</code></p>
+</li>
+<li><p>在 vue.config.js 中配置 Less:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="attr">css</span>: &#123;</span><br><span class="line">        <span class="attr">loaderOptions</span>: &#123; <span class="comment">// 向 CSS 相关的 loader 传递选项</span></span><br><span class="line">            <span class="attr">less</span>: &#123;</span><br><span class="line">                <span class="attr">javascriptEnabled</span>: <span class="literal">true</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+<li><p>创建文件 public/static/iview-theme.less，在里面覆盖需要修改的 iView 主题的变量 (默认字体为 12px，有点小，修改为 14px):</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@import</span> <span class="string">&#x27;~iview/src/styles/index.less&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@font-size-small</span>: <span class="number">14px</span>;</span><br><span class="line"><span class="keyword">@btn-font-size</span>  : <span class="number">14px</span>;</span><br></pre></td></tr></table></figure></li>
+<li><p>在入口文件 <code>main.js</code> 内导入这个 less 文件:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;iview/dist/styles/iview.css&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> iView <span class="keyword">from</span> <span class="string">&#x27;iview&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;@/../public/static/css/iview-theme.less&#x27;</span>;</span><br><span class="line"></span><br><span class="line">Vue.use(iView);</span><br></pre></td></tr></table></figure></li>
+<li><p>启动项目，主题修改成功，但发现 Modal 中的字体还是 12px (modal.less 中写死了)，Switch 的字体为 14px 有点大，使用下面的样式强制修改它们的字体大小:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.ivu-modal-body</span> &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">14px</span> <span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.ivu-switch-inner</span> &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">12px</span> <span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>完整的变量列表可以查看 <a target="_blank" rel="noopener" href="https://github.com/iview/iview/blob/2.0/src/styles/custom.less">默认样式变量</a>，覆盖需要修改的变量即可 (提示: 删除 <code>@import &quot;color/colors&quot;</code> 这一行)。</p>
+
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li></ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
   
     <!-- 生成目录 -->
 
@@ -927,87 +1004,6 @@
       
         <p class="article-more-link">
           <a  href="/spring-jetcache/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-qtbook-animated-checkbox" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/qtbook-animated-checkbox/" class="article-date">
-  	<!-- <time datetime="2019-06-29T11:42:41.000Z" itemprop="datePublished">2019-06-29</time> -->
-    2019-06-29
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/qtbook-animated-checkbox/">有动画效果的 CheckBox</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>在 Android 或者 iOS 的界面中经常看到下图这样的 check box，并且选中状态 checked 变化时还有动画效果把白色的小圆球 indicator 从一边移动到另一边。Qt 提供了 QCheckBox，不过不能直接修改 QSS 实现这样的样式，而且也没有 indicator 移动的动画效果。</p>
-<div class="cimg"><img src="../img/qtbook/custom-widget/checkbox-1.png" width="280"></div>
-在这一篇文章中将介绍自定义一个 check box 的类 AnimatedCheckBox，实现上面样式的 check box，并且使用动画移动 indicator，实现时需要注意一下几点:
-
-<ul>
-<li>AnimatedCheckBox 继承了 QCheckBox，这样在使用 QCheckBox 的地方就能直接替换为 AnimatedCheckBox 了，并且不需要我们自己维护 check box 的各种状态，相关的信号槽直接使用 QCheckBox 的就可以了</li>
-<li>使用 QPropertyAnimation 实现动画效果</li>
-<li>虽然 QCheckBox 有一个 indicator 的 subcontrol，但是满足不了需求，所以我们使用了一个 QLabel 来代替默认的 indicator</li>
-<li>为了使用动画移动 indicator，不能使用布局管理器来布局 indicator，而是使用绝对坐标定位的方式来控制 indicator 的位置</li>
-<li>默认点击 QCheckBox 的 indicator 或者文字时才能切换选中状态，点击 QCheckBox 上其他空白的地方没有反应，我们希望点击 AnimatedCheckBox 上的任何地方都能够切换选中状态，需要重写 mousePressEvent</li>
-<li>为了不使用 QCheckBox 的默认样式，实现一个空的 paintEvent</li>
-<li>由于 AnimatedCheckBox 的大小是不固定的，所以 indicator 的大小和位置应该在 resizeEvent 中根据 AnimatedCheckBox 的大小和 checked 的值进行计算</li>
-<li>使用 QPainter 绘制的方式也能够实现这样的效果 (实现阴影就不那么容易了)，这里我们使用 QSS 的方式调整显示的效果，还可以把样式保存到文件中，修改样式不需要重新编译程序</li>
-</ul>
-<p>有了这些基础知识后， 逐步的来实现这样的 check box 就容易多了。
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/qtbook-animated-checkbox/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

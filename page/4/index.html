@@ -114,7 +114,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10.59px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.35px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.29px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.12px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.35px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.94px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.06px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.65px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.18px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.18px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.12px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.76px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.53px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.88px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.71px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.29px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.65px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.65px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.47px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.76px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10.63px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.5px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.63px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.38px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="/tags/Index/" style="font-size: 13.13px;">Index</a> <a href="/tags/Java/" style="font-size: 19.38px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.5px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.5px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.25px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.13px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.75px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.25px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.38px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.88px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.75px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 16.25px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 15px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.63px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.5px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.5px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.88px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.88px;">zTree</a>
                     </div>
                     <script>
 
@@ -240,6 +240,88 @@
 </nav>
 
             <div class="body-wrap">
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-graph-floyd" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/graph-floyd/" class="article-date">
+  	<!-- <time datetime="2020-02-25T00:32:03.000Z" itemprop="datePublished">2020-02-25</time> -->
+    2020-02-25
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/graph-floyd/">图-最短路径-Floyd</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>使用 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av54029771?p=186">Floyd 算法</a>求任一点到其他所有点 (任意两点) 之间的最短距离: <strong>对于每个顶点 v，和任一顶点对 (i, j), i!=j, v!=i, v!=j，如果 A[i][j] &gt; A[i][v]+A[v][j]，则将 A[i][j] 更新为 A[i][v]+A[v][j] 的值，并且将 Prev[i][j] 改为 Prev[v][j]</strong>:</p>
+<ul>
+<li>距离表 (初始化为图的邻接矩阵)</li>
+<li>前驱表 (初始化为每点到其他任一点的前驱为自己)</li>
+<li>三层循环: <ul>
+<li>第一层: 中间点 [A, B, C, D, E, F, G]</li>
+<li>第二层: 出发点 [A, B, C, D, E, F, G]</li>
+<li>第三层: 终结点 [A, B, C, D, E, F, G]</li>
+<li>出发点通过中间点到终结点的距离、出发点直连终结点的距离选最小值更新距离表: <code>min(Lik+Lkj, Lij)</code>，同时更新前驱表</li>
+</ul>
+</li>
+</ul>
+<p>第一轮: 以 A 为中间节点，点 X 通过 A 到点 Y 的距离为 min(XA+AY, XY): BAA, BAB, BAC, BAD, BAE, BAF, BAG, CAA, CAB, …<br>第二轮: 以 B 为中间节点，…</p>
+<p>…</p>
+<p>第七轮: 以 G 为中间节点，…</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 核心: Floyd 算法计算任意 2 点之间的最短距离</span></span><br><span class="line"><span class="keyword">final</span> <span class="keyword">int</span> len = distance.length;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; len; v++) &#123;         <span class="comment">// 第一层: 中间点</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;     <span class="comment">// 第二层: 出发点</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; len; j++) &#123; <span class="comment">// 第三层: 终结点</span></span><br><span class="line">            <span class="keyword">if</span> (distance[i][v] + distance[v][j] &lt; distance[i][j]) &#123;</span><br><span class="line">                distance[i][j] = distance[i][v] + distance[v][j];</span><br><span class="line">                path[i][j] = path[v][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/graph-floyd/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
   
     <!-- 生成目录 -->
 
@@ -927,83 +1009,6 @@
         <p class="article-more-link">
           <a  href="/vue-array/#more">阅读全文</a>
         </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-vue-iview-theme" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/vue-iview-theme/" class="article-date">
-  	<!-- <time datetime="2019-09-28T01:57:20.000Z" itemprop="datePublished">2019-09-28</time> -->
-    2019-09-28
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/vue-iview-theme/">iView 自定义主题</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>项目使用 Vue Cli 3 创建，SCSS 作为 Css Pre-processors，按照 iView 自定义主题文档 <a target="_blank" rel="noopener" href="https://www.iviewui.com/docs/guide/theme">https://www.iviewui.com/docs/guide/theme</a> 的步骤进行操作时报错了，下面是解决自定义主题的方法:</p>
-<ol>
-<li><p>安装 Less: <code>yarn add less less-loader --dev</code></p>
-</li>
-<li><p>在 vue.config.js 中配置 Less:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="attr">css</span>: &#123;</span><br><span class="line">        <span class="attr">loaderOptions</span>: &#123; <span class="comment">// 向 CSS 相关的 loader 传递选项</span></span><br><span class="line">            <span class="attr">less</span>: &#123;</span><br><span class="line">                <span class="attr">javascriptEnabled</span>: <span class="literal">true</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
-<li><p>创建文件 public/static/iview-theme.less，在里面覆盖需要修改的 iView 主题的变量 (默认字体为 12px，有点小，修改为 14px):</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@import</span> <span class="string">&#x27;~iview/src/styles/index.less&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@font-size-small</span>: <span class="number">14px</span>;</span><br><span class="line"><span class="keyword">@btn-font-size</span>  : <span class="number">14px</span>;</span><br></pre></td></tr></table></figure></li>
-<li><p>在入口文件 <code>main.js</code> 内导入这个 less 文件:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;iview/dist/styles/iview.css&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> iView <span class="keyword">from</span> <span class="string">&#x27;iview&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;@/../public/static/css/iview-theme.less&#x27;</span>;</span><br><span class="line"></span><br><span class="line">Vue.use(iView);</span><br></pre></td></tr></table></figure></li>
-<li><p>启动项目，主题修改成功，但发现 Modal 中的字体还是 12px (modal.less 中写死了)，Switch 的字体为 14px 有点大，使用下面的样式强制修改它们的字体大小:</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.ivu-modal-body</span> &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">14px</span> <span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.ivu-switch-inner</span> &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">12px</span> <span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<p>完整的变量列表可以查看 <a target="_blank" rel="noopener" href="https://github.com/iview/iview/blob/2.0/src/styles/custom.less">默认样式变量</a>，覆盖需要修改的变量即可 (提示: 删除 <code>@import &quot;color/colors&quot;</code> 这一行)。</p>
-
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li></ul>
-	</div>
-
-
-      
-
       
       <div class="clearfix"></div>
     </div>

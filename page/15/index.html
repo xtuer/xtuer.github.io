@@ -114,7 +114,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10.59px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.35px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.29px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.12px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.35px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.94px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.06px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.65px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.18px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.18px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.12px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.76px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.53px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.88px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.71px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.29px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.65px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.65px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.47px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.76px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10.63px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.5px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.63px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.38px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="/tags/Index/" style="font-size: 13.13px;">Index</a> <a href="/tags/Java/" style="font-size: 19.38px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.5px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.5px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.25px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.13px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.75px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.25px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.38px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.88px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.75px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 16.25px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 15px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.63px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.5px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.5px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.88px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.88px;">zTree</a>
                     </div>
                     <script>
 
@@ -240,6 +240,79 @@
 </nav>
 
             <div class="body-wrap">
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-qtbook-paint-nine-patch-painter" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-paint-nine-patch-painter/" class="article-date">
+  	<!-- <time datetime="2017-09-06T07:36:38.000Z" itemprop="datePublished">2017-09-06</time> -->
+    2017-09-06
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qtbook-paint-nine-patch-painter/">九宫格绘图</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>很多时候都会使用图片作为 widget 的背景，如果图片和 widget 一样大的话那就没什么好说的，背景效果和图片的效果看上去一样，可更多的时候我们会面临图片和 widget 不一样大，如果把图片简单的缩放到和 widget 一样大作为背景的话，背景常常会变形、有锯齿等，如下面的背景图大小为 128 x 108，要作为 300 x 200 大小的背景，直接缩放绘制的效果很不好，如若使用接下来将要介绍的九宫格绘图技术来绘制背景的话，效果正是我们期望的:</p>
+<ul>
+<li>左边是直接缩放绘制的效果，背景发虚，有锯齿，圆角被放大</li>
+<li>右边是九宫格技术绘制的效果，圆角和背景的圆角一样</li>
+</ul>
+<p><img src="../img/qtbook/paint/Paint-Nine-Patch-Painter-bkg.png"></p>
+<p><img src="../img/qtbook/paint/Paint-Nine-Patch-Painter-1.png">
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/qtbook-paint-nine-patch-painter/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
   
     <!-- 生成目录 -->
 
@@ -935,79 +1008,6 @@
       
         <p class="article-more-link">
           <a  href="/fe-player/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-fe-event-coordinate" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/fe-event-coordinate/" class="article-date">
-  	<!-- <time datetime="2017-08-19T07:10:09.000Z" itemprop="datePublished">2017-08-19</time> -->
-    2017-08-19
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/fe-event-coordinate/">事件的坐标</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>JS 的事件有几个重要的坐标:</p>
-<ul>
-<li><strong>(offsetX, offsetY)</strong>: 事件触发点在事件源元素的坐标系统中的坐标(相对于元素的左上角，左上角坐标为 (0, 0))</li>
-<li><strong>(pageX, pageY)</strong>: 事件触发点相对于整个页面左上角的坐标，包括了滚动条隐藏的部分</li>
-<li><strong>(clientX, clientY)</strong>: 事件触发点相对于页面可视部分(客户区)左上角的坐标，不包括滚动条隐藏的部分</li>
-<li><strong>(screenX, screenY)</strong>: 事件触发点相对于屏幕左上角的坐标</li>
-</ul>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/fe-event-coordinate/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

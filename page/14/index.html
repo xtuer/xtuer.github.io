@@ -114,7 +114,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10.59px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.35px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.29px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.12px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.35px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.94px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.06px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.65px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.18px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.18px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.12px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.76px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.53px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.88px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.71px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.29px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.65px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.65px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.47px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.76px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10.63px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.5px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.63px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.38px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="/tags/Index/" style="font-size: 13.13px;">Index</a> <a href="/tags/Java/" style="font-size: 19.38px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.5px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.5px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.25px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.13px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.75px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.25px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.38px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.88px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.75px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 16.25px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 15px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.63px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.5px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.5px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.88px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.88px;">zTree</a>
                     </div>
                     <script>
 
@@ -240,6 +240,83 @@
 </nav>
 
             <div class="body-wrap">
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-mac-nginx-token" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/mac-nginx-token/" class="article-date">
+  	<!-- <time datetime="2017-10-15T09:12:06.000Z" itemprop="datePublished">2017-10-15</time> -->
+    2017-10-15
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/mac-nginx-token/">Nginx 验证 Token</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>为了提高效率，常把 Nginx 作为静态文件服务器，把视频文件，JS，CSS 等放到 Nginx 上。例如我们要开发一个视频网站，免费视频不需要访问权限验证，收费视频就需要对用户的权限进行验证，验证通过了才能够继续访问，Nginx 可以借助 Lua 来实现访问验证，用户信息使用 token 表示</p>
+<ul>
+<li>计算 token: md5(appId+appKey)</li>
+<li>请求的链接从应用服务器上动态获取，请求参数带上 appId 和 token: <a target="_blank" rel="noopener" href="http://localhost/private/tih.mp4?appId=app_1&amp;token=1409dc951714a8226032e0b0fb60bdb0">http://localhost/private/tih.mp4?appId=app_1&amp;token=1409dc951714a8226032e0b0fb60bdb0</a></li>
+<li>Nginx 接收到请求的时候，根据 appId 找到 appKey，然后 token2 = ngx.md5(appId+appKey)，token2 和请求中的 token 比较，如果相等则验证通过放行访问，否则禁止访问</li>
+</ul>
+<p>Nginx 简单的验证代码如下:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">location ~ <span class="regexp">/private/</span>.+\.mp4$ &#123;</span><br><span class="line">    root html;</span><br><span class="line"></span><br><span class="line">    access_by_lua <span class="string">&#x27;</span></span><br><span class="line"><span class="string">        -- 应用的 ID 和 key，和应用服务器上的一致</span></span><br><span class="line"><span class="string">        local appIdKeys = &#123;[&quot;app_1&quot;] = &quot;key_1&quot;, [&quot;app_2&quot;] = &quot;key_2&quot;&#125;;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        local args   = ngx.req.get_uri_args();</span></span><br><span class="line"><span class="string">        local appId  = args[&quot;appId&quot;];</span></span><br><span class="line"><span class="string">        local appKey = appIdKeys[appId];</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        local token1 = args[&quot;token&quot;]; -- 参数中 token</span></span><br><span class="line"><span class="string">        local token2 = ngx.md5(appId .. appKey); -- 用应用的 ID 找到对应的 key，然后根据算法计算 token</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        -- 如果参数中的 token 和计算得到的 token 不相等，则说明访问非法，禁止访问，否则放行访问</span></span><br><span class="line"><span class="string">        if token1 ~= token2 then</span></span><br><span class="line"><span class="string">            ngx.exit(ngx.HTTP_FORBIDDEN);</span></span><br><span class="line"><span class="string">        end</span></span><br><span class="line"><span class="string">    &#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Nginx 和应用服务器上同时存储 appId 和 appKey，这样就能根据参数中的 appId 查找到对应的 appKey。至于使用 Lua 的变量存储，或者使用数据库，还是文件，根据具体的情况而定(Nginx 中 Lua 能够访问数据、Redis 等)。</p>
+<p>上面的验证规则比较简单，如果其他人得到了 token，就可以无限制的访问了，为了增强安全性，可以使用更多的参数生成 token，例如用户 id，限制 URL 期限的时间戳等。</p>
+<blockquote>
+<p>Nginx 默认没有安装 Lua 模块，需要自己安装，可参考 <a target="_blank" rel="noopener" href="http://qtdebug.com/mac-nginx-lua">http://qtdebug.com/mac-nginx-lua</a></p>
+</blockquote>
+
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li></ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
   
     <!-- 生成目录 -->
 
@@ -931,79 +1008,6 @@
 
       
 
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-qtbook-paint-nine-patch-painter" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/qtbook-paint-nine-patch-painter/" class="article-date">
-  	<!-- <time datetime="2017-09-06T07:36:38.000Z" itemprop="datePublished">2017-09-06</time> -->
-    2017-09-06
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/qtbook-paint-nine-patch-painter/">九宫格绘图</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>很多时候都会使用图片作为 widget 的背景，如果图片和 widget 一样大的话那就没什么好说的，背景效果和图片的效果看上去一样，可更多的时候我们会面临图片和 widget 不一样大，如果把图片简单的缩放到和 widget 一样大作为背景的话，背景常常会变形、有锯齿等，如下面的背景图大小为 128 x 108，要作为 300 x 200 大小的背景，直接缩放绘制的效果很不好，如若使用接下来将要介绍的九宫格绘图技术来绘制背景的话，效果正是我们期望的:</p>
-<ul>
-<li>左边是直接缩放绘制的效果，背景发虚，有锯齿，圆角被放大</li>
-<li>右边是九宫格技术绘制的效果，圆角和背景的圆角一样</li>
-</ul>
-<p><img src="../img/qtbook/paint/Paint-Nine-Patch-Painter-bkg.png"></p>
-<p><img src="../img/qtbook/paint/Paint-Nine-Patch-Painter-1.png">
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/qtbook-paint-nine-patch-painter/#more">阅读全文</a>
-        </p>
       
       <div class="clearfix"></div>
     </div>

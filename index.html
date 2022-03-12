@@ -114,7 +114,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10.59px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.35px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.29px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.12px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.35px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.94px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.06px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.65px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.18px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.18px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.12px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.76px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.53px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.88px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.71px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.29px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.65px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.65px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.47px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.76px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10.63px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.5px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.63px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.38px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="/tags/Index/" style="font-size: 13.13px;">Index</a> <a href="/tags/Java/" style="font-size: 19.38px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.5px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.5px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.25px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.13px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.75px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.25px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.38px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.88px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.75px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 16.25px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 15px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.63px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.5px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.5px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.88px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.88px;">zTree</a>
                     </div>
                     <script>
 
@@ -240,6 +240,89 @@
 </nav>
 
             <div class="body-wrap">
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-mac-hammerspoon" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/mac-hammerspoon/" class="article-date">
+  	<!-- <time datetime="2022-03-12T06:08:39.000Z" itemprop="datePublished">2022-03-12</time> -->
+    2022-03-12
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/mac-hammerspoon/">Hammerspoon 切换程序和需改窗口大小管理</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p><a target="_blank" rel="noopener" href="http://www.hammerspoon.org/">Hammerspoon</a> is a tool for powerful automation of macOS. At its core, Hammerspoon is just a bridge between the operating system and a Lua scripting engine. What gives Hammerspoon its power is a set of extensions that expose specific pieces of system functionality, to the user.</p>
+<p>下面的脚本实现了:</p>
+<ul>
+<li>切换程序: 按下快捷键 <code>Alt+键</code> 就会切换到键对应的程序 (如果程序没有打开则打开，如果不是当前程序则激活为当前程序):<ul>
+<li>按下 <code>Alt+1</code> 切换到 Finder</li>
+<li>按下 <code>Alt+s</code> 切换到 Safari</li>
+<li>…</li>
+</ul>
+</li>
+<li>窗口管理:<ul>
+<li>最大化: <code>Alt+Ctrl+Return</code></li>
+<li>左半屏: <code>Alt+Ctrl+Left</code></li>
+<li>右半屏: <code>Alt+Ctrl+Right</code></li>
+</ul>
+</li>
+</ul>
+<p>实现了 Thor 和 Rectangle 的功能，并且解决了 Thor 激活 Finder 的 Bug。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/mac-hammerspoon/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
   
     <!-- 生成目录 -->
 
@@ -945,101 +1028,6 @@
 
       
 
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-spring-boot-jasypt" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/spring-boot-jasypt/" class="article-date">
-  	<!-- <time datetime="2021-08-08T02:59:02.000Z" itemprop="datePublished">2021-08-08</time> -->
-    2021-08-08
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/spring-boot-jasypt/">Spring Boot Jasypt</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>使用 <a target="_blank" rel="noopener" href="https://github.com/ulisesbocchio/jasypt-spring-boot">Jasypt</a> 加密 Spring Boot 配置中的项，例如数据库密码。详细介绍可阅读 <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/cy31gsjRi6S4ug2RuJ1yjw">Springboot 配置文件、隐私数据脱敏的最佳实践</a> 和 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/kexianting/p/11689289.html">Spring Boot 配置文件密码加密两种方案</a>。</p>
-<p>本文主要介绍具体使用部分，注意 jasypt-spring-boot-starter 2.0 和 3.0 的区别。3.0 前后虽然都是使用 <strong>jasypt-1.9.3.jar</strong>，但是生成密文命令的参数有点区别:</p>
-<table>
-<thead>
-<tr>
-<th>版本</th>
-<th>algorithm 默认值</th>
-<th>iv-generator 默认值</th>
-<th>加密命令</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>2.1.2</td>
-<td>PBEWithMD5AndDES</td>
-<td>org.jasypt.iv.NoIvGenerator</td>
-<td><em>java -cp jasypt-1.9.3.jar org.jasypt.intf.cli.JasyptPBEStringEncryptionCLI input=root password=xtuer algorithm=PBEWithMD5AndDES</em></td>
-</tr>
-<tr>
-<td>3.0.3</td>
-<td>PBEWITHHMACSHA512ANDAES_256</td>
-<td>org.jasypt.iv.RandomIvGenerator</td>
-<td><em>java -cp jasypt-1.9.3.jar org.jasypt.intf.cli.JasyptPBEStringEncryptionCLI input=root password=xtuer algorithm=PBEWITHHMACSHA512ANDAES_256 ivGeneratorClassName=org.jasypt.iv.RandomIvGenerator</em></td>
-</tr>
-</tbody></table>
-<blockquote>
-<p>提示:</p>
-<ul>
-<li>input 为要加密的内容，password 为加密的密钥</li>
-<li>jasypt-1.9.3.jar 可以从 maven 或者 gradle 本地仓库中找到
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/spring-boot-jasypt/#more">阅读全文</a>
-        </p>
       
       <div class="clearfix"></div>
     </div>

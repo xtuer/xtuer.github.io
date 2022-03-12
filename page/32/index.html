@@ -114,7 +114,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10.59px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.35px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.29px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.12px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.35px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.94px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.06px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.65px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.18px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.18px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.12px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.76px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.53px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.88px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.71px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.29px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.65px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.65px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.47px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.76px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10.63px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.5px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.63px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.38px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="/tags/Index/" style="font-size: 13.13px;">Index</a> <a href="/tags/Java/" style="font-size: 19.38px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.5px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.5px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.25px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.13px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.75px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.25px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.38px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.88px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.75px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 16.25px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 15px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.63px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.5px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.5px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.88px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.88px;">zTree</a>
                     </div>
                     <script>
 
@@ -240,6 +240,78 @@
 </nav>
 
             <div class="body-wrap">
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-qtbook-paint-brush" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-paint-brush/" class="article-date">
+  	<!-- <time datetime="2016-12-08T15:12:40.000Z" itemprop="datePublished">2016-12-08</time> -->
+    2016-12-08
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qtbook-paint-brush/">画刷</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>画刷 QBrush 是用来填充图形用的</p>
+<blockquote>
+<p>The QBrush class defines the fill pattern of shapes drawn by QPainter.<br>A brush has a style, a color, a gradient and a texture.</p>
+</blockquote>
+<p>下图在来自 QBrush 的帮助文档内容，列出了 Qt 自带的 brush：</p>
+<p><img src="../img/qtbook/paint/Paint-Base-Brush.png"></p>
+<p>画刷还可以使用 QPixmap，渐变等来创建。</p>
+<p>平铺绘制 QPixmap 可以使用 QPainter::drawTiledPixmap()，也可以像下面这样使用 texture pattern 实现平铺绘制:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MainWidget::paintEvent</span><span class="params">(QPaintEvent *)</span> </span>&#123;</span><br><span class="line">    <span class="function">QPainter <span class="title">painter</span><span class="params">(<span class="keyword">this</span>)</span></span>;</span><br><span class="line">    painter.<span class="built_in">setRenderHint</span>(QPainter::Antialiasing);</span><br><span class="line"></span><br><span class="line">    <span class="function">QPixmap <span class="title">pixmap</span><span class="params">(<span class="string">&quot;:/resources/Paint-Base-Bufferfly.png&quot;</span>)</span></span>;</span><br><span class="line">    <span class="function">QBrush <span class="title">brush</span><span class="params">(pixmap)</span></span>;</span><br><span class="line">    painter.<span class="built_in">setBrush</span>(brush);</span><br><span class="line">    painter.<span class="built_in">drawRect</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="built_in">width</span>(), <span class="built_in">height</span>());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
   
     <!-- 生成目录 -->
 
@@ -848,75 +920,6 @@
       
         <p class="article-more-link">
           <a  href="/fe-flat-shadow/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-java-cas-1-install" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/java-cas-1-install/" class="article-date">
-  	<!-- <time datetime="2016-12-02T07:16:57.000Z" itemprop="datePublished">2016-12-02</time> -->
-    2016-12-02
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/java-cas-1-install/">安装 CAS-Server</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>CAS 是中央认证服务 Central Authentication Service 的简称，最初由耶鲁大学的 Shawn Bayern 开发，后由 Jasig 社区维护，经过十多年发展，目前已成为影响最大、广泛使用的、基于 Java 实现的、开源 SSO 解决方案。</p>
-<p>2012 年，Jasig 和另一个有影响的组织 Sakai Foundation 合并，组成 Apereo。Apereo 是一个由高等学术教育机构发起组织的联盟，旨在为学术教育机构提供高质量软件，当然很多软件也被大量应用于商业环境，譬如 CAS。目前 CAS 由 Apereo 社区维护。</p>
-<p>CAS Server 的安装并不是很容易，因为官网不再提供二进制包下载，需要我们下载 CAS 源码并自己编译，最新版的 CAS 使用 Gradle 编译，下面介绍 CAS Server 的安装
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cas/" rel="tag">Cas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/java-cas-1-install/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

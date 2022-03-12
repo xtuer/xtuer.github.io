@@ -114,7 +114,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10.59px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.35px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.29px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.12px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.35px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.94px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.06px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.65px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.18px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.18px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.12px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.76px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.53px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.88px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.71px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.29px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.65px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.65px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.47px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.76px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10.63px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.5px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.63px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.38px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="/tags/Index/" style="font-size: 13.13px;">Index</a> <a href="/tags/Java/" style="font-size: 19.38px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.5px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.5px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.25px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.13px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.75px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.25px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.38px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.88px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.75px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 16.25px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 15px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.63px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.5px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.5px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.88px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.88px;">zTree</a>
                     </div>
                     <script>
 
@@ -240,6 +240,79 @@
 </nav>
 
             <div class="body-wrap">
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-fe-event-coordinate" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/fe-event-coordinate/" class="article-date">
+  	<!-- <time datetime="2017-08-19T07:10:09.000Z" itemprop="datePublished">2017-08-19</time> -->
+    2017-08-19
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/fe-event-coordinate/">事件的坐标</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>JS 的事件有几个重要的坐标:</p>
+<ul>
+<li><strong>(offsetX, offsetY)</strong>: 事件触发点在事件源元素的坐标系统中的坐标(相对于元素的左上角，左上角坐标为 (0, 0))</li>
+<li><strong>(pageX, pageY)</strong>: 事件触发点相对于整个页面左上角的坐标，包括了滚动条隐藏的部分</li>
+<li><strong>(clientX, clientY)</strong>: 事件触发点相对于页面可视部分(客户区)左上角的坐标，不包括滚动条隐藏的部分</li>
+<li><strong>(screenX, screenY)</strong>: 事件触发点相对于屏幕左上角的坐标</li>
+</ul>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/fe-event-coordinate/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
   
     <!-- 生成目录 -->
 
@@ -915,110 +988,6 @@
       
         <p class="article-more-link">
           <a  href="/gradle-deploy/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-qtbook-custom-widget-steps" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/qtbook-custom-widget-steps/" class="article-date">
-  	<!-- <time datetime="2017-07-30T11:35:53.000Z" itemprop="datePublished">2017-07-30</time> -->
-    2017-07-30
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/qtbook-custom-widget-steps/">实现 Steps 路径样式</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>如下图使用多个 <code>步骤</code> 表示一个过程：</p>
-<p><img src="../img/qt/steps-1.png"></p>
-<p>这样的组件 Qt 没有提供，需要我们自己实现，可以用下面几种方式实现:</p>
-<ul>
-<li><p><strong>使用 QPainter 绘图</strong>：计算每一个步骤的图形(可以使用 QPainterPath)和位置，然后在 QPainterPath 上填充背景和文字</p>
-</li>
-<li><p><strong>QPushButton + QSS Border-Image + 绝对坐标定位</strong>：因为 QPushButton 之间有重叠，而不是一个紧挨着一个的排列，所以需要计算每个步骤的坐标进行定位，使用 PS 设计步骤在不同状态时的背景图，需要 6 张图片：</p>
-<ul>
-<li><p>当前步骤：第一个位置的图、中间的图、最后一个位置的图</p>
-</li>
-<li><p>非当前步骤：第一个位置的图、中间的图、最后一个位置的图</p>
-</li>
-<li><p>每个图是步骤的完整背景图，例如</p>
-<p>  <img src="../img/qt/steps-3.png"><img src="../img/qt/steps-4.png"></p>
-<blockquote>
-<p>优点：直观</p>
-<p>缺点：需要手动计算坐标</p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><p><strong>QPushButton + QSS Border-Image + QHBoxLayout</strong>：使用 Layout 把 QPushButton 一个紧挨着一个的排列，使用 PS 设计步骤在不同状态时的背景图，需要 5 张图片：</p>
-<ul>
-<li><p>当前步骤：当前步骤前一个步骤的图、最后一个位置的图</p>
-</li>
-<li><p>非当前步骤：第一个位置的图、中间的图、最后一个位置的图</p>
-</li>
-<li><p>每个图都不是步骤的完整背景图，例如</p>
-<p> <img src="../img/qt/steps-6.png"> <img src="../img/qt/steps-5.png"></p>
-<blockquote>
-<p>优点：能够使用 Layout 进行布局，不需要手动计算坐标</p>
-<p>缺点：不够直观，不过，在步骤之间加一点空隙，估计大家都明白怎么做了：每一个步骤的背景都有一部分在它的前一个步骤上：</p>
-<p><img src="../img/qt/steps-7.png"></p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/qtbook-custom-widget-steps/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

@@ -114,7 +114,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10.59px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.35px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.29px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.12px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.35px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.94px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.06px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.65px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.18px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.18px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.12px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.76px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.53px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.88px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.71px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.29px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.65px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.65px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.47px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.76px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10.63px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.5px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.63px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.38px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="/tags/Index/" style="font-size: 13.13px;">Index</a> <a href="/tags/Java/" style="font-size: 19.38px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.5px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.5px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.25px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.13px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.75px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.25px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.38px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.88px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.75px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 16.25px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 15px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.63px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.5px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.5px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.88px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.88px;">zTree</a>
                     </div>
                     <script>
 
@@ -240,6 +240,91 @@
 </nav>
 
             <div class="body-wrap">
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-java-fastjson-unserialize" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/java-fastjson-unserialize/" class="article-date">
+  	<!-- <time datetime="2019-01-12T07:57:44.000Z" itemprop="datePublished">2019-01-12</time> -->
+    2019-01-12
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java-fastjson-unserialize/">FastJson 反序列化 Boolean</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>JSON 字符串反序列化为 Java 对象时, 不只是 true 和 false 能够转换为 boolean 变量的值:</p>
+<ul>
+<li>boolean:<ul>
+<li>true: true</li>
+<li>false: false</li>
+</ul>
+</li>
+<li>数字:<ul>
+<li>1: true</li>
+<li>0: false</li>
+<li>其他数字: false</li>
+</ul>
+</li>
+<li>字符串:<ul>
+<li>“true”: true (大小写不敏感)</li>
+<li>“false”: false (大小写不敏感)</li>
+<li>“1”: true</li>
+<li>“0”: false</li>
+<li>其他字符串抛异常</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">&quot;visible&quot;</span>: <span class="literal">true</span> &#125;    <span class="comment">// true</span></span><br><span class="line">&#123; <span class="attr">&quot;visible&quot;</span>: <span class="literal">false</span> &#125;   <span class="comment">// false</span></span><br><span class="line">&#123; <span class="attr">&quot;visible&quot;</span>: <span class="number">1</span> &#125;       <span class="comment">// true</span></span><br><span class="line">&#123; <span class="attr">&quot;visible&quot;</span>: <span class="number">0</span> &#125;       <span class="comment">// false</span></span><br><span class="line">&#123; <span class="attr">&quot;visible&quot;</span>: <span class="number">3</span> &#125;       <span class="comment">// false</span></span><br><span class="line">&#123; <span class="attr">&quot;visible&quot;</span>: <span class="string">&quot;true&quot;</span> &#125;  <span class="comment">// true</span></span><br><span class="line">&#123; <span class="attr">&quot;visible&quot;</span>: <span class="string">&quot;True&quot;</span> &#125;  <span class="comment">// true</span></span><br><span class="line">&#123; <span class="attr">&quot;visible&quot;</span>: <span class="string">&quot;false&quot;</span> &#125; <span class="comment">// false</span></span><br><span class="line">&#123; <span class="attr">&quot;visible&quot;</span>: <span class="string">&quot;falsE&quot;</span> &#125; <span class="comment">// false</span></span><br><span class="line">&#123; <span class="attr">&quot;visible&quot;</span>: <span class="string">&quot; true&quot;</span> &#125; <span class="comment">// Exception</span></span><br><span class="line">&#123; <span class="attr">&quot;visible&quot;</span>: <span class="string">&quot;Bla&quot;</span> &#125;   <span class="comment">// Exception</span></span><br></pre></td></tr></table></figure>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
   
     <!-- 生成目录 -->
 
@@ -1001,100 +1086,6 @@
       
 	<div class="article-tag tagcloud">
 		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li></ul>
-	</div>
-
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-fe-vue-cli-3-multi" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/fe-vue-cli-3-multi/" class="article-date">
-  	<!-- <time datetime="2018-10-29T03:13:59.000Z" itemprop="datePublished">2018-10-29</time> -->
-    2018-10-29
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/fe-vue-cli-3-multi/">Vue-Cli 3 创建多页项目</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>在 <a href="/fe-vue-cli-3-single/">Vue-Cli 3 创建单页项目</a> 一文中介绍了创建单页项目, 现实中复杂一点的项目使用多页项目更合适一些, Vue-Cli 3 创建多页项目很容易, 创建的项目结构如下:</p>
-<p><img src="../img/fe/vue-cli-3-multi.png"></p>
-<p>下面就简要的介绍下使用 Vue-Cli 3 创建多页项目的步骤:</p>
-<ol>
-<li><p><a href="/fe-vue-cli-3-single/">Vue-Cli 3 创建单页项目</a></p>
-</li>
-<li><p>在 src 目录下创建目录 <code>pages/page1</code>, <code>pages/page2</code> (每个目录表示一个单页)</p>
-</li>
-<li><p>把 views 目录, App.vue, main.js, router.js, store.js 等都分别复制一份到 page1 和 page2 目录 (参考上面的项目结构图)</p>
-</li>
-<li><p>修改 vue.config.js 中的 <code>pages</code>, 配置每个单页的入口 (page1, page2 就是单页访问地址):</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="attr">devServer</span>: &#123;</span><br><span class="line">        <span class="attr">port</span>: <span class="number">8888</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">pages</span>: &#123;</span><br><span class="line">        <span class="attr">page1</span>: <span class="string">&#x27;src/pages/page1/main.js&#x27;</span>,</span><br><span class="line">        <span class="attr">page2</span>: <span class="string">&#x27;src/pages/page2/main.js&#x27;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
-<li><p>启动项目: <code>yarn serve</code></p>
-</li>
-<li><p>访问页面:</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="http://localhost:8888/page1.html">http://localhost:8888/page1.html</a></li>
-<li><a target="_blank" rel="noopener" href="http://localhost:8888/page2.html">http://localhost:8888/page2.html</a></li>
-</ul>
-</li>
-<li><p>打包项目: <code>yarn build</code></p>
-</li>
-<li><p>自定义单页的入口模板</p>
-<p>有眼神好的同学可能看到了 <code>public/index.html</code> 和 <code>public/page2.html</code>, 但是发现没有 <code>public/page1.html</code>, 这是因为 Vue-Cli 在 public 目录下发现页面对应的 <code>$&#123;subpage&#125;.html</code> 文件 (pages 下配置的 page1, page2), 就使用它生成这个页面的入口 html 文件, 如果没有则会使用 <code>public/index.html</code> 作为模板生成这个页面的入口 html 文件.</p>
-<p>由于不同页面引入的 js, css 或者第三方库等都可能不一样, 所以为页面定制自己的入口模板文件也是有必要的.</p>
-</li>
-</ol>
-<h2 id="vue-config-js-参考"><a href="#vue-config-js-参考" class="headerlink" title="vue.config.js 参考"></a>vue.config.js 参考</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">process.env.VUE_APP_VERSION = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime();</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="attr">devServer</span>: &#123;</span><br><span class="line">        <span class="attr">port</span>: <span class="number">8888</span>,</span><br><span class="line">        <span class="attr">proxy</span>: <span class="string">&#x27;http://localhost:8080&#x27;</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 多页的页面</span></span><br><span class="line">    <span class="attr">pages</span>: &#123;</span><br><span class="line">        <span class="attr">sample</span>: <span class="string">&#x27;src/pages/sample/main.js&#x27;</span>,</span><br><span class="line">        <span class="attr">teacher</span>: <span class="string">&#x27;src/pages/teacher/main.js&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;admin-school&#x27;</span>: <span class="string">&#x27;src/pages/admin-school/main.js&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;admin-system&#x27;</span>: <span class="string">&#x27;src/pages/admin-system/main.js&#x27;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// yarn build 的输出目录</span></span><br><span class="line">    <span class="attr">outputDir</span>: <span class="string">&#x27;../ebag-web-app/src/main/webapp/WEB-INF/page-vue&#x27;</span>,</span><br><span class="line">    <span class="attr">assetsDir</span>: <span class="string">&#x27;static&#x27;</span>,</span><br><span class="line"></span><br><span class="line">    <span class="attr">css</span>: &#123;</span><br><span class="line">        <span class="attr">loaderOptions</span>: &#123;</span><br><span class="line">            <span class="attr">sass</span>: &#123;</span><br><span class="line">                <span class="comment">// SCSS 全局变量</span></span><br><span class="line">                <span class="attr">data</span>: <span class="string">`</span></span><br><span class="line"><span class="string">                    @import &quot;@/../public/static/css/variables.scss&quot;;</span></span><br><span class="line"><span class="string">                `</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>页面的 HTML 中引入自定义 JS 和 CSS 文件时最好也加上打包时的时间戳 <code>process.env.VUE_APP_VERSION</code>, 避免缓存引起的问题:</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line">&lt;% hash = VUE_APP_VERSION %&gt;</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width,initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>老师<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attr">href</span>=<span class="string">&quot;/static/css/global.css?hash=&lt;%= hash %&gt;&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 库文件 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;/static/lib/jquery.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;/static/lib/jquery.rest.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 项目的 JS: 增加了 hash 使得更新后不用刷新缓存就能使用最新的 JS --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;/static/lib/tio/Message.js?hash=&lt;%= hash %&gt;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;/static/js/urls.js?hash=&lt;%= hash %&gt;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- built files will be auto injected --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li></ul>
 	</div>
 
 
