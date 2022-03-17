@@ -16,7 +16,7 @@
 <meta property="og:image" content="https://camo.githubusercontent.com/9d3d89364f2cc83ace8f29646a6236bc15ea1da0/68747470733a2f2f696d6775722e636f6d2f724773646e44652e706e67">
 <meta property="og:image" content="http://xtuer.github.io/img/mac/software/go2shell.png">
 <meta property="article:published_time" content="2016-04-07T16:16:18.000Z">
-<meta property="article:modified_time" content="2021-12-14T08:30:28.754Z">
+<meta property="article:modified_time" content="2022-03-16T00:05:15.407Z">
 <meta property="article:author" content="公孙二狗">
 <meta property="article:tag" content="Mac">
 <meta name="twitter:card" content="summary">
@@ -412,7 +412,14 @@
 </ul>
 <h2 id="mv-移动目录"><a href="#mv-移动目录" class="headerlink" title="mv 移动目录"></a>mv 移动目录</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 移动目录和重命名都是使用命令 mv，区别就是后面的 /</span><br><span class="line">mv srcDir destDir/</span><br></pre></td></tr></table></figure>
 
-<h2 id="Quick-Look-plugins"><a href="#Quick-Look-plugins" class="headerlink" title="Quick Look plugins"></a>Quick Look plugins</h2><blockquote>
+<h2 id="Quick-Look-plugins"><a href="#Quick-Look-plugins" class="headerlink" title="Quick Look plugins"></a>Quick Look plugins</h2><p>Monterey 中可用的 Quicklook 插件:</p>
+<ul>
+<li>语法高亮: <a target="_blank" rel="noopener" href="https://github.com/sbarex/SourceCodeSyntaxHighlight">Syntax Highlight</a></li>
+<li>文本预览: <a target="_blank" rel="noopener" href="https://github.com/whomwah/qlstephen/issues/112">QLStephen</a></li>
+<li>MD 预览: <a target="_blank" rel="noopener" href="https://github.com/sbarex/QLMarkdown">QLMarkdown</a></li>
+</ul>
+<hr>
+<blockquote>
 <p>注意: Monterey 中安装完后需要手动赋予磁盘访问权限。</p>
 </blockquote>
 <p>可以使用 <strong>brew cask</strong> 安装 Quick Look 插件，具体请参考 <a target="_blank" rel="noopener" href="https://github.com/sindresorhus/quick-look-plugins">https://github.com/sindresorhus/quick-look-plugins</a>。</p>
@@ -425,7 +432,7 @@
 <li>赋予磁盘访问权限: 在系统设置 -&gt; 安全 -&gt; 隐私 -&gt; Full Disk Access 中添加 QLColorCode 中的 <strong>Contents/MacOS/QLColorCode</strong> 和 <strong>/Contents/Resources/highlight</strong></li>
 <li>执行 <code>qlmanage -r</code>，<code>qlmanage -r cache</code>，<code>killall Finder</code></li>
 <li>找个 js 文件按下空格进行预览</li>
-<li>如果还不行，终端执行 qlmanager -p xxx.js 使用 Debug 模式预览试试</li>
+<li>如果还不行，终端执行 qlmanage -p xxx.js 使用 Debug 模式预览试试</li>
 <li>有的时候要反复多试几次 3 到 5 最后才生效</li>
 </ol>
 </blockquote>
