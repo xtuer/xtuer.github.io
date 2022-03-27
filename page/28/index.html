@@ -244,6 +244,74 @@
     <!-- 生成目录 -->
 
 
+<article id="post-qtbook-qss-calendar" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-qss-calendar/" class="article-date">
+  	<!-- <time datetime="2017-02-03T09:40:31.000Z" itemprop="datePublished">2017-02-03</time> -->
+    2017-02-03
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qtbook-qss-calendar/">QSS QCalendarWidget</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>QCalendarWidget 是一个比较复杂的 widget，由几个 QToolButton, QSpinBox, QMenu, QTableView 等组成，Qt 的帮助文档里没有其 QSS 的相关文档，当要修改其样式的时候应该怎么办呢？</p>
+<p>我们这里采用的方法是分析组成 QCalendarWidget 的 widget 的 className 和 objectName，然后 QSS 每个 widget，最终达到修改 QCalendarWidget 样式的目的。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/qtbook-qss-calendar/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-qtbook-qss-subcontrol" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -928,84 +996,6 @@
 
       
 
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-qtbook-misc-messy-code" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/qtbook-misc-messy-code/" class="article-date">
-  	<!-- <time datetime="2016-12-28T02:46:31.000Z" itemprop="datePublished">2016-12-28</time> -->
-    2016-12-28
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/qtbook-misc-messy-code/">Qt5 乱码</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>Qt5 强制要求源码的编码必须使用 UTF-8，不过，即使我们的源码都是 UTF-8 的了，仍然会遇到乱码问题，例如</p>
-<ul>
-<li>MinGW 编译没问题的工程使用 VS 编译时有可能报错</li>
-<li>MinGW 编译的程序运行时中文正常显示，VS 下编译通过，运行时却是乱码</li>
-</ul>
-<p>通常有下面几种情况导致中文乱码:</p>
-<ul>
-<li>源码不是 UTF-8 的</li>
-<li>源码是 UTF-8 的，但 BOM 导致乱码 (VS 的需要 BOM，而 Linux，Mac 下默认是没有 BOM 的)</li>
-<li>非 UTF-8 的运行环境导致乱码</li>
-</ul>
-<p>下面来解决 Qt5 的乱码问题。
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/qtbook-misc-messy-code/#more">阅读全文</a>
-        </p>
       
       <div class="clearfix"></div>
     </div>

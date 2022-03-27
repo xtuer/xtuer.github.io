@@ -244,6 +244,74 @@
     <!-- 生成目录 -->
 
 
+<article id="post-spring-jetcache" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/spring-jetcache/" class="article-date">
+  	<!-- <time datetime="2019-07-17T13:49:33.000Z" itemprop="datePublished">2019-07-17</time> -->
+    2019-07-17
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/spring-jetcache/">Spring MVC 中使用 JetCache</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p><a target="_blank" rel="noopener" href="https://github.com/alibaba/jetcache/wiki">JetCache</a> 是一个基于 Java 的缓存系统封装，提供统一的API和注解来简化缓存的使用。 JetCache 提供了比 SpringCache 更加强大的注解，可以原生的支持 TTL、两级缓存、分布式自动刷新，还提供了 <code>Cache</code> 接口用于手工缓存操作。 当前有四个实现，<code>RedisCache</code>、<code>TairCache</code> (此部分未在 github 开源)、<code>CaffeineCache</code> (in memory) 和一个简易的<code>LinkedHashMapCache</code> (in memory)，要添加新的实现也是非常简单的。</p>
+<p>网上很多文章介绍 JetCache 的文章包括官方文档主要是基于 Spring Boot 的，也介绍了<a target="_blank" rel="noopener" href="https://github.com/alibaba/jetcache/wiki/GettingStarted_CN#%E6%9C%AA%E4%BD%BF%E7%94%A8springboot%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%B9%E5%BC%8F">未使用 SpringBoot 的配置方式</a>，但是估计很多同学还是不明白怎么在传统的 Spring MVC 的 Web 项目里使用 JetCache 吧，毕竟不是所有 Web 项目都使用 Spring Boot，接下来就一步一步的介绍使用的方法。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringMVC/" rel="tag">SpringMVC</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/spring-jetcache/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-qtbook-animated-checkbox" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -886,82 +954,6 @@
       
         <p class="article-more-link">
           <a  href="/fe-vue-scoped/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-qtbook-thread-context" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/qtbook-thread-context/" class="article-date">
-  	<!-- <time datetime="2019-03-25T08:34:39.000Z" itemprop="datePublished">2019-03-25</time> -->
-    2019-03-25
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/qtbook-thread-context/">线程的上下文</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>Qt 中每个 QObject 及其子类的对象都有自己的线程上下文环境，即对象所属的线程，对象属于创建它的函数执行时所在的线程，例如在 Ui 线程中的函数里创建了对象 ops，则 ops 属于 Ui 线程。使用 <code>QObject::thread()</code> 获取对象所属线程，可以使用 <code>QObject::moveToThread(otherThread)</code> 移动一个对象到另一个线程。由于跨线程调用函数有可能会造成程序崩溃，所以有比较了解代码在执行时它所处的线程。</p>
-<p>下面以示例演示不同情况下代码执行时所处的线程:</p>
-<ul>
-<li>Widget 所属线程</li>
-<li>线程对象所属线程</li>
-<li>Lambda 的方式处理信号槽</li>
-<li>Qt 5 函数指针的方式处理信号槽</li>
-<li>传统 signal slot 的方式处理信号槽</li>
-</ul>
-<p>注意: 下面的注释都是基于示例代码的，为了不让描述的太过繁琐，便于帮助理解，有些描述理论上可能是不精确的，需要大家自行更进一步的分析。
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/qtbook-thread-context/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

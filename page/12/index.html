@@ -244,6 +244,77 @@
     <!-- 生成目录 -->
 
 
+<article id="post-mysql-types" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/mysql-types/" class="article-date">
+  	<!-- <time datetime="2017-12-31T02:51:22.000Z" itemprop="datePublished">2017-12-31</time> -->
+    2017-12-31
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/mysql-types/">MySQL 数据类型</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>MySQL 中定义数据字段的类型对你数据库的优化是非常重要的，支持多种类型，大致可以分为三类：数值、日期/时间和字符串(字符)类型。</p>
+<h2 id="数值类型"><a href="#数值类型" class="headerlink" title="数值类型"></a>数值类型</h2><p>MySQL支持所有标准 SQL 数值数据类型，这些类型包括严格数值数据类型(INTEGER、SMALLINT、DECIMAL 和 NUMERIC)，以及近似数值数据类型(FLOAT、REAL 和 DOUBLE)。</p>
+<blockquote>
+<p>关键字 INT 是 INTEGER 的同义词，关键字 DEC 是 DECIMAL 的同义词。<br>BIT 数据类型保存位字段值，并且支持 MyISAM、MEMORY、InnoDB 和 BDB 表。<br>作为 SQL 标准的扩展，MySQL 也支持整数类型 TINYINT、MEDIUMINT 和 BIGINT。</p>
+</blockquote>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DB/" rel="tag">DB</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/mysql-types/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-mac-windows-jdk-encoding" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -910,98 +981,6 @@
       
         <p class="article-more-link">
           <a  href="/qtbook-thread-pool/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-qtbook-misc-shared-library" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/qtbook-misc-shared-library/" class="article-date">
-  	<!-- <time datetime="2017-11-05T00:48:41.000Z" itemprop="datePublished">2017-11-05</time> -->
-    2017-11-05
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/qtbook-misc-shared-library/">创建使用动态链接库</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>想一想大多数时候我们的项目是不是所有代码都会放在同一个工程中？人少的时候问题不大，但当项目越来越大，开发人员越来越多，会发觉开发、管理能让人窒息，大家都绞在一起，出问题时互相推诿责任，各自有理，这时如果按照功能模块进行分组各自开发，以库的形式提供给其他人使用，就能够最大限度的并行开发，提高工作效率，而且项目的模块也很清晰，责任一目了然，此外使用动态链接库后还能够按模块升级，编译的速度也更快。下面就介绍怎么在工程中创建和使用动态链接库。</p>
-<blockquote>
-<p>Windows 中叫动态链接库 (Dynamic Link Library: .dll)，Linux 中叫共享库 (Shared Library: .so)，Mac 下后缀为 .dylib，这几种叫法实际指的是一种类型的库，这里都统称为动态链接库吧。</p>
-</blockquote>
-<p>理解动态链接库需要理解符号的概念，符号包含函数、变量或者类，分为公有符号和私有符号:</p>
-<ul>
-<li><p>公有符号: 在其他程序或者库使用的符号，需要根据用途使用宏进行标记:</p>
-<ul>
-<li><code>Q_DECL_EXPORT</code>: 编译为动态链接库时符号要标记为 <code>Q_DECL_EXPORT</code>，表明是导出的符号</li>
-<li><code>Q_DECL_IMPORT</code>: 在调用动态链接库时符号要标记为 <code>Q_DECL_IMPORT</code>，表明是导入的符号</li>
-</ul>
-</li>
-<li><p>私有符号: 除了公有符号外的其他符号，在此库之外不应该被访问，不需要进行标记</p>
-<blockquote>
-<p>建议: 不要在头文件中声明私有符号。</p>
-</blockquote>
-</li>
-</ul>
-<p>符号上的标记 <code>Q_DECL_EXPORT</code> 和 <code>Q_DECL_IMPORT</code> 不能同时存在，为了在导出和导入时使用同一个头文件， 头文件中包含下面的宏，编译时根据条件使用不同的宏就可以了:</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QtCore/qglobal.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 根据条件定义 LIB 为不同的宏</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> defined(BUILD_LIB)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LIB Q_DECL_EXPORT</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LIB Q_DECL_IMPORT</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 LIB 修饰符号，编译时会根据编译条件替换为 Q_DECL_EXPORT 或者 Q_DECL_IMPORT</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LIB</span> <span class="title">Calculator</span> &#123;</span></span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>为了达到了在导出和导入时使用同一个头文件的目的:</p>
-<ul>
-<li>生成动态链接库工程的 pro 文件中添加 <code>DEFINES += BUILD_LIB</code>，在编译的时候 <code>LIB</code> 就会被替换为 <code>Q_DECL_EXPORT</code></li>
-<li>使用动态链接库工程的 pro 文件中千万不要加 <code>DEFINES += BUILD_LIB</code>，编译的时候发现没有定义 <code>BUILD_LIB</code>，则 <code>LIB</code> 就会被替换为 <code>Q_DECL_IMPORT</code>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/qtbook-misc-shared-library/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

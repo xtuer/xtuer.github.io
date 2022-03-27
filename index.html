@@ -244,6 +244,93 @@
     <!-- 生成目录 -->
 
 
+<article id="post-java-exception-flow-control" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/java-exception-flow-control/" class="article-date">
+  	<!-- <time datetime="2022-03-27T08:51:07.000Z" itemprop="datePublished">2022-03-27</time> -->
+    2022-03-27
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java-exception-flow-control/">怎么理解不要用异常做控制流程</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>有很多文件介绍异常以及不要用异常做流程控制，如:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/15872cba211d">Java 异常控制机制和异常处理原则</a></li>
+<li><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1823929">不要用抛异常做流程控制</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/tales522/article/details/117477575">异常不要用来做流程控制、条件控制</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.v2ex.com/t/580229">我能用异常及全局异常控制来设计异常返回的流程吗? Spring MVC</a></li>
+<li>还有很多 …</li>
+</ul>
+<p>即使参考了很多文章，但对于什么是不要用异常做流程控制，什么时候抛出异常还是没有清晰的理解。并且可能会问：抛出异常就终止了函数的执行，这不就是控制了流程吗？</p>
+<p>我们这里不去介绍异常的各种理论，而是从编码的角度来看，根据下面几条判断抛出异常的时机:</p>
+<ul>
+<li>一个函数的返回类型是 ReturnType</li>
+<li>在处理业务逻辑的时候，发现不满足条件要终止函数的执行，则有如下 2 种情况:<ul>
+<li>类型 ReturnType 定义了无效值: 可以返回错误对应的无效值终止函数，让函数调用者明确的知道发生了什么错误</li>
+<li>类型 ReturnType 未定义无效值: 这个时候，为了终止函数，因为不能返回合适的无效值，那么就只能抛出异常终止函数，让函数调用者明确的知道发生了什么错误 (最好在异常中带上错误 code 和错误信息)</li>
+</ul>
+</li>
+<li>函数的返回值要明确，不能有歧义</li>
+<li><strong>为了终止函数的执行，没有合适的返回值时就抛出异常</strong></li>
+</ul>
+<p>下面以创建用户为例介绍什么时候应该抛出异常。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/java-exception-flow-control/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-mac-hammerspoon" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -915,122 +1002,6 @@
         <p class="article-more-link">
           <a  href="/java-classpath-order/#more">阅读全文</a>
         </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-spring-boot-loader-path" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/spring-boot-loader-path/" class="article-date">
-  	<!-- <time datetime="2021-08-09T02:15:25.000Z" itemprop="datePublished">2021-08-09</time> -->
-    2021-08-09
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/spring-boot-loader-path/">Spring Boot 使用 loader.path 加载其他 jar</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <h2 id="Classpath"><a href="#Classpath" class="headerlink" title="Classpath"></a>Classpath</h2><p>可以使用 classpath 指定类加载的路径，但 classpath 的生效是有条件的:</p>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th>classpath 生效</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>java -cp .;lib/x.jar Test</td>
-<td>✔</td>
-<td>运行 class</td>
-</tr>
-<tr>
-<td>java -cp lib/x.jar -jar app.jar</td>
-<td>✖</td>
-<td>运行 jar</td>
-</tr>
-</tbody></table>
-<h2 id="Loader-path"><a href="#Loader-path" class="headerlink" title="Loader.path"></a>Loader.path</h2><p>Spring Boot 程序大多是打成 jar 包，使用 <code>java -jar boot.jar</code> 的方式启动 (此时 -cp 无效)，可以使用 <strong>loader.path</strong> 指定类加载路径加载其他 jar，但 loader.path 生效是有条件的:</p>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th>MANIFEST.MF 的 Main-Class</th>
-<th>loader.path 生效</th>
-<th align="center">打包配置</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>java -Dloader.path=./lib -jar app.jar</td>
-<td>JarLauncher</td>
-<td>✖</td>
-<td align="center">默认配置</td>
-</tr>
-<tr>
-<td>java -Dloader.path=./lib -jar app.jar</td>
-<td>PropertiesLauncher</td>
-<td>✔</td>
-<td align="center">额外配置</td>
-</tr>
-</tbody></table>
-<blockquote>
-<p>loader.path 实现了 classpath 的功能。</p>
-</blockquote>
-<h2 id="配置-Main-Class"><a href="#配置-Main-Class" class="headerlink" title="配置 Main-Class"></a>配置 Main-Class</h2><p>为了使用 loader.path，需要把 jar 包的 Main-Class 配置为 PropertiesLauncher，在 build.gradle 中如下配置，可参考 <a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/current/gradle-plugin/reference/htmlsingle/#packaging-executable.configuring.properties-launcher">Using the PropertiesLauncher</a>:</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">bootJar &#123;</span><br><span class="line">    manifest &#123;</span><br><span class="line">        attributes <span class="string">&#x27;Main-Class&#x27;</span>: <span class="string">&#x27;org.springframework.boot.loader.PropertiesLauncher&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="LaunchedURLClassLoader"><a href="#LaunchedURLClassLoader" class="headerlink" title="LaunchedURLClassLoader"></a>LaunchedURLClassLoader</h2><p>无论启动类是 JarLauncher 或者 PropertiesLauncher，loader.path 引入的 jar 和 Spring Boot 中 lib/*.jar  都是使用类加载器 org.springframework.boot.loader.LaunchedURLClassLoader 进行加载，也即是说他们使用的是同一个类加载器。</p>
-<blockquote>
-<p>注意到同一个程序，打包成不同类型时，PropertiesLauncher (20s) 比 JarLauncher (8s) 启动慢很多。 </p>
-</blockquote>
-
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a></li></ul>
-	</div>
-
-
-      
-
       
       <div class="clearfix"></div>
     </div>

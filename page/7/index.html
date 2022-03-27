@@ -244,6 +244,82 @@
     <!-- 生成目录 -->
 
 
+<article id="post-qtbook-thread-context" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-thread-context/" class="article-date">
+  	<!-- <time datetime="2019-03-25T08:34:39.000Z" itemprop="datePublished">2019-03-25</time> -->
+    2019-03-25
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qtbook-thread-context/">线程的上下文</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Qt 中每个 QObject 及其子类的对象都有自己的线程上下文环境，即对象所属的线程，对象属于创建它的函数执行时所在的线程，例如在 Ui 线程中的函数里创建了对象 ops，则 ops 属于 Ui 线程。使用 <code>QObject::thread()</code> 获取对象所属线程，可以使用 <code>QObject::moveToThread(otherThread)</code> 移动一个对象到另一个线程。由于跨线程调用函数有可能会造成程序崩溃，所以有比较了解代码在执行时它所处的线程。</p>
+<p>下面以示例演示不同情况下代码执行时所处的线程:</p>
+<ul>
+<li>Widget 所属线程</li>
+<li>线程对象所属线程</li>
+<li>Lambda 的方式处理信号槽</li>
+<li>Qt 5 函数指针的方式处理信号槽</li>
+<li>传统 signal slot 的方式处理信号槽</li>
+</ul>
+<p>注意: 下面的注释都是基于示例代码的，为了不让描述的太过繁琐，便于帮助理解，有些描述理论上可能是不精确的，需要大家自行更进一步的分析。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/qtbook-thread-context/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-upload-blob" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -961,95 +1037,6 @@
 
       
 
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-sort" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/sort/" class="article-date">
-  	<!-- <time datetime="2019-01-18T02:07:00.000Z" itemprop="datePublished">2019-01-18</time> -->
-    2019-01-18
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/sort/">常用排序</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>下面列举<a target="_blank" rel="noopener" href="https://blog.csdn.net/liang_gu/article/details/80627548">常用的排序算法</a>的实现:</p>
-<ul>
-<li>冒泡排序</li>
-<li>插入排序</li>
-<li>选择排序</li>
-<li>快速排序</li>
-<li>归并排序</li>
-<li>堆排序</li>
-</ul>
-<p>排序的时候, 需要大量的交换数组中的 2 个元素, 使用下面的函数 <code>swap()</code> 进行交换:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 交换数组中指定下标的 2 个元素的值</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>[] a, <span class="keyword">int</span> indexA, <span class="keyword">int</span> indexB)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> temp  = a[indexA];</span><br><span class="line">    a[indexA] = a[indexB];</span><br><span class="line">    a[indexB] = temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><p>原理:</p>
-<ol>
-<li>比较相邻的元素，如果第一个比第二个大，就交换他们两个，把大的交换到后面。</li>
-<li>对每一对相邻元素做同样的工作，从开始第一对到结尾的最后一对，最后的元素应该会是最大的数。</li>
-<li>针对所有的元素重复以上的步骤，除了最后一个。</li>
-<li>持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。</li>
-<li>有 n 个元素的数组需要进行 n-1 轮</li>
-</ol>
-<center><img src="../img/misc/bubble-sort.png"></center>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 冒泡排序</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">bubbleSort</span><span class="params">(<span class="keyword">int</span>[] a)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> r = <span class="number">1</span>; r &lt; a.length; ++r) &#123; <span class="comment">// r: round</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; a.length-r; ++i) &#123;</span><br><span class="line">            <span class="comment">// 如果 a[i] 大于 a[i+1], 则把大的交换到后面</span></span><br><span class="line">            <span class="keyword">if</span> (a[i] &gt; a[i+<span class="number">1</span>]) &#123;</span><br><span class="line">                swap(a, i, i+<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/" rel="tag">Misc</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/sort/#more">阅读全文</a>
-        </p>
       
       <div class="clearfix"></div>
     </div>

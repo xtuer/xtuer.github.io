@@ -244,6 +244,79 @@
     <!-- 生成目录 -->
 
 
+<article id="post-js-expreg" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/js-expreg/" class="article-date">
+  	<!-- <time datetime="2020-09-05T13:43:39.000Z" itemprop="datePublished">2020-09-05</time> -->
+    2020-09-05
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/js-expreg/">JS 的正则表达式</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>JS 中可以用下面 3 种方式使用正则表达式获取数据:</p>
+<ul>
+<li><code>RegExp.exec()</code></li>
+<li><code>String.match()</code></li>
+<li><code>String.replace()</code>: 这个用法比较奇葩，但是我喜欢</li>
+</ul>
+<p>下面就简单介绍下每一个的用法。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/js-expreg/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-sql-common" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -891,79 +964,6 @@
       
         <p class="article-more-link">
           <a  href="/promise-tips/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-html2pdf" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/html2pdf/" class="article-date">
-  	<!-- <time datetime="2020-03-03T03:32:53.000Z" itemprop="datePublished">2020-03-03</time> -->
-    2020-03-03
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/html2pdf/">Html 转为 Pdf</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>使用 html2pdf 把 Html 转为 Pdf，实际项目中可以先借助 Freemarker 模板生成 Html，然后再转换为 Pdf。</p>
-<blockquote>
-<p>缺点: html2pdf 不支持 CSS 的 flex 和 grid 布局。</p>
-</blockquote>
-<h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">implementation &quot;com.itextpdf:html2pdf:2.1.7&quot;</span><br></pre></td></tr></table></figure>
-
-<h2 id="转换"><a href="#转换" class="headerlink" title="转换"></a>转换</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.itextpdf.html2pdf.ConverterProperties;</span><br><span class="line"><span class="keyword">import</span> com.itextpdf.html2pdf.HtmlConverter;</span><br><span class="line"><span class="keyword">import</span> com.itextpdf.layout.font.FontProvider;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.FileOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Html2Pdf</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        File htmlSrc = <span class="keyword">new</span> File(<span class="string">&quot;/Users/Biao/Desktop/x.html&quot;</span>);</span><br><span class="line">        File pdfDest = <span class="keyword">new</span> File(<span class="string">&quot;/Users/Biao/Desktop/x.pdf&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 使用中文字体解决不显示中文问题: 字体文件可以从系统中找，也可以从网上下载</span></span><br><span class="line">        FontProvider fontProvider = <span class="keyword">new</span> FontProvider();</span><br><span class="line">        fontProvider.addStandardPdfFonts();</span><br><span class="line">        fontProvider.addFont(<span class="string">&quot;/Users/Biao/Desktop/Yahei.ttf&quot;</span>);</span><br><span class="line">        <span class="comment">// fontProvider.addDirectory(&quot;...&quot;); // 添加文件夹下的所有字体</span></span><br><span class="line"></span><br><span class="line">        ConverterProperties converterProperties = <span class="keyword">new</span> ConverterProperties();</span><br><span class="line">        converterProperties.setCharset(<span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line">        converterProperties.setFontProvider(fontProvider);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// HTML 中本地图片要使用 file:// 的格式，如 file:///Users/Biao/Desktop/shot.png</span></span><br><span class="line">        HtmlConverter.convertToPdf(htmlSrc, pdfDest, converterProperties);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/html2pdf/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

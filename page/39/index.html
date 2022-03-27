@@ -244,6 +244,77 @@
     <!-- 生成目录 -->
 
 
+<article id="post-fe-srt" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/fe-srt/" class="article-date">
+  	<!-- <time datetime="2016-10-08T09:09:18.000Z" itemprop="datePublished">2016-10-08</time> -->
+    2016-10-08
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/fe-srt/">JS 解析 SRT 格式的字幕</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>把 SRT 格式的字幕文件解析为字幕的对象数组，格式为:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;<span class="attr">sn</span>: <span class="string">&quot;0&quot;</span>, <span class="attr">startTime</span>: <span class="number">0.89</span>, <span class="attr">endTime</span>: <span class="number">7.89</span>,  <span class="attr">content</span>: <span class="string">&quot;这里是一系列与Hadoop↵有关的其他开源项目&quot;</span>&#125;,</span><br><span class="line">    &#123;<span class="attr">sn</span>: <span class="string">&quot;1&quot;</span>, <span class="attr">startTime</span>: <span class="number">8.38</span>, <span class="attr">endTime</span>: <span class="number">14.85</span>, <span class="attr">content</span>: <span class="string">&quot;Eclipse是一个IBM贡献到开源社区里的集成开发环境（IDE）&quot;</span>&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>输出效果:</p>
+<p><img src="../img/fe/srt.png"></p>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/fe-srt/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-spring-mvc-get-request" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -870,99 +941,6 @@
       
         <p class="article-more-link">
           <a  href="/qt-access-network/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-qt-frameless-window" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/qt-frameless-window/" class="article-date">
-  	<!-- <time datetime="2016-09-07T14:52:44.000Z" itemprop="datePublished">2016-09-07</time> -->
-    2016-09-07
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/qt-frameless-window/">Qt 创建圆角、无边框、有阴影、可拖动的窗口</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>程序窗口的边框，标题栏等是系统管理的，Qt 不能对其进行定制，为了实现定制的边框、标题栏、关闭按钮等，需要把系统默认的边框、标题栏去掉，然后使用 Widget 来模拟它们。这里介绍使用 <code>QSS + QGraphicsDropShadowEffect</code> 来创建圆角、无边框、有阴影、可拖动的窗口。</p>
-<p><strong>核心技术要点:</strong></p>
-<ul>
-<li><p>启用 QSS: <code>setAttribute(Qt::WA_StyledBackground, true)</code></p>
-<blockquote>
-<p>我们继承 QWidget 实现的 Widget 默认是不启用 QSS 的，为了启用 QSS，需要调用 <code>setAttribute(Qt::WA_StyledBackground, true)</code></p>
-</blockquote>
-</li>
-<li><p>使用 <code>border-radius</code> 创建圆角效果</p>
-<blockquote>
-<p>顶级窗口有些 QSS 不生效，例如 <code>border-radius</code>，所以把要显示圆角的 Widget 上放在另一个顶级 Widget 中，变为非顶级窗口</p>
-</blockquote>
-</li>
-<li><p>顶级窗口需要去掉边框，背景设置为透明</p>
-<ul>
-<li>去掉边框: <code>setWindowFlags(Qt::FramelessWindowHint);</code></li>
-<li>背景透明: <code>setAttribute(Qt::WA_TranslucentBackground);</code></li>
-</ul>
-</li>
-<li><p>使用鼠标事件实现拖动</p>
-</li>
-<li><p>使用 <code>QGraphicsDropShadowEffect</code> 创建阴影</p>
-<blockquote>
-<p>很遗憾，QSS 不支持阴影</p>
-</blockquote>
-</li>
-</ul>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/" rel="tag">Qt</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/qt-frameless-window/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

@@ -244,6 +244,94 @@
     <!-- 生成目录 -->
 
 
+<article id="post-fe-vue-for-attribute" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/fe-vue-for-attribute/" class="article-date">
+  	<!-- <time datetime="2016-11-08T05:48:19.000Z" itemprop="datePublished">2016-11-08</time> -->
+    2016-11-08
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/fe-vue-for-attribute/">Vue 使用 v-for 和设置属性及事件处理</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Vue 中使用 <code>v-for</code> 遍历数组，设置属性使用指令 <code>v-bind</code>，输入和数据绑定用 <code>v-model</code>，事件处理则用 <code>v-on</code>。</p>
+<p>插值时需要用 <code>&#123; &#123; &#125; &#125;</code>，但是使用指令时不用，指令用 <code>v-</code> 作为前缀，例如</p>
+<ul>
+<li>v-for</li>
+<li>v-if</li>
+<li>v-show</li>
+<li>v-bind</li>
+<li>v-on: <code>v-on:click=&quot;say&quot;</code> or <code>v-on:click=&quot;say(&#39;参数&#39;, $event)&quot;</code></li>
+</ul>
+<p>v-bind 和 v-on 有简写形式 <code>:</code> 和 <code>@</code></p>
+<ul>
+<li>例如设置属性 <code>data-name</code> 使用指令 <code>v-bind:data-name</code>，其简写为 <code>:data-name</code></li>
+<li>点击事件使用 <code>v-on:click</code>，其简写为 <code>@click</code></li>
+</ul>
+<p>事件修饰符</p>
+<ul>
+<li><code>.stop</code> 阻止冒泡，调用 event.stopPropagation()</li>
+<li><code>.prevent</code> 阻止默认事件，调用 event.preventDefault()</li>
+<li><code>.capture</code> 添加事件侦听器时使用事件<code>捕获</code>模式</li>
+<li><code>.self</code> 只当事件在该元素本身（比如不是子元素）触发时触发回调</li>
+<li><code>.once</code> 事件只触发一次</li>
+</ul>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/fe-vue-for-attribute/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-qt-item-hover-tooltip" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -858,74 +946,6 @@
         <p class="article-more-link">
           <a  href="/fe-leanmodal/#more">阅读全文</a>
         </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-fe-cdn" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/fe-cdn/" class="article-date">
-  	<!-- <time datetime="2016-10-18T15:11:05.000Z" itemprop="datePublished">2016-10-18</time> -->
-    2016-10-18
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/fe-cdn/">静态文件 CDN</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>比较好用的静态文件 CDN 有:</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="http://www.bootcdn.cn/">BootCDN</a>: 稳定、快速、免费的开源项目 CDN 服务，共收录了 2560 个开源项目</li>
-<li><a target="_blank" rel="noopener" href="http://www.staticfile.org/">Staticfile CDN</a>: 搜索比较方便</li>
-</ul>
-
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
-	</div>
-
-
-      
-
       
       <div class="clearfix"></div>
     </div>

@@ -244,6 +244,84 @@
     <!-- 生成目录 -->
 
 
+<article id="post-qtbook-singleton-1-simple" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-singleton-1-simple/" class="article-date">
+  	<!-- <time datetime="2016-12-15T10:25:19.000Z" itemprop="datePublished">2016-12-15</time> -->
+    2016-12-15
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qtbook-singleton-1-simple/">单例的简单实现</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>用简单直观的方式来实现一个单例的类 ConfigUtil，这里不使用宏，模版等技术，先了解实现一个单例类的理论知识，然后在此基础之上进行思考，优化，最终让我们的实现真正的达到实用的目的，而不只是功能上可用，但是质量却很不好。</p>
+<h5 id="实现单例时，需要注意以下几点："><a href="#实现单例时，需要注意以下几点：" class="headerlink" title="实现单例时，需要注意以下几点："></a>实现单例时，需要注意以下几点：</h5><ul>
+<li>C++ 的书里经常强调：一个类，至少要提供<code>构造函数</code>，<code>拷贝构造函数</code>，<code>析构函数</code>，<code>赋值运算操作符</code>，尤其是有成员变量是指针类型，保存指针的数组或集合时更是需要注意（实现深拷贝）</li>
+<li>要限制创建和删除 ConfigUtil 的对象<ul>
+<li>构造函数定义为 private 的，是为了防止其他地方使用 new 创建 ConfigUtil 的对象</li>
+<li>析构函数定义为 private 的，是为了防止其他地方使用 delete 删除 ConfigUtil 的对象</li>
+<li>拷贝构造函数定义为 private 的，是为了防止通过拷贝构造函数创建新的 ConfigUtil 对象</li>
+<li>赋值运算操作符定义为 private 的，是为了防止通过赋值操作创建新的 ConfigUtil 对象</li>
+</ul>
+</li>
+<li>通过 <code>ConfigUtil::getInstance()</code> 获取 ConfigUtil 的对象</li>
+<li>当程序结束的时候调用 <code>ConfigUtil::release()</code> 删除它的对象，否则会造成内存泄漏。虽然程序结束了，内存会被系统回收，但是理论上还是要保证谁分配的内存谁回收
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/qtbook-singleton-1-simple/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-qtbook-singleton" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -860,73 +938,6 @@
       
         <p class="article-more-link">
           <a  href="/qtbook-paint-status/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-qtbook-paint-gradient" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/qtbook-paint-gradient/" class="article-date">
-  	<!-- <time datetime="2016-12-08T15:17:42.000Z" itemprop="datePublished">2016-12-08</time> -->
-    2016-12-08
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/qtbook-paint-gradient/">渐变及原理</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>渐变有三种：QLinearGradient, QConicalGradient and QRadialGradient，接下来将介绍它们的使用和实现原理。
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/qtbook-paint-gradient/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>
