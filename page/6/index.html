@@ -244,6 +244,100 @@
     <!-- 生成目录 -->
 
 
+<article id="post-qt-mysql-driver" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qt-mysql-driver/" class="article-date">
+  	<!-- <time datetime="2019-07-21T00:21:38.000Z" itemprop="datePublished">2019-07-21</time> -->
+    2019-07-21
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qt-mysql-driver/">Qt 编译 MySQL 驱动</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>很开心 Qt 5.0 发布后好几个版本 Windows 和 Mac 都自带了 MySQL 的驱动，以为以后就省事了。Qt 5.12 时 Windows 下也还带有 MySQL 驱动，不过忽然发现 Mac 下不带了，哎，又只好自己去编译了。</p>
+<p>下面就介绍一下我们在 Mac 中编译 MySQL 驱动成功的步骤:</p>
+<ol>
+<li>下载 <a target="_blank" rel="noopener" href="https://dev.mysql.com/downloads/mysql/5.7.html#downloads">MySQL</a> 解压版 (<strong>macOS 10.14 (x86, 64-bit), Compressed TAR Archive</strong>)，解压到 <code>/usr/local</code> (不要用 brew 安装)</li>
+<li>命令行进入 MySQL 驱动源码目录: <code>cd /Users/Biao/Qt5.12.4/5.12.4/Src/qtbase/src/plugins/sqldrivers/mysql</code></li>
+<li>删除 mysql.pro 中的 <code>QMAKE_USE += mysql</code> 这一行</li>
+<li>生成 Makefile 文件: <code>qmake &quot;INCLUDEPATH+=/usr/local/mysql/include&quot; &quot;LIBS+=-L/usr/local/mysql/lib -lmysqlclient&quot; mysql.pro</code></li>
+<li>编译安装: <code>make &amp;&amp; make install</code>，然后在 Qt 的 <code>plugins/sqldrivers</code> 目录下就能看到 MySQL 的驱动 <strong>libqsqlmysql.dylib</strong> 了</li>
+</ol>
+<p>编译的过程中出现下面的警告，忽略即可:</p>
+<blockquote>
+<p>Cannot read /Users/Biao/Qt5.12.4/5.12.4/Src/qtbase/src/plugins/sqldrivers/qtsqldrivers-config.pri: No such file or directory</p>
+</blockquote>
+<hr>
+<p>随便提一下，按照 Qt 自带帮助文档中的步骤进行编译:</p>
+<blockquote>
+<p>cd $QTDIR/qtbase/src/plugins/sqldrivers<br>qmake – MYSQL_PREFIX=/usr/local<br>make sub-mysql</p>
+</blockquote>
+<p>报错:</p>
+<blockquote>
+<p>Cannot read /Users/Biao/Qt5.12.4/5.12.4/Src/qtbase/src/plugins/sqldrivers/qtsqldrivers-config.pri: No such file or directory<br>Project ERROR: Library ‘mysql’ is not defined.</p>
+</blockquote>
+<p>可能是因为 MySQL 的安装问题吧，但是文档里也没提示这种情况下 Mac 里 MySQL 应该怎么安装，具体就不深入研究了，反正上面的方式能编译成功。</p>
+<blockquote>
+<p> Windows 编译时参考上面 Mac 的步骤，只需要把第 4 步中的 <code>-lmysqlclient</code> 修改为 <code>-lmysql</code>，其他步骤不变，使用 MinGW 编译参考下面 2 条命令:</p>
+<ul>
+<li><code>F:\Qt\Qt5.13.0\5.13.0\mingw73_32\bin\qmake.exe &quot;INCLUDEPATH+=D:/mysql-5.7.29-win32/include&quot; &quot;LIBS+=-LD:/mysql-5.7.29-win32/lib -lmysql&quot; mysql.pro</code></li>
+<li><code>F:\Qt\Qt5.13.0\Tools\mingw730_32\bin\mingw32-make.exe</code></li>
+</ul>
+<p>编译出来的 DLL 在目录 <strong>F:\Qt\Qt5.13.0\5.13.0\Src\qtbase\src\plugins\sqldrivers\plugins\sqldrivers</strong> 中</p>
+</blockquote>
+
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/" rel="tag">Qt</a></li></ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-spring-jetcache" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -886,75 +980,6 @@
 
       
 
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-fe-vue-scoped" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/fe-vue-scoped/" class="article-date">
-  	<!-- <time datetime="2019-04-07T09:19:27.000Z" itemprop="datePublished">2019-04-07</time> -->
-    2019-04-07
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/fe-vue-scoped/">Vue 尽量不用 scoped</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>在 Vue 中，为了减少样式的冲突，可以使用 scoped 使得生成的 DOM element 和 class 都带上随机属性，但有利有弊，总的来说，不推荐使用 scoped，因为使用 scoped 后就不能跨级设置组件的样式了。</p>
-<blockquote>
-<p>跨级: 组件 A 中直接使用组件 B，组件 B 中直接使用组件 C，因为 C 没有在 A 中直接使用，所以我们说 A 和 C 跨级了。
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/fe-vue-scoped/#more">阅读全文</a>
-        </p>
       
       <div class="clearfix"></div>
     </div>

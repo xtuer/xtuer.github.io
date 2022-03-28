@@ -244,6 +244,74 @@
     <!-- 生成目录 -->
 
 
+<article id="post-qt-install" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qt-install/" class="article-date">
+  	<!-- <time datetime="2017-10-21T00:24:35.000Z" itemprop="datePublished">2017-10-21</time> -->
+    2017-10-21
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qt-install/">Qt 安装</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>对于想学习 Qt 的同学来说，下载、安装 Qt 还真不是一件容易的事，但这也是学习 Qt 的基石，否则连个 Qt Hello World 都不能在电脑上编写，还玩什么呢？</p>
+<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>下载 Qt，首先想到的是到官网 <a target="_blank" rel="noopener" href="https://www.qt.io/">https://www.qt.io</a> 下载，悲催的是，别说对于新手，就算对于我这种业余爱好 Qt 好多年的伪骨灰，进去后都是懵逼状态，别说还要注册、登录，估计连找下载的地方都困难，大多数人在这估计就有放弃的想法了，不能从大门进，还不能直捣黄龙么，访问 <a target="_blank" rel="noopener" href="http://download.qt.io/archive/qt/">http://download.qt.io/archive/qt/</a> 就可以无障碍的挑选想要的 Qt 版本了。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/" rel="tag">Qt</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/qt-install/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-qtbook-paint-fitting-curve" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -917,82 +985,6 @@
       
         <p class="article-more-link">
           <a  href="/spring-boot-redis/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-spring-boot-mybatis" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/spring-boot-mybatis/" class="article-date">
-  	<!-- <time datetime="2017-09-11T06:31:15.000Z" itemprop="datePublished">2017-09-11</time> -->
-    2017-09-11
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/spring-boot-mybatis/">Spring Boot MyBatis</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>Spring Boot 使用 MyBatis 主要为以下 4 步:</p>
-<ol>
-<li><p>引入依赖</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">implementation <span class="string">&#x27;org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.0&#x27;</span></span><br><span class="line">runtime(<span class="string">&#x27;mysql:mysql-connector-java:5.1.46&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
-<li><p>配置数据源: 配置 <strong>application.properties</strong></p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring.datasource.username</span>=root</span><br><span class="line"><span class="attr">spring.datasource.password</span>=root</span><br><span class="line"><span class="attr">spring.datasource.url</span>=jdbc:mysql://localhost:<span class="number">3306</span>/test</span><br><span class="line"><span class="attr">spring.datasource.driver-class-name</span>=com.mysql.jdbc.Driver</span><br></pre></td></tr></table></figure></li>
-<li><p>编写 Mapper: 使用注解 <strong>@Mapper</strong> 自动生成 Mapper 对象</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.mapper;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.annotations.Mapper;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.annotations.Select;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Mapper</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserMapper</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Select(&quot;SELECT * FROM user WHERE username=#&#123;username&#125;&quot;)</span></span><br><span class="line">    <span class="function">Map <span class="title">findUserByUsername</span><span class="params">(String username)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>使用 Mapper: 使用 <strong>@Autowired</strong> 装配 mapper</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.xtuer.mapper.UserMapper;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserMapper userMapper;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/hello&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map <span class="title">hello</span><span class="params">(<span class="meta">@RequestParam</span> String username)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> userMapper.findUserByUsername(username);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/spring-boot-mybatis/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

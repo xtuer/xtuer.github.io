@@ -244,6 +244,77 @@
     <!-- 生成目录 -->
 
 
+<article id="post-spring-mvc-ajax" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/spring-mvc-ajax/" class="article-date">
+  	<!-- <time datetime="2016-04-17T13:51:01.000Z" itemprop="datePublished">2016-04-17</time> -->
+    2016-04-17
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/spring-mvc-ajax/">SpringMVC 处理 Ajax 映射</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>SpringMVC 返回 Json 数据给前端是件很简单的事，但是 SpringMVC 的 Controller 接收前端 Ajax传来的 Json 数据却不那么容易，前端和后端都要很小心，有一点不对就会出错，需要分为 2 种情况处理:</p>
+<ul>
+<li>GET</li>
+<li>PUT, POST, DELETE</li>
+</ul>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ajax/" rel="tag">Ajax</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringMVC/" rel="tag">SpringMVC</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/spring-mvc-ajax/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-util-java-csv" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -852,81 +923,6 @@ Java HotSpot(TM) 64-Bit Server VM (build 24.75-b04, mixed mode)
       
         <p class="article-more-link">
           <a  href="/spring-security-5-rememberme/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-spring-security-4-encrypt" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/spring-security-4-encrypt/" class="article-date">
-  	<!-- <time datetime="2016-04-10T02:45:54.000Z" itemprop="datePublished">2016-04-10</time> -->
-    2016-04-10
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/spring-security-4-encrypt/">Spring Security 加密密码</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>明文保存密码是不可取的，可以使用 <code>SHA</code>，<code>BCrypt</code> 等对密码进行加密。</p>
-<p>BCrypt 算法与 MD5/SHA 算法有一个很大的区别，每次生成的 hash 值都是不同的，就可以免除存储 salt，暴力破解起来也更困难。BCrypt 加密后的字符长度比较长，有60位，所以用户表中密码字段的长度，如果打算采用 BCrypt 加密存储，字段长度不得低于 68(需要前缀 <code>&#123;bcrypt&#125;</code>)。</p>
-<p>下面的代码展示怎么使用 BCrypt 进行加密:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.crypto.password.PasswordEncoder;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EncryptPassword</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">encrypt</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        PasswordEncoder passwordEncoder = <span class="keyword">new</span> BCryptPasswordEncoder();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; ++i) &#123;</span><br><span class="line">            <span class="comment">// 每次生成的密码都不一样</span></span><br><span class="line">            String encryptedPassword = passwordEncoder.encode(<span class="string">&quot;Passw0rd&quot;</span>);</span><br><span class="line">            System.out.println(encryptedPassword);</span><br><span class="line">            System.out.println(passwordEncoder.matches(<span class="string">&quot;Passw0rd&quot;</span>, encryptedPassword)); <span class="comment">// true</span></span><br><span class="line">            System.out.println(passwordEncoder.matches(<span class="string">&quot;Password&quot;</span>, encryptedPassword)); <span class="comment">// false</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>输出:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$2a$10$l7vPVeqwb9GiVjURV5J2QO1CM5qxwk00/Ra5qEog0WgP7O5XV0Ble</span><br><span class="line">true</span><br><span class="line">false</span><br><span class="line">$2a$10$jeyMfHF88mNJb9v.mQ7YiuZ8oTU.pHaiKdT1NLOM38eXj7heHZHg2</span><br><span class="line">true</span><br><span class="line">false</span><br><span class="line">$2a$10$ux43/3JcHUC1hszyoJaH0eQhv7LkIVfL7p1cW80WxfxeTr2dUY6kO</span><br><span class="line">true</span><br><span class="line">false</span><br><span class="line">$2a$10$KdUmhaJOJ30klEcKiYT25.fIRPrMs4xONHOQh4JvmpKSjJ8d9.QKG</span><br><span class="line">true</span><br><span class="line">false</span><br><span class="line">$2a$10$gQKUOoFuevnCkoej3.AvAO9YzHKCKYmKuiSfEGHL22piY2FfNDQYu</span><br><span class="line">true</span><br><span class="line">false</span><br></pre></td></tr></table></figure>
-
-<p>随意取其中任意一个都可以，因为每次生成都是不一样的，所以取第一个就可以了。
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringSecurity/" rel="tag">SpringSecurity</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/spring-security-4-encrypt/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

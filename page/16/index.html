@@ -244,6 +244,102 @@
     <!-- 生成目录 -->
 
 
+<article id="post-gitbook" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/gitbook/" class="article-date">
+  	<!-- <time datetime="2017-08-20T09:05:58.000Z" itemprop="datePublished">2017-08-20</time> -->
+    2017-08-20
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/gitbook/">GitBook 入门</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>GitBook 是一个使用 Markdown 文件，用来写书、说明文档等的工具，它的官网已经有 5 万多本使用 GitBook 写的书了，现在不少公司都开始用 GitBook 来写项目文档、使用手册等。下面就简要的介绍怎么使用 GitBook，首先需要安装下面这些软件:</p>
+<ol>
+<li>安装 Git</li>
+<li>安装 Nodejs</li>
+<li>安装 GitBook: <code>npm install gitbook -g</code></li>
+<li>安装 GitBook-Cli: <code>npm install gitbook-cli -g</code></li>
+</ol>
+<h2 id="本地搭建-GitBook"><a href="#本地搭建-GitBook" class="headerlink" title="本地搭建 GitBook"></a>本地搭建 GitBook</h2><p>本地搭建 GitBook 的好处是我们可以自己管理文件的存储，例如可以放到公司的 Git 私服上:</p>
+<ol>
+<li><p>创建目录例如 Pandora 用于存放书的文件，进入目录</p>
+</li>
+<li><p>创建文件 README.md 和 SUMMARY.md，它们是 GitBook 最重要的 2 个文件，README.md 对书进行介绍，在 SUMMARY.md 中描述书的目录结构，其内容可参考如下:</p>
+<p>README.md:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">本书用于介绍 Pandora 项目的使用说明</span><br></pre></td></tr></table></figure>
+<p>SUMMARY.md:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># Summary</span><br><span class="line"></span><br><span class="line">* [简介](README.md)</span><br><span class="line">* [第一章](chapter1/README.md)</span><br><span class="line">    * [第一节](chapter1/section1.md)</span><br><span class="line">    * [第二节](chapter1/section2.md)</span><br><span class="line">* [第二章](chapter2/README.md)</span><br><span class="line">    * [第一节](chapter2/section1.md)</span><br><span class="line">    * [第二节](chapter2/section2.md)</span><br><span class="line">* [结束](end/README.md)</span><br></pre></td></tr></table></figure></li>
+<li><p>执行 <code>gitbook init</code>:</p>
+<p>会自动创建 SUMMARY.md 中描述的目录结构对应的文件夹和文件，每次执行这个命令都会创建还没有还不存在的文件和文件夹，但是不会影响已经创建的，所以不用担心多次执行 <code>gitbook init</code> 导致数据丢失</p>
+</li>
+<li><p>编辑书的 Markdown 文件，例如 section1.md 等</p>
+</li>
+<li><p>安装插件 <code>gitbook install</code></p>
+</li>
+<li><p>执行 <code>gitbook serve</code>，在浏览器里访问 <a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000</a> 就可以看到上面写的书了，以后常用的也是这个命令，当文件变化后可以在网页中及时看到新的变化</p>
+<blockquote>
+<p>Bug: Windows 中 <code>gitbook serve</code> 运行后，当文件发生变化时不是自动更新网页而是退出，可以使用下面的脚本来运行 <code>gitbook serve</code> 解决这个问题：</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Echo off</span><br><span class="line">:Start</span><br><span class="line">call gitbook serve</span><br><span class="line">goto Start</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>把上面的文件保存为 <code>gs.bat</code> 放到 GitBook 目录中，运行 <code>gs.bat</code> 就可以了。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/gitbook/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-fe-player" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -885,102 +981,6 @@
       
         <p class="article-more-link">
           <a  href="/spring-web-thymeleaf/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-java-develop-process" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/java-develop-process/" class="article-date">
-  	<!-- <time datetime="2017-08-03T03:47:31.000Z" itemprop="datePublished">2017-08-03</time> -->
-    2017-08-03
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/java-develop-process/">软件开发流程</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>第一步: 我们要确定一个可行的设计方案:</td>
-<td>第二步: 我们要开始把框架搭好</td>
-<td>第三步: 我们开始一个模块一个模块的完成</td>
-</tr>
-<tr>
-<td><img src="../img/develop/process-1.png"></td>
-<td><img src="../img/develop/process-2.png"></td>
-<td><img src="../img/develop/process-3.png"></td>
-</tr>
-<tr>
-<td>第四步: 可以拿去给测试们看了(白盒黑盒都有)</td>
-<td>第五步: 产品经过测试通过可以拿去给安全组检查了</td>
-<td>最后: 我们的产品就可以上线了</td>
-</tr>
-<tr>
-<td><img src="../img/develop/process-4.png"></td>
-<td><img src="../img/develop/process-5.png"></td>
-<td><img src="../img/develop/process-6.png"></td>
-</tr>
-</tbody></table>
-<p>I make things.
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/java-develop-process/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

@@ -244,6 +244,92 @@
     <!-- 生成目录 -->
 
 
+<article id="post-java-scala-intro" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/java-scala-intro/" class="article-date">
+  	<!-- <time datetime="2018-11-24T00:24:19.000Z" itemprop="datePublished">2018-11-24</time> -->
+    2018-11-24
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java-scala-intro/">Scala 语法摘要</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Scala: Scalable language, 面向对象的函数式编程语言.</p>
+<h2 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h2><p>类型的首字母大写, 没有基本类型: </p>
+<ul>
+<li>Boolean</li>
+<li>Byte</li>
+<li>Char</li>
+<li>Short</li>
+<li>Int</li>
+<li>Long</li>
+<li>Float</li>
+<li>Double</li>
+<li>String</li>
+<li>Unit (即是 void)</li>
+<li>Any</li>
+<li>AnyRef</li>
+<li>AnyValue</li>
+</ul>
+<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><p>常量: <code>val greeting: String = &quot;Hello world&quot; (value), val π = 3.1415926</code></p>
+<p>变量: <code>var greeting: String = &quot;Hello world&quot; (variable)</code></p>
+<p>名字: 字母, 数字, 特殊操作符如 +, -, *, /, π, θ 等, 不能以数字开头
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/java-scala-intro/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-mongo-auth" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -1042,82 +1128,6 @@ The model communicates with a source of data, providing an interface for the oth
       
         <p class="article-more-link">
           <a  href="/qtbook-custom-widget-abnormity-buttons/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-qtbook-paint-image" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/qtbook-paint-image/" class="article-date">
-  	<!-- <time datetime="2018-06-03T14:03:39.000Z" itemprop="datePublished">2018-06-03</time> -->
-    2018-06-03
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/qtbook-paint-image/">操作图像像素，实现各种效果</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>Qt 中图像相关的类主要是 QPixmap 和 QImage，QPixmap 没有提供访问图像像素数据的接口，访问图像的像素数据需要使用 QImage，主要的函数有 (相关重载函数没有列出来):</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取图像的像素数据</span></span><br><span class="line"><span class="function">QRgb   <span class="title">pixel</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function">QColor <span class="title">pixelColor</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function">uchar* <span class="title">scanLine</span><span class="params">(<span class="keyword">int</span> i)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">// 设置图像的像素数据</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setPixel</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, uint index_or_rgb)</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setPixelColor</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">const</span> QColor &amp;color)</span></span></span><br></pre></td></tr></table></figure>
-
-<p>下面把一个图像转为灰度图为例介绍怎么操作图像的像素:</p>
-<ol>
-<li>取得图像的宽、高</li>
-<li>根据宽、高遍历每一个像素</li>
-<li>得到每一个像素的 RGBA 颜色分量</li>
-<li>对得到的颜色分量 RGBA 进行灰度计算得到新的颜色</li>
-<li>使用计算得到的颜色设置对应像素
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/qtbook-paint-image/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

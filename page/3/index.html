@@ -244,6 +244,84 @@
     <!-- 生成目录 -->
 
 
+<article id="post-vue-key" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/vue-key/" class="article-date">
+  	<!-- <time datetime="2020-09-13T00:07:38.000Z" itemprop="datePublished">2020-09-13</time> -->
+    2020-09-13
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/vue-key/">Vue :key</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>我们都知道使用 v-for 渲染数组时都要给每个元素绑定一个 key，<a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/guide/list.html#%E7%BB%B4%E6%8A%A4%E7%8A%B6%E6%80%81">官方文档</a>也说的很清 (挠) 楚 (头):</p>
+<blockquote>
+<p>当 Vue 正在更新使用 <code>v-for</code> 渲染的元素列表时，它默认使用“就地更新”的策略。如果数据项的顺序被改变，Vue 将不会移动 DOM 元素来匹配数据项的顺序，而是就地更新每个元素，并且确保它们在每个索引位置正确渲染。</p>
+<p><code>key</code> 的特殊 attribute 主要用在 Vue 的虚拟 DOM 算法，在新旧 nodes 对比时辨识 VNodes。如果不使用 key，Vue 会使用一种最大限度减少动态元素并且尽可能的尝试就地修改/复用相同类型元素的算法。而使用 key 时，它会基于 key 的变化重新排列元素顺序，并且会移除 key 不存在的元素。</p>
+<p>有<strong>相同父元素的子元素</strong>必须有<strong>独特的 key</strong>，重复的 key 会造成渲染错误。</p>
+</blockquote>
+<p>需要记住一点: 当用来创建 DOM 元素的数据变化后，就会更新 DOM (更新了才能在界面上看到)，为了提高效率，vue 使用了 key 来判断是复用已有的 DOM 还是创建新的 DOM (在同一个 parent DOM element 下进行比较):</p>
+<ul>
+<li>如果能找到相同 key 的 DOM 元素，则更新它的内容</li>
+<li>如果找不到相同 key 的 DOM 元素，则删除旧的 DOM 元素，新创建一个</li>
+</ul>
+<p>上面的内容，懂的人一看就懂，不懂的人仍然是一头雾水。下面我们以一个很简单的修改用户名的例子演示一下应该就能明白什么时候复用，什么时候创建了。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/vue-key/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-js-expreg" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -895,75 +973,6 @@
       
         <p class="article-more-link">
           <a  href="/java-dynamic-datasource/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-promise-tips" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/promise-tips/" class="article-date">
-  	<!-- <time datetime="2020-05-02T01:16:24.000Z" itemprop="datePublished">2020-05-02</time> -->
-    2020-05-02
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/promise-tips/">Promise 知识点</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>可以访问 <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/82237a7ca6e5">Promise 对象基础</a> 对 Promise 进行了解，这里就不再赘述了。</p>
-<p><strong>Promises</strong> 承诺，你将会得到延期或长期运行任务的未来结果。承诺有两个渠道：第一个为结果，第二个为潜在的错误。要获取结果，您将回调函数作为 then 函数参数，要处理错误，您将回调函数提供为 catch 函数参数。Promise 的状态的改变是单向的，一次性的，一旦改变，状态就会凝固了。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="javascript"></span></span></span><br><span class="line"><span class="javascript"><span class="xml">        <span class="keyword">let</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">            <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">                <span class="keyword">const</span> result = <span class="built_in">Math</span>.random();</span></span></span><br><span class="line"><span class="javascript"><span class="xml">                result &gt; <span class="number">0.5</span> ? resolve(result) : reject(<span class="string">&#x27;Lower than 0.5&#x27;</span>);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">            &#125;, <span class="number">2000</span>);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">        &#125;);</span></span></span><br><span class="line"><span class="javascript"><span class="xml"></span></span></span><br><span class="line"><span class="javascript"><span class="xml">        p.then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">            <span class="built_in">console</span>.log(<span class="string">&#x27;success&#x27;</span>, result);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">        &#125;).catch(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">            <span class="built_in">console</span>.log(<span class="string">&#x27;fail&#x27;</span>, result);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">        &#125;);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/promise-tips/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

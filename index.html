@@ -244,6 +244,82 @@
     <!-- 生成目录 -->
 
 
+<article id="post-java-command-line" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/java-command-line/" class="article-date">
+  	<!-- <time datetime="2022-03-28T09:56:52.000Z" itemprop="datePublished">2022-03-28</time> -->
+    2022-03-28
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java-command-line/">Java 执行命令</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>使用 Java 执行命令，可以:</p>
+<ul>
+<li>使用 JDK 自带的 ProcessBuilder</li>
+<li>使用 <a target="_blank" rel="noopener" href="https://commons.apache.org/proper/commons-exec/">Apache Commons Exec</a></li>
+</ul>
+<p>下面以执行 <code>ls -l /</code> 为例演示相关代码。</p>
+<h2 id="ProcessBuilder"><a href="#ProcessBuilder" class="headerlink" title="ProcessBuilder"></a>ProcessBuilder</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">executeCommandUsingProcessBuilder</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    ProcessBuilder pb = <span class="keyword">new</span> ProcessBuilder(<span class="string">&quot;ls&quot;</span>, <span class="string">&quot;-l&quot;</span>, <span class="string">&quot;/&quot;</span>);</span><br><span class="line">    Process p = pb.start();</span><br><span class="line"></span><br><span class="line">    StringBuilder sbOk = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">    StringBuilder sbError = <span class="keyword">new</span> StringBuilder();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 读取正常输出</span></span><br><span class="line">    BufferedReader okReader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(p.getInputStream()));</span><br><span class="line">    String okLine = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">while</span> ((okLine = okReader.readLine()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">        sbOk.append(okLine).append(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 读取错误输出</span></span><br><span class="line">    BufferedReader errorReader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(p.getErrorStream()));</span><br><span class="line">    String errorLine = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">while</span> ((errorLine = errorReader.readLine()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">        sbError.append(errorLine).append(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    System.out.println(sbOk.toString());</span><br><span class="line">    System.out.println(sbError.toString());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>疑问: 虽然如上能正常的获取到进程的正常和错误输出，但是不太确定是否有 Bug，感觉应该要用多线程的方式获取才对，慎用。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/java-command-line/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-java-exception-flow-control" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -925,82 +1001,6 @@
       
         <p class="article-more-link">
           <a  href="/content-type-prober/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-java-classpath-order" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/java-classpath-order/" class="article-date">
-  	<!-- <time datetime="2021-08-09T02:18:35.000Z" itemprop="datePublished">2021-08-09</time> -->
-    2021-08-09
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/java-classpath-order/">Java Classpath 加载 jar 的顺序</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>以在 Test.java 中加载 app-1.jar 和 app-2.jar 中的类 com.xtuer.Aloha 为例演示 classpath 中 jar 被加载的顺序。</p>
-<h2 id="app-1-jar-和-app-2-jar"><a href="#app-1-jar-和-app-2-jar" class="headerlink" title="app-1.jar 和 app-2.jar"></a>app-1.jar 和 app-2.jar</h2><p>创建项目，里面只有 1 个类 com.xtuer.Aloha，分别打包成 2 个版本的 jar 包:</p>
-<ul>
-<li>app-1.jar: 返回 Aloha-1</li>
-<li>app-2.jar: 返回 Aloha-2</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Aloha</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Aloha-1&quot;</span>;    <span class="comment">// app-1.jar 使用</span></span><br><span class="line">        <span class="comment">// return &quot;Aloha-2&quot;; // app-2.jar 使用</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>项目的目录结构 (此 gradle 管理的 Java 项目结构仅作为参考):</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">app</span><br><span class="line"> ├── build.gradle</span><br><span class="line"> └── src</span><br><span class="line">     └── main</span><br><span class="line">         └── java</span><br><span class="line">             └── com</span><br><span class="line">                 └── xtuer</span><br><span class="line">                     └── Aloha.java</span><br></pre></td></tr></table></figure>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/java-classpath-order/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

@@ -244,6 +244,76 @@
     <!-- 生成目录 -->
 
 
+<article id="post-spring-web-view-controller" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/spring-web-view-controller/" class="article-date">
+  	<!-- <time datetime="2016-10-15T07:35:16.000Z" itemprop="datePublished">2016-10-15</time> -->
+    2016-10-15
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/spring-web-view-controller/">View Controller</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>有很多静态页面，里没有动态的内容，如果写 Controller 去做映射的话又感觉很麻烦，都是体力活，没什么意思，这时可以用 <code>mvc:view-controller</code> 进行映射达到相同的效果而又不需要写 Controller。</p>
+<blockquote>
+<p>因为这个配置需要 Controller 的支持，所以 view 的文件需要放在模版所在文件夹。</p>
+</blockquote>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringWeb/" rel="tag">SpringWeb</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/spring-web-view-controller/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-spring-web-rest" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -906,110 +976,6 @@
       
         <p class="article-more-link">
           <a  href="/java-lombok/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-fe-rest" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/fe-rest/" class="article-date">
-  	<!-- <time datetime="2016-10-10T08:58:14.000Z" itemprop="datePublished">2016-10-10</time> -->
-    2016-10-10
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/fe-rest/">jQuery 的 REST 插件</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>使用 REST 风格提交请求时，Content-Type 规范的来说应该用 <strong>application/json</strong>，但是服务器端获取请求的参数时必须从 Request Body 中获取，有些框架对从 Request Body 中获取数据支持不好，虽然 SpringMVC 中能够使用注解 <strong>@RequestBody</strong> 从 Request Body 中获取数据，但这时不能使用 Filter 进行 XSS 过滤，总是感觉不太方便，推荐尽可能的使用 Content-Type 为 <strong>application/x-www-form-urlencoded</strong>，原因下面进行解释。</p>
-<p>这里使用 SpringMVC 作为后端处理请求进行介绍，SpringMVC 提供了一个 Filter <strong>HiddenHttpMethodFilter</strong>，把 Content-Type 为 <strong>application/x-www-form-urlencoded</strong> 的 POST 请求，参数中 <strong>_method</strong> 值为 <strong>PUT</strong> 的请求分发为 PUT 请求，为 <strong>DELETE</strong> 请求分发为 DELETE 请求，实现了普通表单的 REST 风格提交，这样同时可以使用 <strong>@RequestParam</strong> 获取参数的值:</p>
-<ul>
-<li>Content-Type 为 application/x-www-form-urlencoded + HiddenHttpMethodFilter<ul>
-<li>优点: 服务器端处理 GET, PUT, POST, DELETE 时可直接把参数映射为对象，或则都使用 @RequestParam 获取参数，使用形式一致、简洁</li>
-<li>缺点: <ul>
-<li>不符合标准的 REST 规范</li>
-<li>参数是按照 key/value 的形式发送的，和普通表单的参数形式一样，有兴趣的可以在 Chrome 的 Network 中查看请求的 Headers</li>
-<li>不方便传递复杂对象，例如 value 又是一个 Json 对象，不过估计 90% 的情况简单的 key/value 就够了</li>
-<li>PUT 时参数中需要带上 <code>_method=PUT</code>，DELETE 时参数中需要带上 <code>_method=DELETE</code></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Content-Type 为 application/json<ul>
-<li>优点: 符合标准的 REST 规范，GET 处理和上面的一样，但是 POST, PUT, DELETE 的参数是序列化后的 JSON 字符串，能够传递复杂的对象</li>
-<li>缺点: <ul>
-<li>服务器端直接参数映射为对象，或则 GET 时使用 @RequestParam 获取参数，POST, PUT, DELETE 使用 @RequestBody 获取参数到 Map 中，然后再从 Map 中获取一个一个的参数，非常繁琐</li>
-<li>GET 和 POST, PUT, DELETE 获取参数的形式不统一，一个用 @RequestParam，其他的用 @RequestBody，需要脑子转换一下</li>
-<li>浏览器端 PUT, POST, DELETE 请求传递的 JSON 对象需要序列化后才能传给服务器端</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>总结下来，在 SpringMVC 中推荐使用 <code>application/x-www-form-urlencoded + HiddenHttpMethodFilter</code> 的方式实现 REST 的请求，就是为了获取参数时形式统一，当需要传递复杂的参数时，例如属性是多层嵌套的对象，Json 对象的数组，这时再使用 application/json 的方式。</p>
-<p>为了简化 Rest Ajax 的访问，对 jQuery 的 Ajax 进行了简单的封装成插件 <code>jQuery.rest</code>，下面的例子展示了更新用户名的原始实现和使用 <code>jQuery.rest</code> 简化后的代码:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">    <span class="attr">url</span>        : <span class="string">&#x27;/users/1/username&#x27;</span>,</span><br><span class="line">    <span class="attr">data</span>       : <span class="built_in">JSON</span>.stringify(&#123;<span class="attr">name</span>: <span class="string">&#x27;Bob&#x27;</span>&#125;),</span><br><span class="line">    <span class="attr">method</span>     : <span class="string">&#x27;PUT&#x27;</span>,</span><br><span class="line">    <span class="attr">dataType</span>   : <span class="string">&#x27;json&#x27;</span>,</span><br><span class="line">    <span class="attr">contentType</span>: <span class="string">&#x27;application/json&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line">.done(<span class="function"><span class="keyword">function</span>(<span class="params">result</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(result);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<p>如果每个 REST 的请求都像上面这样写一遍: </p>
-<ul>
-<li><code>GET</code> 时 data 不能序列化</li>
-<li><code>PUT</code>, <code>POST</code>, <code>DELETE</code> 时 data 需要序列化: <code>JSON.stringify(data)</code></li>
-<li>请求不同时 method 也不同</li>
-<li>dataType 和 contentType 是固定的</li>
-</ul>
-<p>这么多参数，很容易出错。使用下面实现的 rest 插件后，简化如下，只需要关心参数和回调，不需要处理其他额外信息，而且 <code>$.rest.update</code> 名字也更语义化，一看就知道是更新操作:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$.rest.update(&#123;</span><br><span class="line">    <span class="attr">url</span>    : <span class="string">&#x27;/users/1/username&#x27;</span>, </span><br><span class="line">    <span class="attr">data</span>   : &#123;<span class="attr">name</span>: <span class="string">&#x27;Bob&#x27;</span>&#125;, </span><br><span class="line">    <span class="attr">success</span>: <span class="function"><span class="keyword">function</span>(<span class="params">result</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/fe-rest/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

@@ -244,6 +244,74 @@
     <!-- 生成目录 -->
 
 
+<article id="post-spring-mvc-async" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/spring-mvc-async/" class="article-date">
+  	<!-- <time datetime="2016-04-29T08:37:29.000Z" itemprop="datePublished">2016-04-29</time> -->
+    2016-04-29
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/spring-mvc-async/">Spring 异步调用</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Spring 中让一个方法在新线程中运行，只需要给方法加上 <code>@Async</code> 注解就可以（当然也可以自己直接创建一个线程实现异步执行）。</p>
+<p>典型的使用如用户注册后需要发送一封邮件进行验证，邮件发送完成的时间取决于很多因素，例如网络快的时候发的快一些，慢的时候需要多一些的时间。如果使用同步的方式发送邮件，有可能需要等很久邮件才发送完成然后用户才能得到注册成功的响应，体验不是很好，如果使用异步的方式发送邮件，在发邮件的同时用户就被告知注册成功，请去收件箱中查看邮件进行注册验证（异步的方式还可以使用 MQ）。</p>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringMVC/" rel="tag">SpringMVC</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/spring-mvc-async/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-linux-crontab" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -842,77 +910,6 @@
       
         <p class="article-more-link">
           <a  href="/spring-mvc-conversion/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-spring-mvc-ajax" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/spring-mvc-ajax/" class="article-date">
-  	<!-- <time datetime="2016-04-17T13:51:01.000Z" itemprop="datePublished">2016-04-17</time> -->
-    2016-04-17
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/spring-mvc-ajax/">SpringMVC 处理 Ajax 映射</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>SpringMVC 返回 Json 数据给前端是件很简单的事，但是 SpringMVC 的 Controller 接收前端 Ajax传来的 Json 数据却不那么容易，前端和后端都要很小心，有一点不对就会出错，需要分为 2 种情况处理:</p>
-<ul>
-<li>GET</li>
-<li>PUT, POST, DELETE</li>
-</ul>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ajax/" rel="tag">Ajax</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringMVC/" rel="tag">SpringMVC</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/spring-mvc-ajax/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

@@ -244,6 +244,82 @@
     <!-- 生成目录 -->
 
 
+<article id="post-fe-vue-dom-updated" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/fe-vue-dom-updated/" class="article-date">
+  	<!-- <time datetime="2017-05-04T15:07:57.000Z" itemprop="datePublished">2017-05-04</time> -->
+    2017-05-04
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/fe-vue-dom-updated/">Vue DOM 更新完成后再执行函数</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Vue 的数据变化后会更新 DOM，但只能保证在当前 tick 里面的代码全部执行完毕后更新 (事件队列)，不能保证数据一变化后就能用 document.querySelector() 立即获取到最新的 DOM。要保证在 DOM 更新以后执行某一块代码，就必须把这块代码放到下一次事件循环里面，比如 setTimeout(fn, 0)，这样 DOM 更新后，就会立即执行这块代码。</p>
+<p>有些时候 DOM 更新完成后执行某些操作是有必要的，这时就可以使用 <strong>Vue.nextTick()</strong> 注册一个函数放到 Vue 的事件队列里，使其在下一个 tick 被执行。</p>
+<p><img src="../img/fe/fe-vue-next-tick.png"></p>
+<p>例如使用 Vue + Semantic Ui 创建 Popup，新创建的 Popup 需要执行 popup() 后才会生效，此时在 DOM 更新完成后需要执行一下 popup() 函数。</p>
+<p>一般有 3 种方式调用 <strong>Vue.nextTick()</strong>:</p>
+<ul>
+<li>普通事件处理函数中，下面的 **[[1]]**，当有多个地方修改同一个变量时，每个地方都需要执行一次</li>
+<li>监听指定的数据变化时，下面的 **[[2]]**，粒度细，只与数据是否变化有关，和修改数据的地方无关</li>
+<li><strong>updated()</strong> 回调中，下面的 **[[3]]**，只要 DOM 变化了都会调用，无关的数据变化时都会调用，最省事，但是需要小心测试看看是否有副作用</li>
+</ul>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/fe-vue-dom-updated/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-fe-semantic-ui-tips" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -900,76 +976,6 @@
       
         <p class="article-more-link">
           <a  href="/java-image-base64/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-fe-ztree-style" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/fe-ztree-style/" class="article-date">
-  	<!-- <time datetime="2017-04-15T09:21:40.000Z" itemprop="datePublished">2017-04-15</time> -->
-    2017-04-15
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/fe-ztree-style/">zTree 修改 Awesome Style</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>zTree 默认的皮肤很不好看，还是 XP 的风格，例子中的 Awesome Style 很不错：</p>
-<p><img src="../img/fe/ztree-1.png"></p>
-<p>上面红色的 Awesome Style 风格并不适合所有情况，这里就对它进行简单的修改，下面是效果图：</p>
-<p><img src="../img/fe/ztree-2.png"></p>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/zTree/" rel="tag">zTree</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/fe-ztree-style/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

@@ -244,6 +244,80 @@
     <!-- 生成目录 -->
 
 
+<article id="post-iview-table-button" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/iview-table-button/" class="article-date">
+  	<!-- <time datetime="2018-03-08T23:41:42.000Z" itemprop="datePublished">2018-03-09</time> -->
+    2018-03-09
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/iview-table-button/">iView 的 Table 中插入按钮</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>很多时候需要在 Table 的单元格中使用按钮，iView 的官方例子使用函数 <code>createElement</code> (简写 <code>h</code>) 来创建，但是代码很繁杂、不直观、难以实现复杂的 DOM 结构。还好除此之外可以使用 JSX 来实现，能够方便的增加 class、wrapper、图标、任意的 DOM 等。</p>
+<h2 id="JSX-实现"><a href="#JSX-实现" class="headerlink" title="JSX 实现"></a>JSX 实现</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">title</span>: <span class="string">&#x27;操作&#x27;</span>, <span class="attr">key</span>: <span class="string">&#x27;action&#x27;</span>, <span class="attr">width</span>: <span class="number">160</span>, <span class="attr">align</span>: <span class="string">&#x27;center&#x27;</span>,</span><br><span class="line">    <span class="comment">// 编辑和删除按钮</span></span><br><span class="line">    <span class="attr">render</span>: <span class="function">(<span class="params">h, params</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;cell-button-container&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">i-button</span> <span class="attr">type</span>=<span class="string">&quot;primary&quot;</span> <span class="attr">size</span>=<span class="string">&quot;small&quot;</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span>=&gt;</span>&#123;this.editSchool(params.index)&#125;&#125;   icon=&quot;edit&quot;&gt;编辑<span class="tag">&lt;/<span class="name">i-button</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">i-button</span> <span class="attr">type</span>=<span class="string">&quot;error&quot;</span>   <span class="attr">size</span>=<span class="string">&quot;small&quot;</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span>=&gt;</span>&#123;this.deleteSchool(params.index)&#125;&#125; icon=&quot;android-delete&quot;&gt;删除<span class="tag">&lt;/<span class="name">i-button</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>提示:</p>
+<ul>
+<li>按钮的标签使用 <code>&lt;i-button&gt;</code>，不能使用 <code>&lt;Button&gt;</code></li>
+<li>按钮的事件处理 vue 中为 <code>on-click</code>，但在 JSX 中为 <code>onClick</code>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/iview-table-button/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-java-mybatis-multiple-parameters" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -958,21 +1032,21 @@
 </thead>
 <tbody><tr>
 <td>Biao</td>
-<td><a href="mailto:&#x62;&#105;&#97;&#x6f;&#64;&#103;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#x6d;">&#x62;&#105;&#97;&#x6f;&#64;&#103;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#x6d;</a></td>
+<td><a href="mailto:&#x62;&#105;&#x61;&#x6f;&#64;&#103;&#x6d;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#x6d;">&#x62;&#105;&#x61;&#x6f;&#64;&#103;&#x6d;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#x6d;</a></td>
 <td>china</td>
 <td>北京</td>
 <td>天河街</td>
 </tr>
 <tr>
 <td>Biao</td>
-<td><a href="mailto:&#98;&#x69;&#x61;&#x6f;&#64;&#x69;&#99;&#108;&#111;&#x75;&#x64;&#x2e;&#x63;&#x6f;&#109;">&#98;&#x69;&#x61;&#x6f;&#64;&#x69;&#99;&#108;&#111;&#x75;&#x64;&#x2e;&#x63;&#x6f;&#109;</a></td>
+<td><a href="mailto:&#x62;&#105;&#97;&#111;&#x40;&#105;&#99;&#108;&#x6f;&#117;&#x64;&#x2e;&#99;&#111;&#x6d;">&#x62;&#105;&#97;&#111;&#x40;&#105;&#99;&#108;&#x6f;&#117;&#x64;&#x2e;&#99;&#111;&#x6d;</a></td>
 <td>Deutschland</td>
 <td>Braunschweig</td>
 <td>Wiesenstrasse</td>
 </tr>
 <tr>
 <td>Alice</td>
-<td><a href="mailto:&#x61;&#108;&#105;&#x63;&#101;&#64;&#x67;&#109;&#x61;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;">&#x61;&#108;&#105;&#x63;&#101;&#64;&#x67;&#109;&#x61;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;</a></td>
+<td><a href="mailto:&#97;&#108;&#105;&#99;&#x65;&#64;&#x67;&#x6d;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#109;">&#97;&#108;&#105;&#99;&#x65;&#64;&#x67;&#x6d;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#109;</a></td>
 <td>china</td>
 <td>河北</td>
 <td>鼓楼大街</td>
@@ -1000,72 +1074,6 @@
         <p class="article-more-link">
           <a  href="/java-mybatis-collection/#more">阅读全文</a>
         </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-java-sort-pinyin" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/java-sort-pinyin/" class="article-date">
-  	<!-- <time datetime="2018-01-10T07:25:52.000Z" itemprop="datePublished">2018-01-10</time> -->
-    2018-01-10
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/java-sort-pinyin/">Java 按照拼音排序</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>Java 中按照拼音序对字符串排序，只需要使用 CHINA 的 Collator 即可</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.text.Collator;</span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Locale;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        List&lt;String&gt; tokens = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        tokens.add(<span class="string">&quot;黄&quot;</span>); <span class="comment">// h</span></span><br><span class="line">        tokens.add(<span class="string">&quot;慌&quot;</span>); <span class="comment">// h</span></span><br><span class="line">        tokens.add(<span class="string">&quot;晃&quot;</span>); <span class="comment">// h</span></span><br><span class="line">        tokens.add(<span class="string">&quot;欢&quot;</span>); <span class="comment">// h</span></span><br><span class="line">        tokens.add(<span class="string">&quot;中&quot;</span>); <span class="comment">// z</span></span><br><span class="line">        tokens.add(<span class="string">&quot;这&quot;</span>); <span class="comment">// z</span></span><br><span class="line">        tokens.add(<span class="string">&quot;国&quot;</span>); <span class="comment">// g</span></span><br><span class="line">        tokens.add(<span class="string">&quot;古&quot;</span>); <span class="comment">// g</span></span><br><span class="line">        tokens.add(<span class="string">&quot;安&quot;</span>); <span class="comment">// a</span></span><br><span class="line"></span><br><span class="line">        Collator collator = Collator.getInstance(Locale.CHINA);</span><br><span class="line">        tokens.sort((a, b) -&gt; collator.compare(a, b));</span><br><span class="line"></span><br><span class="line">        System.out.println(tokens);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Util/" rel="tag">Util</a></li></ul>
-	</div>
-
-
-      
-
       
       <div class="clearfix"></div>
     </div>

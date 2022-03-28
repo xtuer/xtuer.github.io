@@ -244,6 +244,82 @@
     <!-- 生成目录 -->
 
 
+<article id="post-java-classpath-order" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/java-classpath-order/" class="article-date">
+  	<!-- <time datetime="2021-08-09T02:18:35.000Z" itemprop="datePublished">2021-08-09</time> -->
+    2021-08-09
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java-classpath-order/">Java Classpath 加载 jar 的顺序</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>以在 Test.java 中加载 app-1.jar 和 app-2.jar 中的类 com.xtuer.Aloha 为例演示 classpath 中 jar 被加载的顺序。</p>
+<h2 id="app-1-jar-和-app-2-jar"><a href="#app-1-jar-和-app-2-jar" class="headerlink" title="app-1.jar 和 app-2.jar"></a>app-1.jar 和 app-2.jar</h2><p>创建项目，里面只有 1 个类 com.xtuer.Aloha，分别打包成 2 个版本的 jar 包:</p>
+<ul>
+<li>app-1.jar: 返回 Aloha-1</li>
+<li>app-2.jar: 返回 Aloha-2</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Aloha</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Aloha-1&quot;</span>;    <span class="comment">// app-1.jar 使用</span></span><br><span class="line">        <span class="comment">// return &quot;Aloha-2&quot;; // app-2.jar 使用</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>项目的目录结构 (此 gradle 管理的 Java 项目结构仅作为参考):</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">app</span><br><span class="line"> ├── build.gradle</span><br><span class="line"> └── src</span><br><span class="line">     └── main</span><br><span class="line">         └── java</span><br><span class="line">             └── com</span><br><span class="line">                 └── xtuer</span><br><span class="line">                     └── Aloha.java</span><br></pre></td></tr></table></figure>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/java-classpath-order/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-spring-boot-loader-path" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -954,84 +1030,6 @@
       
         <p class="article-more-link">
           <a  href="/com-copy-paste/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-vue-key" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/vue-key/" class="article-date">
-  	<!-- <time datetime="2020-09-13T00:07:38.000Z" itemprop="datePublished">2020-09-13</time> -->
-    2020-09-13
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/vue-key/">Vue :key</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>我们都知道使用 v-for 渲染数组时都要给每个元素绑定一个 key，<a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/guide/list.html#%E7%BB%B4%E6%8A%A4%E7%8A%B6%E6%80%81">官方文档</a>也说的很清 (挠) 楚 (头):</p>
-<blockquote>
-<p>当 Vue 正在更新使用 <code>v-for</code> 渲染的元素列表时，它默认使用“就地更新”的策略。如果数据项的顺序被改变，Vue 将不会移动 DOM 元素来匹配数据项的顺序，而是就地更新每个元素，并且确保它们在每个索引位置正确渲染。</p>
-<p><code>key</code> 的特殊 attribute 主要用在 Vue 的虚拟 DOM 算法，在新旧 nodes 对比时辨识 VNodes。如果不使用 key，Vue 会使用一种最大限度减少动态元素并且尽可能的尝试就地修改/复用相同类型元素的算法。而使用 key 时，它会基于 key 的变化重新排列元素顺序，并且会移除 key 不存在的元素。</p>
-<p>有<strong>相同父元素的子元素</strong>必须有<strong>独特的 key</strong>，重复的 key 会造成渲染错误。</p>
-</blockquote>
-<p>需要记住一点: 当用来创建 DOM 元素的数据变化后，就会更新 DOM (更新了才能在界面上看到)，为了提高效率，vue 使用了 key 来判断是复用已有的 DOM 还是创建新的 DOM (在同一个 parent DOM element 下进行比较):</p>
-<ul>
-<li>如果能找到相同 key 的 DOM 元素，则更新它的内容</li>
-<li>如果找不到相同 key 的 DOM 元素，则删除旧的 DOM 元素，新创建一个</li>
-</ul>
-<p>上面的内容，懂的人一看就懂，不懂的人仍然是一头雾水。下面我们以一个很简单的修改用户名的例子演示一下应该就能明白什么时候复用，什么时候创建了。
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/vue-key/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

@@ -244,6 +244,75 @@
     <!-- 生成目录 -->
 
 
+<article id="post-promise-tips" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/promise-tips/" class="article-date">
+  	<!-- <time datetime="2020-05-02T01:16:24.000Z" itemprop="datePublished">2020-05-02</time> -->
+    2020-05-02
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/promise-tips/">Promise 知识点</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>可以访问 <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/82237a7ca6e5">Promise 对象基础</a> 对 Promise 进行了解，这里就不再赘述了。</p>
+<p><strong>Promises</strong> 承诺，你将会得到延期或长期运行任务的未来结果。承诺有两个渠道：第一个为结果，第二个为潜在的错误。要获取结果，您将回调函数作为 then 函数参数，要处理错误，您将回调函数提供为 catch 函数参数。Promise 的状态的改变是单向的，一次性的，一旦改变，状态就会凝固了。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="javascript"></span></span></span><br><span class="line"><span class="javascript"><span class="xml">        <span class="keyword">let</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">            <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">                <span class="keyword">const</span> result = <span class="built_in">Math</span>.random();</span></span></span><br><span class="line"><span class="javascript"><span class="xml">                result &gt; <span class="number">0.5</span> ? resolve(result) : reject(<span class="string">&#x27;Lower than 0.5&#x27;</span>);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">            &#125;, <span class="number">2000</span>);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">        &#125;);</span></span></span><br><span class="line"><span class="javascript"><span class="xml"></span></span></span><br><span class="line"><span class="javascript"><span class="xml">        p.then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">            <span class="built_in">console</span>.log(<span class="string">&#x27;success&#x27;</span>, result);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">        &#125;).catch(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">            <span class="built_in">console</span>.log(<span class="string">&#x27;fail&#x27;</span>, result);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">        &#125;);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/promise-tips/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-html2pdf" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -936,81 +1005,6 @@
       
         <p class="article-more-link">
           <a  href="/text2tree/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-ali-oss" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/ali-oss/" class="article-date">
-  	<!-- <time datetime="2019-11-10T02:42:09.000Z" itemprop="datePublished">2019-11-10</time> -->
-    2019-11-10
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/ali-oss/">使用阿里云 OSS 存储图片</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>使用阿里云 OSS 存储图片:</p>
-<ul>
-<li>注册<a target="_blank" rel="noopener" href="https://www.aliyun.com/">阿里云</a>账号</li>
-<li>到控制台开通 OSS 服务 (一个月 40 G，1 元)</li>
-<li>创建 Bucket</li>
-<li>在 Bucket 里管理文件</li>
-<li>使用 API 上传图片<ul>
-<li>Java 上传图片</li>
-<li>PHP 上传图片
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Util/" rel="tag">Util</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/ali-oss/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

@@ -244,6 +244,76 @@
     <!-- 生成目录 -->
 
 
+<article id="post-qt-access-network" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qt-access-network/" class="article-date">
+  	<!-- <time datetime="2016-09-13T03:45:54.000Z" itemprop="datePublished">2016-09-13</time> -->
+    2016-09-13
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qt-access-network/">Qt 访问网络</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Qt 中访问网络使用 <code>QNetworkAccessManager</code>，它的 API 是异步，这样在访问网络的时候不需要启动一个线程，在线程里执行请求的代码。</p>
+<p>需要注意一点的是，请求响应的对象 <code>QNetworkReply</code> 需要我们自己手动的删除，一般都会在 <code>QNetworkAccessManager::finished</code> 信号的曹函数里使用 <code>reply-&gt;deleteLater()</code> 删除，不要直接 <code>delete reply</code>。</p>
+<p>本文的最终结果为实现调用一个函数就能访问网络:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">QNetworkAccessManager *manager = <span class="keyword">new</span> <span class="built_in">QNetworkAccessManager</span>();</span><br><span class="line"></span><br><span class="line">NetworkUtil::<span class="built_in">get</span>(manager, <span class="string">&quot;http://www.baidu.com&quot;</span>, [](<span class="keyword">const</span> QString &amp;response) &#123;</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; response;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/" rel="tag">Qt</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/qt-access-network/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-qt-frameless-window" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -861,73 +931,6 @@
       
         <p class="article-more-link">
           <a  href="/fe-arttemplate/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-git-tips" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/git-tips/" class="article-date">
-  	<!-- <time datetime="2016-07-10T04:01:44.000Z" itemprop="datePublished">2016-07-10</time> -->
-    2016-07-10
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/git-tips/">Git Tips</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>Git 的常用命令</p>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Util/" rel="tag">Util</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/git-tips/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

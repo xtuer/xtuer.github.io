@@ -244,6 +244,75 @@
     <!-- 生成目录 -->
 
 
+<article id="post-fe-vue-scoped" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/fe-vue-scoped/" class="article-date">
+  	<!-- <time datetime="2019-04-07T09:19:27.000Z" itemprop="datePublished">2019-04-07</time> -->
+    2019-04-07
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/fe-vue-scoped/">Vue 尽量不用 scoped</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>在 Vue 中，为了减少样式的冲突，可以使用 scoped 使得生成的 DOM element 和 class 都带上随机属性，但有利有弊，总的来说，不推荐使用 scoped，因为使用 scoped 后就不能跨级设置组件的样式了。</p>
+<blockquote>
+<p>跨级: 组件 A 中直接使用组件 B，组件 B 中直接使用组件 C，因为 C 没有在 A 中直接使用，所以我们说 A 和 C 跨级了。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/fe-vue-scoped/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-qtbook-thread-context" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -935,108 +1004,6 @@
         <p class="article-more-link">
           <a  href="/mac-vsc/#more">阅读全文</a>
         </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-java-mybatis-resultmap" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/java-mybatis-resultmap/" class="article-date">
-  	<!-- <time datetime="2019-01-21T12:26:33.000Z" itemprop="datePublished">2019-01-21</time> -->
-    2019-01-21
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/java-mybatis-resultmap/">MyBatis 的 ResultMap 注意事项</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>MyBatis 的 ResultMap 比较灵活，使用时需要注意以下几点:</p>
-<ul>
-<li>ResultMap 中 <code>&lt;result&gt;</code> 的 property 对应 Bean 的属性名，column 对应 SELECT 的字段名:<ul>
-<li>column 在 SELECT 中字段中:<ul>
-<li><strong>正确</strong>: property 对应的属性存在时正确</li>
-<li><strong>报错</strong>: property 对应的属性不存在时报错</li>
-<li><strong>说明</strong>: 没有写相关 <code>&lt;result&gt;</code> 时不报错，Bean 有与 column 同名属性时自动设置属性的值，没有时忽略</li>
-</ul>
-</li>
-<li>column 不在 SELECT 中字段中:<ul>
-<li><strong>正确</strong>: property 对应的属性存在时不报错</li>
-<li><strong>正确</strong>: property 对应的属性不存在时不报错</li>
-</ul>
-</li>
-<li>结果: 只要 column 在 SELECT 字段中就需要注意，否则可忽视:<br><img src="../img/java/mybatis-column-property.png"></li>
-</ul>
-</li>
-<li>SELECT 的字段名和 ResultMap 里属性名相同时，可以不用写 <code>&lt;result&gt;</code>，MyBatis 会自动映射对应的 column 和 property，也就是说如果 SELECT 的字段名和 Bean 的属性名都是同名的，即使 ResultMap 为空，Bean 的属性都会自动设置好，例如下面的 id 和 info 都注释掉了，它们的属性值仍然被正确的设置了<ul>
-<li>但是，如果 ResultMap 中使用了 <code>&lt;collection&gt;</code> 或者 <code>&lt;association&gt;</code>，只有明确使用 <code>&lt;result&gt;</code> 或者 <code>&lt;id&gt;</code> 设置的属性会被赋值，Bean 中其他属性不会被赋值，也就是自动映射此时默认是关闭的，要开启的话需要在 resultMap 中设置属性 <code>autoMapping=&quot;true&quot;</code>，可参考 <a target="_blank" rel="noopener" href="https://takeaction.github.io/mybatis-auto-mapping/">MyBatis Auto Mapping</a>，但是也需要手动写 <code>&lt;id&gt;</code> 标签，否则就可能出问题 (不能正确分组)</li>
-</ul>
-</li>
-<li>SELECT 中的字段可以比 ResultMap 里的 <code>&lt;result&gt;</code> 多或者少</li>
-<li>SELECT 的字段名和 ResultMap 中 <code>&lt;result&gt;</code> 的 property 不同时，需要使用 column 进行映射</li>
-<li>自动映射:<ul>
-<li>if column name are equals java bean field name ignore case, then auto mapping works</li>
-<li>for nested collection/association, we need to add <code>autoMapping=true</code> manually</li>
-<li>if column name or alias are different from java bean field name, we need to map them manually</li>
-</ul>
-</li>
-</ul>
-<p>下面的代码能够正常运行，对这几条进行了演示:</p>
-<p><strong>Java Bean:</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String info;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> marked;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Getters and setters</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><strong>SQL:</strong></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;findDemoById&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;int&quot;</span> <span class="attr">resultMap</span>=<span class="string">&quot;DemoResultMap&quot;</span>&gt;</span></span><br><span class="line">    SELECT id, info, is_marked FROM demo WHERE id=#&#123;id&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>ResultMap:</strong></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">&quot;DemoResultMap&quot;</span> <span class="attr">type</span>=<span class="string">&quot;Demo&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--&lt;id     property=&quot;id&quot;    column=&quot;id&quot;/&gt;--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--&lt;result property=&quot;info&quot;  column=&quot;info&quot;/&gt;--&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">&quot;marked&quot;</span> <span class="attr">column</span>=<span class="string">&quot;is_marked&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- extra 在 SELECT 的字段名和 Bean 的属性里都不存在: 不报错，忽略即可 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">&quot;extra&quot;</span>  <span class="attr">column</span>=<span class="string">&quot;extra&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
-	</div>
-
-
-      
-
       
       <div class="clearfix"></div>
     </div>

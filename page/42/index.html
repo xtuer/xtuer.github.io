@@ -244,6 +244,76 @@
     <!-- 生成目录 -->
 
 
+<article id="post-misc-gradle-app" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/misc-gradle-app/" class="article-date">
+  	<!-- <time datetime="2016-06-29T02:38:57.000Z" itemprop="datePublished">2016-06-29</time> -->
+    2016-06-29
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/misc-gradle-app/">Gradle 创建 App Module</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <blockquote>
+<p>打包需要执行 <code>gradle shadowJar</code>，参考 <a target="_blank" rel="noopener" href="https://github.com/johnrengelman/shadow">https://github.com/johnrengelman/shadow</a><br>如果不使用 <code>shadowJar</code> 打包的话，由于 Spring 的 schema 都分散到不同文件里了，META-INF 中的 schema 文件后面的会覆盖前面的导致运行出错，例如使用了 <code>context:component-scan</code> 就会出错。</p>
+<p>下面的配置支持 Spring + MyBatis</p>
+</blockquote>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/" rel="tag">Gradle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/" rel="tag">Misc</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/misc-gradle-app/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-misc-gradle-web" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -853,86 +923,6 @@
         <p class="article-more-link">
           <a  href="/spring-mvc-cors/#more">阅读全文</a>
         </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-fe-sublimetext-jshint" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/fe-sublimetext-jshint/" class="article-date">
-  	<!-- <time datetime="2016-06-04T02:35:06.000Z" itemprop="datePublished">2016-06-04</time> -->
-    2016-06-04
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/fe-sublimetext-jshint/">Sublimetext 安装 jshint</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <h2 id="一、安装-jshint-的依赖"><a href="#一、安装-jshint-的依赖" class="headerlink" title="一、安装 jshint 的依赖"></a>一、安装 jshint 的依赖</h2><ol>
-<li><p>由于 <code>jshint</code> 是依赖 <code>Node.js</code> 的，所以要先安装 <code>Node.js</code>，安装了 <code>brew</code> 的同学可以直接在 Terminal 使用以下命令</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install node</span><br></pre></td></tr></table></figure></li>
-<li><p>安装 <code>jshint</code></p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g jslint</span><br></pre></td></tr></table></figure></li>
-<li><p>测试 <code>jshint</code>: 写个 js 文件，例如某些行不用分号结束，乱赋值等，然后用下面的命令测试，会输出不规范的提示</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jshint test.js</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="二、安装-SublimeLinter-及-jshint-插件"><a href="#二、安装-SublimeLinter-及-jshint-插件" class="headerlink" title="二、安装 SublimeLinter 及 jshint 插件"></a>二、安装 SublimeLinter 及 jshint 插件</h2><ol>
-<li>安装 SublimeLinter</li>
-<li>安装 SublimeLinter-jshint</li>
-<li>安装成功后就可以到 Sublimetext 里测试了，右键 SublimeLinter-&gt;Show All Erroes，就会有提示了，也会有实时的错误提示</li>
-</ol>
-<h2 id="三、参考"><a href="#三、参考" class="headerlink" title="三、参考"></a>三、参考</h2><ul>
-<li><a target="_blank" rel="noopener" href="http://javenl.github.io/other/2015/03/05/sublime%E6%8F%92%E4%BB%B6%E5%AE%89%E8%A3%85.html">sublime3在mac环境下安装linter</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.cnblogs.com/lhb25/archive/2013/05/02/sublimelinter-for-js-css-coding.html">借助 SublimeLinter 编写高质量的 JavaScript &amp; CSS 代码</a></li>
-</ul>
-
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
-	</div>
-
-
-      
-
       
       <div class="clearfix"></div>
     </div>

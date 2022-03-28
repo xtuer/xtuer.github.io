@@ -244,6 +244,82 @@
     <!-- 生成目录 -->
 
 
+<article id="post-spring-boot-mybatis" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/spring-boot-mybatis/" class="article-date">
+  	<!-- <time datetime="2017-09-11T06:31:15.000Z" itemprop="datePublished">2017-09-11</time> -->
+    2017-09-11
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/spring-boot-mybatis/">Spring Boot MyBatis</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Spring Boot 使用 MyBatis 主要为以下 4 步:</p>
+<ol>
+<li><p>引入依赖</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">implementation <span class="string">&#x27;org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.0&#x27;</span></span><br><span class="line">runtime(<span class="string">&#x27;mysql:mysql-connector-java:5.1.46&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>配置数据源: 配置 <strong>application.properties</strong></p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring.datasource.username</span>=root</span><br><span class="line"><span class="attr">spring.datasource.password</span>=root</span><br><span class="line"><span class="attr">spring.datasource.url</span>=jdbc:mysql://localhost:<span class="number">3306</span>/test</span><br><span class="line"><span class="attr">spring.datasource.driver-class-name</span>=com.mysql.jdbc.Driver</span><br></pre></td></tr></table></figure></li>
+<li><p>编写 Mapper: 使用注解 <strong>@Mapper</strong> 自动生成 Mapper 对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.mapper;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.annotations.Mapper;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.annotations.Select;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Mapper</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserMapper</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Select(&quot;SELECT * FROM user WHERE username=#&#123;username&#125;&quot;)</span></span><br><span class="line">    <span class="function">Map <span class="title">findUserByUsername</span><span class="params">(String username)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>使用 Mapper: 使用 <strong>@Autowired</strong> 装配 mapper</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.xtuer.mapper.UserMapper;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserMapper userMapper;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/hello&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map <span class="title">hello</span><span class="params">(<span class="meta">@RequestParam</span> String username)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> userMapper.findUserByUsername(username);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/spring-boot-mybatis/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-hexo-skip-render" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -928,102 +1004,6 @@
       
         <p class="article-more-link">
           <a  href="/qtbook-misc-deploy/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-gitbook" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/gitbook/" class="article-date">
-  	<!-- <time datetime="2017-08-20T09:05:58.000Z" itemprop="datePublished">2017-08-20</time> -->
-    2017-08-20
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/gitbook/">GitBook 入门</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>GitBook 是一个使用 Markdown 文件，用来写书、说明文档等的工具，它的官网已经有 5 万多本使用 GitBook 写的书了，现在不少公司都开始用 GitBook 来写项目文档、使用手册等。下面就简要的介绍怎么使用 GitBook，首先需要安装下面这些软件:</p>
-<ol>
-<li>安装 Git</li>
-<li>安装 Nodejs</li>
-<li>安装 GitBook: <code>npm install gitbook -g</code></li>
-<li>安装 GitBook-Cli: <code>npm install gitbook-cli -g</code></li>
-</ol>
-<h2 id="本地搭建-GitBook"><a href="#本地搭建-GitBook" class="headerlink" title="本地搭建 GitBook"></a>本地搭建 GitBook</h2><p>本地搭建 GitBook 的好处是我们可以自己管理文件的存储，例如可以放到公司的 Git 私服上:</p>
-<ol>
-<li><p>创建目录例如 Pandora 用于存放书的文件，进入目录</p>
-</li>
-<li><p>创建文件 README.md 和 SUMMARY.md，它们是 GitBook 最重要的 2 个文件，README.md 对书进行介绍，在 SUMMARY.md 中描述书的目录结构，其内容可参考如下:</p>
-<p>README.md:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">本书用于介绍 Pandora 项目的使用说明</span><br></pre></td></tr></table></figure>
-<p>SUMMARY.md:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># Summary</span><br><span class="line"></span><br><span class="line">* [简介](README.md)</span><br><span class="line">* [第一章](chapter1/README.md)</span><br><span class="line">    * [第一节](chapter1/section1.md)</span><br><span class="line">    * [第二节](chapter1/section2.md)</span><br><span class="line">* [第二章](chapter2/README.md)</span><br><span class="line">    * [第一节](chapter2/section1.md)</span><br><span class="line">    * [第二节](chapter2/section2.md)</span><br><span class="line">* [结束](end/README.md)</span><br></pre></td></tr></table></figure></li>
-<li><p>执行 <code>gitbook init</code>:</p>
-<p>会自动创建 SUMMARY.md 中描述的目录结构对应的文件夹和文件，每次执行这个命令都会创建还没有还不存在的文件和文件夹，但是不会影响已经创建的，所以不用担心多次执行 <code>gitbook init</code> 导致数据丢失</p>
-</li>
-<li><p>编辑书的 Markdown 文件，例如 section1.md 等</p>
-</li>
-<li><p>安装插件 <code>gitbook install</code></p>
-</li>
-<li><p>执行 <code>gitbook serve</code>，在浏览器里访问 <a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000</a> 就可以看到上面写的书了，以后常用的也是这个命令，当文件变化后可以在网页中及时看到新的变化</p>
-<blockquote>
-<p>Bug: Windows 中 <code>gitbook serve</code> 运行后，当文件发生变化时不是自动更新网页而是退出，可以使用下面的脚本来运行 <code>gitbook serve</code> 解决这个问题：</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Echo off</span><br><span class="line">:Start</span><br><span class="line">call gitbook serve</span><br><span class="line">goto Start</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>把上面的文件保存为 <code>gs.bat</code> 放到 GitBook 目录中，运行 <code>gs.bat</code> 就可以了。
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/gitbook/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>
