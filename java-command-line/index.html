@@ -14,7 +14,7 @@
 <meta property="og:description" content="使用 Java 执行命令，可以:  使用 JDK 自带的 ProcessBuilder 使用 Apache Commons Exec  下面以执行 ls -l &#x2F; 为例演示相关代码。 ProcessBuilder123456789101112131415161718192021222324public static void executeCommandUsingProcessBuilder()">
 <meta property="og:locale">
 <meta property="article:published_time" content="2022-03-28T09:56:52.000Z">
-<meta property="article:modified_time" content="2022-03-28T15:01:52.743Z">
+<meta property="article:modified_time" content="2022-03-28T15:06:51.644Z">
 <meta property="article:author" content="公孙二狗">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
@@ -313,7 +313,7 @@
 
 <blockquote>
 <p>提示: 内部是使用多线程的方式获取正常和错误输出，相信 Apache 的产品质量 (The code was ported from <a target="_blank" rel="noopener" href="http://ant.apache.org/">Apache Ant</a> and extensively tested on various platforms. So there is no reason not to use it and it is very likely better than any home-grown library.)。此外 Exec 还提供了 Watchdog 的功能，超时会主动杀掉进程，异步执行任务，使用一个完整的字符串方式传入要执行的命令方便不少 (有时不推荐使用) 等，<strong>推荐使用 Exec 执行命令</strong>。</p>
-<p>程序结束的时候调用 <code>watchdog.killedProcess()</code> 查看程序是正常结束还是被杀掉的。</p>
+<p>程序结束的时候调用 <code>Execute.isFailure(exitvalue) &amp;&amp; watchdog.killedProcess()</code> 查看程序是正常结束还是被杀掉的。</p>
 </blockquote>
 <h2 id="复合命令"><a href="#复合命令" class="headerlink" title="复合命令"></a>复合命令</h2><p>把上面代码中的 <code>ls -l /</code> 修改为 <code>ls -l / | grep &#39;^d&#39;</code> 再次执行，2 个程序都报错。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ls: &#x27;^d&#x27;: No such file or directory</span><br><span class="line">ls: grep: No such file or directory</span><br><span class="line">ls: |: No such file or directory</span><br></pre></td></tr></table></figure>
