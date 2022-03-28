@@ -14,7 +14,7 @@
 <meta property="og:description" content="使用 Java 执行命令，可以:  使用 JDK 自带的 ProcessBuilder 使用 Apache Commons Exec  下面以执行 ls -l &#x2F; 为例演示相关代码。 ProcessBuilder123456789101112131415161718192021222324public static void executeCommandUsingProcessBuilder()">
 <meta property="og:locale">
 <meta property="article:published_time" content="2022-03-28T09:56:52.000Z">
-<meta property="article:modified_time" content="2022-03-28T10:33:21.344Z">
+<meta property="article:modified_time" content="2022-03-28T10:38:41.526Z">
 <meta property="article:author" content="公孙二狗">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
@@ -247,7 +247,7 @@
     <div id="toc-mask" style="display: none;">
         <div class="toc-container">
             <div class="article-toc">
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ProcessBuilder"><span class="toc-text">ProcessBuilder</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Apache-Commons-Exec"><span class="toc-text">Apache Commons Exec</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%8D%E5%90%88%E5%91%BD%E4%BB%A4"><span class="toc-text">复合命令</span></a>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ProcessBuilder"><span class="toc-text">ProcessBuilder</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Apache-Commons-Exec"><span class="toc-text">Apache Commons Exec</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%8D%E5%90%88%E5%91%BD%E4%BB%A4"><span class="toc-text">复合命令</span></a></li></ol>
             </div>
         </div>
     </div>
@@ -315,7 +315,7 @@
 <p>提示: 内部是使用多线程的方式获取正常和错误输出，相信 Apache 的产品质量。此外 Exec 还提供了 Watchdog 的功能，超时会主动杀掉进程，能够使用一个完整的字符串方式传入要执行的命令方便不少，还有一些其他更多的功能，<strong>推荐使用 Exec 执行命令</strong>。</p>
 <p>程序结束的时候调用 <code>watchdog.killedProcess()</code> 查看程序是正常结束还是被杀掉的。</p>
 </blockquote>
-<h1 id="复合命令"><a href="#复合命令" class="headerlink" title="复合命令"></a>复合命令</h1><p>把上面代码中的 <code>ls -l /</code> 修改为 <code>ls -l / | grep &#39;^d&#39;</code> 再次执行，2 个程序都报错。</p>
+<h2 id="复合命令"><a href="#复合命令" class="headerlink" title="复合命令"></a>复合命令</h2><p>把上面代码中的 <code>ls -l /</code> 修改为 <code>ls -l / | grep &#39;^d&#39;</code> 再次执行，2 个程序都报错。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ls: &#x27;^d&#x27;: No such file or directory</span><br><span class="line">ls: grep: No such file or directory</span><br><span class="line">ls: |: No such file or directory</span><br></pre></td></tr></table></figure>
 
 <p>但这条命令在终端里执行是没问题的呀？其实这理论上来说不是一个命令，而是一个复合命令，使用管道把 2 条命令连在一起使用，再如命令中有输入输出重定向等在终端里能执行成功，上面的程序都会报错。</p>
