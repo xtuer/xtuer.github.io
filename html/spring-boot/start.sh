@@ -1,2 +1,3 @@
 #!/bin/bash
-gitbook serve .
+
+docsify serve

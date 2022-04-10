@@ -1,5 +1,1 @@
-@Echo off
-:Start
-call gitbook serve
-goto Start
-
+call docsify serve
