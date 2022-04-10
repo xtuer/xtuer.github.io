@@ -3,7 +3,7 @@ body {
 }
 
 /* 滚动条样式 */
-::-webkit-scrollbar {
+/*::-webkit-scrollbar {
     width:  5px;
     height: 5px;
 }
@@ -14,13 +14,38 @@ body {
 
 ::-webkit-scrollbar-thumb {
     background: #888;
-}
+}*/
 
 /* 隐藏滚动条，还能滚动: http://caibaojian.com/hide-scrollbar.html */
 /* .element::-webkit-scrollbar { width: 0 !important }
 ::-webkit-scrollbar { width: 0 !important; height: 0 !important }
 .element { -ms-overflow-style: none; }
 .element { overflow: -moz-scrollbars-none; } */
+
+body * {
+    scrollbar-color: hsla(var(--mono-hue), var(--mono-saturation), 50%, 0.3) hsla(var(--mono-hue), var(--mono-saturation), 50%, 0.1);
+    scrollbar-width: thin
+}
+
+body *::-webkit-scrollbar {
+    width: 5px;
+    height: 5px
+}
+
+body::-webkit-scrollbar-thumb {
+    background: hsla(var(--mono-hue), var(--mono-saturation), 50%, 0.3)
+}
+
+body::-webkit-scrollbar-track {
+    background: hsla(var(--mono-hue), var(--mono-saturation), 50%, 0.1)
+}
+body::-webkit-scrollbar {
+    width: 5px
+}
+
+body::-webkit-scrollbar-thumb {
+    border-radius: 50vw
+}
 
 main > .sidebar {
     padding-top: 10px;

@@ -6,7 +6,7 @@
 * [Thymeleaf](Thymeleaf.md)
 * [静态资源](静态资源.md)
 * [简单路径](简单路径.md)
-* [跨域 Cors](Cors.md)
+* [跨域配置](Cors.md)
 * [Converter](Converter.md)
 * [日志配置](日志配置.md)
 * [环境选择](环境选择.md)

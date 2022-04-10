@@ -22,7 +22,7 @@ implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 spring.data.mongodb.uri = mongodb://localhost/test
 
 # 使用账号，以及集群
-spring.data.mongodb.uri = mongodb://user:secret@mongo1.example.com:12345,mongo2.example.com:23456/dbName
+spring.data.mongodb.uri = mongodb://<user>:<secret>@mongo1.example.com:12345,mongo2.example.com:23456/dbName
 ```
 
 还可以配置 MongoDB 的连接参数，例如 maxPoolSize、waitQueueMultiple 等，例如:

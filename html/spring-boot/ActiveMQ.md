@@ -105,5 +105,5 @@ public class ActiveMQTest {
 
 ActiveMQ 默认使用持久化写入，效率很低，设置 `spring.jms.template.delivery-mode=non_persistent` 使用非持久化的方式写入可以达到每秒 10000 个，可是一重启 ActiveMQ 后消息就没了，很不安全。
 
-需要高安全性的同时还要高效率，放弃 ActiveMQ 吧，建议实施 [Apache RocketMQ](http://rocketmq.apache.org)。
+需要高安全性的同时还要高效率，放弃 ActiveMQ 吧，建议使用 [Apache RocketMQ](http://rocketmq.apache.org) 或者 [Kafka](http://kafka.apache.org)。
 

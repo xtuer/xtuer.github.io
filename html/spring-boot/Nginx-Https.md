@@ -7,3 +7,4 @@ server.tomcat.port-header      = X-Forwarded-Port
 server.use-forward-headers     = true
 ```
 
+如果配置不对，redirect 站内地址会使用 HTTP 的端口如 80 而非 HTTPS 的端口 443。

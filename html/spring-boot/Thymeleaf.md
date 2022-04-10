@@ -61,4 +61,4 @@ public class XController {
 }
 ```
 
-访问 http://localhost:8080/hello 就可以看到页面了
+访问 http://localhost:8080/hello 就可以看到页面了。
