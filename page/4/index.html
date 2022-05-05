@@ -114,7 +114,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10.63px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.5px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.63px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.38px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="/tags/Index/" style="font-size: 13.13px;">Index</a> <a href="/tags/Java/" style="font-size: 19.38px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.5px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.5px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.25px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.13px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.75px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.25px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.38px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.88px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.75px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 16.25px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 15px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.63px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.5px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.5px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.88px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.88px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10.59px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.35px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.29px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.12px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.35px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.94px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.65px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.06px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.18px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.18px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.12px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.76px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.53px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.88px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.71px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.29px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.06px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.06px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.47px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.76px;">zTree</a>
                     </div>
                     <script>
 
@@ -240,6 +240,147 @@
 </nav>
 
             <div class="body-wrap">
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-locate" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/locate/" class="article-date">
+  	<!-- <time datetime="2020-05-13T05:51:12.000Z" itemprop="datePublished">2020-05-13</time> -->
+    2020-05-13
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/locate/">微信网页中精确定位</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>支持 H5 的浏览器提供了获取 GPS 的接口 <code>navigator.geolocation.getCurrentPosition(success, error)</code>，由于各种原因，国内得到的定位都是不准确的，百度地图 API 也提供了定位接口 <code>new BMap.Geolocation().getCurrentPosition(callback)</code>，不过也不准确，有时候会偏离几十公里，为了能够在浏览器里精确的定位，可以在微信浏览器中打开网页，使用微信的 JS SDK 中的 <code>wx.getLocation()</code> 进行定位得到<strong>大地坐标系 WGS84</strong> 的坐标，然后转换为<strong>百度 BD09 坐标</strong>，使用百度 API 获取此坐标对应的中文地址。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/locate/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-java-dynamic-datasource" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/java-dynamic-datasource/" class="article-date">
+  	<!-- <time datetime="2020-05-07T01:56:09.000Z" itemprop="datePublished">2020-05-07</time> -->
+    2020-05-07
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java-dynamic-datasource/">动态切换数据源</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>动态切换数据源的原理为使用 <strong>AbstractRoutingDataSource</strong>，根据数据源的名字查找数据源: </p>
+<ol>
+<li>在 Spring IoC 容器中创建一个 AbstractRoutingDataSource 实现的对象 <strong>routingDataSource</strong> (Spring 默认没有使用此数据源)</li>
+<li>创建一个数据源的 Map <strong>dataSourceMap</strong>，key 为 DataSource 的名字，value 为 DataSource 的对象</li>
+<li>调用 <code>routingDataSource.setTargetDataSources(dataSourceMap)</code> 设置可供使用的数据源</li>
+<li>在需要使用数据源的时候，Spring JDBC 会调用 <code>routingDataSource.determineTargetDataSource()</code> 获取数据源，而要返回哪个数据源，由 <code>routingDataSource.determineCurrentLookupKey()</code> 返回的数据源的名字决定</li>
+</ol>
+<p>下面我们从最简单的方式实现数据源切换，然后一步一步的深入优化基于 AbstractRoutingDataSource 的数据源。</p>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/java-dynamic-datasource/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
   
     <!-- 生成目录 -->
 
@@ -869,143 +1010,6 @@
 
       
 
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-btree-print" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/btree-print/" class="article-date">
-  	<!-- <time datetime="2020-02-17T06:48:34.000Z" itemprop="datePublished">2020-02-17</time> -->
-    2020-02-17
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/btree-print/">打印二叉树</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>在学习二叉树、二叉排序树、AVL 树、红黑树等时，如果能够直观的看到树的结构，对于学习有非常大的帮助。利用 <a target="_blank" rel="noopener" href="https://github.com/afkbrb/binary-tree-printer">binary-tree-printer</a> 化打印可视化的二叉树，更多方案可参考 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/4965335/how-to-print-binary-tree-diagram">How to print binary tree diagram?</a></p>
-<h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">implementation <span class="string">&quot;com.github.afkbrb:binary-tree-printer:1.0.0&quot;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="打印"><a href="#打印" class="headerlink" title="打印"></a>打印</h2><p>打印完全二叉树:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BTPrinter.printTree(<span class="string">&quot;1,2,3,4,5,#,#,6,7,8,1,#,#,#,#,#,#,2,3,4,5,6,7,8,9,10,11,12,13,14,15&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">        1              </span><br><span class="line">       / \             </span><br><span class="line">      2   3            </span><br><span class="line">     / \               </span><br><span class="line">    /   \              </span><br><span class="line">   4     5             </span><br><span class="line">  / \   / \            </span><br><span class="line"> 6   7 8   1           </span><br><span class="line">          / \          </span><br><span class="line">         /   \         </span><br><span class="line">        /     \        </span><br><span class="line">       /       \       </span><br><span class="line">      /         \      </span><br><span class="line">     2           3     </span><br><span class="line">    / \         / \    </span><br><span class="line">   /   \       /   \   </span><br><span class="line">  4     5     6     7  </span><br><span class="line"> / \   / \   / \   / \ </span><br><span class="line">8   9 10 11 12 13 14 15</span><br></pre></td></tr></table></figure>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
-	</div>
-
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-text2tree" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/text2tree/" class="article-date">
-  	<!-- <time datetime="2020-02-13T12:47:16.000Z" itemprop="datePublished">2020-02-13</time> -->
-    2020-02-13
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/text2tree/">字符串构建树</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>练习树的算法时，使用代码手动构造树比较麻烦，容易出错，用 JSON 来表示也不够方便，用直观的字符串来表示一颗树更简单 (用缩进来表示节点的父子关系)，例如:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">    2</span><br><span class="line">    3</span><br><span class="line">        5</span><br><span class="line">        6</span><br><span class="line">    4</span><br><span class="line">        7</span><br><span class="line">            9</span><br><span class="line">            10</span><br><span class="line">        8</span><br><span class="line">    11</span><br></pre></td></tr></table></figure>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/text2tree/#more">阅读全文</a>
-        </p>
       
       <div class="clearfix"></div>
     </div>

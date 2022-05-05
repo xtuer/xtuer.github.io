@@ -114,7 +114,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10.63px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.5px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.63px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.38px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="/tags/Index/" style="font-size: 13.13px;">Index</a> <a href="/tags/Java/" style="font-size: 19.38px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.5px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.5px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.25px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.13px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.75px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.25px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.38px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.88px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.75px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 16.25px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 15px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.63px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.5px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.5px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.88px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.88px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10.59px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.35px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.29px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.12px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.35px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.94px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.65px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.06px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.18px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.18px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.12px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.76px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.53px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.88px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.71px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.29px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.06px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.06px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.47px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.76px;">zTree</a>
                     </div>
                     <script>
 
@@ -240,6 +240,146 @@
 </nav>
 
             <div class="body-wrap">
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-wx-swiper" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/wx-swiper/" class="article-date">
+  	<!-- <time datetime="2017-02-08T02:39:13.000Z" itemprop="datePublished">2017-02-08</time> -->
+    2017-02-08
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wx-swiper/">小程序轮播</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>微信小程序使用 <strong>Swiper</strong> 实现图片的轮播，<strong>Swiper</strong> 的结构如下:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">swiper</span> <span class="attr">indicator-dots</span>=<span class="string">&quot;&#123;&#123;indicatorDots&#125;&#125;&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">circular</span>=<span class="string">&quot;&#123;&#123;circular&#125;&#125;&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">autoplay</span>=<span class="string">&quot;&#123;&#123;autoPlay&#125;&#125;&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">interval</span>=<span class="string">&quot;&#123;&#123;interval&#125;&#125;&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">duration</span>=<span class="string">&quot;&#123;&#123;duration&#125;&#125;&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">swiper-item</span>&gt;</span><span class="tag">&lt;<span class="name">image</span> <span class="attr">src</span>=<span class="string">&quot;&quot;</span>/&gt;</span><span class="tag">&lt;/<span class="name">swiper-item</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="tag">&lt;<span class="name">swiper-item</span>&gt;</span><span class="tag">&lt;<span class="name">image</span> <span class="attr">src</span>=<span class="string">&quot;&quot;</span>/&gt;</span><span class="tag">&lt;/<span class="name">swiper-item</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">swiper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>swiper-item</strong> 的子标签可以是 image，或者 navigator 中放图片实现点击跳转等。</p>
+<p><img src="../img/fe/wx-swiper.png"></p>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/wx-swiper/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-wx-scroll" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/wx-scroll/" class="article-date">
+  	<!-- <time datetime="2017-02-07T09:49:57.000Z" itemprop="datePublished">2017-02-07</time> -->
+    2017-02-07
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wx-scroll/">小程序滚动</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>微信小程序使用 <strong>scroll-view</strong> 实现滚动区域，有水平滚动和垂直滚动，scroll-view 的结构如下:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">scroll-view</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">view</span>&gt;</span><span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="tag">&lt;<span class="name">view</span>&gt;</span><span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">scroll-view</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>设置 WXSS 的时候，需要注意使用 <code>font-size: 0 和 white-space: nowrap</code>。</p>
+<p><img src="../img/fe/wx-scroll.png"></p>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/wx-scroll/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
   
     <!-- 生成目录 -->
 
@@ -794,156 +934,6 @@
       
         <p class="article-more-link">
           <a  href="/qtbook-qss-base/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-qtbook-qss" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/qtbook-qss/" class="article-date">
-  	<!-- <time datetime="2017-02-02T08:29:08.000Z" itemprop="datePublished">2017-02-02</time> -->
-    2017-02-02
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/qtbook-qss/">QSS</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>Qt 提供的 widget 的默认外观很多时候都不符合项目的界面需求，必须要改，修改一个 widget 的外观（Look and Feel）有以下的方法：</p>
-<ul>
-<li>继承 Widget，然后在 paintEvent() 里绘制</li>
-<li>继承 QStyle</li>
-<li>使用 QSS（Qt Style Sheet）</li>
-<li>对于 item view 来说还有一种方式，还可以使用 Delegate</li>
-</ul>
-<p>这几种方式里最简单灵活的是使用 QSS，虽然有人说 QSS 的效率低，具体有多低没测试过，但是在普通 PC 上从来没感觉出来，再说现在的硬件也不差这么点性能消耗，随便一个写的差点的函数的消耗就比这多的多，作为一个实用主义者，不追求理论上的效率完美，能满足需求的前提下什么好用用什么，QSS 就是修改 widget 外观的首选，什么效果不满意，修改一下 QSS 的文件就可以看到效果，甚至不需要重新编译、打包发布程序（如果把 QSS 放在文件中，并且实现动态加载 QSS）。</p>
-<p><strong>我们按下面的章节来介绍 QSS:</strong></p>
-<ul>
-<li><a href="/qtbook-qss-base">QSS 基础</a></li>
-<li><a href="/qtbook-qss-load">加载 QSS</a></li>
-<li><a href="/qtbook-qss-boxmodel">盒子模型</a> </li>
-<li><a href="/qtbook-qss-selector">QSS 选择器</a></li>
-<li><a href="/qtbook-qss-border-image">Border-Image</a></li>
-<li><a href="/qtbook-qss-subcontrol">QSS Subcontrol</a></li>
-<li><a href="/qtbook-qss-calendar">QSS CalendarWidget</a></li>
-</ul>
-
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
-	</div>
-
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-perlin-noise" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/perlin-noise/" class="article-date">
-  	<!-- <time datetime="2017-01-10T11:24:09.000Z" itemprop="datePublished">2017-01-10</time> -->
-    2017-01-10
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/perlin-noise/">Perlin Noise</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>普通随机数算法生成的随机数真的很随意，不能做到在某个序列内是升序或者降序的，如果要生成某个范围内一序列的升序或者降序的随机数，例如用于游戏中生成随机地图，渲染海洋等，可以使用 Noise  随机数生成算法，Flow Noise 是 Noise 算法的 Java 实现，其 github 地址为 <a target="_blank" rel="noopener" href="https://github.com/flow/noise#documentation">https://github.com/flow/noise#documentation</a></p>
-<blockquote>
-<p>Noise generation library for Java, based on the libnoise C++ library. It is used to generate coherent noise, a type of smoothly-changing noise. It can also generate Perlin noise, ridged multifractal noise, and other types of coherent noise. <a target="_blank" rel="noopener" href="https://flowpowered.com/noise">https://flowpowered.com/noise</a>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Util/" rel="tag">Util</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/perlin-noise/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

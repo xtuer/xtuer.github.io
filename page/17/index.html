@@ -114,7 +114,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10.63px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.5px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.63px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.38px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="/tags/Index/" style="font-size: 13.13px;">Index</a> <a href="/tags/Java/" style="font-size: 19.38px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.5px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.5px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.25px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.13px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.75px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.25px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.38px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.88px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.75px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 16.25px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 15px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.63px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.5px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.5px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.88px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.88px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10.59px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.35px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.29px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.12px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.35px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.94px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.65px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.06px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.18px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.18px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.12px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.76px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.53px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.88px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.71px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.29px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.06px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.06px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.47px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.76px;">zTree</a>
                     </div>
                     <script>
 
@@ -240,6 +240,154 @@
 </nav>
 
             <div class="body-wrap">
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-spring-web-thymeleaf-syntax" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/spring-web-thymeleaf-syntax/" class="article-date">
+  	<!-- <time datetime="2017-08-06T02:07:37.000Z" itemprop="datePublished">2017-08-06</time> -->
+    2017-08-06
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/spring-web-thymeleaf-syntax/">Thymeleaf 语法</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Thymeleaf 使用 HTML 元素的属性获取 model 中的数据，属性的前缀是 <code>th:</code>，例如 <code>th:text</code>, <code>th:src</code>。</p>
+<h2 id="变量访问"><a href="#变量访问" class="headerlink" title="变量访问"></a>变量访问</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 使用属性的方式访问变量 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;name&#125;&quot;</span>&gt;</span>Thymeleaf 解析后会被覆盖<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">th:text</span>=<span class="string">&quot;|Welcome $&#123;name&#125;|&quot;</span>&gt;</span>Thymeleaf 解析后会被覆盖<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">th:text</span>=<span class="string">&quot;&#x27;Welcome &#x27; + $&#123;name&#125;&quot;</span>&gt;</span>Thymeleaf 解析后会被覆盖<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 非属性的方式访问变量 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span>&gt;</span>[[$&#123;name&#125;]]<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>字符串拼接时 <code>|...|</code> 的方式更简洁，但是里面不能包含表达式，第三种方式功能强大，可以包含表达式。</p>
+<p>变量访问也可以使用级联的方式: <code>$&#123;user.name&#125;</code>。</p>
+<h2 id="null-处理"><a href="#null-处理" class="headerlink" title="null 处理"></a>null 处理</h2><p>表达式 <code>$&#123;foo&#125;?</code> 当 foo 为 null 时返回 false；级联调用时变量访问前先用 <code>?</code> 进行判断可以减少一个一个的条件判断</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;foo&#125;?&#x27;Alt&#x27;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;foo?.bar?.fix&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="使用-URL"><a href="#使用-URL" class="headerlink" title="使用 URL"></a>使用 URL</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">th:href</span>=<span class="string">&quot;@&#123;/login&#125;&quot;</span> <span class="attr">th:if</span>=<span class="string">&quot;$&#123;session.user == null&#125;&quot;</span>&gt;</span>Login<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>使用 <code>th:href=&quot;@&#123;/uri&#125;&quot;</code> 引入 URL，<code>/</code> 开头时会在 URI 前面加上项目的 <strong>context path</strong>。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringWeb/" rel="tag">SpringWeb</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/spring-web-thymeleaf-syntax/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-spring-web-thymeleaf" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/spring-web-thymeleaf/" class="article-date">
+  	<!-- <time datetime="2017-08-06T01:42:22.000Z" itemprop="datePublished">2017-08-06</time> -->
+    2017-08-06
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/spring-web-thymeleaf/">Thymeleaf 集成</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p><strong>有了 Freemarker，Velocity 等模版后，为什么要选择 Thymeleaf？</strong></p>
+<ul>
+<li>Freemarker 的模版还是有一些非 HTML 的标签在里面，对于前端来说需要学习相关语法</li>
+<li>Velocity 虽然也很好，但是已经很久不更新了，Spring 5 已经官方宣布不支持 Velocity 了</li>
+<li>Thymeleaf 的语法就是 HTML 的语法，动态内容部分使用 HTML 的属性来实现，属性部分不会影响 HTML 的设计，<strong>前后端可以很好的分离</strong>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringWeb/" rel="tag">SpringWeb</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/spring-web-thymeleaf/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
   
     <!-- 生成目录 -->
 
@@ -904,148 +1052,6 @@
       
         <p class="article-more-link">
           <a  href="/fe-random/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-spring-web-velocity-syntax" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/spring-web-velocity-syntax/" class="article-date">
-  	<!-- <time datetime="2017-07-01T02:47:01.000Z" itemprop="datePublished">2017-07-01</time> -->
-    2017-07-01
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/spring-web-velocity-syntax/">Velocity 语法</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>Velocity 比较接近脚本语言，例如 JS</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#if ($foo &lt; 10)</span><br><span class="line">    ...</span><br><span class="line">#elseif ($foo == 10)</span><br><span class="line">    ...</span><br><span class="line">#elseif ($foo == 12)</span><br><span class="line">    ...</span><br><span class="line">#else</span><br><span class="line">    ...</span><br><span class="line">#end</span><br></pre></td></tr></table></figure>
-
-<p>比较一下 Freemarker</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;#if foo &lt; 10&gt; </span><br><span class="line">    ... </span><br><span class="line">&lt;#elseif foo == 10&gt; </span><br><span class="line">    ... </span><br><span class="line">&lt;#elseif foo == 12&gt; </span><br><span class="line">    ... </span><br><span class="line">&lt;#else&gt;</span><br><span class="line">    ...</span><br><span class="line">&lt;/#if&gt;</span><br></pre></td></tr></table></figure>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringWeb/" rel="tag">SpringWeb</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/spring-web-velocity-syntax/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-java-velocity" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/java-velocity/" class="article-date">
-  	<!-- <time datetime="2017-06-30T07:47:31.000Z" itemprop="datePublished">2017-06-30</time> -->
-    2017-06-30
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/java-velocity/">使用 Velocity 生成静态页面</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>Velocity 可以作为 SpringMVC 的 View 使用，也可以用来生成邮件，静态页面等。</p>
-<blockquote>
-<p>Velocity 模版中可以直接调用对象的方法，这点比 Freemarker 好用，if else foreach 等语句也更舒服。</p>
-</blockquote>
-<h2 id="Gradle-依赖"><a href="#Gradle-依赖" class="headerlink" title="Gradle 依赖"></a>Gradle 依赖</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">&#x27;org.apache.velocity:velocity:1.7&#x27;</span></span><br><span class="line">compile <span class="string">&#x27;org.apache.velocity:velocity-tools:2.0&#x27;</span></span><br></pre></td></tr></table></figure>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Util/" rel="tag">Util</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/java-velocity/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

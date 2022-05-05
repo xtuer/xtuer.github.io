@@ -114,7 +114,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10.63px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.5px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.63px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.38px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="/tags/Index/" style="font-size: 13.13px;">Index</a> <a href="/tags/Java/" style="font-size: 19.38px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.5px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.5px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.25px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.13px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.75px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.25px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.38px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.88px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.75px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 16.25px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 15px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.63px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.5px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.5px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.88px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.88px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10.59px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.35px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.29px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.12px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.35px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.94px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.65px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.06px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.18px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.18px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.12px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.76px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.53px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.88px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.71px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.29px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.06px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.06px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.47px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.76px;">zTree</a>
                     </div>
                     <script>
 
@@ -240,6 +240,145 @@
 </nav>
 
             <div class="body-wrap">
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-qtbook-custom-widget-group" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-custom-widget-group/" class="article-date">
+  	<!-- <time datetime="2018-07-08T09:21:24.000Z" itemprop="datePublished">2018-07-08</time> -->
+    2018-07-08
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qtbook-custom-widget-group/">分组布局</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>在进行界面布局的时候，常把控件根据功能分组放在一起，最常用的就是使用 QGroupBox 来放置一组控件。QGroupBox 虽然使用起来很方便，但就是有点丑，在要求较高的设计中，还得使用控件组合加自定义绘图或者 QSS 等才能实现，例如下面这个软件界面，直接使用 Qt 提供的控件是满足不了的:</p>
+<p><img src="../img/qtbook/custom-widget/group-effect.png"></p>
+<p>上图中分组的布局没有使用 QGroupBox，而是用几个控件组合起来实现的，设计如下:</p>
+<p><img src="../img/qtbook/custom-widget/group-design.png"></p>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/qtbook-custom-widget-group/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-qtbook-custom-widget-abnormity-buttons" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-custom-widget-abnormity-buttons/" class="article-date">
+  	<!-- <time datetime="2018-06-21T03:45:06.000Z" itemprop="datePublished">2018-06-21</time> -->
+    2018-06-21
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qtbook-custom-widget-abnormity-buttons/">异形按钮组</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>不少软件里看到过如下的按钮组，有 5 个按钮，中间 1 个，上下左右各一个：</p>
+<p><img src="../img/qtbook/custom-widget/abnormity-button.png"></p>
+<p>可以通过绘图的方式实现：计算每一个按钮的位置、大小、图片、点击的时候判断点击到了哪个按钮然后刷新绘制它的样式，并调用相应的函数执行点击操作，难度还是相当大的。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/qtbook-custom-widget-abnormity-buttons/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
   
     <!-- 生成目录 -->
 
@@ -820,162 +959,6 @@
       
         <p class="article-more-link">
           <a  href="/java-idea/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-gitbook-coding-net" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/gitbook-coding-net/" class="article-date">
-  	<!-- <time datetime="2018-03-26T16:44:36.000Z" itemprop="datePublished">2018-03-27</time> -->
-    2018-03-27
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/gitbook-coding-net/">GitBook 使用 Coding.net 的 Pages 访问</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>GitBook 生成的静态网页文件在 <code>_book</code> 目录中，下面介绍怎么把它发布到 coding.net 的 Pages 服务中，这样就能够通过网络访问了。</p>
-<ol>
-<li><p>在 <a target="_blank" rel="noopener" href="https://coding.net/">https://coding.net</a> 创建一个账号 <code>xtuer</code>(下面请换为自己的账号)</p>
-</li>
-<li><p>创建仓库 2 个仓库 fox 和 fox-doc (仓库名字随意取)：</p>
-<ul>
-<li>fox-doc: GitBook 源文件</li>
-<li>fox: GitBook 生成的静态文件</li>
-</ul>
-</li>
-<li><p>克隆这 2 个仓库到本地的同一个文件夹下</p>
-<ul>
-<li><code>git clone git@git.coding.net:xtuer/fox.git</code></li>
-<li><code>git clone git@git.coding.net:xtuer/fox-doc.git</code>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/gitbook-coding-net/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-qtbook-custom-widget-context-menu" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/qtbook-custom-widget-context-menu/" class="article-date">
-  	<!-- <time datetime="2018-03-20T01:51:49.000Z" itemprop="datePublished">2018-03-20</time> -->
-    2018-03-20
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/qtbook-custom-widget-context-menu/">右键菜单</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>右键菜单有多种实现方式:</p>
-<ul>
-<li>设置 contextMenuPolicy 为:<ul>
-<li>Qt::ActionsContextMenu</li>
-<li>Qt::CustomContextMenu</li>
-</ul>
-</li>
-<li>重写 contextMenuEvent 函数</li>
-</ul>
-<p>下面就分别介绍这几种右键菜单的实现。</p>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/qtbook-custom-widget-context-menu/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

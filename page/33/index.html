@@ -114,7 +114,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10.63px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.5px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.63px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.38px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="/tags/Index/" style="font-size: 13.13px;">Index</a> <a href="/tags/Java/" style="font-size: 19.38px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.5px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.5px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.25px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.13px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.75px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.25px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.38px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.88px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.75px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 16.25px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 15px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.63px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.5px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.5px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.88px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.88px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10.59px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.35px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.29px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.12px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.35px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.94px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.65px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.06px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.18px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.18px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.12px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.76px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.53px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.88px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.71px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.29px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.06px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.06px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.47px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.76px;">zTree</a>
                     </div>
                     <script>
 
@@ -240,6 +240,146 @@
 </nav>
 
             <div class="body-wrap">
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-qtbook-paint-base" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-paint-base/" class="article-date">
+  	<!-- <time datetime="2016-12-08T11:22:05.000Z" itemprop="datePublished">2016-12-08</time> -->
+    2016-12-08
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qtbook-paint-base/">绘图基础</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>这一节介绍 Qt 的绘图基础知识，我们都知道，Qt 里绘图使用的是 QPainter，但是首先需要弄明白：在什么上绘图和在哪里绘图，然后才是怎么绘图，我们就围绕这几个问题来展开。</p>
+<h2 id="在什么上绘图"><a href="#在什么上绘图" class="headerlink" title="在什么上绘图"></a>在什么上绘图</h2><blockquote>
+<p>The QPaintDevice class is the base class of objects that can be painted on with QPainter.</p>
+<p>A paint device is an abstraction of a two-dimensional space that can be drawn on using a QPainter. Its default coordinate system has its origin located at the top-left position. X increases to the right and Y increases downwards. The unit is one pixel.</p>
+<p>The drawing capabilities of QPaintDevice are currently implemented by the QWidget, QImage, QPixmap, QGLPixelBuffer, QPicture, and QPrinter subclasses.</p>
+</blockquote>
+<p>上面的内容来自于 Qt 的帮助文档，在 QPaintDevice 的子类里用 QPainter 绘图，最常见的就是在 QWidget, QPixmap, QPixture, QPrinter 上面绘图。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/qtbook-paint-base/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-qtbook-paint" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-paint/" class="article-date">
+  	<!-- <time datetime="2016-12-08T11:04:20.000Z" itemprop="datePublished">2016-12-08</time> -->
+    2016-12-08
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qtbook-paint/">绘图</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>阿基米德说：给我一个支点，我将撬起整个地球。给我一个 <code>QPainter</code>，我也能实现整个操作系统的图形界面，看似有点夸张，但说明了一个核心问题，操作系统的界面本质也是<code>画(Hua)</code>出来的。你看到的，未必就是真实存在的，也可以说根本不存在什么按钮、Label 等，他们都是一幅画，有很多人认为按钮就是按钮，Label 就是 Label，是不同的控件，不能互相转换使用，其实我很多时候就会把按钮当 Label 用，例如要求显示左边是图标，右边是文字，不可点击，如果用 Label 来实现就比较麻烦，但用 QPushButton 来做的话很容易，只不过把点击事件给忽略就好，处理 Label 的鼠标点击事件是不是就可化身为按钮了呢？别说按钮等了，其实就是我们生存的空间，都不知道是否真实的存在，还是我们就生活在外星文明的游戏里，谁能说得清呢！
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/qtbook-paint/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
   
     <!-- 生成目录 -->
 
@@ -781,146 +921,6 @@
       
         <p class="article-more-link">
           <a  href="/java-okhttp/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-misc-spring-groovy" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/misc-spring-groovy/" class="article-date">
-  	<!-- <time datetime="2016-11-27T07:27:06.000Z" itemprop="datePublished">2016-11-27</time> -->
-    2016-11-27
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/misc-spring-groovy/">Spring 集成 Groovy</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>Groovy 是用于 Java 虚拟机的一种敏捷的动态语言，很吸引人的一点是 Java 代码完全可以在 Groovy 里运行，Groovy 脚本可以动态的加载运行，例如网络游戏，为了游戏的平衡，每运行一段时间就会调整角色的攻击力计算公式(C, C++写的游戏一般会用 Lua 作为计算脚本)，如果是写在 Java 代码里，每次更新都要把主程序重新编译发布，代价是很大的，但是如果使用 Groovy 来提供计算，则只需要更新发布 Groovy 脚本(文本文件) 即可，估计也就是几 K。</p>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/" rel="tag">Misc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Util/" rel="tag">Util</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/misc-spring-groovy/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-misc-ehcache" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/misc-ehcache/" class="article-date">
-  	<!-- <time datetime="2016-11-27T05:35:23.000Z" itemprop="datePublished">2016-11-27</time> -->
-    2016-11-27
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/misc-ehcache/">Ehcache</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>Ehcache 使用起来很简单，是一个 <code>key/value</code> 容器，和 Map 很像，只不过功能比 Map 丰富，能够限定缓存中元素的个数，自动删除超时的元素，把元素持久化到硬盘等:</p>
-<ul>
-<li>添加元素到缓存: <code>cache.put(new Element(&quot;username&quot;, &quot;Biao&quot;))</code></li>
-<li>从缓存获取元素: <code>cache.get(&quot;username&quot;)</code></li>
-<li>从缓存删除元素: <code>cache.remove(&quot;username&quot;)</code></li>
-<li>CacheManager 管理多个 Cache，每个 Cache 里又管理多个缓存的元素 Element</li>
-</ul>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/" rel="tag">Misc</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/misc-ehcache/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

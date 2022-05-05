@@ -114,7 +114,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10.63px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.5px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.63px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.38px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="/tags/Index/" style="font-size: 13.13px;">Index</a> <a href="/tags/Java/" style="font-size: 19.38px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.5px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.5px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.25px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.13px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.75px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.25px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.38px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.88px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.75px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 16.25px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 15px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.63px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.5px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.5px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.88px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.88px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10.59px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.35px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.29px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.12px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.35px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.94px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.65px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.06px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.18px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.18px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.12px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.76px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.53px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.88px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.71px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.29px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.06px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.06px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.47px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.76px;">zTree</a>
                     </div>
                     <script>
 
@@ -240,6 +240,165 @@
 </nav>
 
             <div class="body-wrap">
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-fe-ztree-menu" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/fe-ztree-menu/" class="article-date">
+  	<!-- <time datetime="2017-04-19T23:11:15.000Z" itemprop="datePublished">2017-04-20</time> -->
+    2017-04-20
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/fe-ztree-menu/">zTree 右键菜单</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>zTree 使用右边的添加、编辑、删除按钮时容易误操作（踩过坑了），所以下面使用右键菜单来编辑 zTree。</p>
+<p>既然需要对树进行编辑，说明数据是需要保存到服务器的，所以树的加载也是需要使用动态加载，不过事例中写死是为了无服务器时便与演示（注释中有动态访问服务器的代码）。</p>
+<p><strong>实现时需要注意几点:</strong></p>
+<ul>
+<li>重命名操作需要在 zTree 的回调函数 beforeRename 中进行</li>
+<li>创建新节点时<ul>
+<li>节点没有展开，先展开它，这时如果还没有从服务器加载过数据，则会先从服务器中加载子节点数据，展开完成后会调用回调函数 onExpand，这时在 onExpand 中创建新节点。节点没有展开，且没有从服务器加载过子节点数据时不在 onExpand 中创建新节点，就会很有可能看到 2 个一样新建的节点，因为调用 window.tree.addNodes 创建了一个节点，服务器返回的数据中很可能也已经有这个节点的数据（因为是异步的），所以重复了，不过在数据库中并没有重复，只是浏览器本地的 zTree 中内存数据重复</li>
+<li>是根节点，或者非根节点且已经展开了，则直接创建新节点，这时不会从服务器加载子节点数据</li>
+</ul>
+</li>
+</ul>
+<p><strong>使用时需要修改 TODO 相关的部分:</strong></p>
+<ul>
+<li><p>配置 setting.async 从服务器加载数据，并删除 nodes 初始化代码</p>
+</li>
+<li><p>完成函数 createNode(), removeNode(), renameNode()，已有相关的注释作为提示</p>
+<blockquote>
+<p>$.rest.syncCreate(), $.rest.syncRemove(), $.rest.syncUpdate() 是对 $.ajax() 的简单封装，为了简化 Ajax 请求操作，可以自己实现或则参考 <a target="_blank" rel="noopener" href="http://qtdebug.com/fe-rest/">jQuery 的 REST 插件</a></p>
+</blockquote>
+</li>
+</ul>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/zTree/" rel="tag">zTree</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/fe-ztree-menu/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-java-image-base64" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/java-image-base64/" class="article-date">
+  	<!-- <time datetime="2017-04-16T14:26:32.000Z" itemprop="datePublished">2017-04-16</time> -->
+    2017-04-16
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java-image-base64/">图片和 Base64 字符串互转</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>把图片的二进制数据转换为 Base64 编码的字符串表示，格式为 <strong>data:image/png;base64,iVBORw0KGgoAAAA…</strong></p>
+<ul>
+<li><code>/</code> 和 <code>;</code> 之间的内容为图片的格式</li>
+<li><code>,</code> 后面的内容为图片的二进制数据的Base64 编码的字符串</li>
+</ul>
+<p>解析 Base64 编码字符串表示的图片为二进制数据，根据上面的算法反过来解析即可。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Util/" rel="tag">Util</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/java-image-base64/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
   
     <!-- 生成目录 -->
 
@@ -800,147 +959,6 @@
       
         <p class="article-more-link">
           <a  href="/misc-dubbo-hello-world/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-misc-zookeeper" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/misc-zookeeper/" class="article-date">
-  	<!-- <time datetime="2017-04-11T12:02:23.000Z" itemprop="datePublished">2017-04-11</time> -->
-    2017-04-11
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/misc-zookeeper/">本机安装 ZooKeeper 集群</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>ZooKeeper 的集群最好是使用 3，5，7，9 奇数台服务器，开发环境可能没有这么多机器给我们使用，不过可以在本机运行多个 ZooKeeper 实例，模拟集群。
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/" rel="tag">Misc</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/misc-zookeeper/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-misc-spring-http-remote-invoker" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/misc-spring-http-remote-invoker/" class="article-date">
-  	<!-- <time datetime="2017-04-11T01:18:25.000Z" itemprop="datePublished">2017-04-11</time> -->
-    2017-04-11
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/misc-spring-http-remote-invoker/">Spring Http 远程方法调用</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>Spring Http 远程调用 (Spring Http Remote Invocation) 是 Spring 提供的一种特殊的允许通过 HTTP 进行 Java 串行化的远程调用策略，<strong>支持任意 Java 接口</strong>，相对应的支持类是 HttpInvokerServiceExporter (服务器端) 和 HttpInvokerProxyFactoryBean (客服端)。</p>
-<p><strong>远程调用两部分:</strong></p>
-<ul>
-<li>服务端</li>
-<li>客户端</li>
-</ul>
-<p><strong>调用逻辑:</strong></p>
-<p><img src="../img/misc/SpringHttpInvoker.png"></p>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/" rel="tag">Misc</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/misc-spring-http-remote-invoker/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

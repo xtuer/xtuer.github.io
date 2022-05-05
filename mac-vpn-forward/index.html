@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Monterey 混合 VPN 访问公司内网 | 公孙二狗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在 OSX Monterey 使用 VPN 中介绍了 Monterey 使用 L2TP-IpSpec VPN 的问题，并且使用 Windows Server 2016 进行中转处理的方案，虽然勉强能用，但是不够方便，本文中介绍了几种其他方案:  方案一、Zerotier 方案二、Wireguard 方案三、Wireguard + Zerotier  由于各种原因最终使用了方案三，本地能够直接访问公">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Monterey 混合 VPN 访问公司内网">
+<meta property="og:url" content="http://xtuer.github.io/mac-vpn-forward/index.html">
+<meta property="og:site_name" content="公孙二狗">
+<meta property="og:description" content="在 OSX Monterey 使用 VPN 中介绍了 Monterey 使用 L2TP-IpSpec VPN 的问题，并且使用 Windows Server 2016 进行中转处理的方案，虽然勉强能用，但是不够方便，本文中介绍了几种其他方案:  方案一、Zerotier 方案二、Wireguard 方案三、Wireguard + Zerotier  由于各种原因最终使用了方案三，本地能够直接访问公">
+<meta property="og:locale">
+<meta property="og:image" content="http://xtuer.github.io/img/mac/zerotier.png">
+<meta property="og:image" content="http://xtuer.github.io/img/mac/wireguard.png">
+<meta property="og:image" content="http://xtuer.github.io/img/mac/wireguard-zerotier.png">
+<meta property="article:published_time" content="2022-05-04T12:42:49.000Z">
+<meta property="article:modified_time" content="2022-05-05T02:18:48.729Z">
+<meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="Mac">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xtuer.github.io/img/mac/zerotier.png">
+  
+    <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/dog.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
+  <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/require.min.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <!-- <script src="https://hm.baidu.com/hm.js?22778d8041aa1437b11529a3e87a0a12"></script> -->
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+    <div id="container">
+        <div class="left-col">
+            <div class="content-table">Content Table</div>
+            <div class="overlay"></div>
+
+<ul class="menu">
+    <!-- <li class="item"><a href="javascript:void(0)" id="baidu-search-button">百度搜索</a></li> -->
+    <!-- <li class="item"><a href="javascript:void(0)" id="google-search-button">谷歌搜索</a></li> -->
+    <!-- <li class="item non-index-item"><a href="javascript:void(0)" id="show-toc-button">显示目录</a></li> -->
+</ul>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/all/">公孙二狗</a></h1>
+		</hgroup>
+		<p style=" margin-bottom: 10px;margin-top: -5px;">
+			<a style="color: gray;" target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=26664141&site=qq&menu=yes">QQ: 26664141</a>
+		</p>
+
+		
+		<p class="header-subtitle">大圣，此去欲何？踏南天，碎凌霄。若一去不回……？便一去不回！</p>
+		
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10.59px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.35px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.29px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.12px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.35px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.94px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.65px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.06px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.18px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.18px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.12px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.76px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.53px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.88px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.71px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.29px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.06px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.06px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.47px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.76px;">zTree</a>
+                    </div>
+                    <script>
+
+                    </script>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://loadship.cn">小鱼人</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtnull.com/">千古</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">吞风吻雨葬落日未曾彷徨，欺山赶海践雪径也未绝望，拈花把酒偏折煞世人情狂，凭这两眼与百臂或千手不能防，天阔阔雪漫漫共谁同航，这沙滚滚水皱皱笑着浪荡，贪欢一晌偏教那女儿情长埋葬。</div>
+				</section>
+				
+			</div>
+		</div>
+        <div class="links-area" style="margin-top: 10px;">
+            <a href="/html/tools">收藏夹 |</a>
+            <a href="/qtbook">Qt 杂谈 |</a>
+            <a href="/html/vue-in-action">Vue 实践</a>
+            <a href="/html/spring-boot">Spring Boot |</a>
+            <a href="/spring-web-index">Java Web 开发</a>
+        </div>
+	</header>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Baidu 搜索
+        // $('#baidu-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.baidu.com/s?wd=site:qtdebug.com+'+text);
+        //     });
+        // });
+        //
+        // // Google 搜索
+        // $('#google-search-button').click(function(event) {
+        //     layer.prompt({title: false, formType: 0, closeBtn: 0, maxlength: 140}, function(text, index) {
+        //         layer.close(index);
+        //         window.open('https://www.google.com/?#q=site:qtdebug.com+'+text);
+        //     });
+        // });
+    });
+
+    function resetTags() {
+		var tags = $(".tagcloud a");
+		tags.css({"font-size": "12px"});
+		for(var i=0,len=tags.length; i<len; i++){
+			var num = tags.eq(i).html().length % 5 +1;
+			tags[i].className = "";
+			tags.eq(i).addClass("color"+num);
+		}
+    }
+
+    resetTags();
+</script>
+
+        </div>
+        <div class="mid-col">
+            <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+            <div class="body-wrap"><!-- 生成目录 -->
+
+    <div id="toc-mask" style="display: none;">
+        <div class="toc-container">
+            <div class="article-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%A1%88%E4%B8%80%E3%80%81Zerotier"><span class="toc-text">方案一、Zerotier</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%A1%88%E4%BA%8C%E3%80%81Wireguard"><span class="toc-text">方案二、Wireguard</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%A1%88%E4%B8%89%E3%80%81Wireguard-Zerotier"><span class="toc-text">方案三、Wireguard + Zerotier</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CentOS-%E4%BD%BF%E7%94%A8-L2TP-IpSpec-VPN"><span class="toc-text">CentOS 使用 L2TP-IpSpec VPN</span></a></li></ol>
+            </div>
+        </div>
+    </div>
+
+
+<article id="post-mac-vpn-forward" class="article article-type-post" itemscope itemprop="blogPost">
+    <!-- 
+        <div class="content-table">Content Table</div>
+     -->
+
+    
+        <div class="article-meta">
+            <a href="/mac-vpn-forward/" class="article-date">
+  	<!-- <time datetime="2022-05-04T12:42:49.000Z" itemprop="datePublished">2022-05-04</time> -->
+    2022-05-04
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner article-inner-x">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Monterey 混合 VPN 访问公司内网
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li></ul>
+	</div>
+
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>在 <a href="/mac-vpn/">OSX Monterey 使用 VPN</a> 中介绍了 Monterey 使用 L2TP-IpSpec VPN 的问题，并且使用 Windows Server 2016 进行中转处理的方案，虽然勉强能用，但是不够方便，本文中介绍了几种其他方案:</p>
+<ul>
+<li>方案一、Zerotier</li>
+<li>方案二、Wireguard</li>
+<li>方案三、Wireguard + Zerotier</li>
+</ul>
+<p>由于各种原因最终使用了方案三，本地能够直接访问公司内网了，且速度能够接受，比使用 Windows Server 2016 的方案更好，但技术上也复杂不少。当有内网可使用 Wireguard 的机器时再切换为方案二，不考虑方案一是因为跨电信运营商时太慢。</p>
+<h2 id="方案一、Zerotier"><a href="#方案一、Zerotier" class="headerlink" title="方案一、Zerotier"></a>方案一、Zerotier</h2><p><img src="../img/mac/zerotier.png"><span id="more"></span></p>
+<p>使用 Zerotier 把 A 和 C 组网 (192.168.191.0/24)，A 访问 C 所在内网机器时 (192.168.1.0/24) 通过 C 进行路由转发:</p>
+<ol>
+<li><p>A 和 C 组网: </p>
+<ul>
+<li><p>视频: <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1hK4y1L7ND">强大的内网穿透工具 ZeroTier，随时随地远程访问家中 NAS 和其它设备！没有公网 IP 也不怕</a></p>
+</li>
+<li><p>注册 Zerotier 账号，访问 <a target="_blank" rel="noopener" href="https://www.zerotier.com,可以使用/">https://www.zerotier.com，可以使用</a> Github 账号直接登录</p>
+</li>
+<li><p>Linux 安装 Zerotier: <code>curl -s https://install.zerotier.com | sudo bash</code></p>
+</li>
+<li><p>Linux 入网 Zerotier: <code>zerotier-cli join $NETWORK_ID</code></p>
+</li>
+<li><p>在 Zerotier 网站的 Networks 里面的 <a target="_blank" rel="noopener" href="https://my.zerotier.com/network">Members</a> 下允许入网</p>
+</li>
+</ul>
+</li>
+<li><p>A 创建路由，网关为 C:</p>
+<ul>
+<li><p>在 Zerotier 网站的 Networks 里面的 <a target="_blank" rel="noopener" href="https://my.zerotier.com/network">Managed Routes</a> 下配置路由表, 增加如下内容 (设置路由参考 <a target="_blank" rel="noopener" href="https://www.mrdoc.fun/doc/138/">https://www.mrdoc.fun/doc/138/</a>):</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Destination        (Via)</span><br><span class="line">192.168.1.0/24     192.168.191.151</span><br></pre></td></tr></table></figure></li>
+<li><p>点击 Submit 提交</p>
+</li>
+<li><p>Zerotier 在非 <strong>Via IP (如上图的 192.168.191.151)</strong> 的 Zerotier Client 节点上(如上图的 192.168.181.231) 会自动创建路由:</p>
+<p>查看路由的命令: <code>netstart -nr</code> 或者 <code>route -n</code>:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@VM-24-15-centos ~]# netstat -nr</span><br><span class="line">Kernel IP routing table</span><br><span class="line">Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface</span><br><span class="line">0.0.0.0         10.0.24.1       0.0.0.0         UG        0 0          0 eth0</span><br><span class="line">10.0.24.0       0.0.0.0         255.255.252.0   U         0 0          0 eth0</span><br><span class="line">192.168.1.0     192.168.191.151 255.255.255.0   UG        0 0          0 zt6ovw6gh5</span><br><span class="line">192.168.191.0   0.0.0.0         255.255.255.0   U         0 0          0 zt6ovw6gh5</span><br></pre></td></tr></table></figure>
+<p>路由分析:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">192.168.1.0     192.168.191.151 255.255.255.0   UG        0 0          0 zt6ovw6gh5</span><br><span class="line">此路由说明访问 192.168.1.0 IP 段的机器时:</span><br><span class="line">1. 使用本机网卡 zt6ovw6gh5 (Zerotier 创建的网卡) 发送请求到网关 192.168.191.151</span><br><span class="line">2. 然后网关 192.168.191.151 再进行转发到下一跳 (需要继续看他的路由表)</span><br><span class="line">3. 这样一跳一跳的最终到达目标机器，互联网上的机器互相访问都要进过很多跳才能到达</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>C 路由转发从 Zerotier 网卡发来的 192.168.1.0/24 的请求:</p>
+<ul>
+<li><p>Linux 内核支持路由转发，但默认是关闭的，需要开启 (参考 <a target="_blank" rel="noopener" href="https://zerotier.atlassian.net/wiki/spaces/SD/pages/224395274/Route+between+ZeroTier+and+Physical+Networks">Enable IP forwarding</a>): </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">[root]#</span><span class="bash"> <span class="built_in">echo</span> <span class="string">&quot;net.ipv4.ip_forward = 1&quot;</span> &gt;&gt; /etc/sysctl.conf</span></span><br><span class="line"><span class="meta">[root]#</span><span class="bash"> sysctl -p</span></span><br></pre></td></tr></table></figure></li>
+<li><p>防火墙设置 (参考 <a target="_blank" rel="noopener" href="https://zerotier.atlassian.net/wiki/spaces/SD/pages/224395274/Route+between+ZeroTier+and+Physical+Networks">Configure iptables</a>):</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">PHY_IFACE=eth0; ZT_IFACE=zt6ovw6gh5</span><br><span class="line">sudo iptables -t nat -A POSTROUTING -o $PHY_IFACE -j MASQUERADE</span><br><span class="line">sudo iptables -A FORWARD -i $PHY_IFACE -o $ZT_IFACE -m state --state RELATED,ESTABLISHED -j ACCEPT</span><br><span class="line">sudo iptables -A FORWARD -i $ZT_IFACE -o $PHY_IFACE -j ACCEPT</span><br></pre></td></tr></table></figure></li>
+<li><p>中文参考 <a target="_blank" rel="noopener" href="https://www.mrdoc.fun/doc/138/">Zerotier 充当网关实现内网互联,访问其它节点内网</a>，<a target="_blank" rel="noopener" href="https://www.cnblogs.com/linuxws/p/10924817.html">Iptables Linux 服务器做路由转发 </a></p>
+</li>
+</ul>
+</li>
+<li><p>到此，可以在 A 上访问 192.168.1.0 IP 段的机器如 C 和 D 了，在 A 上进行 ping:</p>
+<ul>
+<li><p><code>ping 192.168.1.14</code></p>
+</li>
+<li><p><code>ping 192.168.1.73</code></p>
+</li>
+</ul>
+<p>能 ping 通就说明没有问题。</p>
+</li>
+</ol>
+<p>此方案的优缺点:</p>
+<ul>
+<li>优点: 简单、免费</li>
+<li>缺点: 目前遇到的情况是 A 在河北电信，C 在北京联通，A 访问 C 的网络延迟很大，达到了 400+ms，非常慢</li>
+</ul>
+<h2 id="方案二、Wireguard"><a href="#方案二、Wireguard" class="headerlink" title="方案二、Wireguard"></a>方案二、Wireguard</h2><img src="../img/mac/wireguard.png">
+
+<p>使用 Wireguard 把 A 和 C 组网 (10.100.0.0/24)，A 访问 C 所在内网机器时 (192.168.1.0/24) 通过 C 进行路由转发:</p>
+<ol>
+<li><p>准备固定公网 IP 的机器 B: 可购买云服务器</p>
+</li>
+<li><p>在 B 上安装 Wireguard: </p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/jonnyan/p/14110061.html">Centos7.x 下安装 Wireguard</a></li>
+<li>Wireguard 的安装不区分 Server 和 Client</li>
+<li>Wireguard 的进程作为 Server 还是 Client，由提供的配置决定</li>
+</ul>
+</li>
+<li><p>A 和 C 组网:</p>
+<ul>
+<li>A 和 C 上安装 Wireguard:<ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/jonnyan/p/14110061.html">Centos7.x 下安装 Wireguard</a></li>
+<li>Mac 中安装 Wireguard: <code>brew install wireguard-tools</code></li>
+</ul>
+</li>
+<li>A 和 C 作为 Wireguard Client 运行</li>
+<li>A 和 C 的 IP 已经在配置文件中指定</li>
+<li>配置中的 <strong>AllowedIPs</strong>: Wireguard 启动时用来创建路由，可以是多个，以英文逗号分隔，例如 <strong>10.100.0.0/24,192.168.1.0/24</strong></li>
+</ul>
+</li>
+<li><p>A 创建路由，网关为 C 的 Wireguard Client 的 IP:</p>
+<p>Mac:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 添加路由</span></span><br><span class="line">sudo route -n add -net 192.168.1.0 -netmask 255.255.255.0 10.100.0.3</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除路由</span></span><br><span class="line">sudo route delete -net 192.168.1.0</span><br></pre></td></tr></table></figure></li>
+<li><p>C 路由转发从 Wireguard 网卡发来的 192.168.1.0/24 的请求 (参考上面方案一):</p>
+<ul>
+<li><p>内核开启路由转发</p>
+</li>
+<li><p>防火墙设置:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> wg0 是 Wireguard 创建的网卡</span></span><br><span class="line">iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE</span><br><span class="line">iptables -A FORWARD -i eth0 -o wg0 -m state --state RELATED,ESTABLISHED -j ACCEPT</span><br><span class="line">iptables -A FORWARD -i wg0 -o eth0 -j ACCEPT</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<p>此方案优缺点:</p>
+<ul>
+<li>优点: 简单，速度快，与<strong>方案一</strong>使用 Zerotier 的方案非常相似</li>
+<li>缺点: 需要购买固定公网 IP 的云服务器作为 Wireguard Server，并且 Wireguard 对 Linux 的内核版本有要求:<ul>
+<li>查看内核: <code>uname -r</code></li>
+<li>已支持: 3.10.0-1160.45.1.el7.x86_64</li>
+<li>不支持: 3.10.0-957.el7.x86_64</li>
+<li>即使是 CentOS 7，默认使用的还是 3.10 的内核，可升级内核到 4.0 以后</li>
+<li><a target="_blank" rel="noopener" href="https://eddyemma.com/blog/2018/08/21/%E5%8D%87%E7%BA%A7centos%E5%86%85%E6%A0%B8/">升级 CentOS 内核——Wireguard</a></li>
+</ul>
+</li>
+</ul>
+<p>Wireguard 常用命令:</p>
+<ul>
+<li>启动: <code>wg-quick up wg0</code></li>
+<li>停止: <code>wg-quick down wg0</code></li>
+<li>查看节点列表: <code>wg</code></li>
+<li>重载配置文件: <code>wg syncconf wg0 &lt; (wg-quick strip wg0)</code> # 重载配置文件,不影响已有连接</li>
+<li>生成客户端密: <code>wg genkey | tee privatekey-client | wg pubkey &gt; publickey-client</code> </li>
+</ul>
+<p>服务器配置参考:</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[Interface]</span></span><br><span class="line"><span class="attr">Address</span> = <span class="number">10.100</span>.<span class="number">0.1</span>/<span class="number">24</span></span><br><span class="line"><span class="attr">SaveConfig</span> = <span class="literal">true</span></span><br><span class="line"><span class="attr">ListenPort</span> = <span class="number">5120</span></span><br><span class="line"><span class="comment"># 服务器的私钥</span></span><br><span class="line"><span class="attr">PrivateKey</span> = yCbsj8Ecyx9ami7HO8OjTG8l3JZsZKHW5TAdVAqXJ1k=</span><br><span class="line"></span><br><span class="line"><span class="attr">PostUp</span>   = iptables -A FORWARD -i %i -j ACCEPT<span class="comment">; iptables -A FORWARD -o %i -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE</span></span><br><span class="line"><span class="attr">PostDown</span> = iptables -D FORWARD -i %i -j ACCEPT<span class="comment">; iptables -D FORWARD -o %i -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE</span></span><br><span class="line"></span><br><span class="line"><span class="section">[Peer]</span></span><br><span class="line"><span class="comment"># 客户端的公钥</span></span><br><span class="line"><span class="attr">PublicKey</span> = /skxtMSpnmPrA3nB+N5rgH0Nv3OlBCtShZocsI9zvRM=</span><br><span class="line"><span class="attr">AllowedIPs</span> = <span class="number">10.100</span>.<span class="number">0.2</span>/<span class="number">32</span></span><br><span class="line"></span><br><span class="line"><span class="section">[Peer]</span></span><br><span class="line"><span class="attr">PublicKey</span> = OfX3YoxlIMcFfpdv7BjmHKZP2s+Nnx8uVib6+R/VlhY=</span><br><span class="line"><span class="attr">AllowedIPs</span> = <span class="number">10.100</span>.<span class="number">0.3</span>/<span class="number">32</span></span><br></pre></td></tr></table></figure>
+
+<p>客户端配置参考:</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[Interface]</span></span><br><span class="line"><span class="comment"># 客户端的私钥</span></span><br><span class="line"><span class="attr">PrivateKey</span> = gH1Mh2IEyzu7tO+NBfZyc/L9mkpQeiiotu8Vnr+JHXU=</span><br><span class="line"><span class="attr">Address</span> = <span class="number">10.100</span>.<span class="number">0.3</span>/<span class="number">32</span></span><br><span class="line"><span class="attr">DNS</span> = <span class="number">8.8</span>.<span class="number">8.8</span></span><br><span class="line"></span><br><span class="line"><span class="section">[Peer]</span></span><br><span class="line"><span class="comment"># 服务器的公钥</span></span><br><span class="line"><span class="attr">PublicKey</span> = wvUNhRbrR8zfDcOyeEGunn7iTUkQEmFCAnOqnAJdEQE=</span><br><span class="line"><span class="attr">Endpoint</span> = <span class="number">101.43</span>.<span class="number">189.39</span>:<span class="number">5120</span></span><br><span class="line"><span class="attr">AllowedIPs</span> = <span class="number">10.100</span>.<span class="number">0.0</span>/<span class="number">24</span></span><br><span class="line"><span class="attr">PersistentKeepalive</span> = <span class="number">25</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Wireguard 客户端会自动使用配置里的 AllowedIps 创建到 Wireguard 服务器的路由。</p>
+</blockquote>
+<h2 id="方案三、Wireguard-Zerotier"><a href="#方案三、Wireguard-Zerotier" class="headerlink" title="方案三、Wireguard + Zerotier"></a>方案三、Wireguard + Zerotier</h2><p>很不幸，我所使用的环境中 C 和其所在子网内的机器都是 CentOS 7，且内核版本是 3.10.0-957.el7.x86_64，不支持 Wireguard，方案一太慢几乎不可用，内核不支持 Wireguard 导致方案二不可行，后来发现，B 和 C 使用 Zerotier 组网时速度还挺快，于是尝试了下 A 和 B 使用 Wireguard 组网，B 和 C 使用 Zerotier 组网，这样 A 访问 C 时网络延迟在 30ms 左右，竟然还不错。</p>
+<img src="../img/mac/wireguard-zerotier.png">
+
+<p>结合方案一和方案二进行组网与路由转发:</p>
+<ol>
+<li><p>B 和 C 使用 Zerotier 组网 (参考方案一) </p>
+</li>
+<li><p>B 创建路由，网关为 C (参考方案一): </p>
+<p>网页上添加后，Zerotier 帮我们自动在 B 上创建 <strong>192.168.1.0/24 到 192.168.1.151 的路由</strong></p>
+</li>
+<li><p>C 路由转发从 Zerotier 网卡发来的 192.168.1.0/24 的请求 (参考方案一) </p>
+</li>
+<li><p>A 和 B 使用 Wireguard 组网 (参考方案二)</p>
+</li>
+<li><p>A 创建路由，网关为 B 的 Wireguard Server 的 IP:</p>
+<p>手动创建:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Mac</span></span><br><span class="line">sudo route -n add -net 192.168.1.0 -netmask 255.255.255.0 10.100.0.1</span><br></pre></td></tr></table></figure>
+
+<p>自动创建: 如果在 Wireguard client 配置中的 <strong>AllowedIPs</strong> 中增加了 192.168.1.0/24 的话，则这个路由 Wireguard 会自动帮我们创建，就不需要使用上面的命令手动创建了，例如下面的配置:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[Interface]</span><br><span class="line">PrivateKey = SJTfDAn9KPIcdU4OwYIAkeoEPtMARISGw3t5UTkpG34=</span><br><span class="line">Address = 10.100.0.2/32</span><br><span class="line">DNS = 8.8.8.8</span><br><span class="line"></span><br><span class="line">[Peer]</span><br><span class="line">PublicKey = wvUNhRbrR8zfDcOyeEGunn7iTUkQEmFCAnOqnAJdEQE=</span><br><span class="line">Endpoint = 101.43.189.39:5120</span><br><span class="line">AllowedIPs = 10.100.0.0/24,192.168.1.0/24</span><br><span class="line">PersistentKeepalive = 25</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/65444747/what-is-the-difference-between-endpoint-and-allowedips-fields-in-wireguard-confi">What is the difference between Endpoint and AllowedIPs fields in Wireguard config file?</a> </p>
+<p><strong>AllowedIPs</strong> (<code>[Peer]</code> config section) is the set of IP addresses the local host should route to the remote peer through the WireGuard tunnel. This setting tells the local host what goes in tunnel.</p>
+</blockquote>
+</li>
+<li><p>B 路由转发从 Wireguard 网卡 wg0 发来的 192.168.1.0/24 的请求到 B 上 Zerotier 创建的网卡 zt6ovw6gh5 (注意不是 eth0)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">iptables -t nat -A POSTROUTING -o zt6ovw6gh5 -j MASQUERADE</span><br><span class="line">iptables -A FORWARD -i zt6ovw6gh5 -o wg0 -m state --state RELATED,ESTABLISHED -j ACCEPT</span><br><span class="line">iptables -A FORWARD -i wg0 -o zt6ovw6gh5 -j ACCEPT</span><br></pre></td></tr></table></figure></li>
+<li><p>到此，可以在 A 上访问 192.168.1.0 IP 段的机器如 C 和 D 了，在 A 上进行 ping:</p>
+<ul>
+<li><code>ping 192.168.1.14</code></li>
+<li><code>ping 192.168.1.73</code></li>
+</ul>
+<p>能 ping 通就说明没有问题。</p>
+</li>
+</ol>
+<p>此方案的优缺点:</p>
+<ul>
+<li>优点: 速度尚可接受</li>
+<li>缺点: 太复杂</li>
+</ul>
+<h2 id="CentOS-使用-L2TP-IpSpec-VPN"><a href="#CentOS-使用-L2TP-IpSpec-VPN" class="headerlink" title="CentOS 使用 L2TP-IpSpec VPN"></a>CentOS 使用 L2TP-IpSpec VPN</h2><p>由于 C 在公司内网，外部只能通过 L2TP-IpSpec 的 VPN 进行访问。在外网操作 C 时，需要在 B 上使用 L2TP-IpSpec VPN 访问 C:</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://github.com/hwdsl2/setup-ipsec-vpn/blob/master/docs/clients-zh.md#%E4%BD%BF%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E9%85%8D%E7%BD%AE-linux-vpn-%E5%AE%A2%E6%88%B7%E7%AB%AF">使用命令行配置 Linux VPN 客户端</a></li>
+<li>直到<code>至此 VPN 客户端配置已完成，按照下面的步骤进行连接</code> (当你每次尝试连接到 VPN 时，必须重复下面的所有步骤)<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /var/run/xl2tpd</span><br><span class="line">touch /var/run/xl2tpd/l2tp-control</span><br><span class="line">service strongswan restart</span><br><span class="line">service xl2tpd restart</span><br><span class="line">echo &quot;c myvpn&quot; &gt; /var/run/xl2tpd/l2tp-control</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 运行 ifconfig 并且检查输出，现在你应该看到一个新的网络接口 ppp0，分配到了 IP 如 192.168.3.12</span></span><br><span class="line">ifconfig</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看路由</span></span><br><span class="line">route -n</span><br><span class="line">netstat -nr</span><br></pre></td></tr></table></figure></li>
+<li>添加局域网的路由 (不要按照文章里修改默认路由)<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 添加路由</span></span><br><span class="line">ip route add 192.168.1.0/24 dev ppp0</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除路由</span></span><br><span class="line">ip route del 192.168.1.0/24</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 测试路由</span></span><br><span class="line">ping 192.168.1.14</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>需要注意的是，同一个机器上 192.168.1.0/24 的路由只能创建一个，如果被占用了需要先删除 (上面方案三创建了 <strong>192.168.1.0/24 到 192.168.1.151 的路由</strong>)，然后再添加上面访问 VPN 的路由，否则添加失败，导致 B 不能使用 VPN 访问 C。</p>
+<p>或者把 B 上的 Zerotier 服务先关闭，B 通过 VPN 操作完 C 后把 VPN 使用的 192.168.1.0/24 的路由删除，然后再启动 Zerotier 服务:</p>
+<ul>
+<li><code>systemctl stop zerotier-one</code></li>
+<li><code>systemctl start zerotier-one</code></li>
+</ul>
+
+        
+    </div>
+    
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/mac-terminal/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Mac 终端打造</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+
+</article>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // 显示 content table
+            $('.content-table').show();
+            $('.menu .item.non-index-item').show();
+
+            var $tocMask = $('#toc-mask');
+
+            $(document).keyup(function(e) {
+                // 按下数字 1，toggle content table
+                if (e.keyCode == 49) {
+                    // $tocMask.toggle();
+                    $tocMask.fadeIn('fast');
+                }
+            });
+
+            $(document).on('click', '#show-toc-button, .content-table', function() {
+                // $tocMask.toggle();
+                $tocMask.fadeIn('fast');
+            });
+
+            // 隐藏 Mask
+            $(document).on('click', '#toc-mask, #toc-mask .toc-link', function() {
+                // $tocMask.hide();
+                $tocMask.fadeOut('fast');
+            });
+        });
+    </script>
+
+</div>
+            <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <p>Hosted by <a target="_blank" rel="noopener" href="https://github.com">Github Pages</a></p>
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> Mod
+            </div>
+        </div>
+
+        <!-- 卜算子 -->
+        
+    </div>
+</footer>
+
+        </div>
+        
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: false,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<!-- 
+<script src="/js/main.js"></script>
+ -->
+
+<!--
+
+
+
+ -->
+
+    </div>
+</body>
+
+</html>

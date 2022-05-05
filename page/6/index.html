@@ -114,7 +114,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10.63px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.5px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.63px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.38px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="/tags/Index/" style="font-size: 13.13px;">Index</a> <a href="/tags/Java/" style="font-size: 19.38px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.5px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.5px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.25px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.13px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.75px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.25px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.38px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.88px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.75px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 16.25px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 15px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.63px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.5px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.5px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.88px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.88px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10.59px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.35px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.29px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.12px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.35px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.94px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.65px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.06px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.18px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.18px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.12px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.76px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.53px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.88px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.71px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.29px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.06px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.06px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.47px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.76px;">zTree</a>
                     </div>
                     <script>
 
@@ -240,6 +240,169 @@
 </nav>
 
             <div class="body-wrap">
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-spring-core-aspectj-custom-annotation" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/spring-core-aspectj-custom-annotation/" class="article-date">
+  	<!-- <time datetime="2019-07-31T13:16:06.000Z" itemprop="datePublished">2019-07-31</time> -->
+    2019-07-31
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/spring-core-aspectj-custom-annotation/">AspectJ with Annotation - 自定义注解</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p><a href="/spring-core-aspectj-xml/">AspectJ with Xml</a> 和 <a href="/spring-core-aspectj-annotation/">AspectJ with Annotation</a> 中介绍了 2 中实现 AoP 的方式:</p>
+<ul>
+<li><a href="/spring-core-aspectj-xml/">AspectJ with Xml</a> 中介绍使用纯 XML 的方式配置切面 (Java 类) 和切入点 (类的方法)</li>
+<li><a href="/spring-core-aspectj-annotation/">AspectJ with Annotation</a> 中介绍使用注解配置切面，方法限定表达式配置切入点</li>
+</ul>
+<p>这里我们介绍实现 AoP 的第三种方法: 使用注解配置切面和切入点，主要有以下几个部分:</p>
+<ul>
+<li>Gradle 依赖</li>
+<li>自定义注解</li>
+<li>自定义 AOP 使用注解配置切入点</li>
+<li>使用自定义注解</li>
+<li>Xml 文件中配置自动扫描包路径</li>
+<li>测试</li>
+<li>三种实现切面方式的比较</li>
+<li>使用 SpEL 增强注解</li>
+</ul>
+<p>下面就以实现一个分布式锁的注解来进行介绍。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringCore/" rel="tag">SpringCore</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/spring-core-aspectj-custom-annotation/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-qtbook-lib-global-variable" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-lib-global-variable/" class="article-date">
+  	<!-- <time datetime="2019-07-25T01:21:40.000Z" itemprop="datePublished">2019-07-25</time> -->
+    2019-07-25
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qtbook-lib-global-variable/">动态链接库和全局变量</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>同一个动态链接库里定义的全局变量在不同的应用程序 (进程) 里有各自独立的内存空间，互不影响。</p>
+<img src="../img/qtbook/singleton/lib-global-variable.png" width=622>
+
+<p>如上图所示项目之间的依赖关系:</p>
+<ul>
+<li>Lib-1 中定义了全局变量 count</li>
+<li>App-1 连接了 Lib-1，访问 count</li>
+<li>Lib-2 连接了 Lib-1，访问 count</li>
+<li>App-2 连接了 Lib-1 和 Lib-2，访问 count</li>
+</ul>
+<p>则全局变量 count:</p>
+<ul>
+<li>App-1 中的 count 和 App-2 中的 count 不是同一个变量 (打印出变量的地址看一下，不一样)</li>
+<li>App-2 和 Lib-2 中的 count 是同一个变量，因为他们属于同一个进程</li>
+</ul>
+<p>类的静态成员变量也是全局变量，单例可使用类的静态成员变量实现，单例的类可编译成 Lib 提供给其他程序放心的使用，不同程序之间同一个类的单例对象不会互相影响。</p>
+<p><a href="../download/LibAndGlobalVariable.7z">LibAndGlobalVariable.7z</a> 是按照上图的依赖关系创建的项目，可以下载来运行观察以便更好的加深印象。</p>
+
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/" rel="tag">Qt</a></li></ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
   
     <!-- 生成目录 -->
 
@@ -838,148 +1001,6 @@
         <p class="article-more-link">
           <a  href="/qtbook-misc-flags/#more">阅读全文</a>
         </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-fe-axios-rest" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/fe-axios-rest/" class="article-date">
-  	<!-- <time datetime="2019-05-17T02:36:32.000Z" itemprop="datePublished">2019-05-17</time> -->
-    2019-05-17
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/fe-axios-rest/">Axios 的 REST 封装</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p><a href="/fe-rest/">jQuery 的 REST 插件</a>中介绍了使用 restful 风格封装 jQuery 的 Ajax，这里再对 Axios 使用 restful 风格进行封装 (首先页面中得引入 <a target="_blank" rel="noopener" href="https://unpkg.com/axios/dist/axios.min.js">axios</a>)，Axios 的使用可参考 <a target="_blank" rel="noopener" href="https://www.kancloud.cn/yunye/axios/234845">Axios 中文说明</a>。
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/fe-axios-rest/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-cpp-temp-var" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/cpp-temp-var/" class="article-date">
-  	<!-- <time datetime="2019-04-28T08:26:42.000Z" itemprop="datePublished">2019-04-28</time> -->
-    2019-04-28
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/cpp-temp-var/">C++ 临时变量的析构</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>Qt 中经常会使用 <code>QString::toUtf8()</code> 获取字符串的 UTF-8 数组，例如下面这样使用:</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *data)</span> </span>&#123; ... &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span> *data = QString::<span class="built_in">toUtf8</span>().<span class="built_in">constData</span>();</span><br><span class="line"><span class="built_in">foo</span>(data);</span><br></pre></td></tr></table></figure>
-
-<p>看上去没啥问题，其实这个代码有很严重的问题，一般不是经验很丰富的程序员很难发现这个 Bug，很可能会导致程序崩溃退出，但就是找不到为什么。这是因为 <code>QString::toUtf8()</code> 返回的是一个 QByteArray 的栈变量，第 3 行语句中的 QByteArray 是一个临时变量，这行语句结束时这个变量就被析构了，指针 data 指向的内存也被回收，所以下面使用的 data 指向的内存已经被释放了，难怪程序会崩溃了。把代码修改为下面的样子则就能够正确运行了:</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// [1]</span></span><br><span class="line"><span class="built_in">foo</span>(QString::<span class="built_in">toUtf8</span>().<span class="built_in">constData</span>()); <span class="comment">// 很奇怪是不是?</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// [2] 先保存 ba</span></span><br><span class="line">QByteArray ba = QString::<span class="built_in">toUtf8</span>();</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span> *data = ba.<span class="built_in">constData</span>();</span><br><span class="line"><span class="built_in">foo</span>(data);</span><br></pre></td></tr></table></figure>
-
-<p>这个问题涉及到临时变量的析构，也许还不太明白是怎么回事，下面的程序就来模拟上面的情况，一看就明白了:</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QDebug&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">B</span>() &#123;</span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;B()&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ~<span class="built_in">B</span>() &#123;</span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;~B()&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> value = <span class="number">10</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// A 中有一个 B* 的成员变量</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">A</span>() &#123;</span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;A()&quot;</span>;</span><br><span class="line">        b = <span class="keyword">new</span> <span class="built_in">B</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ~<span class="built_in">A</span>() &#123;</span><br><span class="line">        <span class="keyword">delete</span> b;</span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;~A()&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    B *b = <span class="literal">nullptr</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回 A 的栈变量对象</span></span><br><span class="line"><span class="function">A <span class="title">a</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">A</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">(B *b)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; b-&gt;value;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>** argv)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 提示: 下面的语句中 a() 返回的变量是一个临时变量，在语句结束时才析构提示</span></span><br><span class="line">  </span><br><span class="line">    <span class="built_in">foo</span>(<span class="built_in">a</span>().b); <span class="comment">// OK: 函数 foo() 执行完时 a() 创建的 A 和 B 才析构，在函数 foo() 中放心的使用 b</span></span><br><span class="line"></span><br><span class="line">    B *b = <span class="built_in">a</span>().b; <span class="comment">// Error: 语句结束时 A 和 B 才析构，此时 b 已经被回收，所以不要在后面的语句中使用 b</span></span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; b-&gt;value; <span class="comment">// Error: b 已经被析构，b-&gt;value 的值不是 10，而是随机的</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;main() 结束&quot;</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>输出:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">A()</span><br><span class="line">B()</span><br><span class="line">10</span><br><span class="line">~B()</span><br><span class="line">~A()</span><br><span class="line"></span><br><span class="line">A()</span><br><span class="line">B()</span><br><span class="line">~B()</span><br><span class="line">~A()</span><br><span class="line">1859919056 // 注意: 这里不是 10 呢</span><br><span class="line"></span><br><span class="line">main() 结束</span><br></pre></td></tr></table></figure>
-
-
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/" rel="tag">Qt</a></li></ul>
-	</div>
-
-
-      
-
       
       <div class="clearfix"></div>
     </div>

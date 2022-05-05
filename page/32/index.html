@@ -114,7 +114,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10.63px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.5px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.63px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.38px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="/tags/Index/" style="font-size: 13.13px;">Index</a> <a href="/tags/Java/" style="font-size: 19.38px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.5px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.5px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.25px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.13px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.75px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.25px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.38px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.88px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.75px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 16.25px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 15px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.63px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.5px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.5px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.88px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.88px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10.59px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.35px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.29px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.12px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.35px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.94px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.65px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.06px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.18px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.18px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.12px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.76px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.53px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.88px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.71px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.29px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.06px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.06px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.47px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.76px;">zTree</a>
                     </div>
                     <script>
 
@@ -240,6 +240,157 @@
 </nav>
 
             <div class="body-wrap">
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-qtbook-paint-artist" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-paint-artist/" class="article-date">
+  	<!-- <time datetime="2016-12-11T02:25:50.000Z" itemprop="datePublished">2016-12-11</time> -->
+    2016-12-11
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qtbook-paint-artist/">用画家的思维绘制图形</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>曾经遇到一个这样的需求：使用 <code>代码</code> 实现下面样式的按钮</p>
+<p><img src="../img/qtbook/paint/Paint-Artist-Button.png"></p>
+<p>观察按钮的样式，发现有多种渐变、有高光、有阴影、有不规则形状、有半透明效果，看到这么复杂的效果图，我的第一反应是用 Photoshop 做出效果图，使用 QSS 设置为按钮的背景图就可以了。但是，客户就是上帝，上帝说要用代码，那就用代码。有没有什么办法能直接绘制出这样的图形来呢？翻遍了 Qt 的帮助文档，没有，Qt 只提供了一些绘制简单图形的函数，如点、线、图片、填充、渐变、融合等，没有直接实现这种复杂需求的函数，那么，怎么用 QPainter 绘制出这样的图形呢？
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/qtbook-paint-artist/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-qtbook-paint-pixmap" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-paint-pixmap/" class="article-date">
+  	<!-- <time datetime="2016-12-10T11:16:05.000Z" itemprop="datePublished">2016-12-10</time> -->
+    2016-12-10
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qtbook-paint-pixmap/">Pixmap</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Pixmap 的绘制有下面四种方式（每种方式都有几个重载的函数，没有全部列举出来）：</p>
+<ol>
+<li><p>在指定位置绘制 pixmap，pixmap 不会被缩放</p>
+ <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* pixmap 的左上角和 widget 上 x, y 处重合 */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">QPainter::drawPixmap</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">const</span> QPixmap &amp; pixmap)</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">QPainter::drawPixmap</span><span class="params">(<span class="keyword">const</span> QPointF &amp;point, <span class="keyword">const</span> QPixmap &amp;pixmap)</span></span></span><br></pre></td></tr></table></figure></li>
+<li><p>在指定的矩形内绘制 pixmap，pixmap 被缩放填充到此矩形内</p>
+ <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* target 是 widget 上要绘制 pixmap 的矩形区域 */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">QPainter::drawPixmap</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> width, <span class="keyword">int</span> height, <span class="keyword">const</span> QPixmap &amp;pixmap)</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">QPainter::drawPixmap</span><span class="params">(<span class="keyword">const</span> QRect &amp;target, <span class="keyword">const</span> QPixmap &amp;pixmap)</span></span></span><br></pre></td></tr></table></figure></li>
+<li><p>绘制 pixmap 的一部分，可以称其为 sub-pixmap</p>
+ <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* source 是 sub-pixmap 的 rectangle */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">QPainter::drawPixmap</span><span class="params">(<span class="keyword">const</span> QPoint &amp;point, <span class="keyword">const</span> QPixmap &amp;pixmap, <span class="keyword">const</span> QRect &amp;source)</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">QPainter::drawPixmap</span><span class="params">(<span class="keyword">const</span> QRect &amp;target, <span class="keyword">const</span> QPixmap &amp;pixmap, <span class="keyword">const</span> QRect &amp;source)</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">QPainter::drawPixmap</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">const</span> QPixmap &amp;pixmap,</span></span></span><br><span class="line"><span class="params"><span class="function">                          <span class="keyword">int</span> sx, <span class="keyword">int</span> sy, <span class="keyword">int</span> sw, <span class="keyword">int</span> sh)</span></span></span><br></pre></td></tr></table></figure></li>
+<li><p>平铺绘制 pixmap，水平和垂直方向都会同时使用平铺的方式</p>
+ <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">QPainter::drawTiledPixmap</span><span class="params">(<span class="keyword">const</span> QRect &amp;rectangle,</span></span></span><br><span class="line"><span class="params"><span class="function">                               <span class="keyword">const</span> QPixmap &amp;pixmap,</span></span></span><br><span class="line"><span class="params"><span class="function">                               <span class="keyword">const</span> QPoint &amp;position = QPoint())</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">QPainter::drawTiledPixmap</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> width, <span class="keyword">int</span> height,</span></span></span><br><span class="line"><span class="params"><span class="function">                               <span class="keyword">const</span> QPixmap &amp; pixmap,</span></span></span><br><span class="line"><span class="params"><span class="function">                               <span class="keyword">int</span> sx = <span class="number">0</span>, <span class="keyword">int</span> sy = <span class="number">0</span>)</span></span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>drawTiledPixmap() 比我们自己计算 pixmap 的长宽，然后重复的绘制实现平铺的效率高一些：Calling drawTiledPixmap() is similar to calling drawPixmap() several times to fill (tile) an area with a pixmap, but is potentially much more efficient depending on the underlying window system.</p>
+</blockquote>
+</li>
+</ol>
+<p><img src="../img/qtbook/paint/Paint-Base-Bufferfly.png"></p>
+<p>使用上面这张图来演示 drawPixmap() 的各种用法，左上角绘制原始大小的 pixmap，右上角缩放绘制 pixmap 到指定的矩形内 QRect(225, 20, 250, 159)，中间绘制 sub-pixmap，底部则使用平铺的方式绘制，最后结果如下图（文字是标记上去帮助理解的）：</p>
+<p><img src="../img/qtbook/paint/Paint-Base-Pixmap.png"></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PixmapWidget::paintEvent</span><span class="params">(QPaintEvent *)</span> </span>&#123;</span><br><span class="line">    <span class="function">QPainter <span class="title">painter</span><span class="params">(<span class="keyword">this</span>)</span></span>;</span><br><span class="line">    painter.<span class="built_in">setRenderHint</span>(QPainter::Antialiasing);</span><br><span class="line">    <span class="function">QPixmap <span class="title">pixmap</span><span class="params">(<span class="string">&quot;:/img/Butterfly.png&quot;</span>)</span></span>; <span class="comment">// 从资源文件读取 pixmap</span></span><br><span class="line"></span><br><span class="line">    painter.<span class="built_in">drawPixmap</span>(<span class="number">20</span>, <span class="number">20</span>, pixmap); <span class="comment">// 按原始尺寸绘制 pixmap</span></span><br><span class="line">    painter.<span class="built_in">drawPixmap</span>(<span class="number">225</span>, <span class="number">20</span>, <span class="number">250</span>, <span class="number">159</span>, pixmap); <span class="comment">// 缩放绘制 pixmap</span></span><br><span class="line">    painter.<span class="built_in">drawPixmap</span>(<span class="number">20</span>, <span class="number">133</span>, pixmap, <span class="number">128</span>, <span class="number">0</span>, <span class="number">57</span>, <span class="number">46</span>); <span class="comment">// 绘制 pixmap 的一部分</span></span><br><span class="line"></span><br><span class="line">    painter.<span class="built_in">translate</span>(<span class="number">0</span>, <span class="number">199</span>);</span><br><span class="line">    painter.<span class="built_in">drawTiledPixmap</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="built_in">width</span>(), <span class="built_in">height</span>(), pixmap);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
   
     <!-- 生成目录 -->
 
@@ -780,146 +931,6 @@
       
         <p class="article-more-link">
           <a  href="/qtbook-paint-text/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-qtbook-paint-base" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/qtbook-paint-base/" class="article-date">
-  	<!-- <time datetime="2016-12-08T11:22:05.000Z" itemprop="datePublished">2016-12-08</time> -->
-    2016-12-08
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/qtbook-paint-base/">绘图基础</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>这一节介绍 Qt 的绘图基础知识，我们都知道，Qt 里绘图使用的是 QPainter，但是首先需要弄明白：在什么上绘图和在哪里绘图，然后才是怎么绘图，我们就围绕这几个问题来展开。</p>
-<h2 id="在什么上绘图"><a href="#在什么上绘图" class="headerlink" title="在什么上绘图"></a>在什么上绘图</h2><blockquote>
-<p>The QPaintDevice class is the base class of objects that can be painted on with QPainter.</p>
-<p>A paint device is an abstraction of a two-dimensional space that can be drawn on using a QPainter. Its default coordinate system has its origin located at the top-left position. X increases to the right and Y increases downwards. The unit is one pixel.</p>
-<p>The drawing capabilities of QPaintDevice are currently implemented by the QWidget, QImage, QPixmap, QGLPixelBuffer, QPicture, and QPrinter subclasses.</p>
-</blockquote>
-<p>上面的内容来自于 Qt 的帮助文档，在 QPaintDevice 的子类里用 QPainter 绘图，最常见的就是在 QWidget, QPixmap, QPixture, QPrinter 上面绘图。
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/qtbook-paint-base/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-qtbook-paint" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/qtbook-paint/" class="article-date">
-  	<!-- <time datetime="2016-12-08T11:04:20.000Z" itemprop="datePublished">2016-12-08</time> -->
-    2016-12-08
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/qtbook-paint/">绘图</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>阿基米德说：给我一个支点，我将撬起整个地球。给我一个 <code>QPainter</code>，我也能实现整个操作系统的图形界面，看似有点夸张，但说明了一个核心问题，操作系统的界面本质也是<code>画(Hua)</code>出来的。你看到的，未必就是真实存在的，也可以说根本不存在什么按钮、Label 等，他们都是一幅画，有很多人认为按钮就是按钮，Label 就是 Label，是不同的控件，不能互相转换使用，其实我很多时候就会把按钮当 Label 用，例如要求显示左边是图标，右边是文字，不可点击，如果用 Label 来实现就比较麻烦，但用 QPushButton 来做的话很容易，只不过把点击事件给忽略就好，处理 Label 的鼠标点击事件是不是就可化身为按钮了呢？别说按钮等了，其实就是我们生存的空间，都不知道是否真实的存在，还是我们就生活在外星文明的游戏里，谁能说得清呢！
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/qtbook-paint/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>
