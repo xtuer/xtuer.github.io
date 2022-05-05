@@ -15,7 +15,7 @@
 <meta property="og:locale">
 <meta property="og:image" content="http://xtuer.github.io/img/mac/mac-vpn-1.png">
 <meta property="article:published_time" content="2022-02-08T12:44:03.000Z">
-<meta property="article:modified_time" content="2022-02-25T06:39:37.294Z">
+<meta property="article:modified_time" content="2022-05-05T02:54:45.886Z">
 <meta property="article:author" content="公孙二狗">
 <meta property="article:tag" content="Mac">
 <meta name="twitter:card" content="summary">
@@ -304,12 +304,13 @@
 <p>在 Monterey 中使用 L2TP/IPSec 的 VPN 的办法可以使用下面的这些方式:</p>
 <ul>
 <li>尝试使用上面的解决办法:<ul>
-<li>需要修改 VPN 服务器 (人家未必会同意)</li>
+<li>需要修改 VPN 服务器 (不知道对其他系统的 VPN 客户端有无影响，且需要管理员去处理)</li>
 <li>没测试过，不一定能行</li>
 </ul>
 </li>
 <li>服务器端开通 OpenVPN，Monterey 中使用 OpenVPN 进行连接<ul>
-<li>需要修改 VPN 服务器 (人家未必会同意)</li>
+<li>需要修改 VPN 服务器</li>
+<li>需要公网 IP</li>
 </ul>
 </li>
 <li>安装虚拟机 + Windows，在其中使用 VPN<ul>
@@ -317,8 +318,17 @@
 <li>消耗系统资源</li>
 </ul>
 </li>
-<li>购买一个便宜的 Windows Server 云主机，在其中使用 VPN <ul>
+<li>购买一个便宜的 Windows Server 云主机 (3 年 200 块的)，在其中使用 VPN <ul>
 <li>费钱，但可以不多</li>
+<li>有点技术难度</li>
+</ul>
+</li>
+<li>有 iPhone 的话可使用 iPhone 的 USB 网络共享<ul>
+<li>iPhone 开启 USB 网络共享</li>
+<li>iPhone 连上无线</li>
+<li>Mac 关闭无线</li>
+<li>Mac 与 iPhone 用 USB 数据线连接起来</li>
+<li>Mac 登录 L2TP 的 VPN</li>
 </ul>
 </li>
 </ul>
