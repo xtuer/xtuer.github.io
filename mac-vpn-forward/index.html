@@ -17,7 +17,7 @@
 <meta property="og:image" content="http://xtuer.github.io/img/mac/wireguard.png">
 <meta property="og:image" content="http://xtuer.github.io/img/mac/wireguard-zerotier.png">
 <meta property="article:published_time" content="2022-05-04T12:42:49.000Z">
-<meta property="article:modified_time" content="2022-05-05T02:18:48.729Z">
+<meta property="article:modified_time" content="2022-05-06T07:12:43.977Z">
 <meta property="article:author" content="公孙二狗">
 <meta property="article:tag" content="Mac">
 <meta name="twitter:card" content="summary">
@@ -385,21 +385,12 @@
 </ul>
 </li>
 <li>A 和 C 作为 Wireguard Client 运行</li>
-<li>A 和 C 的 IP 已经在配置文件中指定</li>
+<li>A 和 C 的 IP 在配置文件中指定</li>
 <li>配置中的 <strong>AllowedIPs</strong>: Wireguard 启动时用来创建路由，可以是多个，以英文逗号分隔，例如 <strong>10.100.0.0/24,192.168.1.0/24</strong></li>
 </ul>
 </li>
-<li><p>A 创建路由，网关为 C 的 Wireguard Client 的 IP:</p>
-<p>Mac:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 添加路由</span></span><br><span class="line">sudo route -n add -net 192.168.1.0 -netmask 255.255.255.0 10.100.0.3</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除路由</span></span><br><span class="line">sudo route delete -net 192.168.1.0</span><br></pre></td></tr></table></figure></li>
-<li><p>C 路由转发从 Wireguard 网卡发来的 192.168.1.0/24 的请求 (参考上面方案一):</p>
-<ul>
-<li><p>内核开启路由转发</p>
-</li>
-<li><p>防火墙设置:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> wg0 是 Wireguard 创建的网卡</span></span><br><span class="line">iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE</span><br><span class="line">iptables -A FORWARD -i eth0 -o wg0 -m state --state RELATED,ESTABLISHED -j ACCEPT</span><br><span class="line">iptables -A FORWARD -i wg0 -o eth0 -j ACCEPT</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
+<li><p>详细配置可参考 <a target="_blank" rel="noopener" href="https://devld.me/2020/07/27/wireguard-setup/">使用 WireGuard 无缝接入内网</a>，其中需要注意的是 C 的 PostUp 和 PostDown 可能需要修改为 MASQUERADE 的方式:</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">PostUp</span> = iptables -t nat -A POSTROUTING -s <span class="number">10.100</span>.<span class="number">0.0</span>/<span class="number">24</span> -o eth1 -j MASQUERADE</span><br><span class="line"><span class="attr">PostDown</span> = iptables -t nat -D POSTROUTING -s <span class="number">10.100</span>.<span class="number">0.0</span>/<span class="number">24</span> -o eth1 -j MASQUERADE</span><br></pre></td></tr></table></figure></li>
 </ol>
 <p>此方案优缺点:</p>
 <ul>
@@ -410,6 +401,7 @@
 <li>不支持: 3.10.0-957.el7.x86_64</li>
 <li>即使是 CentOS 7，默认使用的还是 3.10 的内核，可升级内核到 4.0 以后</li>
 <li><a target="_blank" rel="noopener" href="https://eddyemma.com/blog/2018/08/21/%E5%8D%87%E7%BA%A7centos%E5%86%85%E6%A0%B8/">升级 CentOS 内核——Wireguard</a></li>
+<li>启动 Wireguard 时报错: <strong>RNETLINK answers: Operation not supported</strong>，有可能是内核不支持，也可能 most likely the <strong>wireguard</strong> kernel module is not loaded in your system，可参考 <a target="_blank" rel="noopener" href="https://www.ivpn.net/knowledgebase/linux/linux-wireguard-rtnetlink-answers-operation-not-supported/">https://www.ivpn.net/knowledgebase/linux/linux-wireguard-rtnetlink-answers-operation-not-supported/</a></li>
 </ul>
 </li>
 </ul>
@@ -421,15 +413,6 @@
 <li>重载配置文件: <code>wg syncconf wg0 &lt; (wg-quick strip wg0)</code> # 重载配置文件,不影响已有连接</li>
 <li>生成客户端密: <code>wg genkey | tee privatekey-client | wg pubkey &gt; publickey-client</code> </li>
 </ul>
-<p>服务器配置参考:</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[Interface]</span></span><br><span class="line"><span class="attr">Address</span> = <span class="number">10.100</span>.<span class="number">0.1</span>/<span class="number">24</span></span><br><span class="line"><span class="attr">SaveConfig</span> = <span class="literal">true</span></span><br><span class="line"><span class="attr">ListenPort</span> = <span class="number">5120</span></span><br><span class="line"><span class="comment"># 服务器的私钥</span></span><br><span class="line"><span class="attr">PrivateKey</span> = yCbsj8Ecyx9ami7HO8OjTG8l3JZsZKHW5TAdVAqXJ1k=</span><br><span class="line"></span><br><span class="line"><span class="attr">PostUp</span>   = iptables -A FORWARD -i %i -j ACCEPT<span class="comment">; iptables -A FORWARD -o %i -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE</span></span><br><span class="line"><span class="attr">PostDown</span> = iptables -D FORWARD -i %i -j ACCEPT<span class="comment">; iptables -D FORWARD -o %i -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE</span></span><br><span class="line"></span><br><span class="line"><span class="section">[Peer]</span></span><br><span class="line"><span class="comment"># 客户端的公钥</span></span><br><span class="line"><span class="attr">PublicKey</span> = /skxtMSpnmPrA3nB+N5rgH0Nv3OlBCtShZocsI9zvRM=</span><br><span class="line"><span class="attr">AllowedIPs</span> = <span class="number">10.100</span>.<span class="number">0.2</span>/<span class="number">32</span></span><br><span class="line"></span><br><span class="line"><span class="section">[Peer]</span></span><br><span class="line"><span class="attr">PublicKey</span> = OfX3YoxlIMcFfpdv7BjmHKZP2s+Nnx8uVib6+R/VlhY=</span><br><span class="line"><span class="attr">AllowedIPs</span> = <span class="number">10.100</span>.<span class="number">0.3</span>/<span class="number">32</span></span><br></pre></td></tr></table></figure>
-
-<p>客户端配置参考:</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[Interface]</span></span><br><span class="line"><span class="comment"># 客户端的私钥</span></span><br><span class="line"><span class="attr">PrivateKey</span> = gH1Mh2IEyzu7tO+NBfZyc/L9mkpQeiiotu8Vnr+JHXU=</span><br><span class="line"><span class="attr">Address</span> = <span class="number">10.100</span>.<span class="number">0.3</span>/<span class="number">32</span></span><br><span class="line"><span class="attr">DNS</span> = <span class="number">8.8</span>.<span class="number">8.8</span></span><br><span class="line"></span><br><span class="line"><span class="section">[Peer]</span></span><br><span class="line"><span class="comment"># 服务器的公钥</span></span><br><span class="line"><span class="attr">PublicKey</span> = wvUNhRbrR8zfDcOyeEGunn7iTUkQEmFCAnOqnAJdEQE=</span><br><span class="line"><span class="attr">Endpoint</span> = <span class="number">101.43</span>.<span class="number">189.39</span>:<span class="number">5120</span></span><br><span class="line"><span class="attr">AllowedIPs</span> = <span class="number">10.100</span>.<span class="number">0.0</span>/<span class="number">24</span></span><br><span class="line"><span class="attr">PersistentKeepalive</span> = <span class="number">25</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>Wireguard 客户端会自动使用配置里的 AllowedIps 创建到 Wireguard 服务器的路由。</p>
-</blockquote>
 <h2 id="方案三、Wireguard-Zerotier"><a href="#方案三、Wireguard-Zerotier" class="headerlink" title="方案三、Wireguard + Zerotier"></a>方案三、Wireguard + Zerotier</h2><p>很不幸，我所使用的环境中 C 和其所在子网内的机器都是 CentOS 7，且内核版本是 3.10.0-957.el7.x86_64，不支持 Wireguard，方案一太慢几乎不可用，内核不支持 Wireguard 导致方案二不可行，后来发现，B 和 C 使用 Zerotier 组网时速度还挺快，于是尝试了下 A 和 B 使用 Wireguard 组网，B 和 C 使用 Zerotier 组网，这样 A 访问 C 时网络延迟在 30ms 左右，竟然还不错。</p>
 <img src="../img/mac/wireguard-zerotier.png">
 
