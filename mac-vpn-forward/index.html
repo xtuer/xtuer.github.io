@@ -17,7 +17,7 @@
 <meta property="og:image" content="http://xtuer.github.io/img/mac/wireguard.png">
 <meta property="og:image" content="http://xtuer.github.io/img/mac/wireguard-zerotier.png">
 <meta property="article:published_time" content="2022-05-04T12:42:49.000Z">
-<meta property="article:modified_time" content="2022-05-06T07:12:43.977Z">
+<meta property="article:modified_time" content="2022-05-08T13:29:08.502Z">
 <meta property="article:author" content="公孙二狗">
 <meta property="article:tag" content="Mac">
 <meta name="twitter:card" content="summary">
@@ -390,7 +390,14 @@
 </ul>
 </li>
 <li><p>详细配置可参考 <a target="_blank" rel="noopener" href="https://devld.me/2020/07/27/wireguard-setup/">使用 WireGuard 无缝接入内网</a>，其中需要注意的是 C 的 PostUp 和 PostDown 可能需要修改为 MASQUERADE 的方式:</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">PostUp</span> = iptables -t nat -A POSTROUTING -s <span class="number">10.100</span>.<span class="number">0.0</span>/<span class="number">24</span> -o eth1 -j MASQUERADE</span><br><span class="line"><span class="attr">PostDown</span> = iptables -t nat -D POSTROUTING -s <span class="number">10.100</span>.<span class="number">0.0</span>/<span class="number">24</span> -o eth1 -j MASQUERADE</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">PostUp</span>   = iptables -t nat -A POSTROUTING -s <span class="number">10.100</span>.<span class="number">0.0</span>/<span class="number">24</span> -o eth1 -j MASQUERADE</span><br><span class="line"><span class="attr">PostDown</span> = iptables -t nat -D POSTROUTING -s <span class="number">10.100</span>.<span class="number">0.0</span>/<span class="number">24</span> -o eth1 -j MASQUERADE</span><br></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">PostUp</span>   = iptables -t nat -A POSTROUTING -o eth1 -j MASQUERADE</span><br><span class="line"><span class="attr">PostDown</span> = iptables -t nat -D POSTROUTING -o eth1 -j MASQUERADE</span><br></pre></td></tr></table></figure></li>
+<li><p>如果 C 所在局域网内的机器如 D 想访问 Wireguard 子网内的机器如 A:</p>
+<p>C 添加到 Wireguard 子网的 NAT 规则:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t nat -A POSTROUTING -o wg0 -j MASQUERADE</span><br></pre></td></tr></table></figure>
+<p>A 添加 C 为 Wireguard 子网的网关:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">route add -net 192.168.99.0/24 gw 192.168.1.14</span><br></pre></td></tr></table></figure></li>
 </ol>
 <p>此方案优缺点:</p>
 <ul>
