@@ -19,11 +19,11 @@
 <meta property="og:image" content="http://xtuer.github.io/img/git/git-cheatsheet.png">
 <meta property="og:image" content="http://xtuer.github.io/img/git/git-flow.png">
 <meta property="article:published_time" content="2016-07-10T04:01:44.000Z">
-<meta property="article:modified_time" content="2022-03-29T12:54:23.101Z">
+<meta property="article:modified_time" content="2022-05-28T04:22:55.778Z">
 <meta property="article:author" content="公孙二狗">
+<meta property="article:tag" content="Mac">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="Util">
-<meta property="article:tag" content="Mac">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://xtuer.github.io/img/git/git-1.jpg">
   
@@ -387,23 +387,33 @@
 </li>
 </ol>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://my.oschina.net/qiangdada/blog/800093">一入前端深似海，从此红尘是路人系列第十弹之如何合理利用Git进行团队协作 (一)</a></li>
-<li><a target="_blank" rel="noopener" href="https://my.oschina.net/qiangdada/blog/808527">一入前端深似海，从此红尘是路人系列第十一弹之如何合理利用Git进行团队协作 (二)</a></li>
-<li><a target="_blank" rel="noopener" href="https://walterlv.oschina.io/post/case-insensitive-in-git-rename.html">解决 Git 重命名时遇到的大小写不敏感的问题</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/sdgf/p/6237847.html">换行符 LF 与 CRLF 转换问题</a></li>
-<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1753070/how-do-i-configure-git-to-ignore-some-files-locally">How do I configure git to ignore some files locally?</a></li>
-<li><a target="_blank" rel="noopener" href="https://juejin.im/post/5e9e49356fb9a03c917fe7fd">Git 命令的进阶和复习 (带动图效果)</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.toutiao.com/a7032895938574221827">保持清洁的 Git 提交记录，三招就够了</a><ul>
+<li><p><a target="_blank" rel="noopener" href="https://my.oschina.net/qiangdada/blog/800093">一入前端深似海，从此红尘是路人系列第十弹之如何合理利用Git进行团队协作 (一)</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://my.oschina.net/qiangdada/blog/808527">一入前端深似海，从此红尘是路人系列第十一弹之如何合理利用Git进行团队协作 (二)</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://walterlv.oschina.io/post/case-insensitive-in-git-rename.html">解决 Git 重命名时遇到的大小写不敏感的问题</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/sdgf/p/6237847.html">换行符 LF 与 CRLF 转换问题</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1753070/how-do-i-configure-git-to-ignore-some-files-locally">How do I configure git to ignore some files locally?</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://juejin.im/post/5e9e49356fb9a03c917fe7fd">Git 命令的进阶和复习 (带动图效果)</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://my.oschina.net/u/4455409/blog/5474550">45 个 GIT 经典操作场景，专治不会合代码</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/q274488181/article/details/121673370">Permission denied (publickey) 解决办法</a></p>
+</li>
+<li><p>多次更新提交到一个 commit，<a target="_blank" rel="noopener" href="https://www.toutiao.com/a7032895938574221827">保持清洁的 Git 提交记录，三招就够了</a></p>
+<ul>
 <li><code>git commit --amend -m &quot;msg&quot;</code></li>
 <li><code>git commit --amend --no-edit</code>（–no-edit 很好用，不改变 commit id 和 commit message）</li>
 </ul>
 </li>
-<li><a target="_blank" rel="noopener" href="https://my.oschina.net/u/4455409/blog/5474550">45 个 GIT 经典操作场景，专治不会合代码</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/q274488181/article/details/121673370">Permission denied (publickey) 解决办法</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Q741117Xj">合并多个 commit 为一个 commit，减少垃圾 commit: git squash</a><ol>
+<li><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Q741117Xj">多个 commit 合并为一个 commit，减少垃圾 commit: git squash</a></p>
+<ol>
 <li><code>git rebase -i HEAD~3</code> (3 是要合并的 commit 数量，视情况而定)</li>
-<li>修改 pick 为 <strong>squash</strong> 并留下一个 pick (:wq 保存退出)</li>
-<li>修改 commit message (注释掉不需要的，可添加或者修改 message, :wq 保存退出)</li>
+<li>留下<strong>第一个 pick</strong>，其他 pick 修改为 <strong>squash</strong> (:wq 保存退出)，例如：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pick   ...</span><br><span class="line">squash ...</span><br><span class="line">squash ...</span><br><span class="line">...</span><br><span class="line">squash ...</span><br></pre></td></tr></table></figure></li>
+<li><code>git push</code> 提交，提示编辑 commit message (可以注释掉或者删掉不需要的，可添加或者修改 message, :wq 保存退出，就跟编辑普通的 commit message 操作一样，只是会把多个 commit 的 message 都显示出来，让我们在编辑而已)</li>
 </ol>
 </li>
 </ul>
