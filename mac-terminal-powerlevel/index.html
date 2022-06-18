@@ -13,14 +13,16 @@
 <meta property="og:site_name" content="公孙二狗">
 <meta property="og:description" content="可以给 Mac 的终端设置很酷的效果，还能显示 Git 的不同状态:">
 <meta property="og:locale">
-<meta property="og:image" content="http://xtuer.github.io/img/mac/terminal-powershell-2.png">
+<meta property="og:image" content="http://xtuer.github.io/img/mac/iterm-powerlevel10k.png">
+<meta property="og:image" content="http://xtuer.github.io/img/mac/iterm-text.png">
+<meta property="og:image" content="http://xtuer.github.io/img/mac/iterm-color.png">
 <meta property="og:image" content="http://xtuer.github.io/img/mac/pi.gif">
 <meta property="article:published_time" content="2016-07-22T06:23:17.000Z">
-<meta property="article:modified_time" content="2022-04-09T14:35:06.394Z">
+<meta property="article:modified_time" content="2022-06-18T02:36:42.255Z">
 <meta property="article:author" content="公孙二狗">
 <meta property="article:tag" content="Mac">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://xtuer.github.io/img/mac/terminal-powershell-2.png">
+<meta name="twitter:image" content="http://xtuer.github.io/img/mac/iterm-powerlevel10k.png">
   
     <link rel="alternative" href="/atom.xml" title="公孙二狗" type="application/atom+xml">
   
@@ -302,7 +304,7 @@
     <div class="article-entry" itemprop="articleBody">
         
             <p>可以给 Mac 的终端设置很酷的效果，还能显示 Git 的不同状态:</p>
-<center><img src="../img/mac/terminal-powershell-2.png" width=652></center>
+<img src="../img/mac/iterm-powerlevel10k.png" width=916>
 
 <span id="more"></span>
 
@@ -326,7 +328,7 @@
 <li><p>安装主题 powerlevel10k: </p>
 <ul>
 <li><p>访问 <a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k#oh-my-zsh">https://github.com/romkatv/powerlevel10k#oh-my-zsh</a> 查看说明:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k</span><br><span class="line"></span><br><span class="line">~/.zshrc 中使用主题:</span><br><span class="line">ZSH_THEME=&quot;powerlevel10k/powerlevel10k&quot;</span><br><span class="line"></span><br><span class="line">POWERLEVEL9K_MODE=&#x27;nerdfont-complete&#x27;</span><br><span class="line">POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon ssh dir status)</span><br><span class="line">POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()</span><br><span class="line">POWERLEVEL9K_HOME_SUB_ICON=&#x27;\uF015&#x27;</span><br><span class="line">POWERLEVEL9K_FOLDER_ICON=&#x27;\uF109&#x27;</span><br><span class="line">POWERLEVEL9K_STATUS_CROSS=true</span><br><span class="line">POWERLEVEL9K_PROMPT_ADD_NEWLINE=true</span><br><span class="line"># POWERLEVEL9K_DIR_PATH_SEPARATOR=&quot;%F&#123;black&#125; &quot;$&#x27;\uE0B1&#x27;&quot; %F&#123;black&#125;&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载 powerlevel10k</span></span><br><span class="line">git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k</span><br><span class="line"></span><br><span class="line"><span class="comment"># ~/.zshrc 中使用主题:</span></span><br><span class="line"><span class="attr">ZSH_THEME</span>=<span class="string">&quot;powerlevel10k/powerlevel10k&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">POWERLEVEL9K_MODE</span>=<span class="string">&#x27;nerdfont-complete&#x27;</span></span><br><span class="line"><span class="attr">POWERLEVEL9K_LEFT_PROMPT_ELEMENTS</span>=(os_icon ssh dir vcs)</span><br><span class="line"><span class="attr">POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS</span>=()</span><br><span class="line"><span class="attr">POWERLEVEL9K_HOME_ICON</span>=<span class="string">&#x27;\uFB31&#x27;</span></span><br><span class="line"><span class="attr">POWERLEVEL9K_HOME_SUB_ICON</span>=<span class="string">&#x27;\uFB31&#x27;</span></span><br><span class="line"><span class="attr">POWERLEVEL9K_FOLDER_ICON</span>=<span class="string">&#x27;\uF109&#x27;</span></span><br><span class="line"><span class="attr">POWERLEVEL9K_STATUS_CROSS</span>=<span class="literal">true</span></span><br><span class="line"><span class="attr">POWERLEVEL9K_PROMPT_ADD_NEWLINE</span>=<span class="literal">true</span></span><br><span class="line"><span class="attr">POWERLEVEL9K_SHORTEN_DIR_LENGTH</span>=<span class="number">3</span></span><br><span class="line"><span class="comment"># POWERLEVEL9K_DIR_PATH_SEPARATOR=&quot;%F&#123;black&#125; &quot;$&#x27;\uE0B1&#x27;&quot; %F&#123;black&#125;&quot;</span></span><br><span class="line"><span class="attr">POWERLEVEL9K_VCS_CLEAN_BACKGROUND</span>=<span class="number">110</span></span><br><span class="line"><span class="attr">POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND</span>=<span class="number">110</span></span><br><span class="line"><span class="attr">POWERLEVEL9K_VCS_MODIFIED_BACKGROUND</span>=<span class="number">110</span></span><br></pre></td></tr></table></figure>
 
 <p>图标是使用 UTF-8 的编码进行设置的，怎么知道某个图标的 UTF-8 Code 是什么呢？</p>
 <ul>
@@ -336,15 +338,15 @@
 </li>
 <li><p>安装字体 font-hack-nerd-font:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew tap caskroom/fonts</span><br><span class="line">brew install --cask font-hack-nerd-font</span><br></pre></td></tr></table></figure></li>
-<li><p>iTerm 中选择字体 Hack Nerd Font，大小为 16</p>
-</li>
+<li><p>iTerm 中选择字体 Hack Nerd Font，大小为 14 或者 16 (可为 ASCII 和非 ASCII 字符设置不同的字体)</p>
+<img src="../img/mac/iterm-text.png" width=943></li>
 </ul>
 </li>
-<li><p>下载 <a target="_blank" rel="noopener" href="https://iterm2colorschemes.com/">iTerm 的配色方案</a>，先导入，然后选择 Atom，就可以得到文章开头的效果了</p>
-</li>
+<li><p>下载 <a target="_blank" rel="noopener" href="https://iterm2colorschemes.com/">iTerm 的配色方案</a>，先导入，然后选择 Atom，就可以得到文章开头的效果了:</p>
+<img src="../img/mac/iterm-color.png"></li>
 </ol>
 <p>上面的效果虽然很炫，不排除用多了想用个简单些，还有<a target="_blank" rel="noopener" href="https://github.com/robbyrussell/oh-my-zsh/wiki/External-themes">很多主题</a>可供选择，例如 <a target="_blank" rel="noopener" href="https://github.com/tobyjamesthomas/pi">Pi</a> 就很不错:</p>
-<center><img src="../img/mac/pi.gif" width=652></center>
+<img src="../img/mac/pi.gif" width=652>
 
 <p>除了 oh-my-zsh 提供的主题和插件外，有兴趣的还可以看看 <a target="_blank" rel="noopener" href="https://github.com/unixorn/awesome-zsh-plugins#plugins">awesome-zsh-plugins</a>，这里也收集了很多主题和插件。</p>
 
