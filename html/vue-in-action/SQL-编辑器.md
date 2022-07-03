@@ -113,7 +113,7 @@ export default {
 
 ## dbmetamoc.js
 
-内容为模拟数据库的表信息，在开发的时候不直接取数据库查询，而是使用模拟的数据方便开发。
+内容为模拟数据库的表信息，在开发前期的时候不是直接去数据库查询，而是使用模拟数据方便快速开发及验证。
 
 ```js
 const tableMeta = [
@@ -141,6 +141,10 @@ export default {
 ```
 
 ## SQL Editor
+
+实现了自动提示的 SQL Editor 核心代码，唯一比较特殊的是表的列使用异步加载的方式进行提示的处理。不同的数据库可能函数、关键字等稍有不同，可修改上面的 sql.js 和 Monaco Editor 库文件中的 sql.js 进行完善。
+
+> Mongo DB 等的自动提示也是使用同样的方式进行实现。
 
 ```html
 <template>
