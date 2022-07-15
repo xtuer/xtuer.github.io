@@ -244,6 +244,75 @@
     <!-- 生成目录 -->
 
 
+<article id="post-spring-web-jsonp" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/spring-web-jsonp/" class="article-date">
+  	<!-- <time datetime="2017-04-20T06:12:30.000Z" itemprop="datePublished">2017-04-20</time> -->
+    2017-04-20
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/spring-web-jsonp/">Spring MVC 响应 JSONP</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>SpringMvc 中处理 JSONP 需要注意响应的 Content-Type，如果为 text/plain 时在某些浏览器下就不能正确的执行 JSONP 的回调函数，认为其是不可执行的格式。</p>
+<blockquote>
+<p>SpringMvc 返回对象时会把其自动的转换为 JSON 字符串，并且设置 Content-Type 为 <strong>application/json</strong>，如果返回 String 的话则 Content-Type 会设置为 <strong>text/plain</strong>，使用 JSONP 时需要返回 JSONP 格式的 String，这时例如在高版本的 Chrome 中就会出错，因为 Content-Type 是 <strong>text/plain</strong>，而不是 <strong>application/javascript</strong>。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringWeb/" rel="tag">SpringWeb</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/spring-web-jsonp/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-fe-ztree-menu" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -896,88 +965,9 @@
 
 
   
-    <!-- 生成目录 -->
-
-
-<article id="post-misc-dubbo-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/misc-dubbo-hello-world/" class="article-date">
-  	<!-- <time datetime="2017-04-11T23:23:38.000Z" itemprop="datePublished">2017-04-12</time> -->
-    2017-04-12
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/misc-dubbo-hello-world/">Dubbo Hello World</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>本文介绍 Dubbo 的入门程序:</p>
-<ul>
-<li>注册和查找服务使用 ZooKeeper<ul>
-<li>ZooKeeper 的安装请参考 <a href="/misc-zookeeper">本机安装 ZooKeeper 集群</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>Dubbo Provider: Dubbo + SpringMvc</li>
-<li>Dubbo Consumer: Dubbo + JUnit</li>
-</ul>
-<blockquote>
-<p>使用传统 RPC 时服务器之间是星形结构，紧耦合的，Dubbo (SOA) 时服务器之间通过调度中心调度，典型的中介者模式，实现了解耦，服务的注册和查找通过中心的 ZooKeeper 使用接口实现，不需要配置 URL，服务器之间互相不知道对方的存在。Spring Http Remote Invoker 也能实现远程方法调用，但是需要配置  URL，而且也是星形结构。
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/" rel="tag">Misc</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/misc-dubbo-hello-world/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/20/">⇠ Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="page-number" href="/page/20/">20</a><span class="page-number current">21</span><a class="page-number" href="/page/22/">22</a><a class="page-number" href="/page/23/">23</a><span class="space">&hellip;</span><a class="page-number" href="/page/48/">48</a><a class="extend next" rel="next" href="/page/22/">Next ⇢</a>
+      <a class="extend prev" rel="prev" href="/page/20/">⇠ Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="page-number" href="/page/20/">20</a><span class="page-number current">21</span><a class="page-number" href="/page/22/">22</a><a class="page-number" href="/page/23/">23</a><span class="space">&hellip;</span><a class="page-number" href="/page/49/">49</a><a class="extend next" rel="next" href="/page/22/">Next ⇢</a>
     </nav>
   
 

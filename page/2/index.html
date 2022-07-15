@@ -244,6 +244,74 @@
     <!-- 生成目录 -->
 
 
+<article id="post-ajax-upload-file" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/ajax-upload-file/" class="article-date">
+  	<!-- <time datetime="2021-11-01T12:44:18.000Z" itemprop="datePublished">2021-11-01</time> -->
+    2021-11-01
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/ajax-upload-file/">Ajax 异步上传文件</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <h2 id="异步上传"><a href="#异步上传" class="headerlink" title="异步上传"></a>异步上传</h2><p>先选择文件，然后点击上传按钮使用 Ajax 异步的方式上传文件，代码如下:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div class=&quot;about&quot;&gt;</span><br><span class="line">        &lt;input ref=&quot;fileElem&quot; type=&quot;file&quot; accept=&quot;image/jpeg&quot;&gt;&lt;br&gt;&lt;br&gt;</span><br><span class="line">        &lt;Button type=&quot;primary&quot; :loading=&quot;loading&quot; @click=&quot;upload&quot;&gt;上传文件&lt;/Button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">    data() &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            file: null,</span><br><span class="line">            loading: false,</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;,</span><br><span class="line">    mounted() &#123;</span><br><span class="line">        // 选择文件的事件处理</span><br><span class="line">        this.$refs.fileElem.addEventListener(&#x27;change&#x27;, () =&gt; &#123;</span><br><span class="line">            this.file = this.$refs.fileElem.files[0];</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">        upload() &#123;</span><br><span class="line">            this.loading = true;</span><br><span class="line">            var formData = new FormData();</span><br><span class="line">            formData.append(&#x27;file&#x27;, this.file, this.file.name);</span><br><span class="line"></span><br><span class="line">            uploadFile(&#x27;/form/upload/temp/file&#x27;, formData).then(response =&gt; &#123;</span><br><span class="line">                console.log(response);</span><br><span class="line">                this.loading = false;</span><br><span class="line">            &#125;).catch(error =&gt; &#123;</span><br><span class="line">                console.error(error);</span><br><span class="line">                this.loading = false;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 上传文件</span><br><span class="line"> *</span><br><span class="line"> * @param &#123;String&#125; url      上传地址</span><br><span class="line"> * @param &#123;JSON&#125;   formData 表单数据</span><br><span class="line"> */</span><br><span class="line">function uploadFile(url, formData) &#123;</span><br><span class="line">    return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">        axios.post(url, formData, &#123; headers: &#123; &#x27;Content-Type&#x27;: &#x27;multipart/form-data&#x27; &#125; &#125;).then(response =&gt; &#123;</span><br><span class="line">            // 提示: 响应部分根据使用的服务器端的响应结果进行简单调整</span><br><span class="line">            if (response.data.success) &#123;</span><br><span class="line">                const uplaodedFile = response.data.data;</span><br><span class="line">                resolve(uplaodedFile);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                reject(response.data.message);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).catch(response =&gt; &#123;</span><br><span class="line">            const error = response.response;</span><br><span class="line">            console.error(error);</span><br><span class="line">            reject(error);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/ajax-upload-file/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-fe-axios-rest-fluent" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -965,78 +1033,9 @@
 
 
   
-    <!-- 生成目录 -->
-
-
-<article id="post-distribute-banana" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/distribute-banana/" class="article-date">
-  	<!-- <time datetime="2021-01-03T08:45:54.000Z" itemprop="datePublished">2021-01-03</time> -->
-    2021-01-03
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/distribute-banana/">5 只猴子，4 只香蕉，怎么分</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>当你是动物饲养员，有 5 只猴子，只有 4 根香蕉时，应该怎么分？</p>
-<p>这个问题看上去简单，其实可以反应到一个社会问题。</p>
-<p>不信？往下看。
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/" rel="tag">Misc</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/distribute-banana/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">⇠ Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/48/">48</a><a class="extend next" rel="next" href="/page/3/">Next ⇢</a>
+      <a class="extend prev" rel="prev" href="/">⇠ Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/49/">49</a><a class="extend next" rel="next" href="/page/3/">Next ⇢</a>
     </nav>
   
 

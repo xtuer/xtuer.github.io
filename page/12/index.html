@@ -244,6 +244,92 @@
     <!-- 生成目录 -->
 
 
+<article id="post-qt-opencv-install" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qt-opencv-install/" class="article-date">
+  	<!-- <time datetime="2018-02-05T07:57:24.000Z" itemprop="datePublished">2018-02-05</time> -->
+    2018-02-05
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qt-opencv-install/">Qt 项目中使用 OpenCV</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>相信很多人在 Qt 项目中使用 OpenCV 都遇到过麻烦，<a target="_blank" rel="noopener" href="http://qtdebug.com/windows-develop-software/">Windows 开发者软件推荐</a> 一文中介绍过使用 Vcpkg 来管理第三方库，这里就使用 Vcpkg 安装 OpenCV 然后在 <code>MSVC 的 Qt</code> 项目中使用(因为 Vcpkg 使用的是 MSVC 编译器，OpenCV 是 C++ 库，不能够跨编译器，所以 MinGW 的项目不能使用):</p>
+<ol>
+<li><p>安装 Vcpkg 就不用多说了，安装到 C 盘根目录下吧</p>
+</li>
+<li><p>安装 OpenCV: <code>vcpkg install opencv</code></p>
+</li>
+<li><p>Qt Creator 中 创建 Qt 项目</p>
+</li>
+<li><p>修改项目的 .pro 文件，主要是下面 2 句引入 OpenCV</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INCLUDEPATH += C:/vcpkg/installed/x86-windows/include</span><br><span class="line">LIBS        += C:/vcpkg/installed/x86-windows/lib/opencv_*.lib</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>使用 <code>opencv_*.lib</code> 引入所有 <code>opencv_</code> 开头的 lib 文件，这样就不需要一个一个的引入 lib 了。</p>
+<p>引入 dll 的时候也可以使用 <code>*</code> 来匹配一次引入多个，例如 <code>tiff*.dll</code>。</p>
+</blockquote>
+</li>
+<li><p>main.cpp</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>  </span>&#123;</span><br><span class="line">    Mat img = <span class="built_in">imread</span>(<span class="string">&quot;D:/Wallpaper/desktop.jpg&quot;</span>);</span><br><span class="line">    <span class="built_in">imshow</span>(<span class="string">&quot;TEST&quot;</span>, img);</span><br><span class="line">    <span class="built_in">waitKey</span>(<span class="number">6000</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>把 OpenCV 相关的 DLL 从 <code>C:/vcpkg/installed/x86-windows/bin</code> 目录复制到编译出的 exe 所在目录</p>
+</li>
+<li><p>运行程序，然后就看到打开一个窗口，图片显示在窗口中</p>
+</li>
+</ol>
+
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/" rel="tag">Qt</a></li></ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-windows-develop-software" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -377,21 +463,21 @@
 </thead>
 <tbody><tr>
 <td>Biao</td>
-<td><a href="mailto:&#x62;&#x69;&#97;&#111;&#x40;&#103;&#109;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">&#x62;&#x69;&#97;&#111;&#x40;&#103;&#109;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a></td>
+<td><a href="mailto:&#98;&#105;&#x61;&#x6f;&#x40;&#103;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#x6d;">&#98;&#105;&#x61;&#x6f;&#x40;&#103;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#x6d;</a></td>
 <td>china</td>
 <td>北京</td>
 <td>天河街</td>
 </tr>
 <tr>
 <td>Biao</td>
-<td><a href="mailto:&#x62;&#105;&#97;&#x6f;&#64;&#x69;&#99;&#108;&#111;&#x75;&#100;&#46;&#x63;&#x6f;&#109;">&#x62;&#105;&#97;&#x6f;&#64;&#x69;&#99;&#108;&#111;&#x75;&#100;&#46;&#x63;&#x6f;&#109;</a></td>
+<td><a href="mailto:&#98;&#105;&#97;&#111;&#64;&#105;&#99;&#108;&#x6f;&#x75;&#100;&#46;&#x63;&#111;&#109;">&#98;&#105;&#97;&#111;&#64;&#105;&#99;&#108;&#x6f;&#x75;&#100;&#46;&#x63;&#111;&#109;</a></td>
 <td>Deutschland</td>
 <td>Braunschweig</td>
 <td>Wiesenstrasse</td>
 </tr>
 <tr>
 <td>Alice</td>
-<td><a href="mailto:&#x61;&#108;&#105;&#99;&#101;&#64;&#103;&#x6d;&#97;&#x69;&#108;&#46;&#99;&#111;&#x6d;">&#x61;&#108;&#105;&#99;&#101;&#64;&#103;&#x6d;&#97;&#x69;&#108;&#46;&#99;&#111;&#x6d;</a></td>
+<td><a href="mailto:&#x61;&#108;&#105;&#99;&#101;&#64;&#103;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#x61;&#108;&#105;&#99;&#101;&#64;&#103;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a></td>
 <td>china</td>
 <td>河北</td>
 <td>鼓楼大街</td>
@@ -968,80 +1054,9 @@
 
 
   
-    <!-- 生成目录 -->
-
-
-<article id="post-qtbook-custom-widget-drag-to-move-window" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/qtbook-custom-widget-drag-to-move-window/" class="article-date">
-  	<!-- <time datetime="2017-11-24T02:14:58.000Z" itemprop="datePublished">2017-11-24</time> -->
-    2017-11-24
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/qtbook-custom-widget-drag-to-move-window/">按下鼠标拖动窗口</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>QWidget 已经实现了在标题栏按下鼠标移动窗口的功能，但是当实现无边框窗口时，因为没有了标题栏，移动窗口的功能就需要我们自己实现了，不过也不复杂，主要是处理鼠标的按下、移动、松开三个事件:</p>
-<ul>
-<li>按下鼠标：记录此时鼠标的全局坐标和窗口左上角的坐标，并且设置鼠标为按下状态</li>
-<li>移动鼠标：鼠标按下时移动鼠标，计算此时鼠标和鼠标按下时的位移差，加上按下鼠标时窗口左上角的坐标得到窗口新的坐标，移动窗口到此坐标</li>
-<li>松开鼠标：设置鼠标为未按下状态
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/qtbook-custom-widget-drag-to-move-window/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/11/">⇠ Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/48/">48</a><a class="extend next" rel="next" href="/page/13/">Next ⇢</a>
+      <a class="extend prev" rel="prev" href="/page/11/">⇠ Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/49/">49</a><a class="extend next" rel="next" href="/page/13/">Next ⇢</a>
     </nav>
   
 

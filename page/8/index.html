@@ -244,6 +244,116 @@
     <!-- 生成目录 -->
 
 
+<article id="post-misc-qa" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/misc-qa/" class="article-date">
+  	<!-- <time datetime="2019-01-24T14:27:58.000Z" itemprop="datePublished">2019-01-24</time> -->
+    2019-01-24
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/misc-qa/">答疑表设计</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>答疑主要涉及 2 个表，问题表 qa_queston 和回复表 qa_reply，核心字段如下:</p>
+<center><img src="../img/misc/qa.png" width=686></center>
+**数据存储逻辑:**
+* 问题存储到表 qa_question
+* 每个回复都存储问题 ID: `question_id`
+* 每个回复都保存第一级回复 ID: `top_reply_id`，为了方便找到**回复树**下的所有回复
+* 对问题进行的回复存储到表 qa_reply
+  * `parent_id` 为 0
+  * `top_reply_id` 为此回复的 ID
+* 对回复进行的回复存储到表 qa_reply
+  * 回复是一个有层级的树状结构，所以使用了 `parent_id`
+  * `parent_id` 为被回复的`回复 ID`
+  * `top_reply_id` 为此回复所在第一级`回复 ID`
+
+<p><strong>此设计的优点:</strong> </p>
+<p>可以使用一条 SQL 语句分页查询出问题的 N 个一级回复、以及这些一级回复下所有相关的回复：</p>
+<ul>
+<li>查找到问题的 n 个第一级回复的 top_reply_id <code>x</code></li>
+<li>查找问题的回复中所有第一级回复为 <code>x</code> 的回复</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> q.<span class="operator">*</span>, r.<span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> qa_question q</span><br><span class="line">	<span class="keyword">JOIN</span> (<span class="keyword">SELECT</span> question_id, top_reply_id <span class="keyword">FROM</span> qa_reply <span class="keyword">WHERE</span> question_id <span class="operator">=</span> <span class="number">1</span> <span class="keyword">AND</span> parent_id <span class="operator">=</span> <span class="number">0</span> LIMIT <span class="number">0</span>, <span class="number">10</span>) t <span class="keyword">ON</span> t.question_id <span class="operator">=</span> q.id</span><br><span class="line">	<span class="keyword">LEFT</span> <span class="keyword">JOIN</span> qa_reply r <span class="keyword">ON</span> r.question_id <span class="operator">=</span> q.id <span class="keyword">AND</span> r.top_reply_id <span class="operator">=</span> t.top_reply_id</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> r.created_at <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>parent_id</code> 为 0，说明是第一级回复。</p>
+<p>如果回复再增加 level 属性，还可以对回复层数进行过滤，当层数很多时，可以动态请求更深层次的回复，避免一次获取太多数据。</p>
+</blockquote>
+<p>此外，根据业务，可以对问题表增加字段如是否加精、推荐置顶、点赞数量、回复数量等，回复表增加点赞数量、被回复者的名字 (方便显示) 等，对点赞、取消点赞、点击推荐等行为记录到日志表中。</p>
+<hr>
+<p><kbd>以下部分用于测试</kbd></p>
+<h2 id="问题和回复"><a href="#问题和回复" class="headerlink" title="问题和回复"></a>问题和回复</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1. 特别定制「乌龙茶」,有人跟我一样只喜欢有味道的，或者冰的饮品嘛？</span><br><span class="line">    1. 东方树叶，每天基本都会喝 1，2 瓶</span><br><span class="line">    2. 抹茶粉确实很流行，但是和我提的浓缩粉其实是两种产品</span><br><span class="line">        3. 炭焙的一般口味略重</span><br><span class="line">        4. 好处就是完全不伤胃</span><br><span class="line">2. 找一个靠谱的设计师长期合作</span><br><span class="line">    5. 明天早上起来加你</span><br><span class="line">        6. 怎么联系</span><br><span class="line">    7. 本人做一些兼职</span><br></pre></td></tr></table></figure>
+
+<h2 id="清空数据库"><a href="#清空数据库" class="headerlink" title="清空数据库"></a>清空数据库</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">TRUNCATE</span> <span class="keyword">TABLE</span> qa_question;</span><br><span class="line"><span class="keyword">TRUNCATE</span> <span class="keyword">TABLE</span> qa_reply;</span><br></pre></td></tr></table></figure>
+
+<h2 id="问题一"><a href="#问题一" class="headerlink" title="问题一"></a>问题一</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> qa_question(id, clazz_id, user_id, user_name, content) <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="number">1</span>, <span class="number">30</span>, <span class="string">&#x27;Bob&#x27;</span>, <span class="string">&#x27;特别定制「乌龙茶」,有人跟我一样只喜欢有味道的，或者冰的饮品嘛？&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> qa_reply(id, question_id, parent_id, top_reply_id, user_id, user_name, content) <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">31</span>, <span class="string">&#x27;Tom&#x27;</span>, <span class="string">&#x27;东方树叶，每天基本都会喝 1，2 瓶&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> qa_reply(id, question_id, parent_id, top_reply_id, user_id, user_name, content) <span class="keyword">VALUES</span> (<span class="number">2</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">31</span>, <span class="string">&#x27;Tom&#x27;</span>, <span class="string">&#x27;抹茶粉确实很流行，但是和我提的浓缩粉其实是两种产品&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> qa_reply(id, question_id, parent_id, top_reply_id, user_id, user_name, content) <span class="keyword">VALUES</span> (<span class="number">3</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">31</span>, <span class="string">&#x27;Tom&#x27;</span>, <span class="string">&#x27;炭焙的一般口味略重&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> qa_reply(id, question_id, parent_id, top_reply_id, user_id, user_name, content) <span class="keyword">VALUES</span> (<span class="number">4</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">31</span>, <span class="string">&#x27;Tom&#x27;</span>, <span class="string">&#x27;好处就是完全不伤胃&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="问题二"><a href="#问题二" class="headerlink" title="问题二"></a>问题二</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> qa_question(id, clazz_id, user_id, user_name, content) <span class="keyword">VALUES</span> (<span class="number">2</span>, <span class="number">1</span>, <span class="number">30</span>, <span class="string">&#x27;Bob&#x27;</span>, <span class="string">&#x27;找一个靠谱的设计师长期合作？&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> qa_reply(id, question_id, parent_id, top_reply_id, user_id, user_name, content) <span class="keyword">VALUES</span> (<span class="number">5</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">5</span>, <span class="number">32</span>, <span class="string">&#x27;Max&#x27;</span>, <span class="string">&#x27;明天早上起来加你&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> qa_reply(id, question_id, parent_id, top_reply_id, user_id, user_name, content) <span class="keyword">VALUES</span> (<span class="number">6</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">32</span>, <span class="string">&#x27;Max&#x27;</span>, <span class="string">&#x27;怎么联系&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> qa_reply(id, question_id, parent_id, top_reply_id, user_id, user_name, content) <span class="keyword">VALUES</span> (<span class="number">7</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">7</span>, <span class="number">32</span>, <span class="string">&#x27;Max&#x27;</span>, <span class="string">&#x27;本人做一些兼职&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="查询问题和回复"><a href="#查询问题和回复" class="headerlink" title="查询问题和回复"></a>查询问题和回复</h2><p>只在第一级回复上分页，同时查询出这个回复的所有后代:</p>
+<ol>
+<li>查找到问题的 n 个第一级回复的 top_reply_id <code>x</code></li>
+<li>查找问题的回复中所有第一级回复为 <code>x</code> 的回复</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> q.<span class="operator">*</span>, r.<span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> qa_question q</span><br><span class="line">    <span class="keyword">JOIN</span> (<span class="keyword">SELECT</span> question_id, top_reply_id <span class="keyword">FROM</span> qa_reply <span class="keyword">WHERE</span> question_id <span class="operator">=</span> <span class="number">1</span> <span class="keyword">AND</span> parent_id <span class="operator">=</span> <span class="number">0</span> LIMIT <span class="number">0</span>, <span class="number">10</span>) t <span class="keyword">ON</span> t.question_id <span class="operator">=</span> q.id</span><br><span class="line">    <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> qa_reply r <span class="keyword">ON</span> r.question_id <span class="operator">=</span> q.id <span class="keyword">AND</span> r.top_reply_id <span class="operator">=</span> t.top_reply_id</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> r.created_at <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>修改 question_id 查询不同问题的回复。</p>
+</blockquote>
+
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/" rel="tag">Misc</a></li></ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-fe-vue-tree" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -995,80 +1105,9 @@
 
 
   
-    <!-- 生成目录 -->
-
-
-<article id="post-fe-ckeditor-5" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/fe-ckeditor-5/" class="article-date">
-  	<!-- <time datetime="2018-12-26T07:18:39.000Z" itemprop="datePublished">2018-12-26</time> -->
-    2018-12-26
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/fe-ckeditor-5/">Ckeditor 5 简介</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>新版富文本编辑器 <a target="_blank" rel="noopener" href="https://ckeditor.com/">Ckeditor 5</a> 比 Ckeditor 4 使用更简单, <a target="_blank" rel="noopener" href="https://ckeditor.com/ckeditor-5/download/">下载</a> zip 包后只需要里面的 <code>ckeditor.js</code> (连样式文件都不需要), 像下面这样 3 步就可以了:</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span> <span class="attr">dir</span>=<span class="string">&quot;ltr&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Ckeditor Demo<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;editor&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span> <span class="comment">&lt;!-- [1] --&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;ckeditor.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span> <span class="comment">&lt;!-- [2] --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">        ClassicEditor.create(<span class="built_in">document</span>.querySelector(<span class="string">&#x27;#editor&#x27;</span>)); <span class="comment">// [3]</span></span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="../img/fe/ckeditor-5.png"></p>
-<p>只是简单的使用, 默认的功能就可以了. 如果还需要更多的功能, 例如集成多种编辑模式, 使用非默认自带插件, 自定义插件等就不能使用直接下载的代码 (You can’t add a plugin to an existing build), 需要我们自己编译源码才行, 下面就一一进行介绍.
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/fe-ckeditor-5/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/7/">⇠ Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/48/">48</a><a class="extend next" rel="next" href="/page/9/">Next ⇢</a>
+      <a class="extend prev" rel="prev" href="/page/7/">⇠ Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/49/">49</a><a class="extend next" rel="next" href="/page/9/">Next ⇢</a>
     </nav>
   
 

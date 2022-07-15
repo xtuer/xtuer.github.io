@@ -244,6 +244,73 @@
     <!-- 生成目录 -->
 
 
+<article id="post-java-idea" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/java-idea/" class="article-date">
+  	<!-- <time datetime="2018-04-11T15:08:16.000Z" itemprop="datePublished">2018-04-11</time> -->
+    2018-04-11
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java-idea/">IDEA 设置</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>IDEA 设置如下简洁的界面效果 (<a href="../download/IDEA-Settings.jar">下载配置</a>):<br><img src="../img/java/idea.png">
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/java-idea/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-gitbook-coding-net" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -966,95 +1033,9 @@
 
 
   
-    <!-- 生成目录 -->
-
-
-<article id="post-qt-opencv-install" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/qt-opencv-install/" class="article-date">
-  	<!-- <time datetime="2018-02-05T07:57:24.000Z" itemprop="datePublished">2018-02-05</time> -->
-    2018-02-05
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/qt-opencv-install/">Qt 项目中使用 OpenCV</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>相信很多人在 Qt 项目中使用 OpenCV 都遇到过麻烦，<a target="_blank" rel="noopener" href="http://qtdebug.com/windows-develop-software/">Windows 开发者软件推荐</a> 一文中介绍过使用 Vcpkg 来管理第三方库，这里就使用 Vcpkg 安装 OpenCV 然后在 <code>MSVC 的 Qt</code> 项目中使用(因为 Vcpkg 使用的是 MSVC 编译器，OpenCV 是 C++ 库，不能够跨编译器，所以 MinGW 的项目不能使用):</p>
-<ol>
-<li><p>安装 Vcpkg 就不用多说了，安装到 C 盘根目录下吧</p>
-</li>
-<li><p>安装 OpenCV: <code>vcpkg install opencv</code></p>
-</li>
-<li><p>Qt Creator 中 创建 Qt 项目</p>
-</li>
-<li><p>修改项目的 .pro 文件，主要是下面 2 句引入 OpenCV</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INCLUDEPATH += C:/vcpkg/installed/x86-windows/include</span><br><span class="line">LIBS        += C:/vcpkg/installed/x86-windows/lib/opencv_*.lib</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>使用 <code>opencv_*.lib</code> 引入所有 <code>opencv_</code> 开头的 lib 文件，这样就不需要一个一个的引入 lib 了。</p>
-<p>引入 dll 的时候也可以使用 <code>*</code> 来匹配一次引入多个，例如 <code>tiff*.dll</code>。</p>
-</blockquote>
-</li>
-<li><p>main.cpp</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>  </span>&#123;</span><br><span class="line">    Mat img = <span class="built_in">imread</span>(<span class="string">&quot;D:/Wallpaper/desktop.jpg&quot;</span>);</span><br><span class="line">    <span class="built_in">imshow</span>(<span class="string">&quot;TEST&quot;</span>, img);</span><br><span class="line">    <span class="built_in">waitKey</span>(<span class="number">6000</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>把 OpenCV 相关的 DLL 从 <code>C:/vcpkg/installed/x86-windows/bin</code> 目录复制到编译出的 exe 所在目录</p>
-</li>
-<li><p>运行程序，然后就看到打开一个窗口，图片显示在窗口中</p>
-</li>
-</ol>
-
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/" rel="tag">Qt</a></li></ul>
-	</div>
-
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/10/">⇠ Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/48/">48</a><a class="extend next" rel="next" href="/page/12/">Next ⇢</a>
+      <a class="extend prev" rel="prev" href="/page/10/">⇠ Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/49/">49</a><a class="extend next" rel="next" href="/page/12/">Next ⇢</a>
     </nav>
   
 

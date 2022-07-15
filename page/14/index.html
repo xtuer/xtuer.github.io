@@ -244,6 +244,78 @@
     <!-- 生成目录 -->
 
 
+<article id="post-java-snowflake" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/java-snowflake/" class="article-date">
+  	<!-- <time datetime="2017-10-26T05:42:00.000Z" itemprop="datePublished">2017-10-26</time> -->
+    2017-10-26
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java-snowflake/">分布式 ID 生成算法 Snowflake</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>分布式系统中，有一些需要使用全局唯一 ID 的场景，这种时候为了防止 ID 冲突可以使用 36 个字符的 UUID，但是 UUID 有一些缺点，首先他相对比较长，另外 UUID 一般是无序的字符串。</p>
+<p>有些时候我们希望能使用简单一些的 ID，并且希望 ID 能够按照时间有序生成，为了解决这个问题，Twitter 发明了 SnowFlake 算法，不依赖第三方介质例如 Redis、数据库，本地程序生成分布式自增 ID，这个 ID 只能保证在工作组中的机器生成的 ID 唯一，不能像 UUID 那样保证时空唯一。</p>
+<p>Snowflake 把时间戳、工作组 ID、工作机器 ID、自增序列号组合在一起，生成一个 64bits 的整数 ID，能够使用 70 年，每台机器每秒可产生约 400 万个 ID (2^12*1000，每毫秒理论最多生成 2^12 个 ID)。</p>
+<p>Snowflake 也有自己的缺点，虽然不同 workId 的机器生成的 ID 永远不会相同，但是同一台机器当把时间往后回拨后，生成的 ID 就会重复，所以需要保持时间是网络同步的。</p>
+<p>Snowflake 生成的 ID 的 bit 结构如下:</p>
+<p><img src="../img/java/snowflake.png">
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/java-snowflake/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-qt-vs2013-dll" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -904,107 +976,9 @@
 
 
   
-    <!-- 生成目录 -->
-
-
-<article id="post-spring-boot-hot-swap" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/spring-boot-hot-swap/" class="article-date">
-  	<!-- <time datetime="2017-09-12T02:46:34.000Z" itemprop="datePublished">2017-09-12</time> -->
-    2017-09-12
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/spring-boot-hot-swap/">Spring Boot 热更新</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>尽快看到修改后的效果在开发中对于提高效率是非常重要的，一般有 2 种方式：</p>
-<ul>
-<li>热启动：自动重启整个项目，速度还是比较慢</li>
-<li>热加载：只加载变化的内容，例如重新编译的 class，速度相对很快</li>
-</ul>
-<h2 id="热启动"><a href="#热启动" class="headerlink" title="热启动"></a>热启动</h2><p>Spring Boot 的 <code>org.springframework.boot:spring-boot-devtools</code> 可以用来实现热启动，在 build.gradle 中添加依赖 <code>implementation &#39;org.springframework.boot:spring-boot-devtools&#39;</code> 即可。</p>
-<p>但是 Devtools 的热启动比较慢，例如数据库链接要重新建立。</p>
-<h2 id="热加载"><a href="#热加载" class="headerlink" title="热加载"></a>热加载</h2><p>热加载的工具有：</p>
-<ul>
-<li>免费：Springloaded</li>
-<li>收费：JRebel</li>
-</ul>
-<p>但是在 Spring Boot 2 中不能再使用 Springloaded 了，热加载方式只能用 JRebel 了，使用 JRebel 可以参考官方文档 <a target="_blank" rel="noopener" href="https://manuals.jrebel.com/jrebel/standalone/springboot.html">JRebel with Spring Boot</a>，下面是简要的步骤：</p>
-<ul>
-<li><p>在 ~/.gradle/gradle.properties 配置 JRebel 的路径：</p>
-<ul>
-<li>Win：<code>rebelAgent=-agentpath:C:/jrebel/lib/libjrebel64.dll</code></li>
-<li>Mac：<code>rebelAgent=-agentpath:/usr/local/jrebel/lib/libjrebel64.dylib</code></li>
-<li>Linux：<code>rebelAgent==-agentpath:/usr/local/jrebel/lib/libjrebel64.so</code></li>
-</ul>
-</li>
-<li><p>在 build.gradle 中添加:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (project.hasProperty(&#x27;rebelAgent&#x27;)) &#123;</span><br><span class="line">    bootRun.jvmArgs += rebelAgent</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<p>执行 <code>gradle bootRun</code> 启动项目，看到 JRebel 输出的日志，说明 JRebel 生效了。</p>
-<h2 id="编译修改的类"><a href="#编译修改的类" class="headerlink" title="编译修改的类"></a>编译修改的类</h2><p>不管是 DevTools 还是 JRebel，他们只是监听资源文件或者 class 的变化然后执行热启动或者热加载，并不负责编译被修改的类。当一个类变化后，可以使用以下几种方式进行编译：</p>
-<ul>
-<li>自动编译：终端进入项目目录，执行 <code>gradle -t classes</code> 启动一个监听任务，当发现项目中的 Java 类发生变化时进行自动编译，模版文件变化时自动复制到 build 对应的目录中</li>
-<li>自动编译: 可以使用 IDEA 的自动编译功能: Compiler -&gt; Build project automatically</li>
-<li>手动编译: 修改类后在 IDE 中点击菜单项或者按下快捷键进行编译</li>
-</ul>
-<blockquote>
-<p>提示：控制台中看到 JRebel 生效了，但修改类后却没有看到效果，应该是还没有编译。</p>
-</blockquote>
-<p>更多相关信息请参考 Spring Boot 的文档 <a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#using-boot-hot-swapping">Hot Swapping</a> 深入了解热更新。</p>
-
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a></li></ul>
-	</div>
-
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/13/">⇠ Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/48/">48</a><a class="extend next" rel="next" href="/page/15/">Next ⇢</a>
+      <a class="extend prev" rel="prev" href="/page/13/">⇠ Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/49/">49</a><a class="extend next" rel="next" href="/page/15/">Next ⇢</a>
     </nav>
   
 

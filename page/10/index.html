@@ -244,6 +244,126 @@
     <!-- 生成目录 -->
 
 
+<article id="post-qtbook-custom-widget-model-view-programming" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-custom-widget-model-view-programming/" class="article-date">
+  	<!-- <time datetime="2018-07-09T12:06:48.000Z" itemprop="datePublished">2018-07-09</time> -->
+    2018-07-09
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qtbook-custom-widget-model-view-programming/">模型视图编程</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>模型视图控制器 (MVC) 编程哪家讲的好，莫非是 Qt 帮助文档里的 Model/View Programming 了，可惜没有中文的，看过不少书里这方面的内容都是从这篇文档里抄的，我们就不要再花心思去创新了，直接翻译吧。</p>
+<h2 id="模型视图编程简介"><a href="#模型视图编程简介" class="headerlink" title="模型视图编程简介"></a>模型视图编程简介</h2><p>Qt contains a set of item view classes that use a model/view architecture to manage the relationship between data and the way it is presented to the user. The separation of functionality introduced by this architecture gives developers greater flexibility to customize the presentation of items, and provides a standard model interface to allow a wide range of data sources to be used with existing item views. In this document, we give a brief introduction to the model/view paradigm, outline the concepts involved, and describe the architecture of the item view system. Each of the components in the architecture is explained, and examples are given that show how to use the classes provided.</p>
+<p>Qt 中有几个 item view 的类 (视图)，使用<code>模型/视图</code>架构来管理和显示数据。这种分离的设计给开发者很高的灵活性，可以自定义数据的显示方式，视图通过模型提供的<code>标准接口</code>可以支持各种各样的数据源。本文涉及到模型/视图编程范例、简要的概念介绍以及描述视图系统的架构。每一个部分都会进行解释以及给出相关代码展示怎么使用。</p>
+<h3 id="模型视图架构"><a href="#模型视图架构" class="headerlink" title="模型视图架构"></a>模型视图架构</h3><p>Model-View-Controller (MVC) is a design pattern originating from Smalltalk that is often used when building user interfaces. In Design Patterns, Gamma et al. write:</p>
+<blockquote>
+<p>MVC consists of three kinds of objects. The Model is the application object, the View is its screen presentation, and the Controller defines the way the user interface reacts to user input. Before MVC, user interface designs tended to lump these objects together. MVC decouples them to increase flexibility and reuse.</p>
+</blockquote>
+<p>Smalltalk 经常用来构建用户界面，模型-视图-控制器 (MVC) 这种设计模式就是从 Smalltalk 借鉴而来的。Gamma et al. 在设计模式中写到:</p>
+<blockquote>
+<p>MVC 由 3 种对象组成：Model 是应用的数据，View 显示数据，Controller 定义了用户界面对用户输入的响应。在使用 MVC 之前，用户界面的设计常常把这些对象耦合在一起。MVC 能够解耦它们从而提供更高的灵活性和重用性。</p>
+</blockquote>
+<div style="float: left"><img src="../img/qtbook/custom-widget/mvc/modelview-overview.png"></div>The model/view architecture
+The model communicates with a source of data, providing an interface for the other components in the architecture. The nature of the communication depends on the type of data source, and the way the model is implemented.
+
+<p>The view obtains model indexes from the model; these are references to items of data. By supplying model indexes to the model, the view can retrieve items of data from the data source.<br>In standard views, a delegate renders the items of data. When an item is edited, the delegate communicates with the model directly using model indexes.</p>
+<div style="clear: both;">在模型/视图架构中，模型访问数据源中的数据，视图等控件通过模型提供的接口访问数据。通信的方式取决于数据源的类型和模型实现的方式。
+数据由`数据项`组成，index 是数据项的引用，视图从模型中获得 index。视图通过访问模型中的 index 就能够访问数据源中的数据了。
+在标准的视图中，`代理`用来渲染数据项。当数据项被编辑时，代理使用模型的 index 和模型交互。
+
+<p>Generally, the model/view classes can be separated into the three groups described above: models, views, and delegates. Each of these components is defined by abstract classes that provide common interfaces and, in some cases, default implementations of features. Abstract classes are meant to be subclassed in order to provide the full set of functionality expected by other components; this also allows specialized components to be written.</p>
+<p>Models, views, and delegates communicate with each other using signals and slots:</p>
+<ul>
+<li>Signals from the model inform the view about changes to the data held by the data source.</li>
+<li>Signals from the view provide information about the user’s interaction with the items being displayed.</li>
+<li>Signals from the delegate are used during editing to tell the model and view about the state of the editor.</li>
+</ul>
+<p>根据上面的介绍，模型/视图的类可以分为三类：模型、视图和代理，它们都有相应的抽象类提供通用的接口和某些功能的默认实现。抽象类就意味着要被其他类继承，根据需求提供对应的实现。</p>
+<p>模型、视图和代理之间使用信号槽进行通信:</p>
+<ul>
+<li>数据源中的数据发生变化时，模型发射信号通知视图</li>
+<li>用户和视图交互时视图会发射信号，例如点击 view item，信号的参数包含了被交互的 view item 的信息</li>
+<li>编辑数据项的时候代理会把编辑器的状态通过信号通知模型和视图</li>
+</ul>
+<h3 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h3><p>All item models are based on the QAbstractItemModel class. This class defines an interface that is used by views and delegates to access data. The data itself does not have to be stored in the model; it can be held in a data structure or repository provided by a separate class, a file, a database, or some other application component.</p>
+<p>The basic concepts surrounding models are presented in the section on Model Classes.</p>
+<p>QAbstractItemModel provides an interface to data that is flexible enough to handle views that represent data in the form of tables, lists, and trees. However, when implementing new models for list and table-like data structures, the QAbstractListModel and QAbstractTableModel classes are better starting points because they provide appropriate default implementations of common functions. Each of these classes can be subclassed to provide models that support specialized kinds of lists and tables.</p>
+<p>The process of subclassing models is discussed in the section on Creating New Models.</p>
+<p>所有的 item 模型都是基于类 QAbstractItemModel 实现的。视图和代理使用 QAbstractItemModel 定义的接口访问数据。数据不一定是保存在模型中，也可以保存在其他类、文件、数据库或者其他应用中。</p>
+<p>模型相关的概念在模型的类一节中进行介绍。</p>
+<p>模型类 QAbstractItemModel 定义的访问数据接口 (函数) 是很灵活的，能够满足表格、列表和树用来显示模型的数据。然而，当给列表和表格自定义新的模型时，继承 QAbstractListModel 或者 QAbstractTableModel 是个很好的选择，因为他们提供了很多通用操作的默认实现，就不需要我们再重复实现。</p>
+<p>实现自定义模型在创建新的模型类一节中进行介绍。</p>
+<p>Qt provides some ready-made models that can be used to handle items of data:</p>
+<ul>
+<li>QStringListModel is used to store a simple list of QString items.</li>
+<li>QStandardItemModel manages more complex tree structures of items, each of which can contain arbitrary data.</li>
+<li>QFileSystemModel provides information about files and directories in the local filing system.</li>
+<li>QSqlQueryModel, QSqlTableModel, and QSqlRelationalTableModel are used to access databases using model/view conventions.</li>
+</ul>
+<p>If these standard models do not meet your requirements, you can subclass QAbstractItemModel, QAbstractListModel, or QAbstractTableModel to create your own custom models.</p>
+<p>Qt 已经提供了一些可用于处理数据项的模型:</p>
+<ul>
+<li>QStringListModel 用于存储简单的列表数据，数据项为 QString</li>
+<li>QStandardItemModel 用于管理有树结构关系的数据项，每个数据项可以包含任意的数据</li>
+<li>QFileSystemModel 访问本地文件系统的文件和文件夹</li>
+<li>QSqlQueryModel, QSqlTableModel 和 QSqlRelationalTableModel 使用模型视图的方式访问数据库</li>
+</ul>
+<p>如果这些标准的模型还不能满足我们的需求，可以继承 QAbstractItemModel, QAbstractListModel, or QAbstractTableModel 实现自定义的模型类。</p>
+
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/" rel="tag">Qt</a></li></ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-qtbook-custom-widget-group" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -908,76 +1028,9 @@
 
 
   
-    <!-- 生成目录 -->
-
-
-<article id="post-java-idea" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/java-idea/" class="article-date">
-  	<!-- <time datetime="2018-04-11T15:08:16.000Z" itemprop="datePublished">2018-04-11</time> -->
-    2018-04-11
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/java-idea/">IDEA 设置</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>IDEA 设置如下简洁的界面效果 (<a href="../download/IDEA-Settings.jar">下载配置</a>):<br><img src="../img/java/idea.png">
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/java-idea/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/9/">⇠ Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/48/">48</a><a class="extend next" rel="next" href="/page/11/">Next ⇢</a>
+      <a class="extend prev" rel="prev" href="/page/9/">⇠ Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/49/">49</a><a class="extend next" rel="next" href="/page/11/">Next ⇢</a>
     </nav>
   
 

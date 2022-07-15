@@ -244,6 +244,79 @@
     <!-- 生成目录 -->
 
 
+<article id="post-ffmpeg" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/ffmpeg/" class="article-date">
+  	<!-- <time datetime="2019-08-11T08:59:07.000Z" itemprop="datePublished">2019-08-11</time> -->
+    2019-08-11
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/ffmpeg/">Java 调用 FFmpeg 转换视频音频</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>使用 FFmpeg 的命令把一种格式的视频转换为另一种格式的视频，例如把 test.avi 转为 test.mp4 的命令为 <code>ffmpeg -i test.avi -vcodec h264 test.mp4</code>，Java 中可以用 ProcessBuilder 调用这个命令执行转换:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    ProcessBuilder pb = <span class="keyword">new</span> ProcessBuilder(<span class="string">&quot;ffmpeg&quot;</span>, <span class="string">&quot;-i&quot;</span>, <span class="string">&quot;test.avi&quot;</span>, <span class="string">&quot;-vcodec&quot;</span>, <span class="string">&quot;h264&quot;</span>, <span class="string">&quot;test.mp4&quot;</span>);</span><br><span class="line">    pb.directory(<span class="keyword">new</span> File(<span class="string">&quot;/Users/Biao/Desktop&quot;</span>)); <span class="comment">// pb 的工作目录，设置为 test.avi 所在目录</span></span><br><span class="line">    pb.start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>直接调用命令转换虽然很方便，但是如果视频比较大，转换需要的时间比较长时，希望能够及时的得到转换进度并反馈给客户端，就要解析命令的输出获取转换进度，这时就比较麻烦了。接下来介绍 <a target="_blank" rel="noopener" href="https://github.com/bramp/ffmpeg-cli-wrapper">ffmpeg-cli-wrapper</a> 的使用，它对 FFmpeg 的命令进行了封装，简化视频转换的开发难度。</p>
+<blockquote>
+<p>ffmpeg-cli-wrapper: A fluent interface to running FFmpeg from Java.</p>
+</blockquote>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/" rel="tag">Misc</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/ffmpeg/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-spring-core-aspectj-custom-annotation" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -926,99 +999,9 @@
 
 
   
-    <!-- 生成目录 -->
-
-
-<article id="post-qtbook-misc-flags" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/qtbook-misc-flags/" class="article-date">
-  	<!-- <time datetime="2019-05-17T08:12:07.000Z" itemprop="datePublished">2019-05-17</time> -->
-    2019-05-17
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/qtbook-misc-flags/">枚举与 QFlags</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>传统的 C++ 编程中，通常使用整数来保存 enum 的逻辑运算结果 (与、或、非、异或等)，在进行逻辑运算的时候没有进行类型检查，一个枚举类型可以和其他的枚举类型进行逻辑运算，运算的结果可以直接传递给接收参数为整数的函数。</p>
-<p>Qt 中，模板类 <code>QFlags&lt;Enum&gt;</code> 提供了类型安全的方式保存 enum 的逻辑运算结果解决上面的这几个问题，这种方式在 Qt 里很常见，例如设置 QLabel 对齐方式的函数是 <code>QLabel::setAlignment(Qt::Alignment)</code> (<code>typedef QFlags&lt;Qt::AlignmentFlag&gt; Qt::Alignment</code>)，这就意味着传给 setAlignment 的参数只能是枚举 <code>Qt::AlignmentFlag</code> 的变量、它们的逻辑运算结果或者 0，如果传入其他的枚举类型或者非 0 值，编译时就会报错:</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">label-&gt;<span class="built_in">setAlignment</span>(<span class="number">0</span>); <span class="comment">// OK</span></span><br><span class="line">label-&gt;<span class="built_in">setAlignment</span>(Qt::AlignLeft | Qt::AlignTop); <span class="comment">// OK</span></span><br><span class="line"></span><br><span class="line">label-&gt;<span class="built_in">setAlignment</span>(Qt::WA_Hover); <span class="comment">// Error: 编译时报错</span></span><br></pre></td></tr></table></figure>
-
-<p>想要把我们定义的枚举类型和 QFlags 一起使用，需要用到两个宏:</p>
-<ul>
-<li><code>Q_DECLARE_FLAGS(Flags, Enum)</code>:  <ul>
-<li>Enum 是已经定义好的枚举类型</li>
-<li>展开的结果为  <code>typedef QFlags&lt;Enum&gt; Flags</code></li>
-</ul>
-</li>
-<li><code>Q_DECLARE_OPERATORS_FOR_FLAGS(Flags)</code>:<ul>
-<li>Flags 就是类型 <code>QFlags&lt;Enum&gt;</code></li>
-<li>给 Flags 定义了运算符 <code>|</code>，使得 Enum 和 Enum，Enum 和 Flags 能够使用或运算符 <code>|</code>，结果为 Flags</li>
-</ul>
-</li>
-</ul>
-<p>使用 QFlags 时需要留意以下几点:</p>
-<ul>
-<li>QFlags 其实就是用于位操作，设置它保存的数值的某一位为 1 或者为 0，所以和 QFlags 一起使用的枚举类型，其变量的值需要是 2 的 n 次方，即 0x00, 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, …，它们的特点是其二进制位中只有一位是 1，其他位全部为 0，这样每一个枚举值只会和 QFlags 中的某一个位对应，不会出现交叉的情况</li>
-<li>调用函数  <code>QFlags::setFlag(Enum flag, bool on = true)</code>，on 为 true 时设置 flag 对应的位为 1，on 为 false 时设置 flag 对应的位为 0，设置 flag 对应的位为 1 还可以使用运算符 <code>|</code></li>
-<li>调用函数 <code>QFlags::testFlag(Enum flag)</code> 测试 flag 对应的位是否为 1</li>
-<li>整数转为 QFlags: 把整数作为 QFlags 构造函数的参数创建一个 QFlags 变量</li>
-<li>QFlags 转为整数: 调用 <code>int(flags)</code> 把 QFlags 变量转换为整数值
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/qtbook-misc-flags/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/5/">⇠ Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/48/">48</a><a class="extend next" rel="next" href="/page/7/">Next ⇢</a>
+      <a class="extend prev" rel="prev" href="/page/5/">⇠ Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/49/">49</a><a class="extend next" rel="next" href="/page/7/">Next ⇢</a>
     </nav>
   
 

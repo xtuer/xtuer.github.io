@@ -244,6 +244,83 @@
     <!-- 生成目录 -->
 
 
+<article id="post-qt-camera" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qt-camera/" class="article-date">
+  	<!-- <time datetime="2017-08-08T02:33:40.000Z" itemprop="datePublished">2017-08-08</time> -->
+    2017-08-08
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qt-camera/">Qt 调用摄像头</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>可以使用 OpenCV 来操作摄像头，不过 Qt5 已经自带了调用系统摄像头的功能，在 <code>.pro</code> 文件中增加下面的模块:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">QT += multimedia multimediawidgets</span><br></pre></td></tr></table></figure>
+
+<p>主要是使用下面 3 个类，使用起来很方便:</p>
+<ul>
+<li>QCamera</li>
+<li>QCameraViewfinder</li>
+<li>QCameraImageCapture</li>
+</ul>
+<p>下面代码的效果为</p>
+<p><img src="../img/qt/camera.png"></p>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/" rel="tag">Qt</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/qt-camera/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-spring-web-thymeleaf-syntax" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -1000,77 +1077,9 @@
 
 
   
-    <!-- 生成目录 -->
-
-
-<article id="post-fe-random" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/fe-random/" class="article-date">
-  	<!-- <time datetime="2017-07-05T08:35:45.000Z" itemprop="datePublished">2017-07-05</time> -->
-    2017-07-05
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/fe-random/">自定义随机函数</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>JavaScript 已经自带了随机数生成函数，为什么我们还需要弄一个随机数的生成工具呢？</p>
-<p>例如 Web 的考试系统里，加载试卷后，需要把试卷的题目顺序打乱，如果用 JS 的随机数函数的话，每次打乱的顺序都是不一样的，因为每次生成的随机数序列都不一样。问题出现了，同一个学员刷新试卷后，题目的顺序和上一次的竟然不一样，这不符合实际要求，应该是不同学员的题目顺序不一样，但是同一个学员的题目顺序永远是一样的。这样就不能使用直接使用原生的随机函数了，下面定义一个随机数生成函数，随机数种子是一个字符串，这样就可以用学员的编码来作为随机数种子生成随机数打乱题目的顺序了，因为每次刷新时同一个学员的编码都是一样的，所以生成的随机数序列都相同，就保证了同一个学员的试卷题目顺序一直都是一样的。</p>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/fe-random/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/16/">⇠ Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><a class="page-number" href="/page/19/">19</a><span class="space">&hellip;</span><a class="page-number" href="/page/48/">48</a><a class="extend next" rel="next" href="/page/18/">Next ⇢</a>
+      <a class="extend prev" rel="prev" href="/page/16/">⇠ Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><a class="page-number" href="/page/19/">19</a><span class="space">&hellip;</span><a class="page-number" href="/page/49/">49</a><a class="extend next" rel="next" href="/page/18/">Next ⇢</a>
     </nav>
   
 

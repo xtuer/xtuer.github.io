@@ -244,6 +244,81 @@
     <!-- 生成目录 -->
 
 
+<article id="post-java-watchdog" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/java-watchdog/" class="article-date">
+  	<!-- <time datetime="2022-07-15T05:40:03.000Z" itemprop="datePublished">2022-07-15</time> -->
+    2022-07-15
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java-watchdog/">Watchdog</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>可以使用 watchdog 控制某些耗时操作的超时时间，当超时的时候执行指定的操作，例如中断线程、重置 Redis key 的超时时间等。Apache 的 commons-exec 包中提供了 watchdog 的实现供我们使用 (源码为文章后面的 Watchdog.java)。</p>
+<blockquote>
+<p>According to wikipedia - watchdog is an electronic timer that is used to detect and recover from computer malfunctions.</p>
+</blockquote>
+<h2 id="案例演示"><a href="#案例演示" class="headerlink" title="案例演示"></a>案例演示</h2><p>下面的例子执行拼接字符串的耗时操作，定义了一个 watchdog，超时时间为 1S，超时后 watchdog 中断线程结束字符串拼接操作。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.commons.exec.Watchdog;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> SimpleDateFormat formatter = <span class="keyword">new</span> SimpleDateFormat(<span class="string">&quot;hh:mm:ss&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Thread thread = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            <span class="comment">// 创建 watchdog</span></span><br><span class="line">            Thread t = Thread.currentThread();</span><br><span class="line">            Watchdog watchdog = <span class="keyword">new</span> Watchdog(TimeUnit.SECONDS.toMillis(<span class="number">1</span>));</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 超时且未关闭 watchdog 时执行的操作</span></span><br><span class="line">            watchdog.addTimeoutObserver(w -&gt; &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;Watchdog trigger&quot;</span>);</span><br><span class="line">                t.interrupt();</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 启动 watchdog</span></span><br><span class="line">            watchdog.start();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 执行耗时任务，超时的时候当前线程的 isInterrupted() 为 true，结束循环</span></span><br><span class="line">            System.out.println(<span class="string">&quot;开始时间: &quot;</span> + formatter.format(<span class="keyword">new</span> Date()));</span><br><span class="line">            <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">            StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">            <span class="keyword">while</span> (!t.isInterrupted() &amp;&amp; count++ &lt; <span class="number">10000</span>) &#123;</span><br><span class="line">                sb.append(count);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.printf(<span class="string">&quot;结束时间: %s，循环次数: %d&quot;</span>, formatter.format(<span class="keyword">new</span> Date()), count);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 关闭 watchdog</span></span><br><span class="line">            watchdog.stop();</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        thread.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">开始时间: 01:51:40</span><br><span class="line">Watchdog trigger</span><br><span class="line">结束时间: 01:51:41，循环次数: 48060741</span><br></pre></td></tr></table></figure>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/java-watchdog/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-mac-vpn-forward" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -990,77 +1065,9 @@
 
 
   
-    <!-- 生成目录 -->
-
-
-<article id="post-ajax-upload-file" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/ajax-upload-file/" class="article-date">
-  	<!-- <time datetime="2021-11-01T12:44:18.000Z" itemprop="datePublished">2021-11-01</time> -->
-    2021-11-01
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/ajax-upload-file/">Ajax 异步上传文件</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <h2 id="异步上传"><a href="#异步上传" class="headerlink" title="异步上传"></a>异步上传</h2><p>先选择文件，然后点击上传按钮使用 Ajax 异步的方式上传文件，代码如下:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div class=&quot;about&quot;&gt;</span><br><span class="line">        &lt;input ref=&quot;fileElem&quot; type=&quot;file&quot; accept=&quot;image/jpeg&quot;&gt;&lt;br&gt;&lt;br&gt;</span><br><span class="line">        &lt;Button type=&quot;primary&quot; :loading=&quot;loading&quot; @click=&quot;upload&quot;&gt;上传文件&lt;/Button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">    data() &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            file: null,</span><br><span class="line">            loading: false,</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;,</span><br><span class="line">    mounted() &#123;</span><br><span class="line">        // 选择文件的事件处理</span><br><span class="line">        this.$refs.fileElem.addEventListener(&#x27;change&#x27;, () =&gt; &#123;</span><br><span class="line">            this.file = this.$refs.fileElem.files[0];</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">        upload() &#123;</span><br><span class="line">            this.loading = true;</span><br><span class="line">            var formData = new FormData();</span><br><span class="line">            formData.append(&#x27;file&#x27;, this.file, this.file.name);</span><br><span class="line"></span><br><span class="line">            uploadFile(&#x27;/form/upload/temp/file&#x27;, formData).then(response =&gt; &#123;</span><br><span class="line">                console.log(response);</span><br><span class="line">                this.loading = false;</span><br><span class="line">            &#125;).catch(error =&gt; &#123;</span><br><span class="line">                console.error(error);</span><br><span class="line">                this.loading = false;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 上传文件</span><br><span class="line"> *</span><br><span class="line"> * @param &#123;String&#125; url      上传地址</span><br><span class="line"> * @param &#123;JSON&#125;   formData 表单数据</span><br><span class="line"> */</span><br><span class="line">function uploadFile(url, formData) &#123;</span><br><span class="line">    return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">        axios.post(url, formData, &#123; headers: &#123; &#x27;Content-Type&#x27;: &#x27;multipart/form-data&#x27; &#125; &#125;).then(response =&gt; &#123;</span><br><span class="line">            // 提示: 响应部分根据使用的服务器端的响应结果进行简单调整</span><br><span class="line">            if (response.data.success) &#123;</span><br><span class="line">                const uplaodedFile = response.data.data;</span><br><span class="line">                resolve(uplaodedFile);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                reject(response.data.message);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).catch(response =&gt; &#123;</span><br><span class="line">            const error = response.response;</span><br><span class="line">            console.error(error);</span><br><span class="line">            reject(error);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/ajax-upload-file/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/48/">48</a><a class="extend next" rel="next" href="/page/2/">Next ⇢</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/49/">49</a><a class="extend next" rel="next" href="/page/2/">Next ⇢</a>
     </nav>
   
 

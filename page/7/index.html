@@ -244,6 +244,96 @@
     <!-- 生成目录 -->
 
 
+<article id="post-qtbook-misc-flags" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-misc-flags/" class="article-date">
+  	<!-- <time datetime="2019-05-17T08:12:07.000Z" itemprop="datePublished">2019-05-17</time> -->
+    2019-05-17
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qtbook-misc-flags/">枚举与 QFlags</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>传统的 C++ 编程中，通常使用整数来保存 enum 的逻辑运算结果 (与、或、非、异或等)，在进行逻辑运算的时候没有进行类型检查，一个枚举类型可以和其他的枚举类型进行逻辑运算，运算的结果可以直接传递给接收参数为整数的函数。</p>
+<p>Qt 中，模板类 <code>QFlags&lt;Enum&gt;</code> 提供了类型安全的方式保存 enum 的逻辑运算结果解决上面的这几个问题，这种方式在 Qt 里很常见，例如设置 QLabel 对齐方式的函数是 <code>QLabel::setAlignment(Qt::Alignment)</code> (<code>typedef QFlags&lt;Qt::AlignmentFlag&gt; Qt::Alignment</code>)，这就意味着传给 setAlignment 的参数只能是枚举 <code>Qt::AlignmentFlag</code> 的变量、它们的逻辑运算结果或者 0，如果传入其他的枚举类型或者非 0 值，编译时就会报错:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">label-&gt;<span class="built_in">setAlignment</span>(<span class="number">0</span>); <span class="comment">// OK</span></span><br><span class="line">label-&gt;<span class="built_in">setAlignment</span>(Qt::AlignLeft | Qt::AlignTop); <span class="comment">// OK</span></span><br><span class="line"></span><br><span class="line">label-&gt;<span class="built_in">setAlignment</span>(Qt::WA_Hover); <span class="comment">// Error: 编译时报错</span></span><br></pre></td></tr></table></figure>
+
+<p>想要把我们定义的枚举类型和 QFlags 一起使用，需要用到两个宏:</p>
+<ul>
+<li><code>Q_DECLARE_FLAGS(Flags, Enum)</code>:  <ul>
+<li>Enum 是已经定义好的枚举类型</li>
+<li>展开的结果为  <code>typedef QFlags&lt;Enum&gt; Flags</code></li>
+</ul>
+</li>
+<li><code>Q_DECLARE_OPERATORS_FOR_FLAGS(Flags)</code>:<ul>
+<li>Flags 就是类型 <code>QFlags&lt;Enum&gt;</code></li>
+<li>给 Flags 定义了运算符 <code>|</code>，使得 Enum 和 Enum，Enum 和 Flags 能够使用或运算符 <code>|</code>，结果为 Flags</li>
+</ul>
+</li>
+</ul>
+<p>使用 QFlags 时需要留意以下几点:</p>
+<ul>
+<li>QFlags 其实就是用于位操作，设置它保存的数值的某一位为 1 或者为 0，所以和 QFlags 一起使用的枚举类型，其变量的值需要是 2 的 n 次方，即 0x00, 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, …，它们的特点是其二进制位中只有一位是 1，其他位全部为 0，这样每一个枚举值只会和 QFlags 中的某一个位对应，不会出现交叉的情况</li>
+<li>调用函数  <code>QFlags::setFlag(Enum flag, bool on = true)</code>，on 为 true 时设置 flag 对应的位为 1，on 为 false 时设置 flag 对应的位为 0，设置 flag 对应的位为 1 还可以使用运算符 <code>|</code></li>
+<li>调用函数 <code>QFlags::testFlag(Enum flag)</code> 测试 flag 对应的位是否为 1</li>
+<li>整数转为 QFlags: 把整数作为 QFlags 构造函数的参数创建一个 QFlags 变量</li>
+<li>QFlags 转为整数: 调用 <code>int(flags)</code> 把 QFlags 变量转换为整数值
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/qtbook-misc-flags/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-fe-axios-rest" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -905,119 +995,9 @@
 
 
   
-    <!-- 生成目录 -->
-
-
-<article id="post-misc-qa" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/misc-qa/" class="article-date">
-  	<!-- <time datetime="2019-01-24T14:27:58.000Z" itemprop="datePublished">2019-01-24</time> -->
-    2019-01-24
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/misc-qa/">答疑表设计</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>答疑主要涉及 2 个表，问题表 qa_queston 和回复表 qa_reply，核心字段如下:</p>
-<center><img src="../img/misc/qa.png" width=686></center>
-**数据存储逻辑:**
-* 问题存储到表 qa_question
-* 每个回复都存储问题 ID: `question_id`
-* 每个回复都保存第一级回复 ID: `top_reply_id`，为了方便找到**回复树**下的所有回复
-* 对问题进行的回复存储到表 qa_reply
-  * `parent_id` 为 0
-  * `top_reply_id` 为此回复的 ID
-* 对回复进行的回复存储到表 qa_reply
-  * 回复是一个有层级的树状结构，所以使用了 `parent_id`
-  * `parent_id` 为被回复的`回复 ID`
-  * `top_reply_id` 为此回复所在第一级`回复 ID`
-
-<p><strong>此设计的优点:</strong> </p>
-<p>可以使用一条 SQL 语句分页查询出问题的 N 个一级回复、以及这些一级回复下所有相关的回复：</p>
-<ul>
-<li>查找到问题的 n 个第一级回复的 top_reply_id <code>x</code></li>
-<li>查找问题的回复中所有第一级回复为 <code>x</code> 的回复</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> q.<span class="operator">*</span>, r.<span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> qa_question q</span><br><span class="line">	<span class="keyword">JOIN</span> (<span class="keyword">SELECT</span> question_id, top_reply_id <span class="keyword">FROM</span> qa_reply <span class="keyword">WHERE</span> question_id <span class="operator">=</span> <span class="number">1</span> <span class="keyword">AND</span> parent_id <span class="operator">=</span> <span class="number">0</span> LIMIT <span class="number">0</span>, <span class="number">10</span>) t <span class="keyword">ON</span> t.question_id <span class="operator">=</span> q.id</span><br><span class="line">	<span class="keyword">LEFT</span> <span class="keyword">JOIN</span> qa_reply r <span class="keyword">ON</span> r.question_id <span class="operator">=</span> q.id <span class="keyword">AND</span> r.top_reply_id <span class="operator">=</span> t.top_reply_id</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> r.created_at <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p><code>parent_id</code> 为 0，说明是第一级回复。</p>
-<p>如果回复再增加 level 属性，还可以对回复层数进行过滤，当层数很多时，可以动态请求更深层次的回复，避免一次获取太多数据。</p>
-</blockquote>
-<p>此外，根据业务，可以对问题表增加字段如是否加精、推荐置顶、点赞数量、回复数量等，回复表增加点赞数量、被回复者的名字 (方便显示) 等，对点赞、取消点赞、点击推荐等行为记录到日志表中。</p>
-<hr>
-<p><kbd>以下部分用于测试</kbd></p>
-<h2 id="问题和回复"><a href="#问题和回复" class="headerlink" title="问题和回复"></a>问题和回复</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1. 特别定制「乌龙茶」,有人跟我一样只喜欢有味道的，或者冰的饮品嘛？</span><br><span class="line">    1. 东方树叶，每天基本都会喝 1，2 瓶</span><br><span class="line">    2. 抹茶粉确实很流行，但是和我提的浓缩粉其实是两种产品</span><br><span class="line">        3. 炭焙的一般口味略重</span><br><span class="line">        4. 好处就是完全不伤胃</span><br><span class="line">2. 找一个靠谱的设计师长期合作</span><br><span class="line">    5. 明天早上起来加你</span><br><span class="line">        6. 怎么联系</span><br><span class="line">    7. 本人做一些兼职</span><br></pre></td></tr></table></figure>
-
-<h2 id="清空数据库"><a href="#清空数据库" class="headerlink" title="清空数据库"></a>清空数据库</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">TRUNCATE</span> <span class="keyword">TABLE</span> qa_question;</span><br><span class="line"><span class="keyword">TRUNCATE</span> <span class="keyword">TABLE</span> qa_reply;</span><br></pre></td></tr></table></figure>
-
-<h2 id="问题一"><a href="#问题一" class="headerlink" title="问题一"></a>问题一</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> qa_question(id, clazz_id, user_id, user_name, content) <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="number">1</span>, <span class="number">30</span>, <span class="string">&#x27;Bob&#x27;</span>, <span class="string">&#x27;特别定制「乌龙茶」,有人跟我一样只喜欢有味道的，或者冰的饮品嘛？&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> qa_reply(id, question_id, parent_id, top_reply_id, user_id, user_name, content) <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">31</span>, <span class="string">&#x27;Tom&#x27;</span>, <span class="string">&#x27;东方树叶，每天基本都会喝 1，2 瓶&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> qa_reply(id, question_id, parent_id, top_reply_id, user_id, user_name, content) <span class="keyword">VALUES</span> (<span class="number">2</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">31</span>, <span class="string">&#x27;Tom&#x27;</span>, <span class="string">&#x27;抹茶粉确实很流行，但是和我提的浓缩粉其实是两种产品&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> qa_reply(id, question_id, parent_id, top_reply_id, user_id, user_name, content) <span class="keyword">VALUES</span> (<span class="number">3</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">31</span>, <span class="string">&#x27;Tom&#x27;</span>, <span class="string">&#x27;炭焙的一般口味略重&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> qa_reply(id, question_id, parent_id, top_reply_id, user_id, user_name, content) <span class="keyword">VALUES</span> (<span class="number">4</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">31</span>, <span class="string">&#x27;Tom&#x27;</span>, <span class="string">&#x27;好处就是完全不伤胃&#x27;</span>);</span><br></pre></td></tr></table></figure>
-
-<h2 id="问题二"><a href="#问题二" class="headerlink" title="问题二"></a>问题二</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> qa_question(id, clazz_id, user_id, user_name, content) <span class="keyword">VALUES</span> (<span class="number">2</span>, <span class="number">1</span>, <span class="number">30</span>, <span class="string">&#x27;Bob&#x27;</span>, <span class="string">&#x27;找一个靠谱的设计师长期合作？&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> qa_reply(id, question_id, parent_id, top_reply_id, user_id, user_name, content) <span class="keyword">VALUES</span> (<span class="number">5</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">5</span>, <span class="number">32</span>, <span class="string">&#x27;Max&#x27;</span>, <span class="string">&#x27;明天早上起来加你&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> qa_reply(id, question_id, parent_id, top_reply_id, user_id, user_name, content) <span class="keyword">VALUES</span> (<span class="number">6</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">32</span>, <span class="string">&#x27;Max&#x27;</span>, <span class="string">&#x27;怎么联系&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> qa_reply(id, question_id, parent_id, top_reply_id, user_id, user_name, content) <span class="keyword">VALUES</span> (<span class="number">7</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">7</span>, <span class="number">32</span>, <span class="string">&#x27;Max&#x27;</span>, <span class="string">&#x27;本人做一些兼职&#x27;</span>);</span><br></pre></td></tr></table></figure>
-
-<h2 id="查询问题和回复"><a href="#查询问题和回复" class="headerlink" title="查询问题和回复"></a>查询问题和回复</h2><p>只在第一级回复上分页，同时查询出这个回复的所有后代:</p>
-<ol>
-<li>查找到问题的 n 个第一级回复的 top_reply_id <code>x</code></li>
-<li>查找问题的回复中所有第一级回复为 <code>x</code> 的回复</li>
-</ol>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> q.<span class="operator">*</span>, r.<span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> qa_question q</span><br><span class="line">    <span class="keyword">JOIN</span> (<span class="keyword">SELECT</span> question_id, top_reply_id <span class="keyword">FROM</span> qa_reply <span class="keyword">WHERE</span> question_id <span class="operator">=</span> <span class="number">1</span> <span class="keyword">AND</span> parent_id <span class="operator">=</span> <span class="number">0</span> LIMIT <span class="number">0</span>, <span class="number">10</span>) t <span class="keyword">ON</span> t.question_id <span class="operator">=</span> q.id</span><br><span class="line">    <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> qa_reply r <span class="keyword">ON</span> r.question_id <span class="operator">=</span> q.id <span class="keyword">AND</span> r.top_reply_id <span class="operator">=</span> t.top_reply_id</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> r.created_at <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>修改 question_id 查询不同问题的回复。</p>
-</blockquote>
-
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/" rel="tag">Misc</a></li></ul>
-	</div>
-
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/6/">⇠ Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/48/">48</a><a class="extend next" rel="next" href="/page/8/">Next ⇢</a>
+      <a class="extend prev" rel="prev" href="/page/6/">⇠ Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/49/">49</a><a class="extend next" rel="next" href="/page/8/">Next ⇢</a>
     </nav>
   
 

@@ -244,6 +244,110 @@
     <!-- 生成目录 -->
 
 
+<article id="post-mysql-install" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/mysql-install/" class="article-date">
+  	<!-- <time datetime="2020-02-18T13:40:55.000Z" itemprop="datePublished">2020-02-18</time> -->
+    2020-02-18
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/mysql-install/">安装 MySQL</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <h2 id="Mac"><a href="#Mac" class="headerlink" title="Mac"></a>Mac</h2><p>使用 Brew 安装、使用 Docker 安装:</p>
+<ul>
+<li>创建 mysql 的配置文件 <strong>/Users/Biao/Documents/workspace/Docker/mysql/config-file.cnf</strong> (参考下面的配置，去掉 <strong>[WinMySQLAdmin]</strong> 部分、<strong>basedir</strong> 和 <strong>datadir</strong>)</li>
+<li><code>docker pull mysql:5.7.29</code></li>
+<li><code>docker run --name mysql -v /Users/Biao/Documents/workspace/Docker/mysql:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=root -p 3306:3306 -d mysql:5.7.29</code></li>
+<li>进入 MySQL 容器: <code>docker exec -it mysql bash</code>，然后可以在里面执行 <code>mysql -u root -p</code> 访问 MySQL</li>
+</ul>
+<h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><p>使用 Yum 安装、使用 Docker 安装</p>
+<h2 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h2><p>使用 Docker 安装，下面介绍安装解压版:</p>
+<ol>
+<li><p>下载解压 <a target="_blank" rel="noopener" href="http://dev.mysql.com/downloads/mysql/">http://dev.mysql.com/downloads/mysql/</a></p>
+</li>
+<li><p>在 mysql 的根目录创建 <strong>data</strong> 目录和 <strong>my.ini</strong> 配置文件，参考最后面的配置文件内容</p>
+</li>
+<li><p>以管理员身份运行 cmd（一定要用管理员身份运行，不然权限不够），通过命令，进入 mysql bin 目录 (<a target="_blank" rel="noopener" href="https://www.cnblogs.com/alan-lin/p/9966917.html">参考安装 MySQL</a>)</p>
+</li>
+<li><p>输入 <code>mysqld --initialize-insecure --user=mysql</code> 回车，初始化 MySQL</p>
+</li>
+<li><p>输入 <code>mysqld --install</code> 回车，把 MySQL 安装为系统服务</p>
+<blockquote>
+<p>如果系统重装后，不需要再次初始化 MySQL，只需要再次安装为系统服务即可。</p>
+</blockquote>
+</li>
+<li><p>启动 MySQL: 输入 <code>net start mysql</code> 回车，启动 MySQL 服务，start 启动，stop 停止。启动出错时可参考  <a target="_blank" rel="noopener" href="https://bbs.csdn.net/topics/391812886">net start mysql发生系统错误 2，找不到指定文件</a></p>
+</li>
+<li><p>输入 <code>mysql -u root -p</code> ，回车，出现 Enter passwore: ，输入密码，由于刚安装，没有设置密码，直接回车 Enter 进入</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_39940205/article/details/81167131">MySQL 5.7 root 用户密码修改</a></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">use mysql;</span><br><span class="line">update <span class="keyword">user</span> <span class="keyword">set</span> authentication_string<span class="operator">=</span>password(<span class="string">&#x27;新密码&#x27;</span>) <span class="keyword">where</span> <span class="keyword">user</span><span class="operator">=</span><span class="string">&#x27;root&#x27;</span> <span class="keyword">and</span> Host<span class="operator">=</span><span class="string">&#x27;localhost&#x27;</span>;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<p>配置文件 my.ini 的内容:</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[WinMySQLAdmin]</span></span><br><span class="line"><span class="attr">Server</span>=D:/mysql-<span class="number">5.7</span>/bin/mysqld.exe</span><br><span class="line"></span><br><span class="line"><span class="section">[mysqld]</span></span><br><span class="line"><span class="comment"># Only allow connections from localhost</span></span><br><span class="line"><span class="attr">bind-address</span> = <span class="number">0.0</span>.<span class="number">0.0</span></span><br><span class="line"><span class="attr">max_connections</span> = <span class="number">2000</span></span><br><span class="line"></span><br><span class="line"><span class="attr">basedir</span>=D:/mysql-<span class="number">5.7</span></span><br><span class="line"><span class="attr">datadir</span>=D:/mysql-<span class="number">5.7</span>/data</span><br><span class="line"></span><br><span class="line"><span class="attr">character-set-server</span>=utf8mb4</span><br><span class="line"><span class="attr">init_connect</span>=<span class="string">&#x27;SET NAMES utf8mb4&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[mysql]</span></span><br><span class="line"><span class="attr">default-character-set</span>=utf8mb4</span><br><span class="line"></span><br><span class="line"><span class="section">[mysql.server]</span></span><br><span class="line"><span class="attr">default-character-set</span>=utf8mb4</span><br><span class="line"></span><br><span class="line"><span class="section">[mysql_safe]</span></span><br><span class="line"><span class="attr">default-character-set</span>=utf8mb4</span><br><span class="line"></span><br><span class="line"><span class="section">[client]</span></span><br><span class="line"><span class="attr">default-character-set</span>=utf8mb4</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意: Windows 下必须配置 <code>[WinMySQLAdmin]</code>。</p>
+</blockquote>
+<h2 id="开启-Binlog"><a href="#开启-Binlog" class="headerlink" title="开启 Binlog"></a>开启 Binlog</h2><p>在 <code>[mysqld]</code> 部分加入下面的配置开启 binlog:</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[mysqld]</span></span><br><span class="line"><span class="attr">server_id</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">log_bin</span> = mysql-bin</span><br><span class="line"><span class="attr">binlog_format</span> = ROW</span><br></pre></td></tr></table></figure>
+
+<p>更多信息请参考 <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_27631797/article/details/85119261">Windows 环境 MySQL 开启 binlog 日志方法</a>。</p>
+
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DB/" rel="tag">DB</a></li></ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-btree-print" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -904,82 +1008,9 @@
 
 
   
-    <!-- 生成目录 -->
-
-
-<article id="post-ffmpeg" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/ffmpeg/" class="article-date">
-  	<!-- <time datetime="2019-08-11T08:59:07.000Z" itemprop="datePublished">2019-08-11</time> -->
-    2019-08-11
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/ffmpeg/">Java 调用 FFmpeg 转换视频音频</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>使用 FFmpeg 的命令把一种格式的视频转换为另一种格式的视频，例如把 test.avi 转为 test.mp4 的命令为 <code>ffmpeg -i test.avi -vcodec h264 test.mp4</code>，Java 中可以用 ProcessBuilder 调用这个命令执行转换:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    ProcessBuilder pb = <span class="keyword">new</span> ProcessBuilder(<span class="string">&quot;ffmpeg&quot;</span>, <span class="string">&quot;-i&quot;</span>, <span class="string">&quot;test.avi&quot;</span>, <span class="string">&quot;-vcodec&quot;</span>, <span class="string">&quot;h264&quot;</span>, <span class="string">&quot;test.mp4&quot;</span>);</span><br><span class="line">    pb.directory(<span class="keyword">new</span> File(<span class="string">&quot;/Users/Biao/Desktop&quot;</span>)); <span class="comment">// pb 的工作目录，设置为 test.avi 所在目录</span></span><br><span class="line">    pb.start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>直接调用命令转换虽然很方便，但是如果视频比较大，转换需要的时间比较长时，希望能够及时的得到转换进度并反馈给客户端，就要解析命令的输出获取转换进度，这时就比较麻烦了。接下来介绍 <a target="_blank" rel="noopener" href="https://github.com/bramp/ffmpeg-cli-wrapper">ffmpeg-cli-wrapper</a> 的使用，它对 FFmpeg 的命令进行了封装，简化视频转换的开发难度。</p>
-<blockquote>
-<p>ffmpeg-cli-wrapper: A fluent interface to running FFmpeg from Java.</p>
-</blockquote>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/" rel="tag">Misc</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/ffmpeg/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/4/">⇠ Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/48/">48</a><a class="extend next" rel="next" href="/page/6/">Next ⇢</a>
+      <a class="extend prev" rel="prev" href="/page/4/">⇠ Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/49/">49</a><a class="extend next" rel="next" href="/page/6/">Next ⇢</a>
     </nav>
   
 
