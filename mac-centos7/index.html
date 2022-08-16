@@ -14,7 +14,7 @@
 <meta property="og:description" content="下载 CentOS访问  https:&#x2F;&#x2F;www.centos.org&#x2F;download&#x2F; 下载 Minimal ISO 即可，其他的虽然功能齐全，但是太大了。 必要工具 yum install zip unzip -y:  12345# 把文件夹 H5 和文件 x.html 压缩成 result.zipzip -r result.zip H5 x.html# 解压 filename.zip, 如">
 <meta property="og:locale">
 <meta property="article:published_time" content="2016-04-07T17:49:37.000Z">
-<meta property="article:modified_time" content="2021-12-02T22:29:07.161Z">
+<meta property="article:modified_time" content="2022-08-11T10:16:22.263Z">
 <meta property="article:author" content="公孙二狗">
 <meta property="article:tag" content="Mac">
 <meta name="twitter:card" content="summary">
@@ -247,7 +247,7 @@
     <div id="toc-mask" style="display: none;">
         <div class="toc-container">
             <div class="article-toc">
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD-CentOS"><span class="toc-text">下载 CentOS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%85%E8%A6%81%E5%B7%A5%E5%85%B7"><span class="toc-text">必要工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Java"><span class="toc-text">安装 Java</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Tomcat"><span class="toc-text">安装 Tomcat</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E6%94%BE%E7%AB%AF%E5%8F%A3"><span class="toc-text">开放端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A6%81%E7%94%A8%E7%AB%AF%E5%8F%A3"><span class="toc-text">禁用端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSH-%E7%99%BB%E9%99%86"><span class="toc-text">SSH 登陆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSH-Key-%E7%99%BB%E9%99%86"><span class="toc-text">SSH + Key 登陆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E6%8D%A2-yum-%E9%95%9C%E5%83%8F"><span class="toc-text">更换 yum 镜像</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7z-%E4%BD%BF%E7%94%A8"><span class="toc-text">7z 使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Nodejs-8"><span class="toc-text">安装 Nodejs 8</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-MongoDB"><span class="toc-text">安装 MongoDB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F"><span class="toc-text">后台运行程序</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD-CentOS"><span class="toc-text">下载 CentOS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%85%E8%A6%81%E5%B7%A5%E5%85%B7"><span class="toc-text">必要工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Java"><span class="toc-text">安装 Java</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Tomcat"><span class="toc-text">安装 Tomcat</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E6%94%BE%E7%AB%AF%E5%8F%A3"><span class="toc-text">开放端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A6%81%E7%94%A8%E7%AB%AF%E5%8F%A3"><span class="toc-text">禁用端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSH-%E7%99%BB%E9%99%86"><span class="toc-text">SSH 登陆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSH-Key-%E7%99%BB%E9%99%86"><span class="toc-text">SSH + Key 登陆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E6%8D%A2-yum-%E9%95%9C%E5%83%8F"><span class="toc-text">更换 yum 镜像</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7z-%E4%BD%BF%E7%94%A8"><span class="toc-text">7z 使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Nodejs-8"><span class="toc-text">安装 Nodejs 8</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-MongoDB"><span class="toc-text">安装 MongoDB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gotop"><span class="toc-text">Gotop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F"><span class="toc-text">后台运行程序</span></a></li></ol>
             </div>
         </div>
     </div>
@@ -429,6 +429,17 @@
 </li>
 </ol>
 <p>MongoDB 默认使用端口 27017，配置在 <code>/etc/mongod.conf</code>。</p>
+<h2 id="Gotop"><a href="#Gotop" class="headerlink" title="Gotop"></a>Gotop</h2><p>Gotop 用于查看系统资源使用情况，很多时候不能直接使用 yum 安装，其实只有一个可自行文件，下载后直接使用:</p>
+<ol>
+<li><p>从 <a target="_blank" rel="noopener" href="https://github.com/cjbassi/gotop/releases">https://github.com/cjbassi/gotop/releases</a> 下载 gotop_3.0.0_linux_386.tgz </p>
+</li>
+<li><p>解压:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf gotop_3.0.0_linux_386.tgz</span><br></pre></td></tr></table></figure></li>
+<li><p>移动:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv gotop /usr/local/bin</span><br></pre></td></tr></table></figure></li>
+<li><p>运行:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gotop</span><br></pre></td></tr></table></figure></li>
+</ol>
 <h2 id="后台运行程序"><a href="#后台运行程序" class="headerlink" title="后台运行程序"></a>后台运行程序</h2><p>例如使用 ssh 远程用 node 运行的程序不是 deamon 进程 (systemctl, service 运行的是)，当前 ssh 窗口关闭后程序就会退出，可以使用 <code>nohup node app.js &amp;</code> 解决这个问题，能使命令永久的在后台执行:</p>
 <ul>
 <li><code>nohup</code> 不挂断地运行命令</li>
