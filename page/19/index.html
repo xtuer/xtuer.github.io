@@ -114,7 +114,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10.59px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.35px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.29px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.12px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.35px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.94px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.65px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.06px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.18px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.18px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.12px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.76px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.53px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.88px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.71px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.29px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.06px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.06px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.47px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.76px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 11.88px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.75px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 11.88px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.5px;">Index</a> <a href="/tags/Java/" style="font-size: 19.38px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.5px;">Mac</a> <a href="/tags/Misc/" style="font-size: 16.88px;">Misc</a> <a href="/tags/PHP/" style="font-size: 10.63px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.13px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.75px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 10.63px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.75px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.25px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.13px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.63px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.38px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 16.88px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 16.88px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.25px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.25px;">zTree</a>
                     </div>
                     <script>
 
@@ -240,6 +240,75 @@
 </nav>
 
             <div class="body-wrap">
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-db-insert-conditional" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/db-insert-conditional/" class="article-date">
+  	<!-- <time datetime="2017-06-15T08:35:40.000Z" itemprop="datePublished">2017-06-15</time> -->
+    2017-06-15
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/db-insert-conditional/">MySQL 基于条件判断的数据插入</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>在编写程序时，我们经常会遇到一些基于条件判断的逻辑，比如：判断该条数据是否已经在数据库中存在，如果不存在，则插入。</p>
+<h2 id="技巧一：使用-ignore-关键字"><a href="#技巧一：使用-ignore-关键字" class="headerlink" title="技巧一：使用 ignore 关键字"></a>技巧一：使用 ignore 关键字</h2><p>如果是用主键 primary 或者唯一索引 unique 区分了记录的唯一性，避免重复插入记录可以使用 <strong>insert ignore into</strong>。</p>
+<p>当插入数据时，如出现错误时，如重复数据，将不返回错误，只以警告形式返回。所以使用 ignore 请确保语句本身没有问题，否则也会被忽略掉。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DB/" rel="tag">DB</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/db-insert-conditional/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
   
     <!-- 生成目录 -->
 
@@ -958,91 +1027,6 @@
         <p class="article-more-link">
           <a  href="/fe-vue-skeleton/#more">阅读全文</a>
         </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-mysql-wan" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/mysql-wan/" class="article-date">
-  	<!-- <time datetime="2017-05-16T09:16:26.000Z" itemprop="datePublished">2017-05-16</time> -->
-    2017-05-16
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/mysql-wan/">允许其他机器访问 MySQL</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>A 机器上的 MySQL 默认只能 A 机器上的软件访问，即 localhost，如果 B 机器上的软件想访问 A 机器上的 MySQL，需要 MySQL 对 B 机器的 IP 进行授权。</p>
-<blockquote>
-<p>如果是 Homebrew 安装的 MySQL，修改文件 <code>/usr/local/etc/my.cnf</code> 中的 <code>bind-address = 0.0.0.0</code> 即可，然后重启 MySQL，不能使用下面的方式进行修改。</p>
-</blockquote>
-<h2 id="方式一"><a href="#方式一" class="headerlink" title="方式一"></a>方式一</h2><ul>
-<li><p>进如数据库 mysql: <code>use mysql</code></p>
-</li>
-<li><p>任意主机以用户 <strong>root</strong> 和密码 <strong>root</strong> 连接到 MySQL 服务器</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># MySQL <span class="number">5.7</span></span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> PRIVILEGES <span class="keyword">ON</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">TO</span> <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;%&#x27;</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">&#x27;root&#x27;</span> <span class="keyword">WITH</span> <span class="keyword">GRANT</span> OPTION;</span><br><span class="line">FLUSH PRIVILEGES;</span><br><span class="line"></span><br><span class="line"># MySQL <span class="number">8.0</span> 创建用户和授权不能使用同一个 <span class="keyword">SQL</span> 完成</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">user</span> root@<span class="string">&#x27;%&#x27;</span> IDENTIFIED <span class="keyword">WITH</span> mysql_native_password <span class="keyword">BY</span> <span class="string">&#x27;root&#x27;</span>;</span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> <span class="keyword">ON</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">TO</span> root@<span class="string">&#x27;%&#x27;</span> <span class="keyword">WITH</span> <span class="keyword">GRANT</span> OPTION;</span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure></li>
-<li><p>指定 IP 为（如192.168.10.186）的主机以用户 <strong>alice</strong> 和密码 <strong>Passw0rd</strong> 连接到 MySQL 服务器</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> PRIVILEGES <span class="keyword">ON</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">TO</span> <span class="string">&#x27;alice&#x27;</span>@<span class="string">&#x27;192.168.10.186&#x27;</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">&#x27;Passw0rd&#x27;</span> <span class="keyword">WITH</span> <span class="keyword">GRANT</span> OPTION; </span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="方式二"><a href="#方式二" class="headerlink" title="方式二"></a>方式二</h2><p>网上还看到说直接修改 user 表中 User <strong>root</strong> 的 Host 为 **%**，最好别这么干，不小心会哭的:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">USE mysql;</span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">user</span>, host <span class="keyword">FROM</span> <span class="keyword">user</span>;</span><br><span class="line">UPDATE <span class="keyword">user</span> <span class="keyword">SET</span> host<span class="operator">=</span><span class="string">&#x27;%&#x27;</span> <span class="keyword">WHERE</span> <span class="keyword">user</span><span class="operator">=</span><span class="string">&#x27;root&#x27;</span>;</span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure>
-<p>按照上面的修改 host 为 % 后外网可以访问了，但是本地却访问出错:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p </span><br><span class="line">提示</span><br><span class="line">Access denied for user &#x27;root&#x27;@&#x27;localhost&#x27; (using password: YES) when trying</span><br></pre></td></tr></table></figure>
-
-<p>可用按下面的方式补救:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1. 启动 mysqld_safe</span><br><span class="line">   mysqld_safe --user=mysql --skip-grant-tables --skip-networking &amp;</span><br><span class="line">2. 登陆修改</span><br><span class="line">   mysql -u root mysql</span><br><span class="line">   use mysql</span><br><span class="line">   UPDATE user SET host=&#x27;localhost&#x27; WHERE user=&#x27;root&#x27;;</span><br><span class="line">   FLUSH PRIVILEGES;</span><br><span class="line">   quit</span><br><span class="line"></span><br><span class="line">这时可以看到 user 中关于 root 的记录会多一条</span><br></pre></td></tr></table></figure>
-
-
-
-
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DB/" rel="tag">DB</a></li></ul>
-	</div>
-
-
-      
-
       
       <div class="clearfix"></div>
     </div>

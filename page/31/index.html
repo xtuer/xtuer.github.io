@@ -114,7 +114,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10.59px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.35px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.29px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.12px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.35px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.94px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.65px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.06px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.18px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.18px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.12px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.76px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.53px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.88px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.71px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.29px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.06px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.06px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.47px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.76px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 11.88px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.75px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 11.88px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.5px;">Index</a> <a href="/tags/Java/" style="font-size: 19.38px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.5px;">Mac</a> <a href="/tags/Misc/" style="font-size: 16.88px;">Misc</a> <a href="/tags/PHP/" style="font-size: 10.63px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.13px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.75px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 10.63px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.75px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.25px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.13px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.63px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.38px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 16.88px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 16.88px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.25px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.25px;">zTree</a>
                     </div>
                     <script>
 
@@ -240,6 +240,76 @@
 </nav>
 
             <div class="body-wrap">
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-qtbook-singleton-6-other" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-singleton-6-other/" class="article-date">
+  	<!-- <time datetime="2016-12-15T11:53:08.000Z" itemprop="datePublished">2016-12-15</time> -->
+    2016-12-15
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qtbook-singleton-6-other/">单例的其他实现</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p><strong>单例还有没有其他的实现方式？</strong><br>有，我们的实现，使用的就是传说中的懒汉方式，还有饿汉方式，实现也挺简单的</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> 把单例的简单实现中的</span><br><span class="line">    <span class="keyword">static</span> QMutex mutex;</span><br><span class="line">    <span class="keyword">static</span> ConfigUtil *instance; <span class="comment">// ConfigUtil 全局唯一的变量</span></span><br><span class="line">换成</span><br><span class="line">    <span class="keyword">static</span> ConfigUtil instance;</span><br><span class="line">    </span><br><span class="line"><span class="number">2.</span> <span class="built_in">getInstance</span>() 直接返回这个 instance 即可，还没有线程同步的问题</span><br></pre></td></tr></table></figure>
+
+<p>此外，还可以直接在 getInstance() 函数里定义一个静态的 ConfigUtil 变量（具体的可以参考 Qt 的宏 <code>Q_GLOBAL_STATIC</code> 的实现）。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/qtbook-singleton-6-other/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
   
     <!-- 生成目录 -->
 
@@ -847,77 +917,6 @@
       
         <p class="article-more-link">
           <a  href="/qtbook-paint-smooth-curve-qchart/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-qtbook-paint-realtime-curve" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/qtbook-paint-realtime-curve/" class="article-date">
-  	<!-- <time datetime="2016-12-11T07:52:29.000Z" itemprop="datePublished">2016-12-11</time> -->
-    2016-12-11
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/qtbook-paint-realtime-curve/">实时动态曲线</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>在群里经常有朋友问：不停的从下位机，传感器接收到数据，怎么实时的把这些数据的曲线画出来？就像 Windows 的任务管理器 CPU 监控的动态曲线那样，曲线从左向右移动。</p>
-<h5 id="先分析一下这个问题："><a href="#先分析一下这个问题：" class="headerlink" title="先分析一下这个问题："></a>先分析一下这个问题：</h5><ul>
-<li>接收数据：与设备有关，不同的设备接收数据的方式不一样，有的用串口，有的用 TCP，UPD 等，不过这不是本章的重点，我们会用生成随机数模拟从设备接收到数据。</li>
-<li>随着程序运行的时间越来越长，接收到的数据从开始的几个到几百个，几千个，几万甚至几十上百万个，难道要把所有的数据都要显示出来？不需要，只要把最后接收到的例如 100 个数据显示出来就可以了。</li>
-<li>曲线怎么才能动起来？以只显示 100 个最新数据为例，存放在链表里，假设链表已经存满 100 个数据，当接收到一个新的数据时，把它放到链表尾部并删除链表的第一个数据，这样就保证了链表存储的都是最新的 100 个数据，前一次的 100 个数据里下标为 1 到 99 的数据和后一次数据里下标为 0 到 98 的数据是一样的，用他们绘制出来的 2 个曲线，后一次数据的曲线就像前一次数据的曲线向左移动了一点一样，这个过程不停的发生，曲线看上去就动起来了。
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/qtbook-paint-realtime-curve/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

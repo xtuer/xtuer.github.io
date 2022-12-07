@@ -114,7 +114,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10.59px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.35px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.29px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.12px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.35px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.94px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.65px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.06px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.18px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.18px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.12px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.76px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.53px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.88px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.71px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.29px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.06px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.06px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.47px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.76px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 11.88px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.75px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 11.88px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.5px;">Index</a> <a href="/tags/Java/" style="font-size: 19.38px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.5px;">Mac</a> <a href="/tags/Misc/" style="font-size: 16.88px;">Misc</a> <a href="/tags/PHP/" style="font-size: 10.63px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.13px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.75px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 10.63px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.75px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.25px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.13px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.63px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.38px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 16.88px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 16.88px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.25px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.25px;">zTree</a>
                     </div>
                     <script>
 
@@ -244,6 +244,77 @@
     <!-- 生成目录 -->
 
 
+<article id="post-misc-fib" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/misc-fib/" class="article-date">
+  	<!-- <time datetime="2019-01-28T13:06:17.000Z" itemprop="datePublished">2019-01-28</time> -->
+    2019-01-28
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/misc-fib/">斐波那契数列</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>斐波那契数列 (意大利语： Successione di Fibonacci)，又称黄金分割数列、费波那西数列、费波拿契数、费氏数列，指的是这样一个数列：1、1、2、3、5、8、13、21、……在数学上，斐波那契数列以如下被以递归的方法定义：F1=1，F2=1，Fn=F(n-1) + F(n-2) (n&gt;2，n∈N*)，使用递归实现如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">fib</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">1</span> || n == <span class="number">2</span>) &#123; <span class="keyword">return</span> <span class="number">1</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> fib(n-<span class="number">1</span>) + fib(n-<span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>求 fib(6) 斐波那契数列的递归过程如图:</p>
+<center><img src="../img/misc/fib.png" width=543></center>
+> 重叠子问题 (Overlap subproblem): 把大问题被分解为多个小问题进行求解，小问题重复的出现多次。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/" rel="tag">Misc</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/misc-fib/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-misc-qa" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -295,7 +366,7 @@
 <li>查找到问题的 n 个第一级回复的 top_reply_id <code>x</code></li>
 <li>查找问题的回复中所有第一级回复为 <code>x</code> 的回复</li>
 </ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> q.<span class="operator">*</span>, r.<span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> qa_question q</span><br><span class="line">	<span class="keyword">JOIN</span> (<span class="keyword">SELECT</span> question_id, top_reply_id <span class="keyword">FROM</span> qa_reply <span class="keyword">WHERE</span> question_id <span class="operator">=</span> <span class="number">1</span> <span class="keyword">AND</span> parent_id <span class="operator">=</span> <span class="number">0</span> LIMIT <span class="number">0</span>, <span class="number">10</span>) t <span class="keyword">ON</span> t.question_id <span class="operator">=</span> q.id</span><br><span class="line">	<span class="keyword">LEFT</span> <span class="keyword">JOIN</span> qa_reply r <span class="keyword">ON</span> r.question_id <span class="operator">=</span> q.id <span class="keyword">AND</span> r.top_reply_id <span class="operator">=</span> t.top_reply_id</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> r.created_at <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> q.<span class="operator">*</span>, r.<span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> qa_question q</span><br><span class="line">    <span class="keyword">JOIN</span> (<span class="keyword">SELECT</span> question_id, top_reply_id <span class="keyword">FROM</span> qa_reply <span class="keyword">WHERE</span> question_id <span class="operator">=</span> <span class="number">1</span> <span class="keyword">AND</span> parent_id <span class="operator">=</span> <span class="number">0</span> LIMIT <span class="number">0</span>, <span class="number">10</span>) t <span class="keyword">ON</span> t.question_id <span class="operator">=</span> q.id</span><br><span class="line">    <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> qa_reply r <span class="keyword">ON</span> r.question_id <span class="operator">=</span> q.id <span class="keyword">AND</span> r.top_reply_id <span class="operator">=</span> t.top_reply_id</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> r.created_at <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p><code>parent_id</code> 为 0，说明是第一级回复。</p>
@@ -1020,75 +1091,6 @@
       
         <p class="article-more-link">
           <a  href="/misc-tio-websocket/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-fe-simple-mindmap" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/fe-simple-mindmap/" class="article-date">
-  	<!-- <time datetime="2019-01-03T07:09:15.000Z" itemprop="datePublished">2019-01-03</time> -->
-    2019-01-03
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/fe-simple-mindmap/">简单的 Mindmap</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>树形结构如果作为侧边栏, 使用 <a target="_blank" rel="noopener" href="http://www.treejs.cn/">zTree</a> 比较合适, 下图所示的平铺展开整棵树, 使用 zTree 估计就不适合了, 在此我们使用 jQuery 的另一个插件 <a target="_blank" rel="noopener" href="https://www.jqueryscript.net/chart-graph/Simple-jQuery-Mind-Map-Diagram-Plugin-mindmap.html">Simple jQuery Mind Map Diagram Plugin - mindmap</a> 来实现.</p>
-<p><img src="../img/fe/simple-mindmap.png"></p>
-<p>文档的例子使用静态的 HTML 标签准备 mindmap 需要的树形结构的数据, 实际中大多情况下树形结构的数据是存储在文件或者通过接口返回, 我们这里展示递归的方式遍历树形结构的数据创建 mindmap 需要的 HTML 标签. 因为每个节点都是 HTML 的标签, 能很方便的使用 CSS 定制样式.
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/fe-simple-mindmap/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

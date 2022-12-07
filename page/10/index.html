@@ -114,7 +114,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10.59px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.35px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.29px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.12px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.35px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.94px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.65px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.06px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.18px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.18px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.12px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.76px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.53px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.88px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.71px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.29px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.06px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.06px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.47px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.76px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 11.88px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.75px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 11.88px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.5px;">Index</a> <a href="/tags/Java/" style="font-size: 19.38px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.5px;">Mac</a> <a href="/tags/Misc/" style="font-size: 16.88px;">Misc</a> <a href="/tags/PHP/" style="font-size: 10.63px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.13px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.75px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 10.63px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.75px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.25px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.13px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.63px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.38px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 16.88px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 16.88px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.25px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.25px;">zTree</a>
                     </div>
                     <script>
 
@@ -240,6 +240,80 @@
 </nav>
 
             <div class="body-wrap">
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-qtbook-custom-widget-lineedit-with-button" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-custom-widget-lineedit-with-button/" class="article-date">
+  	<!-- <time datetime="2018-07-15T06:16:02.000Z" itemprop="datePublished">2018-07-15</time> -->
+    2018-07-15
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qtbook-custom-widget-lineedit-with-button/">QLineEdit 中增加按钮</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>下图为 Safari 的地址栏，在输入框右边有一个刷新按钮:</p>
+<p><img src="../img/qtbook/custom-widget/lineedit-with-button-1.png"></p>
+<p>在输入框中增加按钮的设计是比较常见的，例如 Chrome 的地址栏、Firefox 的搜索框、Tim 的搜索框等，这种控件 Qt 没有提供，那应该怎么实现呢？下面提供 2 种思路:</p>
+<ul>
+<li>QLineEdit + QPushButton 使用 QHBoxLayout 布局到一个 QWidget 中，去掉 QLineEdit 得到焦点时的高亮效果，此时应该高亮它的父控件，失去焦点时取消它的父控件的高亮效果</li>
+<li>QLineEdit 作为一个普通的 QWidget，也就是它能够使用 QLayout 把 QPushButton 作为子控件布局到它里面</li>
+</ul>
+<p>思路有了，第一种方式需要写很多代码进行控制，实现比较麻烦，下面只介绍第二种思路的实现。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/qtbook-custom-widget-lineedit-with-button/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
   
     <!-- 生成目录 -->
 
@@ -942,76 +1016,6 @@ The model communicates with a source of data, providing an interface for the oth
       
         <p class="article-more-link">
           <a  href="/mac-http-injected/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-mac-iterm" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/mac-iterm/" class="article-date">
-  	<!-- <time datetime="2018-04-15T07:23:12.000Z" itemprop="datePublished">2018-04-15</time> -->
-    2018-04-15
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/mac-iterm/">iTerm 设置</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <h2 id="高亮输出"><a href="#高亮输出" class="headerlink" title="高亮输出"></a>高亮输出</h2><p>不同的输出显示为不同的颜色，例如下面的 [DEBUG] 的信息暗一些</p>
-<p><img src="../img/mac/iterm-1.png"></p>
-<p>Preferences &gt; Profiles &gt; Advanced &gt; Triggers &gt; Edit: 使用正则表达式进行设置，Action 选择为 <code>Highlight Text...</code></p>
-<p><img src="../img/mac/iterm-2.png"></p>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/mac-iterm/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

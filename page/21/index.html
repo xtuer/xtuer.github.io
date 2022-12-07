@@ -114,7 +114,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10.59px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 12.35px;">Cas</a> <a href="/tags/DB/" style="font-size: 15.29px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 14.12px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.35px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.94px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.65px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.06px;">Misc</a> <a href="/tags/PHP/" style="font-size: 11.18px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 11.18px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 14.12px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.76px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.53px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.88px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.71px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15.29px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 17.06px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 17.06px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.47px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.76px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 11.88px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.75px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 11.88px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.5px;">Index</a> <a href="/tags/Java/" style="font-size: 19.38px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.5px;">Mac</a> <a href="/tags/Misc/" style="font-size: 16.88px;">Misc</a> <a href="/tags/PHP/" style="font-size: 10.63px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.13px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.75px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 10.63px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.75px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.25px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.13px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.63px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.38px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 16.88px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 16.88px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.25px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.25px;">zTree</a>
                     </div>
                     <script>
 
@@ -240,6 +240,89 @@
 </nav>
 
             <div class="body-wrap">
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-fe-semantic-ui-grid" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/fe-semantic-ui-grid/" class="article-date">
+  	<!-- <time datetime="2017-04-21T01:12:47.000Z" itemprop="datePublished">2017-04-21</time> -->
+    2017-04-21
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/fe-semantic-ui-grid/">Semantic Ui Grid</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p><a target="_blank" rel="noopener" href="http://semantic-ui.com/">Semantic-Ui</a> 是一套类似于 bootstrap 的 ui framework，相比 Bootstrap 有如下优点：</p>
+<ul>
+<li>组件采用语义化的组织方式，容易理解，容易记忆</li>
+<li>组件库非常丰富，几乎不需要引入第三方的组件，统一性强</li>
+<li>由于采用语义化的方式命名，所有组件都有自己的命名空间，相互不受干扰，侵入性弱，对自定义 css 干扰小，bootstrap 则改写了很多元素的默认样式，复写困难</li>
+<li>自定义容易，semantic ui 的源码中各个组件相互独立，依赖清晰，自定义方便</li>
+</ul>
+<h2 id="Fundamental-Concepts"><a href="#Fundamental-Concepts" class="headerlink" title="Fundamental Concepts"></a>Fundamental Concepts</h2><ul>
+<li><p><strong>container</strong><br>A fixed width container 具有固定宽度的容器</p>
+</li>
+<li><p><strong>grid</strong><br>网格</p>
+</li>
+<li><p><strong>column</strong><br>网格的列</p>
+</li>
+<li><p><strong>row</strong><br>网格的行</p>
+</li>
+</ul>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SemanticUi/" rel="tag">SemanticUi</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/fe-semantic-ui-grid/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
   
     <!-- 生成目录 -->
 
@@ -876,79 +959,6 @@
       
         <p class="article-more-link">
           <a  href="/java-nio-buffer/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-fe-animation-scroll" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/fe-animation-scroll/" class="article-date">
-  	<!-- <time datetime="2017-04-12T05:04:58.000Z" itemprop="datePublished">2017-04-12</time> -->
-    2017-04-12
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/fe-animation-scroll/">滚动插件 Animation Scroll</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>AnimationScroll 是一个 jQuery 的滚动插件，支持很多缓冲动画效果</p>
-<blockquote>
-<p><strong>AnimateScroll</strong> is a jQuery plugin which enables you to <strong>scroll to any part of the page in style</strong>by just calling the <code>animatescroll()</code> function with the <code>Id</code> or <code>Classname</code> of the element where you want to scroll to.</p>
-<p><strong>Basic usage:</strong> <code>$(&#39;body&#39;).animatescroll();</code></p>
-</blockquote>
-<p><img src="../img/fe/animate-scroll.png"></p>
-<p>可到 <a target="_blank" rel="noopener" href="https://plugins.jquery.com/animatescroll/">https://plugins.jquery.com/animatescroll/</a> 下载，主页为 <a target="_blank" rel="noopener" href="http://plugins.compzets.com/animatescroll/">http://plugins.compzets.com/animatescroll/</a>。</p>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/fe-animation-scroll/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>
