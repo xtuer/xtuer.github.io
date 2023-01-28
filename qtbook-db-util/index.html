@@ -378,7 +378,7 @@
 <td align="center">2</td>
 <td>Bob</td>
 <td>Passw0rd</td>
-<td><a href="mailto:&#x62;&#111;&#x62;&#x40;&#x67;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#109;">&#x62;&#111;&#x62;&#x40;&#x67;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#109;</a></td>
+<td><a href="mailto:&#x62;&#111;&#98;&#x40;&#103;&#x6d;&#x61;&#105;&#108;&#x2e;&#99;&#111;&#x6d;">&#x62;&#111;&#98;&#x40;&#103;&#x6d;&#x61;&#105;&#108;&#x2e;&#99;&#111;&#x6d;</a></td>
 <td>NULL</td>
 </tr>
 <tr>
@@ -400,7 +400,7 @@
 </li>
 <li><p>查找 Alice 的所有信息，如名字，密码，邮件等<br>QMap((“email”, QVariant(QString, “”) ) ( “id” ,  QVariant(int, 1) ) ( “mobile” ,  QVariant(QString, “”) ) ( “password” ,  QVariant(QString, “passw0rd”) ) ( “username” ,  QVariant(QString, “Alice”) ) )  </p>
 </li>
-<li><p>查找 Alice 和 Bob 的所有信息，如名字，密码，邮件等<br>(QMap((“email”, QVariant(QString, “”) ) ( “id” ,  QVariant(int, 1) ) ( “mobile” ,  QVariant(QString, “”) ) ( “password” ,  QVariant(QString, “passw0rd”) ) ( “username” ,  QVariant(QString, “Alice”) ) ) , QMap((“email”, QVariant(QString, “<a href="mailto:&#98;&#111;&#98;&#64;&#103;&#109;&#x61;&#105;&#x6c;&#46;&#99;&#111;&#x6d;">&#98;&#111;&#98;&#64;&#103;&#109;&#x61;&#105;&#x6c;&#46;&#99;&#111;&#x6d;</a>“) ) ( “id” ,  QVariant(int, 2) ) ( “mobile” ,  QVariant(QString, “”) ) ( “password” ,  QVariant(QString, “Passw0rd”) ) ( “username” ,  QVariant(QString, “Bob”) ) ) )  </p>
+<li><p>查找 Alice 和 Bob 的所有信息，如名字，密码，邮件等<br>(QMap((“email”, QVariant(QString, “”) ) ( “id” ,  QVariant(int, 1) ) ( “mobile” ,  QVariant(QString, “”) ) ( “password” ,  QVariant(QString, “passw0rd”) ) ( “username” ,  QVariant(QString, “Alice”) ) ) , QMap((“email”, QVariant(QString, “<a href="mailto:&#x62;&#x6f;&#x62;&#64;&#x67;&#109;&#x61;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;">&#x62;&#x6f;&#x62;&#64;&#x67;&#109;&#x61;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;</a>“) ) ( “id” ,  QVariant(int, 2) ) ( “mobile” ,  QVariant(QString, “”) ) ( “password” ,  QVariant(QString, “Passw0rd”) ) ( “username” ,  QVariant(QString, “Bob”) ) ) )  </p>
 </li>
 <li><p>查找 Alice 和 Bob 的密码<br>(“passw0rd”, “Passw0rd”)  </p>
 </li>
@@ -706,7 +706,7 @@
 
 <p><code>程序输出</code>：</p>
 <blockquote>
-<p>“加载 SQL 文件 resources/sql/user.sql”<br>“加载 SQL 文件 resources/sql/product.sql”<br>“Bob”<br>“ID: 2, Username: Bob, Password: Passw0rd, Email: <a href="mailto:&#x62;&#x6f;&#98;&#64;&#103;&#x6d;&#97;&#105;&#108;&#x2e;&#x63;&#111;&#109;">&#x62;&#x6f;&#98;&#64;&#103;&#x6d;&#97;&#105;&#108;&#x2e;&#x63;&#111;&#109;</a>, Mobile: “<br>Update:  true<br>“ID: 1, Username: Alice, Password: passw0rd, Email: , Mobile: “<br>“ID: 2, Username: Bob, Password: Passw0rd, Email: <a href="mailto:&#98;&#111;&#x62;&#64;&#103;&#109;&#x61;&#105;&#x6c;&#46;&#x63;&#111;&#109;">&#98;&#111;&#x62;&#64;&#103;&#109;&#x61;&#105;&#x6c;&#46;&#x63;&#111;&#109;</a>, Mobile: “<br>“ID: 3, Username: Josh, Password: Pa88w0rd, Email: , Mobile: “  </p>
+<p>“加载 SQL 文件 resources/sql/user.sql”<br>“加载 SQL 文件 resources/sql/product.sql”<br>“Bob”<br>“ID: 2, Username: Bob, Password: Passw0rd, Email: <a href="mailto:&#98;&#x6f;&#x62;&#x40;&#103;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;">&#98;&#x6f;&#x62;&#x40;&#103;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;</a>, Mobile: “<br>Update:  true<br>“ID: 1, Username: Alice, Password: passw0rd, Email: , Mobile: “<br>“ID: 2, Username: Bob, Password: Passw0rd, Email: <a href="mailto:&#x62;&#111;&#x62;&#x40;&#103;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#x6d;">&#x62;&#111;&#x62;&#x40;&#103;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#x6d;</a>, Mobile: “<br>“ID: 3, Username: Josh, Password: Pa88w0rd, Email: , Mobile: “  </p>
 </blockquote>
 <h2 id="8-思考"><a href="#8-思考" class="headerlink" title="8. 思考"></a>8. 思考</h2><ol>
 <li>上面的例子中，映射成对象的时候，表 user 对应类 User 的对象。想一下，查询到的结果能不能不只是映射到简单成员变量？如果成员变量是另一个类的对象时怎么做？</li>
