@@ -14,7 +14,7 @@
 <meta property="og:description" content="AspectJ with Xml 和 AspectJ with Annotation 中介绍了 2 中实现 AoP 的方式:  AspectJ with Xml 中介绍使用纯 XML 的方式配置切面 (Java 类) 和切入点 (类的方法) AspectJ with Annotation 中介绍使用注解配置切面，方法限定表达式配置切入点  这里我们介绍实现 AoP 的第三种方法: 使用注解配置切面">
 <meta property="og:locale">
 <meta property="article:published_time" content="2019-07-31T13:16:06.000Z">
-<meta property="article:modified_time" content="2023-01-29T07:05:50.719Z">
+<meta property="article:modified_time" content="2023-01-29T07:09:48.577Z">
 <meta property="article:author" content="公孙二狗">
 <meta property="article:tag" content="SpringCore">
 <meta name="twitter:card" content="summary">
@@ -322,7 +322,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtuer.annotation;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.ElementType;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Retention;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.RetentionPolicy;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Target;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Target(ElementType.METHOD)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Lock &#123;</span><br><span class="line">    <span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> &quot;&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>注解的实例对象是用来存储数据的 (静态数据，编译器确定)，Spring 会在方法调用的时候自动创建这个注解的实例对象，我们可以在 AoP 的 Advice 方法中获取到这些数据。</p>
+<p>注解的实例对象是用来存储数据的 (静态数据，编译期确定)，Spring 会在方法调用的时候自动创建这个注解的实例对象，我们可以在 AoP 的 Advice 方法中获取到这些数据。</p>
 <p>注解实例对象的数据可以是写代码时写死的 SpEL 表达式的静态字符串，运行时根据方法的参数动态计算它要表达的值。</p>
 </blockquote>
 <h2 id="三、自定义-AoP-使用注解配置切入点"><a href="#三、自定义-AoP-使用注解配置切入点" class="headerlink" title="三、自定义 AoP 使用注解配置切入点"></a>三、自定义 AoP 使用注解配置切入点</h2><p>Spring AoP 使用自定义注解配置切入点很简单， 设置 <code>@Pointcut</code> 的值为我们自定义的注解的全路径名即可，在 Advice 方法 (<code>@Around</code> 注解的方法) 处直接引用 pointcut 和注解 Lock 的对象 (Spring 自动注入):</p>
