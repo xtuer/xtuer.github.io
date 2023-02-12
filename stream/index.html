@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://xtuer.github.io/img/java/stream-skip.jpg">
 <meta property="og:image" content="http://xtuer.github.io/img/java/stream-limit.jpg">
 <meta property="article:published_time" content="2020-05-24T01:08:08.000Z">
-<meta property="article:modified_time" content="2021-12-02T22:29:07.187Z">
+<meta property="article:modified_time" content="2023-02-12T06:50:04.075Z">
 <meta property="article:author" content="公孙二狗">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
@@ -375,7 +375,7 @@
 <td><code>anyMatch</code></td>
 </tr>
 </tbody></table>
-<p>此外，<code>Function.identity()</code> 比常用，其返回一个函数式接口，这个接口的返回值和输入参数一样，在使用 <code>t -&gt; t</code> 的地方就可以使用它:</p>
+<p>此外，<code>Function.identity()</code> 比较常用 (返回元素自己)，其返回一个函数式接口，这个接口的返回值和输入参数一样，在使用 <code>t -&gt; t</code> 的地方就可以使用它:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Returns a function that always returns its input argument.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &lt;T&gt; the type of the input and output objects to the function</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> a function that always returns its input argument</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> &lt;T&gt; <span class="function">Function&lt;T, T&gt; <span class="title">identity</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> t -&gt; t;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>例如 <code>ns.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))</code>。</p>
