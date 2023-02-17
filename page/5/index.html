@@ -114,7 +114,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 11.88px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.75px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 11.88px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.5px;">Index</a> <a href="/tags/Java/" style="font-size: 19.38px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.5px;">Mac</a> <a href="/tags/Misc/" style="font-size: 16.88px;">Misc</a> <a href="/tags/PHP/" style="font-size: 10.63px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.13px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.75px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 10.63px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.75px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.25px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.13px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.63px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.38px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 16.88px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 16.88px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.25px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.25px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 11.76px;">Cas</a> <a href="/tags/DB/" style="font-size: 14.71px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.53px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 11.76px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.35px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.65px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.06px;">Misc</a> <a href="/tags/PHP/" style="font-size: 10.59px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 10.59px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.53px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.18px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 12.94px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.29px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.12px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 14.71px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 16.47px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 16.47px;">Util</a> <a href="/tags/Vue/" style="font-size: 15.88px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.18px;">zTree</a>
                     </div>
                     <script>
 
@@ -240,6 +240,100 @@
 </nav>
 
             <div class="body-wrap">
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-graph-prim" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/graph-prim/" class="article-date">
+  	<!-- <time datetime="2020-02-23T03:46:01.000Z" itemprop="datePublished">2020-02-23</time> -->
+    2020-02-23
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/graph-prim/">图-最小生成树-Prim</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av54029771?p=168">最小生成树</a> (Minumum Cost Spanning Tree，简称 MST) 的 2 个经典算法: </p>
+<ul>
+<li>Prim (普里姆算法): 从顶点出发</li>
+<li>Kruskal (克鲁斯卡尔算法): 从边出发</li>
+</ul>
+<blockquote>
+<p>网: 带权无向图<br>最小生成树: 在包含 n 个顶点的连通图中，找出只有 (n-1) 条边，包含所有 n 个顶点的连通子图，也就是所谓的极小连通子图</p>
+</blockquote>
+<p>普里姆 (Prim) 算法求最小生成树算法如如下:</p>
+<ol>
+<li>设 G = (V, E) 是联通网，T = (U, D) 是最小生成树，V, U 是顶点集合，E, D 是边的集合</li>
+<li>若从顶点 u 开始构造最小生成树，则从集合 V 中取出顶点 u 放入集合 U 中，标记顶点 u 被访问过了: visited[u] = 1</li>
+<li>若集合 U 中顶点 ui 与集合 V-U 中的顶点 vj 之间存在边，则寻找这些边中权值最小的边，但不能构成回路，将顶点 vj 加入集合 U 中，将边  (ui, vj) 加入集合 D 中，标记 visited[vj] = 1</li>
+<li>重复步骤 3，直到 U 与 V 相等，即所有顶点都被标记为访问过，此时 D 中有 n-1 条边</li>
+</ol>
+<blockquote>
+<p>不管从哪一个顶点开始构建最小生成树，最后得到的最小生成树的边的权值加起来都相等。</p>
+</blockquote>
+<p>下面图解 Prim 算法生成最小生成树的过程，其中:</p>
+<ul>
+<li>黑色节点表示未访问过节点</li>
+<li>黄色节点表示已访问过节点</li>
+<li>红色节点表示未访问过，但是将选择为访问的节点</li>
+<li>红色的边为最小生成树中的边</li>
+<li>灰色的边为不需要在判断的边，因为它的 2 个顶点都访问过了</li>
+<li>黄色的边，其有 1 个顶点被访问过了，另一个顶点未被访问</li>
+</ul>
+<img src="../img/java/graph-prim.png" style="zoom:50%">
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/graph-prim/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
   
     <!-- 生成目录 -->
 
@@ -921,79 +1015,6 @@
       
         <p class="article-more-link">
           <a  href="/java-elasticsearch/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-fe-async-validator" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/fe-async-validator/" class="article-date">
-  	<!-- <time datetime="2019-08-31T01:48:02.000Z" itemprop="datePublished">2019-08-31</time> -->
-    2019-08-31
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/fe-async-validator/">Async Validator</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p><a target="_blank" rel="noopener" href="https://qtdebug.com/fe-jquery-validate/">表单验证插件 jQuery Validation</a> 一文中介绍过表单验证的库 <strong>jQuery Validation</strong>，这里简单的介绍另外一个表单验证的库 <a target="_blank" rel="noopener" href="https://github.com/yiminghe/async-validator">async-validator</a> (iView 的表单验证也是使用了这个库)，了解基础使用后，请阅读官方文档深入学习。</p>
-<h2 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add async-validator</span><br></pre></td></tr></table></figure>
-
-<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 导入 async-validator</span></span><br><span class="line"><span class="keyword">import</span> Validator <span class="keyword">from</span> <span class="string">&#x27;async-validator&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 要验证的数据对象</span></span><br><span class="line"><span class="keyword">const</span> org = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 定义验证规则</span></span><br><span class="line"><span class="keyword">const</span> rules = &#123;</span><br><span class="line">    <span class="attr">name</span>: &#123; <span class="attr">type</span>: <span class="string">&#x27;string&#x27;</span>, <span class="attr">required</span>: <span class="literal">true</span>, <span class="attr">whitespace</span>: <span class="literal">true</span>, <span class="attr">message</span>: <span class="string">&#x27;机构名不能为空白字符&#x27;</span> &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 使用验证规则创建验证器</span></span><br><span class="line"><span class="keyword">const</span> validator = <span class="keyword">new</span> Validator(rules);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. 调用 validate 方法验证数据</span></span><br><span class="line">validator.validate(org).then(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 验证通过</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;success&#x27;</span>);</span><br><span class="line">&#125;).catch(<span class="function">(<span class="params">&#123; errors, fields &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 验证失败</span></span><br><span class="line">    <span class="built_in">console</span>.log(errors);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>注意: require 为 true 时表示需要验证，为 false 表示不进行验证，required 默认值为 false。
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/fe-async-validator/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>
