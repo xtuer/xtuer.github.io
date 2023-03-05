@@ -29,6 +29,9 @@
   <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
   <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
   <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+
+  <!-- mermaid.js 需要在 require.js 前面加载 -->
+  <script src='https://unpkg.com/mermaid@8.7.0/dist/mermaid.min.js'></script>
   <script src="/js/jquery.min.js"></script>
   <script src="/js/require.min.js"></script>
   <script src="/js/main.js"></script>
@@ -114,7 +117,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 11.76px;">Cas</a> <a href="/tags/DB/" style="font-size: 14.71px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.53px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 11.76px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.35px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.65px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.06px;">Misc</a> <a href="/tags/PHP/" style="font-size: 10.59px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 10.59px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.53px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.18px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 12.94px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.29px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.12px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 14.71px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 16.47px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 16.47px;">Util</a> <a href="/tags/Vue/" style="font-size: 15.88px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.18px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 11.67px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.78px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 10.56px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 10.56px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.11px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 16.67px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 16.67px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.11px;">zTree</a>
                     </div>
                     <script>
 
@@ -240,6 +243,82 @@
 </nav>
 
             <div class="body-wrap">
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-topology" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/topology/" class="article-date">
+  	<!-- <time datetime="2020-08-29T09:15:44.000Z" itemprop="datePublished">2020-08-29</time> -->
+    2020-08-29
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/topology/">拓扑排序在并行任务调度中的运用</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>如下图所示的一个任务设计:</p>
+<ul>
+<li>任务 1 和任务 2 可以同时执行，等他们都结束后才能执行任务 3</li>
+<li>任务 4 执行结束后可以同时执行任务 5 和任务 6</li>
+<li>任务 8 执行结束后则任务执行完成</li>
+</ul>
+<img src="../img/misc/topology.png" width="700">
+
+<p>如果用程序来实现这个任务的调度，触发任务的执行，应该怎么做呢？</p>
+<p>通过观察，这是一个有向无环图，要访问某个节点 (执行任务)，需要先访问它的所有前驱节点，而且每个节点只能访问一次，这是一个典型的可以使用图的拓扑排序解决的问题。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/" rel="tag">Misc</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/topology/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
   
     <!-- 生成目录 -->
 
@@ -911,82 +990,6 @@
 
 
   
-    <!-- 生成目录 -->
-
-
-<article id="post-graph-kruskal" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/graph-kruskal/" class="article-date">
-  	<!-- <time datetime="2020-02-23T03:49:35.000Z" itemprop="datePublished">2020-02-23</time> -->
-    2020-02-23
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/graph-kruskal/">图-最小生成树-Kruskal</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av54029771?p=168">最小生成树</a> (Minumum Cost Spanning Tree，简称 MST) 的 2 个经典算法: </p>
-<ul>
-<li>Prim (普里姆算法): 从顶点出发</li>
-<li>Kruskal (克鲁斯卡尔算法): 从边出发</li>
-</ul>
-<blockquote>
-<p>网: 带权无向图<br>最小生成树: 在包含 n 个顶点的连通图中，找出只有 (n-1) 条边，包含所有 n 个顶点的连通子图，也就是所谓的极小连通子图</p>
-</blockquote>
-<p>下面图解 Prim 算法生成最小生成树的过程:</p>
-<img src="../img/java/graph-kruskal.png" style="zoom:50%">
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/graph-kruskal/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/3/">⇠ Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/49/">49</a><a class="extend next" rel="next" href="/page/5/">Next ⇢</a>
@@ -1035,6 +1038,15 @@
 
 
  -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({
+		securityLevel: 'loose',
+		theme: 'dark',
+	});
+  }
+</script>
 
     </div>
 </body>

@@ -29,6 +29,9 @@
   <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
   <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
   <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+
+  <!-- mermaid.js 需要在 require.js 前面加载 -->
+  <script src='https://unpkg.com/mermaid@8.7.0/dist/mermaid.min.js'></script>
   <script src="/js/jquery.min.js"></script>
   <script src="/js/require.min.js"></script>
   <script src="/js/main.js"></script>
@@ -114,7 +117,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 11.76px;">Cas</a> <a href="/tags/DB/" style="font-size: 14.71px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.53px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 11.76px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.35px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.65px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.06px;">Misc</a> <a href="/tags/PHP/" style="font-size: 10.59px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 10.59px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.53px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.18px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 12.94px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.29px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.12px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 14.71px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 16.47px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 16.47px;">Util</a> <a href="/tags/Vue/" style="font-size: 15.88px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.18px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 11.67px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.78px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 10.56px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 10.56px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.11px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 16.67px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 16.67px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.11px;">zTree</a>
                     </div>
                     <script>
 
@@ -240,6 +243,90 @@
 </nav>
 
             <div class="body-wrap">
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-java-elasticsearch" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/java-elasticsearch/" class="article-date">
+  	<!-- <time datetime="2019-09-14T07:03:27.000Z" itemprop="datePublished">2019-09-14</time> -->
+    2019-09-14
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java-elasticsearch/">Elasticsearch 入门</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>ElasticSearch (下面简称 ES) 是一个基于 Lucene 的全文检索服务器，本文简单的介绍 ES 的安装、配置、启动、一些基本概念、中文分词以及使用 Java 编程访问 ES 等。</p>
+<h2 id="安装配置启动"><a href="#安装配置启动" class="headerlink" title="安装配置启动"></a>安装配置启动</h2><ol>
+<li><p>安装: 目前 spring-data-elasticsearch 最高支持 elasticsearch-6.2.2 (可参考最后的版本对应进行选择)，所以下载 <a target="_blank" rel="noopener" href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.2.2.zip">https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.2.2.zip</a>，解压即可</p>
+</li>
+<li><p>配置: 修改配置文件 <code>config/elasticsearch.yml</code> (只介绍单机环境的，中小型应用足够了):</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">cluster.name:</span> <span class="string">ebag</span>      <span class="comment"># 集群名称</span></span><br><span class="line"><span class="attr">node.name:</span> <span class="string">node-1</span>       <span class="comment"># 节点名称</span></span><br><span class="line"><span class="attr">network.host:</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>   <span class="comment"># 访问地址, 局域网需要访问</span></span><br><span class="line"><span class="attr">http.port:</span> <span class="number">9200</span>         <span class="comment"># 端口</span></span><br></pre></td></tr></table></figure></li>
+<li><p>启动: <code>elasticsearch -d</code>，注意: Linux 下不允许使用 root 用户启动，可以创建一个用户如 elasticsearch，然后使用此用户启动 ES:</p>
+<ul>
+<li><code>useradd elasticsearch</code></li>
+<li><code>passwd elasticsearch</code></li>
+<li><code>su elasticsearch</code></li>
+<li><code>elasticsearch -d</code> </li>
+</ul>
+</li>
+<li><p>浏览器中访问 <a target="_blank" rel="noopener" href="http://localhost:9200/">http://localhost:9200</a>，输出如下则说明 ES 启动成功:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;name&quot;</span>: <span class="string">&quot;node-1&quot;</span>,</span><br><span class="line">    <span class="string">&quot;cluster_name&quot;</span>: <span class="string">&quot;ebag&quot;</span>,</span><br><span class="line">    <span class="string">&quot;cluster_uuid&quot;</span>: <span class="string">&quot;Ogsv5NneTHyHmWDWM5hH5A&quot;</span>,</span><br><span class="line">    <span class="string">&quot;version&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;number&quot;</span>: <span class="string">&quot;6.2.2&quot;</span>,</span><br><span class="line">        <span class="string">&quot;build_hash&quot;</span>: <span class="string">&quot;10b1edd&quot;</span>,</span><br><span class="line">        <span class="string">&quot;build_date&quot;</span>: <span class="string">&quot;2018-02-16T19:01:30.685723Z&quot;</span>,</span><br><span class="line">        <span class="string">&quot;build_snapshot&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="string">&quot;lucene_version&quot;</span>: <span class="string">&quot;7.2.1&quot;</span>,</span><br><span class="line">        <span class="string">&quot;minimum_wire_compatibility_version&quot;</span>: <span class="string">&quot;5.6.0&quot;</span>,</span><br><span class="line">        <span class="string">&quot;minimum_index_compatibility_version&quot;</span>: <span class="string">&quot;5.0.0&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">&quot;tagline&quot;</span>: <span class="string">&quot;You Know, for Search&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>启动时如果发生错误，可参考 <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/312dfaa3a27b">https://www.jianshu.com/p/312dfaa3a27b</a>。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/java-elasticsearch/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
   
     <!-- 生成目录 -->
 
@@ -932,74 +1019,6 @@
 
 
   
-    <!-- 生成目录 -->
-
-
-<article id="post-misc-red-envelope" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/misc-red-envelope/" class="article-date">
-  	<!-- <time datetime="2019-06-16T06:47:24.000Z" itemprop="datePublished">2019-06-16</time> -->
-    2019-06-16
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/misc-red-envelope/">线段切割法生成红包</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.math.BigDecimal;</span><br><span class="line"><span class="keyword">import</span> java.math.RoundingMode;</span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * amount 元随机生成 n 个红包</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> amount 红包总额</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> count  红包数量</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 返回红包的 list</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;Double&gt; <span class="title">createRedEnvelopes</span><span class="params">(<span class="keyword">double</span> amount, <span class="keyword">int</span> count)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 使用线段切割法生成红包:</span></span><br><span class="line">        <span class="comment">// 1. 把 [0, amount] 随机分成 count 段 (共需要 count+1 个数, 上下边界为 0 和 amount)，每段长度为红包的金额</span></span><br><span class="line">        <span class="comment">//    在区间 (0, amount) 中生成 count-1 个不重复的随机数 (即段的位置)，保存到 segments</span></span><br><span class="line">        <span class="comment">// 2. 把 segments 小到大排序，使用了 TreeSet</span></span><br><span class="line">        <span class="comment">// 3. 遍历 segments，每个段的长度 segments[i]-segments[i-1] 则为红包的金额 (保留 2 位小数)</span></span><br><span class="line">        <span class="comment">// 4. 确保红包的总额为 amount</span></span><br><span class="line"></span><br><span class="line">        Set&lt;Double&gt; segments = <span class="keyword">new</span> TreeSet&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// [1] 把 [0, amount] 随机分成 count 段，每段长度为红包的金额，加上边际 0 和 amount，共需要 count 个数</span></span><br><span class="line">        <span class="comment">//    在区间 (0, amount) 中生成 count-1 个不重复的随机数 (即段的位置)，保存到 segments</span></span><br><span class="line">        <span class="comment">// [2] 把 segments 小到大排序，使用了 TreeSet</span></span><br><span class="line">        Random random = <span class="keyword">new</span> Random();</span><br><span class="line">        segments.add(<span class="number">0.0</span>);</span><br><span class="line">        segments.add(amount);</span><br><span class="line">        <span class="keyword">while</span> (segments.size() &lt; count-<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">double</span> t = random.nextDouble() * amount;</span><br><span class="line">            segments.add(t);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// [3] 遍历 segments，每个段的长度 segments[i]-segments[i-1] 则为红包的金额 (保留 2 位小数)</span></span><br><span class="line">        List&lt;Double&gt; redEnvelopes = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        Double[] temp = segments.toArray(<span class="keyword">new</span> Double[<span class="number">0</span>]);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; temp.length; ++i) &#123;</span><br><span class="line">            redEnvelopes.add(toFixed(temp[i]-temp[i-<span class="number">1</span>], <span class="number">2</span>));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// [4] 确保红包的总额为 amount</span></span><br><span class="line">        <span class="keyword">double</span> sum = redEnvelopes.stream().mapToDouble(a-&gt;a).sum();</span><br><span class="line">        redEnvelopes.set(<span class="number">0</span>, toFixed(redEnvelopes.get(<span class="number">0</span>) + amount - sum, <span class="number">2</span>));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> redEnvelopes;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 浮点数保留 scale 位小数位</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> value 浮点数</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> scale 小数位</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 返回小数位为 scale 位的浮点数</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="title">toFixed</span><span class="params">(<span class="keyword">double</span> value, <span class="keyword">int</span> scale)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> BigDecimal.valueOf(value).setScale(scale, RoundingMode.HALF_UP).doubleValue();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        List&lt;Double&gt; redEnvelopes = createRedEnvelopes(<span class="number">100</span>, <span class="number">19</span>);</span><br><span class="line">        System.out.println(redEnvelopes);</span><br><span class="line">        System.out.println(redEnvelopes.stream().mapToDouble(a-&gt;a).sum()); <span class="comment">// 红包总额</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>输出:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[2.44, 0.07, 0.4, 4.26, 3.7, 1.36, 22.94, 9.69, 5.37, 2.68, 1.78, 1.01, 3.58, 8.65, 11.68, 2.41, 17.98]</span><br><span class="line">100.0</span><br></pre></td></tr></table></figure>
-
-
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/" rel="tag">Misc</a></li></ul>
-	</div>
-
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/5/">⇠ Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/49/">49</a><a class="extend next" rel="next" href="/page/7/">Next ⇢</a>
@@ -1048,6 +1067,15 @@
 
 
  -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({
+		securityLevel: 'loose',
+		theme: 'dark',
+	});
+  }
+</script>
 
     </div>
 </body>

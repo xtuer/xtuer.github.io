@@ -29,6 +29,9 @@
   <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
   <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
   <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+
+  <!-- mermaid.js 需要在 require.js 前面加载 -->
+  <script src='https://unpkg.com/mermaid@8.7.0/dist/mermaid.min.js'></script>
   <script src="/js/jquery.min.js"></script>
   <script src="/js/require.min.js"></script>
   <script src="/js/main.js"></script>
@@ -114,7 +117,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 11.76px;">Cas</a> <a href="/tags/DB/" style="font-size: 14.71px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.53px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 11.76px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.35px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.65px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.06px;">Misc</a> <a href="/tags/PHP/" style="font-size: 10.59px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 10.59px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.53px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.18px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 12.94px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.29px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.12px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 14.71px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 16.47px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 16.47px;">Util</a> <a href="/tags/Vue/" style="font-size: 15.88px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.18px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 11.67px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.78px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 10.56px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 10.56px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.11px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 16.67px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 16.67px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.11px;">zTree</a>
                     </div>
                     <script>
 
@@ -240,6 +243,88 @@
 </nav>
 
             <div class="body-wrap">
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-qt-global-hotkey" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qt-global-hotkey/" class="article-date">
+  	<!-- <time datetime="2017-11-03T01:23:15.000Z" itemprop="datePublished">2017-11-03</time> -->
+    2017-11-03
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qt-global-hotkey/">Qt 全局快捷键</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <blockquote>
+<p>全局快捷键: 按下快捷键后，不管程序是否当前正在使用的程序，它都能得到此快捷键的事件通知，例如 Windows 里按下 <code>Ctrl + Shift + A</code> 就可以使用 QQ 截图一样。</p>
+</blockquote>
+<p>Qt SDK 没有自带设置全局快捷键的功能，需要自己实现，在 Github 上也有人开源了全局快捷键的库，例如 <a target="_blank" rel="noopener" href="https://github.com/xtuer/QHotkey">QHotKey</a>，可以直接在项目中使用。</p>
+<p>QHotkey 有很多特点，能够满足绝大多数的需求:</p>
+<ul>
+<li>Works on Windows, Mac and X11</li>
+<li>Easy to use, can use <code>QKeySequence</code> for easy shortcut input</li>
+<li>Supports almost all common keys (Depends on OS &amp; Keyboard-Layout)</li>
+<li>Allows direct input of Key/Modifier-Combinations</li>
+<li>Supports multiple QHotkey-instances for the same shortcut (with optimisations)</li>
+<li>Thread-Safe - Can be used on all threads (See section Thread safety)</li>
+<li>Allows usage of native keycodes and modifiers, if needed</li>
+</ul>
+<p>下面就写个 HelloWorld 级别的程序，定义全局快捷键 <code>Alt+P</code> 唤出程序:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QHotkey&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QApplication&gt;</span></span></span><br><span class="line"></span><br><span class="line">Widget::<span class="built_in">Widget</span>(QWidget *parent) : <span class="built_in">QWidget</span>(parent), <span class="built_in">ui</span>(<span class="keyword">new</span> Ui::Widget) &#123;</span><br><span class="line">    ui-&gt;<span class="built_in">setupUi</span>(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">    QHotkey *hotkey = <span class="keyword">new</span> <span class="built_in">QHotkey</span>(<span class="built_in">QKeySequence</span>(<span class="string">&quot;Alt+P&quot;</span>), <span class="literal">true</span>); <span class="comment">// Alt 和 P 之间不能有空格</span></span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;Is Registered: &quot;</span> &lt;&lt; hotkey-&gt;<span class="built_in">isRegistered</span>();</span><br><span class="line"></span><br><span class="line">    <span class="built_in">connect</span>(hotkey, &amp;QHotkey::activated, [<span class="keyword">this</span>]()&#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;<span class="built_in">show</span>();</span><br><span class="line">        <span class="keyword">this</span>-&gt;<span class="built_in">raise</span>();</span><br><span class="line">        <span class="keyword">this</span>-&gt;<span class="built_in">activateWindow</span>();</span><br><span class="line">        <span class="keyword">this</span>-&gt;<span class="built_in">raise</span>();</span><br><span class="line">        QApplication::<span class="built_in">setActiveWindow</span>(<span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">this</span>-&gt;<span class="built_in">raise</span>();</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/" rel="tag">Qt</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/qt-global-hotkey/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
   
     <!-- 生成目录 -->
 
@@ -902,81 +987,6 @@
 
 
   
-    <!-- 生成目录 -->
-
-
-<article id="post-fe-mqtt" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/fe-mqtt/" class="article-date">
-  	<!-- <time datetime="2017-09-27T08:54:14.000Z" itemprop="datePublished">2017-09-27</time> -->
-    2017-09-27
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/fe-mqtt/">HTML5 使用 MQTT</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>HTML5 中也能使用 MQTT：</p>
-<ol>
-<li><p>ActiveMQ 启用 MQTT，可参考 <a target="_blank" rel="noopener" href="http://qtdebug.com/misc-activemq/">http://qtdebug.com/misc-activemq/</a></p>
-</li>
-<li><p>启动 ActiveMQ: <code>activemq start</code></p>
-</li>
-<li><p>使用 MQTT 的 HTML 如下:</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Test Ws mqtt.js<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;./browserMqtt.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// 虽然使用的是 MQTT，但底层还是使用 WebSocket 实现的，所以这里的端口需要使用 ActiveMQ 里 WS 的端口 61614，而不是 MQTT 的端口 1883</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> client = mqtt.connect(<span class="string">&#x27;ws://127.0.0.1:61614&#x27;</span>); <span class="comment">// you add a ws:// url here</span></span></span><br><span class="line"><span class="javascript">        client.subscribe(<span class="string">&#x27;foo&#x27;</span>); <span class="comment">// 订阅 Topic</span></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        client.on(<span class="string">&#x27;message&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">topic, payload</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log([payload].join(<span class="string">&#x27;&#x27;</span>)); <span class="comment">// 提取消息需要使用 [].join()</span></span></span><br><span class="line"><span class="javascript">        &#125;)</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        client.publish(<span class="string">&#x27;foo&#x27;</span>, <span class="string">&#x27;Hello World!&#x27;</span>); <span class="comment">// 发送消息</span></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// 不停的发送消息进行测试</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">setInterval</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            client.publish(<span class="string">&#x27;foo&#x27;</span>,  <span class="string">&#x27;Time: &#x27;</span> + <span class="keyword">new</span> <span class="built_in">Date</span>().getTime());</span></span><br><span class="line"><span class="javascript">        &#125;, <span class="number">1000</span>);</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
-<li><p>写一个 Java 的 MQTT 发布和订阅的程序一起测试，可参考 <a target="_blank" rel="noopener" href="http://qtdebug.com/misc-mqtt/">http://qtdebug.com/misc-mqtt/</a></p>
-</li>
-</ol>
-<p>下载 <a href="/download/browserMqtt.js.zip">browserMqtt.js</a>，也可以<a target="_blank" rel="noopener" href="https://github.com/mqttjs/MQTT.js">自己编译</a>(新版本好像有问题，只能发消息，不能订阅消息)，详细文档请参考 <a target="_blank" rel="noopener" href="https://github.com/mqttjs/MQTT.js">https://github.com/mqttjs/MQTT.js</a></p>
-
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
-	</div>
-
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/13/">⇠ Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/49/">49</a><a class="extend next" rel="next" href="/page/15/">Next ⇢</a>
@@ -1025,6 +1035,15 @@
 
 
  -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({
+		securityLevel: 'loose',
+		theme: 'dark',
+	});
+  }
+</script>
 
     </div>
 </body>

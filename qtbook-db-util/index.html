@@ -32,6 +32,9 @@
   <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
   <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
   <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+
+  <!-- mermaid.js 需要在 require.js 前面加载 -->
+  <script src='https://unpkg.com/mermaid@8.7.0/dist/mermaid.min.js'></script>
   <script src="/js/jquery.min.js"></script>
   <script src="/js/require.min.js"></script>
   <script src="/js/main.js"></script>
@@ -117,7 +120,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 11.76px;">Cas</a> <a href="/tags/DB/" style="font-size: 14.71px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.53px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 11.76px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.35px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.65px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.06px;">Misc</a> <a href="/tags/PHP/" style="font-size: 10.59px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 10.59px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.53px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.18px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 12.94px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.29px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.12px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 14.71px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 16.47px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 16.47px;">Util</a> <a href="/tags/Vue/" style="font-size: 15.88px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.18px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 11.67px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.78px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 10.56px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 10.56px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.11px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 16.67px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 16.67px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.11px;">zTree</a>
                     </div>
                     <script>
 
@@ -378,7 +381,7 @@
 <td align="center">2</td>
 <td>Bob</td>
 <td>Passw0rd</td>
-<td><a href="mailto:&#98;&#x6f;&#98;&#x40;&#x67;&#109;&#x61;&#105;&#x6c;&#x2e;&#99;&#111;&#109;">&#98;&#x6f;&#98;&#x40;&#x67;&#109;&#x61;&#105;&#x6c;&#x2e;&#99;&#111;&#109;</a></td>
+<td><a href="mailto:&#x62;&#111;&#98;&#64;&#x67;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#x6f;&#x6d;">&#x62;&#111;&#98;&#64;&#x67;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#x6f;&#x6d;</a></td>
 <td>NULL</td>
 </tr>
 <tr>
@@ -400,7 +403,7 @@
 </li>
 <li><p>查找 Alice 的所有信息，如名字，密码，邮件等<br>QMap((“email”, QVariant(QString, “”) ) ( “id” ,  QVariant(int, 1) ) ( “mobile” ,  QVariant(QString, “”) ) ( “password” ,  QVariant(QString, “passw0rd”) ) ( “username” ,  QVariant(QString, “Alice”) ) )  </p>
 </li>
-<li><p>查找 Alice 和 Bob 的所有信息，如名字，密码，邮件等<br>(QMap((“email”, QVariant(QString, “”) ) ( “id” ,  QVariant(int, 1) ) ( “mobile” ,  QVariant(QString, “”) ) ( “password” ,  QVariant(QString, “passw0rd”) ) ( “username” ,  QVariant(QString, “Alice”) ) ) , QMap((“email”, QVariant(QString, “<a href="mailto:&#98;&#111;&#98;&#x40;&#x67;&#x6d;&#x61;&#x69;&#108;&#46;&#x63;&#111;&#x6d;">&#98;&#111;&#98;&#x40;&#x67;&#x6d;&#x61;&#x69;&#108;&#46;&#x63;&#111;&#x6d;</a>“) ) ( “id” ,  QVariant(int, 2) ) ( “mobile” ,  QVariant(QString, “”) ) ( “password” ,  QVariant(QString, “Passw0rd”) ) ( “username” ,  QVariant(QString, “Bob”) ) ) )  </p>
+<li><p>查找 Alice 和 Bob 的所有信息，如名字，密码，邮件等<br>(QMap((“email”, QVariant(QString, “”) ) ( “id” ,  QVariant(int, 1) ) ( “mobile” ,  QVariant(QString, “”) ) ( “password” ,  QVariant(QString, “passw0rd”) ) ( “username” ,  QVariant(QString, “Alice”) ) ) , QMap((“email”, QVariant(QString, “<a href="mailto:&#98;&#111;&#x62;&#64;&#103;&#x6d;&#x61;&#x69;&#108;&#46;&#99;&#x6f;&#x6d;">&#98;&#111;&#x62;&#64;&#103;&#x6d;&#x61;&#x69;&#108;&#46;&#99;&#x6f;&#x6d;</a>“) ) ( “id” ,  QVariant(int, 2) ) ( “mobile” ,  QVariant(QString, “”) ) ( “password” ,  QVariant(QString, “Passw0rd”) ) ( “username” ,  QVariant(QString, “Bob”) ) ) )  </p>
 </li>
 <li><p>查找 Alice 和 Bob 的密码<br>(“passw0rd”, “Passw0rd”)  </p>
 </li>
@@ -706,7 +709,7 @@
 
 <p><code>程序输出</code>：</p>
 <blockquote>
-<p>“加载 SQL 文件 resources/sql/user.sql”<br>“加载 SQL 文件 resources/sql/product.sql”<br>“Bob”<br>“ID: 2, Username: Bob, Password: Passw0rd, Email: <a href="mailto:&#x62;&#111;&#98;&#x40;&#103;&#109;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#x62;&#111;&#98;&#x40;&#103;&#109;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a>, Mobile: “<br>Update:  true<br>“ID: 1, Username: Alice, Password: passw0rd, Email: , Mobile: “<br>“ID: 2, Username: Bob, Password: Passw0rd, Email: <a href="mailto:&#x62;&#x6f;&#98;&#x40;&#103;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;">&#x62;&#x6f;&#98;&#x40;&#103;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;</a>, Mobile: “<br>“ID: 3, Username: Josh, Password: Pa88w0rd, Email: , Mobile: “  </p>
+<p>“加载 SQL 文件 resources/sql/user.sql”<br>“加载 SQL 文件 resources/sql/product.sql”<br>“Bob”<br>“ID: 2, Username: Bob, Password: Passw0rd, Email: <a href="mailto:&#x62;&#x6f;&#x62;&#64;&#x67;&#109;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#x6d;">&#x62;&#x6f;&#x62;&#64;&#x67;&#109;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#x6d;</a>, Mobile: “<br>Update:  true<br>“ID: 1, Username: Alice, Password: passw0rd, Email: , Mobile: “<br>“ID: 2, Username: Bob, Password: Passw0rd, Email: <a href="mailto:&#98;&#x6f;&#98;&#64;&#x67;&#x6d;&#97;&#105;&#108;&#x2e;&#x63;&#111;&#109;">&#98;&#x6f;&#98;&#64;&#x67;&#x6d;&#97;&#105;&#108;&#x2e;&#x63;&#111;&#109;</a>, Mobile: “<br>“ID: 3, Username: Josh, Password: Pa88w0rd, Email: , Mobile: “  </p>
 </blockquote>
 <h2 id="8-思考"><a href="#8-思考" class="headerlink" title="8. 思考"></a>8. 思考</h2><ol>
 <li>上面的例子中，映射成对象的时候，表 user 对应类 User 的对象。想一下，查询到的结果能不能不只是映射到简单成员变量？如果成员变量是另一个类的对象时怎么做？</li>
@@ -827,6 +830,15 @@
 
 
  -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({
+		securityLevel: 'loose',
+		theme: 'dark',
+	});
+  }
+</script>
 
     </div>
 </body>

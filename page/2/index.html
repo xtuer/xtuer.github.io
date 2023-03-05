@@ -29,6 +29,9 @@
   <!-- <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
   <!-- <script src="//cdn.bootcss.com/require.js/2.3.6/require.min.js"></script> -->
   <link href="/css/fonts/font-awesome.min.css" rel="stylesheet">
+
+  <!-- mermaid.js 需要在 require.js 前面加载 -->
+  <script src='https://unpkg.com/mermaid@8.7.0/dist/mermaid.min.js'></script>
   <script src="/js/jquery.min.js"></script>
   <script src="/js/require.min.js"></script>
   <script src="/js/main.js"></script>
@@ -114,7 +117,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 11.76px;">Cas</a> <a href="/tags/DB/" style="font-size: 14.71px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.53px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 11.76px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.35px;">Index</a> <a href="/tags/Java/" style="font-size: 19.41px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.65px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.06px;">Misc</a> <a href="/tags/PHP/" style="font-size: 10.59px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.24px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.82px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 10.59px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.53px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.18px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 12.94px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.29px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.12px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 14.71px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 16.47px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 16.47px;">Util</a> <a href="/tags/Vue/" style="font-size: 15.88px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.18px;">zTree</a>
+						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cas/" style="font-size: 11.67px;">Cas</a> <a href="/tags/DB/" style="font-size: 15px;">DB</a> <a href="/tags/FE/" style="font-size: 20px;">FE</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Gradle/" style="font-size: 13.89px;">Gradle</a> <a href="/tags/Hexo/" style="font-size: 12.22px;">Hexo</a> <a href="/tags/Index/" style="font-size: 12.78px;">Index</a> <a href="/tags/Java/" style="font-size: 19.44px;">Java</a> <a href="/tags/Mac/" style="font-size: 17.78px;">Mac</a> <a href="/tags/Misc/" style="font-size: 17.22px;">Misc</a> <a href="/tags/PHP/" style="font-size: 10.56px;">PHP</a> <a href="/tags/Qt/" style="font-size: 18.33px;">Qt</a> <a href="/tags/QtBook/" style="font-size: 18.89px;">QtBook</a> <a href="/tags/Redis/" style="font-size: 10.56px;">Redis</a> <a href="/tags/SemanticUi/" style="font-size: 13.89px;">SemanticUi</a> <a href="/tags/Spring/" style="font-size: 11.11px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 13.33px;">SpringBoot</a> <a href="/tags/SpringCore/" style="font-size: 15.56px;">SpringCore</a> <a href="/tags/SpringMVC/" style="font-size: 14.44px;">SpringMVC</a> <a href="/tags/SpringSecurity/" style="font-size: 15px;">SpringSecurity</a> <a href="/tags/SpringWeb/" style="font-size: 16.67px;">SpringWeb</a> <a href="/tags/Util/" style="font-size: 16.67px;">Util</a> <a href="/tags/Vue/" style="font-size: 16.11px;">Vue</a> <a href="/tags/zTree/" style="font-size: 11.11px;">zTree</a>
                     </div>
                     <script>
 
@@ -240,6 +243,105 @@
 </nav>
 
             <div class="body-wrap">
+  
+    <!-- 生成目录 -->
+
+
+<article id="post-mac-vpn" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/mac-vpn/" class="article-date">
+  	<!-- <time datetime="2022-02-08T12:44:03.000Z" itemprop="datePublished">2022-02-08</time> -->
+    2022-02-08
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/mac-vpn/">OSX Monterey 使用 VPN</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>在 Monterey 系统中，<strong>L2TP/IPSec 的 VPN 能够连接上 VPN 服务器，也能 ping 通内网 IP，但却不能访问网络</strong>，据说是苹果修改了 VPN 的加密方式导致的，可参考 <a target="_blank" rel="noopener" href="https://www.reddit.com/r/MacOSBeta/comments/ih22h9/vpn_l2tp_over_ipsec_stopped_working_after/">VPN (L2TP over IPSec) stopped working after updating to Mac OS BigSur, does anyone have the same problem?</a> 的讨论，在 <a target="_blank" rel="noopener" href="https://serverfault.com/questions/1045012/configuring-l2tp-vpn-to-use-with-ios-14-and-macos-big-sur">Configuring L2TP VPN to use with iOS 14 and macOS Big Sur</a> 中似乎给出了解决办法，但是需要修改 VPN 服务器端的配置，具体没有测试过，不知道行不行。</p>
+<p>在 Monterey 中使用 L2TP/IPSec 的 VPN 的办法可以使用下面的这些方式:</p>
+<ul>
+<li>尝试使用上面的解决办法:<ul>
+<li>需要修改 VPN 服务器 (不知道对其他系统的 VPN 客户端有无影响，且需要管理员去处理)</li>
+<li>没测试过，不一定能行</li>
+</ul>
+</li>
+<li>服务器端开通 OpenVPN，Monterey 中使用 OpenVPN 进行连接<ul>
+<li>需要修改 VPN 服务器</li>
+<li>需要公网 IP</li>
+</ul>
+</li>
+<li>安装虚拟机 + Windows，在其中使用 VPN<ul>
+<li>费钱 (虚拟机要钱，Windows 系统要钱)</li>
+<li>消耗系统资源</li>
+</ul>
+</li>
+<li>购买一个便宜的 Windows Server 云主机 (3 年 200 块的)，在其中使用 VPN <ul>
+<li>费钱，但可以不多</li>
+<li>有点技术难度</li>
+</ul>
+</li>
+<li>有 iPhone 的话可使用 iPhone 的 USB 网络共享<ul>
+<li>iPhone 开启 USB 网络共享</li>
+<li>iPhone 连上无线</li>
+<li>Mac 关闭无线</li>
+<li>Mac 与 iPhone 用 USB 数据线连接起来</li>
+<li>Mac 登录 L2TP 的 VPN</li>
+</ul>
+</li>
+</ul>
+<p>现在不少云服务器商提供了很多便宜的云主机活动，例如良心云目前的 <strong>2 核 4G 8M 网络</strong>的云主机 3 年才 222 块，于是买了一个安装 Windows Server 2016，下面介绍在 Windows Server 里面使用 VPN 遇到的问题解决办法 (定位到路由问题花了好几天)。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/mac-vpn/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
   
     <!-- 生成目录 -->
 
@@ -952,83 +1054,6 @@
 
 
   
-    <!-- 生成目录 -->
-
-
-<article id="post-go-yaml" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/go-yaml/" class="article-date">
-  	<!-- <time datetime="2021-03-15T03:40:13.000Z" itemprop="datePublished">2021-03-15</time> -->
-    2021-03-15
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/go-yaml/">Go 使用 Yaml</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>使用 <a target="_blank" rel="noopener" href="https://github.com/kubernetes-sigs/yaml">kubernetes-sigs/yaml</a> 来把对象序列化为 yaml 字符串，把 yaml 字符串反序列化为 go 对象。</p>
-<h2 id="简单对象"><a href="#简单对象" class="headerlink" title="简单对象"></a>简单对象</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;sigs.k8s.io/yaml&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Student <span class="keyword">struct</span> &#123;</span><br><span class="line">    Id   <span class="keyword">int</span>    <span class="string">`json:&quot;id&quot;`</span> <span class="comment">// 可以是 `yaml:&quot;id&quot;`，但大多数第三方 struct 使用 json，所以这里就不使用 yaml 了</span></span><br><span class="line">    Name <span class="keyword">string</span> <span class="string">`json:&quot;name`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// [1] 对象序列化为 yaml 字符串</span></span><br><span class="line">    student1 := Student&#123;<span class="number">1</span>, <span class="string">&quot;Alice&quot;</span>&#125;</span><br><span class="line">    yamlBytes, _ := yaml.Marshal(student1)</span><br><span class="line">    yamlString := <span class="keyword">string</span>(yamlBytes)</span><br><span class="line">    fmt.Println(yamlString)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// [2] yaml 字符串反序列化为对象</span></span><br><span class="line">    student2 := Student&#123;&#125;</span><br><span class="line">    err := yaml.Unmarshal([]<span class="keyword">byte</span>(yamlString), &amp;student2)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// yaml 有错误时报错</span></span><br><span class="line">    <span class="keyword">if</span> (err != <span class="literal">nil</span>) &#123;</span><br><span class="line">        fmt.Println(err)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    fmt.Println(student2)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>下载 yaml:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">go mod init</span><br><span class="line">go mod download</span><br></pre></td></tr></table></figure>
-
-<p>编译执行:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go run test.go</span><br></pre></td></tr></table></figure>
-
-<p>运行输出:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">id: 1</span><br><span class="line">name: Alice</span><br><span class="line"></span><br><span class="line">&#123;1 Alice&#125;</span><br></pre></td></tr></table></figure>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Go/" rel="tag">Go</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/go-yaml/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">⇠ Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/49/">49</a><a class="extend next" rel="next" href="/page/3/">Next ⇢</a>
@@ -1077,6 +1102,15 @@
 
 
  -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({
+		securityLevel: 'loose',
+		theme: 'dark',
+	});
+  }
+</script>
 
     </div>
 </body>
