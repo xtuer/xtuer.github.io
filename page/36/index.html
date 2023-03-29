@@ -247,6 +247,96 @@
     <!-- 生成目录 -->
 
 
+<article id="post-qt-notification-center" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qt-notification-center/" class="article-date">
+  	<!-- <time datetime="2016-11-12T06:51:23.000Z" itemprop="datePublished">2016-11-12</time> -->
+    2016-11-12
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qt-notification-center/">观察者模式的 NotificationCenter</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Qt 的信号槽在解耦方面做的非常好，sender 和 receiver 不需要互相知道，但是在使用 QObject::connect() 建立信号槽连接的时候是必须要同时知道 sender 和 receiver 的，这在绝大多数时候都是非常好用的，但是如果只想发送通知后，对此通知感兴趣的监听者就能自动的收到通知，同时还不用 QObject::connect() 建立信号槽连接，就可以使用下面介绍的 <code>NotificationCenter</code> 来实现。此外，NotificationCenter 内部已经处理好了跨线程通讯，不需要再考虑不同线程间函数调用的头疼问题。</p>
+<p><strong>NotificationCenter 的使用:</strong></p>
+<ul>
+<li><p>通知的监听器，不需要使用继承，只需要实现函数 <code>notified</code>，当有通知的时候，<code>notified</code> 函数会被自动调用</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Q_INVOKABLE <span class="keyword">void</span> <span class="title">notified</span><span class="params">(<span class="keyword">int</span> notificationId, <span class="keyword">const</span> QByteArray &amp;data)</span></span>;</span><br></pre></td></tr></table></figure></li>
+<li><p>监听某个通知，通知的标志是一个整数，可以根据业务随意定义</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Singleton&lt;NotificationCenter&gt;::<span class="built_in">getInstance</span>().<span class="built_in">addObserver</span>(<span class="number">1</span>, &amp;foo);</span><br></pre></td></tr></table></figure></li>
+<li><p>发送通知, 只需要和 NotificationCenter 交互就能发送和接收通知</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Singleton&lt;NotificationCenter&gt;::<span class="built_in">getInstance</span>().<span class="built_in">notify</span>(<span class="number">1</span>, <span class="built_in">QString</span>(<span class="string">&quot;Two&quot;</span>).<span class="built_in">toUtf8</span>()); <span class="comment">// 同线程发送消息</span></span><br><span class="line"><span class="built_in">NOTIFY_CROSS_THREAD</span>(<span class="number">2</span>, <span class="built_in">QString</span>(<span class="string">&quot;Two&quot;</span>).<span class="built_in">toUtf8</span>()); <span class="comment">// 跨线程发送消息，也可同线程</span></span><br></pre></td></tr></table></figure></li>
+<li><p>删除监听器，不再需要的时候，从 NotificationCenter 删除监听器，以免造成野指针异常</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Singleton&lt;NotificationCenter&gt;::<span class="built_in">getInstance</span>().<span class="built_in">removeObserver</span>(&amp;foo);</span><br><span class="line">Singleton&lt;NotificationCenter&gt;::<span class="built_in">getInstance</span>().<span class="built_in">removeObserver</span>(<span class="number">1</span>, &amp;foo);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>NotificationCenter 什么时候使用? 以 QTcpSocket 通讯为例:</strong><br>使用信号槽和 NotificationCenter 都可以完成任务，但是 NotificationCenter 也是个不错的选择</p>
+<ul>
+<li>如果每一种消息都对应一个信号，则一般都会对应一个槽函数(对创建太多函数总有莫名的恐惧感)</li>
+<li>消息的种类会很多，就会需要太多的信号槽</li>
+<li>需要使用 connect() 給信号槽对应的创建连接</li>
+<li>如果要增加新的消息类型时，则要创建它的槽函数和建立连接</li>
+<li>也许你会说，所有的消息都用同一个信号和槽函数，因为可以在发射时传入消息的种类，在槽函数里也是能区别消息的。是的，这确实是一个不错的方法，这种做法和我们的 NotificationCenter 其实就差不多一样了，但是有点区别的是它会把所有的消息都发送到槽函数里，不需要的也会发送，例如有 100 种消息，即使只对其中 2 种消息感兴趣，但是它也会收到另外的 98 种消息。 而使用 NotificationCenter 时只会收到你感兴趣的 2 种消息。</li>
+<li>还有一点，NotificationCenter 中通知的监听器注册只需要关心通知的 ID，这个 ID 是根据业务需求定义的一个整数，不需要知道通知的发送者，但是建立信号槽连接时 sender 和 receiver 都需要知道，这也是相对方便的一点。</li>
+</ul>
+<blockquote>
+<p>文中的 <code>监听器</code>，<code>观察者</code> 指的是同一个意思；<code>消息</code>，<code>通知</code> 也是同一个意思。</p>
+</blockquote>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/" rel="tag">Qt</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/qt-notification-center/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-mac-forklift" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -870,74 +960,6 @@
 
       
 
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-fe-vue-arttemplate" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/fe-vue-arttemplate/" class="article-date">
-  	<!-- <time datetime="2016-11-07T12:11:05.000Z" itemprop="datePublished">2016-11-07</time> -->
-    2016-11-07
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/fe-vue-arttemplate/">Vue-ArtTemplate-jQuery 一起使用</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>Vue 和 ArtTemplate 绑定数据的格式都是一样的 <code>&#123; &#123; &#125; &#125;</code>，但是 Vue 有个缺点，例如使用类选择器选择 element 时，只有第一个匹配的 element 会生效，ArtTemplate 能做到，当然 ArtTemplate 不是 MVVM 模式的，所以 Vue 的优点也是 ArtTemplate 不能比的，所以把它们一起结合起来灵活使用看起来不错。</p>
-<p>不过，Vue 连 IE 8 都不兼容，移动端还好，PC 端的很多业务还是不能用 Vue 的，做做管理端的功能还行。</p>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/fe-vue-arttemplate/#more">阅读全文</a>
-        </p>
       
       <div class="clearfix"></div>
     </div>

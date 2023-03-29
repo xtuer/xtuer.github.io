@@ -247,6 +247,77 @@
     <!-- 生成目录 -->
 
 
+<article id="post-fe-smooth-curve" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/fe-smooth-curve/" class="article-date">
+  	<!-- <time datetime="2017-06-24T09:13:41.000Z" itemprop="datePublished">2017-06-24</time> -->
+    2017-06-24
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/fe-smooth-curve/">JS 绘制平滑曲线</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>本文介绍在 JS 中绘制平滑曲线的实现，调用下面的函数 drawSmoothCurve() 即可。默认曲线的 2 个顶点之间被分割为 16 个小线段来拟合曲线，下图展示了 tension 为 0.3，0.5，0.7 时的曲线效果，tension 并不是越大越好，默认的 0.5 大多数时候就不错。</p>
+<p><img src="../img/fe/fe-smooth-curve.png"></p>
+<blockquote>
+<p>算法来自于 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/7054272/how-to-draw-smooth-curve-through-n-points-using-javascript-html5-canvas">How to draw smooth curve through N points using javascript HTML5 canvas?</a></p>
+</blockquote>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/fe-smooth-curve/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-fe-canvas-pixels" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -886,80 +957,6 @@
       
         <p class="article-more-link">
           <a  href="/office-to-pdf-html/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-java-response-file" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/java-response-file/" class="article-date">
-  	<!-- <time datetime="2017-05-22T03:11:41.000Z" itemprop="datePublished">2017-05-22</time> -->
-    2017-05-22
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/java-response-file/">HttpServletResponse 下载文件</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>实现点击按钮下载文件以及点击 a 标签下载文件，注意一下几个问题:</p>
-<ul>
-<li><p>浏览器中点击链接下载文件没啥好说的，但是点击按钮怎么实现下载呢？</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">调用 window.open(url) 就可以了</span><br></pre></td></tr></table></figure></li>
-<li><p>服务器端需要设置响应头表明是以流的形式下载文件</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">response.setContentType(<span class="string">&quot;application/octet-stream&quot;</span>);</span><br></pre></td></tr></table></figure></li>
-<li><p>文件名有中文时需要处理乱码问题</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String filename = <span class="keyword">new</span> String(paper.getOriginalName().getBytes(<span class="string">&quot;UTF-8&quot;</span>), <span class="string">&quot;ISO8859_1&quot;</span>); <span class="comment">// 解决乱码问题</span></span><br><span class="line">response.setHeader(<span class="string">&quot;Content-Disposition&quot;</span>, <span class="string">&quot;attachment;filename=&quot;</span> + filename);</span><br></pre></td></tr></table></figure>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Util/" rel="tag">Util</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/java-response-file/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

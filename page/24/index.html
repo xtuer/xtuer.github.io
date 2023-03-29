@@ -247,6 +247,96 @@
     <!-- 生成目录 -->
 
 
+<article id="post-spring-core-multi-config" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/spring-core-multi-config/" class="article-date">
+  	<!-- <time datetime="2017-04-02T03:20:52.000Z" itemprop="datePublished">2017-04-02</time> -->
+    2017-04-02
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/spring-core-multi-config/">多个配置文件</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>把 Spring 的 Bean Configuration File 根据模块分散到不同的文件里，便于管理，然后使用 <code>&lt;import&gt;</code> 把它们组织在一起。例如：</p>
+<table>
+<thead>
+<tr>
+<th>Bean</th>
+<th>Bean Configuration File</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>user</td>
+<td>spring-beans.xml</td>
+</tr>
+<tr>
+<td>address</td>
+<td>spring-beans-1.xml</td>
+</tr>
+<tr>
+<td>customer</td>
+<td>spring-beans-2.xml</td>
+</tr>
+</tbody></table>
+<p>在 spring-beans.xml 里 import spring-beans-1.xml and spring-beans-2.xml，然后 Spring Context 加载 spring-beans.xml。</p>
+<blockquote>
+<p>Bean 在配置文件中定义的顺序任意，其实最后就是把所有的配置文件和成一个大的配置文件，然后在解析创建对象，所以就像在单一的配置文件里定义 Bean 一样顺序不重要。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringCore/" rel="tag">SpringCore</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/spring-core-multi-config/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-spring-core-property-editor" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -863,80 +953,6 @@
         <p class="article-more-link">
           <a  href="/spring-core-id-name-alias/#more">阅读全文</a>
         </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-spring-core-ioc-introduction" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/spring-core-ioc-introduction/" class="article-date">
-  	<!-- <time datetime="2017-04-01T07:14:53.000Z" itemprop="datePublished">2017-04-01</time> -->
-    2017-04-01
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/spring-core-ioc-introduction/">Spring IoC Introduction</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <h2 id="IoC-是什么？"><a href="#IoC-是什么？" class="headerlink" title="IoC 是什么？"></a>IoC 是什么？</h2><p>控制反转（Inversion of Control，英文缩写为 IoC）是一个重要的面向对象编程的法则来削减计算机程序的耦合问题，也是轻量级的 Spring 框架的核心。 控制反转一般分为两种类型，<code>依赖注入</code>（Dependency Injection，简称 DI）和<code>依赖查找</code>（Dependency Lookup）。依赖注入应用比较广泛。</p>
-<p>应用控制反转，对象在被创建的时候，由一个调控系统内所有对象的外界实体(<code>Spring IoC Container</code>)将其所依赖的对象的引用传递给它。也可以说，依赖被注入到对象中。所以，控制反转是，关于一个对象如何获取他所依赖的对象的引用，这个责任的反转。</p>
-<p>对象的生成不再是在代码里用 new 创建的，而是在 XML 里定义对象之间的依赖关系，然后由 Spring 来生成对象。</p>
-<h2 id="IoC-最大的好处是什么？"><a href="#IoC-最大的好处是什么？" class="headerlink" title="IoC 最大的好处是什么？"></a>IoC 最大的好处是什么？</h2><ul>
-<li>因为把对象生成放在了 XML 里定义，所以当我们需要换一个实现子类将会变成很简单（一般这样的对象都是实现于某种接口的），只要修改 XML 就可以了，这样我们甚至可以实现对象的热插拔（有点像 USB 接口和 SCSI 硬盘了）。</li>
-</ul>
-<h2 id="IoC-最大的缺点是什么？"><a href="#IoC-最大的缺点是什么？" class="headerlink" title="IoC 最大的缺点是什么？"></a>IoC 最大的缺点是什么？</h2><ul>
-<li>生成一个对象的步骤变复杂了（事实上操作上还是挺简单的），对于不习惯这种方式的人，会觉得有些别扭和不直观。</li>
-<li>对象生成因为是使用反射编程，在效率上有些损耗。但相对于 IoC 提高的维护性和灵活性来说，这点损耗是微不足道的，除非某对象的生成对效率要求特别高。</li>
-<li>缺少 IDE 重构操作的支持，如果在 Eclipse 要对类改名，那么你还需要去XML文件里手工去改了，这似乎是所有 XML 方式的缺憾所在。</li>
-</ul>
-
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringCore/" rel="tag">SpringCore</a></li></ul>
-	</div>
-
-
-      
-
       
       <div class="clearfix"></div>
     </div>

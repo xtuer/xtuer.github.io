@@ -247,6 +247,80 @@
     <!-- 生成目录 -->
 
 
+<article id="post-spring-web-server-validate" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/spring-web-server-validate/" class="article-date">
+  	<!-- <time datetime="2017-03-18T08:09:28.000Z" itemprop="datePublished">2017-03-18</time> -->
+    2017-03-18
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/spring-web-server-validate/">服务器端参数验证</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>服务器端接收到前端传递过来的参数后，很多情况下如果不做校验就直接使用是非常危险的，例如造成 XSS 攻击，把无效数据保存到数据库导致业务出错等。传统的参数校验方式一般是取得每一个参数，然后一个一个的使用 if else 和规则比较进行校验，这样就会有大量的、简单重复的校验代码散布在代码中，不利于维护和阅读。这里介绍使用注解，根据 <strong>JSR-303 Validation</strong> 进行参数验证。</p>
+<p>当我们在 SpringMVC 中需要使用到 JSR-303 的时候就需要我们提供一个对 JSR-303 规范的实现，<strong>Hibernate Validator</strong> 实现了这一规范，下面将以它作为 JSR-303 的实现来讲解 SpringMVC 对 JSR-303 的支持。</p>
+<p><strong>使用方法:</strong></p>
+<ul>
+<li>Bean 中使用 @NotNull 等定义验证规则</li>
+<li>Controller 中使用 @Valid 进行参数校验</li>
+<li>如有参数错误，则返回错误信息给客户端</li>
+</ul>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringWeb/" rel="tag">SpringWeb</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/spring-web-server-validate/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-qtbook-misc-qvariant" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -883,73 +957,6 @@
       
         <p class="article-more-link">
           <a  href="/spring-security-8-auto-login/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-qtbook-misc-regex" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/qtbook-misc-regex/" class="article-date">
-  	<!-- <time datetime="2017-02-24T07:28:14.000Z" itemprop="datePublished">2017-02-24</time> -->
-    2017-02-24
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/qtbook-misc-regex/">实用正则表达式</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>Qt 里正则表达式使用 <strong>QRegularExpression</strong>，可以使用正则表达式查找字符串，QString 中可以使用正则表达式 <strong>QRegularExpression</strong> 进行字符串替换，拆分等。
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/qtbook-misc-regex/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

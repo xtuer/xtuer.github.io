@@ -247,6 +247,77 @@
     <!-- 生成目录 -->
 
 
+<article id="post-qt-tips" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qt-tips/" class="article-date">
+  	<!-- <time datetime="2016-12-14T09:37:18.000Z" itemprop="datePublished">2016-12-14</time> -->
+    2016-12-14
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qt-tips/">Qt Tips</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <h2 id="无边框对话框不在任务栏显示图标"><a href="#无边框对话框不在任务栏显示图标" class="headerlink" title="无边框对话框不在任务栏显示图标"></a>无边框对话框不在任务栏显示图标</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">QDialog *dlg = <span class="keyword">new</span> <span class="built_in">QDialog</span>(<span class="literal">NULL</span>, Qt::Dialog | Qt::Popup | Qt::FramelessWindowHint);</span><br><span class="line">dlg-&gt;<span class="built_in">show</span>();</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Qt::Popup 是个小技巧，只有先点击对话框后才能点击对话框后面的 widget</p>
+</blockquote>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/" rel="tag">Qt</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/qt-tips/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-qtbook-paint-realtime-curve-qchart" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -863,74 +934,6 @@
 
       
 
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-qtbook-paint-ant" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/qtbook-paint-ant/" class="article-date">
-  	<!-- <time datetime="2016-12-08T14:58:10.000Z" itemprop="datePublished">2016-12-08</time> -->
-    2016-12-08
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/qtbook-paint-ant/">蚂蚁线</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>蚂蚁线是一个典型的 QPen 自定义 style 的应用，这里将介绍怎么使用 Qt 实现蚂蚁线。</p>
-<p>QPen 已经提供了一些默认的 style，如 SolidLine, DashLine 等，但是满足不了所有的需求，所以还提供了自定义 style 的接口 <code>QPen::setDashPattern()</code>，其参数是一个 QVector，vector 中下标为偶数的位置存储 dash 的长度，奇数位置存储空白的长度，如 vector 的数据为 [3, 4, 9, 4]（偶数个元素）表示：画线时以 3 个 dash 开始，接着是4 个空白，接下来是 9 个 dash，4 个空白，此时 vector 的元素已经用完，则从头开始使用 vector 的元素，接着画 3 个 dash，4 个空白，9 个 dash，4 个空白，依此类推。
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/qtbook-paint-ant/#more">阅读全文</a>
-        </p>
       
       <div class="clearfix"></div>
     </div>

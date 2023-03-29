@@ -247,6 +247,74 @@
     <!-- 生成目录 -->
 
 
+<article id="post-fe-requirejs-non-amd" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/fe-requirejs-non-amd/" class="article-date">
+  	<!-- <time datetime="2017-04-06T11:25:26.000Z" itemprop="datePublished">2017-04-06</time> -->
+    2017-04-06
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/fe-requirejs-non-amd/">RequireJS 加载非 AMD 的 JS</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>RequireJS 加载的 JS 要求是 AMD 规范的，但是非 AMD 规范的 JS 文件也能够加载，下面就以 Util.js 中定义了类 Rect，Circle 和普通函数 greeting() 为例，演示 RequireJS 对于非 AMD 规范的 JS 的配置，加载以及使用。</p>
+<p>可以看到，使用 RequireJS 加载的 JS 中的类和函数，与使用 <code>&lt;script src=&quot;/js/Util.js&quot;&gt;</code> 加载时的使用方式没有区别，如果要以 AMD 的方式使用非 AMD 的 JS，可以参考 <a target="_blank" rel="noopener" href="http://www.bubuko.com/infodetail-671521.html">http://www.bubuko.com/infodetail-671521.html</a>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/fe-requirejs-non-amd/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-fe-requirejs" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -854,96 +922,6 @@
       
         <p class="article-more-link">
           <a  href="/spring-core-property-placeholder/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-spring-core-multi-config" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/spring-core-multi-config/" class="article-date">
-  	<!-- <time datetime="2017-04-02T03:20:52.000Z" itemprop="datePublished">2017-04-02</time> -->
-    2017-04-02
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/spring-core-multi-config/">多个配置文件</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>把 Spring 的 Bean Configuration File 根据模块分散到不同的文件里，便于管理，然后使用 <code>&lt;import&gt;</code> 把它们组织在一起。例如：</p>
-<table>
-<thead>
-<tr>
-<th>Bean</th>
-<th>Bean Configuration File</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>user</td>
-<td>spring-beans.xml</td>
-</tr>
-<tr>
-<td>address</td>
-<td>spring-beans-1.xml</td>
-</tr>
-<tr>
-<td>customer</td>
-<td>spring-beans-2.xml</td>
-</tr>
-</tbody></table>
-<p>在 spring-beans.xml 里 import spring-beans-1.xml and spring-beans-2.xml，然后 Spring Context 加载 spring-beans.xml。</p>
-<blockquote>
-<p>Bean 在配置文件中定义的顺序任意，其实最后就是把所有的配置文件和成一个大的配置文件，然后在解析创建对象，所以就像在单一的配置文件里定义 Bean 一样顺序不重要。
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringCore/" rel="tag">SpringCore</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/spring-core-multi-config/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

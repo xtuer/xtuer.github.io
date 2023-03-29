@@ -247,6 +247,80 @@
     <!-- 生成目录 -->
 
 
+<article id="post-qtbook-custom-widget-tree-view" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-custom-widget-tree-view/" class="article-date">
+  	<!-- <time datetime="2018-04-24T13:41:39.000Z" itemprop="datePublished">2018-04-24</time> -->
+    2018-04-24
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qtbook-custom-widget-tree-view/">QTreeView 小集</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>树形控件是非常常用的，例如组织结构、目录树、省市县的地区结构等都是典型的树形结构，Qt 里可以使用 QTreeView 和 QTreeWidget 来展示树形结构，这里我们只介绍 QTreeView 的使用，QTreeView 本身只用于树的显示，树的数据由 QStandardItemModel 来存储。</p>
+<h2 id="创建单列树"><a href="#创建单列树" class="headerlink" title="创建单列树"></a>创建单列树</h2><p>创建单列树的节点分两种情况：</p>
+<ul>
+<li>创建第一级节点调用函数 <code>QStandardItemModel::appendRow(QStandardItem *item)</code></li>
+<li>创建第二级、第三级等非第一级节点调用函数 <code>QStandardItem::(QStandardItem *item)</code></li>
+</ul>
+<p>下面的例子创建省市县的树形结构展示如何创建只有一列的树，为了更好的从变量名上看出地区的关系，使用数字和层级的方式进行命名，程序运行结果如下：</p>
+<p><img src="../img/qtbook/custom-widget/region-1.png">
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/qtbook-custom-widget-tree-view/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-qt-png-iccp-warning" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -889,80 +963,6 @@
       
         <p class="article-more-link">
           <a  href="/qtbook-custom-widget-layout-tips/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-qtbook-custom-widget-top-window" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/qtbook-custom-widget-top-window/" class="article-date">
-  	<!-- <time datetime="2018-02-17T12:31:20.000Z" itemprop="datePublished">2018-02-17</time> -->
-    2018-02-17
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/qtbook-custom-widget-top-window/">自定义标题栏无边框阴影窗口</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>Qt 的默认窗口使用系统风格，不能修改标题栏和边框，满足不了高度自定义的窗口设计，这时只能把窗口的默认标题栏和边框隐藏起来，替换上我们自定义的标题栏和边框，下面就以实现<code>自定义标题栏无边框阴影窗口</code>为例进行介绍。</p>
-<p>技术要点:</p>
-<ul>
-<li>隐藏系统标题栏和边框: <code>QWidget::setWindowFlags(Qt::FramelessWindowHint)</code></li>
-<li>窗口透明隐藏默认背景: <code>QWidget::setAttribute(Qt::WA_TranslucentBackground)</code></li>
-<li><code>QWidget::paintEvent(QPaintEvent *event)</code> 里绘制任意形状的自定义背景</li>
-<li>拖拽移动窗口</li>
-<li>缩放窗口
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/qtbook-custom-widget-top-window/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

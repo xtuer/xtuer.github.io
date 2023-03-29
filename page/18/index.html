@@ -247,6 +247,106 @@
     <!-- 生成目录 -->
 
 
+<article id="post-java-tomcat-nginx-https" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/java-tomcat-nginx-https/" class="article-date">
+  	<!-- <time datetime="2017-07-26T02:27:07.000Z" itemprop="datePublished">2017-07-26</time> -->
+    2017-07-26
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/java-tomcat-nginx-https/">Nginx + Tomcat 使用 Https</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>Nginx 作为前端反向代理或者负载均衡，Tomcat 不需要自己处理 https，https 由 Nginx 处理:</p>
+<ul>
+<li>用户首先和 Nginx 建立连接，完成 SSL 握手</li>
+<li>而后 Nginx 作为代理以 http 协议将请求转发给 Tomcat 处理</li>
+<li>Nginx 再把 Tomcat 的输出通过 SSL 加密发回给用户</li>
+</ul>
+<p>Tomcat 只是在处理 http 请求而已 (默认监听 8080 端口)。因此，这种情况下不需要配置 Tomcat 的 SSL，只需要配置 Nginx 的 SSL，Tomcat 和 Nginx 需要配置以下几项:</p>
+<ul>
+<li><p>Nginx 中启用 https:</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">    <span class="attribute">include</span>      mime.types;</span><br><span class="line">    <span class="attribute">default_type</span> text/html;</span><br><span class="line">    <span class="attribute">gzip</span>         <span class="literal">on</span>;</span><br><span class="line">    <span class="attribute">gzip_types</span>   text/css text/x-component application/x-javascript application/javascript text/javascript text/x-js text/richtext image/svg+xml text/plain text/xsd text/xsl text/xml image/x-icon;</span><br><span class="line">    <span class="attribute">sendfile</span>     <span class="literal">on</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Tomcat 服务器集群</span></span><br><span class="line">    <span class="attribute">upstream</span> app_server &#123;</span><br><span class="line">        <span class="attribute">server</span> <span class="number">127.0.0.1:8080</span> weight=<span class="number">4</span>;</span><br><span class="line">        <span class="attribute">server</span> <span class="number">127.0.0.1:8081</span> weight=<span class="number">2</span>;</span><br><span class="line">        <span class="attribute">server</span> <span class="number">127.0.0.1:8082</span> weight=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="section">server</span> &#123;</span><br><span class="line">        <span class="attribute">listen</span>      <span class="number">443</span> ssl; <span class="comment"># https 的默认端口是 443</span></span><br><span class="line">        <span class="attribute">charset</span>     utf-<span class="number">8</span>;</span><br><span class="line">        <span class="attribute">server_name</span> www.xtuer.com; <span class="comment"># host_name of URL</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 启用 https</span></span><br><span class="line">        <span class="attribute">ssl_certificate</span>     /Users/Biao/Desktop/cert/server.crt;</span><br><span class="line">        <span class="attribute">ssl_certificate_key</span> /Users/Biao/Desktop/cert/server.key;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">location</span> / &#123;</span><br><span class="line">            <span class="attribute">proxy_redirect</span>   <span class="literal">off</span>;</span><br><span class="line">            <span class="attribute">proxy_set_header</span> Host $host;</span><br><span class="line">            <span class="attribute">proxy_set_header</span> X-Real-IP $remote_addr;</span><br><span class="line">            <span class="attribute">proxy_set_header</span> X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 把 https 的协议告知 Tomcat，否则 Tomcat 可能认为是 http 的请求</span></span><br><span class="line">            <span class="attribute">proxy_set_header</span> X-Forwarded-Proto $scheme;</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 请求转发给 Tomcat 集群处理</span></span><br><span class="line">            <span class="attribute">proxy_pass</span> http://app_server;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>关键是以下几项:</p>
+<ul>
+<li>listen port ssl</li>
+<li>ssl_certificate</li>
+<li>ssl_certificate_key </li>
+<li>X-Forwarded-Proto</li>
+</ul>
+</blockquote>
+</li>
+<li><p>Tomcat 的 server.xml 的 Host 中配置 Valve:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Host</span> <span class="attr">name</span>=<span class="string">&quot;localhost&quot;</span> <span class="attr">appBase</span>=<span class="string">&quot;webapps&quot;</span> <span class="attr">unpackWARs</span>=<span class="string">&quot;true&quot;</span> <span class="attr">autoDeploy</span>=<span class="string">&quot;true&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Valve</span> <span class="attr">className</span>=<span class="string">&quot;org.apache.catalina.valves.RemoteIpValve&quot;</span> <span class="attr">remoteIpHeader</span>=<span class="string">&quot;X-Forwarded-For&quot;</span> <span class="attr">protocolHeader</span>=<span class="string">&quot;X-Forwarded-Proto&quot;</span> <span class="attr">protocolHeaderHttpsValue</span>=<span class="string">&quot;https&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Host</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li><strong>X-Forwarded-Proto</strong> 是为了正确地识别实际用户发出的协议是 http 还是 https</li>
+<li><strong>X-Forwarded-For</strong> 是为了获得实际用户的 IP</li>
+<li>如果不配置它们，则在 redirect 的时候仍然会使用 http 而不是 https</li>
+</ul>
+</blockquote>
+</li>
+<li><p>注意: 当使用非 443 端口，如 9443 时，需要修改 2 个地方:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Nginx: Host 中增加 $server_port</span><br><span class="line">    listen 9443 ssl;</span><br><span class="line">    proxy_set_header Host $host:$server_port;</span><br><span class="line"></span><br><span class="line">Tomcat: 必须配置 httpsServerPort，否则 request.getServerPort() 仍然返回 443</span><br><span class="line">    <span class="tag">&lt;<span class="name">Valve</span> <span class="attr">className</span>=<span class="string">&quot;org.apache.catalina.valves.RemoteIpValve&quot;</span> </span></span><br><span class="line"><span class="tag">        <span class="attr">remoteIpHeader</span>=<span class="string">&quot;X-Forwarded-For&quot;</span> </span></span><br><span class="line"><span class="tag">        <span class="attr">protocolHeader</span>=<span class="string">&quot;X-Forwarded-Proto&quot;</span> </span></span><br><span class="line"><span class="tag">        <span class="attr">protocolHeaderHttpsValue</span>=<span class="string">&quot;https&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">httpsServerPort</span>=<span class="string">&quot;9443&quot;</span></span></span><br><span class="line"><span class="tag">    /&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/java-tomcat-nginx-https/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-fe-vue-customize-component" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -894,77 +994,6 @@
 
       
 
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-fe-smooth-curve" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/fe-smooth-curve/" class="article-date">
-  	<!-- <time datetime="2017-06-24T09:13:41.000Z" itemprop="datePublished">2017-06-24</time> -->
-    2017-06-24
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/fe-smooth-curve/">JS 绘制平滑曲线</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>本文介绍在 JS 中绘制平滑曲线的实现，调用下面的函数 drawSmoothCurve() 即可。默认曲线的 2 个顶点之间被分割为 16 个小线段来拟合曲线，下图展示了 tension 为 0.3，0.5，0.7 时的曲线效果，tension 并不是越大越好，默认的 0.5 大多数时候就不错。</p>
-<p><img src="../img/fe/fe-smooth-curve.png"></p>
-<blockquote>
-<p>算法来自于 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/7054272/how-to-draw-smooth-curve-through-n-points-using-javascript-html5-canvas">How to draw smooth curve through N points using javascript HTML5 canvas?</a></p>
-</blockquote>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/fe-smooth-curve/#more">阅读全文</a>
-        </p>
       
       <div class="clearfix"></div>
     </div>
