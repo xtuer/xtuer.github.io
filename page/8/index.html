@@ -247,6 +247,83 @@
     <!-- 生成目录 -->
 
 
+<article id="post-upload-blob" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/upload-blob/" class="article-date">
+  	<!-- <time datetime="2019-03-18T12:53:30.000Z" itemprop="datePublished">2019-03-18</time> -->
+    2019-03-18
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/upload-blob/">上传 Blob URL 指向的文件</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p><strong>Blob</strong> 是 Binary large object 的简称，格式为 <code>blob:http://localhost:8080/da126298-1b6b-4dfb-8a92-2e3ccbee611d</code>, 是一种伪协议，只能在浏览器本地使用，例如在使用 TinyMCE 粘贴从 Word 复制的图片时，得到一个 Blob URL，可以使用下面的方式把 Blob 对应的图片上传到服务器:</p>
+<ol>
+<li>使用 XMLHttpRequest 获取 Blob URL 源数据的 Blob 文件对象</li>
+<li>上传 Blob 到服务器</li>
+</ol>
+<p>下面以上传图片 Blob 为例:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">xhr.open(<span class="string">&#x27;GET&#x27;</span>, blobUrl); <span class="comment">// blob:http://localhost:8080/da126298-1b6b-4dfb-8a92-2e3ccbee611d</span></span><br><span class="line">xhr.responseType = <span class="string">&#x27;blob&#x27;</span>;</span><br><span class="line"></span><br><span class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span>.readyState === <span class="number">4</span> &amp;&amp; <span class="built_in">this</span>.status === <span class="number">200</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> imageBlob = <span class="built_in">this</span>.response;</span><br><span class="line">        <span class="keyword">const</span> imageType = imageBlob.type;</span><br><span class="line">        <span class="keyword">let</span>   imageName = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 根据文件的类型确定文件名，否则服务端得到的文件名为 blob，没有后缀</span></span><br><span class="line">        <span class="keyword">if</span> (imageType.includes(<span class="string">&#x27;png&#x27;</span>)) &#123;</span><br><span class="line">            imageName = <span class="string">&#x27;uploaded-image.png&#x27;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (imageType.includes(<span class="string">&#x27;gif&#x27;</span>)) &#123;</span><br><span class="line">            imageName = <span class="string">&#x27;uploaded-image.gif&#x27;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (imageType.includes(<span class="string">&#x27;bmp&#x27;</span>)) &#123;</span><br><span class="line">            imageName = <span class="string">&#x27;uploaded-image.bmp&#x27;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            imageName = <span class="string">&#x27;uploaded-image.jpg&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 上传 Blob 图片</span></span><br><span class="line">        <span class="keyword">const</span> form = <span class="keyword">new</span> FormData();</span><br><span class="line">        form.append(<span class="string">&#x27;file&#x27;</span>, imageBlob, imageName); <span class="comment">// 第三个参数为文件名</span></span><br><span class="line"></span><br><span class="line">        $.ajax(&#123;</span><br><span class="line">            <span class="attr">type</span>: <span class="string">&#x27;POST&#x27;</span>,</span><br><span class="line">            <span class="attr">url</span> : Urls.FORM_UPLOAD_TEMPORARY_FILE,</span><br><span class="line">            <span class="attr">data</span>: form,</span><br><span class="line">            <span class="attr">processData</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="attr">contentType</span>: <span class="literal">false</span>,</span><br><span class="line">        &#125;).done(<span class="function"><span class="keyword">function</span>(<span class="params">result</span>) </span>&#123;</span><br><span class="line">            <span class="comment">// 把服务器返回的图片 URL 插入到需要的地方</span></span><br><span class="line">            <span class="built_in">console</span>.log(result);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">xhr.send();</span><br></pre></td></tr></table></figure>
+
+<p>获取 Blob 对象的核心代码为:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">xhr.open(<span class="string">&#x27;GET&#x27;</span>, <span class="string">&#x27;blob:http://your.blob.url.here&#x27;</span>, <span class="literal">true</span>);</span><br><span class="line">xhr.responseType = <span class="string">&#x27;blob&#x27;</span>;</span><br><span class="line">xhr.onload = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span>.status == <span class="number">200</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> blob = <span class="built_in">this</span>.response; <span class="comment">// blob is now the blob that the object URL pointed to.</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">xhr.send();</span><br></pre></td></tr></table></figure>
+
+<p>使用 Axios 的为:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">axios(&#123;</span><br><span class="line">    <span class="attr">method</span>: <span class="string">&#x27;get&#x27;</span>,</span><br><span class="line">    <span class="attr">url</span>: blobUrl,</span><br><span class="line">    <span class="attr">responseType</span>: <span class="string">&#x27;blob&#x27;</span>,</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> blob = response.data;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-qt-report" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -976,91 +1053,6 @@
         <p class="article-more-link">
           <a  href="/sort/#more">阅读全文</a>
         </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-java-fastjson-unserialize" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/java-fastjson-unserialize/" class="article-date">
-  	<!-- <time datetime="2019-01-12T07:57:44.000Z" itemprop="datePublished">2019-01-12</time> -->
-    2019-01-12
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/java-fastjson-unserialize/">FastJson 反序列化 Boolean</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>JSON 字符串反序列化为 Java 对象时, 不只是 true 和 false 能够转换为 boolean 变量的值:</p>
-<ul>
-<li>boolean:<ul>
-<li>true: true</li>
-<li>false: false</li>
-</ul>
-</li>
-<li>数字:<ul>
-<li>1: true</li>
-<li>0: false</li>
-<li>其他数字: false</li>
-</ul>
-</li>
-<li>字符串:<ul>
-<li>“true”: true (大小写不敏感)</li>
-<li>“false”: false (大小写不敏感)</li>
-<li>“1”: true</li>
-<li>“0”: false</li>
-<li>其他字符串抛异常</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">&quot;visible&quot;</span>: <span class="literal">true</span> &#125;    <span class="comment">// true</span></span><br><span class="line">&#123; <span class="attr">&quot;visible&quot;</span>: <span class="literal">false</span> &#125;   <span class="comment">// false</span></span><br><span class="line">&#123; <span class="attr">&quot;visible&quot;</span>: <span class="number">1</span> &#125;       <span class="comment">// true</span></span><br><span class="line">&#123; <span class="attr">&quot;visible&quot;</span>: <span class="number">0</span> &#125;       <span class="comment">// false</span></span><br><span class="line">&#123; <span class="attr">&quot;visible&quot;</span>: <span class="number">3</span> &#125;       <span class="comment">// false</span></span><br><span class="line">&#123; <span class="attr">&quot;visible&quot;</span>: <span class="string">&quot;true&quot;</span> &#125;  <span class="comment">// true</span></span><br><span class="line">&#123; <span class="attr">&quot;visible&quot;</span>: <span class="string">&quot;True&quot;</span> &#125;  <span class="comment">// true</span></span><br><span class="line">&#123; <span class="attr">&quot;visible&quot;</span>: <span class="string">&quot;false&quot;</span> &#125; <span class="comment">// false</span></span><br><span class="line">&#123; <span class="attr">&quot;visible&quot;</span>: <span class="string">&quot;falsE&quot;</span> &#125; <span class="comment">// false</span></span><br><span class="line">&#123; <span class="attr">&quot;visible&quot;</span>: <span class="string">&quot; true&quot;</span> &#125; <span class="comment">// Exception</span></span><br><span class="line">&#123; <span class="attr">&quot;visible&quot;</span>: <span class="string">&quot;Bla&quot;</span> &#125;   <span class="comment">// Exception</span></span><br></pre></td></tr></table></figure>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
-	</div>
-
-
-      
-
       
       <div class="clearfix"></div>
     </div>

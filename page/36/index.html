@@ -247,6 +247,90 @@
     <!-- 生成目录 -->
 
 
+<article id="post-qtbook-misc-single-application" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-misc-single-application/" class="article-date">
+  	<!-- <time datetime="2016-11-15T06:44:01.000Z" itemprop="datePublished">2016-11-15</time> -->
+    2016-11-15
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qtbook-misc-single-application/">Single Application</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>如果限制一个程序同时只能启动一个实例，有几个可以使用的库</p>
+<ul>
+<li><p>QtSingleApplication</p>
+<blockquote>
+<p>以前可以免费使用，后来只有商业版能里能用，在 Github 上也有一个 LGPL 协议的实现，地址为 <a target="_blank" rel="noopener" href="https://github.com/qtproject/qt-solutions/tree/master/qtsingleapplication">https://github.com/qtproject/qt-solutions/tree/master/qtsingleapplication</a></p>
+</blockquote>
+</li>
+<li><p>SingleApplication</p>
+<blockquote>
+<p>This is a replacement of the QSingleApplication for Qt5，地址为 <a target="_blank" rel="noopener" href="https://github.com/itay-grudev/SingleApplication">https://github.com/itay-grudev/SingleApplication</a></p>
+</blockquote>
+</li>
+<li><p>RunGuard</p>
+<blockquote>
+<p>使用共享内存、简单、轻量化的实现，缺点是程序间不能通信，双击程序图标的时候不会激活已运行的实例显示到最前面，下面介绍 RunGuard 的使用</p>
+</blockquote>
+</li>
+</ul>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/qtbook-misc-single-application/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-qt-notification-center" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -896,70 +980,6 @@
         <p class="article-more-link">
           <a  href="/fe-vue-for-attribute/#more">阅读全文</a>
         </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-qt-item-hover-tooltip" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/qt-item-hover-tooltip/" class="article-date">
-  	<!-- <time datetime="2016-11-08T01:53:35.000Z" itemprop="datePublished">2016-11-08</time> -->
-    2016-11-08
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/qt-item-hover-tooltip/">鼠标放到 View 的 item 上时显示 tool tip</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// [1] View 需要启用 mouse tracking</span></span><br><span class="line">ui-&gt;listView-&gt;<span class="built_in">setMouseTracking</span>(<span class="literal">true</span>); </span><br><span class="line"></span><br><span class="line"><span class="comment">// [2] 处理 mouse enter 事件</span></span><br><span class="line"><span class="built_in">connect</span>(ui-&gt;listView, &amp;QListView::entered, [] (<span class="keyword">const</span> QModelIndex &amp;index) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!index.<span class="built_in">isValid</span>()) &#123;</span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;Invalid index&quot;</span>;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    QToolTip::<span class="built_in">showText</span>(QCursor::<span class="built_in">pos</span>(), index.<span class="built_in">data</span>(Qt::UserRole + <span class="number">1</span>).<span class="built_in">toString</span>());</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/" rel="tag">Qt</a></li></ul>
-	</div>
-
-
-      
-
       
       <div class="clearfix"></div>
     </div>

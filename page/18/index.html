@@ -247,6 +247,110 @@
     <!-- 生成目录 -->
 
 
+<article id="post-qtbook-custom-widget-steps" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-custom-widget-steps/" class="article-date">
+  	<!-- <time datetime="2017-07-30T11:35:53.000Z" itemprop="datePublished">2017-07-30</time> -->
+    2017-07-30
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qtbook-custom-widget-steps/">实现 Steps 路径样式</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>如下图使用多个 <code>步骤</code> 表示一个过程：</p>
+<p><img src="../img/qt/steps-1.png"></p>
+<p>这样的组件 Qt 没有提供，需要我们自己实现，可以用下面几种方式实现:</p>
+<ul>
+<li><p><strong>使用 QPainter 绘图</strong>：计算每一个步骤的图形(可以使用 QPainterPath)和位置，然后在 QPainterPath 上填充背景和文字</p>
+</li>
+<li><p><strong>QPushButton + QSS Border-Image + 绝对坐标定位</strong>：因为 QPushButton 之间有重叠，而不是一个紧挨着一个的排列，所以需要计算每个步骤的坐标进行定位，使用 PS 设计步骤在不同状态时的背景图，需要 6 张图片：</p>
+<ul>
+<li><p>当前步骤：第一个位置的图、中间的图、最后一个位置的图</p>
+</li>
+<li><p>非当前步骤：第一个位置的图、中间的图、最后一个位置的图</p>
+</li>
+<li><p>每个图是步骤的完整背景图，例如</p>
+<p>  <img src="../img/qt/steps-3.png"><img src="../img/qt/steps-4.png"></p>
+<blockquote>
+<p>优点：直观</p>
+<p>缺点：需要手动计算坐标</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p><strong>QPushButton + QSS Border-Image + QHBoxLayout</strong>：使用 Layout 把 QPushButton 一个紧挨着一个的排列，使用 PS 设计步骤在不同状态时的背景图，需要 5 张图片：</p>
+<ul>
+<li><p>当前步骤：当前步骤前一个步骤的图、最后一个位置的图</p>
+</li>
+<li><p>非当前步骤：第一个位置的图、中间的图、最后一个位置的图</p>
+</li>
+<li><p>每个图都不是步骤的完整背景图，例如</p>
+<p> <img src="../img/qt/steps-6.png"> <img src="../img/qt/steps-5.png"></p>
+<blockquote>
+<p>优点：能够使用 Layout 进行布局，不需要手动计算坐标</p>
+<p>缺点：不够直观，不过，在步骤之间加一点空隙，估计大家都明白怎么做了：每一个步骤的背景都有一部分在它的前一个步骤上：</p>
+<p><img src="../img/qt/steps-7.png"></p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/qtbook-custom-widget-steps/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-java-tomcat-nginx-https" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -925,75 +1029,6 @@
         <p class="article-more-link">
           <a  href="/qt-smooth-curve-1/#more">阅读全文</a>
         </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-fe-ellipse" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/fe-ellipse/" class="article-date">
-  	<!-- <time datetime="2017-06-24T14:15:18.000Z" itemprop="datePublished">2017-06-24</time> -->
-    2017-06-24
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/fe-ellipse/">JS 绘制椭圆</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>Canvas 还没有提供直接绘制椭圆的功能，下面使用 bezierCurveTo() 来绘制椭圆。</p>
-<blockquote>
-<p>圆也是使用 arc 来绘制的，在新版的 JS 中提供了 ellipse 来绘制椭圆，但是很多浏览器都还不支持</p>
-</blockquote>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://cdn.bootcss.com/jquery/3.2.1/jquery.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">media</span>=<span class="string">&quot;screen&quot;</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-tag">canvas</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">border</span>: <span class="number">1px</span> solid grey;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">&quot;canvas&quot;</span> <span class="attr">width</span>=<span class="string">&quot;500&quot;</span> <span class="attr">height</span>=<span class="string">&quot;300&quot;</span>&gt;</span>Your browser does not support canvas.<span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> canvas = $(<span class="string">&#x27;#canvas&#x27;</span>).get(<span class="number">0</span>);</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> ctx = canvas.getContext(<span class="string">&#x27;2d&#x27;</span>);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        drawEllipse(ctx, <span class="number">100</span>, <span class="number">100</span>, <span class="number">80</span>, <span class="number">120</span>);</span></span><br><span class="line"><span class="javascript">        drawEllipse(ctx, <span class="number">200</span>, <span class="number">200</span>, <span class="number">200</span>, <span class="number">80</span>);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">drawEllipse</span>(<span class="params">context, centerX, centerY, width, height</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            context.beginPath();</span></span><br><span class="line"><span class="javascript">            context.moveTo(centerX, centerY - height / <span class="number">2</span>);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">            context.bezierCurveTo(</span></span><br><span class="line"><span class="javascript">                centerX + width / <span class="number">2</span>, centerY - height / <span class="number">2</span>,</span></span><br><span class="line"><span class="javascript">                centerX + width / <span class="number">2</span>, centerY + height / <span class="number">2</span>,</span></span><br><span class="line"><span class="javascript">                centerX, centerY + height / <span class="number">2</span></span></span><br><span class="line"><span class="javascript">            );</span></span><br><span class="line"><span class="javascript">            context.bezierCurveTo(</span></span><br><span class="line"><span class="javascript">                centerX - width / <span class="number">2</span>, centerY + height / <span class="number">2</span>,</span></span><br><span class="line"><span class="javascript">                centerX - width / <span class="number">2</span>, centerY - height / <span class="number">2</span>,</span></span><br><span class="line"><span class="javascript">                centerX, centerY - height / <span class="number">2</span></span></span><br><span class="line"><span class="javascript">            );</span></span><br><span class="line"><span class="javascript">            context.closePath();</span></span><br><span class="line"><span class="javascript">            context.stroke();</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
-	</div>
-
-
-      
-
       
       <div class="clearfix"></div>
     </div>

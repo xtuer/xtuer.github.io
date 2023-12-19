@@ -247,6 +247,77 @@
     <!-- 生成目录 -->
 
 
+<article id="post-spring-core-property-placeholder" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/spring-core-property-placeholder/" class="article-date">
+  	<!-- <time datetime="2017-04-02T03:26:01.000Z" itemprop="datePublished">2017-04-02</time> -->
+    2017-04-02
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/spring-core-property-placeholder/">Property Placeholder</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>在 <code>properties</code> 文件里定义 key | value，然后在 Bean Configuration File 里用 <code>$&#123;key&#125;</code> 引用 key 对应的值。</p>
+<p>Bean Configuration File 里使用 <code>&lt;context:property-placeholder&gt;</code> 引入 properties 文件。</p>
+<blockquote>
+<p>现在很多时候都使用 Gradle 的资源替换来代替了。</p>
+</blockquote>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringCore/" rel="tag">SpringCore</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/spring-core-property-placeholder/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-spring-core-multi-config" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -877,81 +948,6 @@
       
         <p class="article-more-link">
           <a  href="/spring-core-injection-setter/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-spring-core-id-name-alias" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/spring-core-id-name-alias/" class="article-date">
-  	<!-- <time datetime="2017-04-01T07:18:32.000Z" itemprop="datePublished">2017-04-01</time> -->
-    2017-04-01
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/spring-core-id-name-alias/">ID Name Alias</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <h2 id="id-name-alias"><a href="#id-name-alias" class="headerlink" title="id, name, alias"></a>id, name, alias</h2><ul>
-<li>每个 Bean 都有<code>标志符</code>，用这个标志符从 Spring IoC Container 里获取 Bean</li>
-<li><code>id, name, alias 都必须在 IoC 容器里唯一</code></li>
-<li>每个 Bean 可以有一个 id 属性，并可以根据该 id 在 IoC 容器中查找该 Bean，该 id 属性值必须在 IoC 容器中唯一</li>
-<li>如果不指定 id，只指定 name，那么 name 为 Bean 的<code>标识符</code>，并且需要在容器中唯一</li>
-<li>同时指定 name 和 id，此时 id 为标识符，而 name 为 Bean 的别名，两者都可以找到目标 Bean</li>
-<li>可以指定多个 name，之间可以用分号 <code>;</code>、空格 <code> </code> 或逗号 <code>,</code> 分隔开，如果没有指定 id，那么第一个 name 为标识符，其余的为别名；若指定了 id 属性，则 id 为标识符，所有的 name 均为别名</li>
-<li>可以使用 <code>&lt;alias&gt;</code> 标签指定别名，别名也必须在 IoC 容器中唯一</li>
-<li>如果 id 和 name 都不指定，那么 Spring 容器会为 Bean 生成一个 id，生成规则：<br>  按 Bean 定义的顺序，在<code>类的全路径名</code>加上 <code>#序号</code> (序号从 0 开始，第一个 bean 的别名是类的全路径名，所以可以使用类的全路径名来获取)，如：<br>  com.xtuer.beans.User#0 (<code>com.xtuer.beans.User</code>)<br>  com.xtuer.beans.User#1<br>  com.xtuer.beans.User#2<br>  com.xtuer.beans.User#3
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringCore/" rel="tag">SpringCore</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/spring-core-id-name-alias/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

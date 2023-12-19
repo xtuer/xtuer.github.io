@@ -247,6 +247,79 @@
     <!-- 生成目录 -->
 
 
+<article id="post-spring-web-exception" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/spring-web-exception/" class="article-date">
+  	<!-- <time datetime="2017-03-18T10:50:08.000Z" itemprop="datePublished">2017-03-18</time> -->
+    2017-03-18
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/spring-web-exception/">异常处理</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>SpringMVC 提供了 3 种异常处理方法：</p>
+<ol>
+<li>使用 <strong>@ExceptionHandler</strong> 注解实现异常处理</li>
+<li>简单异常处理器 <strong>SimpleMappingExceptionResolver</strong></li>
+<li>实现异常处理接口 <strong>HandlerExceptionResolver</strong>，自定义异常处理器</li>
+</ol>
+<p>通过比较，实现异常处理接口 <strong>HandlerExceptionResolver</strong> 是最合适的，可以给定更多的异常信息，可一自定义异常显示页面等，下面介绍使用这种方式处理异常。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringWeb/" rel="tag">SpringWeb</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/spring-web-exception/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-spring-web-server-validate" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -883,80 +956,6 @@
       
         <p class="article-more-link">
           <a  href="/wx-tips/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-spring-security-8-auto-login" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/spring-security-8-auto-login/" class="article-date">
-  	<!-- <time datetime="2017-02-27T06:43:09.000Z" itemprop="datePublished">2017-02-27</time> -->
-    2017-02-27
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/spring-security-8-auto-login/">Spring Security 自动登录</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p><strong>Spring Security 怎么判断一个用户是否登录了呢？</strong></p>
-<p>非常的简单，只要 Spring Context 中存储了一个 Authentication 的对象，那么 Spring Security 就认为用户已经登录。所以所有的操作都是为了往 Spring Context 中存储了一个 Authentication 的对象，这样就实现了自动登录的功能:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">User user = <span class="keyword">new</span> User(...);</span><br><span class="line">Authentication auth = UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities());</span><br><span class="line">SecurityContextHolder.getContext().setAuthentication(auth);</span><br></pre></td></tr></table></figure>
-
-<p>下面的代码都是为了结合某些业务一起介绍的，写的很冗杂，不管怎么做，核心功能只要围绕上面这几行代码即可。</p>
-<hr>
-<p>前面的实现可以使用表单进行登陆了，但是某些时候需要自动登录，例如使用 QQ 的第三方登录，服务器收到登陆成功的回调后，需要在我们的系统中继续使用本地账号登陆才行，这时就会需要实现自动登录的功能，还有使用 AJAX 等也不能使用表单登陆，也是需要调用登陆的接口才可以。</p>
-<p>为了提供登陆的接口，需要实现 <strong>AuthenticationProvider</strong> 进行登陆，不再使用 Spring Security 的默认实现。当然实现了自动登录后，并不会影响 Spring Security 的表单登陆。</p>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringSecurity/" rel="tag">SpringSecurity</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/spring-security-8-auto-login/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

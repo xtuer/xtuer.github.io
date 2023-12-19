@@ -247,6 +247,77 @@
     <!-- 生成目录 -->
 
 
+<article id="post-qtbook-qss-subcontrol" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/qtbook-qss-subcontrol/" class="article-date">
+  	<!-- <time datetime="2017-02-03T09:08:57.000Z" itemprop="datePublished">2017-02-03</time> -->
+    2017-02-03
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/qtbook-qss-subcontrol/">QSS Subcontrol</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>普通的 QSS 和 CSS 没什么区别，难度不大，但除此之外，想要使用好 QSS，还必须得掌握好 subcontrol，这个在 CSS 里没有，是 Qt 独有的。</p>
+<p>什么是 subcontrol？一个复杂的 widget 由多个部分组成，它们可以是一个 widget，也可以是逻辑上的部件，例如 QCheckBox 由 icon 和 text 两个部分组成，不仅可以定义 text 的样式，还可以定义 icon 相关的样式，icon 部分就是 QCheckBox 的 subcontrol <code>::indicator</code>。</p>
+<p>在 Qt 的帮助文档里有所有 subcontrol 的说明，但是相信很多人看了还是不明白每个 subcontrol 具体是什么，这一节将使用可视化的方式标记出 subcontrol，介绍使用 QSS 自定义有 subcontrol 的常用 widget，这里的重心是怎么去 QSS subcontrol 而不是样式效果，复杂漂亮的界面需要大量的图片和更多的 QSS，这里不作介绍，以免陷入细节，掩盖本节主题。只要知道了原理，结合已经掌握的 QSS，找美工提供一套界面切图，就能很容易实现出来很专业效果了。</p>
+<p>Subcontrol 的 QSS 和大多数 widget 的差不多，也支持盒子模型，可以自定义 color, background, background-color, background-image, border, padding, margin, width, height 等，也支持 Pseudo-States。</p>
+<p>Subcontrol 的绘制位置由 subcontrol-origin、subcontrol-position, top, left 来指定，就先从这几个属性开始入手。
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QtBook/" rel="tag">QtBook</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/qtbook-qss-subcontrol/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-qtbook-qss-border-image" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -937,76 +1008,6 @@
       
         <p class="article-more-link">
           <a  href="/qtbook-misc-messy-code/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-pdf-online" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/pdf-online/" class="article-date">
-  	<!-- <time datetime="2016-12-24T02:30:12.000Z" itemprop="datePublished">2016-12-24</time> -->
-    2016-12-24
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/pdf-online/">在线预览 PDF</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p>下面介绍 2 种在线预览 PDF 的方法，不过都需要 HTML5 的支持，应该问题不大</p>
-<ul>
-<li>转换 PDF 为 HTML</li>
-<li>使用 HTML5 的 Canvas 在线绘制 PDF
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/pdf-online/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

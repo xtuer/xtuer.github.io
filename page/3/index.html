@@ -247,6 +247,101 @@
     <!-- 生成目录 -->
 
 
+<article id="post-spring-boot-jasypt" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/spring-boot-jasypt/" class="article-date">
+  	<!-- <time datetime="2021-08-08T02:59:02.000Z" itemprop="datePublished">2021-08-08</time> -->
+    2021-08-08
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/spring-boot-jasypt/">Spring Boot Jasypt</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p>使用 <a target="_blank" rel="noopener" href="https://github.com/ulisesbocchio/jasypt-spring-boot">Jasypt</a> 加密 Spring Boot 配置中的项，例如数据库密码。详细介绍可阅读 <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/cy31gsjRi6S4ug2RuJ1yjw">Springboot 配置文件、隐私数据脱敏的最佳实践</a> 和 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/kexianting/p/11689289.html">Spring Boot 配置文件密码加密两种方案</a>。</p>
+<p>本文主要介绍具体使用部分，注意 jasypt-spring-boot-starter 2.0 和 3.0 的区别。3.0 前后虽然都是使用 <strong>jasypt-1.9.3.jar</strong>，但是生成密文命令的参数有点区别:</p>
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>algorithm 默认值</th>
+<th>iv-generator 默认值</th>
+<th>加密命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2.1.2</td>
+<td>PBEWithMD5AndDES</td>
+<td>org.jasypt.iv.NoIvGenerator</td>
+<td><em>java -cp jasypt-1.9.3.jar org.jasypt.intf.cli.JasyptPBEStringEncryptionCLI input=root password=xtuer algorithm=PBEWithMD5AndDES</em></td>
+</tr>
+<tr>
+<td>3.0.3</td>
+<td>PBEWITHHMACSHA512ANDAES_256</td>
+<td>org.jasypt.iv.RandomIvGenerator</td>
+<td><em>java -cp jasypt-1.9.3.jar org.jasypt.intf.cli.JasyptPBEStringEncryptionCLI input=root password=xtuer algorithm=PBEWITHHMACSHA512ANDAES_256 ivGeneratorClassName=org.jasypt.iv.RandomIvGenerator</em></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>提示:</p>
+<ul>
+<li>input 为要加密的内容，password 为加密的密钥</li>
+<li>jasypt-1.9.3.jar 可以从 maven 或者 gradle 本地仓库中找到
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/spring-boot-jasypt/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-spring-thread" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -897,78 +992,6 @@
       
         <p class="article-more-link">
           <a  href="/js-expreg/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-sql-common" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/sql-common/" class="article-date">
-  	<!-- <time datetime="2020-08-30T12:10:17.000Z" itemprop="datePublished">2020-08-30</time> -->
-    2020-08-30
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/sql-common/">常用 SQL</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <h2 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> DATABASE ebag <span class="keyword">DEFAULT</span> <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8mb4 <span class="keyword">COLLATE</span> utf8mb4_unicode_ci</span><br></pre></td></tr></table></figure>
-
-<h2 id="增加新列"><a href="#增加新列" class="headerlink" title="增加新列"></a>增加新列</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name <span class="keyword">ADD</span> <span class="keyword">COLUMN</span> column_name <span class="type">varchar</span>(<span class="number">64</span>)</span><br></pre></td></tr></table></figure>
-
-<h2 id="分页查询"><a href="#分页查询" class="headerlink" title="分页查询"></a>分页查询</h2><p>MySQL 中使用 LIMIT 进行分页，第一个参数是起始位置 offset，从 0 开始，第二个参数是要取多少条记录</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> question <span class="keyword">WHERE</span> subject_code<span class="operator">=</span><span class="string">&#x27;XXX&#x27;</span> LIMIT <span class="number">0</span>, <span class="number">30</span></span><br></pre></td></tr></table></figure>
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DB/" rel="tag">DB</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/sql-common/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>

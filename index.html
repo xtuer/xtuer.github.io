@@ -247,6 +247,75 @@
     <!-- 生成目录 -->
 
 
+<article id="post-vxe-table" class="article article-type-post" itemscope itemprop="blogPost">
+    <!--  -->
+
+    
+        <div class="article-meta">
+            <a href="/vxe-table/" class="article-date">
+  	<!-- <time datetime="2023-12-19T08:12:31.000Z" itemprop="datePublished">2023-12-19</time> -->
+    2023-12-19
+</a>
+
+        </div>
+    
+
+    
+        <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/vxe-table/">VxeTable 数组结构</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+        
+            <p><a target="_blank" rel="noopener" href="https://vxetable.cn/#/table/start/install">VxeTable</a> 主要是支持虚拟滚动。</p>
+<h2 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h2><p>表格的数据为<span style="background:#b1ffff">对象的数组</span>，手动固定列 (也可以使用循环)。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">vxe-table</span> <span class="attr">border</span> <span class="attr">:data</span>=<span class="string">&quot;tableData&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">vxe-column</span> <span class="attr">type</span>=<span class="string">&quot;seq&quot;</span> <span class="attr">width</span>=<span class="string">&quot;60&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- 没有使用插槽，列的值自动为行对象中属性为 name 的属性值 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">vxe-column</span> <span class="attr">field</span>=<span class="string">&quot;name&quot;</span> <span class="attr">title</span>=<span class="string">&quot;Name&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">vxe-column</span> <span class="attr">field</span>=<span class="string">&quot;gender&quot;</span> <span class="attr">title</span>=<span class="string">&quot;gender&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">vxe-column</span> <span class="attr">field</span>=<span class="string">&quot;age&quot;</span> <span class="attr">title</span>=<span class="string">&quot;Age&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">vxe-table</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">setup</span> <span class="attr">lang</span>=<span class="string">&quot;ts&quot;</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript"><span class="keyword">const</span> tableData = [</span></span><br><span class="line"><span class="javascript">    &#123; <span class="attr">id</span>: <span class="number">10001</span>, <span class="attr">name</span>: <span class="string">&#x27;Test1&#x27;</span>, <span class="attr">role</span>: <span class="string">&#x27;Develop&#x27;</span>, <span class="attr">gender</span>: <span class="string">&#x27;Man&#x27;</span>, <span class="attr">age</span>: <span class="number">28</span>, <span class="attr">address</span>: <span class="string">&#x27;test abc&#x27;</span> &#125;,</span></span><br><span class="line"><span class="javascript">    &#123; <span class="attr">id</span>: <span class="number">10002</span>, <span class="attr">name</span>: <span class="string">&#x27;Test2&#x27;</span>, <span class="attr">role</span>: <span class="string">&#x27;Test&#x27;</span>, <span class="attr">gender</span>: <span class="string">&#x27;Women&#x27;</span>, <span class="attr">age</span>: <span class="number">22</span>, <span class="attr">address</span>: <span class="string">&#x27;Guangzhou&#x27;</span> &#125;,</span></span><br><span class="line"><span class="javascript">    &#123; <span class="attr">id</span>: <span class="number">10003</span>, <span class="attr">name</span>: <span class="string">&#x27;Test3&#x27;</span>, <span class="attr">role</span>: <span class="string">&#x27;PM&#x27;</span>, <span class="attr">gender</span>: <span class="string">&#x27;Man&#x27;</span>, <span class="attr">age</span>: <span class="number">32</span>, <span class="attr">address</span>: <span class="string">&#x27;Shanghai&#x27;</span> &#125;,</span></span><br><span class="line"><span class="javascript">    &#123; <span class="attr">id</span>: <span class="number">10004</span>, <span class="attr">name</span>: <span class="string">&#x27;Test4&#x27;</span>, <span class="attr">role</span>: <span class="string">&#x27;Designer&#x27;</span>, <span class="attr">gender</span>: <span class="string">&#x27;Women&#x27;</span>, <span class="attr">age</span>: <span class="number">24</span>, <span class="attr">address</span>: <span class="string">&#x27;Shanghai&#x27;</span> &#125;</span></span><br><span class="line"><span class="javascript">];</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+        
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li></ul>
+	</div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/vxe-table/#more">阅读全文</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+  
+
+</article>
+
+
+
+
+
+  
+    <!-- 生成目录 -->
+
+
 <article id="post-js-taskqueue" class="article article-type-post" itemscope itemprop="blogPost">
     <!--  -->
 
@@ -923,115 +992,6 @@
       
         <p class="article-more-link">
           <a  href="/java-exception-flow-control/#more">阅读全文</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-  
-
-</article>
-
-
-
-
-
-  
-    <!-- 生成目录 -->
-
-
-<article id="post-mac-hammerspoon" class="article article-type-post" itemscope itemprop="blogPost">
-    <!--  -->
-
-    
-        <div class="article-meta">
-            <a href="/mac-hammerspoon/" class="article-date">
-  	<!-- <time datetime="2022-03-12T06:08:39.000Z" itemprop="datePublished">2022-03-12</time> -->
-    2022-03-12
-</a>
-
-        </div>
-    
-
-    
-        <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/mac-hammerspoon/">Hammerspoon 切换程序和窗口大小管理</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-        
-            <p><a target="_blank" rel="noopener" href="http://www.hammerspoon.org/">Hammerspoon</a> is a tool for powerful automation of macOS. At its core, Hammerspoon is just a bridge between the operating system and a Lua scripting engine. What gives Hammerspoon its power is a set of extensions that expose specific pieces of system functionality, to the user.</p>
-<p>下面的脚本实现了:</p>
-<ul>
-<li>切换程序: 按下快捷键 <code>Alt+键</code> 就会切换到键对应的程序 (如果程序没有打开则打开，如果不是当前程序则激活为当前程序):<ul>
-<li>按下 <code>Alt+F</code> 切换到 Finder</li>
-<li>按下 <code>Alt+S</code> 切换到 Safari</li>
-<li>…</li>
-</ul>
-</li>
-<li>窗口管理:<ul>
-<li>窗口最大化: <code>Alt+Ctrl+Return</code></li>
-<li>窗口左半屏: <code>Alt+Ctrl+Cmd+Left</code></li>
-<li>窗口右半屏: <code>Alt+Ctrl+Cmd+Right</code></li>
-<li>窗口居中: <code>Alt+Ctrl+C</code></li>
-<li>窗口靠左: <code>Alt+Ctrl+Left</code></li>
-<li>窗口靠右: <code>Alt+Ctrl+Right</code></li>
-</ul>
-</li>
-<li>多屏管理:<ul>
-<li>在屏幕间移动光标: <code>Ctrl+Z</code></li>
-<li>在屏幕间移动程序: <code>Ctrl+X</code></li>
-</ul>
-</li>
-<li>蓝牙管理:<ul>
-<li>打开蓝牙: <code>Alt+T</code></li>
-<li>关闭蓝牙: <code>Alt+T</code></li>
-<li>下午 6 点后系统休眠时自动关闭蓝牙</li>
-</ul>
-</li>
-<li>其他<ul>
-<li>按下 <code>Ctrl+H</code> 隐藏或者显示桌面文件</li>
-<li>按下 <code>Ctrl+D</code>: 切换 Light 和 Dark 模式</li>
-<li>按下 <code>Alt+Z</code>: 前一个标签页</li>
-<li>按下 <code>Alt+X</code>: 后一个标签页</li>
-<li>按下 <code>CMD+H</code>: 方向左</li>
-<li>按下 <code>CMD+L</code>: 方向右</li>
-<li>按下 <code>CMD+J</code>: 方向下</li>
-<li>按下 <code>CMD+K</code>: 方向上</li>
-<li>按下 <code>CMD+I</code>: 删除键</li>
-</ul>
-</li>
-</ul>
-<p>实现了 Thor 和 Rectangle 的功能，并且解决了 Thor 激活 Finder 的 Bug。
-        
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li></ul>
-	</div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/mac-hammerspoon/#more">阅读全文</a>
         </p>
       
       <div class="clearfix"></div>
