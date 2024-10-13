@@ -6,15 +6,15 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>Redis Auth 授权 | 公孙二狗</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Redis 授权有 2 中方式:  只使用密码。 用户名 + 密码。  只使用密码在配置文件 redis.conf 中搜索requirepass或# requirepass，将该行的注释符号#去掉，并在等号后面输入你想要设置的密码。例如： 1requirepass Passw0rd  客户端访问: 123456# 命令中使用密码redis-cli -h localhost -p 6379 -a P">
+  <meta name="description" content="Redis 授权有 2 中方式:  只使用密码。 用户名 + 密码。  只使用密码在配置文件 redis.conf 中搜索 requirepass 或 # requirepass，将该行的注释符号 # 去掉，并在等号后面输入你想要设置的密码。例如： 1requirepass Passw0rd  客户端访问: 123456# 命令中使用密码redis-cli -h localhost -p 6379">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Redis Auth 授权">
 <meta property="og:url" content="http://xtuer.github.io/redis-auth/index.html">
 <meta property="og:site_name" content="公孙二狗">
-<meta property="og:description" content="Redis 授权有 2 中方式:  只使用密码。 用户名 + 密码。  只使用密码在配置文件 redis.conf 中搜索requirepass或# requirepass，将该行的注释符号#去掉，并在等号后面输入你想要设置的密码。例如： 1requirepass Passw0rd  客户端访问: 123456# 命令中使用密码redis-cli -h localhost -p 6379 -a P">
+<meta property="og:description" content="Redis 授权有 2 中方式:  只使用密码。 用户名 + 密码。  只使用密码在配置文件 redis.conf 中搜索 requirepass 或 # requirepass，将该行的注释符号 # 去掉，并在等号后面输入你想要设置的密码。例如： 1requirepass Passw0rd  客户端访问: 123456# 命令中使用密码redis-cli -h localhost -p 6379">
 <meta property="og:locale">
 <meta property="article:published_time" content="2024-10-12T14:24:06.000Z">
-<meta property="article:modified_time" content="2024-10-13T01:43:10.395Z">
+<meta property="article:modified_time" content="2024-10-13T13:33:33.814Z">
 <meta property="article:author" content="公孙二狗">
 <meta property="article:tag" content="Redis">
 <meta name="twitter:card" content="summary">
@@ -306,7 +306,7 @@
 <li>只使用密码。</li>
 <li>用户名 + 密码。</li>
 </ul>
-<h2 id="只使用密码"><a href="#只使用密码" class="headerlink" title="只使用密码"></a>只使用密码</h2><p>在配置文件 <strong>redis.conf</strong> 中搜索<code>requirepass</code>或<code># requirepass</code>，将该行的注释符号<code>#</code>去掉，并在等号后面输入你想要设置的密码。例如：</p>
+<h2 id="只使用密码"><a href="#只使用密码" class="headerlink" title="只使用密码"></a>只使用密码</h2><p>在配置文件 <strong>redis.conf</strong> 中搜索 <code>requirepass</code> 或 <code># requirepass</code>，将该行的注释符号 <code>#</code> 去掉，并在等号后面输入你想要设置的密码。例如：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">requirepass Passw0rd</span><br></pre></td></tr></table></figure>
 
 <p>客户端访问:</p>
@@ -314,10 +314,10 @@
 
 <span id="more"></span>
 
-<h2 id="用户名-密码"><a href="#用户名-密码" class="headerlink" title="用户名 + 密码"></a>用户名 + 密码</h2><p>在配置文件 <strong>redis.conf</strong> 中搜索<code># aclfilename</code>，将该行的注释符号<code>#</code>去掉，并在等号后面输入一个文件路径，用于存储用户名和密码的配置信息。例如：</p>
+<h2 id="用户名-密码"><a href="#用户名-密码" class="headerlink" title="用户名 + 密码"></a>用户名 + 密码</h2><p>在配置文件 <strong>redis.conf</strong> 中搜索 <code># aclfilename</code>，将该行的注释符号 <code>#</code> 去掉，并在等号后面输入一个文件路径，用于存储用户名和密码的配置信息。例如：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Enable ACLs (Access Control Lists)</span></span><br><span class="line">aclfile /usr/local/etc/redis/aclfile.conf</span><br></pre></td></tr></table></figure>
 
-<p>在文件 <strong>/usr/local/etc/redis/aclfile.conf</strong> 中用户名和密码，每一行代表一个用户，格式为<code>user &lt;username&gt; &lt;password&gt; &lt;permission&gt;</code>。例如：</p>
+<p>在文件 <strong>/usr/local/etc/redis/aclfile.conf</strong> 中用户名和密码，每一行代表一个用户，格式为 <code>user &lt;username&gt; &lt;password&gt; &lt;permission&gt;</code>。例如：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">user foo on &gt;Passw0rd ~* +@all</span><br><span class="line">user default off</span><br></pre></td></tr></table></figure>
 
 <blockquote>
